@@ -1,0 +1,19 @@
+package com.pengrad.telegrambot.model;
+
+/**
+ * stas
+ * 8/4/15.
+ */
+public class ForceReply {
+
+    public final boolean force_reply = true;
+    public final boolean selective;
+
+    public ForceReply() {
+        this.selective = false;
+    }
+
+    public ForceReply(boolean selective) {
+        this.selective = selective;
+    }
+}
