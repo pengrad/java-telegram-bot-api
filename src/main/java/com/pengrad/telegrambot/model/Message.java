@@ -6,19 +6,25 @@ package com.pengrad.telegrambot.model;
  */
 public class Message {
 
-    public final Integer message_id;
-    public final User from;
-    public final Integer date;
-    public final User chat;
-    public final String text;
-    public final PhotoSize[] photo;
-
-    public Message(Integer message_id, User from, Integer date, User chat, String text, PhotoSize[] photo) {
-        this.message_id = message_id;
-        this.from = from;
-        this.date = date;
-        this.chat = chat;
-        this.text = text;
-        this.photo = photo;
-    }
+    public Integer message_id;
+    public User from;
+    public Integer date;
+    public UserOrGroupChat chat;
+    public User forward_from;
+    public Integer forward_date;
+    public Message reply_to_message;
+    public String text;
+    public Audio audio;
+    public Document document;
+    public PhotoSize[] photo;
+    public Sticker sticker;
+    public Video video;
+    public Contact contact;
+    public Location location;
+    public User new_chat_participant;
+    public User left_chat_participant;
+    public String new_chat_title;
+    public PhotoSize[] new_chat_photo;
+    public Boolean delete_chat_photo;
+    public Boolean group_chat_created;
 }

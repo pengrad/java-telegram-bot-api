@@ -2,12 +2,12 @@ package com.pengrad.telegrambot.model;
 
 /**
  * stas
- * 8/4/15.
+ * 8/5/15.
  */
-public class User {
+public class Contact {
 
-    public Integer id;
+    public String phone_number;
     public String first_name;
     public String last_name;
-    public String username;
+    public Integer user_id;
 }

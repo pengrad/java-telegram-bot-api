@@ -10,7 +10,7 @@ public class ForceReply {
     public final boolean selective;
 
     public ForceReply() {
-        this.selective = false;
+        this(false);
     }
 
     public ForceReply(boolean selective) {

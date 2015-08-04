@@ -9,6 +9,10 @@ public class ReplyKeyboardHide {
     public final boolean hide_keyboard = true;
     public final boolean selective;
 
+    public ReplyKeyboardHide() {
+        this(false);
+    }
+
     public ReplyKeyboardHide(boolean selective) {
         this.selective = selective;
     }
