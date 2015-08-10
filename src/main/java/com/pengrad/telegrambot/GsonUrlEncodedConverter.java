@@ -41,7 +41,7 @@ public class GsonUrlEncodedConverter extends GsonConverter {
             }
             return formUrlEncodedTypedOutput;
         } catch (IllegalStateException e) {
-            throw new AssertionError(e);
+            return super.toBody(object);
         }
     }
 }

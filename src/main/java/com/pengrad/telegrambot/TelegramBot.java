@@ -1,13 +1,12 @@
 package com.pengrad.telegrambot;
 
-import com.google.gson.JsonObject;
 import com.pengrad.telegrambot.request.SendMessageRequest;
 import com.pengrad.telegrambot.request.SendPhotoRequest;
 import com.pengrad.telegrambot.response.GetMeResponse;
 import com.pengrad.telegrambot.response.SendResponse;
-import retrofit.http.Body;
-import retrofit.http.GET;
-import retrofit.http.POST;
+import retrofit.http.*;
+import retrofit.mime.TypedByteArray;
+import retrofit.mime.TypedFile;
 
 /**
  * stas
@@ -22,5 +21,13 @@ public interface TelegramBot {
     SendResponse sendMessage(@Body SendMessageRequest sendMessageRequest);
 
     @POST("/sendPhoto")
-    JsonObject sendPhoto(@Body SendPhotoRequest sendPhotoRequest);
+    SendResponse sendPhotoAsFileId(@Body SendPhotoRequest sendPhotoRequest);
+
+    @Multipart
+    @POST("/sendPhoto")
+    SendResponse sendPhoto(@Part("chat_id") Integer chat_id, @Part("photo") TypedFile photo);
+
+    @Multipart
+    @POST("/sendPhoto")
+    SendResponse sendPhotoAsBytes(@Part("chat_id") Integer chat_id, @Part("photo") TypedByteArray photo);
 }

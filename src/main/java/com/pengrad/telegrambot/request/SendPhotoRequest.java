@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.request;
 
+import retrofit.mime.TypedFile;
+
 /**
  * stas
  * 8/4/15.
@@ -7,12 +9,17 @@ package com.pengrad.telegrambot.request;
 public class SendPhotoRequest {
 
     private Integer chat_id;
-    private String photo;
+    private Object photo;
     private String caption;
     private Integer reply_to_message_id;
     private Object reply_markup;
 
     public SendPhotoRequest(Integer chat_id, String photo) {
+        this.chat_id = chat_id;
+        this.photo = photo;
+    }
+
+    public SendPhotoRequest(Integer chat_id, TypedFile photo) {
         this.chat_id = chat_id;
         this.photo = photo;
     }
