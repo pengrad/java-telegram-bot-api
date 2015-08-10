@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import com.pengrad.telegrambot.request.SendMessageRequest;
 import com.pengrad.telegrambot.request.SendPhotoRequest;
 import com.pengrad.telegrambot.response.GetMeResponse;
-import com.pengrad.telegrambot.response.SendMessageResponse;
+import com.pengrad.telegrambot.response.SendResponse;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
@@ -19,7 +19,7 @@ public interface TelegramBot {
     GetMeResponse getMe();
 
     @POST("/sendMessage")
-    SendMessageResponse sendMessage(@Body SendMessageRequest sendMessageRequest);
+    SendResponse sendMessage(@Body SendMessageRequest sendMessageRequest);
 
     @POST("/sendPhoto")
     JsonObject sendPhoto(@Body SendPhotoRequest sendPhotoRequest);
