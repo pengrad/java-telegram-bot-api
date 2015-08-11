@@ -4,6 +4,7 @@ import com.pengrad.telegrambot.model.InputFile;
 import com.pengrad.telegrambot.model.InputFileBytes;
 import com.pengrad.telegrambot.model.Keyboard;
 import com.pengrad.telegrambot.response.GetMeResponse;
+import com.pengrad.telegrambot.response.SendChatActionResponse;
 import com.pengrad.telegrambot.response.SendResponse;
 import retrofit.Callback;
 import retrofit.http.*;
@@ -207,4 +208,12 @@ public interface TelegramBot {
             @Field("longitude") Float longitude,
             @Field("reply_to_message_id") Integer replyToMessageId,
             @Field("reply_markup") Keyboard replyMarkup);
+
+
+    @POST("/sendChatAction")
+    @FormUrlEncoded
+    SendChatActionResponse sendChatAction(
+            @Field("chat_id") Integer chatId,
+            @Field("action") String action);
+
 }
