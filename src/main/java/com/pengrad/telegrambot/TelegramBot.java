@@ -80,7 +80,6 @@ public interface TelegramBot {
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
 
-
     @Multipart
     @POST("/sendAudio")
     SendResponse sendAudio(
@@ -105,6 +104,30 @@ public interface TelegramBot {
             @Part("chat_id") Integer chat_id,
             @Part("audio") InputFileBytes audio,
             @Part("duration") Integer duration,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
+
+    @Multipart
+    @POST("/sendDocument")
+    SendResponse sendDocument(
+            @Part("chat_id") Integer chat_id,
+            @Part("document") String document,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
+
+    @Multipart
+    @POST("/sendDocument")
+    SendResponse sendDocument(
+            @Part("chat_id") Integer chat_id,
+            @Part("document") InputFile document,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
+
+    @Multipart
+    @POST("/sendDocument")
+    SendResponse sendDocument(
+            @Part("chat_id") Integer chat_id,
+            @Part("document") InputFileBytes document,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
 }
