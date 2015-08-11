@@ -130,4 +130,34 @@ public interface TelegramBot {
             @Part("document") InputFileBytes document,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
+
+    @Multipart
+    @POST("/sendVideo")
+    SendResponse sendVideo(
+            @Part("chat_id") Integer chat_id,
+            @Part("video") String video,
+            @Part("duration") Integer duration,
+            @Part("caption") String caption,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
+
+    @Multipart
+    @POST("/sendVideo")
+    SendResponse sendVideo(
+            @Part("chat_id") Integer chat_id,
+            @Part("video") InputFile video,
+            @Part("duration") Integer duration,
+            @Part("caption") String caption,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
+
+    @Multipart
+    @POST("/sendVideo")
+    SendResponse sendVideo(
+            @Part("chat_id") Integer chat_id,
+            @Part("video") InputFileBytes video,
+            @Part("duration") Integer duration,
+            @Part("caption") String caption,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
 }

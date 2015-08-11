@@ -18,6 +18,10 @@ public class InputFile extends TypedFile {
         return new InputFile(InputFileBytes.AUDIO_MIME_TYPE, file);
     }
 
+    public static InputFile video(File file) {
+        return new InputFile(InputFileBytes.VIDEO_MIME_TYPE, file);
+    }
+
     public InputFile(String mimeType, File file) {
         super(mimeType, file);
     }
