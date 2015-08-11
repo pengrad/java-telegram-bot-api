@@ -4,7 +4,7 @@ package com.pengrad.telegrambot.model;
  * stas
  * 8/4/15.
  */
-public class ReplyKeyboardMarkup {
+public class ReplyKeyboardMarkup implements Keyboard {
 
     public final String[][] keyboard;
     public final boolean resize_keyboard;
