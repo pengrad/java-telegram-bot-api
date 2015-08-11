@@ -4,7 +4,7 @@ package com.pengrad.telegrambot.model;
  * stas
  * 8/4/15.
  */
-public class ForceReply {
+public class ForceReply implements Keyboard {
 
     public final boolean force_reply = true;
     public final boolean selective;

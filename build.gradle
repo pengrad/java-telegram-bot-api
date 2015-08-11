@@ -24,6 +24,7 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.12'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'io.reactivex:rxjava:1.0.13'
 
     // Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the

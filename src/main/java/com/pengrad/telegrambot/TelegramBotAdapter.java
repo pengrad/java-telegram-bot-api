@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot;
 
-import com.google.gson.Gson;
 import retrofit.RestAdapter;
 
 /**
@@ -25,7 +24,6 @@ public class TelegramBotAdapter {
 
     public static RestAdapter.Builder prepare(String botToken) {
         return new RestAdapter.Builder()
-                .setEndpoint(API_URL + botToken)
-                .setConverter(new GsonUrlEncodedConverter(new Gson()));
+                .setEndpoint(API_URL + botToken);
     }
 }
