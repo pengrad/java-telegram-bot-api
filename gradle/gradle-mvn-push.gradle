@@ -82,23 +82,18 @@ afterEvaluate { project ->
         sign configurations.archives
     }
 
-    task javaJavadocs(type: Javadoc) {
-        source = sourceSets.main.allJava
-    }
-
-    task javaJavadocsJar(type: Jar, dependsOn: javaJavadocs) {
+    task javadocJar(type: Jar) {
         classifier = 'javadoc'
-        from javaJavadocs.destinationDir
+        from javadoc
     }
 
-    task javaSourcesJar(type: Jar) {
+    task sourcesJar(type: Jar) {
         classifier = 'sources'
-        from sourceSets.main.java.srcDirs
+        from sourceSets.main.allSource
     }
 
     artifacts {
-        archives javaSourcesJar
-        archives javaJavadocsJar
+        archives javadocJar
+        archives sourcesJar
     }
-
 }
