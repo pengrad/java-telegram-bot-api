@@ -1,12 +1,12 @@
 package com.pengrad.telegrambot;
 
+import com.pengrad.telegrambot.model.InputFile;
+import com.pengrad.telegrambot.model.InputFileBytes;
 import com.pengrad.telegrambot.model.Keyboard;
 import com.pengrad.telegrambot.response.GetMeResponse;
 import com.pengrad.telegrambot.response.SendResponse;
 import retrofit.Callback;
 import retrofit.http.*;
-import retrofit.mime.TypedByteArray;
-import retrofit.mime.TypedFile;
 import rx.Observable;
 
 
@@ -66,7 +66,7 @@ public interface TelegramBot {
     @POST("/sendPhoto")
     SendResponse sendPhoto(
             @Part("chat_id") Integer chat_id,
-            @Part("photo") TypedFile photo,
+            @Part("photo") InputFile photo,
             @Part("caption") String caption,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
@@ -75,8 +75,36 @@ public interface TelegramBot {
     @POST("/sendPhoto")
     SendResponse sendPhoto(
             @Part("chat_id") Integer chat_id,
-            @Part("photo") TypedByteArray photo,
+            @Part("photo") InputFileBytes photo,
             @Part("caption") String caption,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
+
+
+    @Multipart
+    @POST("/sendAudio")
+    SendResponse sendAudio(
+            @Part("chat_id") Integer chat_id,
+            @Part("audio") String audio,
+            @Part("duration") Integer duration,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
+
+    @Multipart
+    @POST("/sendAudio")
+    SendResponse sendAudio(
+            @Part("chat_id") Integer chat_id,
+            @Part("audio") InputFile audio,
+            @Part("duration") Integer duration,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
+
+    @Multipart
+    @POST("/sendAudio")
+    SendResponse sendAudio(
+            @Part("chat_id") Integer chat_id,
+            @Part("audio") InputFileBytes audio,
+            @Part("duration") Integer duration,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
 }
