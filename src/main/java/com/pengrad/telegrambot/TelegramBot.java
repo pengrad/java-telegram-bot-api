@@ -198,4 +198,13 @@ public interface TelegramBot {
             @Part("caption") String caption,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
+
+    @POST("/sendLocation")
+    @FormUrlEncoded
+    SendResponse sendLocation(
+            @Field("chat_id") Integer chatId,
+            @Field("latitude") Float latitude,
+            @Field("longitude") Float longitude,
+            @Field("reply_to_message_id") Integer replyToMessageId,
+            @Field("reply_markup") Keyboard replyMarkup);
 }
