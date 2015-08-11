@@ -3,10 +3,7 @@ package com.pengrad.telegrambot;
 import com.pengrad.telegrambot.model.InputFile;
 import com.pengrad.telegrambot.model.InputFileBytes;
 import com.pengrad.telegrambot.model.Keyboard;
-import com.pengrad.telegrambot.response.GetMeResponse;
-import com.pengrad.telegrambot.response.GetUserProfilePhotos;
-import com.pengrad.telegrambot.response.SendChatActionResponse;
-import com.pengrad.telegrambot.response.SendResponse;
+import com.pengrad.telegrambot.response.*;
 import retrofit.Callback;
 import retrofit.http.*;
 import rx.Observable;
@@ -223,4 +220,16 @@ public interface TelegramBot {
             @Query("user_id") Integer userId,
             @Query("offset") Integer offset,
             @Query("limit") Integer limit);
+
+
+    @GET("/getUpdates")
+    GetUpdatesResponse getUpdates(
+            @Query("offset") Integer offset,
+            @Query("limit") Integer limit,
+            @Query("timeout") Integer timeout);
+
+
+    @POST("/setWebhook")
+    @FormUrlEncoded
+    SetWebhookResponse setWebhook(@Field("url") String url);
 }
