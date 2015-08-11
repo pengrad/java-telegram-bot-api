@@ -145,6 +145,31 @@ public interface TelegramBot {
 
 
     @Multipart
+    @POST("/sendSticker")
+    SendResponse sendSticker(
+            @Part("chat_id") Integer chatId,
+            @Part("sticker") String sticker,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
+
+    @Multipart
+    @POST("/sendSticker")
+    SendResponse sendSticker(
+            @Part("chat_id") Integer chatId,
+            @Part("sticker") InputFile sticker,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
+
+    @Multipart
+    @POST("/sendSticker")
+    SendResponse sendSticker(
+            @Part("chat_id") Integer chatId,
+            @Part("sticker") InputFileBytes sticker,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
+
+
+    @Multipart
     @POST("/sendVideo")
     SendResponse sendVideo(
             @Part("chat_id") Integer chatId,
