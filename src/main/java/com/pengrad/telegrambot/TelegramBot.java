@@ -3,9 +3,22 @@ package com.pengrad.telegrambot;
 import com.pengrad.telegrambot.model.InputFile;
 import com.pengrad.telegrambot.model.InputFileBytes;
 import com.pengrad.telegrambot.model.Keyboard;
-import com.pengrad.telegrambot.response.*;
+import com.pengrad.telegrambot.response.GetFileResponse;
+import com.pengrad.telegrambot.response.GetMeResponse;
+import com.pengrad.telegrambot.response.GetUpdatesResponse;
+import com.pengrad.telegrambot.response.GetUserProfilePhotos;
+import com.pengrad.telegrambot.response.SendChatActionResponse;
+import com.pengrad.telegrambot.response.SendResponse;
+import com.pengrad.telegrambot.response.SetWebhookResponse;
+
 import retrofit.Callback;
-import retrofit.http.*;
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
+import retrofit.http.Multipart;
+import retrofit.http.POST;
+import retrofit.http.Part;
+import retrofit.http.Query;
 import rx.Observable;
 
 
@@ -232,4 +245,7 @@ public interface TelegramBot {
     @POST("/setWebhook")
     @FormUrlEncoded
     SetWebhookResponse setWebhook(@Field("url") String url);
+
+    @GET("/getFile")
+    GetFileResponse getFile(@Query("file_id") String fileId);
 }
