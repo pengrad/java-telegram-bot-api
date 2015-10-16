@@ -7,7 +7,7 @@ Download
 -------
 Download the latest version via Gradle:
 ```groovy
-compile 'com.github.pengrad:java-telegram-bot-api:1.0.3'
+compile 'com.github.pengrad:java-telegram-bot-api:1.1.0'
 ```
 or Maven:
 ```xml
