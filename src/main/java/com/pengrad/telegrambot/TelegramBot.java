@@ -39,11 +39,11 @@ public class TelegramBot implements BotApi {
         if (!fileResponse.ok || fileResponse.result == null) {
             return null;
         }
-        return fileApi.getFullFilePath(fileResponse.result.file_path);
+        return fileApi.getFullFilePath(fileResponse.result.getFilePath());
     }
 
     public String getFullFilePath(File file) {
-        return fileApi.getFullFilePath(file.file_path);
+        return fileApi.getFullFilePath(file.getFilePath());
     }
 
     @Override

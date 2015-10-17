@@ -1,19 +1,26 @@
 package com.pengrad.telegrambot.model;
 
 /**
- * stas
- * 8/4/15.
+ * stas 8/4/15.
  */
 public class ReplyKeyboardHide extends Keyboard {
 
-    public final boolean hide_keyboard = true;
-    public final boolean selective;
+	private final boolean hideKeyboard = true;
+	private final boolean selective;
 
-    public ReplyKeyboardHide() {
-        this(false);
-    }
+	public ReplyKeyboardHide() {
+		this(false);
+	}
 
-    public ReplyKeyboardHide(boolean selective) {
-        this.selective = selective;
-    }
+	public ReplyKeyboardHide(boolean selective) {
+		this.selective = selective;
+	}
+
+	public boolean isHideKeyboard() {
+		return hideKeyboard;
+	}
+
+	public boolean isSelective() {
+		return selective;
+	}
 }
