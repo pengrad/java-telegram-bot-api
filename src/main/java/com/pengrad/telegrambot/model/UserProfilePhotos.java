@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class UserProfilePhotos {
 
-	private Integer totalCount;
+	private Integer total_count;
 	private PhotoSize[][] photos;
 
 	public UserProfilePhotos() {
@@ -17,24 +17,16 @@ public class UserProfilePhotos {
 
 	public UserProfilePhotos(Integer totalCount, PhotoSize[][] photos) {
 		super();
-		this.totalCount = totalCount;
+		this.total_count = totalCount;
 		this.photos = photos;
 	}
 
 	public Integer getTotalCount() {
-		return totalCount;
-	}
-
-	public void setTotalCount(Integer totalCount) {
-		this.totalCount = totalCount;
+		return total_count;
 	}
 
 	public PhotoSize[][] getPhotos() {
 		return photos;
-	}
-
-	public void setPhotos(PhotoSize[][] photos) {
-		this.photos = photos;
 	}
 
 	@Override
@@ -42,7 +34,7 @@ public class UserProfilePhotos {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + Arrays.deepHashCode(photos);
-		result = prime * result + ((totalCount == null) ? 0 : totalCount.hashCode());
+		result = prime * result + ((total_count == null) ? 0 : total_count.hashCode());
 		return result;
 	}
 
@@ -57,16 +49,16 @@ public class UserProfilePhotos {
 		UserProfilePhotos other = (UserProfilePhotos) obj;
 		if (!Arrays.deepEquals(photos, other.photos))
 			return false;
-		if (totalCount == null) {
-			if (other.totalCount != null)
+		if (total_count == null) {
+			if (other.total_count != null)
 				return false;
-		} else if (!totalCount.equals(other.totalCount))
+		} else if (!total_count.equals(other.total_count))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "UserProfilePhotos [totalCount=" + totalCount + ", photos=" + Arrays.toString(photos) + "]";
+		return "UserProfilePhotos [totalCount=" + total_count + ", photos=" + Arrays.toString(photos) + "]";
 	}
 }

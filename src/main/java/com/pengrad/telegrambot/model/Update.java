@@ -5,7 +5,7 @@ package com.pengrad.telegrambot.model;
  */
 public class Update {
 
-	private Integer updateId;
+	private Integer update_id;
 	private Message message;
 
 	public Update() {
@@ -15,24 +15,16 @@ public class Update {
 
 	public Update(Integer updateId, Message message) {
 		super();
-		this.updateId = updateId;
+		this.update_id = updateId;
 		this.message = message;
 	}
 
 	public Integer getUpdateId() {
-		return updateId;
-	}
-
-	public void setUpdateId(Integer updateId) {
-		this.updateId = updateId;
+		return update_id;
 	}
 
 	public Message getMessage() {
 		return message;
-	}
-
-	public void setMessage(Message message) {
-		this.message = message;
 	}
 
 	@Override
@@ -40,7 +32,7 @@ public class Update {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
-		result = prime * result + ((updateId == null) ? 0 : updateId.hashCode());
+		result = prime * result + ((update_id == null) ? 0 : update_id.hashCode());
 		return result;
 	}
 
@@ -58,16 +50,16 @@ public class Update {
 				return false;
 		} else if (!message.equals(other.message))
 			return false;
-		if (updateId == null) {
-			if (other.updateId != null)
+		if (update_id == null) {
+			if (other.update_id != null)
 				return false;
-		} else if (!updateId.equals(other.updateId))
+		} else if (!update_id.equals(other.update_id))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Update [updateId=" + updateId + ", message=" + message + "]";
+		return "Update [updateId=" + update_id + ", message=" + message + "]";
 	}
 }

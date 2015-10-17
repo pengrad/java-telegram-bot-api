@@ -5,13 +5,13 @@ package com.pengrad.telegrambot.model;
  */
 public class Video {
 
-	private String fileId;
+	private String file_id;
 	private Integer width;
 	private Integer height;
 	private Integer duration;
 	private PhotoSize thumb;
-	private String mimeType;
-	private Integer fileSize;
+	private String mime_type;
+	private Integer file_size;
 
 	public Video() {
 		super();
@@ -21,69 +21,41 @@ public class Video {
 	public Video(String fileId, Integer width, Integer height, Integer duration, PhotoSize thumb, String mimeType,
 			Integer fileSize) {
 		super();
-		this.fileId = fileId;
+		this.file_id = fileId;
 		this.width = width;
 		this.height = height;
 		this.duration = duration;
 		this.thumb = thumb;
-		this.mimeType = mimeType;
-		this.fileSize = fileSize;
+		this.mime_type = mimeType;
+		this.file_size = fileSize;
 	}
 
 	public String getFileId() {
-		return fileId;
-	}
-
-	public void setFileId(String fileId) {
-		this.fileId = fileId;
+		return file_id;
 	}
 
 	public Integer getWidth() {
 		return width;
 	}
 
-	public void setWidth(Integer width) {
-		this.width = width;
-	}
-
 	public Integer getHeight() {
 		return height;
-	}
-
-	public void setHeight(Integer height) {
-		this.height = height;
 	}
 
 	public Integer getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Integer duration) {
-		this.duration = duration;
-	}
-
 	public PhotoSize getThumb() {
 		return thumb;
 	}
 
-	public void setThumb(PhotoSize thumb) {
-		this.thumb = thumb;
-	}
-
 	public String getMimeType() {
-		return mimeType;
-	}
-
-	public void setMimeType(String mimeType) {
-		this.mimeType = mimeType;
+		return mime_type;
 	}
 
 	public Integer getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(Integer fileSize) {
-		this.fileSize = fileSize;
+		return file_size;
 	}
 
 	@Override
@@ -91,10 +63,10 @@ public class Video {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((duration == null) ? 0 : duration.hashCode());
-		result = prime * result + ((fileId == null) ? 0 : fileId.hashCode());
-		result = prime * result + ((fileSize == null) ? 0 : fileSize.hashCode());
+		result = prime * result + ((file_id == null) ? 0 : file_id.hashCode());
+		result = prime * result + ((file_size == null) ? 0 : file_size.hashCode());
 		result = prime * result + ((height == null) ? 0 : height.hashCode());
-		result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
+		result = prime * result + ((mime_type == null) ? 0 : mime_type.hashCode());
 		result = prime * result + ((thumb == null) ? 0 : thumb.hashCode());
 		result = prime * result + ((width == null) ? 0 : width.hashCode());
 		return result;
@@ -114,25 +86,25 @@ public class Video {
 				return false;
 		} else if (!duration.equals(other.duration))
 			return false;
-		if (fileId == null) {
-			if (other.fileId != null)
+		if (file_id == null) {
+			if (other.file_id != null)
 				return false;
-		} else if (!fileId.equals(other.fileId))
+		} else if (!file_id.equals(other.file_id))
 			return false;
-		if (fileSize == null) {
-			if (other.fileSize != null)
+		if (file_size == null) {
+			if (other.file_size != null)
 				return false;
-		} else if (!fileSize.equals(other.fileSize))
+		} else if (!file_size.equals(other.file_size))
 			return false;
 		if (height == null) {
 			if (other.height != null)
 				return false;
 		} else if (!height.equals(other.height))
 			return false;
-		if (mimeType == null) {
-			if (other.mimeType != null)
+		if (mime_type == null) {
+			if (other.mime_type != null)
 				return false;
-		} else if (!mimeType.equals(other.mimeType))
+		} else if (!mime_type.equals(other.mime_type))
 			return false;
 		if (thumb == null) {
 			if (other.thumb != null)
@@ -149,7 +121,7 @@ public class Video {
 
 	@Override
 	public String toString() {
-		return "Video [fileId=" + fileId + ", width=" + width + ", height=" + height + ", duration=" + duration
-				+ ", thumb=" + thumb + ", mimeType=" + mimeType + ", fileSize=" + fileSize + "]";
+		return "Video [fileId=" + file_id + ", width=" + width + ", height=" + height + ", duration=" + duration
+				+ ", thumb=" + thumb + ", mimeType=" + mime_type + ", fileSize=" + file_size + "]";
 	}
 }

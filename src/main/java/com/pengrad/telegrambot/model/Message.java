@@ -7,13 +7,13 @@ import java.util.Arrays;
  */
 public class Message {
 
-	private Integer messageId;
+	private Integer message_id;
 	private User from;
 	private Integer date;
 	private UserOrGroupChat chat;
-	private User forwardFrom;
-	private Integer forwardDate;
-	private Message replyToMessage;
+	private User forward_from;
+	private Integer forward_date;
+	private Message reply_to_message;
 	private String text;
 	private Audio audio;
 	private Document document;
@@ -22,12 +22,12 @@ public class Message {
 	private Video video;
 	private Contact contact;
 	private Location location;
-	private User newChatParticipant;
-	private User leftChatParticipant;
-	private String newChatTitle;
-	private PhotoSize[] newChatPhoto;
-	private Boolean deleteChatPhoto;
-	private Boolean groupChatCreated;
+	private User new_chat_participant;
+	private User left_chat_participant;
+	private String new_chat_title;
+	private PhotoSize[] new_chat_photo;
+	private Boolean delete_chat_photo;
+	private Boolean group_chat_created;
 
 	public Message() {
 		super();
@@ -40,13 +40,13 @@ public class Message {
 			User leftChatParticipant, String newChatTitle, PhotoSize[] newChatPhoto, Boolean deleteChatPhoto,
 			Boolean groupChatCreated) {
 		super();
-		this.messageId = messageId;
+		this.message_id = messageId;
 		this.from = from;
 		this.date = date;
 		this.chat = chat;
-		this.forwardFrom = forwardFrom;
-		this.forwardDate = forwardDate;
-		this.replyToMessage = replyToMessage;
+		this.forward_from = forwardFrom;
+		this.forward_date = forwardDate;
+		this.reply_to_message = replyToMessage;
 		this.text = text;
 		this.audio = audio;
 		this.document = document;
@@ -55,180 +55,96 @@ public class Message {
 		this.video = video;
 		this.contact = contact;
 		this.location = location;
-		this.newChatParticipant = newChatParticipant;
-		this.leftChatParticipant = leftChatParticipant;
-		this.newChatTitle = newChatTitle;
-		this.newChatPhoto = newChatPhoto;
-		this.deleteChatPhoto = deleteChatPhoto;
-		this.groupChatCreated = groupChatCreated;
+		this.new_chat_participant = newChatParticipant;
+		this.left_chat_participant = leftChatParticipant;
+		this.new_chat_title = newChatTitle;
+		this.new_chat_photo = newChatPhoto;
+		this.delete_chat_photo = deleteChatPhoto;
+		this.group_chat_created = groupChatCreated;
 	}
 
 	public Integer getMessageId() {
-		return messageId;
-	}
-
-	public void setMessageId(Integer messageId) {
-		this.messageId = messageId;
+		return message_id;
 	}
 
 	public User getFrom() {
 		return from;
 	}
 
-	public void setFrom(User from) {
-		this.from = from;
-	}
-
 	public Integer getDate() {
 		return date;
-	}
-
-	public void setDate(Integer date) {
-		this.date = date;
 	}
 
 	public UserOrGroupChat getChat() {
 		return chat;
 	}
 
-	public void setChat(UserOrGroupChat chat) {
-		this.chat = chat;
-	}
-
 	public User getForwardFrom() {
-		return forwardFrom;
-	}
-
-	public void setForwardFrom(User forwardFrom) {
-		this.forwardFrom = forwardFrom;
+		return forward_from;
 	}
 
 	public Integer getForwardDate() {
-		return forwardDate;
-	}
-
-	public void setForwardDate(Integer forwardDate) {
-		this.forwardDate = forwardDate;
+		return forward_date;
 	}
 
 	public Message getReplyToMessage() {
-		return replyToMessage;
-	}
-
-	public void setReplyToMessage(Message replyToMessage) {
-		this.replyToMessage = replyToMessage;
+		return reply_to_message;
 	}
 
 	public String getText() {
 		return text;
 	}
 
-	public void setText(String text) {
-		this.text = text;
-	}
-
 	public Audio getAudio() {
 		return audio;
-	}
-
-	public void setAudio(Audio audio) {
-		this.audio = audio;
 	}
 
 	public Document getDocument() {
 		return document;
 	}
 
-	public void setDocument(Document document) {
-		this.document = document;
-	}
-
 	public PhotoSize[] getPhoto() {
 		return photo;
-	}
-
-	public void setPhoto(PhotoSize[] photo) {
-		this.photo = photo;
 	}
 
 	public Sticker getSticker() {
 		return sticker;
 	}
 
-	public void setSticker(Sticker sticker) {
-		this.sticker = sticker;
-	}
-
 	public Video getVideo() {
 		return video;
-	}
-
-	public void setVideo(Video video) {
-		this.video = video;
 	}
 
 	public Contact getContact() {
 		return contact;
 	}
 
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
-
 	public Location getLocation() {
 		return location;
 	}
 
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-
 	public User getNewChatParticipant() {
-		return newChatParticipant;
-	}
-
-	public void setNewChatParticipant(User newChatParticipant) {
-		this.newChatParticipant = newChatParticipant;
+		return new_chat_participant;
 	}
 
 	public User getLeftChatParticipant() {
-		return leftChatParticipant;
-	}
-
-	public void setLeftChatParticipant(User leftChatParticipant) {
-		this.leftChatParticipant = leftChatParticipant;
+		return left_chat_participant;
 	}
 
 	public String getNewChatTitle() {
-		return newChatTitle;
-	}
-
-	public void setNewChatTitle(String newChatTitle) {
-		this.newChatTitle = newChatTitle;
+		return new_chat_title;
 	}
 
 	public PhotoSize[] getNewChatPhoto() {
-		return newChatPhoto;
-	}
-
-	public void setNewChatPhoto(PhotoSize[] newChatPhoto) {
-		this.newChatPhoto = newChatPhoto;
+		return new_chat_photo;
 	}
 
 	public Boolean getDeleteChatPhoto() {
-		return deleteChatPhoto;
-	}
-
-	public void setDeleteChatPhoto(Boolean deleteChatPhoto) {
-		this.deleteChatPhoto = deleteChatPhoto;
+		return delete_chat_photo;
 	}
 
 	public Boolean getGroupChatCreated() {
-		return groupChatCreated;
-	}
-
-	public void setGroupChatCreated(Boolean groupChatCreated) {
-		this.groupChatCreated = groupChatCreated;
+		return group_chat_created;
 	}
 
 	@Override
@@ -239,20 +155,20 @@ public class Message {
 		result = prime * result + ((chat == null) ? 0 : chat.hashCode());
 		result = prime * result + ((contact == null) ? 0 : contact.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((deleteChatPhoto == null) ? 0 : deleteChatPhoto.hashCode());
+		result = prime * result + ((delete_chat_photo == null) ? 0 : delete_chat_photo.hashCode());
 		result = prime * result + ((document == null) ? 0 : document.hashCode());
-		result = prime * result + ((forwardDate == null) ? 0 : forwardDate.hashCode());
-		result = prime * result + ((forwardFrom == null) ? 0 : forwardFrom.hashCode());
+		result = prime * result + ((forward_date == null) ? 0 : forward_date.hashCode());
+		result = prime * result + ((forward_from == null) ? 0 : forward_from.hashCode());
 		result = prime * result + ((from == null) ? 0 : from.hashCode());
-		result = prime * result + ((groupChatCreated == null) ? 0 : groupChatCreated.hashCode());
-		result = prime * result + ((leftChatParticipant == null) ? 0 : leftChatParticipant.hashCode());
+		result = prime * result + ((group_chat_created == null) ? 0 : group_chat_created.hashCode());
+		result = prime * result + ((left_chat_participant == null) ? 0 : left_chat_participant.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
-		result = prime * result + ((messageId == null) ? 0 : messageId.hashCode());
-		result = prime * result + ((newChatParticipant == null) ? 0 : newChatParticipant.hashCode());
-		result = prime * result + Arrays.hashCode(newChatPhoto);
-		result = prime * result + ((newChatTitle == null) ? 0 : newChatTitle.hashCode());
+		result = prime * result + ((message_id == null) ? 0 : message_id.hashCode());
+		result = prime * result + ((new_chat_participant == null) ? 0 : new_chat_participant.hashCode());
+		result = prime * result + Arrays.hashCode(new_chat_photo);
+		result = prime * result + ((new_chat_title == null) ? 0 : new_chat_title.hashCode());
 		result = prime * result + Arrays.hashCode(photo);
-		result = prime * result + ((replyToMessage == null) ? 0 : replyToMessage.hashCode());
+		result = prime * result + ((reply_to_message == null) ? 0 : reply_to_message.hashCode());
 		result = prime * result + ((sticker == null) ? 0 : sticker.hashCode());
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		result = prime * result + ((video == null) ? 0 : video.hashCode());
@@ -288,69 +204,69 @@ public class Message {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (deleteChatPhoto == null) {
-			if (other.deleteChatPhoto != null)
+		if (delete_chat_photo == null) {
+			if (other.delete_chat_photo != null)
 				return false;
-		} else if (!deleteChatPhoto.equals(other.deleteChatPhoto))
+		} else if (!delete_chat_photo.equals(other.delete_chat_photo))
 			return false;
 		if (document == null) {
 			if (other.document != null)
 				return false;
 		} else if (!document.equals(other.document))
 			return false;
-		if (forwardDate == null) {
-			if (other.forwardDate != null)
+		if (forward_date == null) {
+			if (other.forward_date != null)
 				return false;
-		} else if (!forwardDate.equals(other.forwardDate))
+		} else if (!forward_date.equals(other.forward_date))
 			return false;
-		if (forwardFrom == null) {
-			if (other.forwardFrom != null)
+		if (forward_from == null) {
+			if (other.forward_from != null)
 				return false;
-		} else if (!forwardFrom.equals(other.forwardFrom))
+		} else if (!forward_from.equals(other.forward_from))
 			return false;
 		if (from == null) {
 			if (other.from != null)
 				return false;
 		} else if (!from.equals(other.from))
 			return false;
-		if (groupChatCreated == null) {
-			if (other.groupChatCreated != null)
+		if (group_chat_created == null) {
+			if (other.group_chat_created != null)
 				return false;
-		} else if (!groupChatCreated.equals(other.groupChatCreated))
+		} else if (!group_chat_created.equals(other.group_chat_created))
 			return false;
-		if (leftChatParticipant == null) {
-			if (other.leftChatParticipant != null)
+		if (left_chat_participant == null) {
+			if (other.left_chat_participant != null)
 				return false;
-		} else if (!leftChatParticipant.equals(other.leftChatParticipant))
+		} else if (!left_chat_participant.equals(other.left_chat_participant))
 			return false;
 		if (location == null) {
 			if (other.location != null)
 				return false;
 		} else if (!location.equals(other.location))
 			return false;
-		if (messageId == null) {
-			if (other.messageId != null)
+		if (message_id == null) {
+			if (other.message_id != null)
 				return false;
-		} else if (!messageId.equals(other.messageId))
+		} else if (!message_id.equals(other.message_id))
 			return false;
-		if (newChatParticipant == null) {
-			if (other.newChatParticipant != null)
+		if (new_chat_participant == null) {
+			if (other.new_chat_participant != null)
 				return false;
-		} else if (!newChatParticipant.equals(other.newChatParticipant))
+		} else if (!new_chat_participant.equals(other.new_chat_participant))
 			return false;
-		if (!Arrays.equals(newChatPhoto, other.newChatPhoto))
+		if (!Arrays.equals(new_chat_photo, other.new_chat_photo))
 			return false;
-		if (newChatTitle == null) {
-			if (other.newChatTitle != null)
+		if (new_chat_title == null) {
+			if (other.new_chat_title != null)
 				return false;
-		} else if (!newChatTitle.equals(other.newChatTitle))
+		} else if (!new_chat_title.equals(other.new_chat_title))
 			return false;
 		if (!Arrays.equals(photo, other.photo))
 			return false;
-		if (replyToMessage == null) {
-			if (other.replyToMessage != null)
+		if (reply_to_message == null) {
+			if (other.reply_to_message != null)
 				return false;
-		} else if (!replyToMessage.equals(other.replyToMessage))
+		} else if (!reply_to_message.equals(other.reply_to_message))
 			return false;
 		if (sticker == null) {
 			if (other.sticker != null)
@@ -372,12 +288,13 @@ public class Message {
 
 	@Override
 	public String toString() {
-		return "Message [messageId=" + messageId + ", from=" + from + ", date=" + date + ", chat=" + chat
-				+ ", forwardFrom=" + forwardFrom + ", forwardDate=" + forwardDate + ", replyToMessage=" + replyToMessage
-				+ ", text=" + text + ", audio=" + audio + ", document=" + document + ", photo=" + Arrays.toString(photo)
-				+ ", sticker=" + sticker + ", video=" + video + ", contact=" + contact + ", location=" + location
-				+ ", newChatParticipant=" + newChatParticipant + ", leftChatParticipant=" + leftChatParticipant
-				+ ", newChatTitle=" + newChatTitle + ", newChatPhoto=" + Arrays.toString(newChatPhoto)
-				+ ", deleteChatPhoto=" + deleteChatPhoto + ", groupChatCreated=" + groupChatCreated + "]";
+		return "Message [messageId=" + message_id + ", from=" + from + ", date=" + date + ", chat=" + chat
+				+ ", forwardFrom=" + forward_from + ", forwardDate=" + forward_date + ", replyToMessage="
+				+ reply_to_message + ", text=" + text + ", audio=" + audio + ", document=" + document + ", photo="
+				+ Arrays.toString(photo) + ", sticker=" + sticker + ", video=" + video + ", contact=" + contact
+				+ ", location=" + location + ", newChatParticipant=" + new_chat_participant + ", leftChatParticipant="
+				+ left_chat_participant + ", newChatTitle=" + new_chat_title + ", newChatPhoto="
+				+ Arrays.toString(new_chat_photo) + ", deleteChatPhoto=" + delete_chat_photo + ", groupChatCreated="
+				+ group_chat_created + "]";
 	}
 }

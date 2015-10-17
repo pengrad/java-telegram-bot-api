@@ -5,10 +5,10 @@ package com.pengrad.telegrambot.model;
  */
 public class PhotoSize {
 
-	private String fileId;
+	private String file_id;
 	private Integer width;
 	private Integer height;
-	private Integer fileSize;
+	private Integer file_size;
 
 	public PhotoSize() {
 		super();
@@ -17,50 +17,34 @@ public class PhotoSize {
 
 	public PhotoSize(String fileId, Integer width, Integer height, Integer fileSize) {
 		super();
-		this.fileId = fileId;
+		this.file_id = fileId;
 		this.width = width;
 		this.height = height;
-		this.fileSize = fileSize;
+		this.file_size = fileSize;
 	}
 
 	public String getFileId() {
-		return fileId;
-	}
-
-	public void setFileId(String fileId) {
-		this.fileId = fileId;
+		return file_id;
 	}
 
 	public Integer getWidth() {
 		return width;
 	}
 
-	public void setWidth(Integer width) {
-		this.width = width;
-	}
-
 	public Integer getHeight() {
 		return height;
 	}
 
-	public void setHeight(Integer height) {
-		this.height = height;
-	}
-
 	public Integer getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(Integer fileSize) {
-		this.fileSize = fileSize;
+		return file_size;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((fileId == null) ? 0 : fileId.hashCode());
-		result = prime * result + ((fileSize == null) ? 0 : fileSize.hashCode());
+		result = prime * result + ((file_id == null) ? 0 : file_id.hashCode());
+		result = prime * result + ((file_size == null) ? 0 : file_size.hashCode());
 		result = prime * result + ((height == null) ? 0 : height.hashCode());
 		result = prime * result + ((width == null) ? 0 : width.hashCode());
 		return result;
@@ -75,15 +59,15 @@ public class PhotoSize {
 		if (getClass() != obj.getClass())
 			return false;
 		PhotoSize other = (PhotoSize) obj;
-		if (fileId == null) {
-			if (other.fileId != null)
+		if (file_id == null) {
+			if (other.file_id != null)
 				return false;
-		} else if (!fileId.equals(other.fileId))
+		} else if (!file_id.equals(other.file_id))
 			return false;
-		if (fileSize == null) {
-			if (other.fileSize != null)
+		if (file_size == null) {
+			if (other.file_size != null)
 				return false;
-		} else if (!fileSize.equals(other.fileSize))
+		} else if (!file_size.equals(other.file_size))
 			return false;
 		if (height == null) {
 			if (other.height != null)
@@ -100,7 +84,7 @@ public class PhotoSize {
 
 	@Override
 	public String toString() {
-		return "PhotoSize [fileId=" + fileId + ", width=" + width + ", height=" + height + ", fileSize=" + fileSize
+		return "PhotoSize [fileId=" + file_id + ", width=" + width + ", height=" + height + ", fileSize=" + file_size
 				+ "]";
 	}
 }

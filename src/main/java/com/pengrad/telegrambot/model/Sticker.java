@@ -5,11 +5,11 @@ package com.pengrad.telegrambot.model;
  */
 public class Sticker {
 
-	private String fileId;
+	private String file_id;
 	private Integer width;
 	private Integer height;
 	private PhotoSize thumb;
-	private Integer fileSize;
+	private Integer file_size;
 
 	public Sticker() {
 		super();
@@ -18,59 +18,39 @@ public class Sticker {
 
 	public Sticker(String fileId, Integer width, Integer height, PhotoSize thumb, Integer fileSize) {
 		super();
-		this.fileId = fileId;
+		this.file_id = fileId;
 		this.width = width;
 		this.height = height;
 		this.thumb = thumb;
-		this.fileSize = fileSize;
+		this.file_size = fileSize;
 	}
 
 	public String getFileId() {
-		return fileId;
-	}
-
-	public void setFileId(String fileId) {
-		this.fileId = fileId;
+		return file_id;
 	}
 
 	public Integer getWidth() {
 		return width;
 	}
 
-	public void setWidth(Integer width) {
-		this.width = width;
-	}
-
 	public Integer getHeight() {
 		return height;
-	}
-
-	public void setHeight(Integer height) {
-		this.height = height;
 	}
 
 	public PhotoSize getThumb() {
 		return thumb;
 	}
 
-	public void setThumb(PhotoSize thumb) {
-		this.thumb = thumb;
-	}
-
 	public Integer getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(Integer fileSize) {
-		this.fileSize = fileSize;
+		return file_size;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((fileId == null) ? 0 : fileId.hashCode());
-		result = prime * result + ((fileSize == null) ? 0 : fileSize.hashCode());
+		result = prime * result + ((file_id == null) ? 0 : file_id.hashCode());
+		result = prime * result + ((file_size == null) ? 0 : file_size.hashCode());
 		result = prime * result + ((height == null) ? 0 : height.hashCode());
 		result = prime * result + ((thumb == null) ? 0 : thumb.hashCode());
 		result = prime * result + ((width == null) ? 0 : width.hashCode());
@@ -86,15 +66,15 @@ public class Sticker {
 		if (getClass() != obj.getClass())
 			return false;
 		Sticker other = (Sticker) obj;
-		if (fileId == null) {
-			if (other.fileId != null)
+		if (file_id == null) {
+			if (other.file_id != null)
 				return false;
-		} else if (!fileId.equals(other.fileId))
+		} else if (!file_id.equals(other.file_id))
 			return false;
-		if (fileSize == null) {
-			if (other.fileSize != null)
+		if (file_size == null) {
+			if (other.file_size != null)
 				return false;
-		} else if (!fileSize.equals(other.fileSize))
+		} else if (!file_size.equals(other.file_size))
 			return false;
 		if (height == null) {
 			if (other.height != null)
@@ -116,7 +96,7 @@ public class Sticker {
 
 	@Override
 	public String toString() {
-		return "Sticker [fileId=" + fileId + ", width=" + width + ", height=" + height + ", thumb=" + thumb
-				+ ", fileSize=" + fileSize + "]";
+		return "Sticker [fileId=" + file_id + ", width=" + width + ", height=" + height + ", thumb=" + thumb
+				+ ", fileSize=" + file_size + "]";
 	}
 }

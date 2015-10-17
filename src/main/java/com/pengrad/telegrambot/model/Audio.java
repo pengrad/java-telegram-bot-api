@@ -5,10 +5,10 @@ package com.pengrad.telegrambot.model;
  */
 public class Audio {
 
-	private String fileId;
+	private String file_id;
 	private Integer duration;
-	private String mimeType;
-	private Integer fileSize;
+	private String mime_type;
+	private Integer file_size;
 
 	public Audio() {
 		super();
@@ -16,42 +16,26 @@ public class Audio {
 
 	public Audio(String fileId, Integer duration, String mimeType, Integer fileSize) {
 		super();
-		this.fileId = fileId;
+		this.file_id = fileId;
 		this.duration = duration;
-		this.mimeType = mimeType;
-		this.fileSize = fileSize;
+		this.mime_type = mimeType;
+		this.file_size = fileSize;
 	}
 
 	public String getFileId() {
-		return fileId;
-	}
-
-	public void setFileId(String fileId) {
-		this.fileId = fileId;
+		return file_id;
 	}
 
 	public Integer getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Integer duration) {
-		this.duration = duration;
-	}
-
 	public String getMimeType() {
-		return mimeType;
-	}
-
-	public void setMimeType(String mimeType) {
-		this.mimeType = mimeType;
+		return mime_type;
 	}
 
 	public Integer getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(Integer fileSize) {
-		this.fileSize = fileSize;
+		return file_size;
 	}
 
 	@Override
@@ -59,9 +43,9 @@ public class Audio {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((duration == null) ? 0 : duration.hashCode());
-		result = prime * result + ((fileId == null) ? 0 : fileId.hashCode());
-		result = prime * result + ((fileSize == null) ? 0 : fileSize.hashCode());
-		result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
+		result = prime * result + ((file_id == null) ? 0 : file_id.hashCode());
+		result = prime * result + ((file_size == null) ? 0 : file_size.hashCode());
+		result = prime * result + ((mime_type == null) ? 0 : mime_type.hashCode());
 		return result;
 	}
 
@@ -79,27 +63,27 @@ public class Audio {
 				return false;
 		} else if (!duration.equals(other.duration))
 			return false;
-		if (fileId == null) {
-			if (other.fileId != null)
+		if (file_id == null) {
+			if (other.file_id != null)
 				return false;
-		} else if (!fileId.equals(other.fileId))
+		} else if (!file_id.equals(other.file_id))
 			return false;
-		if (fileSize == null) {
-			if (other.fileSize != null)
+		if (file_size == null) {
+			if (other.file_size != null)
 				return false;
-		} else if (!fileSize.equals(other.fileSize))
+		} else if (!file_size.equals(other.file_size))
 			return false;
-		if (mimeType == null) {
-			if (other.mimeType != null)
+		if (mime_type == null) {
+			if (other.mime_type != null)
 				return false;
-		} else if (!mimeType.equals(other.mimeType))
+		} else if (!mime_type.equals(other.mime_type))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Audio [fileId=" + fileId + ", duration=" + duration + ", mimeType=" + mimeType + ", fileSize="
-				+ fileSize + "]";
+		return "Audio [fileId=" + file_id + ", duration=" + duration + ", mimeType=" + mime_type + ", fileSize="
+				+ file_size + "]";
 	}
 }

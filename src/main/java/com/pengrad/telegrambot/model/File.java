@@ -5,9 +5,9 @@ package com.pengrad.telegrambot.model;
  */
 public class File {
 
-	private String fileId;
-	private Integer fileSize;
-	private String filePath;
+	private String file_id;
+	private Integer file_size;
+	private String file_path;
 
 	public File() {
 		super();
@@ -16,42 +16,30 @@ public class File {
 
 	public File(String fileId, Integer fileSize, String filePath) {
 		super();
-		this.fileId = fileId;
-		this.fileSize = fileSize;
-		this.filePath = filePath;
+		this.file_id = fileId;
+		this.file_size = fileSize;
+		this.file_path = filePath;
 	}
 
 	public String getFileId() {
-		return fileId;
-	}
-
-	public void setFileId(String fileId) {
-		this.fileId = fileId;
+		return file_id;
 	}
 
 	public Integer getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(Integer fileSize) {
-		this.fileSize = fileSize;
+		return file_size;
 	}
 
 	public String getFilePath() {
-		return filePath;
-	}
-
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+		return file_path;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((fileId == null) ? 0 : fileId.hashCode());
-		result = prime * result + ((filePath == null) ? 0 : filePath.hashCode());
-		result = prime * result + ((fileSize == null) ? 0 : fileSize.hashCode());
+		result = prime * result + ((file_id == null) ? 0 : file_id.hashCode());
+		result = prime * result + ((file_path == null) ? 0 : file_path.hashCode());
+		result = prime * result + ((file_size == null) ? 0 : file_size.hashCode());
 		return result;
 	}
 
@@ -64,26 +52,26 @@ public class File {
 		if (getClass() != obj.getClass())
 			return false;
 		File other = (File) obj;
-		if (fileId == null) {
-			if (other.fileId != null)
+		if (file_id == null) {
+			if (other.file_id != null)
 				return false;
-		} else if (!fileId.equals(other.fileId))
+		} else if (!file_id.equals(other.file_id))
 			return false;
-		if (filePath == null) {
-			if (other.filePath != null)
+		if (file_path == null) {
+			if (other.file_path != null)
 				return false;
-		} else if (!filePath.equals(other.filePath))
+		} else if (!file_path.equals(other.file_path))
 			return false;
-		if (fileSize == null) {
-			if (other.fileSize != null)
+		if (file_size == null) {
+			if (other.file_size != null)
 				return false;
-		} else if (!fileSize.equals(other.fileSize))
+		} else if (!file_size.equals(other.file_size))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "File [fileId=" + fileId + ", fileSize=" + fileSize + ", filePath=" + filePath + "]";
+		return "File [fileId=" + file_id + ", fileSize=" + file_size + ", filePath=" + file_path + "]";
 	}
 }

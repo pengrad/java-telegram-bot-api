@@ -5,10 +5,10 @@ package com.pengrad.telegrambot.model;
  */
 public class Contact {
 
-	private String phoneNumber;
-	private String firstName;
-	private String lastName;
-	private Integer userId;
+	private String phone_number;
+	private String first_name;
+	private String last_name;
+	private Integer user_id;
 
 	public Contact() {
 		super();
@@ -17,52 +17,36 @@ public class Contact {
 
 	public Contact(String phoneNumber, String firstName, String lastName, Integer userId) {
 		super();
-		this.phoneNumber = phoneNumber;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.userId = userId;
+		this.phone_number = phoneNumber;
+		this.first_name = firstName;
+		this.last_name = lastName;
+		this.user_id = userId;
 	}
 
 	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		return phone_number;
 	}
 
 	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		return first_name;
 	}
 
 	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		return last_name;
 	}
 
 	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+		return user_id;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((first_name == null) ? 0 : first_name.hashCode());
+		result = prime * result + ((last_name == null) ? 0 : last_name.hashCode());
+		result = prime * result + ((phone_number == null) ? 0 : phone_number.hashCode());
+		result = prime * result + ((user_id == null) ? 0 : user_id.hashCode());
 		return result;
 	}
 
@@ -75,32 +59,32 @@ public class Contact {
 		if (getClass() != obj.getClass())
 			return false;
 		Contact other = (Contact) obj;
-		if (firstName == null) {
-			if (other.firstName != null)
+		if (first_name == null) {
+			if (other.first_name != null)
 				return false;
-		} else if (!firstName.equals(other.firstName))
+		} else if (!first_name.equals(other.first_name))
 			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
+		if (last_name == null) {
+			if (other.last_name != null)
 				return false;
-		} else if (!lastName.equals(other.lastName))
+		} else if (!last_name.equals(other.last_name))
 			return false;
-		if (phoneNumber == null) {
-			if (other.phoneNumber != null)
+		if (phone_number == null) {
+			if (other.phone_number != null)
 				return false;
-		} else if (!phoneNumber.equals(other.phoneNumber))
+		} else if (!phone_number.equals(other.phone_number))
 			return false;
-		if (userId == null) {
-			if (other.userId != null)
+		if (user_id == null) {
+			if (other.user_id != null)
 				return false;
-		} else if (!userId.equals(other.userId))
+		} else if (!user_id.equals(other.user_id))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Contact [phoneNumber=" + phoneNumber + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", userId=" + userId + "]";
+		return "Contact [phoneNumber=" + phone_number + ", firstName=" + first_name + ", lastName=" + last_name
+				+ ", userId=" + user_id + "]";
 	}
 }

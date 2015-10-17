@@ -5,7 +5,7 @@ package com.pengrad.telegrambot.model;
  */
 public class ReplyKeyboardHide extends Keyboard {
 
-	private final boolean hideKeyboard = true;
+	private final boolean hide_keyboard = true;
 	private final boolean selective;
 
 	public ReplyKeyboardHide() {
@@ -17,7 +17,7 @@ public class ReplyKeyboardHide extends Keyboard {
 	}
 
 	public boolean isHideKeyboard() {
-		return hideKeyboard;
+		return hide_keyboard;
 	}
 
 	public boolean isSelective() {

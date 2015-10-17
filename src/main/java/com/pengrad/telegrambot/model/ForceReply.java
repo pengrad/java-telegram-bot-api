@@ -5,7 +5,7 @@ package com.pengrad.telegrambot.model;
  */
 public class ForceReply extends Keyboard {
 
-	private final boolean forceReply = true;
+	private final boolean force_reply = true;
 	private final boolean selective;
 
 	public ForceReply() {
@@ -17,7 +17,7 @@ public class ForceReply extends Keyboard {
 	}
 
 	public boolean isForceReply() {
-		return forceReply;
+		return force_reply;
 	}
 
 	public boolean isSelective() {

@@ -5,11 +5,11 @@ package com.pengrad.telegrambot.model;
  */
 public class Document {
 
-	private String fileId;
+	private String file_id;
 	private PhotoSize thumb;
-	private String fileName;
-	private String mimeType;
-	private Integer fileSize;
+	private String file_name;
+	private String mime_type;
+	private Integer file_size;
 
 	public Document() {
 		super();
@@ -18,61 +18,41 @@ public class Document {
 
 	public Document(String fileId, PhotoSize thumb, String fileName, String mimeType, Integer fileSize) {
 		super();
-		this.fileId = fileId;
+		this.file_id = fileId;
 		this.thumb = thumb;
-		this.fileName = fileName;
-		this.mimeType = mimeType;
-		this.fileSize = fileSize;
+		this.file_name = fileName;
+		this.mime_type = mimeType;
+		this.file_size = fileSize;
 	}
 
 	public String getFileId() {
-		return fileId;
-	}
-
-	public void setFileId(String fileId) {
-		this.fileId = fileId;
+		return file_id;
 	}
 
 	public PhotoSize getThumb() {
 		return thumb;
 	}
 
-	public void setThumb(PhotoSize thumb) {
-		this.thumb = thumb;
-	}
-
 	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+		return file_name;
 	}
 
 	public String getMimeType() {
-		return mimeType;
-	}
-
-	public void setMimeType(String mimeType) {
-		this.mimeType = mimeType;
+		return mime_type;
 	}
 
 	public Integer getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(Integer fileSize) {
-		this.fileSize = fileSize;
+		return file_size;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((fileId == null) ? 0 : fileId.hashCode());
-		result = prime * result + ((fileName == null) ? 0 : fileName.hashCode());
-		result = prime * result + ((fileSize == null) ? 0 : fileSize.hashCode());
-		result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
+		result = prime * result + ((file_id == null) ? 0 : file_id.hashCode());
+		result = prime * result + ((file_name == null) ? 0 : file_name.hashCode());
+		result = prime * result + ((file_size == null) ? 0 : file_size.hashCode());
+		result = prime * result + ((mime_type == null) ? 0 : mime_type.hashCode());
 		result = prime * result + ((thumb == null) ? 0 : thumb.hashCode());
 		return result;
 	}
@@ -86,25 +66,25 @@ public class Document {
 		if (getClass() != obj.getClass())
 			return false;
 		Document other = (Document) obj;
-		if (fileId == null) {
-			if (other.fileId != null)
+		if (file_id == null) {
+			if (other.file_id != null)
 				return false;
-		} else if (!fileId.equals(other.fileId))
+		} else if (!file_id.equals(other.file_id))
 			return false;
-		if (fileName == null) {
-			if (other.fileName != null)
+		if (file_name == null) {
+			if (other.file_name != null)
 				return false;
-		} else if (!fileName.equals(other.fileName))
+		} else if (!file_name.equals(other.file_name))
 			return false;
-		if (fileSize == null) {
-			if (other.fileSize != null)
+		if (file_size == null) {
+			if (other.file_size != null)
 				return false;
-		} else if (!fileSize.equals(other.fileSize))
+		} else if (!file_size.equals(other.file_size))
 			return false;
-		if (mimeType == null) {
-			if (other.mimeType != null)
+		if (mime_type == null) {
+			if (other.mime_type != null)
 				return false;
-		} else if (!mimeType.equals(other.mimeType))
+		} else if (!mime_type.equals(other.mime_type))
 			return false;
 		if (thumb == null) {
 			if (other.thumb != null)
@@ -116,7 +96,7 @@ public class Document {
 
 	@Override
 	public String toString() {
-		return "Document [fileId=" + fileId + ", thumb=" + thumb + ", fileName=" + fileName + ", mimeType=" + mimeType
-				+ ", fileSize=" + fileSize + "]";
+		return "Document [fileId=" + file_id + ", thumb=" + thumb + ", fileName=" + file_name + ", mimeType="
+				+ mime_type + ", fileSize=" + file_size + "]";
 	}
 }
