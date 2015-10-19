@@ -19,11 +19,11 @@ public class GroupChat {
 		this.title = title;
 	}
 
-	public Integer getId() {
+	public Integer id() {
 		return id;
 	}
 
-	public String getTitle() {
+	public String title() {
 		return title;
 	}
 

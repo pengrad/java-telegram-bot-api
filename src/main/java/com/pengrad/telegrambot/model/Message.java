@@ -63,87 +63,87 @@ public class Message {
 		this.group_chat_created = groupChatCreated;
 	}
 
-	public Integer getMessageId() {
+	public Integer messageId() {
 		return message_id;
 	}
 
-	public User getFrom() {
+	public User from() {
 		return from;
 	}
 
-	public Integer getDate() {
+	public Integer date() {
 		return date;
 	}
 
-	public UserOrGroupChat getChat() {
+	public UserOrGroupChat chat() {
 		return chat;
 	}
 
-	public User getForwardFrom() {
+	public User forwardFrom() {
 		return forward_from;
 	}
 
-	public Integer getForwardDate() {
+	public Integer forwardDate() {
 		return forward_date;
 	}
 
-	public Message getReplyToMessage() {
+	public Message replyToMessage() {
 		return reply_to_message;
 	}
 
-	public String getText() {
+	public String text() {
 		return text;
 	}
 
-	public Audio getAudio() {
+	public Audio audio() {
 		return audio;
 	}
 
-	public Document getDocument() {
+	public Document document() {
 		return document;
 	}
 
-	public PhotoSize[] getPhoto() {
+	public PhotoSize[] photo() {
 		return photo;
 	}
 
-	public Sticker getSticker() {
+	public Sticker sticker() {
 		return sticker;
 	}
 
-	public Video getVideo() {
+	public Video video() {
 		return video;
 	}
 
-	public Contact getContact() {
+	public Contact contact() {
 		return contact;
 	}
 
-	public Location getLocation() {
+	public Location location() {
 		return location;
 	}
 
-	public User getNewChatParticipant() {
+	public User newChatParticipant() {
 		return new_chat_participant;
 	}
 
-	public User getLeftChatParticipant() {
+	public User leftChatParticipant() {
 		return left_chat_participant;
 	}
 
-	public String getNewChatTitle() {
+	public String newChatTitle() {
 		return new_chat_title;
 	}
 
-	public PhotoSize[] getNewChatPhoto() {
+	public PhotoSize[] newChatPhoto() {
 		return new_chat_photo;
 	}
 
-	public Boolean getDeleteChatPhoto() {
+	public Boolean deleteChatPhoto() {
 		return delete_chat_photo;
 	}
 
-	public Boolean getGroupChatCreated() {
+	public Boolean groupChatCreated() {
 		return group_chat_created;
 	}
 

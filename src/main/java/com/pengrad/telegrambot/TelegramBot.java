@@ -38,11 +38,11 @@ public class TelegramBot implements BotApi {
 		if (!fileResponse.isOk() || fileResponse.getResult() == null) {
 			return null;
 		}
-		return fileApi.getFullFilePath(fileResponse.getResult().getFilePath());
+		return fileApi.getFullFilePath(fileResponse.getResult().filePath());
 	}
 
 	public String getFullFilePath(File file) {
-		return fileApi.getFullFilePath(file.getFilePath());
+		return fileApi.getFullFilePath(file.filePath());
 	}
 
 	@Override

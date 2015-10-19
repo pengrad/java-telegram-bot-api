@@ -21,11 +21,11 @@ public class UserProfilePhotos {
 		this.photos = photos;
 	}
 
-	public Integer getTotalCount() {
+	public Integer totalCount() {
 		return total_count;
 	}
 
-	public PhotoSize[][] getPhotos() {
+	public PhotoSize[][] photos() {
 		return photos;
 	}
 

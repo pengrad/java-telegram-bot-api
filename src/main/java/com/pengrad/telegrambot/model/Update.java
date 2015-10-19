@@ -19,11 +19,11 @@ public class Update {
 		this.message = message;
 	}
 
-	public Integer getUpdateId() {
+	public Integer updateId() {
 		return update_id;
 	}
 
-	public Message getMessage() {
+	public Message message() {
 		return message;
 	}
 

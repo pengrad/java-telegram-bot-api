@@ -25,23 +25,23 @@ public class Document {
 		this.file_size = fileSize;
 	}
 
-	public String getFileId() {
+	public String fileId() {
 		return file_id;
 	}
 
-	public PhotoSize getThumb() {
+	public PhotoSize thumb() {
 		return thumb;
 	}
 
-	public String getFileName() {
+	public String fileName() {
 		return file_name;
 	}
 
-	public String getMimeType() {
+	public String mimeType() {
 		return mime_type;
 	}
 
-	public Integer getFileSize() {
+	public Integer fileSize() {
 		return file_size;
 	}
 

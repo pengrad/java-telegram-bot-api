@@ -21,15 +21,15 @@ public class File {
 		this.file_path = filePath;
 	}
 
-	public String getFileId() {
+	public String fileId() {
 		return file_id;
 	}
 
-	public Integer getFileSize() {
+	public Integer fileSize() {
 		return file_size;
 	}
 
-	public String getFilePath() {
+	public String filePath() {
 		return file_path;
 	}
 

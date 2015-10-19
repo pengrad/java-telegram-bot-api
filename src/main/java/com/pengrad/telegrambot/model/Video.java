@@ -30,31 +30,31 @@ public class Video {
 		this.file_size = fileSize;
 	}
 
-	public String getFileId() {
+	public String fileId() {
 		return file_id;
 	}
 
-	public Integer getWidth() {
+	public Integer width() {
 		return width;
 	}
 
-	public Integer getHeight() {
+	public Integer height() {
 		return height;
 	}
 
-	public Integer getDuration() {
+	public Integer duration() {
 		return duration;
 	}
 
-	public PhotoSize getThumb() {
+	public PhotoSize thumb() {
 		return thumb;
 	}
 
-	public String getMimeType() {
+	public String mimeType() {
 		return mime_type;
 	}
 
-	public Integer getFileSize() {
+	public Integer fileSize() {
 		return file_size;
 	}
 

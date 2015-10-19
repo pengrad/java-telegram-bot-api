@@ -23,19 +23,19 @@ public class Contact {
 		this.user_id = userId;
 	}
 
-	public String getPhoneNumber() {
+	public String phoneNumber() {
 		return phone_number;
 	}
 
-	public String getFirstName() {
+	public String firstName() {
 		return first_name;
 	}
 
-	public String getLastName() {
+	public String lastName() {
 		return last_name;
 	}
 
-	public Integer getUserId() {
+	public Integer userId() {
 		return user_id;
 	}
 

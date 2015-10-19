@@ -22,19 +22,19 @@ public class Audio {
 		this.file_size = fileSize;
 	}
 
-	public String getFileId() {
+	public String fileId() {
 		return file_id;
 	}
 
-	public Integer getDuration() {
+	public Integer duration() {
 		return duration;
 	}
 
-	public String getMimeType() {
+	public String mimeType() {
 		return mime_type;
 	}
 
-	public Integer getFileSize() {
+	public Integer fileSize() {
 		return file_size;
 	}
 

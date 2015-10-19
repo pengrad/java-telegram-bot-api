@@ -22,7 +22,7 @@ public class ReplyKeyboardMarkup extends Keyboard {
 		this.selective = selective;
 	}
 
-	public String[][] getKeyboard() {
+	public String[][] keyboard() {
 		return keyboard;
 	}
 

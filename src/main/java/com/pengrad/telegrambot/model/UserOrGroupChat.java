@@ -32,23 +32,23 @@ public class UserOrGroupChat {
 		return first_name != null;
 	}
 
-	public Integer getId() {
+	public Integer id() {
 		return id;
 	}
 
-	public String getFirstName() {
+	public String firstName() {
 		return first_name;
 	}
 
-	public String getLastName() {
+	public String lastName() {
 		return last_name;
 	}
 
-	public String getUserName() {
+	public String userName() {
 		return username;
 	}
 
-	public String getTitle() {
+	public String title() {
 		return title;
 	}
 

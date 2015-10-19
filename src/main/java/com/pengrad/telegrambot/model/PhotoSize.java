@@ -23,19 +23,19 @@ public class PhotoSize {
 		this.file_size = fileSize;
 	}
 
-	public String getFileId() {
+	public String fileId() {
 		return file_id;
 	}
 
-	public Integer getWidth() {
+	public Integer width() {
 		return width;
 	}
 
-	public Integer getHeight() {
+	public Integer height() {
 		return height;
 	}
 
-	public Integer getFileSize() {
+	public Integer fileSize() {
 		return file_size;
 	}
 

@@ -23,19 +23,19 @@ public class User {
 		this.username = username;
 	}
 
-	public Integer getId() {
+	public Integer id() {
 		return id;
 	}
 
-	public String getFirstName() {
+	public String firstName() {
 		return first_name;
 	}
 
-	public String getLastName() {
+	public String lastName() {
 		return last_name;
 	}
 
-	public String getUsername() {
+	public String username() {
 		return username;
 	}
 
