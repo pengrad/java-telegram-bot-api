@@ -1,16 +1,23 @@
 package com.pengrad.telegrambot.response;
 
 /**
- * stas
- * 8/11/15.
+ * stas 8/11/15.
  */
 public class SendChatActionResponse {
 
-    public final boolean ok;
-    public final boolean result;
+	private final boolean ok;
+	private final boolean result;
 
-    public SendChatActionResponse(boolean ok, boolean result) {
-        this.ok = ok;
-        this.result = result;
-    }
+	public SendChatActionResponse(boolean ok, boolean result) {
+		this.ok = ok;
+		this.result = result;
+	}
+
+	public boolean isOk() {
+		return ok;
+	}
+
+	public boolean isResult() {
+		return result;
+	}
 }
