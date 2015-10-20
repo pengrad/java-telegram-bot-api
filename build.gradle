@@ -8,11 +8,11 @@ repositories {
 }
 
 dependencies {
-    compile 'org.slf4j:slf4j-api:1.7.12'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'io.reactivex:rxjava:1.0.13'
 
     testCompile 'junit:junit:4.12'
+    testCompile 'com.sparkjava:spark-core:2.2'
 }
 apply from: file('gradle/gradle-mvn-push.gradle')
