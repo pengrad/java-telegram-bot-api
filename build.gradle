@@ -7,12 +7,17 @@ repositories {
     jcenter()
 }
 
+task copyTestResources(type: Copy) {
+    from "${projectDir}/src/test/resources"
+    into "${buildDir}/classes/test"
+}
+processTestResources.dependsOn copyTestResources
+
 dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'io.reactivex:rxjava:1.0.13'
 
     testCompile 'junit:junit:4.12'
-    testCompile 'com.sparkjava:spark-core:2.2'
 }
 apply from: file('gradle/gradle-mvn-push.gradle')
