@@ -3,6 +3,7 @@ package com.pengrad.telegrambot.impl;
 import com.pengrad.telegrambot.model.request.InputFile;
 import com.pengrad.telegrambot.model.request.InputFileBytes;
 import com.pengrad.telegrambot.model.request.Keyboard;
+import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.response.*;
 import retrofit.http.*;
 
@@ -22,6 +23,7 @@ public interface BotApi {
     SendResponse sendMessage(
             @Field("chat_id") Integer chatId,
             @Field("text") String text,
+            @Field("parse_mode") ParseMode parse_mode,
             @Field("disable_web_page_preview") Boolean disableWebPagePreview,
             @Field("reply_to_message_id") Integer replyToMessageId,
             @Field("reply_markup") Keyboard replyMarkup);

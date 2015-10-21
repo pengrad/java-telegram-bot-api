@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.model.request.InputFile;
 import com.pengrad.telegrambot.model.request.InputFileBytes;
 import com.pengrad.telegrambot.model.request.Keyboard;
+import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.response.*;
 
 /**
@@ -40,8 +41,8 @@ public class TelegramBot implements BotApi {
     }
 
     @Override
-    public SendResponse sendMessage(Integer chatId, String text, Boolean disableWebPagePreview, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendMessage(chatId, text, disableWebPagePreview, replyToMessageId, replyMarkup);
+    public SendResponse sendMessage(Integer chatId, String text, ParseMode parse_mode, Boolean disableWebPagePreview, Integer replyToMessageId, Keyboard replyMarkup) {
+        return botApi.sendMessage(chatId, text, parse_mode, disableWebPagePreview, replyToMessageId, replyMarkup);
     }
 
     @Override
