@@ -9,7 +9,7 @@ public class Message {
     public Integer message_id;
     public User from;
     public Integer date;
-    public UserOrGroupChat chat;
+    public Chat chat;
     public User forward_from;
     public Integer forward_date;
     public Message reply_to_message;

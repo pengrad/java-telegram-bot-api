@@ -1,6 +1,6 @@
 package com.pengrad.telegrambot;
 
-import com.pengrad.telegrambot.model.UserOrGroupChat;
+import com.pengrad.telegrambot.model.Chat;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -10,8 +10,9 @@ import static org.junit.Assert.assertNotNull;
  */
 public class ChatTest {
 
-    public static void checkChat(UserOrGroupChat chat) {
+    public static void checkChat(Chat chat) {
         assertNotNull(chat.id);
+        assertNotNull(chat.type);
     }
 
 }
