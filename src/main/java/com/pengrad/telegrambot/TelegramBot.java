@@ -187,6 +187,16 @@ public class TelegramBot implements BotApi {
     }
 
     @Override
+    public SetWebhookResponse setWebhook(String url, InputFile certificate) {
+        return botApi.setWebhook(url, certificate);
+    }
+
+    @Override
+    public SetWebhookResponse setWebhook(String url, InputFileBytes certificate) {
+        return botApi.setWebhook(url, certificate);
+    }
+
+    @Override
     public GetFileResponse getFile(String fileId) {
         return botApi.getFile(fileId);
     }

@@ -233,8 +233,8 @@ public interface BotApi {
             @Part("reply_markup") Keyboard replyMarkup);
 
 
-    @POST("/sendLocation")
     @FormUrlEncoded
+    @POST("/sendLocation")
     SendResponse sendLocation(
             @Field("chat_id") Integer chatId,
             @Field("latitude") Float latitude,
@@ -243,8 +243,8 @@ public interface BotApi {
             @Field("reply_markup") Keyboard replyMarkup);
 
 
-    @POST("/sendChatAction")
     @FormUrlEncoded
+    @POST("/sendChatAction")
     SendChatActionResponse sendChatAction(
             @Field("chat_id") Integer chatId,
             @Field("action") String action);
@@ -264,9 +264,17 @@ public interface BotApi {
             @Query("timeout") Integer timeout);
 
 
-    @POST("/setWebhook")
     @FormUrlEncoded
+    @POST("/setWebhook")
     SetWebhookResponse setWebhook(@Field("url") String url);
+
+    @Multipart
+    @POST("/setWebhook")
+    SetWebhookResponse setWebhook(@Part("url") String url, @Part("certificate") InputFile certificate);
+
+    @Multipart
+    @POST("/setWebhook")
+    SetWebhookResponse setWebhook(@Part("url") String url, @Part("certificate") InputFileBytes certificate);
 
     @GET("/getFile")
     GetFileResponse getFile(@Query("file_id") String fileId);
