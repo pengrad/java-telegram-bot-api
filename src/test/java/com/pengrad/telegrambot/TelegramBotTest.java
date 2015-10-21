@@ -3,10 +3,7 @@ package com.pengrad.telegrambot;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.User;
-import com.pengrad.telegrambot.model.request.InputFile;
-import com.pengrad.telegrambot.model.request.InputFileBytes;
-import com.pengrad.telegrambot.model.request.ParseMode;
-import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
+import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.response.*;
 import org.junit.Test;
 
@@ -68,7 +65,7 @@ public class TelegramBotTest {
     @Test
     public void testSendMessage() throws Exception {
         bot.sendMessage(chatId, "sendMessage with reply and keyboard", null, false, forwardMessageId, new ReplyKeyboardMarkup(new String[]{"ok", "test"}));
-        SendResponse sendResponse = bot.sendMessage(chatId, "sendMessage _italic_ *markdown*", ParseMode.Markdown, false, null, null);
+        SendResponse sendResponse = bot.sendMessage(chatId, "sendMessage _italic_ *markdown*", ParseMode.Markdown, false, null, new ReplyKeyboardHide());
         Message message = sendResponse.result;
         MessageTest.checkTextdMessage(message);
     }

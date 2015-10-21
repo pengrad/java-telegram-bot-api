@@ -8,13 +8,10 @@ import retrofit.mime.TypedByteArray;
  */
 public class InputFileBytes extends TypedByteArray {
 
-    // everything becomes jpeg or mpeg
+    // everything becomes jpeg or mpeg or ogg
     public static final String PHOTO_MIME_TYPE = "image/jpeg";
-    // or mpeg
     public static final String AUDIO_MIME_TYPE = "audio/mpeg";
-    // or mp4
     public static final String VIDEO_MIME_TYPE = "video/mp4";
-    // or ogg
     public static final String VOICE_MIME_TYPE = "audio/ogg";
 
     // necessary for telegram

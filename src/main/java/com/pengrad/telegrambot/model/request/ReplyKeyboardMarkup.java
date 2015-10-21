@@ -6,10 +6,10 @@ package com.pengrad.telegrambot.model.request;
  */
 public class ReplyKeyboardMarkup extends Keyboard {
 
-    public final String[][] keyboard;
-    public final boolean resize_keyboard;
-    public final boolean one_time_keyboard;
-    public final boolean selective;
+    private final String[][] keyboard;
+    private final boolean resize_keyboard;
+    private final boolean one_time_keyboard;
+    private final boolean selective;
 
     public ReplyKeyboardMarkup(String[]... keyboard) {
         this(keyboard, false, false, false);

@@ -5,5 +5,5 @@ package com.pengrad.telegrambot.model.request;
  * 10/21/15.
  */
 public enum ParseMode {
-    Markdown, AAA
+    Markdown
 }
