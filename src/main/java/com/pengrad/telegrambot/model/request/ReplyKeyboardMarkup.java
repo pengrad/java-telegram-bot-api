@@ -7,9 +7,9 @@ package com.pengrad.telegrambot.model.request;
 public class ReplyKeyboardMarkup extends Keyboard {
 
     private final String[][] keyboard;
-    private final boolean resize_keyboard;
-    private final boolean one_time_keyboard;
-    private final boolean selective;
+    private boolean resize_keyboard;
+    private boolean one_time_keyboard;
+    private boolean selective;
 
     public ReplyKeyboardMarkup(String[]... keyboard) {
         this(keyboard, false, false, false);
@@ -20,5 +20,20 @@ public class ReplyKeyboardMarkup extends Keyboard {
         this.resize_keyboard = resize_keyboard;
         this.one_time_keyboard = one_time_keyboard;
         this.selective = selective;
+    }
+
+    public ReplyKeyboardMarkup resizeKeyboard(boolean resizeKeyboard) {
+        this.resize_keyboard = resizeKeyboard;
+        return this;
+    }
+
+    public ReplyKeyboardMarkup oneTimeKeyboard(boolean oneTimeKeyboard) {
+        this.one_time_keyboard = oneTimeKeyboard;
+        return this;
+    }
+
+    public ReplyKeyboardMarkup selective(boolean selective) {
+        this.selective = selective;
+        return this;
     }
 }
