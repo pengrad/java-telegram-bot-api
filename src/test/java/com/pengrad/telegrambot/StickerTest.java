@@ -11,10 +11,10 @@ import static org.junit.Assert.assertNotNull;
 public class StickerTest {
 
     public static void check(Sticker sticker) {
-        assertNotNull(sticker.file_id);
-        assertNotNull(sticker.width);
-        assertNotNull(sticker.height);
-        assertNotNull(sticker.file_size);
-        PhotoSizeTest.checkPhotos(sticker.thumb);
+        assertNotNull(sticker.fileId());
+        assertNotNull(sticker.width());
+        assertNotNull(sticker.height());
+        assertNotNull(sticker.fileSize());
+        PhotoSizeTest.checkPhotos(sticker.thumb());
     }
 }

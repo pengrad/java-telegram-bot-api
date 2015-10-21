@@ -14,8 +14,8 @@ public class UpdateTest {
 
     public static void check(List<Update> updates) {
         for (Update update : updates) {
-            assertNotNull(update.update_id);
-            MessageTest.checkMessage(update.message);
+            assertNotNull(update.updateId());
+            MessageTest.checkMessage(update.message());
         }
     }
 

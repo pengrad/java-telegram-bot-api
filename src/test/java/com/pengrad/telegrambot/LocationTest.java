@@ -12,7 +12,7 @@ public class LocationTest {
 
 
     public static void check(Location location) {
-        assertNotNull(location.latitude);
-        assertNotNull(location.longitude);
+        assertNotNull(location.latitude());
+        assertNotNull(location.longitude());
     }
 }

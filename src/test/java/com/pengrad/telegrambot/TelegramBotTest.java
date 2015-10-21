@@ -42,7 +42,7 @@ public class TelegramBotTest {
 
     @Test
     public void testGetFullFilePath() throws Exception {
-        String path1 = bot.getFullFilePath(bot.getFile(stickerId).result);
+        String path1 = bot.getFullFilePath(bot.getFile(stickerId).file());
         String path2 = bot.getFullFilePath(stickerId);
         assertNotNull(path1);
         assertEquals(path1, path2);
@@ -51,14 +51,14 @@ public class TelegramBotTest {
     @Test
     public void testGetMe() throws Exception {
         GetMeResponse getMeResponse = bot.getMe();
-        User user = getMeResponse.result;
+        User user = getMeResponse.user();
         UserTest.checkUser(user);
     }
 
     @Test
     public void testForwardMessage() throws Exception {
         SendResponse sendResponse = bot.forwardMessage(chatId, chatId, forwardMessageId);
-        Message message = sendResponse.result;
+        Message message = sendResponse.message();
         MessageTest.checkForwardedMessage(message);
     }
 
@@ -66,7 +66,7 @@ public class TelegramBotTest {
     public void testSendMessage() throws Exception {
         bot.sendMessage(chatId, "sendMessage with reply and keyboard", null, false, forwardMessageId, new ReplyKeyboardMarkup(new String[]{"ok", "test"}));
         SendResponse sendResponse = bot.sendMessage(chatId, "sendMessage _italic_ *markdown*", ParseMode.Markdown, false, null, new ReplyKeyboardHide());
-        Message message = sendResponse.result;
+        Message message = sendResponse.message();
         MessageTest.checkTextdMessage(message);
     }
 
@@ -74,7 +74,7 @@ public class TelegramBotTest {
     public void testSendPhoto() throws Exception {
         InputFile inputFile = InputFile.photo(new File(imagefile));
         SendResponse sendResponse = bot.sendPhoto(chatId, inputFile, "caption", null, null);
-        Message message = sendResponse.result;
+        Message message = sendResponse.message();
         MessageTest.checkPhotoMessage(message);
     }
 
@@ -82,7 +82,7 @@ public class TelegramBotTest {
     public void testSendAudio() throws Exception {
         InputFile inputFile = InputFile.audio(new File(audioFile));
         SendResponse sendResponse = bot.sendAudio(chatId, inputFile, null, null, null, null, null);
-        Message message = sendResponse.result;
+        Message message = sendResponse.message();
         MessageTest.checkAudioMessage(message);
     }
 
@@ -90,14 +90,14 @@ public class TelegramBotTest {
     public void testSendDocument() throws Exception {
         InputFile inputFile = new InputFile("text/plain", new File(docFile));
         SendResponse sendResponse = bot.sendDocument(chatId, inputFile, null, null);
-        Message message = sendResponse.result;
+        Message message = sendResponse.message();
         MessageTest.checkDocumentMessage(message);
     }
 
     @Test
     public void testSendSticker() throws Exception {
         SendResponse sendResponse = bot.sendSticker(chatId, stickerId, null, null);
-        Message message = sendResponse.result;
+        Message message = sendResponse.message();
         MessageTest.checkStickerMessage(message);
     }
 
@@ -105,7 +105,7 @@ public class TelegramBotTest {
     public void testSendVideo() throws Exception {
         InputFile inputFile = InputFile.video(new File(videoFile));
         SendResponse sendResponse = bot.sendVideo(chatId, inputFile, null, "caption", null, null);
-        Message message = sendResponse.result;
+        Message message = sendResponse.message();
         MessageTest.checkVideoMessage(message);
     }
 
@@ -114,14 +114,14 @@ public class TelegramBotTest {
         byte[] array = Files.readAllBytes(new File(audioFile).toPath());
         InputFileBytes inputFileBytes = InputFileBytes.voice(array);
         SendResponse sendResponse = bot.sendVoice(chatId, inputFileBytes, null, null, null);
-        Message message = sendResponse.result;
+        Message message = sendResponse.message();
         MessageTest.checkVoiceMessage(message);
     }
 
     @Test
     public void testSendLocation() throws Exception {
         SendResponse sendResponse = bot.sendLocation(chatId, 55.1f, 38.2f, null, null);
-        MessageTest.checkLocationMessage(sendResponse.result);
+        MessageTest.checkLocationMessage(sendResponse.message());
     }
 
     @Test
@@ -133,25 +133,25 @@ public class TelegramBotTest {
     @Test
     public void testGetUserProfilePhotos() throws Exception {
         GetUserProfilePhotosResponse userProfilePhotosResponse = bot.getUserProfilePhotos(chatId, 0, 5);
-        UserProfilePhotosTest.check(userProfilePhotosResponse.result);
+        UserProfilePhotosTest.check(userProfilePhotosResponse.photos());
     }
 
     @Test
     public void testGetUpdates() throws Exception {
         GetUpdatesResponse updatesResponse = bot.getUpdates(0, 10, 0);
-        List<Update> update = updatesResponse.result;
+        List<Update> update = updatesResponse.updates();
         UpdateTest.check(update);
     }
 
     @Test
     public void testSetWebhook() throws Exception {
         SetWebhookResponse webhookResponse = bot.setWebhook("");
-        assertNotNull(webhookResponse.description);
+        assertNotNull(webhookResponse.description());
     }
 
     @Test
     public void testGetFile() throws Exception {
         GetFileResponse fileResponse = bot.getFile(stickerId);
-        FileTest.check(fileResponse.result);
+        FileTest.check(fileResponse.file());
     }
 }

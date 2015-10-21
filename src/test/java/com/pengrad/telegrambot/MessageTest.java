@@ -11,56 +11,56 @@ import static org.junit.Assert.assertNotNull;
 public class MessageTest {
 
     public static void checkMessage(Message message) {
-        assertNotNull(message.message_id);
-        assertNotNull(message.date);
-        ChatTest.checkChat(message.chat);
+        assertNotNull(message.messageId());
+        assertNotNull(message.date());
+        ChatTest.checkChat(message.chat());
     }
 
     public static void checkForwardedMessage(Message message) {
         checkMessage(message);
-        assertNotNull(message.forward_date);
-        UserTest.checkUser(message.forward_from);
+        assertNotNull(message.forwardDate());
+        UserTest.checkUser(message.forwardFrom());
     }
 
     public static void checkTextdMessage(Message message) {
         checkMessage(message);
-        assertNotNull(message.text);
+        assertNotNull(message.text());
     }
 
     public static void checkPhotoMessage(Message message) {
         checkMessage(message);
-        assertNotNull(message.caption);
-        PhotoSizeTest.checkPhotos(message.photo);
+        assertNotNull(message.caption());
+        PhotoSizeTest.checkPhotos(message.photo());
     }
 
     public static void checkAudioMessage(Message message) {
         checkMessage(message);
-        AudioTest.checkAudio(message.audio);
+        AudioTest.checkAudio(message.audio());
     }
 
     public static void checkDocumentMessage(Message message) {
         checkMessage(message);
-        DocumentTest.check(message.document);
+        DocumentTest.check(message.document());
     }
 
     public static void checkStickerMessage(Message message) {
         checkMessage(message);
-        StickerTest.check(message.sticker);
+        StickerTest.check(message.sticker());
     }
 
     public static void checkVideoMessage(Message message) {
         checkMessage(message);
-        assertNotNull(message.caption);
-        VideoTest.check(message.video);
+        assertNotNull(message.caption());
+        VideoTest.check(message.video());
     }
 
     public static void checkVoiceMessage(Message message) {
         checkMessage(message);
-        VoiceTest.check(message.voice);
+        VoiceTest.check(message.voice());
     }
 
     public static void checkLocationMessage(Message message) {
         checkMessage(message);
-        LocationTest.check(message.location);
+        LocationTest.check(message.location());
     }
 }

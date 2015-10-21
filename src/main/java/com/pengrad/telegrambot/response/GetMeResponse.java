@@ -7,11 +7,27 @@ import com.pengrad.telegrambot.model.User;
  * 8/4/15.
  */
 public class GetMeResponse {
-    public final boolean ok;
-    public final User result;
+    private final boolean ok;
+    private final User result;
 
     public GetMeResponse(boolean ok, User result) {
         this.ok = ok;
         this.result = result;
+    }
+
+    public boolean isOk() {
+        return ok;
+    }
+
+    public User user() {
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "GetMeResponse{" +
+                "ok=" + ok +
+                ", result=" + result +
+                '}';
     }
 }

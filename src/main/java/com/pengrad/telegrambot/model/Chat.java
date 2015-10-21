@@ -14,19 +14,51 @@ public class Chat {
         @SerializedName("channel")CHANNEL
     }
 
-    public Long id;
-    public Type type;
+    private final Long id;
+    private final Type type;
 
     //Private
-    public String first_name;
-    public String last_name;
+    private final String first_name;
+    private final String last_name;
 
     //Private and Channel
-    public String username;
+    private final String username;
 
     //Channel and Group
-    public String title;
+    private final String title;
 
+    public Chat(Long id, Type type, String first_name, String last_name, String username, String title) {
+        this.id = id;
+        this.type = type;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.username = username;
+        this.title = title;
+    }
+
+    public Long id() {
+        return id;
+    }
+
+    public Type type() {
+        return type;
+    }
+
+    public String firstName() {
+        return first_name;
+    }
+
+    public String lastName() {
+        return last_name;
+    }
+
+    public String username() {
+        return username;
+    }
+
+    public String title() {
+        return title;
+    }
 
     @Override
     public String toString() {

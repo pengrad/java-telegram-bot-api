@@ -25,14 +25,14 @@ public class TelegramBot implements BotApi {
 
     public String getFullFilePath(String fileId) {
         GetFileResponse fileResponse = botApi.getFile(fileId);
-        if (!fileResponse.ok || fileResponse.result == null) {
+        if (!fileResponse.isOk() || fileResponse.file() == null) {
             return null;
         }
-        return fileApi.getFullFilePath(fileResponse.result.file_path);
+        return fileApi.getFullFilePath(fileResponse.file().filePath());
     }
 
     public String getFullFilePath(File file) {
-        return fileApi.getFullFilePath(file.file_path);
+        return fileApi.getFullFilePath(file.filePath());
     }
 
     @Override

@@ -11,10 +11,10 @@ import static org.junit.Assert.assertNotNull;
 public class VoiceTest {
 
     public static void check(Voice voice) {
-        assertNotNull(voice.file_id);
-        assertNotNull(voice.file_size);
-        assertNotNull(voice.mime_type);
-        assertNotNull(voice.duration);
+        assertNotNull(voice.fileId());
+        assertNotNull(voice.fileSize());
+        assertNotNull(voice.mimeType());
+        assertNotNull(voice.duration());
     }
 
 }

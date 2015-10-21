@@ -8,11 +8,27 @@ import com.pengrad.telegrambot.model.UserProfilePhotos;
  */
 public class GetUserProfilePhotosResponse {
 
-    public final boolean ok;
-    public final UserProfilePhotos result;
+    private final boolean ok;
+    private final UserProfilePhotos result;
 
     public GetUserProfilePhotosResponse(boolean ok, UserProfilePhotos result) {
         this.ok = ok;
         this.result = result;
+    }
+
+    public boolean isOk() {
+        return ok;
+    }
+
+    public UserProfilePhotos photos() {
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "GetUserProfilePhotosResponse{" +
+                "ok=" + ok +
+                ", result=" + result +
+                '}';
     }
 }

@@ -6,6 +6,46 @@ package com.pengrad.telegrambot.model;
  */
 public class Location {
 
-    public Float longitude;
-    public Float latitude;
+    private final Float longitude;
+    private final Float latitude;
+
+    public Location(Float longitude, Float latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
+    public Float longitude() {
+        return longitude;
+    }
+
+    public Float latitude() {
+        return latitude;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Location location = (Location) o;
+
+        if (!longitude.equals(location.longitude)) return false;
+        return latitude.equals(location.latitude);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = longitude.hashCode();
+        result = 31 * result + latitude.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "longitude=" + longitude +
+                ", latitude=" + latitude +
+                '}';
+    }
 }

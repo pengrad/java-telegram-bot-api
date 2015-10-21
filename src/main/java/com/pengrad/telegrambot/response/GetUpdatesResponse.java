@@ -10,11 +10,27 @@ import java.util.List;
  */
 public class GetUpdatesResponse {
 
-    public final boolean ok;
-    public final List<Update> result;
+    private final boolean ok;
+    private final List<Update> result;
 
     public GetUpdatesResponse(boolean ok, List<Update> result) {
         this.ok = ok;
         this.result = result;
+    }
+
+    public boolean isOk() {
+        return ok;
+    }
+
+    public List<Update> updates() {
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "GetUpdatesResponse{" +
+                "ok=" + ok +
+                ", result=" + result +
+                '}';
     }
 }

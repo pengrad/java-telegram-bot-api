@@ -11,8 +11,8 @@ import static org.junit.Assert.assertNotNull;
 public class ChatTest {
 
     public static void checkChat(Chat chat) {
-        assertNotNull(chat.id);
-        assertNotNull(chat.type);
+        assertNotNull(chat.id());
+        assertNotNull(chat.type());
     }
 
 }

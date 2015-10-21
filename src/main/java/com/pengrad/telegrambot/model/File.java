@@ -6,8 +6,51 @@ package com.pengrad.telegrambot.model;
  */
 public class File {
 
-    public String file_id;
-    public Integer file_size;
-    public String file_path;
+    private final String file_id;
+    private final Integer file_size;
+    private final String file_path;
 
+    public File(String file_id, Integer file_size, String file_path) {
+        this.file_id = file_id;
+        this.file_size = file_size;
+        this.file_path = file_path;
+    }
+
+    public String fileId() {
+        return file_id;
+    }
+
+    public Integer fileSize() {
+        return file_size;
+    }
+
+    public String filePath() {
+        return file_path;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        File file = (File) o;
+
+        if (!file_id.equals(file.file_id)) return false;
+        if (file_size != null ? !file_size.equals(file.file_size) : file.file_size != null) return false;
+        return !(file_path != null ? !file_path.equals(file.file_path) : file.file_path != null);
+    }
+
+    @Override
+    public int hashCode() {
+        return file_id.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "File{" +
+                "file_id='" + file_id + '\'' +
+                ", file_size=" + file_size +
+                ", file_path='" + file_path + '\'' +
+                '}';
+    }
 }
