@@ -29,6 +29,7 @@ public class MessageTest {
 
     public static void checkPhotoMessage(Message message) {
         checkMessage(message);
+        assertNotNull(message.caption);
         PhotoSizeTest.checkPhotos(message.photo);
     }
 
@@ -49,8 +50,7 @@ public class MessageTest {
 
     public static void checkVideoMessage(Message message) {
         checkMessage(message);
-        //todo: add caption
-//        assertNotNull(message.caption);
+        assertNotNull(message.caption);
         VideoTest.check(message.video);
     }
 

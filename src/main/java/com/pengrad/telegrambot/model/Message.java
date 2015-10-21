@@ -19,6 +19,7 @@ public class Message {
     public PhotoSize[] photo;
     public Sticker sticker;
     public Video video;
+    public String caption;
     public Contact contact;
     public Location location;
     public User new_chat_participant;

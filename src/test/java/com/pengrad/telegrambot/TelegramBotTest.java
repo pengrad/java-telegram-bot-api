@@ -73,11 +73,10 @@ public class TelegramBotTest {
     @Test
     public void testSendPhoto() throws Exception {
         InputFile inputFile = InputFile.photo(new File(imagefile));
-        SendResponse sendResponse = bot.sendPhoto(chatId, inputFile, null, null, null);
+        SendResponse sendResponse = bot.sendPhoto(chatId, inputFile, "caption", null, null);
         Message message = sendResponse.result;
         MessageTest.checkPhotoMessage(message);
     }
-
 
     @Test
     public void testSendAudio() throws Exception {
