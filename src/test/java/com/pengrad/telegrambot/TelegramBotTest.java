@@ -83,7 +83,7 @@ public class TelegramBotTest {
     @Test
     public void testSendAudio() throws Exception {
         InputFile inputFile = InputFile.audio(new File(audioFile));
-        SendResponse sendResponse = bot.sendAudio(chatId, inputFile, null, null, null);
+        SendResponse sendResponse = bot.sendAudio(chatId, inputFile, null, null, null, null, null);
         Message message = sendResponse.result;
         MessageTest.checkAudioMessage(message);
     }

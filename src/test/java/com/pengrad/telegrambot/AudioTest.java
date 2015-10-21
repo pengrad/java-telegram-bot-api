@@ -13,6 +13,8 @@ public class AudioTest {
     public static void checkAudio(Audio audio) {
         assertNotNull(audio.file_id);
         assertNotNull(audio.duration);
+        assertNotNull(audio.performer);
+        assertNotNull(audio.title);
         assertNotNull(audio.file_size);
         assertNotNull(audio.mime_type);
     }

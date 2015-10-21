@@ -8,6 +8,8 @@ public class Audio {
 
     public String file_id;
     public Integer duration;
+    public String performer;
+    public String title;
     public String mime_type;
     public Integer file_size;
 }

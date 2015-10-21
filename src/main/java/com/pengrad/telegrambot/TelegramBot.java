@@ -87,18 +87,18 @@ public class TelegramBot implements BotApi {
     }
 
     @Override
-    public SendResponse sendAudio(Integer chatId, String audio, Integer duration, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendAudio(chatId, audio, duration, replyToMessageId, replyMarkup);
+    public SendResponse sendAudio(Integer chatId, String audio, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup) {
+        return botApi.sendAudio(chatId, audio, duration, performer, title, replyToMessageId, replyMarkup);
     }
 
     @Override
-    public SendResponse sendAudio(Integer chatId, InputFile audio, Integer duration, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendAudio(chatId, audio, duration, replyToMessageId, replyMarkup);
+    public SendResponse sendAudio(Integer chatId, InputFile audio, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup) {
+        return botApi.sendAudio(chatId, audio, duration, performer, title, replyToMessageId, replyMarkup);
     }
 
     @Override
-    public SendResponse sendAudio(Integer chatId, InputFileBytes audio, Integer duration, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendAudio(chatId, audio, duration, replyToMessageId, replyMarkup);
+    public SendResponse sendAudio(Integer chatId, InputFileBytes audio, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup) {
+        return botApi.sendAudio(chatId, audio, duration, performer, title, replyToMessageId, replyMarkup);
     }
 
     @Override

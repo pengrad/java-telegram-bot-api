@@ -96,6 +96,8 @@ public interface BotApi {
             @Part("chat_id") Integer chatId,
             @Part("audio") String audio,
             @Part("duration") Integer duration,
+            @Part("performer") String performer,
+            @Part("title") String title,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
 
@@ -105,6 +107,8 @@ public interface BotApi {
             @Part("chat_id") Integer chatId,
             @Part("audio") InputFile audio,
             @Part("duration") Integer duration,
+            @Part("performer") String performer,
+            @Part("title") String title,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
 
@@ -114,6 +118,8 @@ public interface BotApi {
             @Part("chat_id") Integer chatId,
             @Part("audio") InputFileBytes audio,
             @Part("duration") Integer duration,
+            @Part("performer") String performer,
+            @Part("title") String title,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
 
