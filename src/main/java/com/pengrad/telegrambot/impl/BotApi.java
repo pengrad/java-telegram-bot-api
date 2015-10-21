@@ -4,9 +4,7 @@ import com.pengrad.telegrambot.model.request.InputFile;
 import com.pengrad.telegrambot.model.request.InputFileBytes;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.response.*;
-import retrofit.Callback;
 import retrofit.http.*;
-import rx.Observable;
 
 
 /**
@@ -18,35 +16,10 @@ public interface BotApi {
     @GET("/getMe")
     GetMeResponse getMe();
 
-    @GET("/getMe")
-    void getMe(Callback<GetMeResponse> callback);
-
-    @GET("/getMe")
-    Observable<GetMeResponse> getMeRx();
-
 
     @POST("/sendMessage")
     @FormUrlEncoded
     SendResponse sendMessage(
-            @Field("chat_id") Integer chatId,
-            @Field("text") String text,
-            @Field("disable_web_page_preview") Boolean disableWebPagePreview,
-            @Field("reply_to_message_id") Integer replyToMessageId,
-            @Field("reply_markup") Keyboard replyMarkup);
-
-    @POST("/sendMessage")
-    @FormUrlEncoded
-    SendResponse sendMessage(
-            @Field("chat_id") Integer chatId,
-            @Field("text") String text,
-            @Field("disable_web_page_preview") Boolean disableWebPagePreview,
-            @Field("reply_to_message_id") Integer replyToMessageId,
-            @Field("reply_markup") Keyboard replyMarkup,
-            Callback<SendResponse> callback);
-
-    @POST("/sendMessage")
-    @FormUrlEncoded
-    Observable<SendResponse> sendMessageRx(
             @Field("chat_id") Integer chatId,
             @Field("text") String text,
             @Field("disable_web_page_preview") Boolean disableWebPagePreview,

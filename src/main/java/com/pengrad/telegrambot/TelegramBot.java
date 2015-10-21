@@ -7,8 +7,6 @@ import com.pengrad.telegrambot.model.request.InputFile;
 import com.pengrad.telegrambot.model.request.InputFileBytes;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.response.*;
-import retrofit.Callback;
-import rx.Observable;
 
 /**
  * Stas Parshin
@@ -42,28 +40,8 @@ public class TelegramBot implements BotApi {
     }
 
     @Override
-    public void getMe(Callback<GetMeResponse> callback) {
-        botApi.getMe(callback);
-    }
-
-    @Override
-    public Observable<GetMeResponse> getMeRx() {
-        return botApi.getMeRx();
-    }
-
-    @Override
     public SendResponse sendMessage(Integer chatId, String text, Boolean disableWebPagePreview, Integer replyToMessageId, Keyboard replyMarkup) {
         return botApi.sendMessage(chatId, text, disableWebPagePreview, replyToMessageId, replyMarkup);
-    }
-
-    @Override
-    public SendResponse sendMessage(Integer chatId, String text, Boolean disableWebPagePreview, Integer replyToMessageId, Keyboard replyMarkup, Callback<SendResponse> callback) {
-        return botApi.sendMessage(chatId, text, disableWebPagePreview, replyToMessageId, replyMarkup, callback);
-    }
-
-    @Override
-    public Observable<SendResponse> sendMessageRx(Integer chatId, String text, Boolean disableWebPagePreview, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendMessageRx(chatId, text, disableWebPagePreview, replyToMessageId, replyMarkup);
     }
 
     @Override
