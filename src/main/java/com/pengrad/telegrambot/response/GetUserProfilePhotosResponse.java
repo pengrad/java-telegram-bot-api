@@ -6,12 +6,12 @@ import com.pengrad.telegrambot.model.UserProfilePhotos;
  * stas
  * 8/11/15.
  */
-public class GetUserProfilePhotos {
+public class GetUserProfilePhotosResponse {
 
     public final boolean ok;
     public final UserProfilePhotos result;
 
-    public GetUserProfilePhotos(boolean ok, UserProfilePhotos result) {
+    public GetUserProfilePhotosResponse(boolean ok, UserProfilePhotos result) {
         this.ok = ok;
         this.result = result;
     }

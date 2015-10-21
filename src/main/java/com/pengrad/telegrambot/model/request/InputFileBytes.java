@@ -1,4 +1,4 @@
-package com.pengrad.telegrambot.model;
+package com.pengrad.telegrambot.model.request;
 
 import retrofit.mime.TypedByteArray;
 

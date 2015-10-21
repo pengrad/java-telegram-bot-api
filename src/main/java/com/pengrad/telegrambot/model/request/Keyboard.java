@@ -1,4 +1,4 @@
-package com.pengrad.telegrambot.model;
+package com.pengrad.telegrambot.model.request;
 
 import com.google.gson.Gson;
 

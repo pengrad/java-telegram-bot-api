@@ -3,9 +3,9 @@ package com.pengrad.telegrambot;
 import com.pengrad.telegrambot.impl.BotApi;
 import com.pengrad.telegrambot.impl.FileApi;
 import com.pengrad.telegrambot.model.File;
-import com.pengrad.telegrambot.model.InputFile;
-import com.pengrad.telegrambot.model.InputFileBytes;
-import com.pengrad.telegrambot.model.Keyboard;
+import com.pengrad.telegrambot.model.request.InputFile;
+import com.pengrad.telegrambot.model.request.InputFileBytes;
+import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.response.*;
 import retrofit.Callback;
 import rx.Observable;
@@ -157,7 +157,7 @@ public class TelegramBot implements BotApi {
     }
 
     @Override
-    public GetUserProfilePhotos getUserProfilePhotos(Integer userId, Integer offset, Integer limit) {
+    public GetUserProfilePhotosResponse getUserProfilePhotos(Integer userId, Integer offset, Integer limit) {
         return botApi.getUserProfilePhotos(userId, offset, limit);
     }
 
