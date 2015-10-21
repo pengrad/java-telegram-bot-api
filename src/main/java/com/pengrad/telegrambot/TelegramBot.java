@@ -147,6 +147,21 @@ public class TelegramBot implements BotApi {
     }
 
     @Override
+    public SendResponse sendVoice(Integer chatId, String voice, Integer duration, Integer replyToMessageId, Keyboard replyMarkup) {
+        return botApi.sendVoice(chatId, voice, duration, replyToMessageId, replyMarkup);
+    }
+
+    @Override
+    public SendResponse sendVoice(Integer chatId, InputFile voice, Integer duration, Integer replyToMessageId, Keyboard replyMarkup) {
+        return botApi.sendVoice(chatId, voice, duration, replyToMessageId, replyMarkup);
+    }
+
+    @Override
+    public SendResponse sendVoice(Integer chatId, InputFileBytes voice, Integer duration, Integer replyToMessageId, Keyboard replyMarkup) {
+        return botApi.sendVoice(chatId, voice, duration, replyToMessageId, replyMarkup);
+    }
+
+    @Override
     public SendResponse sendLocation(Integer chatId, Float latitude, Float longitude, Integer replyToMessageId, Keyboard replyMarkup) {
         return botApi.sendLocation(chatId, latitude, longitude, replyToMessageId, replyMarkup);
     }

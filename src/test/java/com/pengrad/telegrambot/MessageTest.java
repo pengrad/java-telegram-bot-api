@@ -54,6 +54,11 @@ public class MessageTest {
         VideoTest.check(message.video);
     }
 
+    public static void checkVoiceMessage(Message message) {
+        checkMessage(message);
+        VoiceTest.check(message.voice);
+    }
+
     public static void checkLocationMessage(Message message) {
         checkMessage(message);
         LocationTest.check(message.location);

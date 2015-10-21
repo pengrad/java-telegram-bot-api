@@ -19,6 +19,7 @@ public class Message {
     public PhotoSize[] photo;
     public Sticker sticker;
     public Video video;
+    public Voice voice;
     public String caption;
     public Contact contact;
     public Location location;

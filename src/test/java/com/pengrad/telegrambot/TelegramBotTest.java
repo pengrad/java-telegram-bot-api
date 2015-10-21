@@ -4,6 +4,7 @@ import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.User;
 import com.pengrad.telegrambot.model.request.InputFile;
+import com.pengrad.telegrambot.model.request.InputFileBytes;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.response.*;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Properties;
 
@@ -107,6 +109,15 @@ public class TelegramBotTest {
         SendResponse sendResponse = bot.sendVideo(chatId, inputFile, null, "caption", null, null);
         Message message = sendResponse.result;
         MessageTest.checkVideoMessage(message);
+    }
+
+    @Test
+    public void testSendVoice() throws Exception {
+        byte[] array = Files.readAllBytes(new File(audioFile).toPath());
+        InputFileBytes inputFileBytes = InputFileBytes.voice(array);
+        SendResponse sendResponse = bot.sendVoice(chatId, inputFileBytes, null, null, null);
+        Message message = sendResponse.result;
+        MessageTest.checkVoiceMessage(message);
     }
 
     @Test

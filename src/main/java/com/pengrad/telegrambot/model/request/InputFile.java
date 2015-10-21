@@ -22,6 +22,10 @@ public class InputFile extends TypedFile {
         return new InputFile(InputFileBytes.VIDEO_MIME_TYPE, file);
     }
 
+    public static InputFile voice(File file) {
+        return new InputFile(InputFileBytes.VOICE_MIME_TYPE, file);
+    }
+
     public InputFile(String mimeType, File file) {
         super(mimeType, file);
     }

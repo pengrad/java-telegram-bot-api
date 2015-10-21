@@ -198,6 +198,35 @@ public interface BotApi {
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
 
+
+    @Multipart
+    @POST("/sendVoice")
+    SendResponse sendVoice(
+            @Part("chat_id") Integer chatId,
+            @Part("voice") String voice,
+            @Part("duration") Integer duration,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
+
+    @Multipart
+    @POST("/sendVoice")
+    SendResponse sendVoice(
+            @Part("chat_id") Integer chatId,
+            @Part("voice") InputFile voice,
+            @Part("duration") Integer duration,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
+
+    @Multipart
+    @POST("/sendVoice")
+    SendResponse sendVoice(
+            @Part("chat_id") Integer chatId,
+            @Part("voice") InputFileBytes voice,
+            @Part("duration") Integer duration,
+            @Part("reply_to_message_id") Integer replyToMessageId,
+            @Part("reply_markup") Keyboard replyMarkup);
+
+
     @POST("/sendLocation")
     @FormUrlEncoded
     SendResponse sendLocation(
