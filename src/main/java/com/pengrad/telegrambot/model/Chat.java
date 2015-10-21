@@ -9,9 +9,7 @@ import com.google.gson.annotations.SerializedName;
 public class Chat {
 
     enum Type {
-        @SerializedName("private")PRIVATE,
-        @SerializedName("group")GROUP,
-        @SerializedName("channel")CHANNEL
+        @SerializedName("private")Private, group, channel
     }
 
     private final Long id;

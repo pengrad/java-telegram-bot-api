@@ -1,9 +1,6 @@
 package com.pengrad.telegrambot.impl;
 
-import com.pengrad.telegrambot.model.request.InputFile;
-import com.pengrad.telegrambot.model.request.InputFileBytes;
-import com.pengrad.telegrambot.model.request.Keyboard;
-import com.pengrad.telegrambot.model.request.ParseMode;
+import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.response.*;
 import retrofit.http.*;
 
@@ -222,7 +219,7 @@ public interface BotApi {
     @POST("/sendChatAction")
     SendChatActionResponse sendChatAction(
             @Field("chat_id") Integer chatId,
-            @Field("action") String action);
+            @Field("action") ChatAction action);
 
 
     @GET("/getUserProfilePhotos")

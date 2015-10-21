@@ -126,8 +126,14 @@ public class TelegramBotTest {
 
     @Test
     public void testSendChatAction() throws Exception {
-        //todo: add additional actions, make Action class
-        bot.sendChatAction(chatId, "typing");
+        bot.sendChatAction(chatId, ChatAction.find_location);
+        bot.sendChatAction(chatId, ChatAction.typing);
+        bot.sendChatAction(chatId, ChatAction.record_audio);
+        bot.sendChatAction(chatId, ChatAction.record_video);
+        bot.sendChatAction(chatId, ChatAction.upload_audio);
+        bot.sendChatAction(chatId, ChatAction.upload_document);
+        bot.sendChatAction(chatId, ChatAction.upload_photo);
+        bot.sendChatAction(chatId, ChatAction.upload_video);
     }
 
     @Test

@@ -3,10 +3,7 @@ package com.pengrad.telegrambot;
 import com.pengrad.telegrambot.impl.BotApi;
 import com.pengrad.telegrambot.impl.FileApi;
 import com.pengrad.telegrambot.model.File;
-import com.pengrad.telegrambot.model.request.InputFile;
-import com.pengrad.telegrambot.model.request.InputFileBytes;
-import com.pengrad.telegrambot.model.request.Keyboard;
-import com.pengrad.telegrambot.model.request.ParseMode;
+import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.response.*;
 
 /**
@@ -146,7 +143,7 @@ public class TelegramBot implements BotApi {
     }
 
     @Override
-    public SendChatActionResponse sendChatAction(Integer chatId, String action) {
+    public SendChatActionResponse sendChatAction(Integer chatId, ChatAction action) {
         return botApi.sendChatAction(chatId, action);
     }
 
