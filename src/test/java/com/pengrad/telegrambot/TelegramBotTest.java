@@ -64,8 +64,7 @@ public class TelegramBotTest {
 
     @Test
     public void testSendMessage() throws Exception {
-        bot.sendMessage(chatId, "sendMessage with reply and keyboard", null, false, forwardMessageId, new ReplyKeyboardMarkup(new String[]{"ok", "test"}));
-        SendResponse sendResponse = bot.sendMessage(chatId, "sendMessage _italic_ *markdown*", ParseMode.Markdown, false, null, new ReplyKeyboardHide());
+        SendResponse sendResponse = bot.sendMessage(chatId, "sendMessage _italic_ *markdown*", ParseMode.Markdown, false, forwardMessageId, new ReplyKeyboardMarkup(new String[]{"ok", "test"}).oneTimeKeyboard(true));
         Message message = sendResponse.message();
         MessageTest.checkTextdMessage(message);
     }
