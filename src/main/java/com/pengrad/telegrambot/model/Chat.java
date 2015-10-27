@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Chat {
 
-    enum Type {
+    public enum Type {
         @SerializedName("private")Private, group, channel
     }
 
