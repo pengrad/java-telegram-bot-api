@@ -38,6 +38,7 @@ public class TelegramBot implements BotApi {
     }
 
     @Override
+    //TODO: change chatId to Long, as in Chat object
     public SendResponse sendMessage(Integer chatId, String text, ParseMode parse_mode, Boolean disableWebPagePreview, Integer replyToMessageId, Keyboard replyMarkup) {
         return botApi.sendMessage(chatId, text, parse_mode, disableWebPagePreview, replyToMessageId, replyMarkup);
     }
