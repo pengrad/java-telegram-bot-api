@@ -18,7 +18,7 @@ public interface BotApi {
     @POST("/sendMessage")
     @FormUrlEncoded
     SendResponse sendMessage(
-            @Field("chat_id") Integer chatId,
+            @Field("chat_id") String chatId,
             @Field("text") String text,
             @Field("parse_mode") ParseMode parse_mode,
             @Field("disable_web_page_preview") Boolean disableWebPagePreview,
@@ -29,15 +29,15 @@ public interface BotApi {
     @POST("/forwardMessage")
     @FormUrlEncoded
     SendResponse forwardMessage(
-            @Field("chat_id") Integer chatId,
-            @Field("from_chat_id") Integer fromChatId,
+            @Field("chat_id") String chatId,
+            @Field("from_chat_id") String fromChatId,
             @Field("message_id") Integer messageId);
 
 
     @Multipart
     @POST("/sendPhoto")
     SendResponse sendPhoto(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("photo") String photo,
             @Part("caption") String caption,
             @Part("reply_to_message_id") Integer replyToMessageId,
@@ -46,7 +46,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendPhoto")
     SendResponse sendPhoto(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("photo") InputFile photo,
             @Part("caption") String caption,
             @Part("reply_to_message_id") Integer replyToMessageId,
@@ -55,7 +55,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendPhoto")
     SendResponse sendPhoto(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("photo") InputFileBytes photo,
             @Part("caption") String caption,
             @Part("reply_to_message_id") Integer replyToMessageId,
@@ -65,7 +65,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendAudio")
     SendResponse sendAudio(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("audio") String audio,
             @Part("duration") Integer duration,
             @Part("performer") String performer,
@@ -76,7 +76,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendAudio")
     SendResponse sendAudio(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("audio") InputFile audio,
             @Part("duration") Integer duration,
             @Part("performer") String performer,
@@ -87,7 +87,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendAudio")
     SendResponse sendAudio(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("audio") InputFileBytes audio,
             @Part("duration") Integer duration,
             @Part("performer") String performer,
@@ -99,7 +99,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendDocument")
     SendResponse sendDocument(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("document") String document,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
@@ -107,7 +107,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendDocument")
     SendResponse sendDocument(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("document") InputFile document,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
@@ -115,7 +115,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendDocument")
     SendResponse sendDocument(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("document") InputFileBytes document,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
@@ -124,7 +124,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendSticker")
     SendResponse sendSticker(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("sticker") String sticker,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
@@ -132,7 +132,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendSticker")
     SendResponse sendSticker(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("sticker") InputFile sticker,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
@@ -140,7 +140,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendSticker")
     SendResponse sendSticker(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("sticker") InputFileBytes sticker,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
@@ -149,7 +149,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendVideo")
     SendResponse sendVideo(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("video") String video,
             @Part("duration") Integer duration,
             @Part("caption") String caption,
@@ -159,7 +159,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendVideo")
     SendResponse sendVideo(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("video") InputFile video,
             @Part("duration") Integer duration,
             @Part("caption") String caption,
@@ -169,7 +169,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendVideo")
     SendResponse sendVideo(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("video") InputFileBytes video,
             @Part("duration") Integer duration,
             @Part("caption") String caption,
@@ -180,7 +180,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendVoice")
     SendResponse sendVoice(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("voice") String voice,
             @Part("duration") Integer duration,
             @Part("reply_to_message_id") Integer replyToMessageId,
@@ -189,7 +189,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendVoice")
     SendResponse sendVoice(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("voice") InputFile voice,
             @Part("duration") Integer duration,
             @Part("reply_to_message_id") Integer replyToMessageId,
@@ -198,7 +198,7 @@ public interface BotApi {
     @Multipart
     @POST("/sendVoice")
     SendResponse sendVoice(
-            @Part("chat_id") Integer chatId,
+            @Part("chat_id") String chatId,
             @Part("voice") InputFileBytes voice,
             @Part("duration") Integer duration,
             @Part("reply_to_message_id") Integer replyToMessageId,
@@ -208,7 +208,7 @@ public interface BotApi {
     @FormUrlEncoded
     @POST("/sendLocation")
     SendResponse sendLocation(
-            @Field("chat_id") Integer chatId,
+            @Field("chat_id") String chatId,
             @Field("latitude") Float latitude,
             @Field("longitude") Float longitude,
             @Field("reply_to_message_id") Integer replyToMessageId,
@@ -218,7 +218,7 @@ public interface BotApi {
     @FormUrlEncoded
     @POST("/sendChatAction")
     SendChatActionResponse sendChatAction(
-            @Field("chat_id") Integer chatId,
+            @Field("chat_id") String chatId,
             @Field("action") ChatAction action);
 
 

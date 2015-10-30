@@ -24,7 +24,8 @@ import static org.junit.Assert.assertNotNull;
 public class TelegramBotTest {
 
     TelegramBot bot;
-    Integer chatId, forwardMessageId;
+    Long chatId;
+    Integer forwardMessageId;
     String stickerId;
     String imagefile = getClass().getClassLoader().getResource("image.png").getFile();
     String audioFile = getClass().getClassLoader().getResource("beep.mp3").getFile();
@@ -35,7 +36,7 @@ public class TelegramBotTest {
         Properties properties = new Properties();
         properties.load(new FileInputStream("local.properties"));
         bot = TelegramBotAdapter.buildDebug(properties.getProperty("TEST_TOKEN"));
-        chatId = Integer.parseInt(properties.getProperty("CHAT_ID"));
+        chatId = Long.parseLong(properties.getProperty("CHAT_ID"));
         forwardMessageId = Integer.parseInt(properties.getProperty("FORWARD_MESSAGE"));
         stickerId = properties.getProperty("STICKER_FILE_ID");
     }
@@ -137,7 +138,7 @@ public class TelegramBotTest {
 
     @Test
     public void testGetUserProfilePhotos() throws Exception {
-        GetUserProfilePhotosResponse userProfilePhotosResponse = bot.getUserProfilePhotos(chatId, 0, 5);
+        GetUserProfilePhotosResponse userProfilePhotosResponse = bot.getUserProfilePhotos(chatId.intValue(), 0, 5);
         UserProfilePhotosTest.check(userProfilePhotosResponse.photos());
     }
 
