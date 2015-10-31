@@ -24,8 +24,9 @@ import static org.junit.Assert.assertNotNull;
 public class TelegramBotTest {
 
     TelegramBot bot;
-    Long chatId;
-    Integer forwardMessageId;
+    Integer chatId, forwardMessageId;
+    String channelName = "@bottest";
+    Long channelId = -1001002720332L;
     String stickerId;
     String imagefile = getClass().getClassLoader().getResource("image.png").getFile();
     String audioFile = getClass().getClassLoader().getResource("beep.mp3").getFile();
@@ -36,7 +37,7 @@ public class TelegramBotTest {
         Properties properties = new Properties();
         properties.load(new FileInputStream("local.properties"));
         bot = TelegramBotAdapter.buildDebug(properties.getProperty("TEST_TOKEN"));
-        chatId = Long.parseLong(properties.getProperty("CHAT_ID"));
+        chatId = Integer.parseInt(properties.getProperty("CHAT_ID"));
         forwardMessageId = Integer.parseInt(properties.getProperty("FORWARD_MESSAGE"));
         stickerId = properties.getProperty("STICKER_FILE_ID");
     }
@@ -66,8 +67,11 @@ public class TelegramBotTest {
     @Test
     public void testSendMessage() throws Exception {
         SendResponse sendResponse = bot.sendMessage(chatId, "sendMessage _italic_ *markdown*", ParseMode.Markdown, false, forwardMessageId, new ReplyKeyboardMarkup(new String[]{"ok", "test"}).oneTimeKeyboard(true));
-        Message message = sendResponse.message();
-        MessageTest.checkTextdMessage(message);
+        MessageTest.checkTextdMessage(sendResponse.message());
+        sendResponse = bot.sendMessage(channelName, "to channel _italic_ *markdown*", ParseMode.Markdown, false, null, null);
+        MessageTest.checkTextdMessage(sendResponse.message());
+        sendResponse = bot.sendMessage(channelId, "explicit to channel id _italic_ *markdown*", ParseMode.Markdown, false, null, null);
+        MessageTest.checkTextdMessage(sendResponse.message());
     }
 
     @Test
@@ -138,7 +142,7 @@ public class TelegramBotTest {
 
     @Test
     public void testGetUserProfilePhotos() throws Exception {
-        GetUserProfilePhotosResponse userProfilePhotosResponse = bot.getUserProfilePhotos(chatId.intValue(), 0, 5);
+        GetUserProfilePhotosResponse userProfilePhotosResponse = bot.getUserProfilePhotos(chatId, 0, 5);
         UserProfilePhotosTest.check(userProfilePhotosResponse.photos());
     }
 
