@@ -138,6 +138,7 @@ file.fileSize();
 To get downloading link as `https://api.telegram.org/file/bot<token>/<file_path>`
 ```java
 String fullPath = bot.getFullFilePath("fileId");
+String fullPath = bot.getFullFilePath(file);  // com.pengrad.telegrambot.model.File
 ```
 
 
