@@ -36,6 +36,10 @@ public class TelegramBot {
         return botApi.getMe();
     }
 
+    public SendResponse sendMessage(Object chatId, String text) {
+        return botApi.sendMessage(String.valueOf(chatId), text, null, null, null, null);
+    }
+
     public SendResponse sendMessage(Object chatId, String text, ParseMode parse_mode, Boolean disableWebPagePreview, Integer replyToMessageId, Keyboard replyMarkup) {
         return botApi.sendMessage(String.valueOf(chatId), text, parse_mode, disableWebPagePreview, replyToMessageId, replyMarkup);
     }

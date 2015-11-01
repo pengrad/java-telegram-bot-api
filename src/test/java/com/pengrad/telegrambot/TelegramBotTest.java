@@ -66,7 +66,9 @@ public class TelegramBotTest {
 
     @Test
     public void testSendMessage() throws Exception {
-        SendResponse sendResponse = bot.sendMessage(chatId, "sendMessage _italic_ *markdown*", ParseMode.Markdown, false, forwardMessageId, new ReplyKeyboardMarkup(new String[]{"ok", "test"}).oneTimeKeyboard(true));
+        SendResponse sendResponse = bot.sendMessage(chatId, "short message sending");
+        MessageTest.checkTextdMessage(sendResponse.message());
+        sendResponse = bot.sendMessage(chatId, "sendMessage _italic_ *markdown*", ParseMode.Markdown, null, forwardMessageId, new ReplyKeyboardMarkup(new String[]{"ok", "test"}).oneTimeKeyboard(true));
         MessageTest.checkTextdMessage(sendResponse.message());
         sendResponse = bot.sendMessage(channelName, "to channel _italic_ *markdown*", ParseMode.Markdown, false, null, null);
         MessageTest.checkTextdMessage(sendResponse.message());
