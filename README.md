@@ -54,7 +54,7 @@ Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
 Keyboard forceReply = new ForceReply(isSelective); // or just new ForceReply();
 Keyboard replyKeyboardHide = new ReplyKeyboardHide(); // new ReplyKeyboardHide(isSelective)
 ```
-#### Getting response on sending methods
+#### Getting response to sending methods
 ```java
 SendResponse sendResponse = bot.sendMessage(chatId, "short message sending");
 Message message = sendResponse.message();
@@ -113,6 +113,31 @@ bot.sendChatAction("@channel", ChatAction.upload_audio);
 bot.sendChatAction("@channel", ChatAction.upload_document);
 bot.sendChatAction("@channel", ChatAction.upload_photo);
 bot.sendChatAction("@channel", ChatAction.upload_video);
+```
+#### Get updates 
+```java
+GetUpdatesResponse updatesResponse = bot.getUpdates(offset, limit, timeout);
+List<Update> updates = updatesResponse.updates();
+...
+Message message = update.message()
+```
+If using webhook, you can parse request to Message
+```java
+Update update = BotUtils.parseUpdate(stringRequest); // from String
+Update update = BotUtils.parseUpdate(reader); // from java.io.Reader
+Message message = update.message();
+```
+#### Get file
+```java
+GetFileResponse getFileResponse = bot.getFile("fileId");
+File file = getFileResponse.file(); // com.pengrad.telegrambot.model.File
+file.fileId();
+file.filePath();  // relative path
+file.fileSize();
+```
+To get downloading link as `https://api.telegram.org/file/bot<token>/<file_path>`
+```java
+String fullPath = bot.getFullFilePath("fileId");
 ```
 
 
