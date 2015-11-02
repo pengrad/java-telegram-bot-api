@@ -70,9 +70,9 @@ public class TelegramBotTest {
         MessageTest.checkTextdMessage(sendResponse.message());
         sendResponse = bot.sendMessage(chatId, "sendMessage _italic_ *markdown*", ParseMode.Markdown, null, forwardMessageId, new ReplyKeyboardMarkup(new String[]{"ok", "test"}).oneTimeKeyboard(true));
         MessageTest.checkTextdMessage(sendResponse.message());
-        sendResponse = bot.sendMessage(channelName, "to channel _italic_ *markdown*", ParseMode.Markdown, false, null, null);
+        sendResponse = bot.sendMessage(channelName, "to channel _italic_ *markdown*", ParseMode.Markdown, false, null, new ForceReply());
         MessageTest.checkTextdMessage(sendResponse.message());
-        sendResponse = bot.sendMessage(channelId, "explicit to channel id _italic_ *markdown*", ParseMode.Markdown, false, null, null);
+        sendResponse = bot.sendMessage(channelId, "explicit to channel id _italic_ *markdown*", ParseMode.Markdown, false, null, new ReplyKeyboardHide());
         MessageTest.checkTextdMessage(sendResponse.message());
     }
 
@@ -136,10 +136,10 @@ public class TelegramBotTest {
         bot.sendChatAction(chatId, ChatAction.typing);
         bot.sendChatAction(chatId, ChatAction.record_audio);
         bot.sendChatAction(chatId, ChatAction.record_video);
-        bot.sendChatAction(chatId, ChatAction.upload_audio);
-        bot.sendChatAction(chatId, ChatAction.upload_document);
-        bot.sendChatAction(chatId, ChatAction.upload_photo);
-        bot.sendChatAction(chatId, ChatAction.upload_video);
+        bot.sendChatAction(channelName, ChatAction.upload_audio);
+        bot.sendChatAction(channelName, ChatAction.upload_document);
+        bot.sendChatAction(channelName, ChatAction.upload_photo);
+        bot.sendChatAction(channelName, ChatAction.upload_video);
     }
 
     @Test
