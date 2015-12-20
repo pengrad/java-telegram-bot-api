@@ -31,12 +31,12 @@ public class Message {
     private final PhotoSize[] new_chat_photo;
     private final Boolean delete_chat_photo;
     private final Boolean group_chat_created;
+    private final Boolean supergroup_chat_created;
+    private final Boolean channel_chat_created;
+    private final Long migrate_to_chat_id;
+    private final Long migrate_from_chat_id;
 
-    public Message(Integer message_id, User from, Integer date, Chat chat, User forward_from, Integer forward_date,
-                   Message reply_to_message, String text, Audio audio, Document document, PhotoSize[] photo,
-                   Sticker sticker, Video video, Voice voice, String caption, Contact contact, Location location,
-                   User new_chat_participant, User left_chat_participant, String new_chat_title,
-                   PhotoSize[] new_chat_photo, Boolean delete_chat_photo, Boolean group_chat_created) {
+    public Message(Integer message_id, User from, Integer date, Chat chat, User forward_from, Integer forward_date, Message reply_to_message, String text, Audio audio, Document document, PhotoSize[] photo, Sticker sticker, Video video, Voice voice, String caption, Contact contact, Location location, User new_chat_participant, User left_chat_participant, String new_chat_title, PhotoSize[] new_chat_photo, Boolean delete_chat_photo, Boolean group_chat_created, Boolean supergroup_chat_created, Boolean channel_chat_created, Long migrate_to_chat_id, Long migrate_from_chat_id) {
         this.message_id = message_id;
         this.from = from;
         this.date = date;
@@ -60,8 +60,11 @@ public class Message {
         this.new_chat_photo = new_chat_photo;
         this.delete_chat_photo = delete_chat_photo;
         this.group_chat_created = group_chat_created;
+        this.supergroup_chat_created = supergroup_chat_created;
+        this.channel_chat_created = channel_chat_created;
+        this.migrate_to_chat_id = migrate_to_chat_id;
+        this.migrate_from_chat_id = migrate_from_chat_id;
     }
-
 
     public Integer messageId() {
         return message_id;
@@ -155,6 +158,22 @@ public class Message {
         return group_chat_created;
     }
 
+    public Boolean supergroupChatCreated() {
+        return supergroup_chat_created;
+    }
+
+    public Boolean channelChatCreated() {
+        return channel_chat_created;
+    }
+
+    public Long migrateToChatId() {
+        return migrate_to_chat_id;
+    }
+
+    public Long migrateFromChatId() {
+        return migrate_from_chat_id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -193,7 +212,15 @@ public class Message {
         if (!Arrays.equals(new_chat_photo, message.new_chat_photo)) return false;
         if (delete_chat_photo != null ? !delete_chat_photo.equals(message.delete_chat_photo) : message.delete_chat_photo != null)
             return false;
-        return !(group_chat_created != null ? !group_chat_created.equals(message.group_chat_created) : message.group_chat_created != null);
+        if (group_chat_created != null ? !group_chat_created.equals(message.group_chat_created) : message.group_chat_created != null)
+            return false;
+        if (supergroup_chat_created != null ? !supergroup_chat_created.equals(message.supergroup_chat_created) : message.supergroup_chat_created != null)
+            return false;
+        if (channel_chat_created != null ? !channel_chat_created.equals(message.channel_chat_created) : message.channel_chat_created != null)
+            return false;
+        if (migrate_to_chat_id != null ? !migrate_to_chat_id.equals(message.migrate_to_chat_id) : message.migrate_to_chat_id != null)
+            return false;
+        return migrate_from_chat_id != null ? migrate_from_chat_id.equals(message.migrate_from_chat_id) : message.migrate_from_chat_id == null;
 
     }
 
@@ -228,6 +255,10 @@ public class Message {
                 ", new_chat_photo=" + Arrays.toString(new_chat_photo) +
                 ", delete_chat_photo=" + delete_chat_photo +
                 ", group_chat_created=" + group_chat_created +
+                ", supergroup_chat_created=" + supergroup_chat_created +
+                ", channel_chat_created=" + channel_chat_created +
+                ", migrate_to_chat_id=" + migrate_to_chat_id +
+                ", migrate_from_chat_id=" + migrate_from_chat_id +
                 '}';
     }
 }
