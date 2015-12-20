@@ -66,7 +66,7 @@ public class TelegramBotTest {
 
     @Test
     public void testSendMessage() throws Exception {
-        SendResponse sendResponse = bot.sendMessage(chatId, "short message sending");
+        SendResponse sendResponse = bot.sendMessage(chatId, "short message sending with emoji \uD83D\uDE4C");
         MessageTest.checkTextdMessage(sendResponse.message());
         sendResponse = bot.sendMessage(chatId, "sendMessage _italic_ *markdown*", ParseMode.Markdown, null, forwardMessageId, new ReplyKeyboardMarkup(new String[]{"ok", "test"}).oneTimeKeyboard(true));
         MessageTest.checkTextdMessage(sendResponse.message());
