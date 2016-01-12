@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 public abstract class Keyboard {
 
     @Override
-    public String toString() {
+    public final String toString() {
         return new Gson().toJson(this);
     }
 
