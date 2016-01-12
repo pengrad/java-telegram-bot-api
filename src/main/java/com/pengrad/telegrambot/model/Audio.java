@@ -6,20 +6,14 @@ package com.pengrad.telegrambot.model;
  */
 public class Audio {
 
-    private final String file_id;
-    private final Integer duration;
-    private final String performer;
-    private final String title;
-    private final String mime_type;
-    private final Integer file_size;
+    private String file_id;
+    private Integer duration;
+    private String performer;
+    private String title;
+    private String mime_type;
+    private Integer file_size;
 
-    public Audio(String file_id, Integer duration, String performer, String title, String mime_type, Integer filesize) {
-        this.file_id = file_id;
-        this.duration = duration;
-        this.performer = performer;
-        this.title = title;
-        this.mime_type = mime_type;
-        this.file_size = filesize;
+    Audio() {
     }
 
     public String fileId() {
@@ -53,13 +47,12 @@ public class Audio {
 
         Audio audio = (Audio) o;
 
-        if (!file_id.equals(audio.file_id)) return false;
-        if (!duration.equals(audio.duration)) return false;
+        if (file_id != null ? !file_id.equals(audio.file_id) : audio.file_id != null) return false;
+        if (duration != null ? !duration.equals(audio.duration) : audio.duration != null) return false;
         if (performer != null ? !performer.equals(audio.performer) : audio.performer != null) return false;
         if (title != null ? !title.equals(audio.title) : audio.title != null) return false;
         if (mime_type != null ? !mime_type.equals(audio.mime_type) : audio.mime_type != null) return false;
-        return !(file_size != null ? !file_size.equals(audio.file_size) : audio.file_size != null);
-
+        return file_size != null ? file_size.equals(audio.file_size) : audio.file_size == null;
     }
 
     @Override

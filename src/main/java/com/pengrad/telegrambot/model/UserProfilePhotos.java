@@ -8,12 +8,10 @@ import java.util.Arrays;
  */
 public class UserProfilePhotos {
 
-    private final Integer total_count;
-    private final PhotoSize[][] photos;
+    private Integer total_count;
+    private PhotoSize[][] photos;
 
-    public UserProfilePhotos(Integer total_count, PhotoSize[][] photos) {
-        this.total_count = total_count;
-        this.photos = photos;
+    UserProfilePhotos() {
     }
 
     public Integer totalCount() {
@@ -31,9 +29,8 @@ public class UserProfilePhotos {
 
         UserProfilePhotos that = (UserProfilePhotos) o;
 
-        if (!total_count.equals(that.total_count)) return false;
+        if (total_count != null ? !total_count.equals(that.total_count) : that.total_count != null) return false;
         return Arrays.deepEquals(photos, that.photos);
-
     }
 
     @Override

@@ -6,14 +6,11 @@ package com.pengrad.telegrambot.response;
  */
 public class SetWebhookResponse {
 
-    private final boolean ok;
-    private final boolean result;
-    private final String description;
+    private boolean ok;
+    private boolean result;
+    private String description;
 
-    public SetWebhookResponse(boolean ok, boolean result, String description) {
-        this.ok = ok;
-        this.result = result;
-        this.description = description;
+    SetWebhookResponse() {
     }
 
     public boolean isOk() {

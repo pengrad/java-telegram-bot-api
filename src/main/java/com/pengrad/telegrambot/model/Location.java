@@ -6,12 +6,10 @@ package com.pengrad.telegrambot.model;
  */
 public class Location {
 
-    private final Float longitude;
-    private final Float latitude;
+    private Float longitude;
+    private Float latitude;
 
-    public Location(Float longitude, Float latitude) {
-        this.longitude = longitude;
-        this.latitude = latitude;
+    Location() {
     }
 
     public Float longitude() {
@@ -29,9 +27,8 @@ public class Location {
 
         Location location = (Location) o;
 
-        if (!longitude.equals(location.longitude)) return false;
-        return latitude.equals(location.latitude);
-
+        if (longitude != null ? !longitude.equals(location.longitude) : location.longitude != null) return false;
+        return latitude != null ? latitude.equals(location.latitude) : location.latitude == null;
     }
 
     @Override

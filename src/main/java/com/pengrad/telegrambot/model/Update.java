@@ -6,12 +6,10 @@ package com.pengrad.telegrambot.model;
  */
 public class Update {
 
-    private final Integer update_id;
-    private final Message message;
+    private Integer update_id;
+    private Message message;
 
-    public Update(Integer update_id, Message message) {
-        this.update_id = update_id;
-        this.message = message;
+    Update() {
     }
 
     public Integer updateId() {
@@ -29,9 +27,8 @@ public class Update {
 
         Update update = (Update) o;
 
-        if (!update_id.equals(update.update_id)) return false;
-        return !(message != null ? !message.equals(update.message) : update.message != null);
-
+        if (update_id != null ? !update_id.equals(update.update_id) : update.update_id != null) return false;
+        return message != null ? message.equals(update.message) : update.message == null;
     }
 
     @Override

@@ -6,16 +6,12 @@ package com.pengrad.telegrambot.model;
  */
 public class PhotoSize {
 
-    private final String file_id;
-    private final Integer width;
-    private final Integer height;
-    private final Integer file_size;
+    private String file_id;
+    private Integer width;
+    private Integer height;
+    private Integer file_size;
 
-    public PhotoSize(String file_id, Integer width, Integer height, Integer file_size) {
-        this.file_id = file_id;
-        this.width = width;
-        this.height = height;
-        this.file_size = file_size;
+    PhotoSize() {
     }
 
     public String fileId() {
@@ -41,11 +37,10 @@ public class PhotoSize {
 
         PhotoSize photoSize = (PhotoSize) o;
 
-        if (!file_id.equals(photoSize.file_id)) return false;
-        if (!width.equals(photoSize.width)) return false;
-        if (!height.equals(photoSize.height)) return false;
-        return !(file_size != null ? !file_size.equals(photoSize.file_size) : photoSize.file_size != null);
-
+        if (file_id != null ? !file_id.equals(photoSize.file_id) : photoSize.file_id != null) return false;
+        if (width != null ? !width.equals(photoSize.width) : photoSize.width != null) return false;
+        if (height != null ? !height.equals(photoSize.height) : photoSize.height != null) return false;
+        return file_size != null ? file_size.equals(photoSize.file_size) : photoSize.file_size == null;
     }
 
     @Override

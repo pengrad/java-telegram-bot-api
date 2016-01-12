@@ -6,12 +6,10 @@ package com.pengrad.telegrambot.response;
  */
 public class SendChatActionResponse {
 
-    private final boolean ok;
-    private final boolean result;
+    private boolean ok;
+    private boolean result;
 
-    public SendChatActionResponse(boolean ok, boolean result) {
-        this.ok = ok;
-        this.result = result;
+    SendChatActionResponse() {
     }
 
     public boolean isOk() {

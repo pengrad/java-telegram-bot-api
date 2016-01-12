@@ -8,62 +8,35 @@ import java.util.Arrays;
  */
 public class Message {
 
-    private final Integer message_id;
-    private final User from;
-    private final Integer date;
-    private final Chat chat;
-    private final User forward_from;
-    private final Integer forward_date;
-    private final Message reply_to_message;
-    private final String text;
-    private final Audio audio;
-    private final Document document;
-    private final PhotoSize[] photo;
-    private final Sticker sticker;
-    private final Video video;
-    private final Voice voice;
-    private final String caption;
-    private final Contact contact;
-    private final Location location;
-    private final User new_chat_participant;
-    private final User left_chat_participant;
-    private final String new_chat_title;
-    private final PhotoSize[] new_chat_photo;
-    private final Boolean delete_chat_photo;
-    private final Boolean group_chat_created;
-    private final Boolean supergroup_chat_created;
-    private final Boolean channel_chat_created;
-    private final Long migrate_to_chat_id;
-    private final Long migrate_from_chat_id;
+    private Integer message_id;
+    private User from;
+    private Integer date;
+    private Chat chat;
+    private User forward_from;
+    private Integer forward_date;
+    private Message reply_to_message;
+    private String text;
+    private Audio audio;
+    private Document document;
+    private PhotoSize[] photo;
+    private Sticker sticker;
+    private Video video;
+    private Voice voice;
+    private String caption;
+    private Contact contact;
+    private Location location;
+    private User new_chat_participant;
+    private User left_chat_participant;
+    private String new_chat_title;
+    private PhotoSize[] new_chat_photo;
+    private Boolean delete_chat_photo;
+    private Boolean group_chat_created;
+    private Boolean supergroup_chat_created;
+    private Boolean channel_chat_created;
+    private Long migrate_to_chat_id;
+    private Long migrate_from_chat_id;
 
-    public Message(Integer message_id, User from, Integer date, Chat chat, User forward_from, Integer forward_date, Message reply_to_message, String text, Audio audio, Document document, PhotoSize[] photo, Sticker sticker, Video video, Voice voice, String caption, Contact contact, Location location, User new_chat_participant, User left_chat_participant, String new_chat_title, PhotoSize[] new_chat_photo, Boolean delete_chat_photo, Boolean group_chat_created, Boolean supergroup_chat_created, Boolean channel_chat_created, Long migrate_to_chat_id, Long migrate_from_chat_id) {
-        this.message_id = message_id;
-        this.from = from;
-        this.date = date;
-        this.chat = chat;
-        this.forward_from = forward_from;
-        this.forward_date = forward_date;
-        this.reply_to_message = reply_to_message;
-        this.text = text;
-        this.audio = audio;
-        this.document = document;
-        this.photo = photo;
-        this.sticker = sticker;
-        this.video = video;
-        this.voice = voice;
-        this.caption = caption;
-        this.contact = contact;
-        this.location = location;
-        this.new_chat_participant = new_chat_participant;
-        this.left_chat_participant = left_chat_participant;
-        this.new_chat_title = new_chat_title;
-        this.new_chat_photo = new_chat_photo;
-        this.delete_chat_photo = delete_chat_photo;
-        this.group_chat_created = group_chat_created;
-        this.supergroup_chat_created = supergroup_chat_created;
-        this.channel_chat_created = channel_chat_created;
-        this.migrate_to_chat_id = migrate_to_chat_id;
-        this.migrate_from_chat_id = migrate_from_chat_id;
+    Message() {
     }
 
     public Integer messageId() {
@@ -181,10 +154,10 @@ public class Message {
 
         Message message = (Message) o;
 
-        if (!message_id.equals(message.message_id)) return false;
+        if (message_id != null ? !message_id.equals(message.message_id) : message.message_id != null) return false;
         if (from != null ? !from.equals(message.from) : message.from != null) return false;
-        if (!date.equals(message.date)) return false;
-        if (!chat.equals(message.chat)) return false;
+        if (date != null ? !date.equals(message.date) : message.date != null) return false;
+        if (chat != null ? !chat.equals(message.chat) : message.chat != null) return false;
         if (forward_from != null ? !forward_from.equals(message.forward_from) : message.forward_from != null)
             return false;
         if (forward_date != null ? !forward_date.equals(message.forward_date) : message.forward_date != null)
@@ -221,7 +194,6 @@ public class Message {
         if (migrate_to_chat_id != null ? !migrate_to_chat_id.equals(message.migrate_to_chat_id) : message.migrate_to_chat_id != null)
             return false;
         return migrate_from_chat_id != null ? migrate_from_chat_id.equals(message.migrate_from_chat_id) : message.migrate_from_chat_id == null;
-
     }
 
     @Override

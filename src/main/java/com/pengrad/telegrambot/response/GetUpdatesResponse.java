@@ -10,12 +10,10 @@ import java.util.List;
  */
 public class GetUpdatesResponse {
 
-    private final boolean ok;
-    private final List<Update> result;
+    private boolean ok;
+    private List<Update> result;
 
-    public GetUpdatesResponse(boolean ok, List<Update> result) {
-        this.ok = ok;
-        this.result = result;
+    GetUpdatesResponse() {
     }
 
     public boolean isOk() {

@@ -7,12 +7,11 @@ import com.pengrad.telegrambot.model.User;
  * 8/4/15.
  */
 public class GetMeResponse {
-    private final boolean ok;
-    private final User result;
 
-    public GetMeResponse(boolean ok, User result) {
-        this.ok = ok;
-        this.result = result;
+    private boolean ok;
+    private User result;
+
+    GetMeResponse() {
     }
 
     public boolean isOk() {

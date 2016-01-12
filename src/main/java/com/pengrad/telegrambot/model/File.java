@@ -6,14 +6,11 @@ package com.pengrad.telegrambot.model;
  */
 public class File {
 
-    private final String file_id;
-    private final Integer file_size;
-    private final String file_path;
+    private String file_id;
+    private Integer file_size;
+    private String file_path;
 
-    public File(String file_id, Integer file_size, String file_path) {
-        this.file_id = file_id;
-        this.file_size = file_size;
-        this.file_path = file_path;
+    File() {
     }
 
     public String fileId() {
@@ -35,9 +32,9 @@ public class File {
 
         File file = (File) o;
 
-        if (!file_id.equals(file.file_id)) return false;
+        if (file_id != null ? !file_id.equals(file.file_id) : file.file_id != null) return false;
         if (file_size != null ? !file_size.equals(file.file_size) : file.file_size != null) return false;
-        return !(file_path != null ? !file_path.equals(file.file_path) : file.file_path != null);
+        return file_path != null ? file_path.equals(file.file_path) : file.file_path == null;
     }
 
     @Override

@@ -6,18 +6,13 @@ package com.pengrad.telegrambot.model;
  */
 public class Document {
 
-    private final String file_id;
-    private final PhotoSize thumb;
-    private final String file_name;
-    private final String mime_type;
-    private final Integer file_size;
+    private String file_id;
+    private PhotoSize thumb;
+    private String file_name;
+    private String mime_type;
+    private Integer file_size;
 
-    public Document(String file_id, PhotoSize thumb, String file_name, String mime_type, Integer file_size) {
-        this.file_id = file_id;
-        this.thumb = thumb;
-        this.file_name = file_name;
-        this.mime_type = mime_type;
-        this.file_size = file_size;
+    Document() {
     }
 
     public String fileId() {
@@ -47,12 +42,11 @@ public class Document {
 
         Document document = (Document) o;
 
-        if (!file_id.equals(document.file_id)) return false;
+        if (file_id != null ? !file_id.equals(document.file_id) : document.file_id != null) return false;
         if (thumb != null ? !thumb.equals(document.thumb) : document.thumb != null) return false;
         if (file_name != null ? !file_name.equals(document.file_name) : document.file_name != null) return false;
         if (mime_type != null ? !mime_type.equals(document.mime_type) : document.mime_type != null) return false;
-        return !(file_size != null ? !file_size.equals(document.file_size) : document.file_size != null);
-
+        return file_size != null ? file_size.equals(document.file_size) : document.file_size == null;
     }
 
     @Override

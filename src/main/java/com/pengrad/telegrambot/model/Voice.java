@@ -6,16 +6,12 @@ package com.pengrad.telegrambot.model;
  */
 public class Voice {
 
-    private final String file_id;
-    private final Integer duration;
-    private final String mime_type;
-    private final Integer file_size;
+    private String file_id;
+    private Integer duration;
+    private String mime_type;
+    private Integer file_size;
 
-    public Voice(String file_id, Integer duration, String mime_type, Integer file_size) {
-        this.file_id = file_id;
-        this.duration = duration;
-        this.mime_type = mime_type;
-        this.file_size = file_size;
+    Voice() {
     }
 
     public String fileId() {
@@ -41,11 +37,10 @@ public class Voice {
 
         Voice voice = (Voice) o;
 
-        if (!file_id.equals(voice.file_id)) return false;
-        if (!duration.equals(voice.duration)) return false;
+        if (file_id != null ? !file_id.equals(voice.file_id) : voice.file_id != null) return false;
+        if (duration != null ? !duration.equals(voice.duration) : voice.duration != null) return false;
         if (mime_type != null ? !mime_type.equals(voice.mime_type) : voice.mime_type != null) return false;
-        return !(file_size != null ? !file_size.equals(voice.file_size) : voice.file_size != null);
-
+        return file_size != null ? file_size.equals(voice.file_size) : voice.file_size == null;
     }
 
     @Override

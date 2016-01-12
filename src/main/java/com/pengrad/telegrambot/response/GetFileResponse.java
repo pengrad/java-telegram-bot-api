@@ -8,12 +8,10 @@ import com.pengrad.telegrambot.model.File;
  */
 public class GetFileResponse {
 
-    private final boolean ok;
-    private final File result;
+    private boolean ok;
+    private File result;
 
-    public GetFileResponse(boolean ok, File result) {
-        this.ok = ok;
-        this.result = result;
+    GetFileResponse() {
     }
 
     public boolean isOk() {

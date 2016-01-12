@@ -6,18 +6,13 @@ package com.pengrad.telegrambot.model;
  */
 public class Sticker {
 
-    private final String file_id;
-    private final Integer width;
-    private final Integer height;
-    private final PhotoSize thumb;
-    private final Integer file_size;
+    private String file_id;
+    private Integer width;
+    private Integer height;
+    private PhotoSize thumb;
+    private Integer file_size;
 
-    public Sticker(String file_id, Integer width, Integer height, PhotoSize thumb, Integer file_size) {
-        this.file_id = file_id;
-        this.width = width;
-        this.height = height;
-        this.thumb = thumb;
-        this.file_size = file_size;
+    Sticker() {
     }
 
     public String fileId() {
@@ -47,12 +42,11 @@ public class Sticker {
 
         Sticker sticker = (Sticker) o;
 
-        if (!file_id.equals(sticker.file_id)) return false;
-        if (!width.equals(sticker.width)) return false;
-        if (!height.equals(sticker.height)) return false;
+        if (file_id != null ? !file_id.equals(sticker.file_id) : sticker.file_id != null) return false;
+        if (width != null ? !width.equals(sticker.width) : sticker.width != null) return false;
+        if (height != null ? !height.equals(sticker.height) : sticker.height != null) return false;
         if (thumb != null ? !thumb.equals(sticker.thumb) : sticker.thumb != null) return false;
-        return !(file_size != null ? !file_size.equals(sticker.file_size) : sticker.file_size != null);
-
+        return file_size != null ? file_size.equals(sticker.file_size) : sticker.file_size == null;
     }
 
     @Override

@@ -6,16 +6,12 @@ package com.pengrad.telegrambot.model;
  */
 public class User {
 
-    private final Integer id;
-    private final String first_name;
-    private final String last_name;
-    private final String username;
+    private Integer id;
+    private String first_name;
+    private String last_name;
+    private String username;
 
-    User(Integer id, String first_name, String last_name, String username) {
-        this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.username = username;
+    User() {
     }
 
     public Integer id() {
@@ -41,7 +37,12 @@ public class User {
 
         User user = (User) o;
 
-        return id.equals(user.id);
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (first_name != null ? !first_name.equals(user.first_name) : user.first_name != null) return false;
+        if (last_name != null ? !last_name.equals(user.last_name) : user.last_name != null) return false;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
+
+        return true;
     }
 
     @Override

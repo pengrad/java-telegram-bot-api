@@ -6,16 +6,12 @@ package com.pengrad.telegrambot.model;
  */
 public class Contact {
 
-    private final String phone_number;
-    private final String first_name;
-    private final String last_name;
-    private final Integer user_id;
+    private String phone_number;
+    private String first_name;
+    private String last_name;
+    private Integer user_id;
 
-    public Contact(String phone_number, String first_name, String last_name, Integer user_id) {
-        this.phone_number = phone_number;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.user_id = user_id;
+    Contact() {
     }
 
     public String phoneNumber() {
@@ -41,11 +37,11 @@ public class Contact {
 
         Contact contact = (Contact) o;
 
-        if (!phone_number.equals(contact.phone_number)) return false;
-        if (!first_name.equals(contact.first_name)) return false;
+        if (phone_number != null ? !phone_number.equals(contact.phone_number) : contact.phone_number != null)
+            return false;
+        if (first_name != null ? !first_name.equals(contact.first_name) : contact.first_name != null) return false;
         if (last_name != null ? !last_name.equals(contact.last_name) : contact.last_name != null) return false;
-        return !(user_id != null ? !user_id.equals(contact.user_id) : contact.user_id != null);
-
+        return user_id != null ? user_id.equals(contact.user_id) : contact.user_id == null;
     }
 
     @Override

@@ -8,12 +8,10 @@ import com.pengrad.telegrambot.model.Message;
  */
 public class SendResponse {
 
-    private final boolean ok;
-    private final Message result;
+    private boolean ok;
+    private Message result;
 
-    public SendResponse(boolean ok, Message result) {
-        this.ok = ok;
-        this.result = result;
+    SendResponse() {
     }
 
     public boolean isOk() {

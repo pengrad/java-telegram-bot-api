@@ -6,23 +6,15 @@ package com.pengrad.telegrambot.model;
  */
 public class Video {
 
-    private final String file_id;
-    private final Integer width;
-    private final Integer height;
-    private final Integer duration;
-    private final PhotoSize thumb;
-    private final String mime_type;
-    private final Integer file_size;
+    private String file_id;
+    private Integer width;
+    private Integer height;
+    private Integer duration;
+    private PhotoSize thumb;
+    private String mime_type;
+    private Integer file_size;
 
-    public Video(String file_id, Integer width, Integer height, Integer duration, PhotoSize thumb, String mime_type,
-                 Integer file_size) {
-        this.file_id = file_id;
-        this.width = width;
-        this.height = height;
-        this.duration = duration;
-        this.thumb = thumb;
-        this.mime_type = mime_type;
-        this.file_size = file_size;
+    Video() {
     }
 
     public String fileId() {
@@ -60,14 +52,13 @@ public class Video {
 
         Video video = (Video) o;
 
-        if (!file_id.equals(video.file_id)) return false;
-        if (!width.equals(video.width)) return false;
-        if (!height.equals(video.height)) return false;
-        if (!duration.equals(video.duration)) return false;
+        if (file_id != null ? !file_id.equals(video.file_id) : video.file_id != null) return false;
+        if (width != null ? !width.equals(video.width) : video.width != null) return false;
+        if (height != null ? !height.equals(video.height) : video.height != null) return false;
+        if (duration != null ? !duration.equals(video.duration) : video.duration != null) return false;
         if (thumb != null ? !thumb.equals(video.thumb) : video.thumb != null) return false;
         if (mime_type != null ? !mime_type.equals(video.mime_type) : video.mime_type != null) return false;
-        return !(file_size != null ? !file_size.equals(video.file_size) : video.file_size != null);
-
+        return file_size != null ? file_size.equals(video.file_size) : video.file_size == null;
     }
 
     @Override
