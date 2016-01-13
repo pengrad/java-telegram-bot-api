@@ -8,9 +8,11 @@ import com.google.gson.Gson;
  */
 public abstract class Keyboard {
 
+    private Gson gson = new Gson();
+
     @Override
     public final String toString() {
-        return new Gson().toJson(this);
+        return gson.toJson(this);
     }
 
 }
