@@ -140,6 +140,34 @@ To get downloading link as `https://api.telegram.org/file/bot<token>/<file_path>
 String fullPath = bot.getFullFilePath("fileId");
 String fullPath = bot.getFullFilePath(file);  // com.pengrad.telegrambot.model.File
 ```
+#### Inline mode
+Getting updates
+```java
+GetUpdatesResponse updatesResponse = bot.getUpdates(offset, limit, timeout);
+List<Update> updates = updatesResponse.updates();
+...
+InlineQuery inlineQuery = update.inlineQuery();
+```
+If using webhook, you can parse request to InlineQuery
+```java
+Update update = BotUtils.parseUpdate(stringRequest); // from String
+Update update = BotUtils.parseUpdate(reader); // from java.io.Reader
+InlineQuery inlineQuery = update.inlineQuery();
+```
+Build InlineQueryResult
+```java
+InlineQueryResult r1 = new InlineQueryResultPhoto("id", "photoUrl", "thumbUrl");
+InlineQueryResult r2 = new InlineQueryResultArticle("id", "title", "message text").thumbUrl("url");
+InlineQueryResult r3 = new InlineQueryResultGif("id", "gifUrl", "thumbUrl");
+InlineQueryResult r4 = new InlineQueryResultMpeg4Gif("id", "mpeg4Url", "thumbUrl");
+InlineQueryResult r5 = new InlineQueryResultVideo("id", "videoUrl", InlineQueryResultVideo.MIME_VIDEO_MP4, "message text", "thumbUrl", "video title");
+```
+Send query
+```java
+bot.answerInlineQuery(inlineQuery.id(), r1, r2, r3, r4, r5);
+// or full
+bot.answerInlineQuery(inlineQuery.id(), new InlineQueryResult[]{r1, r2, r3, r4, r5}, cacheTime, isPersonal, nextOffset);
+```
 
 
  [1]: https://core.telegram.org/bots
