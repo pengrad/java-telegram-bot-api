@@ -22,7 +22,7 @@ public class MessageTest {
         UserTest.checkUser(message.forwardFrom());
     }
 
-    public static void checkTextdMessage(Message message) {
+    public static void checkTextMessage(Message message) {
         checkMessage(message);
         assertNotNull(message.text());
     }

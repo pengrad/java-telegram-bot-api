@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot;
 
+import com.pengrad.telegrambot.model.InlineQuery;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.User;
@@ -11,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -67,13 +69,13 @@ public class TelegramBotTest {
     @Test
     public void testSendMessage() throws Exception {
         SendResponse sendResponse = bot.sendMessage(chatId, "short message sending with emoji \uD83D\uDE4C");
-        MessageTest.checkTextdMessage(sendResponse.message());
+        MessageTest.checkTextMessage(sendResponse.message());
         sendResponse = bot.sendMessage(chatId, "sendMessage _italic_ *markdown*", ParseMode.Markdown, null, forwardMessageId, new ReplyKeyboardMarkup(new String[]{"ok", "test"}).oneTimeKeyboard(true));
-        MessageTest.checkTextdMessage(sendResponse.message());
+        MessageTest.checkTextMessage(sendResponse.message());
         sendResponse = bot.sendMessage(channelName, "to channel _italic_ *markdown*", ParseMode.Markdown, false, null, new ForceReply());
-        MessageTest.checkTextdMessage(sendResponse.message());
+        MessageTest.checkTextMessage(sendResponse.message());
         sendResponse = bot.sendMessage(channelId, "explicit to channel id _italic_ *markdown*", ParseMode.Markdown, false, null, new ReplyKeyboardHide());
-        MessageTest.checkTextdMessage(sendResponse.message());
+        MessageTest.checkTextMessage(sendResponse.message());
     }
 
     @Test
@@ -165,5 +167,28 @@ public class TelegramBotTest {
     public void testGetFile() throws Exception {
         GetFileResponse fileResponse = bot.getFile(stickerId);
         FileTest.check(fileResponse.file());
+    }
+
+    @Test
+    public void testAnswerInlineQuery() {
+        InlineQuery inlineQuery = getLastInlineQuery();
+        InlineQueryResult r1 = new InlineQueryResultPhoto("1", "https://pp.vk.me/c410128/u2425605/a_f9604e14.jpg", "https://pp.vk.me/c410128/u2425605/d_fa1c9b0e.jpg");
+        InlineQueryResult r2 = new InlineQueryResultArticle("2", "title", "message text").thumbUrl("https://pp.vk.me/c311925/v311925605/a0e/2Ua6hLgr71U.jpg");
+        InlineQueryResult r3 = new InlineQueryResultGif("3", "https://media.giphy.com/media/bs3V7RiJ6B95e/giphy.gif", "https://pp.vk.me/c521410/u2425605/-3/m_b2d464207a.jpg");
+        InlineQueryResult r4 = new InlineQueryResultMpeg4Gif("4", "https://media.giphy.com/media/YEmR6PxPQmEa4/giphy.gif", "https://pp.vk.me/c521410/u2425605/-3/m_b2d464207a.jpg");
+        InlineQueryResult r5 = new InlineQueryResultVideo("5", "https://vk.com/video_ext.php?oid=2425605&id=166305236&hash=0a13db9cc2cb53b6", InlineQueryResultVideo.MIME_VIDEO_MP4, "message text", "https://pp.vk.me/c521410/u2425605/-3/m_b2d464207a.jpg", "video title");
+        bot.answerInlineQuery(inlineQuery.id(), r1, r2, r3, r4, r5);
+    }
+
+    private InlineQuery getLastInlineQuery() {
+        GetUpdatesResponse updatesResponse = bot.getUpdates(0, 10, 0);
+        List<Update> updates = updatesResponse.updates();
+        Collections.reverse(updates);
+        for (Update update : updates) {
+            if (update.inlineQuery() != null) {
+                return update.inlineQuery();
+            }
+        }
+        return null;
     }
 }

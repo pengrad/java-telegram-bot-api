@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot;
 
+import com.google.gson.Gson;
 import com.pengrad.telegrambot.impl.BotApi;
 import com.pengrad.telegrambot.impl.FileApi;
 import com.pengrad.telegrambot.model.File;
@@ -14,10 +15,12 @@ public class TelegramBot {
 
     private final BotApi botApi;
     private final FileApi fileApi;
+    private final Gson gson;
 
     public TelegramBot(BotApi botApi, FileApi fileApi) {
         this.botApi = botApi;
         this.fileApi = fileApi;
+        gson = new Gson();
     }
 
     public String getFullFilePath(String fileId) {
@@ -150,5 +153,13 @@ public class TelegramBot {
 
     public GetFileResponse getFile(String fileId) {
         return botApi.getFile(fileId);
+    }
+
+    public OkResponse answerInlineQuery(String inlineQueryId, InlineQueryResult... results) {
+        return answerInlineQuery(inlineQueryId, results, null, null, null);
+    }
+
+    public OkResponse answerInlineQuery(String inlineQueryId, InlineQueryResult[] results, Integer cacheTime, Boolean isPersonal, String nextOffset) {
+        return botApi.answerInlineQuery(inlineQueryId, gson.toJson(results), cacheTime, isPersonal, nextOffset);
     }
 }

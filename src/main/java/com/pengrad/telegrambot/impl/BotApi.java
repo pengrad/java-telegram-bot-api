@@ -250,4 +250,13 @@ public interface BotApi {
 
     @GET("/getFile")
     GetFileResponse getFile(@Query("file_id") String fileId);
+
+    @FormUrlEncoded
+    @POST("/answerInlineQuery")
+    OkResponse answerInlineQuery(
+            @Field("inline_query_id") String inlineQueryId,
+            @Field("results") String results,
+            @Field("cache_time") Integer cacheTime,
+            @Field("is_personal") Boolean isPersonal,
+            @Field("next_offset") String nextOffset);
 }

@@ -15,7 +15,9 @@ public class UpdateTest {
     public static void check(List<Update> updates) {
         for (Update update : updates) {
             assertNotNull(update.updateId());
-            MessageTest.checkMessage(update.message());
+            if (update.message() != null) MessageTest.checkMessage(update.message());
+            else if (update.inlineQuery() != null) InlineQueryTest.checkQuery(update.inlineQuery());
+            else throw new RuntimeException("Both message and inlineQuery are null");
         }
     }
 
