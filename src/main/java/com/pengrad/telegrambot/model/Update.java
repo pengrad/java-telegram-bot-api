@@ -9,6 +9,7 @@ public class Update {
     private Integer update_id;
     private Message message;
     private InlineQuery inline_query;
+    private ChosenInlineResult chosen_inline_result;
 
     Update() {
     }
@@ -25,6 +26,10 @@ public class Update {
         return inline_query;
     }
 
+    public ChosenInlineResult chosenInlineResult() {
+        return chosen_inline_result;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -34,7 +39,9 @@ public class Update {
 
         if (update_id != null ? !update_id.equals(update.update_id) : update.update_id != null) return false;
         if (message != null ? !message.equals(update.message) : update.message != null) return false;
-        return inline_query != null ? inline_query.equals(update.inline_query) : update.inline_query == null;
+        if (inline_query != null ? !inline_query.equals(update.inline_query) : update.inline_query != null)
+            return false;
+        return chosen_inline_result != null ? chosen_inline_result.equals(update.chosen_inline_result) : update.chosen_inline_result == null;
     }
 
     @Override
@@ -48,6 +55,7 @@ public class Update {
                 "update_id=" + update_id +
                 ", message=" + message +
                 ", inline_query=" + inline_query +
+                ", chosen_inline_result=" + chosen_inline_result +
                 '}';
     }
 }
