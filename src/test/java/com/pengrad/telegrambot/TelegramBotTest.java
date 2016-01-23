@@ -76,6 +76,10 @@ public class TelegramBotTest {
         MessageTest.checkTextMessage(sendResponse.message());
         sendResponse = bot.sendMessage(channelId, "explicit to channel id _italic_ *markdown*", ParseMode.Markdown, false, null, new ReplyKeyboardHide());
         MessageTest.checkTextMessage(sendResponse.message());
+        sendResponse = bot.sendMessage(channelName, "to channel name with html <b>bold</b>, <strong>bold</strong> " +
+                "<i>italic</i>, <em>italic</em> <a href=\"https://telegram.org\">inline URL</a> <code>inline fixed-width code</code> <pre>pre-formatted fixed-width code block</pre>",
+                ParseMode.HTML, false, null, new ReplyKeyboardHide());
+        MessageTest.checkTextMessage(sendResponse.message());
     }
 
     @Test
