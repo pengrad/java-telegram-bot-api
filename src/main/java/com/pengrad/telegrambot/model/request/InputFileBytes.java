@@ -1,12 +1,16 @@
 package com.pengrad.telegrambot.model.request;
 
-import retrofit.mime.TypedByteArray;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okio.BufferedSink;
+
+import java.io.IOException;
 
 /**
  * stas
  * 8/11/15.
  */
-public class InputFileBytes extends TypedByteArray {
+public class InputFileBytes extends RequestBody {
 
     // everything becomes jpeg or mpeg or ogg
     public static final String PHOTO_MIME_TYPE = "image/jpeg";
@@ -37,14 +41,25 @@ public class InputFileBytes extends TypedByteArray {
     }
 
     private String fileName;
+    private RequestBody delegate;
 
     public InputFileBytes(String mimeType, byte[] bytes, String fileName) {
-        super(mimeType, bytes);
         this.fileName = fileName;
+        delegate = RequestBody.create(MediaType.parse(mimeType), bytes);
+
+    }
+
+    public String fileName() {
+        return fileName;
     }
 
     @Override
-    public String fileName() {
-        return fileName;
+    public MediaType contentType() {
+        return delegate.contentType();
+    }
+
+    @Override
+    public void writeTo(BufferedSink sink) throws IOException {
+        delegate.writeTo(sink);
     }
 }

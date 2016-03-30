@@ -2,7 +2,9 @@ package com.pengrad.telegrambot.impl;
 
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.response.*;
-import retrofit.http.*;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.http.*;
 
 
 /**
@@ -11,11 +13,11 @@ import retrofit.http.*;
  */
 public interface BotApi {
 
-    @GET("/getMe")
+    @GET("getMe")
     GetMeResponse getMe();
 
 
-    @POST("/sendMessage")
+    @POST("sendMessage")
     @FormUrlEncoded
     SendResponse sendMessage(
             @Field("chat_id") String chatId,
@@ -26,7 +28,7 @@ public interface BotApi {
             @Field("reply_markup") Keyboard replyMarkup);
 
 
-    @POST("/forwardMessage")
+    @POST("forwardMessage")
     @FormUrlEncoded
     SendResponse forwardMessage(
             @Field("chat_id") String chatId,
@@ -35,7 +37,7 @@ public interface BotApi {
 
 
     @Multipart
-    @POST("/sendPhoto")
+    @POST("sendPhoto")
     SendResponse sendPhoto(
             @Part("chat_id") String chatId,
             @Part("photo") String photo,
@@ -44,16 +46,19 @@ public interface BotApi {
             @Part("reply_markup") Keyboard replyMarkup);
 
     @Multipart
-    @POST("/sendPhoto")
+    @POST("sendPhoto")
     SendResponse sendPhoto(
-            @Part("chat_id") String chatId,
-            @Part("photo") InputFile photo,
+            @Part("chat_id") RequestBody chatId,
+            @Part MultipartBody.Part photo,
             @Part("caption") String caption,
             @Part("reply_to_message_id") Integer replyToMessageId,
             @Part("reply_markup") Keyboard replyMarkup);
 
+    @POST("sendPhoto")
+    SendResponse sendPhoto(@Body RequestBody body);
+
     @Multipart
-    @POST("/sendPhoto")
+    @POST("sendPhoto")
     SendResponse sendPhoto(
             @Part("chat_id") String chatId,
             @Part("photo") InputFileBytes photo,
@@ -63,7 +68,7 @@ public interface BotApi {
 
 
     @Multipart
-    @POST("/sendAudio")
+    @POST("sendAudio")
     SendResponse sendAudio(
             @Part("chat_id") String chatId,
             @Part("audio") String audio,
@@ -74,7 +79,7 @@ public interface BotApi {
             @Part("reply_markup") Keyboard replyMarkup);
 
     @Multipart
-    @POST("/sendAudio")
+    @POST("sendAudio")
     SendResponse sendAudio(
             @Part("chat_id") String chatId,
             @Part("audio") InputFile audio,
@@ -85,7 +90,7 @@ public interface BotApi {
             @Part("reply_markup") Keyboard replyMarkup);
 
     @Multipart
-    @POST("/sendAudio")
+    @POST("sendAudio")
     SendResponse sendAudio(
             @Part("chat_id") String chatId,
             @Part("audio") InputFileBytes audio,
@@ -97,7 +102,7 @@ public interface BotApi {
 
 
     @Multipart
-    @POST("/sendDocument")
+    @POST("sendDocument")
     SendResponse sendDocument(
             @Part("chat_id") String chatId,
             @Part("document") String document,
@@ -105,7 +110,7 @@ public interface BotApi {
             @Part("reply_markup") Keyboard replyMarkup);
 
     @Multipart
-    @POST("/sendDocument")
+    @POST("sendDocument")
     SendResponse sendDocument(
             @Part("chat_id") String chatId,
             @Part("document") InputFile document,
@@ -113,7 +118,7 @@ public interface BotApi {
             @Part("reply_markup") Keyboard replyMarkup);
 
     @Multipart
-    @POST("/sendDocument")
+    @POST("sendDocument")
     SendResponse sendDocument(
             @Part("chat_id") String chatId,
             @Part("document") InputFileBytes document,
@@ -122,7 +127,7 @@ public interface BotApi {
 
 
     @Multipart
-    @POST("/sendSticker")
+    @POST("sendSticker")
     SendResponse sendSticker(
             @Part("chat_id") String chatId,
             @Part("sticker") String sticker,
@@ -130,7 +135,7 @@ public interface BotApi {
             @Part("reply_markup") Keyboard replyMarkup);
 
     @Multipart
-    @POST("/sendSticker")
+    @POST("sendSticker")
     SendResponse sendSticker(
             @Part("chat_id") String chatId,
             @Part("sticker") InputFile sticker,
@@ -138,7 +143,7 @@ public interface BotApi {
             @Part("reply_markup") Keyboard replyMarkup);
 
     @Multipart
-    @POST("/sendSticker")
+    @POST("sendSticker")
     SendResponse sendSticker(
             @Part("chat_id") String chatId,
             @Part("sticker") InputFileBytes sticker,
@@ -147,7 +152,7 @@ public interface BotApi {
 
 
     @Multipart
-    @POST("/sendVideo")
+    @POST("sendVideo")
     SendResponse sendVideo(
             @Part("chat_id") String chatId,
             @Part("video") String video,
@@ -157,7 +162,7 @@ public interface BotApi {
             @Part("reply_markup") Keyboard replyMarkup);
 
     @Multipart
-    @POST("/sendVideo")
+    @POST("sendVideo")
     SendResponse sendVideo(
             @Part("chat_id") String chatId,
             @Part("video") InputFile video,
@@ -167,7 +172,7 @@ public interface BotApi {
             @Part("reply_markup") Keyboard replyMarkup);
 
     @Multipart
-    @POST("/sendVideo")
+    @POST("sendVideo")
     SendResponse sendVideo(
             @Part("chat_id") String chatId,
             @Part("video") InputFileBytes video,
@@ -178,7 +183,7 @@ public interface BotApi {
 
 
     @Multipart
-    @POST("/sendVoice")
+    @POST("sendVoice")
     SendResponse sendVoice(
             @Part("chat_id") String chatId,
             @Part("voice") String voice,
@@ -187,7 +192,7 @@ public interface BotApi {
             @Part("reply_markup") Keyboard replyMarkup);
 
     @Multipart
-    @POST("/sendVoice")
+    @POST("sendVoice")
     SendResponse sendVoice(
             @Part("chat_id") String chatId,
             @Part("voice") InputFile voice,
@@ -196,7 +201,7 @@ public interface BotApi {
             @Part("reply_markup") Keyboard replyMarkup);
 
     @Multipart
-    @POST("/sendVoice")
+    @POST("sendVoice")
     SendResponse sendVoice(
             @Part("chat_id") String chatId,
             @Part("voice") InputFileBytes voice,
@@ -206,7 +211,7 @@ public interface BotApi {
 
 
     @FormUrlEncoded
-    @POST("/sendLocation")
+    @POST("sendLocation")
     SendResponse sendLocation(
             @Field("chat_id") String chatId,
             @Field("latitude") Float latitude,
@@ -216,20 +221,20 @@ public interface BotApi {
 
 
     @FormUrlEncoded
-    @POST("/sendChatAction")
+    @POST("sendChatAction")
     SendChatActionResponse sendChatAction(
             @Field("chat_id") String chatId,
             @Field("action") ChatAction action);
 
 
-    @GET("/getUserProfilePhotos")
+    @GET("getUserProfilePhotos")
     GetUserProfilePhotosResponse getUserProfilePhotos(
             @Query("user_id") Integer userId,
             @Query("offset") Integer offset,
             @Query("limit") Integer limit);
 
 
-    @GET("/getUpdates")
+    @GET("getUpdates")
     GetUpdatesResponse getUpdates(
             @Query("offset") Integer offset,
             @Query("limit") Integer limit,
@@ -237,22 +242,22 @@ public interface BotApi {
 
 
     @FormUrlEncoded
-    @POST("/setWebhook")
+    @POST("setWebhook")
     SetWebhookResponse setWebhook(@Field("url") String url);
 
     @Multipart
-    @POST("/setWebhook")
+    @POST("setWebhook")
     SetWebhookResponse setWebhook(@Part("url") String url, @Part("certificate") InputFile certificate);
 
     @Multipart
-    @POST("/setWebhook")
+    @POST("setWebhook")
     SetWebhookResponse setWebhook(@Part("url") String url, @Part("certificate") InputFileBytes certificate);
 
-    @GET("/getFile")
+    @GET("getFile")
     GetFileResponse getFile(@Query("file_id") String fileId);
 
     @FormUrlEncoded
-    @POST("/answerInlineQuery")
+    @POST("answerInlineQuery")
     OkResponse answerInlineQuery(
             @Field("inline_query_id") String inlineQueryId,
             @Field("results") String results,
