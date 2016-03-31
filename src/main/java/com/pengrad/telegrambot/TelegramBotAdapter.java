@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.CallAdapter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -49,6 +50,7 @@ public class TelegramBotAdapter {
                 .baseUrl(API_URL + botToken + "/")
                 .client(client)
                 .addCallAdapterFactory(new SynchronousCallAdapterFactory())
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create());
 
     }

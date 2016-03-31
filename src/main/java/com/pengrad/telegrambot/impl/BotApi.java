@@ -48,7 +48,7 @@ public interface BotApi {
     @Multipart
     @POST("sendPhoto")
     SendResponse sendPhoto(
-            @Part("chat_id") RequestBody chatId,
+            @Part("chat_id") String chatId,
             @Part MultipartBody.Part photo,
             @Part("caption") String caption,
             @Part("reply_to_message_id") Integer replyToMessageId,
