@@ -1,11 +1,13 @@
 package com.pengrad.telegrambot;
 
+import com.google.gson.Gson;
 import com.pengrad.telegrambot.impl.BotApi;
 import com.pengrad.telegrambot.impl.FileApi;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -76,7 +78,12 @@ public class TelegramBotAdapter {
                 @Override
                 public <R> Object adapt(Call<R> call) {
                     try {
-                        return call.execute().body();
+                        Response<R> response = call.execute();
+                        if (response.isSuccessful()) {
+                            return response.body();
+                        } else {
+                            return new Gson().fromJson(response.errorBody().string(), responseType());
+                        }
                     } catch (IOException e) {
                         throw new RuntimeException(); // do something better
                     }

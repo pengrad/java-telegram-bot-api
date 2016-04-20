@@ -7,6 +7,7 @@ import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.response.*;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
 /**
@@ -70,8 +71,8 @@ public class TelegramBot {
             return botApi.sendPhoto(requestBody);
         }
 
-        MultipartBody.Part part = //MultipartBody.Part.create(photo);
-                MultipartBody.Part.createFormData("photo", "image.jpg", RequestBody.create());
+        MultipartBody.Part part = MultipartBody.Part.create(photo);
+//                MultipartBody.Part.createFormData("photo", "image.jpg", RequestBody.create());
 
 //        RequestBody part = photo;
 
@@ -81,6 +82,13 @@ public class TelegramBot {
     }
 
     public SendResponse sendPhoto(Object chatId, InputFileBytes photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
+        final RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("chat_id", String.valueOf(chatId))
+                .addFormDataPart("photo", photo.fileName(), photo)
+                .addFormDataPart("caption", caption)
+                .build();
+
         return botApi.sendPhoto(String.valueOf(chatId), photo, caption, replyToMessageId, replyMarkup);
     }
 

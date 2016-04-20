@@ -8,7 +8,7 @@ import com.google.gson.Gson;
  */
 public abstract class Keyboard {
 
-    private Gson gson = new Gson();
+    private static Gson gson = new Gson();
 
     @Override
     public final String toString() {

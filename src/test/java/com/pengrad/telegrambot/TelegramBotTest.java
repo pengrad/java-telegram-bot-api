@@ -68,17 +68,21 @@ public class TelegramBotTest {
 
     @Test
     public void testSendMessage() throws Exception {
+        SendResponse response = bot.sendMessage(channelName, "to channel _italic_ *markdown*", ParseMode.Markdown, false, null, new ForceReply());
+        System.out.println("Response : " + response);
+        if(1==1) return;
+
         SendResponse sendResponse = bot.sendMessage(chatId, "short message sending with emoji \uD83D\uDE4C");
         MessageTest.checkTextMessage(sendResponse.message());
         sendResponse = bot.sendMessage(chatId, "sendMessage _italic_ *markdown*", ParseMode.Markdown, null, forwardMessageId, new ReplyKeyboardMarkup(new String[]{"ok", "test"}).oneTimeKeyboard(true));
         MessageTest.checkTextMessage(sendResponse.message());
-        sendResponse = bot.sendMessage(channelName, "to channel _italic_ *markdown*", ParseMode.Markdown, false, null, new ForceReply());
+        sendResponse = bot.sendMessage(channelName, "to channel _italic_ *markdown*", ParseMode.Markdown, false, null, null);
         MessageTest.checkTextMessage(sendResponse.message());
-        sendResponse = bot.sendMessage(channelId, "explicit to channel id _italic_ *markdown*", ParseMode.Markdown, false, null, new ReplyKeyboardHide());
+        sendResponse = bot.sendMessage(channelId, "explicit to channel id _italic_ *markdown*", ParseMode.Markdown, false, null, null);
         MessageTest.checkTextMessage(sendResponse.message());
         sendResponse = bot.sendMessage(channelName, "to channel name with html <b>bold</b>, <strong>bold</strong> " +
                 "<i>italic</i>, <em>italic</em> <a href=\"https://telegram.org\">inline URL</a> <code>inline fixed-width code</code> <pre>pre-formatted fixed-width code block</pre>",
-                ParseMode.HTML, false, null, new ReplyKeyboardHide());
+                ParseMode.HTML, false, null, null);
         MessageTest.checkTextMessage(sendResponse.message());
     }
 
