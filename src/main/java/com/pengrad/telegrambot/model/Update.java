@@ -57,6 +57,7 @@ public class Update {
                 ", message=" + message +
                 ", inline_query=" + inline_query +
                 ", chosen_inline_result=" + chosen_inline_result +
+                ", callback_query=" + callback_query +
                 '}';
     }
 

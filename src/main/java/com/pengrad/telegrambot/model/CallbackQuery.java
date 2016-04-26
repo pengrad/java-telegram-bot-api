@@ -64,4 +64,10 @@ public class CallbackQuery {
 		this.data = data;
 	}
 	
+	@Override
+	public String toString() {
+
+		return "CallbackQuery [id=" + id + ", from=" + from + ", message=" + message + ", inline_message_id=" + inline_message_id + ", data=" + data + "]";
+	}
+
 }
