@@ -1,8 +1,10 @@
 package com.pengrad.telegrambot.impl;
 
-import com.pengrad.telegrambot.model.request.*;
+import com.pengrad.telegrambot.model.request.ChatAction;
+import com.pengrad.telegrambot.model.request.InputFile;
+import com.pengrad.telegrambot.model.request.InputFileBytes;
+import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.response.*;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.*;
 
@@ -13,59 +15,8 @@ import retrofit2.http.*;
  */
 public interface BotApi {
 
-    @GET("getMe")
-    GetMeResponse getMe();
-
-
-    @POST("sendMessage")
-    @FormUrlEncoded
-    SendResponse sendMessage(
-            @Field("chat_id") String chatId,
-            @Field("text") String text,
-            @Field("parse_mode") ParseMode parse_mode,
-            @Field("disable_web_page_preview") Boolean disableWebPagePreview,
-            @Field("reply_to_message_id") Integer replyToMessageId,
-            @Field("reply_markup") Keyboard replyMarkup);
-
-
     @POST("forwardMessage")
-    @FormUrlEncoded
-    SendResponse forwardMessage(
-            @Field("chat_id") String chatId,
-            @Field("from_chat_id") String fromChatId,
-            @Field("message_id") Integer messageId);
-
-
-    @Multipart
-    @POST("sendPhoto")
-    SendResponse sendPhoto(
-            @Part("chat_id") String chatId,
-            @Part("photo") String photo,
-            @Part("caption") String caption,
-            @Part("reply_to_message_id") Integer replyToMessageId,
-            @Part("reply_markup") Keyboard replyMarkup);
-
-    @Multipart
-    @POST("sendPhoto")
-    SendResponse sendPhoto(
-            @Part("chat_id") String chatId,
-            @Part MultipartBody.Part photo,
-            @Part("caption") String caption,
-            @Part("reply_to_message_id") Integer replyToMessageId,
-            @Part("reply_markup") Keyboard replyMarkup);
-
-    @POST("sendPhoto")
-    SendResponse sendPhoto(@Body RequestBody body);
-
-    @Multipart
-    @POST("sendPhoto")
-    SendResponse sendPhoto(
-            @Part("chat_id") String chatId,
-            @Part("photo") InputFileBytes photo,
-            @Part("caption") String caption,
-            @Part("reply_to_message_id") Integer replyToMessageId,
-            @Part("reply_markup") Keyboard replyMarkup);
-
+    SendResponse forwardMessage(@Body RequestBody body);
 
     @Multipart
     @POST("sendAudio")

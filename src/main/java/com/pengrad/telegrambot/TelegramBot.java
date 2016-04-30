@@ -3,11 +3,15 @@ package com.pengrad.telegrambot;
 import com.google.gson.Gson;
 import com.pengrad.telegrambot.impl.BotApi;
 import com.pengrad.telegrambot.impl.FileApi;
+import com.pengrad.telegrambot.impl.TelegramApi;
 import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.model.request.*;
+import com.pengrad.telegrambot.request.GetMeRequest;
+import com.pengrad.telegrambot.request.SendMessageRequest;
+import com.pengrad.telegrambot.request.SendPhotoRequest;
 import com.pengrad.telegrambot.response.*;
+import okhttp3.FormBody;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
 /**
@@ -16,14 +20,15 @@ import okhttp3.RequestBody;
  */
 public class TelegramBot {
 
-    private final BotApi botApi;
     private final FileApi fileApi;
-    private final Gson gson;
+    private final TelegramApi api;
 
-    public TelegramBot(BotApi botApi, FileApi fileApi) {
-        this.botApi = botApi;
+    private BotApi botApi;
+    private Gson gson;
+
+    public TelegramBot(TelegramApi api, FileApi fileApi) {
+        this.api = api;
         this.fileApi = fileApi;
-        gson = new Gson();
     }
 
     public String getFullFilePath(String fileId) {
@@ -39,46 +44,48 @@ public class TelegramBot {
     }
 
     public GetMeResponse getMe() {
-        return botApi.getMe();
+        return new GetMeRequest(api).execute();
     }
 
     public SendResponse sendMessage(Object chatId, String text) {
-        return botApi.sendMessage(String.valueOf(chatId), text, null, null, null, null);
+        return new SendMessageRequest(api, chatId, text).execute();
     }
 
     public SendResponse sendMessage(Object chatId, String text, ParseMode parse_mode, Boolean disableWebPagePreview, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendMessage(String.valueOf(chatId), text, parse_mode, disableWebPagePreview, replyToMessageId, replyMarkup);
+        SendMessageRequest request = new SendMessageRequest(api, chatId, text);
+
+        if (parse_mode != null) request.parseMode(parse_mode);
+        if (disableWebPagePreview != null) request.disableWebPagePreview(disableWebPagePreview);
+        if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
+        if (replyMarkup != null) request.replyMarkup(replyMarkup);
+
+        return request.execute();
     }
 
     public SendResponse forwardMessage(Object chatId, Object fromChatId, Integer messageId) {
-        return botApi.forwardMessage(String.valueOf(chatId), String.valueOf(fromChatId), messageId);
-    }
-
-    public SendResponse sendPhoto(Object chatId, String photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendPhoto(String.valueOf(chatId), photo, caption, replyToMessageId, replyMarkup);
+        FormBody.Builder builder = new FormBody.Builder()
+                .add("chat_id", String.valueOf(chatId))
+                .add("from_chat_id", String.valueOf(fromChatId))
+                .add("message_id", String.valueOf(messageId));
+        return botApi.forwardMessage(builder.build());
     }
 
     public SendResponse sendPhoto(Object chatId, InputFile photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
+        return new SendPhotoRequest(api, chatId, photo).caption(caption).execute();
+    }
 
-        if (1 == 12) {
-            final RequestBody requestBody = new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("chat_id", String.valueOf(chatId))
-                    .addFormDataPart("photo", "aaa.jpg", photo)
-                    .addFormDataPart("caption", caption)
-                    .build();
+    public SendResponse sendPhotoOld(Object chatId, InputFile photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
 
-            return botApi.sendPhoto(requestBody);
-        }
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("chat_id", String.valueOf(chatId))
+                .addFormDataPart("photo", "aaa.jpg", photo)
+                .addFormDataPart("caption", caption);
 
-        MultipartBody.Part part = MultipartBody.Part.create(photo);
-//                MultipartBody.Part.createFormData("photo", "image.jpg", RequestBody.create());
+        if (replyToMessageId != null) builder.addFormDataPart("reply_to_message_id", String.valueOf(replyToMessageId));
+        if (replyMarkup != null) builder.addFormDataPart("reply_markup", String.valueOf(replyMarkup));
 
-//        RequestBody part = photo;
-
-        return botApi.sendPhoto(String.valueOf(chatId), part, caption, replyToMessageId, replyMarkup);
-
-
+        return null;
     }
 
     public SendResponse sendPhoto(Object chatId, InputFileBytes photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
@@ -89,7 +96,7 @@ public class TelegramBot {
                 .addFormDataPart("caption", caption)
                 .build();
 
-        return botApi.sendPhoto(String.valueOf(chatId), photo, caption, replyToMessageId, replyMarkup);
+        return null;
     }
 
     public SendResponse sendAudio(Object chatId, String audio, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup) {

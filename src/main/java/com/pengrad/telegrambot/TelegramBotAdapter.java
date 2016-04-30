@@ -1,20 +1,11 @@
 package com.pengrad.telegrambot;
 
 import com.google.gson.Gson;
-import com.pengrad.telegrambot.impl.BotApi;
 import com.pengrad.telegrambot.impl.FileApi;
+import com.pengrad.telegrambot.impl.TelegramApi;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.CallAdapter;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
-
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
 
 /**
  * stas
@@ -25,70 +16,32 @@ public class TelegramBotAdapter {
     public static final String API_URL = "https://api.telegram.org/bot";
 
     public static TelegramBot build(String botToken) {
-        Retrofit retrofit = prepare(botToken).build();
-        BotApi botApi = retrofit.create(BotApi.class);
         FileApi fileApi = new FileApi(botToken);
-        return new TelegramBot(botApi, fileApi);
+        TelegramApi api = new TelegramApi(client(null), gson(), apiUrl(botToken));
+        return new TelegramBot(api, fileApi);
     }
 
     public static TelegramBot buildDebug(String botToken) {
-        Retrofit retrofit = prepare(botToken)
-                // interceptor
-                .build();
-        BotApi botApi = retrofit.create(BotApi.class);
         FileApi fileApi = new FileApi(botToken);
-        return new TelegramBot(botApi, fileApi);
+        TelegramApi api = new TelegramApi(client(httpLoggingInterceptor()), gson(), apiUrl(botToken));
+        return new TelegramBot(api, fileApi);
     }
 
-    public static Retrofit.Builder prepare(String botToken) {
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(logging)
-                .build();
-
-
-        return new Retrofit.Builder()
-                .baseUrl(API_URL + botToken + "/")
-                .client(client)
-                .addCallAdapterFactory(new SynchronousCallAdapterFactory())
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create());
-
+    private static OkHttpClient client(Interceptor interceptor) {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        if (interceptor != null) builder.addInterceptor(interceptor);
+        return builder.build();
     }
 
-    public static class SynchronousCallAdapterFactory extends CallAdapter.Factory {
-        public static CallAdapter.Factory create() {
-            return new SynchronousCallAdapterFactory();
-        }
+    private static Interceptor httpLoggingInterceptor() {
+        return new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+    }
 
-        @Override
-        public CallAdapter<Object> get(final Type returnType, Annotation[] annotations, Retrofit retrofit) {
-            // if returnType is retrofit2.Call, do nothing
-            if (returnType.getTypeName().contains("retrofit2.Call")) {
-                return null;
-            }
+    private static Gson gson() {
+        return new Gson();
+    }
 
-            return new CallAdapter<Object>() {
-                @Override
-                public Type responseType() {
-                    return returnType;
-                }
-
-                @Override
-                public <R> Object adapt(Call<R> call) {
-                    try {
-                        Response<R> response = call.execute();
-                        if (response.isSuccessful()) {
-                            return response.body();
-                        } else {
-                            return new Gson().fromJson(response.errorBody().string(), responseType());
-                        }
-                    } catch (IOException e) {
-                        throw new RuntimeException(); // do something better
-                    }
-                }
-            };
-        }
+    private static String apiUrl(String botToken) {
+        return API_URL + botToken + "/";
     }
 }
