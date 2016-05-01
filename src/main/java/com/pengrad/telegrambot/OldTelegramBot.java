@@ -181,7 +181,10 @@ public class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendLocation(Object chatId, Float latitude, Float longitude, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendLocation(String.valueOf(chatId), latitude, longitude, replyToMessageId, replyMarkup);
+        SendLocationRequest request = new SendLocationRequest(api, chatId, latitude, longitude);
+        if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
+        if (replyMarkup != null) request.replyMarkup(replyMarkup);
+        return request.execute();
     }
 
     @Deprecated
