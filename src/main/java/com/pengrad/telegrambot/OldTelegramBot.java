@@ -112,17 +112,24 @@ public class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendSticker(Object chatId, String sticker, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendSticker(String.valueOf(chatId), sticker, replyToMessageId, replyMarkup);
+        return sendSticker(chatId, sticker, replyToMessageId, replyMarkup, false);
     }
 
     @Deprecated
     public SendResponse sendSticker(Object chatId, InputFile sticker, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendSticker(String.valueOf(chatId), sticker, replyToMessageId, replyMarkup);
+        return sendSticker(chatId, sticker.getFile(), replyToMessageId, replyMarkup, true);
     }
 
     @Deprecated
     public SendResponse sendSticker(Object chatId, InputFileBytes sticker, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendSticker(String.valueOf(chatId), sticker, replyToMessageId, replyMarkup);
+        return sendSticker(chatId, sticker.getBytes(), replyToMessageId, replyMarkup, true);
+    }
+
+    private SendResponse sendSticker(Object chatId, Object sticker, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
+        SendStickerRequest request = new SendStickerRequest(api, chatId, sticker, isMultipart);
+        if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
+        if (replyMarkup != null) request.replyMarkup(replyMarkup);
+        return request.execute();
     }
 
     @Deprecated
