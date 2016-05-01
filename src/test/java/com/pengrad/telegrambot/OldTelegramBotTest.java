@@ -18,6 +18,7 @@ import java.util.Properties;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * stas
@@ -181,7 +182,8 @@ public class OldTelegramBotTest {
         InlineQueryResult r3 = new InlineQueryResultGif("3", "https://media.giphy.com/media/bs3V7RiJ6B95e/giphy.gif", "https://pp.vk.me/c521410/u2425605/-3/m_b2d464207a.jpg");
         InlineQueryResult r4 = new InlineQueryResultMpeg4Gif("4", "https://media.giphy.com/media/YEmR6PxPQmEa4/giphy.gif", "https://pp.vk.me/c521410/u2425605/-3/m_b2d464207a.jpg");
         InlineQueryResult r5 = new InlineQueryResultVideo("5", "https://vk.com/video_ext.php?oid=2425605&id=166305236&hash=0a13db9cc2cb53b6", InlineQueryResultVideo.MIME_VIDEO_MP4, "message text", "https://pp.vk.me/c521410/u2425605/-3/m_b2d464207a.jpg", "video title");
-        bot.answerInlineQuery(inlineQuery.id(), r1, r2, r3, r4, r5);
+        BaseResponse baseResponse = bot.answerInlineQuery(inlineQuery.id(), r1, r2, r3, r4, r5);
+        assertTrue(baseResponse.isOk());
     }
 
     private InlineQuery getLastInlineQuery() {

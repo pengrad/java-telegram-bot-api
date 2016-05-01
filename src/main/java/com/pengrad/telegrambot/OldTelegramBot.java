@@ -1,7 +1,5 @@
 package com.pengrad.telegrambot;
 
-import com.google.gson.Gson;
-import com.pengrad.telegrambot.impl.BotApi;
 import com.pengrad.telegrambot.impl.FileApi;
 import com.pengrad.telegrambot.impl.TelegramApi;
 import com.pengrad.telegrambot.model.request.*;
@@ -18,8 +16,6 @@ import com.pengrad.telegrambot.response.SendResponse;
 @Deprecated
 public class OldTelegramBot {
 
-    private BotApi botApi;
-    private Gson gson;
     private final FileApi fileApi;
     private final TelegramApi api;
 
@@ -237,7 +233,11 @@ public class OldTelegramBot {
 
     @Deprecated
     public BaseResponse answerInlineQuery(String inlineQueryId, InlineQueryResult[] results, Integer cacheTime, Boolean isPersonal, String nextOffset) {
-        return botApi.answerInlineQuery(inlineQueryId, gson.toJson(results), cacheTime, isPersonal, nextOffset);
+        AnswerInlineQuery request = new AnswerInlineQuery(api, inlineQueryId, results);
+        if (cacheTime != null) request.cacheTime(cacheTime);
+        if (isPersonal != null) request.isPersonal(isPersonal);
+        if (nextOffset != null) request.nextOffset(nextOffset);
+        return request.execute();
     }
 
 }

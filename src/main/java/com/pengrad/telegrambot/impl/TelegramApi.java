@@ -44,9 +44,6 @@ public class TelegramApi {
             for (Map.Entry<String, Object> parameter : request.getParameters().entrySet()) {
                 String name = parameter.getKey();
                 Object value = parameter.getValue();
-
-                System.out.println(name + "   :    " + value);
-
                 if (value instanceof byte[]) {
                     builder.addFormDataPart(name, request.getFileName(), RequestBody.create(contentType, (byte[]) value));
                 } else if (value instanceof File) {

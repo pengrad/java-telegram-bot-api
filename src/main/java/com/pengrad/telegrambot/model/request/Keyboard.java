@@ -8,6 +8,7 @@ import com.google.gson.Gson;
  */
 public abstract class Keyboard {
 
+    // todo remove gson
     private static Gson gson = new Gson();
 
     @Override
