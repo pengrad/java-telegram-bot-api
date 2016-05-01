@@ -5,10 +5,7 @@ import com.pengrad.telegrambot.impl.BotApi;
 import com.pengrad.telegrambot.impl.FileApi;
 import com.pengrad.telegrambot.impl.TelegramApi;
 import com.pengrad.telegrambot.model.request.*;
-import com.pengrad.telegrambot.request.ForwardMessageRequest;
-import com.pengrad.telegrambot.request.GetFileRequest;
-import com.pengrad.telegrambot.request.SendMessageRequest;
-import com.pengrad.telegrambot.request.SendPhotoRequest;
+import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
 
 /**
@@ -45,25 +42,21 @@ public class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendPhoto(Object chatId, String photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        SendPhotoRequest request = new SendPhotoRequest(api, chatId, photo, false);
-        if (caption != null) request.caption(caption);
-        if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
-        if (replyMarkup != null) request.replyMarkup(replyMarkup);
-        return request.execute();
+        return sendPhoto(chatId, photo, caption, replyToMessageId, replyMarkup, false);
     }
 
     @Deprecated
     public SendResponse sendPhoto(Object chatId, InputFile photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        SendPhotoRequest request = new SendPhotoRequest(api, chatId, photo.getFile(), true);
-        if (caption != null) request.caption(caption);
-        if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
-        if (replyMarkup != null) request.replyMarkup(replyMarkup);
-        return request.execute();
+        return sendPhoto(chatId, photo.getFile(), caption, replyToMessageId, replyMarkup, true);
     }
 
     @Deprecated
     public SendResponse sendPhoto(Object chatId, InputFileBytes photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        SendPhotoRequest request = new SendPhotoRequest(api, chatId, photo.getBytes(), true);
+        return sendPhoto(chatId, photo.getBytes(), caption, replyToMessageId, replyMarkup, true);
+    }
+
+    private SendResponse sendPhoto(Object chatId, Object photo, String caption, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
+        SendPhotoRequest request = new SendPhotoRequest(api, chatId, photo, isMultipart);
         if (caption != null) request.caption(caption);
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
         if (replyMarkup != null) request.replyMarkup(replyMarkup);
@@ -72,17 +65,27 @@ public class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendAudio(Object chatId, String audio, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendAudio(String.valueOf(chatId), audio, duration, performer, title, replyToMessageId, replyMarkup);
+        return sendAudio(chatId, audio, duration, performer, title, replyToMessageId, replyMarkup, false);
     }
 
     @Deprecated
     public SendResponse sendAudio(Object chatId, InputFile audio, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendAudio(String.valueOf(chatId), audio, duration, performer, title, replyToMessageId, replyMarkup);
+        return sendAudio(chatId, audio.getFile(), duration, performer, title, replyToMessageId, replyMarkup, true);
     }
 
     @Deprecated
     public SendResponse sendAudio(Object chatId, InputFileBytes audio, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendAudio(String.valueOf(chatId), audio, duration, performer, title, replyToMessageId, replyMarkup);
+        return sendAudio(chatId, audio.getBytes(), duration, performer, title, replyToMessageId, replyMarkup, true);
+    }
+
+    private SendResponse sendAudio(Object chatId, Object audio, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
+        SendAudioRequest request = new SendAudioRequest(api, chatId, audio, isMultipart);
+        if (duration != null) request.duration(duration);
+        if (performer != null) request.performer(performer);
+        if (title != null) request.title(title);
+        if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
+        if (replyMarkup != null) request.replyMarkup(replyMarkup);
+        return request.execute();
     }
 
     @Deprecated
