@@ -194,22 +194,22 @@ public interface BotApi {
 
     @FormUrlEncoded
     @POST("setWebhook")
-    SetWebhookResponse setWebhook(@Field("url") String url);
+    BaseResponse setWebhook(@Field("url") String url);
 
     @Multipart
     @POST("setWebhook")
-    SetWebhookResponse setWebhook(@Part("url") String url, @Part("certificate") InputFile certificate);
+    BaseResponse setWebhook(@Part("url") String url, @Part("certificate") InputFile certificate);
 
     @Multipart
     @POST("setWebhook")
-    SetWebhookResponse setWebhook(@Part("url") String url, @Part("certificate") InputFileBytes certificate);
+    BaseResponse setWebhook(@Part("url") String url, @Part("certificate") InputFileBytes certificate);
 
     @GET("getFile")
     GetFileResponse getFile(@Query("file_id") String fileId);
 
     @FormUrlEncoded
     @POST("answerInlineQuery")
-    OkResponse answerInlineQuery(
+    BaseResponse answerInlineQuery(
             @Field("inline_query_id") String inlineQueryId,
             @Field("results") String results,
             @Field("cache_time") Integer cacheTime,

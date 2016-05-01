@@ -205,32 +205,27 @@ public class OldTelegramBot {
     }
 
     @Deprecated
-    public SetWebhookResponse setWebhook(String url) {
+    public BaseResponse setWebhook(String url) {
         return botApi.setWebhook(url);
     }
 
     @Deprecated
-    public SetWebhookResponse setWebhook(String url, InputFile certificate) {
+    public BaseResponse setWebhook(String url, InputFile certificate) {
         return botApi.setWebhook(url, certificate);
     }
 
     @Deprecated
-    public SetWebhookResponse setWebhook(String url, InputFileBytes certificate) {
+    public BaseResponse setWebhook(String url, InputFileBytes certificate) {
         return botApi.setWebhook(url, certificate);
     }
 
     @Deprecated
-    public GetFileResponse getFile(String fileId) {
-        return new GetFile(api, fileId).execute();
-    }
-
-    @Deprecated
-    public OkResponse answerInlineQuery(String inlineQueryId, InlineQueryResult... results) {
+    public BaseResponse answerInlineQuery(String inlineQueryId, InlineQueryResult... results) {
         return answerInlineQuery(inlineQueryId, results, null, null, null);
     }
 
     @Deprecated
-    public OkResponse answerInlineQuery(String inlineQueryId, InlineQueryResult[] results, Integer cacheTime, Boolean isPersonal, String nextOffset) {
+    public BaseResponse answerInlineQuery(String inlineQueryId, InlineQueryResult[] results, Integer cacheTime, Boolean isPersonal, String nextOffset) {
         return botApi.answerInlineQuery(inlineQueryId, gson.toJson(results), cacheTime, isPersonal, nextOffset);
     }
 

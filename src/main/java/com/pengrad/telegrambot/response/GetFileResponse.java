@@ -6,16 +6,11 @@ import com.pengrad.telegrambot.model.File;
  * Stas Parshin
  * 16 October 2015
  */
-public class GetFileResponse {
+public class GetFileResponse extends BaseResponse {
 
-    private boolean ok;
     private File result;
 
     GetFileResponse() {
-    }
-
-    public boolean isOk() {
-        return ok;
     }
 
     public File file() {
@@ -25,8 +20,7 @@ public class GetFileResponse {
     @Override
     public String toString() {
         return "GetFileResponse{" +
-                "ok=" + ok +
-                ", result=" + result +
+                "result=" + result +
                 '}';
     }
 }

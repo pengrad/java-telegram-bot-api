@@ -6,16 +6,11 @@ import com.pengrad.telegrambot.model.Message;
  * stas
  * 8/5/15.
  */
-public class SendResponse {
+public class SendResponse extends BaseResponse {
 
-    private boolean ok;
     private Message result;
 
     SendResponse() {
-    }
-
-    public boolean isOk() {
-        return ok;
     }
 
     public Message message() {
@@ -25,8 +20,7 @@ public class SendResponse {
     @Override
     public String toString() {
         return "SendResponse{" +
-                "ok=" + ok +
-                ", result=" + result +
+                "result=" + result +
                 '}';
     }
 }

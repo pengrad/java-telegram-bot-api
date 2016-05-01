@@ -1,16 +1,16 @@
 package com.pengrad.telegrambot.request;
 
 import com.pengrad.telegrambot.impl.TelegramApi;
-import com.pengrad.telegrambot.response.OkResponse;
+import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
  * stas
  * 5/2/16.
  */
-public class SendChatAction extends BaseRequest<SendChatAction, OkResponse> {
+public class SendChatAction extends BaseRequest<SendChatAction, BaseResponse> {
 
     public SendChatAction(TelegramApi api, Object chatId, String action) {
-        super(api, OkResponse.class);
+        super(api, BaseResponse.class);
         add("chat_id", chatId).add("action", action);
     }
 }

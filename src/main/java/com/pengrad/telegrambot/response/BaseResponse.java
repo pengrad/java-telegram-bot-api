@@ -2,23 +2,23 @@ package com.pengrad.telegrambot.response;
 
 /**
  * stas
- * 8/11/15.
+ * 1/13/16.
  */
-public class SetWebhookResponse {
+public class BaseResponse {
 
     private boolean ok;
-    private boolean result;
+    private int error_code;
     private String description;
 
-    SetWebhookResponse() {
+    BaseResponse() {
     }
 
     public boolean isOk() {
         return ok;
     }
 
-    public boolean result() {
-        return result;
+    public int errorCode() {
+        return error_code;
     }
 
     public String description() {
@@ -27,9 +27,9 @@ public class SetWebhookResponse {
 
     @Override
     public String toString() {
-        return "SetWebhookResponse{" +
+        return "BaseResponse{" +
                 "ok=" + ok +
-                ", result=" + result +
+                ", error_code=" + error_code +
                 ", description='" + description + '\'' +
                 '}';
     }
