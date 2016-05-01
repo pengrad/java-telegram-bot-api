@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNotNull;
  * stas
  * 10/20/15.
  */
-public class TelegramBotTest {
+public class OldTelegramBotTest {
 
     TelegramBot bot;
     Integer chatId, forwardMessageId;
@@ -35,7 +35,7 @@ public class TelegramBotTest {
     String docFile = getClass().getClassLoader().getResource("doc.txt").getFile();
     String videoFile = getClass().getClassLoader().getResource("tabs.mp4").getFile();
 
-    public TelegramBotTest() throws IOException {
+    public OldTelegramBotTest() throws IOException {
         Properties properties = new Properties();
         properties.load(new FileInputStream("local.properties"));
         bot = TelegramBotAdapter.buildDebug(properties.getProperty("TEST_TOKEN"));
