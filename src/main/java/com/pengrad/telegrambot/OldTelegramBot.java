@@ -134,17 +134,26 @@ public class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendVideo(Object chatId, String video, Integer duration, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendVideo(String.valueOf(chatId), video, duration, caption, replyToMessageId, replyMarkup);
+        return sendVideo(chatId, video, duration, caption, replyToMessageId, replyMarkup, false);
     }
 
     @Deprecated
     public SendResponse sendVideo(Object chatId, InputFile video, Integer duration, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendVideo(String.valueOf(chatId), video, duration, caption, replyToMessageId, replyMarkup);
+        return sendVideo(chatId, video.getFile(), duration, caption, replyToMessageId, replyMarkup, true);
     }
 
     @Deprecated
     public SendResponse sendVideo(Object chatId, InputFileBytes video, Integer duration, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendVideo(String.valueOf(chatId), video, duration, caption, replyToMessageId, replyMarkup);
+        return sendVideo(chatId, video.getBytes(), duration, caption, replyToMessageId, replyMarkup, true);
+    }
+
+    private SendResponse sendVideo(Object chatId, Object video, Integer duration, String caption, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
+        SendVideoRequest request = new SendVideoRequest(api, chatId, video, isMultipart);
+        if (duration != null) request.duration(duration);
+        if (caption != null) request.caption(caption);
+        if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
+        if (replyMarkup != null) request.replyMarkup(replyMarkup);
+        return request.execute();
     }
 
     @Deprecated
