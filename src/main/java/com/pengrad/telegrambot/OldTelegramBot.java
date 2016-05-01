@@ -197,7 +197,11 @@ public class OldTelegramBot {
 
     @Deprecated
     public GetUpdatesResponse getUpdates(Integer offset, Integer limit, Integer timeout) {
-        return botApi.getUpdates(offset, limit, timeout);
+        GetUpdates request = new GetUpdates(api);
+        if (offset != null) request.offset(offset);
+        if (limit != null) request.limit(limit);
+        if (timeout != null) request.timeout(timeout);
+        return request.execute();
     }
 
     @Deprecated
