@@ -3,11 +3,14 @@ package com.pengrad.telegrambot;
 import com.pengrad.telegrambot.impl.FileApi;
 import com.pengrad.telegrambot.impl.TelegramApi;
 import com.pengrad.telegrambot.model.File;
+import com.pengrad.telegrambot.model.request.ChatAction;
 import com.pengrad.telegrambot.request.GetFileRequest;
 import com.pengrad.telegrambot.request.GetMeRequest;
+import com.pengrad.telegrambot.request.SendChatActionRequest;
 import com.pengrad.telegrambot.request.SendMessageRequest;
 import com.pengrad.telegrambot.response.GetFileResponse;
 import com.pengrad.telegrambot.response.GetMeResponse;
+import com.pengrad.telegrambot.response.OkResponse;
 import com.pengrad.telegrambot.response.SendResponse;
 
 /**
@@ -43,5 +46,9 @@ public class TelegramBot extends OldTelegramBot {
 
     public SendResponse sendMessage(Object chatId, String text) {
         return new SendMessageRequest(api, chatId, text).execute();
+    }
+
+    public OkResponse sendChatAction(Object chatId, ChatAction action) {
+        return new SendChatActionRequest(api, chatId, action.name()).execute();
     }
 }

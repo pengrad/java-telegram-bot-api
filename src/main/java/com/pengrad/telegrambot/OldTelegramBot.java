@@ -15,8 +15,8 @@ import com.pengrad.telegrambot.response.*;
 @Deprecated
 public class OldTelegramBot {
 
-    BotApi botApi;
-    Gson gson;
+    private BotApi botApi;
+    private Gson gson;
     private final FileApi fileApi;
     private final TelegramApi api;
 
@@ -185,11 +185,6 @@ public class OldTelegramBot {
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
         if (replyMarkup != null) request.replyMarkup(replyMarkup);
         return request.execute();
-    }
-
-    @Deprecated
-    public SendChatActionResponse sendChatAction(Object chatId, ChatAction action) {
-        return botApi.sendChatAction(String.valueOf(chatId), action);
     }
 
     @Deprecated

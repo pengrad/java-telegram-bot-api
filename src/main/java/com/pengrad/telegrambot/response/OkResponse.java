@@ -19,4 +19,12 @@ public class OkResponse {
     public boolean result() {
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "OkResponse{" +
+                "ok=" + ok +
+                ", result=" + result +
+                '}';
+    }
 }
