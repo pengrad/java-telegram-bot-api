@@ -11,7 +11,7 @@ public class GetFileRequest extends BaseRequest<GetFileRequest, GetFileResponse>
 
     public GetFileRequest(TelegramApi api, String fileId) {
         super(api, GetFileResponse.class);
-        getParameters().put("file_id", fileId);
+        add("file_id", fileId);
     }
 
     @Override

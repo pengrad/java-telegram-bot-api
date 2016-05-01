@@ -15,13 +15,11 @@ public class SendMessageRequest extends AbstractSendRequest<SendMessageRequest> 
     }
 
     public SendMessageRequest parseMode(ParseMode parseMode) {
-        add("parse_mode", parseMode.name());
-        return this;
+        return add("parse_mode", parseMode.name());
     }
 
     public SendMessageRequest disableWebPagePreview(boolean disableWebPagePreview) {
-        add("disable_web_page_preview", disableWebPagePreview);
-        return this;
+        return add("disable_web_page_preview", disableWebPagePreview);
     }
 
     @Override

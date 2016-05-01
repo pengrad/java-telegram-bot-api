@@ -14,8 +14,7 @@ public class SendPhotoRequest extends AbstractMultipartRequest<SendPhotoRequest>
     }
 
     public SendPhotoRequest caption(String caption) {
-        add("caption", caption);
-        return this;
+        return add("caption", caption);
     }
 
     @Override
