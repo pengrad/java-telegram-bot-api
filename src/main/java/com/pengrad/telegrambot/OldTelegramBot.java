@@ -90,17 +90,24 @@ public class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendDocument(Object chatId, String document, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendDocument(String.valueOf(chatId), document, replyToMessageId, replyMarkup);
+        return sendDocument(chatId, document, replyToMessageId, replyMarkup, false);
     }
 
     @Deprecated
     public SendResponse sendDocument(Object chatId, InputFile document, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendDocument(String.valueOf(chatId), document, replyToMessageId, replyMarkup);
+        return sendDocument(chatId, document.getFile(), replyToMessageId, replyMarkup, true);
     }
 
     @Deprecated
     public SendResponse sendDocument(Object chatId, InputFileBytes document, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendDocument(String.valueOf(chatId), document, replyToMessageId, replyMarkup);
+        return sendDocument(chatId, document.getBytes(), replyToMessageId, replyMarkup, true);
+    }
+
+    private SendResponse sendDocument(Object chatId, Object document, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
+        SendDocumentRequest request = new SendDocumentRequest(api, chatId, document, isMultipart);
+        if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
+        if (replyMarkup != null) request.replyMarkup(replyMarkup);
+        return request.execute();
     }
 
     @Deprecated
