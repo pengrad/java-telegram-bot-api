@@ -8,8 +8,6 @@ import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 /**
  * Stas Parshin
@@ -48,14 +46,15 @@ public class TelegramBot {
         return new SendMessageRequest(api, chatId, text).execute();
     }
 
+
+    // deprecated old methods
+
     public SendResponse sendMessage(Object chatId, String text, ParseMode parseMode, Boolean disableWebPagePreview, Integer replyToMessageId, Keyboard replyMarkup) {
         SendMessageRequest request = new SendMessageRequest(api, chatId, text);
-
         if (parseMode != null) request.parseMode(parseMode);
         if (disableWebPagePreview != null) request.disableWebPagePreview(disableWebPagePreview);
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
         if (replyMarkup != null) request.replyMarkup(replyMarkup);
-
         return request.execute();
     }
 
@@ -63,19 +62,28 @@ public class TelegramBot {
         return new ForwardMessageRequest(api, chatId, fromChatId, messageId).execute();
     }
 
+    public SendResponse sendPhoto(Object chatId, String photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
+        SendPhotoRequest request = new SendPhotoRequest(api, chatId, photo, false);
+        if (caption != null) request.caption(caption);
+        if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
+        if (replyMarkup != null) request.replyMarkup(replyMarkup);
+        return request.execute();
+    }
+
     public SendResponse sendPhoto(Object chatId, InputFile photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        return new SendPhotoRequest(api, chatId, photo.getFile()).caption(caption).execute();
+        SendPhotoRequest request = new SendPhotoRequest(api, chatId, photo.getFile(), true);
+        if (caption != null) request.caption(caption);
+        if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
+        if (replyMarkup != null) request.replyMarkup(replyMarkup);
+        return request.execute();
     }
 
     public SendResponse sendPhoto(Object chatId, InputFileBytes photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        final RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("chat_id", String.valueOf(chatId))
-                .addFormDataPart("photo", photo.fileName(), photo)
-                .addFormDataPart("caption", caption)
-                .build();
-
-        return null;
+        SendPhotoRequest request = new SendPhotoRequest(api, chatId, photo.getBytes(), true);
+        if (caption != null) request.caption(caption);
+        if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
+        if (replyMarkup != null) request.replyMarkup(replyMarkup);
+        return request.execute();
     }
 
     public SendResponse sendAudio(Object chatId, String audio, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup) {
