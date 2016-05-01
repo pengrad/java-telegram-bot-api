@@ -189,7 +189,10 @@ public class OldTelegramBot {
 
     @Deprecated
     public GetUserProfilePhotosResponse getUserProfilePhotos(Integer userId, Integer offset, Integer limit) {
-        return botApi.getUserProfilePhotos(userId, offset, limit);
+        GetUserProfilePhotos request = new GetUserProfilePhotos(api, userId);
+        if (offset != null) request.offset(offset);
+        if (limit != null) request.limit(limit);
+        return request.execute();
     }
 
     @Deprecated
