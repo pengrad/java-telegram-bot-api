@@ -7,9 +7,9 @@ import com.pengrad.telegrambot.response.GetMeResponse;
  * stas
  * 5/1/16.
  */
-public class GetMeRequest extends BaseRequest<GetMeRequest, GetMeResponse> {
+public class GetMe extends BaseRequest<GetMe, GetMeResponse> {
 
-    public GetMeRequest(TelegramApi api) {
+    public GetMe(TelegramApi api) {
         super(api, GetMeResponse.class);
     }
 

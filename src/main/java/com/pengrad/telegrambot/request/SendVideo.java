@@ -6,26 +6,26 @@ import com.pengrad.telegrambot.impl.TelegramApi;
  * stas
  * 5/1/16.
  */
-public class SendVideoRequest extends AbstractMultipartRequest<SendVideoRequest> {
+public class SendVideo extends AbstractMultipartRequest<SendVideo> {
 
-    public SendVideoRequest(TelegramApi api, Object chatId, Object video, boolean isMultipart) {
+    public SendVideo(TelegramApi api, Object chatId, Object video, boolean isMultipart) {
         super(api, chatId, isMultipart);
         add("video", video);
     }
 
-    public SendVideoRequest duration(int duration) {
+    public SendVideo duration(int duration) {
         return add("duration", duration);
     }
 
-    public SendVideoRequest width(int width) {
+    public SendVideo width(int width) {
         return add("width", width);
     }
 
-    public SendVideoRequest height(int height) {
+    public SendVideo height(int height) {
         return add("height", height);
     }
 
-    public SendVideoRequest caption(String caption) {
+    public SendVideo caption(String caption) {
         return add("caption", caption);
     }
 

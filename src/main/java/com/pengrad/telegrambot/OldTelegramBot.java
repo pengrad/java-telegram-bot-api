@@ -27,7 +27,7 @@ public class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendMessage(Object chatId, String text, ParseMode parseMode, Boolean disableWebPagePreview, Integer replyToMessageId, Keyboard replyMarkup) {
-        SendMessageRequest request = new SendMessageRequest(api, chatId, text);
+        SendMessage request = new SendMessage(api, chatId, text);
         if (parseMode != null) request.parseMode(parseMode);
         if (disableWebPagePreview != null) request.disableWebPagePreview(disableWebPagePreview);
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
@@ -37,7 +37,7 @@ public class OldTelegramBot {
 
     @Deprecated
     public SendResponse forwardMessage(Object chatId, Object fromChatId, Integer messageId) {
-        return new ForwardMessageRequest(api, chatId, fromChatId, messageId).execute();
+        return new ForwardMessage(api, chatId, fromChatId, messageId).execute();
     }
 
     @Deprecated
@@ -56,7 +56,7 @@ public class OldTelegramBot {
     }
 
     private SendResponse sendPhoto(Object chatId, Object photo, String caption, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
-        SendPhotoRequest request = new SendPhotoRequest(api, chatId, photo, isMultipart);
+        SendPhoto request = new SendPhoto(api, chatId, photo, isMultipart);
         if (caption != null) request.caption(caption);
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
         if (replyMarkup != null) request.replyMarkup(replyMarkup);
@@ -79,7 +79,7 @@ public class OldTelegramBot {
     }
 
     private SendResponse sendAudio(Object chatId, Object audio, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
-        SendAudioRequest request = new SendAudioRequest(api, chatId, audio, isMultipart);
+        SendAudio request = new SendAudio(api, chatId, audio, isMultipart);
         if (duration != null) request.duration(duration);
         if (performer != null) request.performer(performer);
         if (title != null) request.title(title);
@@ -104,7 +104,7 @@ public class OldTelegramBot {
     }
 
     private SendResponse sendDocument(Object chatId, Object document, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
-        SendDocumentRequest request = new SendDocumentRequest(api, chatId, document, isMultipart);
+        SendDocument request = new SendDocument(api, chatId, document, isMultipart);
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
         if (replyMarkup != null) request.replyMarkup(replyMarkup);
         return request.execute();
@@ -126,7 +126,7 @@ public class OldTelegramBot {
     }
 
     private SendResponse sendSticker(Object chatId, Object sticker, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
-        SendStickerRequest request = new SendStickerRequest(api, chatId, sticker, isMultipart);
+        SendSticker request = new SendSticker(api, chatId, sticker, isMultipart);
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
         if (replyMarkup != null) request.replyMarkup(replyMarkup);
         return request.execute();
@@ -148,7 +148,7 @@ public class OldTelegramBot {
     }
 
     private SendResponse sendVideo(Object chatId, Object video, Integer duration, String caption, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
-        SendVideoRequest request = new SendVideoRequest(api, chatId, video, isMultipart);
+        SendVideo request = new SendVideo(api, chatId, video, isMultipart);
         if (duration != null) request.duration(duration);
         if (caption != null) request.caption(caption);
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
@@ -172,7 +172,7 @@ public class OldTelegramBot {
     }
 
     private SendResponse sendVoice(Object chatId, Object voice, Integer duration, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
-        SendVoiceRequest request = new SendVoiceRequest(api, chatId, voice, isMultipart);
+        SendVoice request = new SendVoice(api, chatId, voice, isMultipart);
         if (duration != null) request.duration(duration);
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
         if (replyMarkup != null) request.replyMarkup(replyMarkup);
@@ -181,7 +181,7 @@ public class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendLocation(Object chatId, Float latitude, Float longitude, Integer replyToMessageId, Keyboard replyMarkup) {
-        SendLocationRequest request = new SendLocationRequest(api, chatId, latitude, longitude);
+        SendLocation request = new SendLocation(api, chatId, latitude, longitude);
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
         if (replyMarkup != null) request.replyMarkup(replyMarkup);
         return request.execute();
@@ -214,7 +214,7 @@ public class OldTelegramBot {
 
     @Deprecated
     public GetFileResponse getFile(String fileId) {
-        return new GetFileRequest(api, fileId).execute();
+        return new GetFile(api, fileId).execute();
     }
 
     @Deprecated

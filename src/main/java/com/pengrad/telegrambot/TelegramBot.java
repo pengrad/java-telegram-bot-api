@@ -4,10 +4,10 @@ import com.pengrad.telegrambot.impl.FileApi;
 import com.pengrad.telegrambot.impl.TelegramApi;
 import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.model.request.ChatAction;
-import com.pengrad.telegrambot.request.GetFileRequest;
-import com.pengrad.telegrambot.request.GetMeRequest;
-import com.pengrad.telegrambot.request.SendChatActionRequest;
-import com.pengrad.telegrambot.request.SendMessageRequest;
+import com.pengrad.telegrambot.request.GetFile;
+import com.pengrad.telegrambot.request.GetMe;
+import com.pengrad.telegrambot.request.SendChatAction;
+import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.GetFileResponse;
 import com.pengrad.telegrambot.response.GetMeResponse;
 import com.pengrad.telegrambot.response.OkResponse;
@@ -29,7 +29,7 @@ public class TelegramBot extends OldTelegramBot {
     }
 
     public String getFullFilePath(String fileId) {
-        GetFileResponse fileResponse = new GetFileRequest(api, fileId).execute();
+        GetFileResponse fileResponse = new GetFile(api, fileId).execute();
         if (!fileResponse.isOk() || fileResponse.file() == null) {
             return null;
         }
@@ -41,14 +41,14 @@ public class TelegramBot extends OldTelegramBot {
     }
 
     public GetMeResponse getMe() {
-        return new GetMeRequest(api).execute();
+        return new GetMe(api).execute();
     }
 
     public SendResponse sendMessage(Object chatId, String text) {
-        return new SendMessageRequest(api, chatId, text).execute();
+        return new SendMessage(api, chatId, text).execute();
     }
 
     public OkResponse sendChatAction(Object chatId, ChatAction action) {
-        return new SendChatActionRequest(api, chatId, action.name()).execute();
+        return new SendChatAction(api, chatId, action.name()).execute();
     }
 }

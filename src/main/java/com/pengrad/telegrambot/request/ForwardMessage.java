@@ -7,14 +7,14 @@ import com.pengrad.telegrambot.response.SendResponse;
  * stas
  * 5/1/16.
  */
-public class ForwardMessageRequest extends BaseRequest<ForwardMessageRequest, SendResponse> {
+public class ForwardMessage extends BaseRequest<ForwardMessage, SendResponse> {
 
-    public ForwardMessageRequest(TelegramApi api, Object chatId, Object fromChatId, int messageId) {
+    public ForwardMessage(TelegramApi api, Object chatId, Object fromChatId, int messageId) {
         super(api, SendResponse.class);
         add("chat_id", chatId).add("from_chat_id", fromChatId).add("message_id", messageId);
     }
 
-    public ForwardMessageRequest disableNotification(boolean disableNotification) {
+    public ForwardMessage disableNotification(boolean disableNotification) {
         return add("disable_notification", disableNotification);
     }
 

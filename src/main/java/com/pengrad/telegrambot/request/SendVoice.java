@@ -6,14 +6,14 @@ import com.pengrad.telegrambot.impl.TelegramApi;
  * stas
  * 5/1/16.
  */
-public class SendVoiceRequest extends AbstractMultipartRequest<SendVoiceRequest> {
+public class SendVoice extends AbstractMultipartRequest<SendVoice> {
 
-    public SendVoiceRequest(TelegramApi api, Object chatId, Object voice, boolean isMultipart) {
+    public SendVoice(TelegramApi api, Object chatId, Object voice, boolean isMultipart) {
         super(api, chatId, isMultipart);
         add("voice", voice);
     }
 
-    public SendVoiceRequest duration(int duration) {
+    public SendVoice duration(int duration) {
         return add("duration", duration);
     }
 

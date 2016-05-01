@@ -7,9 +7,9 @@ import com.pengrad.telegrambot.response.GetFileResponse;
  * stas
  * 5/1/16.
  */
-public class GetFileRequest extends BaseRequest<GetFileRequest, GetFileResponse> {
+public class GetFile extends BaseRequest<GetFile, GetFileResponse> {
 
-    public GetFileRequest(TelegramApi api, String fileId) {
+    public GetFile(TelegramApi api, String fileId) {
         super(api, GetFileResponse.class);
         add("file_id", fileId);
     }

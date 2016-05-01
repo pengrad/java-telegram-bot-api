@@ -4,22 +4,18 @@ import com.pengrad.telegrambot.impl.TelegramApi;
 
 /**
  * stas
- * 5/1/16.
+ * 5/2/16.
  */
-public class SendPhotoRequest extends AbstractMultipartRequest<SendPhotoRequest> {
+public class SendSticker extends AbstractMultipartRequest<SendSticker> {
 
-    public SendPhotoRequest(TelegramApi api, Object chatId, Object photo, boolean isMultipart) {
+    public SendSticker(TelegramApi api, Object chatId, Object sticker, boolean isMultipart) {
         super(api, chatId, isMultipart);
-        add("photo", photo);
-    }
-
-    public SendPhotoRequest caption(String caption) {
-        return add("caption", caption);
+        add("sticker", sticker);
     }
 
     @Override
     public String getMethod() {
-        return "sendPhoto";
+        return "sendSticker";
     }
 
     @Override
@@ -31,4 +27,5 @@ public class SendPhotoRequest extends AbstractMultipartRequest<SendPhotoRequest>
     public String getContentType() {
         return ContentTypes.PHOTO_MIME_TYPE;
     }
+
 }
