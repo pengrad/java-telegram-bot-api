@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.impl.FileApi;
 import com.pengrad.telegrambot.impl.TelegramApi;
 import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.model.request.*;
+import com.pengrad.telegrambot.request.GetFileRequest;
 import com.pengrad.telegrambot.request.GetMeRequest;
 import com.pengrad.telegrambot.request.SendMessageRequest;
 import com.pengrad.telegrambot.request.SendPhotoRequest;
@@ -32,7 +33,7 @@ public class TelegramBot {
     }
 
     public String getFullFilePath(String fileId) {
-        GetFileResponse fileResponse = botApi.getFile(fileId);
+        GetFileResponse fileResponse = new GetFileRequest(api, fileId).execute();
         if (!fileResponse.isOk() || fileResponse.file() == null) {
             return null;
         }
@@ -51,10 +52,10 @@ public class TelegramBot {
         return new SendMessageRequest(api, chatId, text).execute();
     }
 
-    public SendResponse sendMessage(Object chatId, String text, ParseMode parse_mode, Boolean disableWebPagePreview, Integer replyToMessageId, Keyboard replyMarkup) {
+    public SendResponse sendMessage(Object chatId, String text, ParseMode parseMode, Boolean disableWebPagePreview, Integer replyToMessageId, Keyboard replyMarkup) {
         SendMessageRequest request = new SendMessageRequest(api, chatId, text);
 
-        if (parse_mode != null) request.parseMode(parse_mode);
+        if (parseMode != null) request.parseMode(parseMode);
         if (disableWebPagePreview != null) request.disableWebPagePreview(disableWebPagePreview);
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
         if (replyMarkup != null) request.replyMarkup(replyMarkup);
@@ -188,7 +189,7 @@ public class TelegramBot {
     }
 
     public GetFileResponse getFile(String fileId) {
-        return botApi.getFile(fileId);
+        return new GetFileRequest(api, fileId).execute();
     }
 
     public OkResponse answerInlineQuery(String inlineQueryId, InlineQueryResult... results) {
