@@ -158,17 +158,25 @@ public class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendVoice(Object chatId, String voice, Integer duration, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendVoice(String.valueOf(chatId), voice, duration, replyToMessageId, replyMarkup);
+        return sendVoice(chatId, voice, duration, replyToMessageId, replyMarkup, false);
     }
 
     @Deprecated
     public SendResponse sendVoice(Object chatId, InputFile voice, Integer duration, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendVoice(String.valueOf(chatId), voice, duration, replyToMessageId, replyMarkup);
+        return sendVoice(chatId, voice.getFile(), duration, replyToMessageId, replyMarkup, true);
     }
 
     @Deprecated
     public SendResponse sendVoice(Object chatId, InputFileBytes voice, Integer duration, Integer replyToMessageId, Keyboard replyMarkup) {
-        return botApi.sendVoice(String.valueOf(chatId), voice, duration, replyToMessageId, replyMarkup);
+        return sendVoice(chatId, voice.getBytes(), duration, replyToMessageId, replyMarkup, true);
+    }
+
+    private SendResponse sendVoice(Object chatId, Object voice, Integer duration, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
+        SendVoiceRequest request = new SendVoiceRequest(api, chatId, voice, isMultipart);
+        if (duration != null) request.duration(duration);
+        if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
+        if (replyMarkup != null) request.replyMarkup(replyMarkup);
+        return request.execute();
     }
 
     @Deprecated
