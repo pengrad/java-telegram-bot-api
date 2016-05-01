@@ -13,12 +13,20 @@ public class SendVideoRequest extends AbstractMultipartRequest<SendVideoRequest>
         add("video", video);
     }
 
-    public SendVideoRequest caption(String caption) {
-        return add("caption", caption);
-    }
-
     public SendVideoRequest duration(int duration) {
         return add("duration", duration);
+    }
+
+    public SendVideoRequest width(int width) {
+        return add("width", width);
+    }
+
+    public SendVideoRequest height(int height) {
+        return add("height", height);
+    }
+
+    public SendVideoRequest caption(String caption) {
+        return add("caption", caption);
     }
 
     @Override
