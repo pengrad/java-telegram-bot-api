@@ -72,21 +72,7 @@ public class TelegramBot {
     }
 
     public SendResponse sendPhoto(Object chatId, InputFile photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        return new SendPhotoRequest(api, chatId, photo).caption(caption).execute();
-    }
-
-    public SendResponse sendPhotoOld(Object chatId, InputFile photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-
-        MultipartBody.Builder builder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("chat_id", String.valueOf(chatId))
-                .addFormDataPart("photo", "aaa.jpg", photo)
-                .addFormDataPart("caption", caption);
-
-        if (replyToMessageId != null) builder.addFormDataPart("reply_to_message_id", String.valueOf(replyToMessageId));
-        if (replyMarkup != null) builder.addFormDataPart("reply_markup", String.valueOf(replyMarkup));
-
-        return null;
+        return new SendPhotoRequest(api, chatId, photo.getFile()).caption(caption).execute();
     }
 
     public SendResponse sendPhoto(Object chatId, InputFileBytes photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
