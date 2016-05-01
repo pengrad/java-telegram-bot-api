@@ -26,11 +26,6 @@ public class SendAudio extends AbstractMultipartRequest<SendAudio> {
     }
 
     @Override
-    public String getMethod() {
-        return "sendAudio";
-    }
-
-    @Override
     public String getFileName() {
         return ContentTypes.AUDIO_FILE_NAME;
     }

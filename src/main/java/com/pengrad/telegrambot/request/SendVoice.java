@@ -18,11 +18,6 @@ public class SendVoice extends AbstractMultipartRequest<SendVoice> {
     }
 
     @Override
-    public String getMethod() {
-        return "sendVoice";
-    }
-
-    @Override
     public String getFileName() {
         return ContentTypes.VOICE_FILE_NAME;
     }

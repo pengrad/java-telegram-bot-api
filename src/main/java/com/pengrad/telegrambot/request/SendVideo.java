@@ -30,11 +30,6 @@ public class SendVideo extends AbstractMultipartRequest<SendVideo> {
     }
 
     @Override
-    public String getMethod() {
-        return "sendVideo";
-    }
-
-    @Override
     public String getFileName() {
         return ContentTypes.VIDEO_FILE_NAME;
     }

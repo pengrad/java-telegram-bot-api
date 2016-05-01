@@ -13,9 +13,4 @@ public class SendLocation extends AbstractSendRequest<SendLocation> {
         add("latitude", latitude);
         add("longitude", longitude);
     }
-
-    @Override
-    public String getMethod() {
-        return "sendLocation";
-    }
 }

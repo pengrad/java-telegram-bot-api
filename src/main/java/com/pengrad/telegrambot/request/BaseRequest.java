@@ -26,7 +26,10 @@ abstract public class BaseRequest<T extends BaseRequest, R> {
         this.parameters = new HashMap<String, Object>();
     }
 
-    abstract public String getMethod();
+    public String getMethod() {
+        String className = this.getClass().getSimpleName();
+        return Character.toLowerCase(className.charAt(0)) + className.substring(1);
+    }
 
     protected T add(String name, Object val) {
         parameters.put(name, val);

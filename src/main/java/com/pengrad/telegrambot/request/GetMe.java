@@ -12,9 +12,4 @@ public class GetMe extends BaseRequest<GetMe, GetMeResponse> {
     public GetMe(TelegramApi api) {
         super(api, GetMeResponse.class);
     }
-
-    @Override
-    public String getMethod() {
-        return "getMe";
-    }
 }

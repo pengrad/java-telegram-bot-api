@@ -13,9 +13,4 @@ public class SendChatAction extends BaseRequest<SendChatAction, OkResponse> {
         super(api, OkResponse.class);
         add("chat_id", chatId).add("action", action);
     }
-
-    @Override
-    public String getMethod() {
-        return "sendChatAction";
-    }
 }

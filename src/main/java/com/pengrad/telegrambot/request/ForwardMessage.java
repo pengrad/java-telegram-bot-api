@@ -17,9 +17,4 @@ public class ForwardMessage extends BaseRequest<ForwardMessage, SendResponse> {
     public ForwardMessage disableNotification(boolean disableNotification) {
         return add("disable_notification", disableNotification);
     }
-
-    @Override
-    public String getMethod() {
-        return "forwardMessage";
-    }
 }

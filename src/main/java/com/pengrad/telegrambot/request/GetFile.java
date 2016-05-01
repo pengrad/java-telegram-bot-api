@@ -13,9 +13,4 @@ public class GetFile extends BaseRequest<GetFile, GetFileResponse> {
         super(api, GetFileResponse.class);
         add("file_id", fileId);
     }
-
-    @Override
-    public String getMethod() {
-        return "getFile";
-    }
 }

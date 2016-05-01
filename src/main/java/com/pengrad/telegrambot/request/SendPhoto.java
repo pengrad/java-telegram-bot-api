@@ -18,11 +18,6 @@ public class SendPhoto extends AbstractMultipartRequest<SendPhoto> {
     }
 
     @Override
-    public String getMethod() {
-        return "sendPhoto";
-    }
-
-    @Override
     public String getFileName() {
         return ContentTypes.PHOTO_FILE_NAME;
     }

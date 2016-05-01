@@ -14,11 +14,6 @@ public class SendSticker extends AbstractMultipartRequest<SendSticker> {
     }
 
     @Override
-    public String getMethod() {
-        return "sendSticker";
-    }
-
-    @Override
     public String getFileName() {
         return ContentTypes.PHOTO_FILE_NAME;
     }

@@ -21,9 +21,4 @@ public class SendMessage extends AbstractSendRequest<SendMessage> {
     public SendMessage disableWebPagePreview(boolean disableWebPagePreview) {
         return add("disable_web_page_preview", disableWebPagePreview);
     }
-
-    @Override
-    public String getMethod() {
-        return "sendMessage";
-    }
 }

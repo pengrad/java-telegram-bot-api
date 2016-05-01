@@ -18,11 +18,6 @@ public class SendDocument extends AbstractMultipartRequest<SendDocument> {
     }
 
     @Override
-    public String getMethod() {
-        return "sendDocument";
-    }
-
-    @Override
     public String getFileName() {
         return ContentTypes.DOC_FILE_NAME;
     }
