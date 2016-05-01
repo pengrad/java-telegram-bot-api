@@ -6,7 +6,10 @@ import com.pengrad.telegrambot.impl.FileApi;
 import com.pengrad.telegrambot.impl.TelegramApi;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.request.*;
-import com.pengrad.telegrambot.response.*;
+import com.pengrad.telegrambot.response.BaseResponse;
+import com.pengrad.telegrambot.response.GetUpdatesResponse;
+import com.pengrad.telegrambot.response.GetUserProfilePhotosResponse;
+import com.pengrad.telegrambot.response.SendResponse;
 
 /**
  * stas
@@ -206,17 +209,25 @@ public class OldTelegramBot {
 
     @Deprecated
     public BaseResponse setWebhook(String url) {
-        return botApi.setWebhook(url);
+        SetWebhook request = new SetWebhook(api);
+        if (url != null) request.url(url);
+        return request.execute();
     }
 
     @Deprecated
     public BaseResponse setWebhook(String url, InputFile certificate) {
-        return botApi.setWebhook(url, certificate);
+        SetWebhook request = new SetWebhook(api);
+        if (url != null) request.url(url);
+        if (certificate != null) request.certificate(certificate.getFile());
+        return request.execute();
     }
 
     @Deprecated
     public BaseResponse setWebhook(String url, InputFileBytes certificate) {
-        return botApi.setWebhook(url, certificate);
+        SetWebhook request = new SetWebhook(api);
+        if (url != null) request.url(url);
+        if (certificate != null) request.certificate(certificate.getBytes());
+        return request.execute();
     }
 
     @Deprecated

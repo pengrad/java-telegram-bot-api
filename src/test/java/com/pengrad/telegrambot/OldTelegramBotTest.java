@@ -163,7 +163,7 @@ public class OldTelegramBotTest {
 
     @Test
     public void testSetWebhook() throws Exception {
-        BaseResponse webhookResponse = bot.setWebhook("");
+        BaseResponse webhookResponse = bot.setWebhook(null);
         assertNotNull(webhookResponse.description());
     }
 
