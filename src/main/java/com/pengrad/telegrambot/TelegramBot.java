@@ -6,12 +6,8 @@ import com.pengrad.telegrambot.impl.FileApi;
 import com.pengrad.telegrambot.impl.TelegramApi;
 import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.model.request.*;
-import com.pengrad.telegrambot.request.GetFileRequest;
-import com.pengrad.telegrambot.request.GetMeRequest;
-import com.pengrad.telegrambot.request.SendMessageRequest;
-import com.pengrad.telegrambot.request.SendPhotoRequest;
+import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
-import okhttp3.FormBody;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -64,11 +60,7 @@ public class TelegramBot {
     }
 
     public SendResponse forwardMessage(Object chatId, Object fromChatId, Integer messageId) {
-        FormBody.Builder builder = new FormBody.Builder()
-                .add("chat_id", String.valueOf(chatId))
-                .add("from_chat_id", String.valueOf(fromChatId))
-                .add("message_id", String.valueOf(messageId));
-        return botApi.forwardMessage(builder.build());
+        return new ForwardMessageRequest(api, chatId, fromChatId, messageId).execute();
     }
 
     public SendResponse sendPhoto(Object chatId, InputFile photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
