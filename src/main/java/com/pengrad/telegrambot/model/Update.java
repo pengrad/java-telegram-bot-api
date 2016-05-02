@@ -10,6 +10,7 @@ public class Update {
     private Message message;
     private InlineQuery inline_query;
     private ChosenInlineResult chosen_inline_result;
+    private CallbackQuery callback_query;
 
     Update() {
     }
@@ -56,6 +57,18 @@ public class Update {
                 ", message=" + message +
                 ", inline_query=" + inline_query +
                 ", chosen_inline_result=" + chosen_inline_result +
+                ", callback_query=" + callback_query +
                 '}';
     }
+
+	public CallbackQuery getCallback_query() {
+
+		return callback_query;
+	}
+
+	public void setCallback_query(
+			CallbackQuery callback_query ) {
+
+		this.callback_query = callback_query;
+	}
 }
