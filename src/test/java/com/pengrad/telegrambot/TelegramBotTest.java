@@ -1,12 +1,7 @@
 package com.pengrad.telegrambot;
 
-import com.pengrad.telegrambot.model.InlineQuery;
-import com.pengrad.telegrambot.model.Message;
-import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.model.User;
-import com.pengrad.telegrambot.model.request.*;
-import com.pengrad.telegrambot.response.*;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,13 +11,38 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import com.pengrad.telegrambot.model.InlineQuery;
+import com.pengrad.telegrambot.model.Message;
+import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.User;
+import com.pengrad.telegrambot.model.request.ChatAction;
+import com.pengrad.telegrambot.model.request.ForceReply;
+import com.pengrad.telegrambot.model.request.InlineQueryResult;
+import com.pengrad.telegrambot.model.request.InlineQueryResultArticle;
+import com.pengrad.telegrambot.model.request.InlineQueryResultGif;
+import com.pengrad.telegrambot.model.request.InlineQueryResultMpeg4Gif;
+import com.pengrad.telegrambot.model.request.InlineQueryResultPhoto;
+import com.pengrad.telegrambot.model.request.InlineQueryResultVideo;
+import com.pengrad.telegrambot.model.request.InputFile;
+import com.pengrad.telegrambot.model.request.InputFileBytes;
+import com.pengrad.telegrambot.model.request.ParseMode;
+import com.pengrad.telegrambot.model.request.ReplyKeyboardHide;
+import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
+import com.pengrad.telegrambot.response.GetFileResponse;
+import com.pengrad.telegrambot.response.GetMeResponse;
+import com.pengrad.telegrambot.response.GetUpdatesResponse;
+import com.pengrad.telegrambot.response.GetUserProfilePhotosResponse;
+import com.pengrad.telegrambot.response.SendResponse;
+import com.pengrad.telegrambot.response.SetWebhookResponse;
 
 /**
  * stas
  * 10/20/15.
  */
+@Ignore
 public class TelegramBotTest {
 
     TelegramBot bot;
@@ -30,14 +50,16 @@ public class TelegramBotTest {
     String channelName = "@bottest";
     Long channelId = -1001002720332L;
     String stickerId;
-    String imagefile = getClass().getClassLoader().getResource("image.png").getFile();
-    String audioFile = getClass().getClassLoader().getResource("beep.mp3").getFile();
-    String docFile = getClass().getClassLoader().getResource("doc.txt").getFile();
-    String videoFile = getClass().getClassLoader().getResource("tabs.mp4").getFile();
+    String imagefile = TelegramBotTest.class.getClassLoader().getResource("image.png").getPath().replaceAll("%20", " ");
+    String audioFile = TelegramBotTest.class.getClassLoader().getResource("beep.mp3").getPath().replaceAll("%20", " ");
+    String docFile = TelegramBotTest.class.getClassLoader().getResource("doc.txt").getPath().replaceAll("%20", " ");
+    String videoFile = TelegramBotTest.class.getClassLoader().getResource("tabs.mp4").getPath().replaceAll("%20", " ");
 
     public TelegramBotTest() throws IOException {
+    	String filePath = TelegramBotTest.class.getClassLoader().getResource("local.properties").getPath().replaceAll("%20", " ");
+    	
         Properties properties = new Properties();
-        properties.load(new FileInputStream("local.properties"));
+        properties.load(new FileInputStream(filePath));
         bot = TelegramBotAdapter.buildDebug(properties.getProperty("TEST_TOKEN"));
         chatId = Integer.parseInt(properties.getProperty("CHAT_ID"));
         forwardMessageId = Integer.parseInt(properties.getProperty("FORWARD_MESSAGE"));
