@@ -1,15 +1,13 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.impl.TelegramApi;
-
 /**
  * stas
  * 5/2/16.
  */
 public class SendDocument extends AbstractMultipartRequest<SendDocument> {
 
-    public SendDocument(TelegramApi api, Object chatId, Object document, boolean isMultipart) {
-        super(api, chatId, isMultipart);
+    public SendDocument(Object chatId, Object document, boolean isMultipart) {
+        super(chatId, isMultipart);
         add("document", document);
     }
 

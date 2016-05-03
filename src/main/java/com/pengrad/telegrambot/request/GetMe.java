@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.impl.TelegramApi;
 import com.pengrad.telegrambot.response.GetMeResponse;
 
 /**
@@ -9,7 +8,7 @@ import com.pengrad.telegrambot.response.GetMeResponse;
  */
 public class GetMe extends BaseRequest<GetMe, GetMeResponse> {
 
-    public GetMe(TelegramApi api) {
-        super(api, GetMeResponse.class);
+    public GetMe() {
+        super(GetMeResponse.class);
     }
 }

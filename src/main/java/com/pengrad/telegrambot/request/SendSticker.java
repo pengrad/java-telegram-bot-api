@@ -1,15 +1,13 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.impl.TelegramApi;
-
 /**
  * stas
  * 5/2/16.
  */
 public class SendSticker extends AbstractMultipartRequest<SendSticker> {
 
-    public SendSticker(TelegramApi api, Object chatId, Object sticker, boolean isMultipart) {
-        super(api, chatId, isMultipart);
+    public SendSticker(Object chatId, Object sticker, boolean isMultipart) {
+        super(chatId, isMultipart);
         add("sticker", sticker);
     }
 

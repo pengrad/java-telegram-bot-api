@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.impl;
 
 import com.google.gson.Gson;
+import com.pengrad.telegrambot.Callback;
 import com.pengrad.telegrambot.request.BaseRequest;
 import okhttp3.*;
 
@@ -12,27 +13,51 @@ import java.util.Map;
  * stas
  * 5/1/16.
  */
-public class TelegramApi {
+public class TelegramBotClient {
 
     private final OkHttpClient client;
     private final Gson gson;
     private final String baseUrl;
 
-    public TelegramApi(OkHttpClient client, Gson gson, String baseUrl) {
+    public TelegramBotClient(OkHttpClient client, Gson gson, String baseUrl) {
         this.client = client;
         this.gson = gson;
         this.baseUrl = baseUrl;
     }
 
-    public <R> R send(BaseRequest<?, R> request) throws IOException {
-        Request httpRequest = new Request.Builder()
+    public <T extends BaseRequest<T, R>, R> void send(final T request, final Callback<T, R> callback) {
+        client.newCall(createRequest(request)).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                try {
+                    R result = gson.fromJson(response.body().string(), request.getResponseType());
+                    callback.onResponse(request, result);
+                } catch (IOException e) {
+                    callback.onFailure(request, e);
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.onFailure(request, e);
+            }
+        });
+    }
+
+    public <T extends BaseRequest, R> R send(final BaseRequest<T, R> request) {
+        try {
+            Response response = client.newCall(createRequest(request)).execute();
+            return gson.fromJson(response.body().string(), request.getResponseType());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private <R> Request createRequest(BaseRequest<?, R> request) {
+        return new Request.Builder()
                 .url(baseUrl + request.getMethod())
                 .post(createRequestBody(request))
                 .build();
-
-        Response response = client.newCall(httpRequest).execute();
-
-        return gson.fromJson(response.body().string(), request.getResponseType());
     }
 
     private <R> RequestBody createRequestBody(BaseRequest<?, R> request) {

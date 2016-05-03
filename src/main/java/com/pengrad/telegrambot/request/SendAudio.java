@@ -1,15 +1,13 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.impl.TelegramApi;
-
 /**
  * stas
  * 5/2/16.
  */
 public class SendAudio extends AbstractMultipartRequest<SendAudio> {
 
-    public SendAudio(TelegramApi api, Object chatId, Object audio, boolean isMultipart) {
-        super(api, chatId, isMultipart);
+    public SendAudio(Object chatId, Object audio, boolean isMultipart) {
+        super(chatId, isMultipart);
         add("audio", audio);
     }
 

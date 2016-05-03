@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.impl.TelegramApi;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 
 /**
@@ -9,8 +8,8 @@ import com.pengrad.telegrambot.response.GetUpdatesResponse;
  */
 public class GetUpdates extends BaseRequest<GetUpdates, GetUpdatesResponse> {
 
-    public GetUpdates(TelegramApi api) {
-        super(api, GetUpdatesResponse.class);
+    public GetUpdates() {
+        super(GetUpdatesResponse.class);
     }
 
     public GetUpdates offset(int offset) {

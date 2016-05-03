@@ -1,17 +1,9 @@
 package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.impl.FileApi;
-import com.pengrad.telegrambot.impl.TelegramApi;
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.File;
-import com.pengrad.telegrambot.model.request.ChatAction;
-import com.pengrad.telegrambot.request.GetFile;
-import com.pengrad.telegrambot.request.GetMe;
-import com.pengrad.telegrambot.request.SendChatAction;
-import com.pengrad.telegrambot.request.SendMessage;
-import com.pengrad.telegrambot.response.BaseResponse;
-import com.pengrad.telegrambot.response.GetFileResponse;
-import com.pengrad.telegrambot.response.GetMeResponse;
-import com.pengrad.telegrambot.response.SendResponse;
+import com.pengrad.telegrambot.request.BaseRequest;
 
 /**
  * Stas Parshin
@@ -19,40 +11,25 @@ import com.pengrad.telegrambot.response.SendResponse;
  */
 public class TelegramBot extends OldTelegramBot {
 
-    private final TelegramApi api;
+    private final TelegramBotClient api;
     private final FileApi fileApi;
 
-    TelegramBot(TelegramApi api, FileApi fileApi) {
-        super(api, fileApi);
+    TelegramBot(TelegramBotClient api, FileApi fileApi) {
+        super(fileApi);
         this.api = api;
         this.fileApi = fileApi;
     }
 
-    public GetMeResponse getMe() {
-        return new GetMe(api).execute();
-    }
-
-    public SendResponse sendMessage(Object chatId, String text) {
-        return new SendMessage(api, chatId, text).execute();
-    }
-
-    public BaseResponse sendChatAction(Object chatId, ChatAction action) {
-        return new SendChatAction(api, chatId, action.name()).execute();
-    }
-
-    public GetFileResponse getFile(String fileId) {
-        return new GetFile(api, fileId).execute();
-    }
-
-    public String getFullFilePath(String fileId) {
-        GetFileResponse fileResponse = new GetFile(api, fileId).execute();
-        if (!fileResponse.isOk() || fileResponse.file() == null) {
-            return null;
-        }
-        return fileApi.getFullFilePath(fileResponse.file().filePath());
-    }
-
     public String getFullFilePath(File file) {
         return fileApi.getFullFilePath(file.filePath());
+    }
+
+    @Override
+    public <T extends BaseRequest, R> R execute(BaseRequest<T, R> request) {
+        return api.send(request);
+    }
+
+    public <T extends BaseRequest<T, R>, R> void execute(T request, Callback<T, R> callback) {
+        api.send(request, callback);
     }
 }

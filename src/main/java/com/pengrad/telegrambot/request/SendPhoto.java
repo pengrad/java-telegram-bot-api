@@ -1,15 +1,13 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.impl.TelegramApi;
-
 /**
  * stas
  * 5/1/16.
  */
 public class SendPhoto extends AbstractMultipartRequest<SendPhoto> {
 
-    public SendPhoto(TelegramApi api, Object chatId, Object photo, boolean isMultipart) {
-        super(api, chatId, isMultipart);
+    public SendPhoto(Object chatId, Object photo, boolean isMultipart) {
+        super(chatId, isMultipart);
         add("photo", photo);
     }
 

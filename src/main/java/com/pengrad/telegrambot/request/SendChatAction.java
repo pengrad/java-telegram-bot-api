@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.impl.TelegramApi;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -9,8 +8,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class SendChatAction extends BaseRequest<SendChatAction, BaseResponse> {
 
-    public SendChatAction(TelegramApi api, Object chatId, String action) {
-        super(api, BaseResponse.class);
+    public SendChatAction(Object chatId, String action) {
+        super(BaseResponse.class);
         add("chat_id", chatId).add("action", action);
     }
 }

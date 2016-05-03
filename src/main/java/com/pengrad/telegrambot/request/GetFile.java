@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.impl.TelegramApi;
 import com.pengrad.telegrambot.response.GetFileResponse;
 
 /**
@@ -9,8 +8,8 @@ import com.pengrad.telegrambot.response.GetFileResponse;
  */
 public class GetFile extends BaseRequest<GetFile, GetFileResponse> {
 
-    public GetFile(TelegramApi api, String fileId) {
-        super(api, GetFileResponse.class);
+    public GetFile(String fileId) {
+        super(GetFileResponse.class);
         add("file_id", fileId);
     }
 }

@@ -1,7 +1,5 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.impl.TelegramApi;
-
 /**
  * stas
  * 5/1/16.
@@ -10,8 +8,8 @@ abstract public class AbstractMultipartRequest<T extends AbstractMultipartReques
 
     private final boolean isMultipart;
 
-    public AbstractMultipartRequest(TelegramApi api, Object chatId, boolean isMultipart) {
-        super(api, chatId);
+    public AbstractMultipartRequest(Object chatId, boolean isMultipart) {
+        super(chatId);
         this.isMultipart = isMultipart;
     }
 

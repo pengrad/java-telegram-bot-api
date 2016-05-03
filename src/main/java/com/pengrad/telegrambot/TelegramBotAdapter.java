@@ -2,7 +2,7 @@ package com.pengrad.telegrambot;
 
 import com.google.gson.Gson;
 import com.pengrad.telegrambot.impl.FileApi;
-import com.pengrad.telegrambot.impl.TelegramApi;
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -17,13 +17,13 @@ public class TelegramBotAdapter {
 
     public static TelegramBot build(String botToken) {
         FileApi fileApi = new FileApi(botToken);
-        TelegramApi api = new TelegramApi(client(null), gson(), apiUrl(botToken));
+        TelegramBotClient api = new TelegramBotClient(client(null), gson(), apiUrl(botToken));
         return new TelegramBot(api, fileApi);
     }
 
     public static TelegramBot buildDebug(String botToken) {
         FileApi fileApi = new FileApi(botToken);
-        TelegramApi api = new TelegramApi(client(httpLoggingInterceptor()), gson(), apiUrl(botToken));
+        TelegramBotClient api = new TelegramBotClient(client(httpLoggingInterceptor()), gson(), apiUrl(botToken));
         return new TelegramBot(api, fileApi);
     }
 

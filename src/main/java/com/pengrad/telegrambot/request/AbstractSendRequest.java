@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.impl.TelegramApi;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.response.SendResponse;
 
@@ -10,8 +9,8 @@ import com.pengrad.telegrambot.response.SendResponse;
  */
 abstract public class AbstractSendRequest<T extends AbstractSendRequest> extends BaseRequest<T, SendResponse> {
 
-    public AbstractSendRequest(TelegramApi api, Object chatId) {
-        super(api, SendResponse.class);
+    public AbstractSendRequest(Object chatId) {
+        super(SendResponse.class);
         add("chat_id", chatId);
     }
 

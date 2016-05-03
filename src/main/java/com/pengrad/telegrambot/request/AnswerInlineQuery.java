@@ -1,7 +1,6 @@
 package com.pengrad.telegrambot.request;
 
 import com.google.gson.Gson;
-import com.pengrad.telegrambot.impl.TelegramApi;
 import com.pengrad.telegrambot.model.request.InlineQueryResult;
 import com.pengrad.telegrambot.response.BaseResponse;
 
@@ -14,8 +13,8 @@ public class AnswerInlineQuery extends BaseRequest<AnswerInlineQuery, BaseRespon
     // todo remove gson
     private static Gson gson = new Gson();
 
-    public AnswerInlineQuery(TelegramApi api, String inlineQueryId, InlineQueryResult... results) {
-        super(api, BaseResponse.class);
+    public AnswerInlineQuery(String inlineQueryId, InlineQueryResult... results) {
+        super(BaseResponse.class);
         add("inline_query_id", inlineQueryId).add("results", gson.toJson(results));
     }
 
