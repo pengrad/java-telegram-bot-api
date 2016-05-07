@@ -108,7 +108,7 @@ String fullPath = bot.getFullFilePath(file);  // com.pengrad.telegrambot.model.F
 #### Inline mode
 Getting updates
 ```java
-GetUpdatesResponse updatesResponse = bot.getUpdates(offset, limit, timeout);
+GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
 List<Update> updates = updatesResponse.updates();
 ...
 InlineQuery inlineQuery = update.inlineQuery();
