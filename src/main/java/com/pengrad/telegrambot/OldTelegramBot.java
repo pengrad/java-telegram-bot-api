@@ -66,21 +66,20 @@ public abstract class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendPhoto(Object chatId, String photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendPhoto(chatId, photo, caption, replyToMessageId, replyMarkup, false);
+        return sendPhoto(new SendPhoto(chatId, photo), caption, replyToMessageId, replyMarkup);
     }
 
     @Deprecated
     public SendResponse sendPhoto(Object chatId, InputFile photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendPhoto(chatId, photo.getFile(), caption, replyToMessageId, replyMarkup, true);
+        return sendPhoto(new SendPhoto(chatId, photo.getFile()), caption, replyToMessageId, replyMarkup);
     }
 
     @Deprecated
     public SendResponse sendPhoto(Object chatId, InputFileBytes photo, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendPhoto(chatId, photo.getBytes(), caption, replyToMessageId, replyMarkup, true);
+        return sendPhoto(new SendPhoto(chatId, photo.getBytes()), caption, replyToMessageId, replyMarkup);
     }
 
-    private SendResponse sendPhoto(Object chatId, Object photo, String caption, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
-        SendPhoto request = new SendPhoto(chatId, photo, isMultipart);
+    private SendResponse sendPhoto(SendPhoto request, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
         if (caption != null) request.caption(caption);
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
         if (replyMarkup != null) request.replyMarkup(replyMarkup);
@@ -89,21 +88,20 @@ public abstract class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendAudio(Object chatId, String audio, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendAudio(chatId, audio, duration, performer, title, replyToMessageId, replyMarkup, false);
+        return sendAudio(new SendAudio(chatId, audio), duration, performer, title, replyToMessageId, replyMarkup, false);
     }
 
     @Deprecated
     public SendResponse sendAudio(Object chatId, InputFile audio, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendAudio(chatId, audio.getFile(), duration, performer, title, replyToMessageId, replyMarkup, true);
+        return sendAudio(new SendAudio(chatId, audio.getFile()), duration, performer, title, replyToMessageId, replyMarkup, true);
     }
 
     @Deprecated
     public SendResponse sendAudio(Object chatId, InputFileBytes audio, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendAudio(chatId, audio.getBytes(), duration, performer, title, replyToMessageId, replyMarkup, true);
+        return sendAudio(new SendAudio(chatId, audio.getBytes()), duration, performer, title, replyToMessageId, replyMarkup, true);
     }
 
-    private SendResponse sendAudio(Object chatId, Object audio, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
-        SendAudio request = new SendAudio(chatId, audio, isMultipart);
+    private SendResponse sendAudio(SendAudio request, Integer duration, String performer, String title, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
         if (duration != null) request.duration(duration);
         if (performer != null) request.performer(performer);
         if (title != null) request.title(title);
@@ -114,21 +112,20 @@ public abstract class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendDocument(Object chatId, String document, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendDocument(chatId, document, replyToMessageId, replyMarkup, false);
+        return sendDocument(new SendDocument(chatId, document), replyToMessageId, replyMarkup, false);
     }
 
     @Deprecated
     public SendResponse sendDocument(Object chatId, InputFile document, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendDocument(chatId, document.getFile(), replyToMessageId, replyMarkup, true);
+        return sendDocument(new SendDocument(chatId, document.getFile()), replyToMessageId, replyMarkup, true);
     }
 
     @Deprecated
     public SendResponse sendDocument(Object chatId, InputFileBytes document, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendDocument(chatId, document.getBytes(), replyToMessageId, replyMarkup, true);
+        return sendDocument(new SendDocument(chatId, document.getBytes()), replyToMessageId, replyMarkup, true);
     }
 
-    private SendResponse sendDocument(Object chatId, Object document, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
-        SendDocument request = new SendDocument(chatId, document, isMultipart);
+    private SendResponse sendDocument(SendDocument request, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
         if (replyMarkup != null) request.replyMarkup(replyMarkup);
         return execute(request);
@@ -136,21 +133,20 @@ public abstract class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendSticker(Object chatId, String sticker, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendSticker(chatId, sticker, replyToMessageId, replyMarkup, false);
+        return sendSticker(new SendSticker(chatId, sticker), replyToMessageId, replyMarkup, false);
     }
 
     @Deprecated
     public SendResponse sendSticker(Object chatId, InputFile sticker, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendSticker(chatId, sticker.getFile(), replyToMessageId, replyMarkup, true);
+        return sendSticker(new SendSticker(chatId, sticker.getFile()), replyToMessageId, replyMarkup, true);
     }
 
     @Deprecated
     public SendResponse sendSticker(Object chatId, InputFileBytes sticker, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendSticker(chatId, sticker.getBytes(), replyToMessageId, replyMarkup, true);
+        return sendSticker(new SendSticker(chatId, sticker.getBytes()), replyToMessageId, replyMarkup, true);
     }
 
-    private SendResponse sendSticker(Object chatId, Object sticker, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
-        SendSticker request = new SendSticker(chatId, sticker, isMultipart);
+    private SendResponse sendSticker(SendSticker request, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
         if (replyMarkup != null) request.replyMarkup(replyMarkup);
         return execute(request);
@@ -158,21 +154,20 @@ public abstract class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendVideo(Object chatId, String video, Integer duration, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendVideo(chatId, video, duration, caption, replyToMessageId, replyMarkup, false);
+        return sendVideo(new SendVideo(chatId, video), duration, caption, replyToMessageId, replyMarkup, false);
     }
 
     @Deprecated
     public SendResponse sendVideo(Object chatId, InputFile video, Integer duration, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendVideo(chatId, video.getFile(), duration, caption, replyToMessageId, replyMarkup, true);
+        return sendVideo(new SendVideo(chatId, video.getFile()), duration, caption, replyToMessageId, replyMarkup, true);
     }
 
     @Deprecated
     public SendResponse sendVideo(Object chatId, InputFileBytes video, Integer duration, String caption, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendVideo(chatId, video.getBytes(), duration, caption, replyToMessageId, replyMarkup, true);
+        return sendVideo(new SendVideo(chatId, video.getBytes()), duration, caption, replyToMessageId, replyMarkup, true);
     }
 
-    private SendResponse sendVideo(Object chatId, Object video, Integer duration, String caption, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
-        SendVideo request = new SendVideo(chatId, video, isMultipart);
+    private SendResponse sendVideo(SendVideo request, Integer duration, String caption, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
         if (duration != null) request.duration(duration);
         if (caption != null) request.caption(caption);
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
@@ -182,21 +177,20 @@ public abstract class OldTelegramBot {
 
     @Deprecated
     public SendResponse sendVoice(Object chatId, String voice, Integer duration, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendVoice(chatId, voice, duration, replyToMessageId, replyMarkup, false);
+        return sendVoice(new SendVoice(chatId, voice), duration, replyToMessageId, replyMarkup, false);
     }
 
     @Deprecated
     public SendResponse sendVoice(Object chatId, InputFile voice, Integer duration, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendVoice(chatId, voice.getFile(), duration, replyToMessageId, replyMarkup, true);
+        return sendVoice(new SendVoice(chatId, voice.getFile()), duration, replyToMessageId, replyMarkup, true);
     }
 
     @Deprecated
     public SendResponse sendVoice(Object chatId, InputFileBytes voice, Integer duration, Integer replyToMessageId, Keyboard replyMarkup) {
-        return sendVoice(chatId, voice.getBytes(), duration, replyToMessageId, replyMarkup, true);
+        return sendVoice(new SendVoice(chatId, voice.getBytes()), duration, replyToMessageId, replyMarkup, true);
     }
 
-    private SendResponse sendVoice(Object chatId, Object voice, Integer duration, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
-        SendVoice request = new SendVoice(chatId, voice, isMultipart);
+    private SendResponse sendVoice(SendVoice request, Integer duration, Integer replyToMessageId, Keyboard replyMarkup, boolean isMultipart) {
         if (duration != null) request.duration(duration);
         if (replyToMessageId != null) request.replyToMessageId(replyToMessageId);
         if (replyMarkup != null) request.replyMarkup(replyMarkup);

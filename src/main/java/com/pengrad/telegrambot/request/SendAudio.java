@@ -1,14 +1,23 @@
 package com.pengrad.telegrambot.request;
 
+import java.io.File;
+
 /**
  * stas
  * 5/2/16.
  */
 public class SendAudio extends AbstractMultipartRequest<SendAudio> {
 
-    public SendAudio(Object chatId, Object audio, boolean isMultipart) {
-        super(chatId, isMultipart);
-        add("audio", audio);
+    public SendAudio(Object chatId, String audio) {
+        super(chatId, audio);
+    }
+
+    public SendAudio(Object chatId, File audio) {
+        super(chatId, audio);
+    }
+
+    public SendAudio(Object chatId, byte[] audio) {
+        super(chatId, audio);
     }
 
     public SendAudio duration(int duration) {
@@ -21,6 +30,11 @@ public class SendAudio extends AbstractMultipartRequest<SendAudio> {
 
     public SendAudio title(String title) {
         return add("title", title);
+    }
+
+    @Override
+    protected String getFileParamName() {
+        return "audio";
     }
 
     @Override

@@ -1,14 +1,23 @@
 package com.pengrad.telegrambot.request;
 
+import java.io.File;
+
 /**
  * stas
  * 5/1/16.
  */
 public class SendVideo extends AbstractMultipartRequest<SendVideo> {
 
-    public SendVideo(Object chatId, Object video, boolean isMultipart) {
-        super(chatId, isMultipart);
-        add("video", video);
+    public SendVideo(Object chatId, String video) {
+        super(chatId, video);
+    }
+
+    public SendVideo(Object chatId, File video) {
+        super(chatId, video);
+    }
+
+    public SendVideo(Object chatId, byte[] video) {
+        super(chatId, video);
     }
 
     public SendVideo duration(int duration) {
@@ -25,6 +34,11 @@ public class SendVideo extends AbstractMultipartRequest<SendVideo> {
 
     public SendVideo caption(String caption) {
         return add("caption", caption);
+    }
+
+    @Override
+    protected String getFileParamName() {
+        return "video";
     }
 
     @Override

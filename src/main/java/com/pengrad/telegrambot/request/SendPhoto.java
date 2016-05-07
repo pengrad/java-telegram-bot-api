@@ -1,18 +1,32 @@
 package com.pengrad.telegrambot.request;
 
+import java.io.File;
+
 /**
  * stas
  * 5/1/16.
  */
 public class SendPhoto extends AbstractMultipartRequest<SendPhoto> {
 
-    public SendPhoto(Object chatId, Object photo, boolean isMultipart) {
-        super(chatId, isMultipart);
-        add("photo", photo);
+    public SendPhoto(Object chatId, String photo) {
+        super(chatId, photo);
+    }
+
+    public SendPhoto(Object chatId, File photo) {
+        super(chatId, photo);
+    }
+
+    public SendPhoto(Object chatId, byte[] photo) {
+        super(chatId, photo);
     }
 
     public SendPhoto caption(String caption) {
         return add("caption", caption);
+    }
+
+    @Override
+    protected String getFileParamName() {
+        return "photo";
     }
 
     @Override
