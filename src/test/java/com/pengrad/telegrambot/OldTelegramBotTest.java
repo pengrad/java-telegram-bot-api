@@ -16,9 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * stas
@@ -78,7 +76,7 @@ public class OldTelegramBotTest {
         sendResponse = bot.sendMessage(channelId, "explicit to channel id _italic_ *markdown*", ParseMode.Markdown, false, null, null);
         MessageTest.checkTextMessage(sendResponse.message());
         sendResponse = bot.sendMessage(channelName, "to channel name with html <b>bold</b>, <strong>bold</strong> " +
-                "<i>italic</i>, <em>italic</em> <a href=\"https://telegram.org\">inline URL</a> <code>inline fixed-width code</code> <pre>pre-formatted fixed-width code block</pre>",
+                        "<i>italic</i>, <em>italic</em> <a href=\"https://telegram.org\">inline URL</a> <code>inline fixed-width code</code> <pre>pre-formatted fixed-width code block</pre>",
                 ParseMode.HTML, false, null, null);
         MessageTest.checkTextMessage(sendResponse.message());
     }
@@ -178,7 +176,7 @@ public class OldTelegramBotTest {
     public void testAnswerInlineQuery() {
         InlineQuery inlineQuery = getLastInlineQuery();
         InlineQueryResult r1 = new InlineQueryResultPhoto("1", "https://pp.vk.me/c410128/u2425605/a_f9604e14.jpg", "https://pp.vk.me/c410128/u2425605/d_fa1c9b0e.jpg");
-        InlineQueryResult r2 = new InlineQueryResultArticle("2", "title", "message text").thumbUrl("https://pp.vk.me/c311925/v311925605/a0e/2Ua6hLgr71U.jpg");
+        InlineQueryResult r2 = new InlineQueryResultArticle("2", "title", "test text").thumbUrl("https://pp.vk.me/c311925/v311925605/a0e/2Ua6hLgr71U.jpg");
         InlineQueryResult r3 = new InlineQueryResultGif("3", "https://media.giphy.com/media/bs3V7RiJ6B95e/giphy.gif", "https://pp.vk.me/c521410/u2425605/-3/m_b2d464207a.jpg");
         InlineQueryResult r4 = new InlineQueryResultMpeg4Gif("4", "https://media.giphy.com/media/YEmR6PxPQmEa4/giphy.gif", "https://pp.vk.me/c521410/u2425605/-3/m_b2d464207a.jpg");
         InlineQueryResult r5 = new InlineQueryResultVideo("5", "https://vk.com/video_ext.php?oid=2425605&id=166305236&hash=0a13db9cc2cb53b6", InlineQueryResultVideo.MIME_VIDEO_MP4, "message text", "https://pp.vk.me/c521410/u2425605/-3/m_b2d464207a.jpg", "video title");

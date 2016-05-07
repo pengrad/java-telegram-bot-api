@@ -4,10 +4,8 @@ package com.pengrad.telegrambot.model.request;
  * stas
  * 1/12/16.
  */
-public class InlineQueryResultPhoto extends InlineQueryResult {
+public class InlineQueryResultPhoto extends InlineQueryResult<InlineQueryResultPhoto> {
 
-    private String type;
-    private String id;
     private String photo_url;
     private String thumb_url;
 
@@ -16,13 +14,9 @@ public class InlineQueryResultPhoto extends InlineQueryResult {
     private String title;
     private String description;
     private String caption;
-    private String message_text;
-    private ParseMode parse_mode;
-    private Boolean disable_web_page_preview;
 
     public InlineQueryResultPhoto(String id, String photoUrl, String thumbUrl) {
-        this.type = "photo";
-        this.id = id;
+        super("photo", id);
         this.photo_url = photoUrl;
         this.thumb_url = thumbUrl;
     }
@@ -49,21 +43,6 @@ public class InlineQueryResultPhoto extends InlineQueryResult {
 
     public InlineQueryResultPhoto caption(String caption) {
         this.caption = caption;
-        return this;
-    }
-
-    public InlineQueryResultPhoto messageText(String messageText) {
-        this.message_text = messageText;
-        return this;
-    }
-
-    public InlineQueryResultPhoto parseMode(ParseMode parseMode) {
-        this.parse_mode = parseMode;
-        return this;
-    }
-
-    public InlineQueryResultPhoto disableWebPagePreview(Boolean disableWebPagePreview) {
-        this.disable_web_page_preview = disableWebPagePreview;
         return this;
     }
 }
