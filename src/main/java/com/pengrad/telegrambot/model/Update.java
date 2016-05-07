@@ -10,9 +10,7 @@ public class Update {
     private Message message;
     private InlineQuery inline_query;
     private ChosenInlineResult chosen_inline_result;
-
-    Update() {
-    }
+    private CallbackQuery callback_query;
 
     public Integer updateId() {
         return update_id;
@@ -30,6 +28,10 @@ public class Update {
         return chosen_inline_result;
     }
 
+    public CallbackQuery callbackQuery() {
+        return callback_query;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,14 +41,16 @@ public class Update {
 
         if (update_id != null ? !update_id.equals(update.update_id) : update.update_id != null) return false;
         if (message != null ? !message.equals(update.message) : update.message != null) return false;
-        if (inline_query != null ? !inline_query.equals(update.inline_query) : update.inline_query != null)
+        if (inline_query != null ? !inline_query.equals(update.inline_query) : update.inline_query != null) return false;
+        if (chosen_inline_result != null ? !chosen_inline_result.equals(update.chosen_inline_result) : update.chosen_inline_result != null)
             return false;
-        return chosen_inline_result != null ? chosen_inline_result.equals(update.chosen_inline_result) : update.chosen_inline_result == null;
+        return callback_query != null ? callback_query.equals(update.callback_query) : update.callback_query == null;
+
     }
 
     @Override
     public int hashCode() {
-        return update_id.hashCode();
+        return update_id != null ? update_id.hashCode() : 0;
     }
 
     @Override
@@ -56,6 +60,7 @@ public class Update {
                 ", message=" + message +
                 ", inline_query=" + inline_query +
                 ", chosen_inline_result=" + chosen_inline_result +
+                ", callback_query=" + callback_query +
                 '}';
     }
 }
