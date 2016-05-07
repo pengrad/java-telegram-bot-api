@@ -72,7 +72,7 @@ Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 .resizeKeyboard(true)    // optional
                 .selective(true);        // optional
 
-// keyboard button                a
+// keyboard button
 Keyboard keyboard = new ReplyKeyboardMarkup(
         new KeyboardButton[]{
                 new KeyboardButton("text"),
