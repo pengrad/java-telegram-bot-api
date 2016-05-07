@@ -9,9 +9,6 @@ public class Location {
     private Float longitude;
     private Float latitude;
 
-    Location() {
-    }
-
     public Float longitude() {
         return longitude;
     }
@@ -33,8 +30,8 @@ public class Location {
 
     @Override
     public int hashCode() {
-        int result = longitude.hashCode();
-        result = 31 * result + latitude.hashCode();
+        int result = longitude != null ? longitude.hashCode() : 0;
+        result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
         return result;
     }
 

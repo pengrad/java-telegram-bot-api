@@ -11,9 +11,6 @@ public class Contact {
     private String last_name;
     private Integer user_id;
 
-    Contact() {
-    }
-
     public String phoneNumber() {
         return phone_number;
     }
@@ -46,7 +43,7 @@ public class Contact {
 
     @Override
     public int hashCode() {
-        return phone_number.hashCode();
+        return phone_number != null ? phone_number.hashCode() : 0;
     }
 
     @Override

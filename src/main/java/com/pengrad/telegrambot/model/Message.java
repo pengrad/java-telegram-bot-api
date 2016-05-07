@@ -39,9 +39,6 @@ public class Message {
     private Long migrate_from_chat_id;
     private Message pinned_message;
 
-    Message() {
-    }
-
     public Integer messageId() {
         return message_id;
     }
@@ -169,10 +166,10 @@ public class Message {
 
         Message message = (Message) o;
 
-        if (!message_id.equals(message.message_id)) return false;
+        if (message_id != null ? !message_id.equals(message.message_id) : message.message_id != null) return false;
         if (from != null ? !from.equals(message.from) : message.from != null) return false;
-        if (!date.equals(message.date)) return false;
-        if (!chat.equals(message.chat)) return false;
+        if (date != null ? !date.equals(message.date) : message.date != null) return false;
+        if (chat != null ? !chat.equals(message.chat) : message.chat != null) return false;
         if (forward_from != null ? !forward_from.equals(message.forward_from) : message.forward_from != null) return false;
         if (forward_date != null ? !forward_date.equals(message.forward_date) : message.forward_date != null) return false;
         if (reply_to_message != null ? !reply_to_message.equals(message.reply_to_message) : message.reply_to_message != null)
@@ -217,7 +214,7 @@ public class Message {
 
     @Override
     public int hashCode() {
-        return message_id.hashCode();
+        return message_id != null ? message_id.hashCode() : 0;
     }
 
     @Override

@@ -12,9 +12,6 @@ public class ChosenInlineResult {
     private String inline_message_id;
     private String query;
 
-    ChosenInlineResult() {
-    }
-
     public String resultId() {
         return result_id;
     }

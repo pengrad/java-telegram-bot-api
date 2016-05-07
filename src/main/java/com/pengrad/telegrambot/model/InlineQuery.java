@@ -12,9 +12,6 @@ public class InlineQuery {
     private String query;
     private String offset;
 
-    InlineQuery() {
-    }
-
     public String id() {
         return id;
     }

@@ -34,18 +34,18 @@ public class Venue {
 
         Venue venue = (Venue) o;
 
-        if (!location.equals(venue.location)) return false;
-        if (!title.equals(venue.title)) return false;
-        if (!address.equals(venue.address)) return false;
+        if (location != null ? !location.equals(venue.location) : venue.location != null) return false;
+        if (title != null ? !title.equals(venue.title) : venue.title != null) return false;
+        if (address != null ? !address.equals(venue.address) : venue.address != null) return false;
         return foursquare_id != null ? foursquare_id.equals(venue.foursquare_id) : venue.foursquare_id == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = location.hashCode();
-        result = 31 * result + title.hashCode();
-        result = 31 * result + address.hashCode();
+        int result = location != null ? location.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (foursquare_id != null ? foursquare_id.hashCode() : 0);
         return result;
     }

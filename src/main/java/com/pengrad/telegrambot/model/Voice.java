@@ -11,9 +11,6 @@ public class Voice {
     private String mime_type;
     private Integer file_size;
 
-    Voice() {
-    }
-
     public String fileId() {
         return file_id;
     }
@@ -45,7 +42,7 @@ public class Voice {
 
     @Override
     public int hashCode() {
-        return file_id.hashCode();
+        return file_id != null ? file_id.hashCode() : 0;
     }
 
     @Override

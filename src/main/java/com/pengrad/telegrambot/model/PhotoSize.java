@@ -11,9 +11,6 @@ public class PhotoSize {
     private Integer height;
     private Integer file_size;
 
-    PhotoSize() {
-    }
-
     public String fileId() {
         return file_id;
     }
@@ -45,7 +42,7 @@ public class PhotoSize {
 
     @Override
     public int hashCode() {
-        return file_id.hashCode();
+        return file_id != null ? file_id.hashCode() : 0;
     }
 
     @Override

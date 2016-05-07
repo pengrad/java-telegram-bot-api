@@ -34,18 +34,18 @@ public class MessageEntity {
 
         MessageEntity that = (MessageEntity) o;
 
-        if (!type.equals(that.type)) return false;
-        if (!offset.equals(that.offset)) return false;
-        if (!length.equals(that.length)) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
+        if (offset != null ? !offset.equals(that.offset) : that.offset != null) return false;
+        if (length != null ? !length.equals(that.length) : that.length != null) return false;
         return url != null ? url.equals(that.url) : that.url == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = type.hashCode();
-        result = 31 * result + offset.hashCode();
-        result = 31 * result + length.hashCode();
+        int result = type != null ? type.hashCode() : 0;
+        result = 31 * result + (offset != null ? offset.hashCode() : 0);
+        result = 31 * result + (length != null ? length.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
         return result;
     }

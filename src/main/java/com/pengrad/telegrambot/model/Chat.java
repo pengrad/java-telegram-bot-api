@@ -25,9 +25,6 @@ public class Chat {
     //Channel and Group
     private String title;
 
-    Chat() {
-    }
-
     public Long id() {
         return id;
     }
