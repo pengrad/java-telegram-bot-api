@@ -71,6 +71,15 @@ Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 .oneTimeKeyboard(true)   // optional
                 .resizeKeyboard(true)    // optional
                 .selective(true);        // optional
+
+// keyboard button                a
+Keyboard keyboard = new ReplyKeyboardMarkup(
+        new KeyboardButton[]{
+                new KeyboardButton("text"),
+                new KeyboardButton("contact").requestContact(true),
+                new KeyboardButton("location").requestLocation(true)
+        }
+);                
                 
 Keyboard forceReply = new ForceReply(isSelective); // or just new ForceReply();
 Keyboard replyKeyboardHide = new ReplyKeyboardHide(); // new ReplyKeyboardHide(isSelective)
