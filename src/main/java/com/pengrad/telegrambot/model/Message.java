@@ -13,6 +13,7 @@ public class Message {
     private Integer date;
     private Chat chat;
     private User forward_from;
+    private Chat forward_from_chat;
     private Integer forward_date;
     private Message reply_to_message;
     private String text;
@@ -57,6 +58,10 @@ public class Message {
 
     public User forwardFrom() {
         return forward_from;
+    }
+
+    public Chat forwardFromChat() {
+        return forward_from_chat;
     }
 
     public Integer forwardDate() {
@@ -171,6 +176,8 @@ public class Message {
         if (date != null ? !date.equals(message.date) : message.date != null) return false;
         if (chat != null ? !chat.equals(message.chat) : message.chat != null) return false;
         if (forward_from != null ? !forward_from.equals(message.forward_from) : message.forward_from != null) return false;
+        if (forward_from_chat != null ? !forward_from_chat.equals(message.forward_from_chat) : message.forward_from_chat != null)
+            return false;
         if (forward_date != null ? !forward_date.equals(message.forward_date) : message.forward_date != null) return false;
         if (reply_to_message != null ? !reply_to_message.equals(message.reply_to_message) : message.reply_to_message != null)
             return false;
@@ -225,6 +232,7 @@ public class Message {
                 ", date=" + date +
                 ", chat=" + chat +
                 ", forward_from=" + forward_from +
+                ", forward_from_chat=" + forward_from_chat +
                 ", forward_date=" + forward_date +
                 ", reply_to_message=" + reply_to_message +
                 ", text='" + text + '\'' +
