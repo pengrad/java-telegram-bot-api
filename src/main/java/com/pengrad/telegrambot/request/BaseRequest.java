@@ -13,10 +13,10 @@ abstract public class BaseRequest<T extends BaseRequest, R> {
     @SuppressWarnings("unchecked")
     private final T thisAsT = (T) this;
 
-    private final Class<R> responseClass;
+    private final Class responseClass;
     private final Map<String, Object> parameters;
 
-    public BaseRequest(Class<R> responseClass) {
+    public BaseRequest(Class responseClass) {
         this.responseClass = responseClass;
         this.parameters = new HashMap<String, Object>();
     }

@@ -5,6 +5,7 @@ import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.User;
 import com.pengrad.telegrambot.model.request.*;
+import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.*;
 import org.junit.Test;
 
@@ -155,7 +156,8 @@ public class OldTelegramBotTest {
 
     @Test
     public void testGetUpdates() throws Exception {
-        GetUpdatesResponse updatesResponse = bot.getUpdates(0, 10, 0);
+        System.out.println(bot.execute(new GetUpdates()));
+        GetUpdatesResponse updatesResponse = bot.getUpdates(69057787, 10, 0);
         List<Update> update = updatesResponse.updates();
         UpdateTest.check(update);
     }
