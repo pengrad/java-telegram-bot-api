@@ -13,9 +13,11 @@ public class Message {
     private Integer date;
     private Chat chat;
     private User forward_from;
+    private Chat forward_from_chat;
     private Integer forward_date;
     private Message reply_to_message;
     private String text;
+    private MessageEntity[] entities;
     private Audio audio;
     private Document document;
     private PhotoSize[] photo;
@@ -25,8 +27,9 @@ public class Message {
     private String caption;
     private Contact contact;
     private Location location;
-    private User new_chat_participant;
-    private User left_chat_participant;
+    private Venue venue;
+    private User new_chat_member;
+    private User left_chat_member;
     private String new_chat_title;
     private PhotoSize[] new_chat_photo;
     private Boolean delete_chat_photo;
@@ -35,9 +38,7 @@ public class Message {
     private Boolean channel_chat_created;
     private Long migrate_to_chat_id;
     private Long migrate_from_chat_id;
-
-    Message() {
-    }
+    private Message pinned_message;
 
     public Integer messageId() {
         return message_id;
@@ -59,6 +60,10 @@ public class Message {
         return forward_from;
     }
 
+    public Chat forwardFromChat() {
+        return forward_from_chat;
+    }
+
     public Integer forwardDate() {
         return forward_date;
     }
@@ -69,6 +74,10 @@ public class Message {
 
     public String text() {
         return text;
+    }
+
+    public MessageEntity[] entities() {
+        return entities;
     }
 
     public Audio audio() {
@@ -107,12 +116,16 @@ public class Message {
         return location;
     }
 
-    public User newChatParticipant() {
-        return new_chat_participant;
+    public Venue venue() {
+        return venue;
     }
 
-    public User leftChatParticipant() {
-        return left_chat_participant;
+    public User newChatMember() {
+        return new_chat_member;
+    }
+
+    public User leftChatMember() {
+        return left_chat_member;
     }
 
     public String newChatTitle() {
@@ -147,6 +160,10 @@ public class Message {
         return migrate_from_chat_id;
     }
 
+    public Message pinnedMessage() {
+        return pinned_message;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -158,13 +175,15 @@ public class Message {
         if (from != null ? !from.equals(message.from) : message.from != null) return false;
         if (date != null ? !date.equals(message.date) : message.date != null) return false;
         if (chat != null ? !chat.equals(message.chat) : message.chat != null) return false;
-        if (forward_from != null ? !forward_from.equals(message.forward_from) : message.forward_from != null)
+        if (forward_from != null ? !forward_from.equals(message.forward_from) : message.forward_from != null) return false;
+        if (forward_from_chat != null ? !forward_from_chat.equals(message.forward_from_chat) : message.forward_from_chat != null)
             return false;
-        if (forward_date != null ? !forward_date.equals(message.forward_date) : message.forward_date != null)
-            return false;
+        if (forward_date != null ? !forward_date.equals(message.forward_date) : message.forward_date != null) return false;
         if (reply_to_message != null ? !reply_to_message.equals(message.reply_to_message) : message.reply_to_message != null)
             return false;
         if (text != null ? !text.equals(message.text) : message.text != null) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(entities, message.entities)) return false;
         if (audio != null ? !audio.equals(message.audio) : message.audio != null) return false;
         if (document != null ? !document.equals(message.document) : message.document != null) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
@@ -175,9 +194,10 @@ public class Message {
         if (caption != null ? !caption.equals(message.caption) : message.caption != null) return false;
         if (contact != null ? !contact.equals(message.contact) : message.contact != null) return false;
         if (location != null ? !location.equals(message.location) : message.location != null) return false;
-        if (new_chat_participant != null ? !new_chat_participant.equals(message.new_chat_participant) : message.new_chat_participant != null)
+        if (venue != null ? !venue.equals(message.venue) : message.venue != null) return false;
+        if (new_chat_member != null ? !new_chat_member.equals(message.new_chat_member) : message.new_chat_member != null)
             return false;
-        if (left_chat_participant != null ? !left_chat_participant.equals(message.left_chat_participant) : message.left_chat_participant != null)
+        if (left_chat_member != null ? !left_chat_member.equals(message.left_chat_member) : message.left_chat_member != null)
             return false;
         if (new_chat_title != null ? !new_chat_title.equals(message.new_chat_title) : message.new_chat_title != null)
             return false;
@@ -193,12 +213,15 @@ public class Message {
             return false;
         if (migrate_to_chat_id != null ? !migrate_to_chat_id.equals(message.migrate_to_chat_id) : message.migrate_to_chat_id != null)
             return false;
-        return migrate_from_chat_id != null ? migrate_from_chat_id.equals(message.migrate_from_chat_id) : message.migrate_from_chat_id == null;
+        if (migrate_from_chat_id != null ? !migrate_from_chat_id.equals(message.migrate_from_chat_id) : message.migrate_from_chat_id != null)
+            return false;
+        return pinned_message != null ? pinned_message.equals(message.pinned_message) : message.pinned_message == null;
+
     }
 
     @Override
     public int hashCode() {
-        return message_id.hashCode();
+        return message_id != null ? message_id.hashCode() : 0;
     }
 
     @Override
@@ -209,9 +232,11 @@ public class Message {
                 ", date=" + date +
                 ", chat=" + chat +
                 ", forward_from=" + forward_from +
+                ", forward_from_chat=" + forward_from_chat +
                 ", forward_date=" + forward_date +
                 ", reply_to_message=" + reply_to_message +
                 ", text='" + text + '\'' +
+                ", entities=" + Arrays.toString(entities) +
                 ", audio=" + audio +
                 ", document=" + document +
                 ", photo=" + Arrays.toString(photo) +
@@ -221,8 +246,9 @@ public class Message {
                 ", caption='" + caption + '\'' +
                 ", contact=" + contact +
                 ", location=" + location +
-                ", new_chat_participant=" + new_chat_participant +
-                ", left_chat_participant=" + left_chat_participant +
+                ", venue=" + venue +
+                ", new_chat_member=" + new_chat_member +
+                ", left_chat_member=" + left_chat_member +
                 ", new_chat_title='" + new_chat_title + '\'' +
                 ", new_chat_photo=" + Arrays.toString(new_chat_photo) +
                 ", delete_chat_photo=" + delete_chat_photo +
@@ -231,6 +257,7 @@ public class Message {
                 ", channel_chat_created=" + channel_chat_created +
                 ", migrate_to_chat_id=" + migrate_to_chat_id +
                 ", migrate_from_chat_id=" + migrate_from_chat_id +
+                ", pinned_message=" + pinned_message +
                 '}';
     }
 }

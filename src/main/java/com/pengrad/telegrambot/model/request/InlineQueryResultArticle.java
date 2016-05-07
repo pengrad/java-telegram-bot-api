@@ -4,15 +4,10 @@ package com.pengrad.telegrambot.model.request;
  * stas
  * 1/12/16.
  */
-public class InlineQueryResultArticle extends InlineQueryResult {
+public class InlineQueryResultArticle extends InlineQueryResult<InlineQueryResultArticle> {
 
-    private String type;
-    private String id;
     private String title;
-    private String message_text;
 
-    private ParseMode parse_mode;
-    private Boolean disable_web_page_preview;
     private String url;
     private Boolean hide_url;
     private String description;
@@ -21,20 +16,13 @@ public class InlineQueryResultArticle extends InlineQueryResult {
     private Integer thumb_height;
 
     public InlineQueryResultArticle(String id, String title, String messageText) {
-        this.type = "article";
-        this.id = id;
+        this(id, title, new InputTextMessageContent(messageText));
+    }
+
+    public InlineQueryResultArticle(String id, String title, InputMessageContent inputMessageContent) {
+        super("article", id);
         this.title = title;
-        this.message_text = messageText;
-    }
-
-    public InlineQueryResultArticle parseMode(ParseMode parseMode) {
-        this.parse_mode = parseMode;
-        return this;
-    }
-
-    public InlineQueryResultArticle disableWebPagePreview(Boolean disableWebPagePreview) {
-        this.disable_web_page_preview = disableWebPagePreview;
-        return this;
+        inputMessageContent(inputMessageContent);
     }
 
     public InlineQueryResultArticle url(String url) {

@@ -8,16 +8,11 @@ import java.util.List;
  * stas
  * 8/11/15.
  */
-public class GetUpdatesResponse {
+public class GetUpdatesResponse extends BaseResponse {
 
-    private boolean ok;
     private List<Update> result;
 
     GetUpdatesResponse() {
-    }
-
-    public boolean isOk() {
-        return ok;
     }
 
     public List<Update> updates() {
@@ -27,8 +22,7 @@ public class GetUpdatesResponse {
     @Override
     public String toString() {
         return "GetUpdatesResponse{" +
-                "ok=" + ok +
-                ", result=" + result +
+                "result=" + result +
                 '}';
     }
 }

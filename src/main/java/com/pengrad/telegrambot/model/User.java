@@ -11,9 +11,6 @@ public class User {
     private String last_name;
     private String username;
 
-    User() {
-    }
-
     public Integer id() {
         return id;
     }

@@ -10,9 +10,6 @@ public class File {
     private Integer file_size;
     private String file_path;
 
-    File() {
-    }
-
     public String fileId() {
         return file_id;
     }
@@ -39,7 +36,7 @@ public class File {
 
     @Override
     public int hashCode() {
-        return file_id.hashCode();
+        return file_id != null ? file_id.hashCode() : 0;
     }
 
     @Override

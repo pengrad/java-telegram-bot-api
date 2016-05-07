@@ -8,11 +8,9 @@ public class InlineQuery {
 
     private String id;
     private User from;
+    private Location location;
     private String query;
     private String offset;
-
-    InlineQuery() {
-    }
 
     public String id() {
         return id;
@@ -20,6 +18,10 @@ public class InlineQuery {
 
     public User from() {
         return from;
+    }
+
+    public Location location() {
+        return location;
     }
 
     public String query() {
@@ -39,8 +41,10 @@ public class InlineQuery {
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (from != null ? !from.equals(that.from) : that.from != null) return false;
+        if (location != null ? !location.equals(that.location) : that.location != null) return false;
         if (query != null ? !query.equals(that.query) : that.query != null) return false;
         return offset != null ? offset.equals(that.offset) : that.offset == null;
+
     }
 
     @Override
@@ -53,6 +57,7 @@ public class InlineQuery {
         return "InlineQuery{" +
                 "id='" + id + '\'' +
                 ", from=" + from +
+                ", location=" + location +
                 ", query='" + query + '\'' +
                 ", offset='" + offset + '\'' +
                 '}';

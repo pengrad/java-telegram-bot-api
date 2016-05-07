@@ -1,27 +1,25 @@
 package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.model.InlineQuery;
-import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.model.User;
-import com.pengrad.telegrambot.model.request.*;
-import com.pengrad.telegrambot.response.*;
+import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
+import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
+import com.pengrad.telegrambot.model.request.InlineQueryResult;
+import com.pengrad.telegrambot.model.request.InlineQueryResultArticle;
+import com.pengrad.telegrambot.request.*;
+import com.pengrad.telegrambot.response.BaseResponse;
+import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 /**
  * stas
- * 10/20/15.
+ * 5/2/16.
  */
 public class TelegramBotTest {
 
@@ -45,143 +43,34 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void testGetFullFilePath() throws Exception {
-        String path1 = bot.getFullFilePath(bot.getFile(stickerId).file());
-        String path2 = bot.getFullFilePath(stickerId);
-        assertNotNull(path1);
-        assertEquals(path1, path2);
+    public void getMe() {
+        bot.execute(new GetMe());
     }
 
     @Test
-    public void testGetMe() throws Exception {
-        GetMeResponse getMeResponse = bot.getMe();
-        User user = getMeResponse.user();
-        UserTest.checkUser(user);
+    public void kickChatMember() {
+        BaseResponse response = bot.execute(new KickChatMember(channelName, chatId));
+        System.out.println(response);
     }
 
     @Test
-    public void testForwardMessage() throws Exception {
-        SendResponse sendResponse = bot.forwardMessage(chatId, chatId, forwardMessageId);
-        Message message = sendResponse.message();
-        MessageTest.checkForwardedMessage(message);
+    public void editMessageText() {
+        String text = "Update " + System.currentTimeMillis();
+        BaseResponse response = bot.execute(new EditMessageText(chatId, 925, text));
+        System.out.println(response);
+        bot.execute(new EditMessageText(channelName, 306, text));
+        System.out.println(response);
+        bot.execute(new EditMessageText("AgAAAJUtAQCj_Q4D87e3E-gkx2A", text));
+        System.out.println(response);
     }
 
     @Test
-    public void testSendMessage() throws Exception {
-        SendResponse sendResponse = bot.sendMessage(chatId, "short message sending with emoji \uD83D\uDE4C");
-        MessageTest.checkTextMessage(sendResponse.message());
-        sendResponse = bot.sendMessage(chatId, "sendMessage _italic_ *markdown*", ParseMode.Markdown, null, forwardMessageId, new ReplyKeyboardMarkup(new String[]{"ok", "test"}).oneTimeKeyboard(true));
-        MessageTest.checkTextMessage(sendResponse.message());
-        sendResponse = bot.sendMessage(channelName, "to channel _italic_ *markdown*", ParseMode.Markdown, false, null, new ForceReply());
-        MessageTest.checkTextMessage(sendResponse.message());
-        sendResponse = bot.sendMessage(channelId, "explicit to channel id _italic_ *markdown*", ParseMode.Markdown, false, null, new ReplyKeyboardHide());
-        MessageTest.checkTextMessage(sendResponse.message());
-        sendResponse = bot.sendMessage(channelName, "to channel name with html <b>bold</b>, <strong>bold</strong> " +
-                "<i>italic</i>, <em>italic</em> <a href=\"https://telegram.org\">inline URL</a> <code>inline fixed-width code</code> <pre>pre-formatted fixed-width code block</pre>",
-                ParseMode.HTML, false, null, new ReplyKeyboardHide());
-        MessageTest.checkTextMessage(sendResponse.message());
-    }
-
-    @Test
-    public void testSendPhoto() throws Exception {
-        InputFile inputFile = InputFile.photo(new File(imagefile));
-        SendResponse sendResponse = bot.sendPhoto(chatId, inputFile, "caption", null, null);
-        Message message = sendResponse.message();
-        MessageTest.checkPhotoMessage(message);
-    }
-
-    @Test
-    public void testSendAudio() throws Exception {
-        InputFile inputFile = InputFile.audio(new File(audioFile));
-        SendResponse sendResponse = bot.sendAudio(chatId, inputFile, null, null, null, null, null);
-        Message message = sendResponse.message();
-        MessageTest.checkAudioMessage(message);
-    }
-
-    @Test
-    public void testSendDocument() throws Exception {
-        InputFile inputFile = new InputFile("text/plain", new File(docFile));
-        SendResponse sendResponse = bot.sendDocument(chatId, inputFile, null, null);
-        Message message = sendResponse.message();
-        MessageTest.checkDocumentMessage(message);
-    }
-
-    @Test
-    public void testSendSticker() throws Exception {
-        SendResponse sendResponse = bot.sendSticker(chatId, stickerId, null, null);
-        Message message = sendResponse.message();
-        MessageTest.checkStickerMessage(message);
-    }
-
-    @Test
-    public void testSendVideo() throws Exception {
-        InputFile inputFile = InputFile.video(new File(videoFile));
-        SendResponse sendResponse = bot.sendVideo(chatId, inputFile, null, "caption", null, null);
-        Message message = sendResponse.message();
-        MessageTest.checkVideoMessage(message);
-    }
-
-    @Test
-    public void testSendVoice() throws Exception {
-        byte[] array = Files.readAllBytes(new File(audioFile).toPath());
-        InputFileBytes inputFileBytes = InputFileBytes.voice(array);
-        SendResponse sendResponse = bot.sendVoice(chatId, inputFileBytes, null, null, null);
-        Message message = sendResponse.message();
-        MessageTest.checkVoiceMessage(message);
-    }
-
-    @Test
-    public void testSendLocation() throws Exception {
-        SendResponse sendResponse = bot.sendLocation(chatId, 55.1f, 38.2f, null, null);
-        MessageTest.checkLocationMessage(sendResponse.message());
-    }
-
-    @Test
-    public void testSendChatAction() throws Exception {
-        bot.sendChatAction(chatId, ChatAction.find_location);
-        bot.sendChatAction(chatId, ChatAction.typing);
-        bot.sendChatAction(chatId, ChatAction.record_audio);
-        bot.sendChatAction(chatId, ChatAction.record_video);
-        bot.sendChatAction(channelName, ChatAction.upload_audio);
-        bot.sendChatAction(channelName, ChatAction.upload_document);
-        bot.sendChatAction(channelName, ChatAction.upload_photo);
-        bot.sendChatAction(channelName, ChatAction.upload_video);
-    }
-
-    @Test
-    public void testGetUserProfilePhotos() throws Exception {
-        GetUserProfilePhotosResponse userProfilePhotosResponse = bot.getUserProfilePhotos(chatId, 0, 5);
-        UserProfilePhotosTest.check(userProfilePhotosResponse.photos());
-    }
-
-    @Test
-    public void testGetUpdates() throws Exception {
-        GetUpdatesResponse updatesResponse = bot.getUpdates(0, 10, 0);
-        List<Update> update = updatesResponse.updates();
-        UpdateTest.check(update);
-    }
-
-    @Test
-    public void testSetWebhook() throws Exception {
-        SetWebhookResponse webhookResponse = bot.setWebhook("");
-        assertNotNull(webhookResponse.description());
-    }
-
-    @Test
-    public void testGetFile() throws Exception {
-        GetFileResponse fileResponse = bot.getFile(stickerId);
-        FileTest.check(fileResponse.file());
-    }
-
-    @Test
-    public void testAnswerInlineQuery() {
-        InlineQuery inlineQuery = getLastInlineQuery();
-        InlineQueryResult r1 = new InlineQueryResultPhoto("1", "https://pp.vk.me/c410128/u2425605/a_f9604e14.jpg", "https://pp.vk.me/c410128/u2425605/d_fa1c9b0e.jpg");
-        InlineQueryResult r2 = new InlineQueryResultArticle("2", "title", "message text").thumbUrl("https://pp.vk.me/c311925/v311925605/a0e/2Ua6hLgr71U.jpg");
-        InlineQueryResult r3 = new InlineQueryResultGif("3", "https://media.giphy.com/media/bs3V7RiJ6B95e/giphy.gif", "https://pp.vk.me/c521410/u2425605/-3/m_b2d464207a.jpg");
-        InlineQueryResult r4 = new InlineQueryResultMpeg4Gif("4", "https://media.giphy.com/media/YEmR6PxPQmEa4/giphy.gif", "https://pp.vk.me/c521410/u2425605/-3/m_b2d464207a.jpg");
-        InlineQueryResult r5 = new InlineQueryResultVideo("5", "https://vk.com/video_ext.php?oid=2425605&id=166305236&hash=0a13db9cc2cb53b6", InlineQueryResultVideo.MIME_VIDEO_MP4, "message text", "https://pp.vk.me/c521410/u2425605/-3/m_b2d464207a.jpg", "video title");
-        bot.answerInlineQuery(inlineQuery.id(), r1, r2, r3, r4, r5);
+    public void answerInline() {
+        String inlineQueryId = getLastInlineQuery().id();
+        InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton[]{new InlineKeyboardButton("inline ok").callbackData("callback ok"), new InlineKeyboardButton("inline cancel").callbackData("callback cancel")});
+        InlineQueryResult r1 = new InlineQueryResultArticle("1", "title", "message").replyMarkup(keyboardMarkup);
+        InlineQueryResult r2 = new InlineQueryResultArticle("2", "2 title", "2 message").replyMarkup(keyboardMarkup);
+        bot.execute(new AnswerInlineQuery(inlineQueryId, r1, r2));
     }
 
     private InlineQuery getLastInlineQuery() {
@@ -194,5 +83,10 @@ public class TelegramBotTest {
             }
         }
         return null;
+    }
+
+    @Test
+    public void answerCallback() {
+        bot.execute(new AnswerCallbackQuery("220392309269028729").text("answer callback"));
     }
 }

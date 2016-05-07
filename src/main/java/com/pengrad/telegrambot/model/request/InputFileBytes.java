@@ -1,12 +1,10 @@
 package com.pengrad.telegrambot.model.request;
 
-import retrofit.mime.TypedByteArray;
-
 /**
  * stas
  * 8/11/15.
  */
-public class InputFileBytes extends TypedByteArray {
+public class InputFileBytes {
 
     // everything becomes jpeg or mpeg or ogg
     public static final String PHOTO_MIME_TYPE = "image/jpeg";
@@ -36,15 +34,19 @@ public class InputFileBytes extends TypedByteArray {
         return new InputFileBytes(VOICE_MIME_TYPE, bytes, VOICE_FILE_NAME);
     }
 
-    private String fileName;
+    private final String fileName;
+    private final byte[] bytes;
 
     public InputFileBytes(String mimeType, byte[] bytes, String fileName) {
-        super(mimeType, bytes);
         this.fileName = fileName;
+        this.bytes = bytes;
     }
 
-    @Override
     public String fileName() {
         return fileName;
+    }
+
+    public byte[] getBytes() {
+        return bytes;
     }
 }

@@ -6,16 +6,11 @@ import com.pengrad.telegrambot.model.UserProfilePhotos;
  * stas
  * 8/11/15.
  */
-public class GetUserProfilePhotosResponse {
+public class GetUserProfilePhotosResponse extends BaseResponse {
 
-    private boolean ok;
     private UserProfilePhotos result;
 
     GetUserProfilePhotosResponse() {
-    }
-
-    public boolean isOk() {
-        return ok;
     }
 
     public UserProfilePhotos photos() {
@@ -25,8 +20,7 @@ public class GetUserProfilePhotosResponse {
     @Override
     public String toString() {
         return "GetUserProfilePhotosResponse{" +
-                "ok=" + ok +
-                ", result=" + result +
+                "result=" + result +
                 '}';
     }
 }

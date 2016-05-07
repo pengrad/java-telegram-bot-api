@@ -10,10 +10,8 @@ public class Sticker {
     private Integer width;
     private Integer height;
     private PhotoSize thumb;
+    private String emoji;
     private Integer file_size;
-
-    Sticker() {
-    }
 
     public String fileId() {
         return file_id;
@@ -31,6 +29,10 @@ public class Sticker {
         return thumb;
     }
 
+    public String emoji() {
+        return emoji;
+    }
+
     public Integer fileSize() {
         return file_size;
     }
@@ -46,12 +48,13 @@ public class Sticker {
         if (width != null ? !width.equals(sticker.width) : sticker.width != null) return false;
         if (height != null ? !height.equals(sticker.height) : sticker.height != null) return false;
         if (thumb != null ? !thumb.equals(sticker.thumb) : sticker.thumb != null) return false;
+        if (emoji != null ? !emoji.equals(sticker.emoji) : sticker.emoji != null) return false;
         return file_size != null ? file_size.equals(sticker.file_size) : sticker.file_size == null;
     }
 
     @Override
     public int hashCode() {
-        return file_id.hashCode();
+        return file_id != null ? file_id.hashCode() : 0;
     }
 
     @Override
@@ -61,6 +64,7 @@ public class Sticker {
                 ", width=" + width +
                 ", height=" + height +
                 ", thumb=" + thumb +
+                ", emoji='" + emoji + '\'' +
                 ", file_size=" + file_size +
                 '}';
     }

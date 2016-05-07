@@ -11,9 +11,6 @@ public class UserProfilePhotos {
     private Integer total_count;
     private PhotoSize[][] photos;
 
-    UserProfilePhotos() {
-    }
-
     public Integer totalCount() {
         return total_count;
     }
@@ -35,7 +32,7 @@ public class UserProfilePhotos {
 
     @Override
     public int hashCode() {
-        int result = total_count.hashCode();
+        int result = total_count != null ? total_count.hashCode() : 0;
         result = 31 * result + Arrays.deepHashCode(photos);
         return result;
     }

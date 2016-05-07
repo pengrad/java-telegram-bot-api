@@ -1,14 +1,12 @@
 package com.pengrad.telegrambot.model.request;
 
-import retrofit.mime.TypedFile;
-
 import java.io.File;
 
 /**
  * stas
  * 8/11/15.
  */
-public class InputFile extends TypedFile {
+public class InputFile {
 
     public static InputFile photo(File file) {
         return new InputFile(InputFileBytes.PHOTO_MIME_TYPE, file);
@@ -26,7 +24,13 @@ public class InputFile extends TypedFile {
         return new InputFile(InputFileBytes.VOICE_MIME_TYPE, file);
     }
 
+    private final File file;
+
     public InputFile(String mimeType, File file) {
-        super(mimeType, file);
+        this.file = file;
+    }
+
+    public File getFile() {
+        return file;
     }
 }
