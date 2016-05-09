@@ -4,6 +4,7 @@ import com.pengrad.telegrambot.impl.FileApi;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.request.BaseRequest;
+import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
  * Stas Parshin
@@ -25,11 +26,11 @@ public class TelegramBot extends OldTelegramBot {
     }
 
     @Override
-    public <T extends BaseRequest, R> R execute(BaseRequest<T, R> request) {
+    public <T extends BaseRequest, R extends BaseResponse> R execute(BaseRequest<T, R> request) {
         return api.send(request);
     }
 
-    public <T extends BaseRequest<T, R>, R> void execute(T request, Callback<T, R> callback) {
+    public <T extends BaseRequest<T, R>, R extends BaseResponse> void execute(T request, Callback<T, R> callback) {
         api.send(request, callback);
     }
 }

@@ -18,7 +18,7 @@ public abstract class OldTelegramBot {
         this.fileApi = file;
     }
 
-    abstract public <T extends BaseRequest, R> R execute(BaseRequest<T, R> request);
+    abstract public <T extends BaseRequest, R extends BaseResponse> R execute(BaseRequest<T, R> request);
 
     @Deprecated
     public GetFileResponse getFile(String fileId) {

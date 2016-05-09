@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.request.BaseRequest;
+import com.pengrad.telegrambot.response.BaseResponse;
 
 import java.io.IOException;
 
@@ -8,7 +9,7 @@ import java.io.IOException;
  * stas
  * 5/3/16.
  */
-public interface Callback<T extends BaseRequest, R> {
+public interface Callback<T extends BaseRequest, R extends BaseResponse> {
 
     void onResponse(T request, R response);
 

@@ -3,6 +3,7 @@ package com.pengrad.telegrambot.impl;
 import com.google.gson.Gson;
 import com.pengrad.telegrambot.Callback;
 import com.pengrad.telegrambot.request.BaseRequest;
+import com.pengrad.telegrambot.response.BaseResponse;
 import okhttp3.*;
 
 import java.io.File;
@@ -25,7 +26,7 @@ public class TelegramBotClient {
         this.baseUrl = baseUrl;
     }
 
-    public <T extends BaseRequest<T, R>, R> void send(final T request, final Callback<T, R> callback) {
+    public <T extends BaseRequest, R extends BaseResponse> void send(final T request, final Callback<T, R> callback) {
         client.newCall(createRequest(request)).enqueue(new okhttp3.Callback() {
             @Override
             public void onResponse(Call call, Response response) {
@@ -44,7 +45,7 @@ public class TelegramBotClient {
         });
     }
 
-    public <T extends BaseRequest, R> R send(final BaseRequest<T, R> request) {
+    public <T extends BaseRequest, R extends BaseResponse> R send(final BaseRequest<T, R> request) {
         try {
             Response response = client.newCall(createRequest(request)).execute();
             return gson.fromJson(response.body().string(), request.getResponseType());
@@ -53,14 +54,14 @@ public class TelegramBotClient {
         }
     }
 
-    private <R> Request createRequest(BaseRequest<?, R> request) {
+    private Request createRequest(BaseRequest request) {
         return new Request.Builder()
                 .url(baseUrl + request.getMethod())
                 .post(createRequestBody(request))
                 .build();
     }
 
-    private <R> RequestBody createRequestBody(BaseRequest<?, R> request) {
+    private RequestBody createRequestBody(BaseRequest<?, ?> request) {
         if (request.isMultipart()) {
             MediaType contentType = MediaType.parse(request.getContentType());
 

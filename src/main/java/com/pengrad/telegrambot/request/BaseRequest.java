@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.response.BaseResponse;
+
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,15 +10,15 @@ import java.util.Map;
  * stas
  * 5/1/16.
  */
-abstract public class BaseRequest<T extends BaseRequest, R> {
+abstract public class BaseRequest<T extends BaseRequest, R extends BaseResponse> {
 
     @SuppressWarnings("unchecked")
     private final T thisAsT = (T) this;
 
-    private final Class responseClass;
+    private final Class<? extends R> responseClass;
     private final Map<String, Object> parameters;
 
-    public BaseRequest(Class responseClass) {
+    public BaseRequest(Class<? extends R> responseClass) {
         this.responseClass = responseClass;
         this.parameters = new HashMap<String, Object>();
     }
