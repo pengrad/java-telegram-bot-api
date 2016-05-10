@@ -46,9 +46,9 @@ bot.execute(request, new Callback() {
 
 #### Send message
 ```java
-bot.execute(new SendMessage(chatId, "message text"));
+SendResponse sendResponse = bot.execute(new SendMessage(chatId, "message text"));
 
-bot.execute(
+SendResponse sendResponse = bot.execute(
         new SendMessage(chatId, "message <b>bold</b> text")
                 .parseMode(ParseMode.HTML)
                 .replyMarkup(new ReplyKeyboardMarkup(new String[]{"button 1", "button 2"}))
