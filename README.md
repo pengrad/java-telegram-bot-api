@@ -83,6 +83,13 @@ Keyboard keyboard = new ReplyKeyboardMarkup(
                 
 Keyboard forceReply = new ForceReply(isSelective); // or just new ForceReply();
 Keyboard replyKeyboardHide = new ReplyKeyboardHide(); // new ReplyKeyboardHide(isSelective)
+
+InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
+        new InlineKeyboardButton[]{
+                new InlineKeyboardButton("url").url("url"),
+                new InlineKeyboardButton("callback_data").callbackData("callback_data"),
+                new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query")
+        });
 ```
 #### Getting response to sending methods
 ```java
