@@ -16,15 +16,17 @@ public class TelegramBotAdapter {
     public static final String API_URL = "https://api.telegram.org/bot";
 
     public static TelegramBot build(String botToken) {
-        FileApi fileApi = new FileApi(botToken);
-        TelegramBotClient api = new TelegramBotClient(client(null), gson(), apiUrl(botToken));
-        return new TelegramBot(api, fileApi);
+        return buildCustom(botToken, client(null));
     }
 
     public static TelegramBot buildDebug(String botToken) {
+        return buildCustom(botToken, client(httpLoggingInterceptor()));
+    }
+
+    public static TelegramBot buildCustom(String botToken, OkHttpClient okHttpClient) {
+        TelegramBotClient client = new TelegramBotClient(okHttpClient, gson(), apiUrl(botToken));
         FileApi fileApi = new FileApi(botToken);
-        TelegramBotClient api = new TelegramBotClient(client(httpLoggingInterceptor()), gson(), apiUrl(botToken));
-        return new TelegramBot(api, fileApi);
+        return new TelegramBot(client, fileApi);
     }
 
     private static OkHttpClient client(Interceptor interceptor) {
