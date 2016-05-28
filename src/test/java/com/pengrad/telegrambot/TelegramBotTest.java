@@ -8,6 +8,7 @@ import com.pengrad.telegrambot.model.request.InlineQueryResult;
 import com.pengrad.telegrambot.model.request.InlineQueryResultArticle;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.BaseResponse;
+import com.pengrad.telegrambot.response.GetChatResponse;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import org.junit.Test;
 
@@ -88,5 +89,11 @@ public class TelegramBotTest {
     @Test
     public void answerCallback() {
         bot.execute(new AnswerCallbackQuery("220392309269028729").text("answer callback"));
+    }
+
+    @Test
+    public void getChat() {
+        GetChatResponse getChatResponse = bot.execute(new GetChat(chatId));
+        ChatTest.checkChat(getChatResponse.chat());
     }
 }
