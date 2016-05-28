@@ -6,7 +6,7 @@ import com.pengrad.telegrambot.response.GetUpdatesResponse;
  * stas
  * 5/2/16.
  */
-public class GetUpdates extends BaseRequest<GetUpdates> {
+public class GetUpdates extends BaseRequest<GetUpdates, GetUpdatesResponse> {
 
     public GetUpdates() {
         super(GetUpdatesResponse.class);

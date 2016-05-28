@@ -6,7 +6,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
  * stas
  * 5/2/16.
  */
-public class KickChatMember extends BaseRequest<KickChatMember> {
+public class KickChatMember extends BaseRequest<KickChatMember, BaseResponse> {
 
     public KickChatMember(Object chatId, int userId) {
         super(BaseResponse.class);

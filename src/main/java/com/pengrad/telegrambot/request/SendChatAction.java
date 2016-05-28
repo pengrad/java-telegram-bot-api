@@ -6,7 +6,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
  * stas
  * 5/2/16.
  */
-public class SendChatAction extends BaseRequest<SendChatAction> {
+public class SendChatAction extends BaseRequest<SendChatAction, BaseResponse> {
 
     public SendChatAction(Object chatId, String action) {
         super(BaseResponse.class);

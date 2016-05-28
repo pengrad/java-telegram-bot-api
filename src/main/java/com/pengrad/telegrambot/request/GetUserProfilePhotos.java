@@ -6,7 +6,7 @@ import com.pengrad.telegrambot.response.GetUserProfilePhotosResponse;
  * stas
  * 5/2/16.
  */
-public class GetUserProfilePhotos extends BaseRequest<GetUserProfilePhotos> {
+public class GetUserProfilePhotos extends BaseRequest<GetUserProfilePhotos, GetUserProfilePhotosResponse> {
 
     public GetUserProfilePhotos(int userId) {
         super(GetUserProfilePhotosResponse.class);

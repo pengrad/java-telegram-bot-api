@@ -8,7 +8,7 @@ import java.io.File;
  * stas
  * 5/2/16.
  */
-public class SetWebhook extends BaseRequest<SetWebhook> {
+public class SetWebhook extends BaseRequest<SetWebhook, BaseResponse> {
 
     private boolean isMultipart = false;
 
