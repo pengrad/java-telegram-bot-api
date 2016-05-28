@@ -26,11 +26,11 @@ public class TelegramBot extends OldTelegramBot {
     }
 
     @Override
-    public <T extends BaseRequest, R extends BaseResponse> R execute(BaseRequest<T, R> request) {
+    public <T extends BaseRequest, R extends BaseResponse> R execute(BaseRequest<T> request) {
         return api.send(request);
     }
 
-    public <T extends BaseRequest<T, R>, R extends BaseResponse> void execute(T request, Callback<T, R> callback) {
+    public <T extends BaseRequest<T>, R extends BaseResponse> void execute(T request, Callback<T, R> callback) {
         api.send(request, callback);
     }
 }

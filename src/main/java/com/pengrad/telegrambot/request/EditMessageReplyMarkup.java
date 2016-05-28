@@ -8,7 +8,7 @@ import com.pengrad.telegrambot.response.SendResponse;
  * Stas Parshin
  * 07 May 2016
  */
-public class EditMessageReplyMarkup extends BaseRequest<EditMessageReplyMarkup, BaseResponse> {
+public class EditMessageReplyMarkup extends BaseRequest<EditMessageReplyMarkup> {
 
     public EditMessageReplyMarkup(Object chatId, int messageId, String text) {
         super(SendResponse.class);

@@ -7,7 +7,7 @@ import com.pengrad.telegrambot.response.SendResponse;
  * stas
  * 5/1/16.
  */
-abstract public class AbstractSendRequest<T extends AbstractSendRequest> extends BaseRequest<T, SendResponse> {
+abstract public class AbstractSendRequest<T extends AbstractSendRequest> extends BaseRequest<T> {
 
     public AbstractSendRequest(Object chatId) {
         super(SendResponse.class);

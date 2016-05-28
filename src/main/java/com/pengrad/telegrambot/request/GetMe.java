@@ -6,7 +6,7 @@ import com.pengrad.telegrambot.response.GetMeResponse;
  * stas
  * 5/1/16.
  */
-public class GetMe extends BaseRequest<GetMe, GetMeResponse> {
+public class GetMe extends BaseRequest<GetMe> {
 
     public GetMe() {
         super(GetMeResponse.class);

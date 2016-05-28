@@ -45,7 +45,7 @@ public class TelegramBotClient {
         });
     }
 
-    public <T extends BaseRequest, R extends BaseResponse> R send(final BaseRequest<T, R> request) {
+    public <T extends BaseRequest, R extends BaseResponse> R send(final BaseRequest<T> request) {
         try {
             Response response = client.newCall(createRequest(request)).execute();
             return gson.fromJson(response.body().string(), request.getResponseType());
@@ -61,7 +61,7 @@ public class TelegramBotClient {
                 .build();
     }
 
-    private RequestBody createRequestBody(BaseRequest<?, ?> request) {
+    private RequestBody createRequestBody(BaseRequest<?> request) {
         if (request.isMultipart()) {
             MediaType contentType = MediaType.parse(request.getContentType());
 

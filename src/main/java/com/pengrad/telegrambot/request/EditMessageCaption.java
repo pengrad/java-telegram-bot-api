@@ -8,7 +8,7 @@ import com.pengrad.telegrambot.response.SendResponse;
  * Stas Parshin
  * 07 May 2016
  */
-public class EditMessageCaption extends BaseRequest<EditMessageCaption, BaseResponse> {
+public class EditMessageCaption extends BaseRequest<EditMessageCaption> {
 
     public EditMessageCaption(Object chatId, int messageId, String text) {
         super(SendResponse.class);

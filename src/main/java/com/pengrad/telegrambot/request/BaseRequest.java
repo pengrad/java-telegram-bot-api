@@ -10,15 +10,15 @@ import java.util.Map;
  * stas
  * 5/1/16.
  */
-abstract public class BaseRequest<T extends BaseRequest, R extends BaseResponse> {
+abstract public class BaseRequest<T extends BaseRequest> {
 
     @SuppressWarnings("unchecked")
     private final T thisAsT = (T) this;
 
-    private final Class<? extends R> responseClass;
+    private final Class<? extends BaseResponse> responseClass;
     private final Map<String, Object> parameters;
 
-    public BaseRequest(Class<? extends R> responseClass) {
+    public BaseRequest(Class<? extends BaseResponse> responseClass) {
         this.responseClass = responseClass;
         this.parameters = new HashMap<String, Object>();
     }

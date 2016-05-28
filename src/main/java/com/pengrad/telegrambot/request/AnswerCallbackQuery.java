@@ -6,7 +6,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
  * Stas Parshin
  * 07 May 2016
  */
-public class AnswerCallbackQuery extends BaseRequest<AnswerCallbackQuery, BaseResponse> {
+public class AnswerCallbackQuery extends BaseRequest<AnswerCallbackQuery> {
 
     public AnswerCallbackQuery(String callbackQueryId) {
         super(BaseResponse.class);

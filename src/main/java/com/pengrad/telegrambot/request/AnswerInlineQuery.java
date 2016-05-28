@@ -8,7 +8,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
  * stas
  * 5/2/16.
  */
-public class AnswerInlineQuery extends BaseRequest<AnswerInlineQuery, BaseResponse> {
+public class AnswerInlineQuery extends BaseRequest<AnswerInlineQuery> {
 
     // todo remove gson
     private static Gson gson = new Gson();

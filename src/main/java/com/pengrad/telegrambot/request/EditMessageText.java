@@ -9,7 +9,7 @@ import com.pengrad.telegrambot.response.SendResponse;
  * Stas Parshin
  * 07 May 2016
  */
-public class EditMessageText extends BaseRequest<EditMessageText, BaseResponse> {
+public class EditMessageText extends BaseRequest<EditMessageText> {
 
     public EditMessageText(Object chatId, int messageId, String text) {
         super(SendResponse.class);
