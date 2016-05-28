@@ -1,19 +1,19 @@
 ## Java API for [Telegram Bots][1]
 
-Full support of all Bot API 2.0 functions
+Full support of all Bot API 2.1 functions
 
 Download
 -------
 Gradle:
 ```groovy
-compile 'com.github.pengrad:java-telegram-bot-api:2.0.1'
+compile 'com.github.pengrad:java-telegram-bot-api:2.1.0'
 ```
 Maven:
 ```xml
 <dependency>
   <groupId>com.github.pengrad</groupId>
   <artifactId>java-telegram-bot-api</artifactId>
-  <version>2.0.1</version>
+  <version>2.1.0</version>
 </dependency>
 ```
 JAR-files:  
