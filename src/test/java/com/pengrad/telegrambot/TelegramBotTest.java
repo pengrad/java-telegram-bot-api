@@ -8,10 +8,7 @@ import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.InlineQueryResult;
 import com.pengrad.telegrambot.model.request.InlineQueryResultArticle;
 import com.pengrad.telegrambot.request.*;
-import com.pengrad.telegrambot.response.BaseResponse;
-import com.pengrad.telegrambot.response.GetChatAdministratorsResponse;
-import com.pengrad.telegrambot.response.GetChatResponse;
-import com.pengrad.telegrambot.response.GetUpdatesResponse;
+import com.pengrad.telegrambot.response.*;
 import org.junit.Test;
 
 import java.io.FileInputStream;
@@ -109,8 +106,13 @@ public class TelegramBotTest {
     public void getChatAdministrators() {
         GetChatAdministratorsResponse response = bot.execute(new GetChatAdministrators(channelName));
         System.out.println(response);
-        for (ChatMember chatMember : response.administrators()) {
-            ChatMemberTest.check(chatMember);
-        }
+        for (ChatMember chatMember : response.administrators()) ChatMemberTest.check(chatMember);
+    }
+
+    @Test
+    public void getChatMember() {
+        GetChatMemberResponse response = bot.execute(new GetChatMember(chatId, chatId));
+        System.out.println(response);
+        ChatMemberTest.check(response.chatMember());
     }
 }
