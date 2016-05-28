@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot;
 
+import com.pengrad.telegrambot.model.ChatMember;
 import com.pengrad.telegrambot.model.InlineQuery;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
@@ -8,6 +9,7 @@ import com.pengrad.telegrambot.model.request.InlineQueryResult;
 import com.pengrad.telegrambot.model.request.InlineQueryResultArticle;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.BaseResponse;
+import com.pengrad.telegrambot.response.GetChatAdministratorsResponse;
 import com.pengrad.telegrambot.response.GetChatResponse;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import org.junit.Test;
@@ -101,5 +103,14 @@ public class TelegramBotTest {
     public void leaveChat() {
         BaseResponse response = bot.execute(new LeaveChat(chatId));
         System.out.println(response);
+    }
+
+    @Test
+    public void getChatAdministrators() {
+        GetChatAdministratorsResponse response = bot.execute(new GetChatAdministrators(channelName));
+        System.out.println(response);
+        for (ChatMember chatMember : response.administrators()) {
+            ChatMemberTest.check(chatMember);
+        }
     }
 }
