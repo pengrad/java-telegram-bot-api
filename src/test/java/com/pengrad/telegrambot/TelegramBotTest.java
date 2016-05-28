@@ -96,4 +96,10 @@ public class TelegramBotTest {
         GetChatResponse getChatResponse = bot.execute(new GetChat(chatId));
         ChatTest.checkChat(getChatResponse.chat());
     }
+
+    @Test
+    public void leaveChat() {
+        BaseResponse response = bot.execute(new LeaveChat(chatId));
+        System.out.println(response);
+    }
 }
