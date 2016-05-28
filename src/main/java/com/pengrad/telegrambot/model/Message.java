@@ -16,6 +16,7 @@ public class Message {
     private Chat forward_from_chat;
     private Integer forward_date;
     private Message reply_to_message;
+    private Integer edit_date;
     private String text;
     private MessageEntity[] entities;
     private Audio audio;
@@ -70,6 +71,10 @@ public class Message {
 
     public Message replyToMessage() {
         return reply_to_message;
+    }
+
+    public Integer editDate() {
+        return edit_date;
     }
 
     public String text() {
@@ -181,6 +186,7 @@ public class Message {
         if (forward_date != null ? !forward_date.equals(message.forward_date) : message.forward_date != null) return false;
         if (reply_to_message != null ? !reply_to_message.equals(message.reply_to_message) : message.reply_to_message != null)
             return false;
+        if (edit_date != null ? !edit_date.equals(message.edit_date) : message.edit_date != null) return false;
         if (text != null ? !text.equals(message.text) : message.text != null) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(entities, message.entities)) return false;
@@ -235,6 +241,7 @@ public class Message {
                 ", forward_from_chat=" + forward_from_chat +
                 ", forward_date=" + forward_date +
                 ", reply_to_message=" + reply_to_message +
+                ", edit_date=" + edit_date +
                 ", text='" + text + '\'' +
                 ", entities=" + Arrays.toString(entities) +
                 ", audio=" + audio +
