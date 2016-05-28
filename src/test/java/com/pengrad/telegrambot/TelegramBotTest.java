@@ -115,4 +115,10 @@ public class TelegramBotTest {
         System.out.println(response);
         ChatMemberTest.check(response.chatMember());
     }
+
+    @Test
+    public void getChatMembersCount() {
+        BaseResponse response = bot.execute(new GetChatMembersCount(chatId));
+        System.out.println(response);
+    }
 }
