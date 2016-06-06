@@ -132,7 +132,7 @@ public class TelegramBotTest {
 
     @Test
     public void sendDocument() {
-        SendDocument request = new SendDocument(chatId, new File(docFile)).caption("caption");
+        SendDocument request = new SendDocument(chatId, new File(docFile)).fileName("my doc.zip").caption("caption");
         SendResponse sendResponse = bot.execute(request);
         Message message = sendResponse.message();
         MessageTest.checkDocumentMessage(message);

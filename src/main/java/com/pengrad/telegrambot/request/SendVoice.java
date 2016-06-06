@@ -30,7 +30,7 @@ public class SendVoice extends AbstractMultipartRequest<SendVoice> {
     }
 
     @Override
-    public String getFileName() {
+    public String getDefaultFileName() {
         return ContentTypes.VOICE_FILE_NAME;
     }
 

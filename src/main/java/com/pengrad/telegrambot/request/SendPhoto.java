@@ -30,7 +30,7 @@ public class SendPhoto extends AbstractMultipartRequest<SendPhoto> {
     }
 
     @Override
-    public String getFileName() {
+    public String getDefaultFileName() {
         return ContentTypes.PHOTO_FILE_NAME;
     }
 

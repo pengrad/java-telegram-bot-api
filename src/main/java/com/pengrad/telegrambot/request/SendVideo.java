@@ -42,7 +42,7 @@ public class SendVideo extends AbstractMultipartRequest<SendVideo> {
     }
 
     @Override
-    public String getFileName() {
+    public String getDefaultFileName() {
         return ContentTypes.VIDEO_FILE_NAME;
     }
 
