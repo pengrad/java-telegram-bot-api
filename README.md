@@ -6,14 +6,14 @@ Download
 -------
 Gradle:
 ```groovy
-compile 'com.github.pengrad:java-telegram-bot-api:2.1.0'
+compile 'com.github.pengrad:java-telegram-bot-api:2.1.1'
 ```
 Maven:
 ```xml
 <dependency>
   <groupId>com.github.pengrad</groupId>
   <artifactId>java-telegram-bot-api</artifactId>
-  <version>2.1.0</version>
+  <version>2.1.1</version>
 </dependency>
 ```
 JAR-files:  
