@@ -13,7 +13,7 @@ import java.util.Map;
 abstract public class BaseRequest<T extends BaseRequest, R extends BaseResponse> {
 
     @SuppressWarnings("unchecked")
-    private final T thisAsT = (T) this;
+    protected final T thisAsT = (T) this;
 
     private final Class<? extends R> responseClass;
     private final Map<String, Object> parameters;

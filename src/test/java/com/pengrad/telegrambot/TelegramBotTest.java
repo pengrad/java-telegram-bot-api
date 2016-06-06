@@ -2,17 +2,17 @@ package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.model.ChatMember;
 import com.pengrad.telegrambot.model.InlineQuery;
+import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
-import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
-import com.pengrad.telegrambot.model.request.InlineQueryResult;
-import com.pengrad.telegrambot.model.request.InlineQueryResultArticle;
+import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
@@ -120,5 +120,52 @@ public class TelegramBotTest {
     public void getChatMembersCount() {
         BaseResponse response = bot.execute(new GetChatMembersCount(chatId));
         System.out.println(response);
+    }
+
+    @Test
+    public void sendAudio() {
+        SendAudio request = new SendAudio(chatId, new File(audioFile));
+        SendResponse sendResponse = bot.execute(request);
+        Message message = sendResponse.message();
+        MessageTest.checkAudioMessage(message);
+    }
+
+    @Test
+    public void sendDocument() {
+        SendDocument request = new SendDocument(chatId, new File(docFile)).caption("caption");
+        SendResponse sendResponse = bot.execute(request);
+        Message message = sendResponse.message();
+        MessageTest.checkDocumentMessage(message);
+    }
+
+    @Test
+    public void sendPhoto() {
+        SendPhoto request = new SendPhoto(chatId, new File(imagefile)).caption("caption");
+        SendResponse sendResponse = bot.execute(request);
+        Message message = sendResponse.message();
+        MessageTest.checkPhotoMessage(message);
+    }
+
+    @Test
+    public void sendSticker() {
+        SendResponse sendResponse = bot.execute(new SendSticker(chatId, stickerId));
+        Message message = sendResponse.message();
+        MessageTest.checkStickerMessage(message);
+    }
+
+    @Test
+    public void sendVideo() {
+        SendResponse sendResponse = bot.execute(new SendVideo(chatId, new File(videoFile)));
+        Message message = sendResponse.message();
+        MessageTest.checkVideoMessage(message);
+    }
+
+    @Test
+    public void sendVoice() throws IOException {
+        byte[] array = Files.readAllBytes(new File(audioFile).toPath());
+        SendVoice request = new SendVoice(chatId, array);
+        SendResponse sendResponse = bot.execute(request);
+        Message message = sendResponse.message();
+        MessageTest.checkVoiceMessage(message);
     }
 }

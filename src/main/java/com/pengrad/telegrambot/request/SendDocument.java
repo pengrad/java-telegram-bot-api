@@ -8,12 +8,15 @@ import java.io.File;
  */
 public class SendDocument extends AbstractMultipartRequest<SendDocument> {
 
+    private String fileName;
+
     public SendDocument(Object chatId, String document) {
         super(chatId, document);
     }
 
     public SendDocument(Object chatId, File document) {
         super(chatId, document);
+        fileName = document.getName();
     }
 
     public SendDocument(Object chatId, byte[] document) {
@@ -24,6 +27,11 @@ public class SendDocument extends AbstractMultipartRequest<SendDocument> {
         return add("caption", caption);
     }
 
+    public SendDocument fileName(String fileName) {
+        this.fileName = fileName;
+        return thisAsT;
+    }
+
     @Override
     protected String getFileParamName() {
         return "document";
@@ -31,7 +39,11 @@ public class SendDocument extends AbstractMultipartRequest<SendDocument> {
 
     @Override
     public String getFileName() {
-        return ContentTypes.DOC_FILE_NAME;
+        if (fileName != null && !fileName.isEmpty()) {
+            return fileName;
+        } else {
+            return ContentTypes.DOC_FILE_NAME;
+        }
     }
 
     @Override
