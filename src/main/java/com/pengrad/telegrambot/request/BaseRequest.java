@@ -46,10 +46,10 @@ abstract public class BaseRequest<T extends BaseRequest, R extends BaseResponse>
     }
 
     public String getFileName() {
-        return "file.txt";
+        return ContentTypes.GENERAL_FILE_NAME;
     }
 
     public String getContentType() {
-        return "application/x-www-form-urlencoded";
+        return ContentTypes.GENERAL_MIME_TYPE;
     }
 }

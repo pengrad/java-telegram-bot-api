@@ -18,4 +18,6 @@ abstract public class ContentTypes {
     public static final String VIDEO_FILE_NAME = "file.mp4";
     public static final String VOICE_FILE_NAME = "file.ogg";
 
+    public static final String GENERAL_MIME_TYPE = "application/x-www-form-urlencoded";
+    public static final String GENERAL_FILE_NAME = DOC_FILE_NAME;
 }
