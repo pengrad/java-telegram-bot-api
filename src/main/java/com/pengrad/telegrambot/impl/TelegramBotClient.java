@@ -33,8 +33,9 @@ public class TelegramBotClient {
                 try {
                     R result = gson.fromJson(response.body().string(), request.getResponseType());
                     callback.onResponse(request, result);
-                } catch (IOException e) {
-                    callback.onFailure(request, e);
+                } catch (Exception e) {
+                    IOException ioEx = e instanceof IOException ? (IOException) e : new IOException(e);
+                    callback.onFailure(request, ioEx);
                 }
             }
 
