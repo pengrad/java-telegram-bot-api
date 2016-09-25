@@ -51,6 +51,12 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void getUpdates() {
+        GetUpdatesResponse response = bot.execute(new GetUpdates().offset(279823228).timeout(15));
+        System.out.println(response);
+    }
+
+    @Test
     public void kickChatMember() {
         BaseResponse response = bot.execute(new KickChatMember(channelName, chatId));
         System.out.println(response);

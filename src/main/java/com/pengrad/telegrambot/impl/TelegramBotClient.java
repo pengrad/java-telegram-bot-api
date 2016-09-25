@@ -3,12 +3,14 @@ package com.pengrad.telegrambot.impl;
 import com.google.gson.Gson;
 import com.pengrad.telegrambot.Callback;
 import com.pengrad.telegrambot.request.BaseRequest;
+import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.BaseResponse;
 import okhttp3.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * stas
@@ -17,6 +19,7 @@ import java.util.Map;
 public class TelegramBotClient {
 
     private final OkHttpClient client;
+    private final OkHttpClient clientWithoutTimeout;
     private final Gson gson;
     private final String baseUrl;
 
@@ -24,9 +27,16 @@ public class TelegramBotClient {
         this.client = client;
         this.gson = gson;
         this.baseUrl = baseUrl;
+
+        if (client.readTimeoutMillis() > 0) {
+            this.clientWithoutTimeout = client.newBuilder().readTimeout(0, TimeUnit.SECONDS).build();
+        } else {
+            this.clientWithoutTimeout = client;
+        }
     }
 
     public <T extends BaseRequest, R extends BaseResponse> void send(final T request, final Callback<T, R> callback) {
+        OkHttpClient client = getOkHttpClient(request);
         client.newCall(createRequest(request)).enqueue(new okhttp3.Callback() {
             @Override
             public void onResponse(Call call, Response response) {
@@ -48,11 +58,16 @@ public class TelegramBotClient {
 
     public <T extends BaseRequest, R extends BaseResponse> R send(final BaseRequest<T, R> request) {
         try {
+            OkHttpClient client = getOkHttpClient(request);
             Response response = client.newCall(createRequest(request)).execute();
             return gson.fromJson(response.body().string(), request.getResponseType());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private OkHttpClient getOkHttpClient(BaseRequest request) {
+        return request instanceof GetUpdates ? clientWithoutTimeout : client;
     }
 
     private Request createRequest(BaseRequest request) {
