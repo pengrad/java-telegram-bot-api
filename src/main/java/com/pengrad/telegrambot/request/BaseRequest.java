@@ -52,4 +52,8 @@ abstract public class BaseRequest<T extends BaseRequest, R extends BaseResponse>
     public String getContentType() {
         return ContentTypes.GENERAL_MIME_TYPE;
     }
+
+    public int getTimeoutSeconds() {
+        return 0;
+    }
 }

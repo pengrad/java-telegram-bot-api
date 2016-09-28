@@ -8,6 +8,8 @@ import com.pengrad.telegrambot.response.GetUpdatesResponse;
  */
 public class GetUpdates extends BaseRequest<GetUpdates, GetUpdatesResponse> {
 
+    private int timeout = 0;
+
     public GetUpdates() {
         super(GetUpdatesResponse.class);
     }
@@ -21,6 +23,12 @@ public class GetUpdates extends BaseRequest<GetUpdates, GetUpdatesResponse> {
     }
 
     public GetUpdates timeout(int timeout) {
+        this.timeout = timeout;
         return add("timeout", timeout);
+    }
+
+    @Override
+    public int getTimeoutSeconds() {
+        return timeout;
     }
 }

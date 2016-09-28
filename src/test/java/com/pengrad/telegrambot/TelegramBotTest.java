@@ -52,7 +52,7 @@ public class TelegramBotTest {
 
     @Test
     public void getUpdates() {
-        GetUpdatesResponse response = bot.execute(new GetUpdates().offset(279823228).timeout(15));
+        GetUpdatesResponse response = bot.execute(new GetUpdates().offset(279823236).timeout(25));
         System.out.println(response);
     }
 

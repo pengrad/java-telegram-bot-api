@@ -3,7 +3,6 @@ package com.pengrad.telegrambot.impl;
 import com.google.gson.Gson;
 import com.pengrad.telegrambot.Callback;
 import com.pengrad.telegrambot.request.BaseRequest;
-import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.BaseResponse;
 import okhttp3.*;
 
@@ -19,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class TelegramBotClient {
 
     private final OkHttpClient client;
-    private final OkHttpClient clientWithoutTimeout;
+    private OkHttpClient clientWithTimeout;
     private final Gson gson;
     private final String baseUrl;
 
@@ -27,12 +26,7 @@ public class TelegramBotClient {
         this.client = client;
         this.gson = gson;
         this.baseUrl = baseUrl;
-
-        if (client.readTimeoutMillis() > 0) {
-            this.clientWithoutTimeout = client.newBuilder().readTimeout(0, TimeUnit.SECONDS).build();
-        } else {
-            this.clientWithoutTimeout = client;
-        }
+        this.clientWithTimeout = client;
     }
 
     public <T extends BaseRequest, R extends BaseResponse> void send(final T request, final Callback<T, R> callback) {
@@ -67,7 +61,13 @@ public class TelegramBotClient {
     }
 
     private OkHttpClient getOkHttpClient(BaseRequest request) {
-        return request instanceof GetUpdates ? clientWithoutTimeout : client;
+        int timeoutMillis = request.getTimeoutSeconds() * 1000;
+
+        if (client.readTimeoutMillis() == 0 || client.readTimeoutMillis() > timeoutMillis) return client;
+        if (clientWithTimeout.readTimeoutMillis() > timeoutMillis) return clientWithTimeout;
+
+        clientWithTimeout = client.newBuilder().readTimeout(timeoutMillis + 1000, TimeUnit.MILLISECONDS).build();
+        return clientWithTimeout;
     }
 
     private Request createRequest(BaseRequest request) {
