@@ -37,12 +37,28 @@ public class TelegramBotTest {
     String videoFile = getClass().getClassLoader().getResource("tabs.mp4").getFile();
 
     public TelegramBotTest() throws IOException {
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("local.properties"));
-        bot = TelegramBotAdapter.buildDebug(properties.getProperty("TEST_TOKEN"));
-        chatId = Integer.parseInt(properties.getProperty("CHAT_ID"));
-        forwardMessageId = Integer.parseInt(properties.getProperty("FORWARD_MESSAGE"));
-        stickerId = properties.getProperty("STICKER_FILE_ID");
+        String token, chat, forwardMessage, sticker;
+
+        try {
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("local.properties"));
+
+            token = properties.getProperty("TEST_TOKEN");
+            chat = properties.getProperty("CHAT_ID");
+            forwardMessage = properties.getProperty("FORWARD_MESSAGE");
+            sticker = properties.getProperty("STICKER_FILE_ID");
+
+        } catch (Exception e) {
+            token = System.getenv("TEST_TOKEN");
+            chat = System.getenv("CHAT_ID");
+            forwardMessage = System.getenv("FORWARD_MESSAGE");
+            sticker = System.getenv("STICKER_FILE_ID");
+        }
+
+        bot = TelegramBotAdapter.buildDebug(token);
+        chatId = Integer.parseInt(chat);
+        forwardMessageId = Integer.parseInt(forwardMessage);
+        stickerId = sticker;
     }
 
     @Test
