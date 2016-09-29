@@ -1,4 +1,5 @@
 ## Java API for [Telegram Bots][1]
+[![Build Status](https://travis-ci.org/pengrad/java-telegram-bot-api.svg?branch=master)](https://travis-ci.org/pengrad/java-telegram-bot-api)  
 
 Full support of all Bot API 2.1 functions
 
