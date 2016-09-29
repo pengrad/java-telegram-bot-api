@@ -9,6 +9,7 @@ import com.pengrad.telegrambot.response.GetUpdatesResponse;
 public class GetUpdates extends BaseRequest<GetUpdates, GetUpdatesResponse> {
 
     private int timeout = 0;
+    private int limit = 100;
 
     public GetUpdates() {
         super(GetUpdatesResponse.class);
@@ -19,6 +20,7 @@ public class GetUpdates extends BaseRequest<GetUpdates, GetUpdatesResponse> {
     }
 
     public GetUpdates limit(int limit) {
+        this.limit = limit;
         return add("limit", limit);
     }
 
@@ -30,5 +32,9 @@ public class GetUpdates extends BaseRequest<GetUpdates, GetUpdatesResponse> {
     @Override
     public int getTimeoutSeconds() {
         return timeout;
+    }
+
+    public int getLimit() {
+        return limit;
     }
 }
