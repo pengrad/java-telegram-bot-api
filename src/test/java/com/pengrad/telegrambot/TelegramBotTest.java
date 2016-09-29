@@ -75,7 +75,11 @@ public class TelegramBotTest {
 
     @Test
     public void answerInline() {
-        String inlineQueryId = getLastInlineQuery().id();
+        InlineQuery lastInlineQuery = getLastInlineQuery();
+        if (lastInlineQuery == null) return;
+
+        String inlineQueryId = lastInlineQuery.id();
+
         InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton[]{new InlineKeyboardButton("inline ok").callbackData("callback ok"), new InlineKeyboardButton("inline cancel").callbackData("callback cancel")});
         InlineQueryResult r1 = new InlineQueryResultArticle("1", "title", "message").replyMarkup(keyboardMarkup);
         InlineQueryResult r2 = new InlineQueryResultArticle("2", "2 title", "2 message").replyMarkup(keyboardMarkup);
@@ -83,7 +87,7 @@ public class TelegramBotTest {
     }
 
     private InlineQuery getLastInlineQuery() {
-        GetUpdatesResponse updatesResponse = bot.getUpdates(0, 10, 0);
+        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
         List<Update> updates = updatesResponse.updates();
         Collections.reverse(updates);
         for (Update update : updates) {
@@ -164,7 +168,7 @@ public class TelegramBotTest {
 
     @Test
     public void sendVideo() {
-        SendResponse sendResponse = bot.execute(new SendVideo(chatId, new File(videoFile)));
+        SendResponse sendResponse = bot.execute(new SendVideo(chatId, new File(videoFile)).caption("my video"));
         Message message = sendResponse.message();
         MessageTest.checkVideoMessage(message);
     }
