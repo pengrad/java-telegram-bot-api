@@ -1,7 +1,6 @@
 package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.model.Update;
-import org.junit.Test;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,16 +13,11 @@ import java.util.Properties;
  */
 public class TestGetUpdatesListener {
 
-    TelegramBot bot;
-
-    public TestGetUpdatesListener() throws IOException {
+    public static void main(String[] args) throws IOException {
         Properties properties = new Properties();
         properties.load(new FileInputStream("local.properties"));
-        bot = TelegramBotAdapter.build(properties.getProperty("TEST_TOKEN"));
-    }
+        final TelegramBot bot = TelegramBotAdapter.build(properties.getProperty("TEST_TOKEN"));
 
-    @Test
-    public void getUpdatesListener() {
         bot.setGetUpdatetsListener(new GetUpdatesListener() {
 
             int updatesCount = 5;

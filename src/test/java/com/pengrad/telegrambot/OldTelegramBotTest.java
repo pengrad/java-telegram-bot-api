@@ -177,6 +177,8 @@ public class OldTelegramBotTest {
     @Test
     public void testAnswerInlineQuery() {
         InlineQuery inlineQuery = getLastInlineQuery();
+        if (inlineQuery == null) return;
+
         InlineQueryResult r1 = new InlineQueryResultPhoto("1", "https://pp.vk.me/c410128/u2425605/a_f9604e14.jpg", "https://pp.vk.me/c410128/u2425605/d_fa1c9b0e.jpg");
         InlineQueryResult r2 = new InlineQueryResultArticle("2", "title", "test text").thumbUrl("https://pp.vk.me/c311925/v311925605/a0e/2Ua6hLgr71U.jpg");
         InlineQueryResult r3 = new InlineQueryResultGif("3", "https://media.giphy.com/media/bs3V7RiJ6B95e/giphy.gif", "https://pp.vk.me/c521410/u2425605/-3/m_b2d464207a.jpg");
