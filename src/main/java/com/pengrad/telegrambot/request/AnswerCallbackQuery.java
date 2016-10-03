@@ -21,4 +21,7 @@ public class AnswerCallbackQuery extends BaseRequest<AnswerCallbackQuery, BaseRe
         return add("show_alert", showAlert);
     }
 
+    public AnswerCallbackQuery url(String url) {
+        return add("url", url);
+    }
 }
