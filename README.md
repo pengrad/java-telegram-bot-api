@@ -8,14 +8,14 @@ Full support of all Bot API 2.1 functions
 
 Gradle:
 ```groovy
-compile 'com.github.pengrad:java-telegram-bot-api:2.1.2'
+compile 'com.github.pengrad:java-telegram-bot-api:2.1.3'
 ```
 Maven:
 ```xml
 <dependency>
   <groupId>com.github.pengrad</groupId>
   <artifactId>java-telegram-bot-api</artifactId>
-  <version>2.1.2</version>
+  <version>2.1.3</version>
 </dependency>
 ```
 JAR-files:  
