@@ -6,6 +6,7 @@ import java.io.File;
  * stas
  * 8/11/15.
  */
+@Deprecated
 public class InputFile {
 
     public static InputFile photo(File file) {

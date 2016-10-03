@@ -4,6 +4,7 @@ package com.pengrad.telegrambot.model.request;
  * stas
  * 8/11/15.
  */
+@Deprecated
 public class InputFileBytes {
 
     // everything becomes jpeg or mpeg or ogg
