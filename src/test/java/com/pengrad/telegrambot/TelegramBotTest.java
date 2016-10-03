@@ -197,4 +197,10 @@ public class TelegramBotTest {
         Message message = sendResponse.message();
         MessageTest.checkVoiceMessage(message);
     }
+
+    @Test
+    public void getWebhookInfo() {
+        GetWebhookInfoResponse response = bot.execute(new GetWebhookInfo());
+        WebhookInfoTest.check(response.webhookInfo());
+    }
 }
