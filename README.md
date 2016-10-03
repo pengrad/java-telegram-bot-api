@@ -1,8 +1,8 @@
-# Java API for [Telegram Bots](https://core.telegram.org/bots)
+# Java API for [Telegram Bots and Gaming Platform](https://core.telegram.org/bots)
 [![Build Status](https://travis-ci.org/pengrad/java-telegram-bot-api.svg?branch=master)](https://travis-ci.org/pengrad/java-telegram-bot-api)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.pengrad/java-telegram-bot-api/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.pengrad/java-telegram-bot-api)  
 
-Full support of all Bot API 2.1 functions
+Full support of all Bot API methods with new Gaming Platform
 
 ## Download
 
@@ -41,6 +41,7 @@ https://oss.sonatype.org/content/repositories/releases/com/github/pengrad/java-t
 - [Inline mode](#inline-mode)
   - [Inline query result](#inline-query-result)
   - [Answer inline query](#answer-inline-query)
+- [Games](#games)
 
 ## Creating your bot
 
@@ -413,4 +414,22 @@ bot.execute(
                 .switchPmParameter("pmParam")
                 .switchPmText("pmText")
 );
+```
+
+### Games
+
+Send game
+```java
+SendResponse response = bot.execute(new SendGame(chatId, "my_super_game"));
+```
+
+Set game score
+```java
+BaseResponse response = bot.execute(new SetGameScore(userId, score, chatId, messageId));
+```
+
+Get game high scores
+```java
+GetGameHighScoresResponse response = bot.execute(new GetGameHighScores(userId, chatId, messageId));
+GameHighScore[] scores = response.result();
 ```
