@@ -63,4 +63,9 @@ public class MessageTest {
         checkMessage(message);
         LocationTest.check(message.location());
     }
+
+    public static void checkGameMessage(Message message) {
+        checkMessage(message);
+        GameTest.check(message.game());
+    }
 }

@@ -95,7 +95,7 @@ public class TelegramBotTest {
 
         InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(
                 new InlineKeyboardButton[]{
-                        new InlineKeyboardButton("inline game").callbackGame("pengrad_test_game"),
+//                        new InlineKeyboardButton("inline game").callbackGame("pengrad_test_game"),
                         new InlineKeyboardButton("inline ok").callbackData("callback ok")
 
                 });
@@ -223,5 +223,11 @@ public class TelegramBotTest {
     public void getWebhookInfo() {
         GetWebhookInfoResponse response = bot.execute(new GetWebhookInfo());
         WebhookInfoTest.check(response.webhookInfo());
+    }
+
+    @Test
+    public void sendGame() {
+        SendResponse response = bot.execute(new SendGame(chatId, "pengrad_test_game"));
+        MessageTest.checkGameMessage(response.message());
     }
 }

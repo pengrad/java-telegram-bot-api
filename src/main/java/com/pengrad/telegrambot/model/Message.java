@@ -21,6 +21,7 @@ public class Message {
     private MessageEntity[] entities;
     private Audio audio;
     private Document document;
+    private Game game;
     private PhotoSize[] photo;
     private Sticker sticker;
     private Video video;
@@ -91,6 +92,10 @@ public class Message {
 
     public Document document() {
         return document;
+    }
+
+    public Game game() {
+        return game;
     }
 
     public PhotoSize[] photo() {
@@ -192,6 +197,7 @@ public class Message {
         if (!Arrays.equals(entities, message.entities)) return false;
         if (audio != null ? !audio.equals(message.audio) : message.audio != null) return false;
         if (document != null ? !document.equals(message.document) : message.document != null) return false;
+        if (game != null ? !game.equals(message.game) : message.game != null) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(photo, message.photo)) return false;
         if (sticker != null ? !sticker.equals(message.sticker) : message.sticker != null) return false;
@@ -246,6 +252,7 @@ public class Message {
                 ", entities=" + Arrays.toString(entities) +
                 ", audio=" + audio +
                 ", document=" + document +
+                ", game=" + game +
                 ", photo=" + Arrays.toString(photo) +
                 ", sticker=" + sticker +
                 ", video=" + video +
