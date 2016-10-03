@@ -39,6 +39,8 @@ https://oss.sonatype.org/content/repositories/releases/com/github/pengrad/java-t
   - [Other requests](#other-requests)
 - [Updating messages](#updating-messages)
 - [Inline mode](#inline-mode)
+  - [Inline query result](#inline-query-result)
+  - [Answer inline query](#answer-inline-query)
 
 ## Creating your bot
 
