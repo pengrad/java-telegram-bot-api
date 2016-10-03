@@ -11,6 +11,7 @@ public class InlineKeyboardButton {
     private String callback_data;
     private String switch_inline_query;
     private String switch_inline_query_current_chat;
+    private String callback_game;
 
     public InlineKeyboardButton(String text) {
         this.text = text;
@@ -33,6 +34,11 @@ public class InlineKeyboardButton {
 
     public InlineKeyboardButton switchInlineQueryCurrentChat(String switchInlineQueryCurrentChat) {
         switch_inline_query_current_chat = switchInlineQueryCurrentChat;
+        return this;
+    }
+
+    public InlineKeyboardButton callbackGame(String callbackGame) {
+        callback_game = callbackGame;
         return this;
     }
 }

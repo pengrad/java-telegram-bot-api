@@ -1,10 +1,7 @@
 package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.model.*;
-import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
-import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
-import com.pengrad.telegrambot.model.request.InlineQueryResult;
-import com.pengrad.telegrambot.model.request.InlineQueryResultArticle;
+import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
 import org.junit.Test;
@@ -95,13 +92,14 @@ public class TelegramBotTest {
 
         InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(
                 new InlineKeyboardButton[]{
-//                        new InlineKeyboardButton("inline game").callbackGame("pengrad_test_game"),
-                        new InlineKeyboardButton("inline ok").callbackData("callback ok")
-
+                        new InlineKeyboardButton("inline game").callbackGame("pengrad test game description"),
+                        new InlineKeyboardButton("inline ok").callbackData("callback ok"),
+                        new InlineKeyboardButton("cancel").callbackData("callback cancel"),
                 });
 
-        InlineQueryResult r1 = new InlineQueryResultArticle("1", "title", "message").replyMarkup(keyboardMarkup);
-        bot.execute(new AnswerInlineQuery(inlineQueryId, r1));
+        InlineQueryResult r1 = new InlineQueryResultArticle("1", "title", "message");
+        InlineQueryResult r2 = new InlineQueryResultGame("2", "pengrad_test_game").replyMarkup(keyboardMarkup);
+        bot.execute(new AnswerInlineQuery(inlineQueryId, r1, r2));
     }
 
     private InlineQuery getLastInlineQuery() {
@@ -125,7 +123,7 @@ public class TelegramBotTest {
 
         bot.execute(new AnswerCallbackQuery(callbackQuery.id())
                 .text("answer callback")
-                .url("https://telegram.me/pengrad_test_bot?start=callback"));
+                .url("telegram.me/pengrad_test_bot?game=pengrad_test_game"));
     }
 
     private CallbackQuery getLastCallbackQuery() {
