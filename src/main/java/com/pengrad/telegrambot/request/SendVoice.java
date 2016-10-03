@@ -20,6 +20,10 @@ public class SendVoice extends AbstractMultipartRequest<SendVoice> {
         super(chatId, voice);
     }
 
+    public SendVoice caption(String caption) {
+        return add("caption", caption);
+    }
+
     public SendVoice duration(int duration) {
         return add("duration", duration);
     }

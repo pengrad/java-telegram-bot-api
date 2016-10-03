@@ -9,6 +9,7 @@ public class InlineQueryResultAudio extends InlineQueryResult<InlineQueryResultA
     private String audio_url;
     private String title;
 
+    private String caption;
     private String performer;
     private Integer audio_duration;
 
@@ -16,6 +17,11 @@ public class InlineQueryResultAudio extends InlineQueryResult<InlineQueryResultA
         super("audio", id);
         this.audio_url = audioUrl;
         this.title = title;
+    }
+
+    public InlineQueryResultAudio caption(String caption) {
+        this.caption = caption;
+        return this;
     }
 
     public InlineQueryResultAudio performer(String performer) {
