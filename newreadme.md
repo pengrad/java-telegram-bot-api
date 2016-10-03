@@ -150,6 +150,44 @@ bot.removeGetUpdatesListener();
 ```
 
 ## Available types
+
+All types have the same name as original ones.  
+Type's fields are methods in lowerCamelCase.
+
+Types used in responses **(Update, Message, User, Document...)** are in `com.pengrad.telegrambot.model` package. 
+
+Types used in requests **(Keyboard, InlineQueryResult, ParseMode, InputMessageContent...)** are in `com.pengrad.telegrambot.model.request` package.  
+When creating request's type required params should be passed in constructor, optional params can be added in chains.
+
+### Keyboards
+```java
+Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
+                new String[]{"first row button1", "first row button2"},
+                new String[]{"second row button1", "second row button2"})
+                .oneTimeKeyboard(true)   // optional
+                .resizeKeyboard(true)    // optional
+                .selective(true);        // optional
+
+// keyboard button
+Keyboard keyboard = new ReplyKeyboardMarkup(
+        new KeyboardButton[]{
+                new KeyboardButton("text"),
+                new KeyboardButton("contact").requestContact(true),
+                new KeyboardButton("location").requestLocation(true)
+        }
+);                
+
+Keyboard forceReply = new ForceReply(isSelective); // or just new ForceReply();
+Keyboard replyKeyboardHide = new ReplyKeyboardHide(); // new ReplyKeyboardHide(isSelective)
+
+InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
+        new InlineKeyboardButton[]{
+                new InlineKeyboardButton("url").url("url"),
+                new InlineKeyboardButton("callback_data").callbackData("callback_data"),
+                new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query")
+        });
+```        
+
 ## Available methods
 
 All request methods have the same names as original ones.  
