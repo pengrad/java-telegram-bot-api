@@ -117,6 +117,33 @@ bot.execute(getUpdates, new Callback<GetUpdates, GetUpdatesResponse>() {
 
 ### Webhook
 
+Building request
+```java
+SetWebhook request = new SetWebhook()
+       .url("url")
+       .certificate(new byte[]{}) // byte[]
+       .certificate(new File("path")); // or file 
+```
+
+Executing
+```java
+// sync
+BaseResponse response = bot.execute(request);
+boolean ok = response.isOk();
+
+// async
+bot.execute(request, new Callback<SetWebhook, BaseResponse>() {
+    @Override
+    public void onResponse(SetWebhook request, BaseResponse response) {
+    
+    }
+    @Override
+    public void onFailure(SetWebhook request, IOException e) {
+        
+    }
+});
+```
+
 Using Webhook you can parse request to Update
 ```java
 Update update = BotUtils.parseUpdate(stringRequest); // from String
@@ -214,10 +241,55 @@ All request methods have the same names as original ones.
 Required params should be passed in constructor.  
 Optional params can be added in chains.
 
+### Send message 
+
+All send requests **(SendMessage, SendPhoto, SendLocation...)** return **SendResponse** object that contains **Message**.
+```java
+SendMessage request = new SendMessage(chatId, "text")
+        .parseMode(ParseMode.HTML)
+        .disableWebPagePreview(true)
+        .disableNotification(true)
+        .replyToMessageId(1)
+        .replyMarkup(new ForceReply());
+
+// sync
+SendResponse sendResponse = bot.execute(request);
+boolean ok = sendResponse.isOk();
+Message message = sendResponse.message();
+
+// async
+bot.execute(request, new Callback<SendMessage, SendResponse>() {
+    @Override
+    public void onResponse(SendMessage request, SendResponse response) {
+       
+    }
+    
+    @Override
+    public void onFailure(SendMessage request, IOException e) {
+    
+    }
+});
+```
+
 ### Formatting options
 ```java
 ParseMode parseMode = ParseMode.Markdown;
 ParseMode parseMode = ParseMode.HTML;
+```
+
+### Get file
+```java
+GetFile request = new GetFile("fileId")
+GetFileResponse getFileResponse = bot.execute(request);
+
+File file = getFileResponse.file(); // com.pengrad.telegrambot.model.File
+file.fileId();
+file.filePath();  // relative path
+file.fileSize();
+```
+To get downloading link as `https://api.telegram.org/file/bot<token>/<file_path>`
+```java
+String fullPath = bot.getFullFilePath(file);  // com.pengrad.telegrambot.model.File
 ```
 
 ## Updating messages
