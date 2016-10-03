@@ -30,7 +30,10 @@ https://oss.sonatype.org/content/repositories/releases/com/github/pengrad/java-t
   - [Webhook](#webhook)
   - [Updates Listener](#updates-listener)
 - [Available types](#available-types)
+  - [Keyboards](#keyboards)
+  - [Chat Action](#chat-action)  
 - [Available methods](#available-methods)
+  - [Formatting options](#formatting-options)
 - [Updating messages](#updating-messages)
 - [Inline mode](#inline-mode)
 
@@ -160,6 +163,14 @@ Types used in requests **(Keyboard, InlineQueryResult, ParseMode, InputMessageCo
 When creating request's type required params should be passed in constructor, optional params can be added in chains.
 
 ### Keyboards
+
+ForceReply, ReplyKeyboardHide
+```java
+Keyboard forceReply = new ForceReply(isSelective); // or just new ForceReply();
+Keyboard replyKeyboardHide = new ReplyKeyboardHide(); // new ReplyKeyboardHide(isSelective)
+```
+
+ReplyKeyboardMarkup
 ```java
 Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{"first row button1", "first row button2"},
@@ -167,8 +178,10 @@ Keyboard replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 .oneTimeKeyboard(true)   // optional
                 .resizeKeyboard(true)    // optional
                 .selective(true);        // optional
+```
 
-// keyboard button
+KeyboardButton
+```java
 Keyboard keyboard = new ReplyKeyboardMarkup(
         new KeyboardButton[]{
                 new KeyboardButton("text"),
@@ -176,23 +189,36 @@ Keyboard keyboard = new ReplyKeyboardMarkup(
                 new KeyboardButton("location").requestLocation(true)
         }
 );                
+```
 
-Keyboard forceReply = new ForceReply(isSelective); // or just new ForceReply();
-Keyboard replyKeyboardHide = new ReplyKeyboardHide(); // new ReplyKeyboardHide(isSelective)
-
+InlineKeyboardMarkup
+```java
 InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
         new InlineKeyboardButton[]{
                 new InlineKeyboardButton("url").url("url"),
                 new InlineKeyboardButton("callback_data").callbackData("callback_data"),
                 new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query")
         });
-```        
+```
+
+### Chat Action
+```java
+ChatAction action = ChatAction.typing;
+ChatAction action = ChatAction.upload_photo;
+ChatAction action = ChatAction.find_location;
+```
 
 ## Available methods
 
 All request methods have the same names as original ones.  
 Required params should be passed in constructor.  
 Optional params can be added in chains.
+
+### Formatting options
+```java
+ParseMode parseMode = ParseMode.Markdown;
+ParseMode parseMode = ParseMode.HTML;
+```
 
 ## Updating messages
 ## Inline mode
