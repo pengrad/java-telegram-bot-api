@@ -25,6 +25,8 @@ public class Chat {
     //Channel and Group
     private String title;
 
+    private Boolean all_members_are_administrators;
+
     public Long id() {
         return id;
     }
@@ -49,6 +51,10 @@ public class Chat {
         return title;
     }
 
+    public Boolean allMembersAreAdministrators() {
+        return all_members_are_administrators;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -56,12 +62,13 @@ public class Chat {
 
         Chat chat = (Chat) o;
 
-        if (id != null ? !id.equals(chat.id) : chat.id != null) return false;
+        if (!id.equals(chat.id)) return false;
         if (type != chat.type) return false;
         if (first_name != null ? !first_name.equals(chat.first_name) : chat.first_name != null) return false;
         if (last_name != null ? !last_name.equals(chat.last_name) : chat.last_name != null) return false;
         if (username != null ? !username.equals(chat.username) : chat.username != null) return false;
-        return title != null ? title.equals(chat.title) : chat.title == null;
+        if (title != null ? !title.equals(chat.title) : chat.title != null) return false;
+        return all_members_are_administrators != null ? all_members_are_administrators.equals(chat.all_members_are_administrators) : chat.all_members_are_administrators == null;
     }
 
     @Override
@@ -78,6 +85,7 @@ public class Chat {
                 ", last_name='" + last_name + '\'' +
                 ", username='" + username + '\'' +
                 ", title='" + title + '\'' +
+                ", all_members_are_administrators=" + all_members_are_administrators +
                 '}';
     }
 }
