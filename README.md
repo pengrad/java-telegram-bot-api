@@ -352,6 +352,22 @@ class GetUserProfilePhotosResponse {
 
 ## Updating messages
 
+Normal message
+```java
+EditMessageText editMessageText = new EditMessageText(chatId, messageId, "new test")
+        .parseMode(ParseMode.HTML)
+        .disableWebPagePreview(true)
+        .replyMarkup(new ReplyKeyboardHide());
+        
+BaseResponse response = bot.execute(editMessageText);        
+```
+
+Inline message
+```java
+EditMessageText editInlineMessageText = new EditMessageText(inlineMessageId, "new text");
+BaseResponse response = bot.execute(editInlineMessageText);
+```
+
 ## Inline mode
 
 Getting updates
