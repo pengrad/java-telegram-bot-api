@@ -11,6 +11,7 @@ public class CallbackQuery {
     private Message message;
     private String inline_message_id;
     private String data;
+    private String game_short_name;
 
     public String id() {
         return id;
@@ -32,6 +33,10 @@ public class CallbackQuery {
         return data;
     }
 
+    public String gameShortName() {
+        return game_short_name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,13 +44,13 @@ public class CallbackQuery {
 
         CallbackQuery that = (CallbackQuery) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (from != null ? !from.equals(that.from) : that.from != null) return false;
+        if (!id.equals(that.id)) return false;
+        if (!from.equals(that.from)) return false;
         if (message != null ? !message.equals(that.message) : that.message != null) return false;
         if (inline_message_id != null ? !inline_message_id.equals(that.inline_message_id) : that.inline_message_id != null)
             return false;
-        return data != null ? data.equals(that.data) : that.data == null;
-
+        if (data != null ? !data.equals(that.data) : that.data != null) return false;
+        return game_short_name != null ? game_short_name.equals(that.game_short_name) : that.game_short_name == null;
     }
 
     @Override
@@ -61,6 +66,7 @@ public class CallbackQuery {
                 ", message=" + message +
                 ", inline_message_id='" + inline_message_id + '\'' +
                 ", data='" + data + '\'' +
+                ", game_short_name='" + game_short_name + '\'' +
                 '}';
     }
 }

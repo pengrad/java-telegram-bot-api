@@ -1,9 +1,6 @@
 package com.pengrad.telegrambot;
 
-import com.pengrad.telegrambot.model.ChatMember;
-import com.pengrad.telegrambot.model.InlineQuery;
-import com.pengrad.telegrambot.model.Message;
-import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.InlineQueryResult;
@@ -68,7 +65,7 @@ public class TelegramBotTest {
 
     @Test
     public void getUpdates() {
-        GetUpdatesResponse response = bot.execute(new GetUpdates().offset(279823236).timeout(25));
+        GetUpdatesResponse response = bot.execute(new GetUpdates().offset(279823304).timeout(25));
         System.out.println(response);
     }
 
@@ -96,10 +93,15 @@ public class TelegramBotTest {
 
         String inlineQueryId = lastInlineQuery.id();
 
-        InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton[]{new InlineKeyboardButton("inline ok").callbackData("callback ok"), new InlineKeyboardButton("inline cancel").callbackData("callback cancel")});
+        InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(
+                new InlineKeyboardButton[]{
+                        new InlineKeyboardButton("inline game").callbackGame("pengrad_test_game"),
+                        new InlineKeyboardButton("inline ok").callbackData("callback ok")
+
+                });
+
         InlineQueryResult r1 = new InlineQueryResultArticle("1", "title", "message").replyMarkup(keyboardMarkup);
-        InlineQueryResult r2 = new InlineQueryResultArticle("2", "2 title", "2 message").replyMarkup(keyboardMarkup);
-        bot.execute(new AnswerInlineQuery(inlineQueryId, r1, r2));
+        bot.execute(new AnswerInlineQuery(inlineQueryId, r1));
     }
 
     private InlineQuery getLastInlineQuery() {
@@ -116,7 +118,26 @@ public class TelegramBotTest {
 
     @Test
     public void answerCallback() {
-        bot.execute(new AnswerCallbackQuery("220392309269028729").text("answer callback"));
+        CallbackQuery callbackQuery = getLastCallbackQuery();
+        if (callbackQuery == null) return;
+
+        System.out.println(callbackQuery);
+
+        bot.execute(new AnswerCallbackQuery(callbackQuery.id())
+                .text("answer callback")
+                .url("https://telegram.me/pengrad_test_bot?start=callback"));
+    }
+
+    private CallbackQuery getLastCallbackQuery() {
+        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
+        List<Update> updates = updatesResponse.updates();
+        Collections.reverse(updates);
+        for (Update update : updates) {
+            if (update.callbackQuery() != null) {
+                return update.callbackQuery();
+            }
+        }
+        return null;
     }
 
     @Test
