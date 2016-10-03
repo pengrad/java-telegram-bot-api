@@ -36,6 +36,7 @@ https://oss.sonatype.org/content/repositories/releases/com/github/pengrad/java-t
   - [Send message](#send-message)
   - [Formatting options](#formatting-options)
   - [Get file](#get-file)
+  - [Other requests](#other-requests)
 - [Updating messages](#updating-messages)
 - [Inline mode](#inline-mode)
 
@@ -348,4 +349,50 @@ class GetUserProfilePhotosResponse {
 ```
 
 ## Updating messages
+
 ## Inline mode
+
+Getting updates
+```java
+GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
+List<Update> updates = updatesResponse.updates();
+...
+InlineQuery inlineQuery = update.inlineQuery();
+ChosenInlineResult chosenInlineResult = update.chosenInlineResult();
+CallbackQuery callbackQuery = update.callbackQuery();
+```
+
+If using webhook, you can parse request to InlineQuery
+```java
+Update update = BotUtils.parseUpdate(stringRequest); // from String
+Update update = BotUtils.parseUpdate(reader); // from java.io.Reader
+
+InlineQuery inlineQuery = update.inlineQuery();
+```
+
+### Inline query result
+```java
+InlineQueryResult r1 = new InlineQueryResultPhoto("id", "photoUrl", "thumbUrl");
+InlineQueryResult r2 = new InlineQueryResultArticle("id", "title", "message text").thumbUrl("url");
+InlineQueryResult r3 = new InlineQueryResultGif("id", "gifUrl", "thumbUrl");
+InlineQueryResult r4 = new InlineQueryResultMpeg4Gif("id", "mpeg4Url", "thumbUrl");
+
+InlineQueryResult r5 = new InlineQueryResultVideo(
+  "id", "videoUrl", InlineQueryResultVideo.MIME_VIDEO_MP4, "message", "thumbUrl", "video title")
+    .inputMessageContent(new InputLocationMessageContent(21.03f, 105.83f));
+```
+
+### Answer inline query
+```java
+BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQuery.id(), r1, r2, r3, r4, r5));
+
+// or full
+bot.execute(
+        new AnswerInlineQuery(inlineQuery.id(), new InlineQueryResult[]{r1, r2, r3, r4, r5})
+                .cacheTime(cacheTime)
+                .isPersonal(isPersonal)
+                .nextOffset("offset")
+                .switchPmParameter("pmParam")
+                .switchPmText("pmText")
+);
+```
