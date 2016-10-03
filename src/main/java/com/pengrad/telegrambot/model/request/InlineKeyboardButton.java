@@ -10,6 +10,7 @@ public class InlineKeyboardButton {
     private String url;
     private String callback_data;
     private String switch_inline_query;
+    private String switch_inline_query_current_chat;
 
     public InlineKeyboardButton(String text) {
         this.text = text;
@@ -27,6 +28,11 @@ public class InlineKeyboardButton {
 
     public InlineKeyboardButton switchInlineQuery(String switchInlineQuery) {
         switch_inline_query = switchInlineQuery;
+        return this;
+    }
+
+    public InlineKeyboardButton switchInlineQueryCurrentChat(String switchInlineQueryCurrentChat) {
+        switch_inline_query_current_chat = switchInlineQueryCurrentChat;
         return this;
     }
 }
