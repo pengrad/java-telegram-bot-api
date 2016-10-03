@@ -33,7 +33,9 @@ https://oss.sonatype.org/content/repositories/releases/com/github/pengrad/java-t
   - [Keyboards](#keyboards)
   - [Chat Action](#chat-action)  
 - [Available methods](#available-methods)
+  - [Send message](#send-message)
   - [Formatting options](#formatting-options)
+  - [Get file](#get-file)
 - [Updating messages](#updating-messages)
 - [Inline mode](#inline-mode)
 
@@ -290,6 +292,59 @@ file.fileSize();
 To get downloading link as `https://api.telegram.org/file/bot<token>/<file_path>`
 ```java
 String fullPath = bot.getFullFilePath(file);  // com.pengrad.telegrambot.model.File
+```
+
+### Other requests
+
+All requests return BaseResponse if not mention here
+```java
+class BaseResponse {
+  boolean isOk();
+  int errorCode();
+  String description();
+}
+```
+
+GetMe request returns GetMeResponse  
+```java
+class GetMeResponse {
+  User user();
+}
+```
+
+GetChatAdministrators
+```java
+class GetChatAdministratorsResponse  { 
+  List<ChatMember> administrators() 
+}
+```
+
+GetChatMembersCount
+```java
+class GetChatMembersCountResponse  { 
+  ChatMember chatMember() 
+}
+```
+
+GetChatMember
+```java
+class GetChatMemberResponse  {
+  int count() 
+}
+```
+
+GetChat
+```java
+class GetChatResponse  { 
+  Chat chat() 
+}
+```
+
+GetUserProfilePhotos
+```java
+class GetUserProfilePhotosResponse {
+  UserProfilePhotos photos()
+}
 ```
 
 ## Updating messages
