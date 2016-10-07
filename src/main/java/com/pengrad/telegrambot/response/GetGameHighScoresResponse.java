@@ -8,7 +8,7 @@ import java.util.Arrays;
  * Stas Parshin
  * 04 October 2016
  */
-public class GetGameHighScoresResponse {
+public class GetGameHighScoresResponse extends BaseResponse {
 
     private GameHighScore[] result;
 
