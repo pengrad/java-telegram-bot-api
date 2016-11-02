@@ -171,6 +171,14 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void sendMessage() {
+        SendMessage request = new SendMessage(chatId, "reply this message").replyMarkup(new ForceReply());
+        SendResponse sendResponse = bot.execute(request);
+        Message message = sendResponse.message();
+        MessageTest.checkTextMessage(message);
+    }
+
+    @Test
     public void sendAudio() {
         SendAudio request = new SendAudio(chatId, new File(audioFile));
         SendResponse sendResponse = bot.execute(request);
