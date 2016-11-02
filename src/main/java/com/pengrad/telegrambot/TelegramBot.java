@@ -12,20 +12,18 @@ import com.pengrad.telegrambot.response.BaseResponse;
  * Stas Parshin
  * 16 October 2015
  */
-public class TelegramBot extends OldTelegramBot {
+public class TelegramBot {
 
     private final TelegramBotClient api;
     private final FileApi fileApi;
     private final GetUpdatesHandler getUpdatesHandler;
 
     TelegramBot(TelegramBotClient api, FileApi fileApi) {
-        super(fileApi);
         this.api = api;
         this.fileApi = fileApi;
         this.getUpdatesHandler = new GetUpdatesHandler();
     }
 
-    @Override
     public <T extends BaseRequest, R extends BaseResponse> R execute(BaseRequest<T, R> request) {
         return api.send(request);
     }

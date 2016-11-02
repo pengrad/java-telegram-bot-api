@@ -4,6 +4,7 @@ import com.pengrad.telegrambot.model.Chat;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.User;
+import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 
 import java.io.FileInputStream;
@@ -26,7 +27,7 @@ public class TestLoopGetUpdates {
         int j = 0;
         while (true) {
             try {
-                updatesResponse = bot.getUpdates(j, 100, 20);
+                updatesResponse = bot.execute(new GetUpdates().offset(j).limit(100).timeout(20));
                 List<Update> updates = updatesResponse.updates();
                 for (int z = 0; z < updates.size(); z++) {
                     j = updates.get(z).updateId() + 1;

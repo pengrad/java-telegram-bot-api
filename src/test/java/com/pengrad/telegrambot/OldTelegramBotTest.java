@@ -60,6 +60,8 @@ public class OldTelegramBotTest {
         stickerId = sticker;
     }
 
+    /*
+
     @Test
     public void testGetFullFilePath() throws Exception {
         String path1 = bot.getFullFilePath(bot.getFile(stickerId).file());
@@ -215,4 +217,5 @@ public class OldTelegramBotTest {
         }
         return null;
     }
+    */
 }
