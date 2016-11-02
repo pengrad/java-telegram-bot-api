@@ -1,7 +1,7 @@
 package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.impl.FileApi;
-import com.pengrad.telegrambot.impl.GetUpdatesHandler;
+import com.pengrad.telegrambot.impl.UpdatesHandler;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.request.BaseRequest;
@@ -16,12 +16,12 @@ public class TelegramBot {
 
     private final TelegramBotClient api;
     private final FileApi fileApi;
-    private final GetUpdatesHandler getUpdatesHandler;
+    private final UpdatesHandler updatesHandler;
 
     TelegramBot(TelegramBotClient api, FileApi fileApi) {
         this.api = api;
         this.fileApi = fileApi;
-        this.getUpdatesHandler = new GetUpdatesHandler();
+        this.updatesHandler = new UpdatesHandler();
     }
 
     public <T extends BaseRequest, R extends BaseResponse> R execute(BaseRequest<T, R> request) {
@@ -36,15 +36,25 @@ public class TelegramBot {
         return fileApi.getFullFilePath(file.filePath());
     }
 
-    public void setGetUpdatetsListener(GetUpdatesListener listener) {
-        setGetUpdatetsListener(listener, new GetUpdates());
+    public void setUpdatesListener(UpdatesListener listener) {
+        setUpdatesListener(listener, new GetUpdates());
     }
 
+    public void setUpdatesListener(UpdatesListener listener, GetUpdates request) {
+        updatesHandler.start(this, listener, request);
+    }
+
+    @Deprecated
+    public void setGetUpdatetsListener(GetUpdatesListener listener) {
+        setUpdatesListener(listener, new GetUpdates());
+    }
+
+    @Deprecated
     public void setGetUpdatetsListener(GetUpdatesListener listener, GetUpdates request) {
-        getUpdatesHandler.start(this, listener, request);
+        setUpdatesListener(listener, request);
     }
 
     public void removeGetUpdatesListener() {
-        getUpdatesHandler.stop();
+        updatesHandler.stop();
     }
 }

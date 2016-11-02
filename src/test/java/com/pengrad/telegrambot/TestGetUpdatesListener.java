@@ -18,7 +18,7 @@ public class TestGetUpdatesListener {
         properties.load(new FileInputStream("local.properties"));
         final TelegramBot bot = TelegramBotAdapter.build(properties.getProperty("TEST_TOKEN"));
 
-        bot.setGetUpdatetsListener(new GetUpdatesListener() {
+        bot.setUpdatesListener(new UpdatesListener() {
 
             int updatesCount = 5;
 
@@ -26,7 +26,7 @@ public class TestGetUpdatesListener {
             public int process(List<Update> updates) {
                 System.out.println(updates);
                 if (--updatesCount <= 0) bot.removeGetUpdatesListener();
-                return GetUpdatesListener.CONFIRMED_UPDATES_ALL;
+                return UpdatesListener.CONFIRMED_UPDATES_ALL;
             }
         });
 

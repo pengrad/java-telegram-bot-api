@@ -1,8 +1,8 @@
 package com.pengrad.telegrambot.impl;
 
 import com.pengrad.telegrambot.Callback;
-import com.pengrad.telegrambot.GetUpdatesListener;
 import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
@@ -10,19 +10,19 @@ import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.pengrad.telegrambot.GetUpdatesListener.CONFIRMED_UPDATES_ALL;
-import static com.pengrad.telegrambot.GetUpdatesListener.CONFIRMED_UPDATES_NONE;
+import static com.pengrad.telegrambot.UpdatesListener.CONFIRMED_UPDATES_ALL;
+import static com.pengrad.telegrambot.UpdatesListener.CONFIRMED_UPDATES_NONE;
 
 /**
  * Stas Parshin
  * 29 September 2016
  */
-public class GetUpdatesHandler {
+public class UpdatesHandler {
 
     private TelegramBot bot;
-    private GetUpdatesListener listener;
+    private UpdatesListener listener;
 
-    public void start(TelegramBot bot, GetUpdatesListener listener, GetUpdates request) {
+    public void start(TelegramBot bot, UpdatesListener listener, GetUpdates request) {
         this.bot = bot;
         this.listener = listener;
         getUpdates(request);
