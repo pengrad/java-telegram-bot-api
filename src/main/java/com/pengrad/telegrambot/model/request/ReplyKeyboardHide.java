@@ -4,6 +4,7 @@ package com.pengrad.telegrambot.model.request;
  * stas
  * 8/4/15.
  */
+@Deprecated
 public class ReplyKeyboardHide extends Keyboard {
 
     private final boolean hide_keyboard = true;
