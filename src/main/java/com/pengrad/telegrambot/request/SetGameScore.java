@@ -19,8 +19,16 @@ public class SetGameScore extends BaseRequest<SetGameScore, BaseResponse> {
         add("user_id", userId).add("score", score).add("inline_message_id", inlineMessageId);
     }
 
-    public SetGameScore editMessage(boolean edit_message) {
-        return add("edit_message", edit_message);
+    public SetGameScore force(boolean force) {
+        return add("force", force);
     }
 
+    public SetGameScore disableEditMessage(boolean disableEditMessage) {
+        return add("disable_edit_message", disableEditMessage);
+    }
+
+    @Deprecated
+    public SetGameScore editMessage(boolean editMessage) {
+        return add("edit_message", editMessage);
+    }
 }
