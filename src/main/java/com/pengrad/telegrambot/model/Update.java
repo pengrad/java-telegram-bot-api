@@ -9,6 +9,8 @@ public class Update {
     private Integer update_id;
     private Message message;
     private Message edited_message;
+    private Message channel_post;
+    private Message edited_channel_post;
     private InlineQuery inline_query;
     private ChosenInlineResult chosen_inline_result;
     private CallbackQuery callback_query;
@@ -23,6 +25,14 @@ public class Update {
 
     public Message editedMessage() {
         return edited_message;
+    }
+
+    public Message channelPost() {
+        return channel_post;
+    }
+
+    public Message editedChannelPost() {
+        return edited_channel_post;
     }
 
     public InlineQuery inlineQuery() {
@@ -48,7 +58,12 @@ public class Update {
         if (message != null ? !message.equals(update.message) : update.message != null) return false;
         if (edited_message != null ? !edited_message.equals(update.edited_message) : update.edited_message != null)
             return false;
-        if (inline_query != null ? !inline_query.equals(update.inline_query) : update.inline_query != null) return false;
+        if (channel_post != null ? !channel_post.equals(update.channel_post) : update.channel_post != null)
+            return false;
+        if (edited_channel_post != null ? !edited_channel_post.equals(update.edited_channel_post) : update.edited_channel_post != null)
+            return false;
+        if (inline_query != null ? !inline_query.equals(update.inline_query) : update.inline_query != null)
+            return false;
         if (chosen_inline_result != null ? !chosen_inline_result.equals(update.chosen_inline_result) : update.chosen_inline_result != null)
             return false;
         return callback_query != null ? callback_query.equals(update.callback_query) : update.callback_query == null;
@@ -66,6 +81,8 @@ public class Update {
                 "update_id=" + update_id +
                 ", message=" + message +
                 ", edited_message=" + edited_message +
+                ", channel_post=" + channel_post +
+                ", edited_channel_post=" + edited_channel_post +
                 ", inline_query=" + inline_query +
                 ", chosen_inline_result=" + chosen_inline_result +
                 ", callback_query=" + callback_query +
