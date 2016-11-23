@@ -14,6 +14,7 @@ public class Message {
     private Chat chat;
     private User forward_from;
     private Chat forward_from_chat;
+    private Integer forward_from_message_id;
     private Integer forward_date;
     private Message reply_to_message;
     private Integer edit_date;
@@ -64,6 +65,10 @@ public class Message {
 
     public Chat forwardFromChat() {
         return forward_from_chat;
+    }
+
+    public Integer forwardFromMessageId() {
+        return forward_from_message_id;
     }
 
     public Integer forwardDate() {
@@ -185,10 +190,14 @@ public class Message {
         if (from != null ? !from.equals(message.from) : message.from != null) return false;
         if (date != null ? !date.equals(message.date) : message.date != null) return false;
         if (chat != null ? !chat.equals(message.chat) : message.chat != null) return false;
-        if (forward_from != null ? !forward_from.equals(message.forward_from) : message.forward_from != null) return false;
+        if (forward_from != null ? !forward_from.equals(message.forward_from) : message.forward_from != null)
+            return false;
         if (forward_from_chat != null ? !forward_from_chat.equals(message.forward_from_chat) : message.forward_from_chat != null)
             return false;
-        if (forward_date != null ? !forward_date.equals(message.forward_date) : message.forward_date != null) return false;
+        if (forward_from_message_id != null ? !forward_from_message_id.equals(message.forward_from_message_id) : message.forward_from_message_id != null)
+            return false;
+        if (forward_date != null ? !forward_date.equals(message.forward_date) : message.forward_date != null)
+            return false;
         if (reply_to_message != null ? !reply_to_message.equals(message.reply_to_message) : message.reply_to_message != null)
             return false;
         if (edit_date != null ? !edit_date.equals(message.edit_date) : message.edit_date != null) return false;
@@ -245,6 +254,7 @@ public class Message {
                 ", chat=" + chat +
                 ", forward_from=" + forward_from +
                 ", forward_from_chat=" + forward_from_chat +
+                ", forward_from_message_id=" + forward_from_message_id +
                 ", forward_date=" + forward_date +
                 ", reply_to_message=" + reply_to_message +
                 ", edit_date=" + edit_date +
