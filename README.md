@@ -2,20 +2,20 @@
 [![Build Status](https://travis-ci.org/pengrad/java-telegram-bot-api.svg?branch=master)](https://travis-ci.org/pengrad/java-telegram-bot-api)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.pengrad/java-telegram-bot-api/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.pengrad/java-telegram-bot-api)  
 
-Full support of all Bot API methods with new Gaming Platform
+Full support of all Bot API 2.3 methods with new Gaming Platform
 
 ## Download
 
 Gradle:
 ```groovy
-compile 'com.github.pengrad:java-telegram-bot-api:2.1.4'
+compile 'com.github.pengrad:java-telegram-bot-api:2.3.0'
 ```
 Maven:
 ```xml
 <dependency>
   <groupId>com.github.pengrad</groupId>
   <artifactId>java-telegram-bot-api</artifactId>
-  <version>2.1.4</version>
+  <version>2.3.0</version>
 </dependency>
 ```
 JAR-files:  
@@ -197,10 +197,10 @@ When creating request's type required params should be passed in constructor, op
 
 ### Keyboards
 
-ForceReply, ReplyKeyboardHide
+ForceReply, ReplyKeyboardRemove
 ```java
 Keyboard forceReply = new ForceReply(isSelective); // or just new ForceReply();
-Keyboard replyKeyboardHide = new ReplyKeyboardHide(); // new ReplyKeyboardHide(isSelective)
+Keyboard replyKeyboardRemove = new ReplyKeyboardRemove(); // new ReplyKeyboardRemove(isSelective)
 ```
 
 ReplyKeyboardMarkup
@@ -358,7 +358,7 @@ Normal message
 EditMessageText editMessageText = new EditMessageText(chatId, messageId, "new test")
         .parseMode(ParseMode.HTML)
         .disableWebPagePreview(true)
-        .replyMarkup(new ReplyKeyboardHide());
+        .replyMarkup(new ReplyKeyboardRemove());
         
 BaseResponse response = bot.execute(editMessageText);        
 ```
