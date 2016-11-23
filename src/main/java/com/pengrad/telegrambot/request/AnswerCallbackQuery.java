@@ -24,4 +24,8 @@ public class AnswerCallbackQuery extends BaseRequest<AnswerCallbackQuery, BaseRe
     public AnswerCallbackQuery url(String url) {
         return add("url", url);
     }
+
+    public AnswerCallbackQuery cacheTime(int cacheTime) {
+        return add("cache_time", cacheTime);
+    }
 }
