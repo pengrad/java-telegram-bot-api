@@ -242,6 +242,15 @@ public class TelegramBotTest {
                         .allowedUpdates("message", "callback_query")
         );
         assertTrue(response.isOk());
+
+        response = bot.execute(new SetWebhook());
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void deleteWebhook() {
+        BaseResponse response = bot.execute(new DeleteWebhook());
+        assertTrue(response.isOk());
     }
 
     @Test
