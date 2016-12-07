@@ -30,6 +30,10 @@ public class SetWebhook extends BaseRequest<SetWebhook, BaseResponse> {
         return add("certificate", certificate);
     }
 
+    public SetWebhook maxConnections(int maxConnections) {
+        return add("max_connections", maxConnections);
+    }
+
     @Override
     public boolean isMultipart() {
         return isMultipart;

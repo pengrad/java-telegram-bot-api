@@ -14,6 +14,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * stas
  * 5/2/16.
@@ -229,6 +231,12 @@ public class TelegramBotTest {
     public void getWebhookInfo() {
         GetWebhookInfoResponse response = bot.execute(new GetWebhookInfo());
         WebhookInfoTest.check(response.webhookInfo());
+    }
+
+    @Test
+    public void setWebhook() {
+        BaseResponse response = bot.execute(new SetWebhook().url("https://google.com").maxConnections(100));
+        assertTrue(response.isOk());
     }
 
     @Test
