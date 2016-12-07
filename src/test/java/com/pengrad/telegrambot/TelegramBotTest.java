@@ -64,7 +64,7 @@ public class TelegramBotTest {
 
     @Test
     public void getUpdates() {
-        GetUpdatesResponse response = bot.execute(new GetUpdates().offset(279823304).timeout(25));
+        GetUpdatesResponse response = bot.execute(new GetUpdates().offset(279824711).allowedUpdates("callback_query"));
         System.out.println(response);
     }
 
@@ -235,7 +235,12 @@ public class TelegramBotTest {
 
     @Test
     public void setWebhook() {
-        BaseResponse response = bot.execute(new SetWebhook().url("https://google.com").maxConnections(100));
+        BaseResponse response = bot.execute(
+                new SetWebhook()
+                        .url("https://google.com")
+                        .maxConnections(100)
+                        .allowedUpdates("message", "callback_query")
+        );
         assertTrue(response.isOk());
     }
 

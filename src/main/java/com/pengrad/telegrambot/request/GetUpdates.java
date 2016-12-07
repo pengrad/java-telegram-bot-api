@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.google.gson.Gson;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 
 /**
@@ -7,6 +8,9 @@ import com.pengrad.telegrambot.response.GetUpdatesResponse;
  * 5/2/16.
  */
 public class GetUpdates extends BaseRequest<GetUpdates, GetUpdatesResponse> {
+
+    // todo remove gson
+    private static Gson gson = new Gson();
 
     private int timeout = 0;
     private int limit = 100;
@@ -27,6 +31,10 @@ public class GetUpdates extends BaseRequest<GetUpdates, GetUpdatesResponse> {
     public GetUpdates timeout(int timeout) {
         this.timeout = timeout;
         return add("timeout", timeout);
+    }
+
+    public GetUpdates allowedUpdates(String... allowedUpdates) {
+        return add("allowed_updates", gson.toJson(allowedUpdates));
     }
 
     @Override

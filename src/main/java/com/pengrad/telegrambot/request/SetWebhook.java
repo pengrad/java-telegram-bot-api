@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.google.gson.Gson;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 import java.io.File;
@@ -9,6 +10,9 @@ import java.io.File;
  * 5/2/16.
  */
 public class SetWebhook extends BaseRequest<SetWebhook, BaseResponse> {
+
+    // todo remove gson
+    private static Gson gson = new Gson();
 
     private boolean isMultipart = false;
 
@@ -32,6 +36,10 @@ public class SetWebhook extends BaseRequest<SetWebhook, BaseResponse> {
 
     public SetWebhook maxConnections(int maxConnections) {
         return add("max_connections", maxConnections);
+    }
+
+    public SetWebhook allowedUpdates(String... allowedUpdates) {
+        return add("allowed_updates", gson.toJson(allowedUpdates));
     }
 
     @Override
