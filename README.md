@@ -164,20 +164,20 @@ You can set listener to receiving incoming updates as if using Webhook.
 This will trigger executing getUpdates requests in a loop.
 
 ```java
-bot.setGetUpdatetsListener(new GetUpdatesListener() {
+bot.setUpdatesListener(new UpdatesListener() {
     @Override
     public int process(List<Update> updates) {
 
         // process updates
 
-        return GetUpdatesListener.CONFIRMED_UPDATES_ALL;
+        return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
 });
 ```
 
 Listener should return id of the last processed (confirmed) update.  
-To confirm all updates return `GetUpdatesListener.CONFIRMED_UPDATES_ALL`, this should be enough in most cases.  
-To not confirm any updates return `GetUpdatesListener.CONFIRMED_UPDATES_NONE`, these updates will be redelivered.  
+To confirm all updates return `UpdatesListener.CONFIRMED_UPDATES_ALL`, this should be enough in most cases.  
+To not confirm any updates return `UpdatesListener.CONFIRMED_UPDATES_NONE`, these updates will be redelivered.  
 To set specific update as last confirmed just return required updateId.
 
 To stop receiving updates
