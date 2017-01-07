@@ -1,0 +1,20 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.squareup.okhttp3:okhttp:3.5.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+
+    testCompile 'junit:junit:4.12'
+}
+
+task copyTestResources(type: Copy) {
+    from "${projectDir}/src/test/resources"
+    into "${buildDir}/classes/test"
+}
+processTestResources.dependsOn copyTestResources
+
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

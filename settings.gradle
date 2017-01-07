@@ -1,1 +1,3 @@
 rootProject.name = 'java-telegram-bot-api'
+
+include 'library'
