@@ -1,0 +1,14 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.squareup.okhttp3:okhttp:3.5.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+
+    testCompile 'junit:junit:4.12'
+}
+
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
