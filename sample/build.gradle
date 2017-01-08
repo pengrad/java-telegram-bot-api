@@ -1,0 +1,13 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile project(':library')
+
+    compile 'com.sparkjava:spark-core:2.2'
+    compile 'org.jsoup:jsoup:1.8.3'
+    compile 'io.reactivex:rxjava:1.0.16'
+}
