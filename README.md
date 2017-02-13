@@ -42,6 +42,7 @@ https://oss.sonatype.org/content/repositories/releases/com/github/pengrad/java-t
   - [Inline query result](#inline-query-result)
   - [Answer inline query](#answer-inline-query)
 - [Games](#games)
+- [Test Telegram Bot API] (#test-telegram-bot-api)
 
 ## Creating your bot
 
@@ -434,4 +435,5 @@ GetGameHighScoresResponse response = bot.execute(new GetGameHighScores(userId, c
 GameHighScore[] scores = response.result();
 ```
 
+### Test Telegram Bot API
 Test on [RapidAPI](https://rapidapi.com/package/TelegramBot/functions?utm_source=TelegramGitHub&utm_medium=button)
