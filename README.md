@@ -433,3 +433,5 @@ Get game high scores
 GetGameHighScoresResponse response = bot.execute(new GetGameHighScores(userId, chatId, messageId));
 GameHighScore[] scores = response.result();
 ```
+
+Test on [RapidAPI](https://rapidapi.com/package/TelegramBot/functions?utm_source=TelegramGitHub&utm_medium=button)
