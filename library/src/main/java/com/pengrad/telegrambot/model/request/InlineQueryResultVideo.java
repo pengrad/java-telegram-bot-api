@@ -48,8 +48,9 @@ public class InlineQueryResultVideo extends InlineQueryResult<InlineQueryResultV
         return this;
     }
 
-    public void videoDuration(Integer videoDuration) {
+    public InlineQueryResultVideo videoDuration(Integer videoDuration) {
         this.video_duration = videoDuration;
+        return this;
     }
 
     public InlineQueryResultVideo description(String description) {
