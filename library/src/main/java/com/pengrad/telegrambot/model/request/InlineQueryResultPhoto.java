@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model.request;
 
+import java.io.Serializable;
+
 /**
  * stas
  * 1/12/16.
  */
-public class InlineQueryResultPhoto extends InlineQueryResult<InlineQueryResultPhoto> {
+public class InlineQueryResultPhoto extends InlineQueryResult<InlineQueryResultPhoto> implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String photo_url;
     private String thumb_url;

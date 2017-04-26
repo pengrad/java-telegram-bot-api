@@ -1,13 +1,15 @@
 package com.pengrad.telegrambot.model.request;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * stas
  * 8/11/15.
  */
 @Deprecated
-public class InputFile {
+public class InputFile implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     public static InputFile photo(File file) {
         return new InputFile(InputFileBytes.PHOTO_MIME_TYPE, file);

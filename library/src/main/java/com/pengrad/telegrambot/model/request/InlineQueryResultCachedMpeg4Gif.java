@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model.request;
 
+import java.io.Serializable;
+
 /**
  * Stas Parshin
  * 06 May 2016
  */
-public class InlineQueryResultCachedMpeg4Gif extends InlineQueryResult<InlineQueryResultCachedMpeg4Gif> {
+public class InlineQueryResultCachedMpeg4Gif extends InlineQueryResult<InlineQueryResultCachedMpeg4Gif> implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String mpeg4_file_id;
 

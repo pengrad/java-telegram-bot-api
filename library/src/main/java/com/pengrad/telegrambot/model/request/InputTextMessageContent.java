@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model.request;
 
+import java.io.Serializable;
+
 /**
  * Stas Parshin
  * 06 May 2016
  */
-public class InputTextMessageContent extends InputMessageContent {
+public class InputTextMessageContent extends InputMessageContent implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String message_text;
     private ParseMode parse_mode;

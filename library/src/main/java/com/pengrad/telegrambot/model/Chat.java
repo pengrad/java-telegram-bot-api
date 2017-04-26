@@ -2,11 +2,14 @@ package com.pengrad.telegrambot.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * stas
  * 8/5/15.
  */
-public class Chat {
+public class Chat implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     public enum Type {
         @SerializedName("private")Private, group, supergroup, channel

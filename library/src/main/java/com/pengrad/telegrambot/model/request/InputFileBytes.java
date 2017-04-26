@@ -1,11 +1,14 @@
 package com.pengrad.telegrambot.model.request;
 
+import java.io.Serializable;
+
 /**
  * stas
  * 8/11/15.
  */
 @Deprecated
-public class InputFileBytes {
+public class InputFileBytes implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     // everything becomes jpeg or mpeg or ogg
     public static final String PHOTO_MIME_TYPE = "image/jpeg";
