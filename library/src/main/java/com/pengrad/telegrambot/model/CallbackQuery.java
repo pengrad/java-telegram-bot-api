@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model;
 
+import java.io.Serializable;
+
 /**
  * Stas Parshin
  * 07 May 2016
  */
-public class CallbackQuery {
+public class CallbackQuery implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String id;
     private User from;

@@ -1,12 +1,14 @@
 package com.pengrad.telegrambot.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * stas
  * 8/5/15.
  */
-public class UserProfilePhotos {
+public class UserProfilePhotos implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private Integer total_count;
     private PhotoSize[][] photos;

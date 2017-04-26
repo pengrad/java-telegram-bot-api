@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model;
 
+import java.io.Serializable;
+
 /**
  * Stas Parshin
  * 29 May 2016
  */
-public class ChatMember {
+public class ChatMember implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     public enum Status {
         creator, administrator, member, left, kicked;

@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model.request;
 
+import java.io.Serializable;
+
 /**
  * Stas Parshin
  * 06 May 2016
  */
-public class InlineQueryResultAudio extends InlineQueryResult<InlineQueryResultAudio> {
+public class InlineQueryResultAudio extends InlineQueryResult<InlineQueryResultAudio> implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String audio_url;
     private String title;

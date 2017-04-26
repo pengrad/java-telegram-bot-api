@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model;
 
+import java.io.Serializable;
+
 /**
  * stas
  * 8/4/15.
  */
-public class Update {
+public class Update implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private Integer update_id;
     private Message message;

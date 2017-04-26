@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model.request;
 
+import java.io.Serializable;
+
 /**
  * Stas Parshin
  * 06 May 2016
  */
-public class InlineQueryResultLocation extends InlineQueryResult<InlineQueryResultLocation> {
+public class InlineQueryResultLocation extends InlineQueryResult<InlineQueryResultLocation> implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private float latitude;
     private float longitude;

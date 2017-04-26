@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model.request;
 
+import java.io.Serializable;
+
 /**
  * stas
  * 1/12/16.
  */
-public class InlineQueryResultGif extends InlineQueryResult<InlineQueryResultGif> {
+public class InlineQueryResultGif extends InlineQueryResult<InlineQueryResultGif> implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String gif_url;
     private String thumb_url;

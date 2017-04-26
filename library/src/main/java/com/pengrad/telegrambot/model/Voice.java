@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model;
 
+import java.io.Serializable;
+
 /**
  * stas
  * 10/21/15.
  */
-public class Voice {
+public class Voice implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String file_id;
     private Integer duration;

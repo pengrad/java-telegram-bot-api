@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model;
 
+import java.io.Serializable;
+
 /**
  * Stas Parshin
  * 03 October 2016
  */
-public class ResponseParameters {
+public class ResponseParameters implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private Long migrate_to_chat_id;
     private Integer retry_after;

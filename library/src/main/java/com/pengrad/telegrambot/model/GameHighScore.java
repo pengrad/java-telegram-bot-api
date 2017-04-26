@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model;
 
+import java.io.Serializable;
+
 /**
  * Stas Parshin
  * 04 October 2016
  */
-public class GameHighScore {
+public class GameHighScore implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private Integer position;
     private User user;
