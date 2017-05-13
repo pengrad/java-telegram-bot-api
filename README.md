@@ -42,7 +42,7 @@ https://oss.sonatype.org/content/repositories/releases/com/github/pengrad/java-t
   - [Inline query result](#inline-query-result)
   - [Answer inline query](#answer-inline-query)
 - [Games](#games)
-- [Test Telegram Bot API] (#test-telegram-bot-api)
+- [Test Telegram Bot API](#test-telegram-bot-api)
 
 ## Creating your bot
 
