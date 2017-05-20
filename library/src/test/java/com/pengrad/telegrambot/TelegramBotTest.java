@@ -85,6 +85,16 @@ public class TelegramBotTest {
         System.out.println(response);
     }
 
+
+    @Test
+    public void deleteMessage() {
+        BaseResponse response = bot.execute(new DeleteMessage(chatId, 925));
+        System.out.println(response);
+        bot.execute(new DeleteMessage(channelName, 306));
+        System.out.println(response);
+    }
+
+
     @Test
     public void answerInline() {
         InlineQuery lastInlineQuery = getLastInlineQuery();
