@@ -1,12 +1,14 @@
 package com.pengrad.telegrambot.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * Stas Parshin
  * 03 October 2016
  */
-public class Game {
+public class Game implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String title;
     private String description;

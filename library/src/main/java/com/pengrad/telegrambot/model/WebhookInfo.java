@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model;
 
+import java.io.Serializable;
+
 /**
  * Stas Parshin
  * 03 October 2016
  */
-public class WebhookInfo {
+public class WebhookInfo implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String url;
     private Boolean has_custom_certificate;

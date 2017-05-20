@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model;
 
+import java.io.Serializable;
+
 /**
  * stas
  * 1/12/16.
  */
-public class InlineQuery {
+public class InlineQuery implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String id;
     private User from;

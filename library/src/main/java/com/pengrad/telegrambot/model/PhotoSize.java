@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model;
 
+import java.io.Serializable;
+
 /**
  * stas
  * 8/4/15.
  */
-public class PhotoSize {
+public class PhotoSize implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String file_id;
     private Integer width;

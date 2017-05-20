@@ -8,14 +8,14 @@ Full support of all Bot API 2.3.1 methods with new Gaming Platform
 
 Gradle:
 ```groovy
-compile 'com.github.pengrad:java-telegram-bot-api:2.3.1.1'
+compile 'com.github.pengrad:java-telegram-bot-api:2.3.1.2'
 ```
 Maven:
 ```xml
 <dependency>
   <groupId>com.github.pengrad</groupId>
   <artifactId>java-telegram-bot-api</artifactId>
-  <version>2.3.1.1</version>
+  <version>2.3.1.2</version>
 </dependency>
 ```
 JAR-files:  
@@ -42,7 +42,7 @@ https://oss.sonatype.org/content/repositories/releases/com/github/pengrad/java-t
   - [Inline query result](#inline-query-result)
   - [Answer inline query](#answer-inline-query)
 - [Games](#games)
-- [Test Telegram Bot API] (#test-telegram-bot-api)
+- [Test Telegram Bot API](#test-telegram-bot-api)
 
 ## Creating your bot
 

@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model.request;
 
+import java.io.Serializable;
+
 /**
  * Stas Parshin
  * 06 May 2016
  */
-public class InlineQueryResultDocument extends InlineQueryResult<InlineQueryResultDocument> {
+public class InlineQueryResultDocument extends InlineQueryResult<InlineQueryResultDocument> implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     public static final String MIME_APP_PDFL = "application/pdf";
     public static final String MIME_APP_ZIP = "application/zip";

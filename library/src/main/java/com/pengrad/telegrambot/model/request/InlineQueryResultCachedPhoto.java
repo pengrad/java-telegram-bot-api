@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model.request;
 
+import java.io.Serializable;
+
 /**
  * Stas Parshin
  * 06 May 2016
  */
-public class InlineQueryResultCachedPhoto extends InlineQueryResult<InlineQueryResultCachedPhoto> {
+public class InlineQueryResultCachedPhoto extends InlineQueryResult<InlineQueryResultCachedPhoto> implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String photo_file_id;
 

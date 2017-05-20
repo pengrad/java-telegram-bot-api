@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.model.request;
 
+import java.io.Serializable;
+
 /**
  * stas
  * 1/12/16.
  */
-public abstract class InlineQueryResult<T extends InlineQueryResult> {
+public abstract class InlineQueryResult<T extends InlineQueryResult> implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     @SuppressWarnings("unchecked")
     private final T thisAsT = (T) this;
