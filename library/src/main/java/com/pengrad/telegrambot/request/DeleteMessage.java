@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.request;
 
 import com.pengrad.telegrambot.response.BaseResponse;
+import com.pengrad.telegrambot.response.DeleteResponse;
 import com.pengrad.telegrambot.response.SendResponse;
 
 /**
@@ -10,7 +11,7 @@ import com.pengrad.telegrambot.response.SendResponse;
 public class DeleteMessage extends BaseRequest<DeleteMessage, BaseResponse> {
 
     public DeleteMessage(Object chatId, int messageId) {
-        super(SendResponse.class);
+        super(DeleteResponse.class);
         add("chat_id", chatId).add("message_id", messageId);
     }
 
