@@ -14,6 +14,7 @@ public class InlineQueryResultGif extends InlineQueryResult<InlineQueryResultGif
 
     private Integer gif_width;
     private Integer gif_height;
+    private Integer gif_duration;
     private String title;
     private String caption;
 
@@ -30,6 +31,11 @@ public class InlineQueryResultGif extends InlineQueryResult<InlineQueryResultGif
 
     public InlineQueryResultGif gifHeight(Integer gifHeight) {
         this.gif_height = gifHeight;
+        return this;
+    }
+
+    public InlineQueryResultGif gifDuration(Integer gifDuration) {
+        this.gif_duration = gifDuration;
         return this;
     }
 

@@ -14,6 +14,7 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult<InlineQueryResu
 
     private Integer mpeg4_width;
     private Integer mpeg4_height;
+    private Integer mpeg4_duration;
     private String title;
     private String caption;
 
@@ -30,6 +31,11 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult<InlineQueryResu
 
     public InlineQueryResultMpeg4Gif mpeg4Height(Integer mpeg4Height) {
         this.mpeg4_height = mpeg4Height;
+        return this;
+    }
+
+    public InlineQueryResultMpeg4Gif mpeg4Duration(Integer mpeg4Duration) {
+        this.mpeg4_duration = mpeg4Duration;
         return this;
     }
 
