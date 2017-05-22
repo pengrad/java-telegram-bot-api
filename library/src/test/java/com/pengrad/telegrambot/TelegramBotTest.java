@@ -274,4 +274,11 @@ public class TelegramBotTest {
         SendResponse response = bot.execute(new SendGame(chatId, "pengrad_test_game"));
         MessageTest.checkGameMessage(response.message());
     }
+
+    @Test
+    public void deleteMessage() {
+        Message message = bot.execute(new SendMessage(chatId, "message for delete")).message();
+        BaseResponse response = bot.execute(new DeleteMessage(chatId, message.messageId()));
+        assertTrue(response.isOk());
+    }
 }
