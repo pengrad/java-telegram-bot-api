@@ -34,6 +34,7 @@ public class Message implements Serializable {
     private Location location;
     private Venue venue;
     private User new_chat_member;
+    private User[] new_chat_members;
     private User left_chat_member;
     private String new_chat_title;
     private PhotoSize[] new_chat_photo;
@@ -137,8 +138,16 @@ public class Message implements Serializable {
         return venue;
     }
 
+    /**
+     * @deprecated Replaced with new_chat_members
+     */
+    @Deprecated
     public User newChatMember() {
         return new_chat_member;
+    }
+
+    public User[] newChatMembers() {
+        return new_chat_members;
     }
 
     public User leftChatMember() {
@@ -192,14 +201,12 @@ public class Message implements Serializable {
         if (from != null ? !from.equals(message.from) : message.from != null) return false;
         if (date != null ? !date.equals(message.date) : message.date != null) return false;
         if (chat != null ? !chat.equals(message.chat) : message.chat != null) return false;
-        if (forward_from != null ? !forward_from.equals(message.forward_from) : message.forward_from != null)
-            return false;
+        if (forward_from != null ? !forward_from.equals(message.forward_from) : message.forward_from != null) return false;
         if (forward_from_chat != null ? !forward_from_chat.equals(message.forward_from_chat) : message.forward_from_chat != null)
             return false;
         if (forward_from_message_id != null ? !forward_from_message_id.equals(message.forward_from_message_id) : message.forward_from_message_id != null)
             return false;
-        if (forward_date != null ? !forward_date.equals(message.forward_date) : message.forward_date != null)
-            return false;
+        if (forward_date != null ? !forward_date.equals(message.forward_date) : message.forward_date != null) return false;
         if (reply_to_message != null ? !reply_to_message.equals(message.reply_to_message) : message.reply_to_message != null)
             return false;
         if (edit_date != null ? !edit_date.equals(message.edit_date) : message.edit_date != null) return false;
@@ -218,8 +225,8 @@ public class Message implements Serializable {
         if (contact != null ? !contact.equals(message.contact) : message.contact != null) return false;
         if (location != null ? !location.equals(message.location) : message.location != null) return false;
         if (venue != null ? !venue.equals(message.venue) : message.venue != null) return false;
-        if (new_chat_member != null ? !new_chat_member.equals(message.new_chat_member) : message.new_chat_member != null)
-            return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(new_chat_members, message.new_chat_members)) return false;
         if (left_chat_member != null ? !left_chat_member.equals(message.left_chat_member) : message.left_chat_member != null)
             return false;
         if (new_chat_title != null ? !new_chat_title.equals(message.new_chat_title) : message.new_chat_title != null)
@@ -273,7 +280,7 @@ public class Message implements Serializable {
                 ", contact=" + contact +
                 ", location=" + location +
                 ", venue=" + venue +
-                ", new_chat_member=" + new_chat_member +
+                ", new_chat_members=" + Arrays.toString(new_chat_members) +
                 ", left_chat_member=" + left_chat_member +
                 ", new_chat_title='" + new_chat_title + '\'' +
                 ", new_chat_photo=" + Arrays.toString(new_chat_photo) +
