@@ -15,6 +15,7 @@ public class UserTest {
         assertNotNull(user.id());
         assertNotNull(user.firstName());
         assertNotNull(user.username());
+        assertNotNull(user.languageCode());
     }
 
 }
