@@ -29,12 +29,13 @@ public class Message implements Serializable {
     private Sticker sticker;
     private Video video;
     private Voice voice;
+    private VideoNote video_note;
+    private User[] new_chat_members;
     private String caption;
     private Contact contact;
     private Location location;
     private Venue venue;
     private User new_chat_member;
-    private User[] new_chat_members;
     private User left_chat_member;
     private String new_chat_title;
     private PhotoSize[] new_chat_photo;
@@ -122,6 +123,14 @@ public class Message implements Serializable {
         return voice;
     }
 
+    public VideoNote videoNote() {
+        return video_note;
+    }
+
+    public User[] newChatMembers() {
+        return new_chat_members;
+    }
+
     public String caption() {
         return caption;
     }
@@ -144,10 +153,6 @@ public class Message implements Serializable {
     @Deprecated
     public User newChatMember() {
         return new_chat_member;
-    }
-
-    public User[] newChatMembers() {
-        return new_chat_members;
     }
 
     public User leftChatMember() {
@@ -221,12 +226,15 @@ public class Message implements Serializable {
         if (sticker != null ? !sticker.equals(message.sticker) : message.sticker != null) return false;
         if (video != null ? !video.equals(message.video) : message.video != null) return false;
         if (voice != null ? !voice.equals(message.voice) : message.voice != null) return false;
+        if (video_note != null ? !video_note.equals(message.video_note) : message.video_note != null) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(new_chat_members, message.new_chat_members)) return false;
         if (caption != null ? !caption.equals(message.caption) : message.caption != null) return false;
         if (contact != null ? !contact.equals(message.contact) : message.contact != null) return false;
         if (location != null ? !location.equals(message.location) : message.location != null) return false;
         if (venue != null ? !venue.equals(message.venue) : message.venue != null) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        if (!Arrays.equals(new_chat_members, message.new_chat_members)) return false;
+        if (new_chat_member != null ? !new_chat_member.equals(message.new_chat_member) : message.new_chat_member != null)
+            return false;
         if (left_chat_member != null ? !left_chat_member.equals(message.left_chat_member) : message.left_chat_member != null)
             return false;
         if (new_chat_title != null ? !new_chat_title.equals(message.new_chat_title) : message.new_chat_title != null)
@@ -246,7 +254,6 @@ public class Message implements Serializable {
         if (migrate_from_chat_id != null ? !migrate_from_chat_id.equals(message.migrate_from_chat_id) : message.migrate_from_chat_id != null)
             return false;
         return pinned_message != null ? pinned_message.equals(message.pinned_message) : message.pinned_message == null;
-
     }
 
     @Override
@@ -276,11 +283,13 @@ public class Message implements Serializable {
                 ", sticker=" + sticker +
                 ", video=" + video +
                 ", voice=" + voice +
+                ", video_note=" + video_note +
+                ", new_chat_members=" + Arrays.toString(new_chat_members) +
                 ", caption='" + caption + '\'' +
                 ", contact=" + contact +
                 ", location=" + location +
                 ", venue=" + venue +
-                ", new_chat_members=" + Arrays.toString(new_chat_members) +
+                ", new_chat_member=" + new_chat_member +
                 ", left_chat_member=" + left_chat_member +
                 ", new_chat_title='" + new_chat_title + '\'' +
                 ", new_chat_photo=" + Arrays.toString(new_chat_photo) +

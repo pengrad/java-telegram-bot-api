@@ -64,7 +64,7 @@ public class TelegramBotTest {
 
     @Test
     public void getUpdates() {
-        GetUpdatesResponse response = bot.execute(new GetUpdates().offset(279824711).allowedUpdates("callback_query"));
+        GetUpdatesResponse response = bot.execute(new GetUpdates());
         System.out.println(response);
     }
 
@@ -280,5 +280,25 @@ public class TelegramBotTest {
         Message message = bot.execute(new SendMessage(chatId, "message for delete")).message();
         BaseResponse response = bot.execute(new DeleteMessage(chatId, message.messageId()));
         assertTrue(response.isOk());
+    }
+
+    @Test
+    public void sendChatAction() {
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.typing)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_photo)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_video)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_video)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_audio)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_audio)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_document)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.find_location)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_video_note)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_video_note)).isOk());
+    }
+
+    @Test
+    public void sendVideoNote() {
+        SendResponse response = bot.execute(new SendVideoNote(chatId, "DQADAgADmQADYgwpSbum1JrxPsbmAg").length(240));
+        VideoNoteCheck.check(response.message().videoNote());
     }
 }
