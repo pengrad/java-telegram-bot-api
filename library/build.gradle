@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'jacoco'
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
@@ -9,6 +10,20 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.7.0'
 
     testCompile 'junit:junit:4.12'
+}
+
+jacoco {
+    // See https://github.com/jacoco/jacoco/releases
+    toolVersion = '0.7.5.201505241946'
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled true
+        html.destination "${buildDir}/reports/jacoco/test"
+    }
 }
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
