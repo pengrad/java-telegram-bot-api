@@ -46,6 +46,8 @@ public class Message implements Serializable {
     private Long migrate_to_chat_id;
     private Long migrate_from_chat_id;
     private Message pinned_message;
+    private Invoice invoice;
+    private SuccessfulPayment successful_payment;
 
     public Integer messageId() {
         return message_id;
@@ -195,6 +197,14 @@ public class Message implements Serializable {
         return pinned_message;
     }
 
+    public Invoice invoice() {
+        return invoice;
+    }
+
+    public SuccessfulPayment successfulPayment() {
+        return successful_payment;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -253,7 +263,10 @@ public class Message implements Serializable {
             return false;
         if (migrate_from_chat_id != null ? !migrate_from_chat_id.equals(message.migrate_from_chat_id) : message.migrate_from_chat_id != null)
             return false;
-        return pinned_message != null ? pinned_message.equals(message.pinned_message) : message.pinned_message == null;
+        if (pinned_message != null ? !pinned_message.equals(message.pinned_message) : message.pinned_message != null)
+            return false;
+        if (invoice != null ? !invoice.equals(message.invoice) : message.invoice != null) return false;
+        return successful_payment != null ? successful_payment.equals(message.successful_payment) : message.successful_payment == null;
     }
 
     @Override
@@ -300,6 +313,8 @@ public class Message implements Serializable {
                 ", migrate_to_chat_id=" + migrate_to_chat_id +
                 ", migrate_from_chat_id=" + migrate_from_chat_id +
                 ", pinned_message=" + pinned_message +
+                ", invoice=" + invoice +
+                ", successful_payment=" + successful_payment +
                 '}';
     }
 }
