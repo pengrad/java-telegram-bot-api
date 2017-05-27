@@ -64,7 +64,7 @@ public class TelegramBotTest {
 
     @Test
     public void getUpdates() {
-        GetUpdatesResponse response = bot.execute(new GetUpdates().offset(279824711).allowedUpdates("callback_query"));
+        GetUpdatesResponse response = bot.execute(new GetUpdates().allowedUpdates(""));
         System.out.println(response);
     }
 
@@ -274,4 +274,117 @@ public class TelegramBotTest {
         SendResponse response = bot.execute(new SendGame(chatId, "pengrad_test_game"));
         MessageTest.checkGameMessage(response.message());
     }
+
+    @Test
+    public void deleteMessage() {
+        Message message = bot.execute(new SendMessage(chatId, "message for delete")).message();
+        BaseResponse response = bot.execute(new DeleteMessage(chatId, message.messageId()));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void sendChatAction() {
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.typing)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_photo)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_video)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_video)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_audio)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_audio)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_document)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.find_location)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_video_note)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_video_note)).isOk());
+    }
+
+    @Test
+    public void sendVideoNote() {
+        SendResponse response = bot.execute(new SendVideoNote(chatId, "DQADAgADmQADYgwpSbum1JrxPsbmAg"));
+        VideoNoteCheck.check(response.message().videoNote());
+    }
+
+    @Test
+    public void sendVideoNoteFile() {
+        SendResponse response = bot.execute(new SendVideoNote(chatId, new File(videoFile)).length(20).duration(30));
+        VideoNoteCheck.check(response.message().videoNote(), true);
+    }
+
+    @Test
+    public void sendInvoice() {
+        SendResponse response = bot.execute(new SendInvoice(chatId, "title", "desc", "my_payload",
+                "284685063:TEST:NThlNWQ3NDk0ZDQ5", "my_start_param", "USD", new LabeledPrice("label", 200))
+                .needPhoneNumber(true)
+                .needShippingAddress(true)
+                .isFlexible(true)
+                .replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton[]{
+                        new InlineKeyboardButton("just pay").pay(),
+                        new InlineKeyboardButton("google it").url("www.google.com")
+
+                }))
+        );
+        InvoiceCheck.check(response.message().invoice());
+    }
+
+    @Test
+    public void answerShippingQuery() {
+        ShippingQuery shippingQuery = getLastShippingQuery();
+        if (shippingQuery == null) return;
+
+        String shippingQueryId = shippingQuery.id();
+        BaseResponse response = bot.execute(new AnswerShippingQuery(shippingQueryId,
+                new ShippingOption("1", "VNPT", new LabeledPrice("delivery", 100), new LabeledPrice("tips", 50)),
+                new ShippingOption("2", "FREE", new LabeledPrice("free delivery", 0))
+        ));
+    }
+
+    @Test
+    public void answerShippingQueryError() {
+        ShippingQuery shippingQuery = getLastShippingQuery();
+        if (shippingQuery == null) return;
+
+        String shippingQueryId = shippingQuery.id();
+        BaseResponse response = bot.execute(new AnswerShippingQuery(shippingQueryId, "cant delivery so far"));
+    }
+
+    private ShippingQuery getLastShippingQuery() {
+        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
+        List<Update> updates = updatesResponse.updates();
+        Collections.reverse(updates);
+        for (Update update : updates) {
+            if (update.shippingQuery() != null) {
+                return update.shippingQuery();
+            }
+        }
+        return null;
+    }
+
+    @Test
+    public void answerPreCheckoutQuery() {
+        PreCheckoutQuery preCheckoutQuery = getLastPreCheckoutQuery();
+        if (preCheckoutQuery == null) return;
+
+        String preCheckoutQueryId = preCheckoutQuery.id();
+        BaseResponse response = bot.execute(new AnswerPreCheckoutQuery(preCheckoutQueryId));
+    }
+
+    @Test
+    public void answerPreCheckoutQueryError() {
+        PreCheckoutQuery preCheckoutQuery = getLastPreCheckoutQuery();
+        if (preCheckoutQuery == null) return;
+
+        String preCheckoutQueryId = preCheckoutQuery.id();
+        BaseResponse response = bot.execute(new AnswerPreCheckoutQuery(preCheckoutQueryId, "cant sell to you"));
+    }
+
+    private PreCheckoutQuery getLastPreCheckoutQuery() {
+        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
+        List<Update> updates = updatesResponse.updates();
+        Collections.reverse(updates);
+        for (Update update : updates) {
+            if (update.preCheckoutQuery() != null) {
+                return update.preCheckoutQuery();
+            }
+        }
+        return null;
+    }
+
 }

@@ -15,6 +15,9 @@ public class InlineKeyboardButton implements Serializable {
     private String switch_inline_query;
     private String switch_inline_query_current_chat;
     private String callback_game;
+    private Boolean pay;
+
+    //todo can use only one optional field, make different constructors or static methods
 
     public InlineKeyboardButton(String text) {
         this.text = text;
@@ -42,6 +45,11 @@ public class InlineKeyboardButton implements Serializable {
 
     public InlineKeyboardButton callbackGame(String callbackGame) {
         callback_game = callbackGame;
+        return this;
+    }
+
+    public InlineKeyboardButton pay() {
+        this.pay = true;
         return this;
     }
 }

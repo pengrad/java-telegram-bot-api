@@ -13,6 +13,7 @@ public class User implements Serializable {
     private String first_name;
     private String last_name;
     private String username;
+    private String language_code;
 
     public Integer id() {
         return id;
@@ -30,6 +31,10 @@ public class User implements Serializable {
         return username;
     }
 
+    public String languageCode() {
+        return language_code;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,8 +46,7 @@ public class User implements Serializable {
         if (first_name != null ? !first_name.equals(user.first_name) : user.first_name != null) return false;
         if (last_name != null ? !last_name.equals(user.last_name) : user.last_name != null) return false;
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
-
-        return true;
+        return language_code != null ? language_code.equals(user.language_code) : user.language_code == null;
     }
 
     @Override
@@ -57,6 +61,7 @@ public class User implements Serializable {
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", username='" + username + '\'' +
+                ", language_code='" + language_code + '\'' +
                 '}';
     }
 }

@@ -13,7 +13,7 @@ public class ChatMemberTest {
     public static void check(ChatMember chatMember) {
         assertNotNull(chatMember.user());
         assertNotNull(chatMember.status());
-        UserTest.checkUser(chatMember.user());
+        UserTest.checkUser(chatMember.user(), chatMember.status() == ChatMember.Status.creator);
     }
 
 
