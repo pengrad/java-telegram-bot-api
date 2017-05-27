@@ -298,8 +298,14 @@ public class TelegramBotTest {
 
     @Test
     public void sendVideoNote() {
-        SendResponse response = bot.execute(new SendVideoNote(chatId, "DQADAgADmQADYgwpSbum1JrxPsbmAg").length(240));
+        SendResponse response = bot.execute(new SendVideoNote(chatId, "DQADAgADmQADYgwpSbum1JrxPsbmAg"));
         VideoNoteCheck.check(response.message().videoNote());
+    }
+
+    @Test
+    public void sendVideoNoteFile() {
+        SendResponse response = bot.execute(new SendVideoNote(chatId, new File(videoFile)).length(20).duration(30));
+        VideoNoteCheck.check(response.message().videoNote(), true);
     }
 
     @Test
