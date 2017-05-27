@@ -41,6 +41,7 @@ https://oss.sonatype.org/content/repositories/releases/com/github/pengrad/java-t
 - [Inline mode](#inline-mode)
   - [Inline query result](#inline-query-result)
   - [Answer inline query](#answer-inline-query)
+- [Payments](#payments)  
 - [Games](#games)
 - [Test Telegram Bot API](#test-telegram-bot-api)
 
@@ -370,6 +371,12 @@ EditMessageText editInlineMessageText = new EditMessageText(inlineMessageId, "ne
 BaseResponse response = bot.execute(editInlineMessageText);
 ```
 
+Delete message
+```java
+DeleteMessage deleteMessage = new DeleteMessage(chatId, messageId);
+BaseResponse response = bot.execute(deleteMessage);
+```
+
 ## Inline mode
 
 Getting updates
@@ -415,6 +422,45 @@ bot.execute(
                 .switchPmParameter("pmParam")
                 .switchPmText("pmText")
 );
+```
+
+### Payments
+
+Send invoice
+```java
+SendInvoice sendInvoice = new SendInvoice(chatId, "title", "desc", "my_payload",
+        "providerToken", "my_start_param", "USD", new LabeledPrice("label", 200))
+        .needPhoneNumber(true)
+        .needShippingAddress(true)
+        .isFlexible(true)
+        .replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton[]{
+                new InlineKeyboardButton("just pay").pay(),
+                new InlineKeyboardButton("google it").url("www.google.com")
+        }));
+SendResponse response = bot.execute(sendInvoice);
+```
+
+Answer shipping query
+```java
+AnswerShippingQuery answerShippingQuery = new AnswerShippingQuery(shippingQueryId,
+        new ShippingOption("1", "VNPT", new LabeledPrice("delivery", 100), new LabeledPrice("tips", 50)),
+        new ShippingOption("2", "FREE", new LabeledPrice("free delivery", 0))
+);
+BaseResponse response = bot.execute(answerShippingQuery);
+
+// answer with error
+AnswerShippingQuery answerShippingError = new AnswerShippingQuery(shippingQueryId, "Can't delivery to your address");
+BaseResponse response = bot.execute(answerShippingError);
+```
+
+Answer pre-checkout query
+```java
+AnswerPreCheckoutQuery answerCheckout = new AnswerPreCheckoutQuery(preCheckoutQueryId);
+BaseResponse response = bot.execute(answerPreCheckoutQuery);
+
+// answer with error
+AnswerPreCheckoutQuery answerCheckout = new AnswerPreCheckoutQuery(preCheckoutQueryId, "Sorry, item not available");
+BaseResponse response = bot.execute(answerPreCheckoutQuery);
 ```
 
 ### Games
