@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -64,7 +65,13 @@ public class TelegramBotTest {
 
     @Test
     public void getUpdates() {
-        GetUpdatesResponse response = bot.execute(new GetUpdates().allowedUpdates(""));
+        GetUpdates getUpdates = new GetUpdates()
+                .offset(499018234)
+                .allowedUpdates("")
+                .timeout(0)
+                .limit(10);
+        assertEquals(10, getUpdates.getLimit());
+        GetUpdatesResponse response = bot.execute(getUpdates);
         System.out.println(response);
     }
 
@@ -273,6 +280,11 @@ public class TelegramBotTest {
     public void sendGame() {
         SendResponse response = bot.execute(new SendGame(chatId, "pengrad_test_game"));
         MessageTest.checkGameMessage(response.message());
+    }
+
+    @Test
+    public void sendLocation() {
+        SendResponse response = bot.execute(new SendLocation(chatId, 22.3f, 105.2f));
     }
 
     @Test
