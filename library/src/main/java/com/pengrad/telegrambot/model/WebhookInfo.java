@@ -42,20 +42,21 @@ public class WebhookInfo implements Serializable {
 
         WebhookInfo that = (WebhookInfo) o;
 
-        if (!url.equals(that.url)) return false;
-        if (!has_custom_certificate.equals(that.has_custom_certificate)) return false;
-        if (!pending_update_count.equals(that.pending_update_count)) return false;
+        if (url != null ? !url.equals(that.url) : that.url != null) return false;
+        if (has_custom_certificate != null ? !has_custom_certificate.equals(that.has_custom_certificate) : that.has_custom_certificate != null)
+            return false;
+        if (pending_update_count != null ? !pending_update_count.equals(that.pending_update_count) : that.pending_update_count != null)
+            return false;
         if (last_error_date != null ? !last_error_date.equals(that.last_error_date) : that.last_error_date != null)
             return false;
         return last_error_message != null ? last_error_message.equals(that.last_error_message) : that.last_error_message == null;
-
     }
 
     @Override
     public int hashCode() {
-        int result = url.hashCode();
-        result = 31 * result + has_custom_certificate.hashCode();
-        result = 31 * result + pending_update_count.hashCode();
+        int result = url != null ? url.hashCode() : 0;
+        result = 31 * result + (has_custom_certificate != null ? has_custom_certificate.hashCode() : 0);
+        result = 31 * result + (pending_update_count != null ? pending_update_count.hashCode() : 0);
         result = 31 * result + (last_error_date != null ? last_error_date.hashCode() : 0);
         result = 31 * result + (last_error_message != null ? last_error_message.hashCode() : 0);
         return result;

@@ -10,6 +10,7 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
 
     testCompile 'junit:junit:4.12'
+    testCompile 'nl.jqno.equalsverifier:equalsverifier:2.3'
 }
 
 jacoco {

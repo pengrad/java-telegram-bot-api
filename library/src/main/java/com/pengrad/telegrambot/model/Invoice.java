@@ -45,7 +45,6 @@ public class Invoice implements Serializable {
             return false;
         if (currency != null ? !currency.equals(invoice.currency) : invoice.currency != null) return false;
         return total_amount != null ? total_amount.equals(invoice.total_amount) : invoice.total_amount == null;
-
     }
 
     @Override

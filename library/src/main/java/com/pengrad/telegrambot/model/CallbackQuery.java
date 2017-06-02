@@ -52,8 +52,8 @@ public class CallbackQuery implements Serializable {
 
         CallbackQuery that = (CallbackQuery) o;
 
-        if (!id.equals(that.id)) return false;
-        if (!from.equals(that.from)) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (from != null ? !from.equals(that.from) : that.from != null) return false;
         if (message != null ? !message.equals(that.message) : that.message != null) return false;
         if (inline_message_id != null ? !inline_message_id.equals(that.inline_message_id) : that.inline_message_id != null)
             return false;

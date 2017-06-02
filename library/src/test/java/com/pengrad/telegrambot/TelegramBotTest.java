@@ -14,8 +14,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static com.pengrad.telegrambot.request.ContentTypes.VIDEO_MIME_TYPE;
+import static org.junit.Assert.*;
 
 /**
  * stas
@@ -32,6 +32,11 @@ public class TelegramBotTest {
     String audioFile = getClass().getClassLoader().getResource("beep.mp3").getFile();
     String docFile = getClass().getClassLoader().getResource("doc.txt").getFile();
     String videoFile = getClass().getClassLoader().getResource("tabs.mp4").getFile();
+    String someUrl = "http://google.com";
+    String audioFileId = "CQADAgADYgADuYNZSaVFYCI0kF7kAg";
+    String voiceFileId = "AwADAgADYwADuYNZSZww_hkrzCIpAg";
+    String videoFileId = "BAADAgADZAADuYNZSXhLnzJTZ2yvAg";
+    String photoFileId = "AgADAgADDKgxG7mDWUlvyFIJ9XfF9yszSw0ABBhVadWwbAK1z-wIAAEC";
 
     public TelegramBotTest() throws IOException {
         String token, chat, forwardMessage, sticker;
@@ -60,7 +65,9 @@ public class TelegramBotTest {
 
     @Test
     public void getMe() {
-        bot.execute(new GetMe());
+        GetMeResponse response = bot.execute(new GetMe());
+        System.out.println(response);
+        UserTest.checkUser(response.user());
     }
 
     @Test
@@ -95,20 +102,71 @@ public class TelegramBotTest {
     @Test
     public void answerInline() {
         InlineQuery lastInlineQuery = getLastInlineQuery();
-        if (lastInlineQuery == null) return;
+        String inlineQueryId = lastInlineQuery != null ? lastInlineQuery.id() : "invalid_query_id";
+        boolean checkSuccess = lastInlineQuery != null;
 
-        String inlineQueryId = lastInlineQuery.id();
+        InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton[]{
+                new InlineKeyboardButton("inline game").callbackGame("pengrad test game description"),
+                new InlineKeyboardButton("inline ok").callbackData("callback ok"),
+                new InlineKeyboardButton("cancel").callbackData("callback cancel"),
+                new InlineKeyboardButton("url").url(someUrl),
+                new InlineKeyboardButton("switch inline").switchInlineQuery("query"),
+                new InlineKeyboardButton("switch inline current").switchInlineQueryCurrentChat("query"),
+        });
 
-        InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(
-                new InlineKeyboardButton[]{
-                        new InlineKeyboardButton("inline game").callbackGame("pengrad test game description"),
-                        new InlineKeyboardButton("inline ok").callbackData("callback ok"),
-                        new InlineKeyboardButton("cancel").callbackData("callback cancel"),
-                });
+        InlineQueryResult[] results = new InlineQueryResult[]{
+                new InlineQueryResultArticle("1", "title",
+                        new InputTextMessageContent("message").disableWebPagePreview(false).parseMode(ParseMode.HTML))
+                        .url(someUrl).hideUrl(true).description("desc").thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
+                new InlineQueryResultArticle("1", "title",
+                        new InputContactMessageContent("123123123", "na,e").lastName("lastName")),
+                new InlineQueryResultArticle("1", "title", new InputLocationMessageContent(50f, 50f)),
+                new InlineQueryResultArticle("1", "title",
+                        new InputVenueMessageContent(50f, 50f, "title", "address").foursquareId("sqrId")),
+                new InlineQueryResultArticle("1", "title", "message"),
+                new InlineQueryResultAudio("1", someUrl, "title").caption("cap").performer("perf").audioDuration(100),
+                new InlineQueryResultContact("1", "123123123", "name").lastName("lastName")
+                        .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
+                new InlineQueryResultDocument("1", someUrl, "title", "application/pdf").caption("cap").description("desc")
+                        .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
+                new InlineQueryResultGame("1", "pengrad_test_game").replyMarkup(keyboardMarkup),
+                new InlineQueryResultGif("1", someUrl, someUrl).caption("cap").title("title")
+                        .gifHeight(100).gifWidth(100).gifDuration(100),
+                new InlineQueryResultLocation("1", 50f, 50f, "title").thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
+                new InlineQueryResultMpeg4Gif("1", someUrl, someUrl).caption("cap").title("title")
+                        .mpeg4Height(100).mpeg4Width(100).mpeg4Duration(100),
+                new InlineQueryResultPhoto("1", someUrl, someUrl).photoWidth(100).photoHeight(100).title("title")
+                        .description("desc").caption("cap"),
+                new InlineQueryResultVenue("1", 54f, 55f, "title", "address").foursquareId("frsqrId")
+                        .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
+                new InlineQueryResultVideo("1", someUrl, VIDEO_MIME_TYPE, "text", someUrl, "title").caption("cap")
+                        .videoWidth(100).videoHeight(100).videoDuration(100).description("desc"),
+                new InlineQueryResultVoice("1", someUrl, "title").caption("cap").voiceDuration(100),
+                new InlineQueryResultCachedAudio("1", audioFileId).caption("cap"),
+                new InlineQueryResultCachedDocument("1", stickerId, "title").caption("cap").description("desc"),
+                new InlineQueryResultCachedGif("1", stickerId).caption("cap").title("title"),
+                new InlineQueryResultCachedMpeg4Gif("1", stickerId).caption("cap").title("title"),
+                new InlineQueryResultCachedPhoto("1", photoFileId).caption("cap").description("desc").title("title"),
+                new InlineQueryResultCachedSticker("1", stickerId),
+                new InlineQueryResultCachedVideo("1", videoFileId, "title").caption("cap").description("desc"),
+                new InlineQueryResultCachedVoice("1", voiceFileId, "title").caption("cap"),
+        };
 
-        InlineQueryResult r1 = new InlineQueryResultArticle("1", "title", "message");
-        InlineQueryResult r2 = new InlineQueryResultGame("2", "pengrad_test_game").replyMarkup(keyboardMarkup);
-        bot.execute(new AnswerInlineQuery(inlineQueryId, r1, r2));
+        BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQueryId, results)
+                .cacheTime(0)
+                .isPersonal(true)
+                .nextOffset("offset")
+                .switchPmText("go pm")
+                .switchPmParameter("pm parameter")
+        );
+
+        if (checkSuccess) {
+            assertTrue(response.isOk());
+        } else {
+            assertFalse(response.isOk());
+            assertEquals(400, response.errorCode());
+            assertEquals("Bad Request: QUERY_ID_INVALID", response.description());
+        }
     }
 
     private InlineQuery getLastInlineQuery() {
@@ -150,6 +208,7 @@ public class TelegramBotTest {
     @Test
     public void getChat() {
         GetChatResponse getChatResponse = bot.execute(new GetChat(chatId));
+        assertTrue(getChatResponse.toString().contains(chatId.toString()));
         ChatTest.checkChat(getChatResponse.chat());
     }
 
@@ -157,6 +216,9 @@ public class TelegramBotTest {
     public void leaveChat() {
         BaseResponse response = bot.execute(new LeaveChat(chatId));
         System.out.println(response);
+        assertFalse(response.isOk());
+        assertEquals(400, response.errorCode());
+        assertEquals("Bad Request: chat member status can't be changed in private chats", response.description());
     }
 
     @Test
@@ -175,16 +237,31 @@ public class TelegramBotTest {
 
     @Test
     public void getChatMembersCount() {
-        BaseResponse response = bot.execute(new GetChatMembersCount(chatId));
+        GetChatMembersCountResponse response = bot.execute(new GetChatMembersCount(chatId));
         System.out.println(response);
+        assertEquals(2, response.count());
     }
 
     @Test
     public void sendMessage() {
-        SendMessage request = new SendMessage(chatId, "reply this message").replyMarkup(new ForceReply());
-        SendResponse sendResponse = bot.execute(request);
-        Message message = sendResponse.message();
-        MessageTest.checkTextMessage(message);
+        SendResponse sendResponse = bot.execute(new SendMessage(chatId, "reply this message").replyMarkup(new ForceReply()));
+        MessageTest.checkTextMessage(sendResponse.message());
+
+        sendResponse = bot.execute(new SendMessage(chatId, "remove keyboard").replyMarkup(new ReplyKeyboardRemove()));
+        MessageTest.checkTextMessage(sendResponse.message());
+
+        sendResponse = bot.execute(new SendMessage(chatId, "message with keyboard")
+                .replyMarkup(new ReplyKeyboardMarkup(new KeyboardButton[]{
+                        new KeyboardButton("contact").requestContact(true),
+                        new KeyboardButton("location").requestLocation(true)})
+                        .oneTimeKeyboard(true)
+                        .resizeKeyboard(true)
+                        .selective(true)));
+        MessageTest.checkTextMessage(sendResponse.message());
+
+        sendResponse = bot.execute(new SendMessage(chatId, "simple buttons")
+                .replyMarkup(new ReplyKeyboardMarkup(new String[]{"ok", "cancel"})));
+        MessageTest.checkTextMessage(sendResponse.message());
     }
 
     @Test
@@ -253,6 +330,7 @@ public class TelegramBotTest {
     @Test
     public void getWebhookInfo() {
         GetWebhookInfoResponse response = bot.execute(new GetWebhookInfo());
+        assertTrue(response.toString().contains(response.webhookInfo().toString()));
         WebhookInfoTest.check(response.webhookInfo());
     }
 
@@ -324,8 +402,8 @@ public class TelegramBotTest {
     public void sendInvoice() {
         SendResponse response = bot.execute(new SendInvoice(chatId, "title", "desc", "my_payload",
                 "284685063:TEST:NThlNWQ3NDk0ZDQ5", "my_start_param", "USD", new LabeledPrice("label", 200))
-                .needPhoneNumber(true)
-                .needShippingAddress(true)
+                .photoUrl("https://telegram.org/img/t_logo.png").photoSize(100).photoHeight(100).photoWidth(100)
+                .needPhoneNumber(true).needShippingAddress(true).needEmail(true).needName(true)
                 .isFlexible(true)
                 .replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton[]{
                         new InlineKeyboardButton("just pay").pay(),
@@ -339,22 +417,38 @@ public class TelegramBotTest {
     @Test
     public void answerShippingQuery() {
         ShippingQuery shippingQuery = getLastShippingQuery();
-        if (shippingQuery == null) return;
+        String shippingQueryId = shippingQuery != null ? shippingQuery.id() : "invalid_query_id";
+        boolean checkSuccess = shippingQuery != null;
 
-        String shippingQueryId = shippingQuery.id();
         BaseResponse response = bot.execute(new AnswerShippingQuery(shippingQueryId,
                 new ShippingOption("1", "VNPT", new LabeledPrice("delivery", 100), new LabeledPrice("tips", 50)),
                 new ShippingOption("2", "FREE", new LabeledPrice("free delivery", 0))
         ));
+
+        if (checkSuccess) {
+            assertTrue(response.isOk());
+        } else {
+            assertFalse(response.isOk());
+            assertEquals(400, response.errorCode());
+            assertEquals("Bad Request: QUERY_ID_INVALID", response.description());
+        }
     }
 
     @Test
     public void answerShippingQueryError() {
         ShippingQuery shippingQuery = getLastShippingQuery();
-        if (shippingQuery == null) return;
+        String shippingQueryId = shippingQuery != null ? shippingQuery.id() : "invalid_query_id";
+        boolean checkSuccess = shippingQuery != null;
 
-        String shippingQueryId = shippingQuery.id();
         BaseResponse response = bot.execute(new AnswerShippingQuery(shippingQueryId, "cant delivery so far"));
+
+        if (checkSuccess) {
+            assertTrue(response.isOk());
+        } else {
+            assertFalse(response.isOk());
+            assertEquals(400, response.errorCode());
+            assertEquals("Bad Request: QUERY_ID_INVALID", response.description());
+        }
     }
 
     private ShippingQuery getLastShippingQuery() {
@@ -372,19 +466,35 @@ public class TelegramBotTest {
     @Test
     public void answerPreCheckoutQuery() {
         PreCheckoutQuery preCheckoutQuery = getLastPreCheckoutQuery();
-        if (preCheckoutQuery == null) return;
+        String preCheckoutQueryId = preCheckoutQuery != null ? preCheckoutQuery.id() : "invalid_query_id";
+        boolean checkSuccess = preCheckoutQuery != null;
 
-        String preCheckoutQueryId = preCheckoutQuery.id();
         BaseResponse response = bot.execute(new AnswerPreCheckoutQuery(preCheckoutQueryId));
+
+        if (checkSuccess) {
+            assertTrue(response.isOk());
+        } else {
+            assertFalse(response.isOk());
+            assertEquals(400, response.errorCode());
+            assertEquals("Bad Request: QUERY_ID_INVALID", response.description());
+        }
     }
 
     @Test
     public void answerPreCheckoutQueryError() {
         PreCheckoutQuery preCheckoutQuery = getLastPreCheckoutQuery();
-        if (preCheckoutQuery == null) return;
+        String preCheckoutQueryId = preCheckoutQuery != null ? preCheckoutQuery.id() : "invalid_query_id";
+        boolean checkSuccess = preCheckoutQuery != null;
 
-        String preCheckoutQueryId = preCheckoutQuery.id();
         BaseResponse response = bot.execute(new AnswerPreCheckoutQuery(preCheckoutQueryId, "cant sell to you"));
+
+        if (checkSuccess) {
+            assertTrue(response.isOk());
+        } else {
+            assertFalse(response.isOk());
+            assertEquals(400, response.errorCode());
+            assertEquals("Bad Request: QUERY_ID_INVALID", response.description());
+        }
     }
 
     private PreCheckoutQuery getLastPreCheckoutQuery() {

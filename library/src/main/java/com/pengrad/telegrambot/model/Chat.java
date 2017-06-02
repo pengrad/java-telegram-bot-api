@@ -12,7 +12,7 @@ public class Chat implements Serializable {
     private final static long serialVersionUID = 0L;
 
     public enum Type {
-        @SerializedName("private")Private, group, supergroup, channel
+        @SerializedName("private") Private, group, supergroup, channel
     }
 
     private Long id;
@@ -65,7 +65,7 @@ public class Chat implements Serializable {
 
         Chat chat = (Chat) o;
 
-        if (!id.equals(chat.id)) return false;
+        if (id != null ? !id.equals(chat.id) : chat.id != null) return false;
         if (type != chat.type) return false;
         if (first_name != null ? !first_name.equals(chat.first_name) : chat.first_name != null) return false;
         if (last_name != null ? !last_name.equals(chat.last_name) : chat.last_name != null) return false;
@@ -76,7 +76,7 @@ public class Chat implements Serializable {
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
