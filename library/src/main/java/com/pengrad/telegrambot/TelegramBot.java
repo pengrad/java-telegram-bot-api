@@ -1,8 +1,8 @@
 package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.impl.FileApi;
-import com.pengrad.telegrambot.impl.UpdatesHandler;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
+import com.pengrad.telegrambot.impl.UpdatesHandler;
 import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.GetUpdates;
@@ -42,16 +42,6 @@ public class TelegramBot {
 
     public void setUpdatesListener(UpdatesListener listener, GetUpdates request) {
         updatesHandler.start(this, listener, request);
-    }
-
-    @Deprecated
-    public void setGetUpdatetsListener(GetUpdatesListener listener) {
-        setUpdatesListener(listener, new GetUpdates());
-    }
-
-    @Deprecated
-    public void setGetUpdatetsListener(GetUpdatesListener listener, GetUpdates request) {
-        setUpdatesListener(listener, request);
     }
 
     public void removeGetUpdatesListener() {
