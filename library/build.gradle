@@ -4,6 +4,11 @@ apply plugin: 'jacoco'
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
+compileTestJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
 dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.0'

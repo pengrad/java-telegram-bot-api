@@ -16,5 +16,6 @@ public class VideoTest {
         assertNotNull(video.width());
         assertNotNull(video.height());
         assertNotNull(video.fileSize());
+        PhotoSizeTest.checkPhotos(video.thumb());
     }
 }

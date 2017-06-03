@@ -10,13 +10,13 @@ import static org.junit.Assert.assertNotNull;
  */
 public class AudioTest {
 
-    public static void checkAudio(Audio audio) {
+    public static void checkAudio(Audio audio, boolean performer) {
         assertNotNull(audio.fileId());
         assertNotNull(audio.duration());
-        assertNotNull(audio.performer());
         assertNotNull(audio.title());
         assertNotNull(audio.fileSize());
         assertNotNull(audio.mimeType());
+        if (performer) assertNotNull(audio.performer());
     }
 
 }

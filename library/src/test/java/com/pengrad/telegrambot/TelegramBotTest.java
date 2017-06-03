@@ -32,8 +32,10 @@ public class TelegramBotTest {
     String audioFile = getClass().getClassLoader().getResource("beep.mp3").getFile();
     String docFile = getClass().getClassLoader().getResource("doc.txt").getFile();
     String videoFile = getClass().getClassLoader().getResource("tabs.mp4").getFile();
+    String videoNoteFile = getClass().getClassLoader().getResource("video_note.mp4").getFile();
     String someUrl = "http://google.com";
     String audioFileId = "CQADAgADYgADuYNZSaVFYCI0kF7kAg";
+    String docFileId = "BQADAgADuwADgNqYSaVAUsHMq6hqAg";
     String voiceFileId = "AwADAgADYwADuYNZSZww_hkrzCIpAg";
     String videoFileId = "BAADAgADZAADuYNZSXhLnzJTZ2yvAg";
     String photoFileId = "AgADAgADDKgxG7mDWUlvyFIJ9XfF9yszSw0ABBhVadWwbAK1z-wIAAEC";
@@ -251,6 +253,8 @@ public class TelegramBotTest {
         MessageTest.checkTextMessage(sendResponse.message());
 
         sendResponse = bot.execute(new SendMessage(chatId, "message with keyboard")
+                .parseMode(ParseMode.HTML)
+                .disableWebPagePreview(false)
                 .replyMarkup(new ReplyKeyboardMarkup(new KeyboardButton[]{
                         new KeyboardButton("contact").requestContact(true),
                         new KeyboardButton("location").requestLocation(true)})
@@ -281,50 +285,124 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void sendAudio() {
-        SendAudio request = new SendAudio(chatId, new File(audioFile));
-        SendResponse sendResponse = bot.execute(request);
-        Message message = sendResponse.message();
-        MessageTest.checkAudioMessage(message);
+    public void sendAudio() throws IOException {
+        Message message = bot.execute(new SendAudio(chatId, audioFileId)).message();
+        MessageTest.checkMessage(message);
+        AudioTest.checkAudio(message.audio(), false);
+
+        message = bot.execute(new SendAudio(chatId, new File(audioFile))).message();
+        MessageTest.checkMessage(message);
+        AudioTest.checkAudio(message.audio(), true);
+
+        byte[] bytes = Files.readAllBytes(new File(audioFile).toPath());
+        String cap = "cap", title = "title", performer = "performer";
+        int duration = 100;
+        SendAudio sendAudio = new SendAudio(chatId, bytes).duration(duration).caption(cap).performer(performer).title(title);
+        message = bot.execute(sendAudio).message();
+        MessageTest.checkMessage(message);
+
+        Audio audio = message.audio();
+        AudioTest.checkAudio(audio, true);
+        assertEquals(cap, message.caption());
+        assertEquals((Integer) 100, audio.duration());
+        assertEquals(performer, audio.performer());
+        assertEquals(title, audio.title());
     }
 
     @Test
     public void sendDocument() {
-        SendDocument request = new SendDocument(chatId, new File(docFile)).fileName("my doc.zip").caption("caption");
-        SendResponse sendResponse = bot.execute(request);
-        Message message = sendResponse.message();
-        MessageTest.checkDocumentMessage(message);
+        Message message = bot.execute(new SendDocument(chatId, docFileId)).message();
+        MessageTest.checkMessage(message);
+        DocumentTest.check(message.document());
+
+        message = bot.execute(new SendDocument(chatId, new File(docFile))).message();
+        MessageTest.checkMessage(message);
+        DocumentTest.check(message.document());
+
+        String caption = "caption", fileName = "my doc.zip";
+        message = bot.execute(new SendDocument(chatId, new File(docFile)).fileName(fileName).caption(caption)).message();
+        MessageTest.checkMessage(message);
+        DocumentTest.check(message.document());
+        assertEquals(caption, message.caption());
+        assertEquals(fileName, message.document().fileName());
     }
 
     @Test
-    public void sendPhoto() {
-        SendPhoto request = new SendPhoto(chatId, new File(imagefile)).caption("caption");
-        SendResponse sendResponse = bot.execute(request);
-        Message message = sendResponse.message();
-        MessageTest.checkPhotoMessage(message);
+    public void sendPhoto() throws IOException {
+        Message message = bot.execute(new SendPhoto(chatId, photoFileId)).message();
+        MessageTest.checkMessage(message);
+        PhotoSizeTest.checkPhotos(message.photo());
+
+        message = bot.execute(new SendPhoto(chatId, new File(imagefile))).message();
+        MessageTest.checkMessage(message);
+        PhotoSizeTest.checkPhotos(message.photo());
+
+        byte[] bytes = Files.readAllBytes(new File(imagefile).toPath());
+        String caption = "caption";
+        message = bot.execute(new SendPhoto(chatId, bytes).caption(caption)).message();
+        MessageTest.checkMessage(message);
+        assertEquals(caption, message.caption());
+        PhotoSizeTest.checkPhotos(message.photo());
     }
 
     @Test
-    public void sendSticker() {
-        SendResponse sendResponse = bot.execute(new SendSticker(chatId, stickerId));
-        Message message = sendResponse.message();
-        MessageTest.checkStickerMessage(message);
+    public void sendSticker() throws IOException {
+        Message message = bot.execute(new SendSticker(chatId, stickerId)).message();
+        MessageTest.checkMessage(message);
+        StickerTest.check(message.sticker(), true, false);
+
+        message = bot.execute(new SendSticker(chatId, new File(imagefile))).message();
+        MessageTest.checkMessage(message);
+        StickerTest.check(message.sticker(), false, true);
+
+        byte[] bytes = Files.readAllBytes(new File(imagefile).toPath());
+        message = bot.execute(new SendSticker(chatId, bytes)).message();
+        MessageTest.checkMessage(message);
+        StickerTest.check(message.sticker(), false, true);
     }
 
     @Test
-    public void sendVideo() {
-        SendResponse sendResponse = bot.execute(new SendVideo(chatId, new File(videoFile)).caption("my video"));
-        Message message = sendResponse.message();
-        MessageTest.checkVideoMessage(message);
+    public void sendVideo() throws IOException {
+        Message message = bot.execute(new SendVideo(chatId, videoFileId)).message();
+        MessageTest.checkMessage(message);
+        VideoTest.check(message.video());
+
+        message = bot.execute(new SendVideo(chatId, new File(videoFile))).message();
+        MessageTest.checkMessage(message);
+        VideoTest.check(message.video());
+
+        byte[] bytes = Files.readAllBytes(new File(videoFile).toPath());
+        String caption = "my video";
+        Integer duration = 100;
+        message = bot.execute(new SendVideo(chatId, bytes).caption(caption).duration(duration).height(1).width(2)).message();
+        MessageTest.checkMessage(message);
+        assertEquals(caption, message.caption());
+
+        Video video = message.video();
+        VideoTest.check(message.video());
+        assertEquals(duration, video.duration());
+        assertEquals((Integer) 120, video.height());
+        assertEquals((Integer) 400, video.width());
     }
 
     @Test
     public void sendVoice() throws IOException {
+        Message message = bot.execute(new SendVoice(chatId, voiceFileId)).message();
+        MessageTest.checkMessage(message);
+        VoiceTest.check(message.voice());
+
+        message = bot.execute(new SendVoice(chatId, new File(audioFile))).message();
+        MessageTest.checkMessage(message);
+        VoiceTest.check(message.voice());
+
         byte[] array = Files.readAllBytes(new File(audioFile).toPath());
-        SendVoice request = new SendVoice(chatId, array);
-        SendResponse sendResponse = bot.execute(request);
-        Message message = sendResponse.message();
-        MessageTest.checkVoiceMessage(message);
+        String caption = "caption";
+        Integer duration = 100;
+        message = bot.execute(new SendVoice(chatId, array).caption(caption).duration(duration)).message();
+        MessageTest.checkMessage(message);
+        assertEquals(caption, message.caption());
+        VoiceTest.check(message.voice());
+        assertEquals(duration, message.voice().duration());
     }
 
     @Test
@@ -356,13 +434,42 @@ public class TelegramBotTest {
 
     @Test
     public void sendGame() {
-        SendResponse response = bot.execute(new SendGame(chatId, "pengrad_test_game"));
-        MessageTest.checkGameMessage(response.message());
+        String desc = "pengrad_test_game";
+        Message message = bot.execute(new SendGame(chatId, desc)).message();
+        MessageTest.checkMessage(message);
+        Game game = message.game();
+        GameTest.check(game);
+        assertEquals(desc, game.description());
     }
 
     @Test
     public void sendLocation() {
-        SendResponse response = bot.execute(new SendLocation(chatId, 22.3f, 105.2f));
+        Float lat = 21.999998f, lng = 105.2f;
+        Location location = bot.execute(new SendLocation(chatId, lat, lng)).message().location();
+        assertEquals(lat, location.latitude());
+        assertEquals(lng, location.longitude());
+    }
+
+    @Test
+    public void sendVenue() {
+        Float lat = 21.999998f, lng = 105.2f;
+        String title = "title", address = "addr", frsqrId = "asdfasdf";
+        Venue venue = bot.execute(new SendVenue(chatId, lat, lng, title, address).foursquareId(frsqrId)).message().venue();
+        assertEquals(lat, venue.location().latitude());
+        assertEquals(lng, venue.location().longitude());
+        assertEquals(address, venue.address());
+        assertEquals(title, venue.title());
+        assertEquals(frsqrId, venue.foursquareId());
+    }
+
+    @Test
+    public void sendContact() {
+        String phone = "000111", name = "first", lastName = "last";
+        Contact contact = bot.execute(new SendContact(chatId, phone, name).lastName(lastName)).message().contact();
+        assertEquals(phone, contact.phoneNumber());
+        assertEquals(name, contact.firstName());
+        assertEquals(lastName, contact.lastName());
+        assertNull(contact.userId());
     }
 
     @Test
@@ -374,6 +481,7 @@ public class TelegramBotTest {
 
     @Test
     public void sendChatAction() {
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.typing.name())).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.typing)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_photo)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_video)).isOk());
@@ -393,8 +501,12 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void sendVideoNoteFile() {
-        SendResponse response = bot.execute(new SendVideoNote(chatId, new File(videoFile)).length(20).duration(30));
+    public void sendVideoNoteFile() throws IOException {
+        SendResponse response = bot.execute(new SendVideoNote(chatId, new File(videoNoteFile)).length(20).duration(30));
+        VideoNoteCheck.check(response.message().videoNote(), true);
+
+        byte[] bytes = Files.readAllBytes(new File(videoNoteFile).toPath());
+        response = bot.execute(new SendVideoNote(chatId, bytes));
         VideoNoteCheck.check(response.message().videoNote(), true);
     }
 
