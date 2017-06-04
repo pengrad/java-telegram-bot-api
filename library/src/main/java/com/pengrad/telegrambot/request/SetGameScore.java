@@ -15,7 +15,7 @@ public class SetGameScore extends BaseRequest<SetGameScore, BaseResponse> {
     }
 
     public SetGameScore(int userId, int score, String inlineMessageId) {
-        super(SendResponse.class);
+        super(BaseResponse.class);
         add("user_id", userId).add("score", score).add("inline_message_id", inlineMessageId);
     }
 

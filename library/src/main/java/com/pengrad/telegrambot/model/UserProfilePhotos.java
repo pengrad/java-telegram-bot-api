@@ -43,7 +43,7 @@ public class UserProfilePhotos implements Serializable {
     public String toString() {
         return "UserProfilePhotos{" +
                 "total_count=" + total_count +
-                ", photos=" + Arrays.toString(photos) +
+                ", photos=" + Arrays.deepToString(photos) +
                 '}';
     }
 }
