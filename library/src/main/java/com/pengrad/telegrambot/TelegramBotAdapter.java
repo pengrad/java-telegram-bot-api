@@ -28,7 +28,7 @@ public class TelegramBotAdapter {
     }
 
     public static TelegramBot buildCustom(String botToken, OkHttpClient okHttpClient, String apiUrl) {
-        TelegramBotClient client = new TelegramBotClient(okHttpClient, gson(), apiUrl(botToken, apiUrl));
+        TelegramBotClient client = new TelegramBotClient(okHttpClient, gson(), apiUrl(apiUrl, botToken));
         FileApi fileApi = new FileApi(botToken);
         return new TelegramBot(client, fileApi);
     }
@@ -47,7 +47,7 @@ public class TelegramBotAdapter {
         return new Gson();
     }
 
-    private static String apiUrl(String botToken, String uri) {
-        return uri + botToken + "/";
+    private static String apiUrl(String apiUrl, String botToken) {
+        return apiUrl + botToken + "/";
     }
 }
