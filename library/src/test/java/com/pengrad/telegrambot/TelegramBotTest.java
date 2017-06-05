@@ -515,11 +515,22 @@ public class TelegramBotTest {
 
     @Test
     public void setWebhook() throws IOException, InterruptedException {
-        BaseResponse response = bot.execute(new SetWebhook().url("https://google.com").certificate(new File(certificateFile))
-                .maxConnections(100).allowedUpdates("message", "callback_query"));
+        String url = "https://google.com";
+        Integer maxConnections = 100;
+        String[] allowedUpdates = {"message", "callback_query"};
+        BaseResponse response = bot.execute(new SetWebhook().url(url).certificate(new File(certificateFile))
+                .maxConnections(100).allowedUpdates(allowedUpdates));
         assertTrue(response.isOk());
 
         Thread.sleep(1000);
+
+        WebhookInfo webhookInfo = bot.execute(new GetWebhookInfo()).webhookInfo();
+        assertEquals(url, webhookInfo.url());
+        assertTrue(webhookInfo.hasCustomCertificate());
+        assertEquals(maxConnections, webhookInfo.maxConnections());
+        assertEquals(allowedUpdates, webhookInfo.allowedUpdates());
+        assertNotNull(webhookInfo.lastErrorDate());
+        assertNotNull(webhookInfo.lastErrorMessage());
 
         response = bot.execute(new SetWebhook().url("https://google.com")
                 .certificate(Files.readAllBytes(new File(certificateFile).toPath())).allowedUpdates(""));
@@ -527,7 +538,7 @@ public class TelegramBotTest {
 
         Thread.sleep(1000);
 
-        response = bot.execute(new SetWebhook().allowedUpdates(new String[0]));
+        response = bot.execute(new SetWebhook());
         assertTrue(response.isOk());
     }
 
