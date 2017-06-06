@@ -4,6 +4,9 @@ import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.junit.Test;
 
 import java.io.File;
@@ -45,6 +48,7 @@ public class TelegramBotTest {
     String videoFileId = "BAADAgADZAADuYNZSXhLnzJTZ2yvAg";
     String photoFileId = "AgADAgADDKgxG7mDWUlvyFIJ9XfF9yszSw0ABBhVadWwbAK1z-wIAAEC";
     String gifFileId = "CgADAgADfQADgNqgSTt9SzatJhc3Ag";
+    String withSpaceFileId = "BAADAgADZwADkg-4SQI5WM0SPNHrAg";
 
     public TelegramBotTest() throws IOException {
         String token, chat, forwardMessage, sticker;
@@ -91,11 +95,14 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void getFile() {
-        GetFileResponse response = bot.execute(new GetFile(audioFileId));
+    public void getFile() throws IOException {
+        GetFileResponse response = bot.execute(new GetFile(withSpaceFileId));
         FileTest.check(response.file());
         String path = bot.getFullFilePath(response.file());
-        assertTrue(path.contains(response.file().filePath()));
+
+        Request request = new Request.Builder().head().url(path).build();
+        Response pathResponse = new OkHttpClient().newCall(request).execute();
+        assertTrue(pathResponse.isSuccessful());
     }
 
     @Test

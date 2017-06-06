@@ -1,5 +1,8 @@
 package com.pengrad.telegrambot.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 /**
  * Stas Parshin
  * 16 October 2015
@@ -15,6 +18,13 @@ public class FileApi {
     }
 
     public String getFullFilePath(String filePath) {
-        return apiUrl + filePath;
+        int slash = filePath.lastIndexOf('/') + 1;
+        String path = filePath.substring(0, slash);
+        String fileName = filePath.substring(slash);
+        try {
+            return apiUrl + path + URLEncoder.encode(fileName, "UTF-8").replace("+", "%20");
+        } catch (UnsupportedEncodingException e) {
+            return apiUrl + filePath;
+        }
     }
 }
