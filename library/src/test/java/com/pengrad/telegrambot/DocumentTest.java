@@ -11,10 +11,14 @@ import static org.junit.Assert.assertNotNull;
 public class DocumentTest {
 
     public static void check(Document document) {
+        check(document, true);
+    }
+
+    public static void check(Document document, boolean checkSize) {
         assertNotNull(document.fileId());
         assertNotNull(document.fileName());
-        assertNotNull(document.fileSize());
         assertNotNull(document.mimeType());
+        if (checkSize) assertNotNull(document.fileSize());
     }
 
 }

@@ -11,11 +11,15 @@ import static org.junit.Assert.assertNotNull;
 public class VideoTest {
 
     public static void check(Video video) {
+        check(video, true);
+    }
+
+    public static void check(Video video, boolean checkSize) {
         assertNotNull(video.fileId());
         assertNotNull(video.duration());
         assertNotNull(video.width());
         assertNotNull(video.height());
-        assertNotNull(video.fileSize());
+        if (checkSize) assertNotNull(video.fileSize());
         PhotoSizeTest.checkPhotos(video.thumb());
     }
 }

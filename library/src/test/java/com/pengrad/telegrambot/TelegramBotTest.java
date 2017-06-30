@@ -110,7 +110,7 @@ public class TelegramBotTest {
         BaseResponse response = bot.execute(new KickChatMember(channelName, chatId));
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
-        assertEquals("Bad Request: USER_ADMIN_INVALID", response.description());
+        assertEquals("Bad Request: user is an administrator of the chat", response.description());
     }
 
     @Test
@@ -396,11 +396,11 @@ public class TelegramBotTest {
     public void sendAudio() throws IOException {
         Message message = bot.execute(new SendAudio(chatId, audioFileId)).message();
         MessageTest.checkMessage(message);
-        AudioTest.checkAudio(message.audio(), false);
+        AudioTest.checkAudio(message.audio(), false, false);
 
         message = bot.execute(new SendAudio(chatId, new File(audioFile))).message();
         MessageTest.checkMessage(message);
-        AudioTest.checkAudio(message.audio(), true);
+        AudioTest.checkAudio(message.audio());
 
         byte[] bytes = Files.readAllBytes(new File(audioFile).toPath());
         String cap = "cap", title = "title", performer = "performer";
@@ -410,7 +410,7 @@ public class TelegramBotTest {
         MessageTest.checkMessage(message);
 
         Audio audio = message.audio();
-        AudioTest.checkAudio(audio, true);
+        AudioTest.checkAudio(audio);
         assertEquals(cap, message.caption());
         assertEquals((Integer) 100, audio.duration());
         assertEquals(performer, audio.performer());
@@ -421,7 +421,7 @@ public class TelegramBotTest {
     public void sendDocument() throws IOException {
         Message message = bot.execute(new SendDocument(chatId, docFileId)).message();
         MessageTest.checkMessage(message);
-        DocumentTest.check(message.document());
+        DocumentTest.check(message.document(), false);
 
         byte[] bytes = Files.readAllBytes(new File(docFile).toPath());
         message = bot.execute(new SendDocument(chatId, bytes)).message();
@@ -440,7 +440,7 @@ public class TelegramBotTest {
     public void sendPhoto() throws IOException {
         Message message = bot.execute(new SendPhoto(chatId, photoFileId)).message();
         MessageTest.checkMessage(message);
-        PhotoSizeTest.checkPhotos(message.photo());
+        PhotoSizeTest.checkPhotos(false, message.photo());
 
         message = bot.execute(new SendPhoto(chatId, new File(imagefile))).message();
         MessageTest.checkMessage(message);
@@ -474,7 +474,7 @@ public class TelegramBotTest {
     public void sendVideo() throws IOException {
         Message message = bot.execute(new SendVideo(chatId, videoFileId)).message();
         MessageTest.checkMessage(message);
-        VideoTest.check(message.video());
+        VideoTest.check(message.video(), false);
 
         message = bot.execute(new SendVideo(chatId, new File(videoFile))).message();
         MessageTest.checkMessage(message);
@@ -498,7 +498,7 @@ public class TelegramBotTest {
     public void sendVoice() throws IOException {
         Message message = bot.execute(new SendVoice(chatId, voiceFileId)).message();
         MessageTest.checkMessage(message);
-        VoiceTest.check(message.voice());
+        VoiceTest.check(message.voice(), false);
 
         message = bot.execute(new SendVoice(chatId, new File(audioFile))).message();
         MessageTest.checkMessage(message);
