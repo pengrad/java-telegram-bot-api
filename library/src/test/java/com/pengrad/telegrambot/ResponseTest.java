@@ -33,7 +33,8 @@ public class ResponseTest {
                 GetUpdatesResponse.class,
                 GetUserProfilePhotosResponse.class,
                 GetWebhookInfoResponse.class,
-                SendResponse.class
+                SendResponse.class,
+                StringResponse.class
         };
     }
 

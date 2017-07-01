@@ -38,6 +38,7 @@ public class TelegramBotTest {
 
     Path resourcePath = Paths.get("src/test/resources");
     String imagefile = resourcePath.resolve("image.png").toString();
+    File imageFile = resourcePath.resolve("image.jpg").toFile();
     String audioFile = resourcePath.resolve("beep.mp3").toString();
     String docFile = resourcePath.resolve("doc.txt").toString();
     String videoFile = resourcePath.resolve("tabs.mp4").toString();
@@ -779,4 +780,50 @@ public class TelegramBotTest {
         return null;
     }
 
+    @Test
+    public void exportChatInviteLink() {
+        StringResponse response = bot.execute(new ExportChatInviteLink(groupId));
+        assertTrue(response.isOk());
+        assertNotNull(response.result());
+    }
+
+    @Test
+    public void setChatPhoto() throws IOException {
+        BaseResponse response = bot.execute(new SetChatPhoto(groupId, imageFile));
+        assertTrue(response.isOk());
+
+        byte[] bytes = Files.readAllBytes(imageFile.toPath());
+        response = bot.execute(new SetChatPhoto(groupId, bytes));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void deleteChatPhoto() {
+        BaseResponse response = bot.execute(new DeleteChatPhoto(groupId));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void setChatTitle() {
+        BaseResponse response = bot.execute(new SetChatTitle(groupId, "Test Bot Group " + System.currentTimeMillis()));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void setChatDescription() {
+        BaseResponse response = bot.execute(new SetChatDescription(groupId, "New desc " + System.currentTimeMillis()));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void pinChatMessage() {
+        BaseResponse response = bot.execute(new PinChatMessage(groupId, 18).disableNotification(false));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void unpinChatMessage() {
+        BaseResponse response = bot.execute(new UnpinChatMessage(groupId));
+        assertTrue(response.isOk());
+    }
 }
