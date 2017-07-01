@@ -13,6 +13,7 @@ public class ChatTest {
     public static void checkChat(Chat chat) {
         assertNotNull(chat.id());
         assertNotNull(chat.type());
+        if (chat.photo() != null) ChatPhotoTest.check(chat.photo());
     }
 
 }

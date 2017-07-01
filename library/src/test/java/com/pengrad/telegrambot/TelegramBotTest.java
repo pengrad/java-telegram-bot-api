@@ -12,6 +12,9 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -321,10 +324,13 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void getChat() {
-        GetChatResponse getChatResponse = bot.execute(new GetChat(chatId));
-        assertTrue(getChatResponse.toString().contains(chatId.toString()));
-        ChatTest.checkChat(getChatResponse.chat());
+    public void getChat() throws MalformedURLException, URISyntaxException {
+        Chat chat = bot.execute(new GetChat(groupId)).chat();
+        ChatTest.checkChat(chat);
+        assertEquals(chat.type(), Chat.Type.supergroup);
+        assertTrue(chat.title().contains("Test Bot Group"));
+        assertTrue(chat.description().contains("New desc"));
+        assertNotNull(new URL(chat.inviteLink()).toURI());
     }
 
     @Test

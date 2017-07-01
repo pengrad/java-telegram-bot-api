@@ -27,6 +27,7 @@ public class ModelTest {
                 CallbackQuery.class,
                 Chat.class,
                 ChatMember.class,
+                ChatPhoto.class,
                 ChosenInlineResult.class,
                 Contact.class,
                 Document.class,

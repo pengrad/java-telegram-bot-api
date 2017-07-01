@@ -12,7 +12,7 @@ public class Chat implements Serializable {
     private final static long serialVersionUID = 0L;
 
     public enum Type {
-        @SerializedName("private") Private, group, supergroup, channel
+        @SerializedName("private")Private, group, supergroup, channel
     }
 
     private Long id;
@@ -29,6 +29,10 @@ public class Chat implements Serializable {
     private String title;
 
     private Boolean all_members_are_administrators;
+
+    private ChatPhoto photo;
+    private String description;
+    private String invite_link;
 
     public Long id() {
         return id;
@@ -58,6 +62,18 @@ public class Chat implements Serializable {
         return all_members_are_administrators;
     }
 
+    public ChatPhoto photo() {
+        return photo;
+    }
+
+    public String description() {
+        return description;
+    }
+
+    public String inviteLink() {
+        return invite_link;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -71,7 +87,11 @@ public class Chat implements Serializable {
         if (last_name != null ? !last_name.equals(chat.last_name) : chat.last_name != null) return false;
         if (username != null ? !username.equals(chat.username) : chat.username != null) return false;
         if (title != null ? !title.equals(chat.title) : chat.title != null) return false;
-        return all_members_are_administrators != null ? all_members_are_administrators.equals(chat.all_members_are_administrators) : chat.all_members_are_administrators == null;
+        if (all_members_are_administrators != null ? !all_members_are_administrators.equals(chat.all_members_are_administrators) : chat.all_members_are_administrators != null)
+            return false;
+        if (photo != null ? !photo.equals(chat.photo) : chat.photo != null) return false;
+        if (description != null ? !description.equals(chat.description) : chat.description != null) return false;
+        return invite_link != null ? invite_link.equals(chat.invite_link) : chat.invite_link == null;
     }
 
     @Override
@@ -89,6 +109,9 @@ public class Chat implements Serializable {
                 ", username='" + username + '\'' +
                 ", title='" + title + '\'' +
                 ", all_members_are_administrators=" + all_members_are_administrators +
+                ", photo=" + photo +
+                ", description='" + description + '\'' +
+                ", invite_link='" + invite_link + '\'' +
                 '}';
     }
 }
