@@ -12,4 +12,8 @@ public class KickChatMember extends BaseRequest<KickChatMember, BaseResponse> {
         super(BaseResponse.class);
         add("chat_id", chatId).add("user_id", userId);
     }
+
+    public KickChatMember untilDate(int untilDate) {
+        return add("until_date", untilDate);
+    }
 }

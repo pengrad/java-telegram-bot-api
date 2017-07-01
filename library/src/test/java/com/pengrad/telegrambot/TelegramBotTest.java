@@ -30,8 +30,10 @@ public class TelegramBotTest {
 
     TelegramBot bot;
     Integer chatId, forwardMessageId;
+    Long groupId;
     String channelName = "@bottest";
     Long channelId = -1001002720332L;
+    Integer memberBot = 215003245;
     String stickerId;
 
     Path resourcePath = Paths.get("src/test/resources");
@@ -51,7 +53,7 @@ public class TelegramBotTest {
     String withSpaceFileId = "BAADAgADZwADkg-4SQI5WM0SPNHrAg";
 
     public TelegramBotTest() throws IOException {
-        String token, chat, forwardMessage, sticker;
+        String token, chat, group, forwardMessage, sticker;
 
         try {
             Properties properties = new Properties();
@@ -59,18 +61,21 @@ public class TelegramBotTest {
 
             token = properties.getProperty("TEST_TOKEN");
             chat = properties.getProperty("CHAT_ID");
+            group = properties.getProperty("GROUP_ID");
             forwardMessage = properties.getProperty("FORWARD_MESSAGE");
             sticker = properties.getProperty("STICKER_FILE_ID");
 
         } catch (Exception e) {
             token = System.getenv("TEST_TOKEN");
             chat = System.getenv("CHAT_ID");
+            group = System.getenv("GROUP_ID");
             forwardMessage = System.getenv("FORWARD_MESSAGE");
             sticker = System.getenv("STICKER_FILE_ID");
         }
 
         bot = TelegramBotAdapter.buildDebug(token);
         chatId = Integer.parseInt(chat);
+        groupId = Long.parseLong(group);
         forwardMessageId = Integer.parseInt(forwardMessage);
         stickerId = sticker;
     }
@@ -107,7 +112,7 @@ public class TelegramBotTest {
 
     @Test
     public void kickChatMember() {
-        BaseResponse response = bot.execute(new KickChatMember(channelName, chatId));
+        BaseResponse response = bot.execute(new KickChatMember(channelName, chatId).untilDate(123));
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
         assertEquals("Bad Request: user is an administrator of the chat", response.description());
@@ -117,6 +122,32 @@ public class TelegramBotTest {
     public void unbanChatMember() {
         BaseResponse response = bot.execute(new UnbanChatMember(channelName, chatId));
         assertTrue(response.isOk());
+    }
+
+    @Test
+    public void restrictChatMember() {
+        BaseResponse response = bot.execute(
+                new RestrictChatMember(groupId, memberBot)
+                        .untilDate(100)
+                        .canSendMessages(false)
+                        .canSendMediaMessages(false)
+                        .canSendOtherMessages(false)
+                        .canAddWebPagePreviews(false));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void promoteChatMember() {
+        BaseResponse response = bot.execute(
+                new PromoteChatMember(groupId, memberBot)
+                        .canChangeInfo(false)
+                        .canPostMessages(false)
+                        .canEditMessages(false)
+                        .canDeleteMessages(false)
+                        .canRestrictMembers(false)
+                        .canPinMessages(false)
+                        .canPromoteMembers(false));
+        System.out.println(response);
     }
 
     @Test
