@@ -102,8 +102,8 @@ GetUpdates getUpdates = new GetUpdates().limit(100).offset(0).timeout(0);
 ```
 
 The getUpdates method returns the earliest 100 unconfirmed updates. To confirm an update, use the offset parameter when calling getUpdates like this:
-`offset = updateId of last processed update + 1`
-All updates with updateId less than or equal to offset will be marked as confirmed on the server and will no longer be returned.
+`offset = updateId of last processed update + 1`  
+All updates with updateId less than offset will be marked as confirmed on the server and will no longer be returned.
 
 Executing
 ```java
