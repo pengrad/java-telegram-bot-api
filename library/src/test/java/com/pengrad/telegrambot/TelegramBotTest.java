@@ -32,12 +32,13 @@ import static org.junit.Assert.*;
 public class TelegramBotTest {
 
     TelegramBot bot;
-    Integer chatId, forwardMessageId;
+    Integer chatId;
     Long groupId;
+    Integer forwardMessageId = 1;
+    String stickerId = "BQADAgAD4AAD9HsZAAGVRXVaYXiJVAI";
     String channelName = "@bottest";
     Long channelId = -1001002720332L;
     Integer memberBot = 215003245;
-    String stickerId;
 
     Path resourcePath = Paths.get("src/test/resources");
     String imagefile = resourcePath.resolve("image.png").toString();
@@ -57,7 +58,7 @@ public class TelegramBotTest {
     String withSpaceFileId = "BAADAgADZwADkg-4SQI5WM0SPNHrAg";
 
     public TelegramBotTest() throws IOException {
-        String token, chat, group, forwardMessage, sticker;
+        String token, chat, group;
 
         try {
             Properties properties = new Properties();
@@ -66,22 +67,16 @@ public class TelegramBotTest {
             token = properties.getProperty("TEST_TOKEN");
             chat = properties.getProperty("CHAT_ID");
             group = properties.getProperty("GROUP_ID");
-            forwardMessage = properties.getProperty("FORWARD_MESSAGE");
-            sticker = properties.getProperty("STICKER_FILE_ID");
 
         } catch (Exception e) {
             token = System.getenv("TEST_TOKEN");
             chat = System.getenv("CHAT_ID");
             group = System.getenv("GROUP_ID");
-            forwardMessage = System.getenv("FORWARD_MESSAGE");
-            sticker = System.getenv("STICKER_FILE_ID");
         }
 
         bot = TelegramBotAdapter.buildDebug(token);
         chatId = Integer.parseInt(chat);
         groupId = Long.parseLong(group);
-        forwardMessageId = Integer.parseInt(forwardMessage);
-        stickerId = sticker;
     }
 
     @Test
