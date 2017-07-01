@@ -839,12 +839,18 @@ public class TelegramBotTest {
     @Test
     public void pinChatMessage() {
         BaseResponse response = bot.execute(new PinChatMessage(groupId, 18).disableNotification(false));
-        assertTrue(response.isOk());
+        if (!response.isOk()) {
+            assertEquals(400, response.errorCode());
+            assertEquals("Bad Request: CHAT_NOT_MODIFIED", response.description());
+        }
     }
 
     @Test
     public void unpinChatMessage() {
         BaseResponse response = bot.execute(new UnpinChatMessage(groupId));
-        assertTrue(response.isOk());
+        if (!response.isOk()) {
+            assertEquals(400, response.errorCode());
+            assertEquals("Bad Request: CHAT_NOT_MODIFIED", response.description());
+        }
     }
 }
