@@ -327,7 +327,7 @@ public class TelegramBotTest {
     public void getChat() throws MalformedURLException, URISyntaxException {
         Chat chat = bot.execute(new GetChat(groupId)).chat();
         ChatTest.checkChat(chat);
-        assertEquals(chat.type(), Chat.Type.supergroup);
+        assertEquals(Chat.Type.supergroup, chat.type());
         assertTrue(chat.title().contains("Test Bot Group"));
         assertTrue(chat.description().contains("New desc"));
         assertNotNull(new URL(chat.inviteLink()).toURI());
@@ -343,16 +343,31 @@ public class TelegramBotTest {
 
     @Test
     public void getChatAdministrators() {
-        GetChatAdministratorsResponse response = bot.execute(new GetChatAdministrators(channelName));
+        GetChatAdministratorsResponse response = bot.execute(new GetChatAdministrators(groupId));
         for (ChatMember chatMember : response.administrators()) {
             ChatMemberTest.check(chatMember);
+            if (chatMember.user().firstName().equals("Test Bot")) {
+                assertFalse(chatMember.canBeEdited());
+                assertTrue(chatMember.canChangeInfo());
+                assertTrue(chatMember.canDeleteMessages());
+                assertTrue(chatMember.canInviteUsers());
+                assertTrue(chatMember.canRestrictMembers());
+                assertTrue(chatMember.canPinMessages());
+                assertTrue(chatMember.canPromoteMembers());
+            }
         }
     }
 
     @Test
     public void getChatMember() {
-        GetChatMemberResponse response = bot.execute(new GetChatMember(chatId, chatId));
-        ChatMemberTest.check(response.chatMember());
+        ChatMember chatMember = bot.execute(new GetChatMember(groupId, memberBot)).chatMember();
+        ChatMemberTest.check(chatMember);
+        assertEquals(ChatMember.Status.restricted, chatMember.status());
+        assertTrue(chatMember.untilDate() == 0);
+        assertEquals(false, chatMember.canSendMessages());
+        assertEquals(false, chatMember.canSendMediaMessages());
+        assertEquals(false, chatMember.canSendOtherMessages());
+        assertEquals(false, chatMember.canAddWebPagePreviews());
     }
 
     @Test
