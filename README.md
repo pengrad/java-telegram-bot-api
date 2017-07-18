@@ -19,8 +19,8 @@ Maven:
   <version>3.1.0</version>
 </dependency>
 ```
-JAR-files:  
-https://oss.sonatype.org/content/repositories/releases/com/github/pengrad/java-telegram-bot-api/
+JAR-file:  
+[JAR with all dependencies on release page](https://github.com/pengrad/java-telegram-bot-api/releases)
 
 ## Contents
 
