@@ -49,20 +49,13 @@ public class UpdatesHandler {
                 List<Update> updates = response.updates();
                 int lastConfirmedUpdate = listener.process(updates);
 
-                GetUpdates newRequest;
-                if (lastConfirmedUpdate == CONFIRMED_UPDATES_NONE) {
-                    newRequest = request;
-                } else {
+                if (lastConfirmedUpdate != CONFIRMED_UPDATES_NONE) {
                     int offset = lastConfirmedUpdate == CONFIRMED_UPDATES_ALL
                             ? lastUpdateId(updates) + 1
                             : lastConfirmedUpdate + 1;
-
-                    newRequest = new GetUpdates()
-                            .limit(request.getLimit())
-                            .timeout(request.getTimeoutSeconds())
-                            .offset(offset);
+                    request = request.offset(offset);
                 }
-                getUpdates(newRequest);
+                getUpdates(request);
             }
 
             @Override
