@@ -918,6 +918,9 @@ public class TelegramBotTest {
         Sticker sticker = setResponse.stickerSet().stickers()[size - 1];
 
         response = bot.execute(new DeleteStickerFromSet(sticker.fileId()));
-        assertTrue(response.isOk());
+        if (!response.isOk()) {
+            assertEquals(400, response.errorCode());
+            assertEquals("Bad Request: STICKERSET_NOT_MODIFIED", response.description());
+        }
     }
 }
