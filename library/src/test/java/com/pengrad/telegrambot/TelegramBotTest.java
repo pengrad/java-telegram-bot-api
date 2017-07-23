@@ -43,6 +43,7 @@ public class TelegramBotTest {
     Path resourcePath = Paths.get("src/test/resources");
     String imagefile = resourcePath.resolve("image.png").toString();
     File imageFile = resourcePath.resolve("image.jpg").toFile();
+    File stickerFile = resourcePath.resolve("imageSticker.png").toFile();
     String audioFile = resourcePath.resolve("beep.mp3").toString();
     String docFile = resourcePath.resolve("doc.txt").toString();
     String videoFile = resourcePath.resolve("tabs.mp4").toString();
@@ -56,6 +57,7 @@ public class TelegramBotTest {
     String photoFileId = "AgADAgADDKgxG7mDWUlvyFIJ9XfF9yszSw0ABBhVadWwbAK1z-wIAAEC";
     String gifFileId = "CgADAgADfQADgNqgSTt9SzatJhc3Ag";
     String withSpaceFileId = "BAADAgADZwADkg-4SQI5WM0SPNHrAg";
+    String stickerSet = "testset_by_pengrad_test_bot";
 
     public TelegramBotTest() throws IOException {
         String token, chat, group;
@@ -816,7 +818,10 @@ public class TelegramBotTest {
     @Test
     public void deleteChatPhoto() {
         BaseResponse response = bot.execute(new DeleteChatPhoto(groupId));
-        assertTrue(response.isOk());
+        if (!response.isOk()) {
+            assertEquals(400, response.errorCode());
+            assertEquals("Bad Request: CHAT_NOT_MODIFIED", response.description());
+        }
     }
 
     @Test
@@ -847,5 +852,72 @@ public class TelegramBotTest {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: CHAT_NOT_MODIFIED", response.description());
         }
+    }
+
+    @Test
+    public void getStickerSet() {
+        GetStickerSetResponse response = bot.execute(new GetStickerSet(stickerSet));
+        StickerSet stickerSet = response.stickerSet();
+        for (Sticker sticker : response.stickerSet().stickers()) {
+            StickerTest.check(sticker, true, true);
+        }
+        assertTrue(stickerSet.containsMasks());
+        assertEquals(this.stickerSet, stickerSet.name());
+        assertEquals("test1", stickerSet.title());
+
+        Sticker sticker = stickerSet.stickers()[0];
+        assertEquals(this.stickerSet, sticker.setName());
+        MaskPosition maskPosition = sticker.maskPosition();
+        assertEquals(MaskPosition.Point.forehead.name(), maskPosition.point());
+        assertEquals(0f, maskPosition.xShift(), 0);
+        assertEquals(0f, maskPosition.yShift(), 0);
+        assertEquals(1f, maskPosition.scale(), 0);
+        System.out.println(response);
+    }
+
+    @Test
+    public void uploadStickerFile() throws IOException {
+        byte[] bytes = Files.readAllBytes(stickerFile.toPath());
+        GetFileResponse response = bot.execute(new UploadStickerFile(chatId, bytes));
+        FileTest.check(response.file(), false);
+    }
+
+    @Test
+    public void createNewStickerSet() throws IOException {
+        BaseResponse response = bot.execute(
+                new CreateNewStickerSet(chatId, "test" + System.currentTimeMillis() + "_by_pengrad_test_bot",
+                        "test1", stickerFile, "\uD83D\uDE00")
+                        .containsMasks(true)
+                        .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f)));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void addStickerToSet() {
+        BaseResponse response = bot.execute(
+                new AddStickerToSet(chatId, stickerSet, "BQADAgADuAAD7yupS4eB23UmZhGuAg", "\uD83D\uDE15"));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void setStickerPositionInSet() {
+        GetStickerSetResponse setResponse = bot.execute(new GetStickerSet(stickerSet));
+        Sticker sticker = setResponse.stickerSet().stickers()[0];
+
+        BaseResponse response = bot.execute(new SetStickerPositionInSet(sticker.fileId(), 0));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void deleteStickerFromSet() {
+        BaseResponse response = bot.execute(new AddStickerToSet(chatId, stickerSet, stickerFile, "\uD83D\uDE15"));
+        assertTrue(response.isOk());
+
+        GetStickerSetResponse setResponse = bot.execute(new GetStickerSet(stickerSet));
+        int size = setResponse.stickerSet().stickers().length;
+        Sticker sticker = setResponse.stickerSet().stickers()[size - 1];
+
+        response = bot.execute(new DeleteStickerFromSet(sticker.fileId()));
+        assertTrue(response.isOk());
     }
 }

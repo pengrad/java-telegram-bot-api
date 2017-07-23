@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.request;
 
-import com.google.gson.Gson;
 import com.pengrad.telegrambot.model.request.LabeledPrice;
 
 /**
@@ -9,14 +8,11 @@ import com.pengrad.telegrambot.model.request.LabeledPrice;
  */
 public class SendInvoice extends AbstractSendRequest<SendInvoice> {
 
-    // todo remove gson
-    private static Gson gson = new Gson();
-
     public SendInvoice(Integer chatId, String title, String description, String payload, String providerToken,
                        String startParameter, String currency, LabeledPrice... prices) {
         super(chatId);
         add("title", title).add("description", description).add("payload", payload).add("provider_token", providerToken)
-                .add("start_parameter", startParameter).add("currency", currency).add("prices", gson.toJson(prices));
+                .add("start_parameter", startParameter).add("currency", currency).add("prices", serialize(prices));
     }
 
     public SendInvoice photoUrl(String photoUrl) {

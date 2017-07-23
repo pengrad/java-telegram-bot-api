@@ -11,8 +11,12 @@ import static org.junit.Assert.assertNotNull;
 public class FileTest {
 
     public static void check(File file) {
+        check(file, true);
+    }
+
+    public static void check(File file, boolean path) {
         assertNotNull(file.fileId());
         assertNotNull(file.fileSize());
-        assertNotNull(file.filePath());
+        if (path) assertNotNull(file.filePath());
     }
 }
