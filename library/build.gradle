@@ -32,4 +32,10 @@ jacocoTestReport {
     }
 }
 
+task fatJar(type: Jar) {
+    baseName = rootProject.name + '-full'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
