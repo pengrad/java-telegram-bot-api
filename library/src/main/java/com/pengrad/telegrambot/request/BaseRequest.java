@@ -60,6 +60,12 @@ abstract public class BaseRequest<T extends BaseRequest, R extends BaseResponse>
         return 0;
     }
 
+    public String getJSON(){
+        Map<String,Object> fullMap = new HashMap<>(parameters);
+        fullMap.put("method",getMethod());
+        return gson.toJson(fullMap);
+    }
+
     // Serialize model objects. Basically convert to json
     // todo move to TelegramBotClient, let it serialize everything in request time
     protected String serialize(Object o) {
