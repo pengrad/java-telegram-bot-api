@@ -61,7 +61,7 @@ abstract public class BaseRequest<T extends BaseRequest, R extends BaseResponse>
     }
 
     public String getJSON(){
-        Map<String,Object> fullMap = new HashMap<>(parameters);
+        Map<String,Object> fullMap = new HashMap<String,Object>(parameters);
         fullMap.put("method",getMethod());
         return gson.toJson(fullMap);
     }
