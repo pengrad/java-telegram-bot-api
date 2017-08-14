@@ -78,6 +78,11 @@ bot.execute(request, new Callback() {
 });
 ```
 
+Request [in response to update](https://core.telegram.org/bots/faq#how-can-i-make-requests-in-response-to-updates)
+```java
+String response = request.toWebhookResponse();
+```
+
 ## Getting updates
 
 You can use **getUpdates** request, parse incoming **Webhook** request, or set listener to receive updates.  
