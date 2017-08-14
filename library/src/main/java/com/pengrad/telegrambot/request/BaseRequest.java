@@ -61,7 +61,7 @@ abstract public class BaseRequest<T extends BaseRequest, R extends BaseResponse>
     }
 
     public String toWebhookResponse() {
-        Map<String,Object> fullMap = new HashMap<String,Object>(parameters);
+        Map<String, Object> fullMap = new HashMap<String, Object>(parameters);
         fullMap.put("method", getMethod());
         return gson.toJson(fullMap);
     }
