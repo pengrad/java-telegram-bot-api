@@ -84,8 +84,8 @@ public class TelegramBotTest {
     @Test
     public void getMe() {
         GetMeResponse response = bot.execute(new GetMe());
-        System.out.println(response);
         UserTest.checkUser(response.user());
+        assertTrue(response.user().isBot());
     }
 
     @Test
@@ -148,7 +148,6 @@ public class TelegramBotTest {
                         .canRestrictMembers(false)
                         .canPinMessages(false)
                         .canPromoteMembers(false));
-        System.out.println(response);
     }
 
     @Test
@@ -877,7 +876,6 @@ public class TelegramBotTest {
         assertEquals(0f, maskPosition.xShift(), 0);
         assertEquals(0f, maskPosition.yShift(), 0);
         assertEquals(1f, maskPosition.scale(), 0);
-        System.out.println(response);
     }
 
     @Test

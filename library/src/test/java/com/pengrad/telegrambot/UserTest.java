@@ -17,6 +17,7 @@ public class UserTest {
 
     public static void checkUser(User user, boolean full) {
         assertNotNull(user.id());
+        assertNotNull(user.isBot());
         assertNotNull(user.firstName());
         assertNotNull(user.username());
         if (full) {
