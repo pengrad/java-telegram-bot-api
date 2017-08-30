@@ -91,7 +91,7 @@ public class TelegramBotTest {
     @Test
     public void getUpdates() {
         GetUpdates getUpdates = new GetUpdates()
-                .offset(499018234)
+                .offset(144932952)
                 .allowedUpdates("")
                 .timeout(0)
                 .limit(10);
@@ -441,6 +441,10 @@ public class TelegramBotTest {
     public void forwardMessage() {
         SendResponse response = bot.execute(new ForwardMessage(chatId, chatId, forwardMessageId).disableNotification(true));
         MessageTest.checkForwardedMessage(response.message());
+
+        Message message = bot.execute(new ForwardMessage(channelName, channelName, 651)).message();
+        assertNotNull(message.authorSignature());
+        assertNotNull(message.forwardSignature());
     }
 
     @Test
