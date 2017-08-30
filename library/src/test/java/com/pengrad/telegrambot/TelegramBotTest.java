@@ -328,6 +328,7 @@ public class TelegramBotTest {
         assertTrue(chat.title().contains("Test Bot Group"));
         assertTrue(chat.description().contains("New desc"));
         assertNotNull(new URL(chat.inviteLink()).toURI());
+        if (chat.pinnedMessage() != null) MessageTest.checkMessage(chat.pinnedMessage());
     }
 
     @Test

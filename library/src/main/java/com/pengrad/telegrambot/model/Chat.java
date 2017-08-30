@@ -33,6 +33,7 @@ public class Chat implements Serializable {
     private ChatPhoto photo;
     private String description;
     private String invite_link;
+    private Message pinned_message;
 
     public Long id() {
         return id;
@@ -74,6 +75,10 @@ public class Chat implements Serializable {
         return invite_link;
     }
 
+    public Message pinnedMessage() {
+        return pinned_message;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,7 +96,8 @@ public class Chat implements Serializable {
             return false;
         if (photo != null ? !photo.equals(chat.photo) : chat.photo != null) return false;
         if (description != null ? !description.equals(chat.description) : chat.description != null) return false;
-        return invite_link != null ? invite_link.equals(chat.invite_link) : chat.invite_link == null;
+        if (invite_link != null ? !invite_link.equals(chat.invite_link) : chat.invite_link != null) return false;
+        return pinned_message != null ? pinned_message.equals(chat.pinned_message) : chat.pinned_message == null;
     }
 
     @Override
@@ -112,6 +118,7 @@ public class Chat implements Serializable {
                 ", photo=" + photo +
                 ", description='" + description + '\'' +
                 ", invite_link='" + invite_link + '\'' +
+                ", pinned_message=" + pinned_message +
                 '}';
     }
 }
