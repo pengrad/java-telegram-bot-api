@@ -34,6 +34,8 @@ public class Chat implements Serializable {
     private String description;
     private String invite_link;
     private Message pinned_message;
+    private String sticker_set_name;
+    private Boolean can_set_sticker_set;
 
     public Long id() {
         return id;
@@ -79,6 +81,14 @@ public class Chat implements Serializable {
         return pinned_message;
     }
 
+    public String stickerSetName() {
+        return sticker_set_name;
+    }
+
+    public Boolean canSetStickerSet() {
+        return can_set_sticker_set;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -97,7 +107,10 @@ public class Chat implements Serializable {
         if (photo != null ? !photo.equals(chat.photo) : chat.photo != null) return false;
         if (description != null ? !description.equals(chat.description) : chat.description != null) return false;
         if (invite_link != null ? !invite_link.equals(chat.invite_link) : chat.invite_link != null) return false;
-        return pinned_message != null ? pinned_message.equals(chat.pinned_message) : chat.pinned_message == null;
+        if (pinned_message != null ? !pinned_message.equals(chat.pinned_message) : chat.pinned_message != null) return false;
+        if (sticker_set_name != null ? !sticker_set_name.equals(chat.sticker_set_name) : chat.sticker_set_name != null)
+            return false;
+        return can_set_sticker_set != null ? can_set_sticker_set.equals(chat.can_set_sticker_set) : chat.can_set_sticker_set == null;
     }
 
     @Override
@@ -119,6 +132,8 @@ public class Chat implements Serializable {
                 ", description='" + description + '\'' +
                 ", invite_link='" + invite_link + '\'' +
                 ", pinned_message=" + pinned_message +
+                ", sticker_set_name='" + sticker_set_name + '\'' +
+                ", can_set_sticker_set=" + can_set_sticker_set +
                 '}';
     }
 }
