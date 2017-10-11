@@ -961,4 +961,20 @@ public class TelegramBotTest {
             assertEquals("Bad Request: message is not modified", response.description());
         }
     }
+
+    @Test
+    public void setChatStickerSet() {
+        BaseResponse response = bot.execute(new SetChatStickerSet(groupId, "PengradTest"));
+        assertFalse(response.isOk());
+        assertEquals(400, response.errorCode());
+        assertEquals("Bad Request: can't set channel sticker set", response.description());
+    }
+
+    @Test
+    public void deleteChatStickerSet() {
+        BaseResponse response = bot.execute(new DeleteChatStickerSet(groupId));
+        assertFalse(response.isOk());
+        assertEquals(400, response.errorCode());
+        assertEquals("Bad Request: can't set channel sticker set", response.description());
+    }
 }
