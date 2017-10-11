@@ -461,7 +461,7 @@ public class TelegramBotTest {
         AudioTest.checkAudio(message.audio());
 
         byte[] bytes = Files.readAllBytes(new File(audioFile).toPath());
-        String cap = "cap", title = "title", performer = "performer";
+        String cap = "http://ya.ru", title = "title", performer = "performer";
         int duration = 100;
         SendAudio sendAudio = new SendAudio(chatId, bytes).duration(duration).caption(cap).performer(performer).title(title);
         message = bot.execute(sendAudio).message();
@@ -473,6 +473,11 @@ public class TelegramBotTest {
         assertEquals((Integer) 100, audio.duration());
         assertEquals(performer, audio.performer());
         assertEquals(title, audio.title());
+
+        MessageEntity captionEntity = message.captionEntities()[0];
+        assertEquals(MessageEntity.Type.url, captionEntity.type());
+        assertEquals((Integer) 0, captionEntity.offset());
+        assertEquals((Integer) 12, captionEntity.length());
     }
 
     @Test
