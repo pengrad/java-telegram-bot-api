@@ -11,4 +11,8 @@ public class SendLocation extends AbstractSendRequest<SendLocation> {
         add("latitude", latitude);
         add("longitude", longitude);
     }
+
+    public SendLocation livePeriod(int livePeriod) {
+        return add("live_period", livePeriod);
+    }
 }

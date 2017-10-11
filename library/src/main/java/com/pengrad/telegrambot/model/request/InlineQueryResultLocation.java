@@ -13,6 +13,7 @@ public class InlineQueryResultLocation extends InlineQueryResult<InlineQueryResu
     private float longitude;
     private String title;
 
+    private Integer live_period;
     private String thumb_url;
     private Integer thumb_width;
     private Integer thumb_height;
@@ -22,6 +23,11 @@ public class InlineQueryResultLocation extends InlineQueryResult<InlineQueryResu
         this.latitude = latitude;
         this.longitude = longitude;
         this.title = title;
+    }
+
+    public InlineQueryResultLocation livePeriod(Integer livePeriod) {
+        live_period = livePeriod;
+        return this;
     }
 
     public InlineQueryResultLocation thumbUrl(String thumbUrl) {

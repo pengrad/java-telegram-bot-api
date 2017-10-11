@@ -235,7 +235,7 @@ public class TelegramBotTest {
                         .url(someUrl).hideUrl(true).description("desc").thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultArticle("2", "title",
                         new InputContactMessageContent("123123123", "na,e").lastName("lastName")),
-                new InlineQueryResultArticle("3", "title", new InputLocationMessageContent(50f, 50f)),
+                new InlineQueryResultArticle("3", "title", new InputLocationMessageContent(50f, 50f).livePeriod(60)),
                 new InlineQueryResultArticle("4", "title",
                         new InputVenueMessageContent(50f, 50f, "title", "address").foursquareId("sqrId")),
                 new InlineQueryResultArticle("5", "title", "message"),
@@ -247,7 +247,8 @@ public class TelegramBotTest {
                 new InlineQueryResultGame("9", "pengrad_test_game").replyMarkup(keyboardMarkup),
                 new InlineQueryResultGif("10", someUrl, someUrl).caption("cap").title("title")
                         .gifHeight(100).gifWidth(100).gifDuration(100),
-                new InlineQueryResultLocation("11", 50f, 50f, "title").thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
+                new InlineQueryResultLocation("11", 50f, 50f, "title").livePeriod(60)
+                        .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultMpeg4Gif("12", someUrl, someUrl).caption("cap").title("title")
                         .mpeg4Height(100).mpeg4Width(100).mpeg4Duration(100),
                 new InlineQueryResultPhoto("13", someUrl, someUrl).photoWidth(100).photoHeight(100).title("title")
@@ -645,7 +646,7 @@ public class TelegramBotTest {
     @Test
     public void sendLocation() {
         Float lat = 21.999998f, lng = 105.2f;
-        Location location = bot.execute(new SendLocation(chatId, lat, lng)).message().location();
+        Location location = bot.execute(new SendLocation(chatId, lat, lng).livePeriod(60)).message().location();
         assertEquals(lat, location.latitude());
         assertEquals(lng, location.longitude());
     }
@@ -927,6 +928,37 @@ public class TelegramBotTest {
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: STICKERSET_NOT_MODIFIED", response.description());
+        }
+    }
+
+    @Test
+    public void editMessageLiveLocation() {
+        BaseResponse response = bot.execute(new EditMessageLiveLocation(chatId, 10009, 21, 105)
+                .replyMarkup(new InlineKeyboardMarkup()));
+        if (!response.isOk()) {
+            assertEquals(400, response.errorCode());
+            assertEquals("Bad Request: message can't be edited", response.description());
+        }
+
+        response = bot.execute(new EditMessageLiveLocation("AgAAAPrwAQCj_Q4D2s-51_8jsuU", 21, 105));
+        if (!response.isOk()) {
+            assertEquals(400, response.errorCode());
+            assertEquals("Bad Request: message is not modified", response.description());
+        }
+    }
+
+    @Test
+    public void stopMessageLiveLocation() {
+        BaseResponse response = bot.execute(new StopMessageLiveLocation(chatId, 10009));
+        if (!response.isOk()) {
+            assertEquals(400, response.errorCode());
+            assertEquals("Bad Request: message can't be edited", response.description());
+        }
+
+        response = bot.execute(new StopMessageLiveLocation("AgAAAPrwAQCj_Q4D2s-51_8jsuU"));
+        if (!response.isOk()) {
+            assertEquals(400, response.errorCode());
+            assertEquals("Bad Request: message is not modified", response.description());
         }
     }
 }
