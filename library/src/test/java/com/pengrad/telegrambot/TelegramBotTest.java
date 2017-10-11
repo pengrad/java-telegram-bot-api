@@ -122,7 +122,9 @@ public class TelegramBotTest {
     @Test
     public void unbanChatMember() {
         BaseResponse response = bot.execute(new UnbanChatMember(channelName, chatId));
-        assertTrue(response.isOk());
+        assertFalse(response.isOk());
+        assertEquals(400, response.errorCode());
+        assertEquals("Bad Request: user is an administrator of the chat", response.description());
     }
 
     @Test
@@ -148,6 +150,7 @@ public class TelegramBotTest {
                         .canRestrictMembers(false)
                         .canPinMessages(false)
                         .canPromoteMembers(false));
+        assertTrue(response.isOk());
     }
 
     @Test
@@ -589,7 +592,7 @@ public class TelegramBotTest {
         assertEquals(url, webhookInfo.url());
         assertTrue(webhookInfo.hasCustomCertificate());
         assertEquals(maxConnections, webhookInfo.maxConnections());
-        assertEquals(allowedUpdates, webhookInfo.allowedUpdates());
+        assertArrayEquals(allowedUpdates, webhookInfo.allowedUpdates());
         assertNotNull(webhookInfo.lastErrorDate());
         assertNotNull(webhookInfo.lastErrorMessage());
 
