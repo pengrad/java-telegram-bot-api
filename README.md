@@ -3,20 +3,20 @@
 [![Build Status](https://travis-ci.org/pengrad/java-telegram-bot-api.svg?branch=master)](https://travis-ci.org/pengrad/java-telegram-bot-api)
 [![codecov](https://codecov.io/gh/pengrad/java-telegram-bot-api/branch/master/graph/badge.svg)](https://codecov.io/gh/pengrad/java-telegram-bot-api)  
 
-Full support of all Bot API 3.2 methods with Payment and Gaming Platform
+Full support of all Bot API 3.4 methods with Payment and Gaming Platform
 
 ## Download
 
 Gradle:
 ```groovy
-compile 'com.github.pengrad:java-telegram-bot-api:3.3.0'
+compile 'com.github.pengrad:java-telegram-bot-api:3.4.0'
 ```
 Maven:
 ```xml
 <dependency>
   <groupId>com.github.pengrad</groupId>
   <artifactId>java-telegram-bot-api</artifactId>
-  <version>3.3.0</version>
+  <version>3.4.0</version>
 </dependency>
 ```
 JAR-file:  
