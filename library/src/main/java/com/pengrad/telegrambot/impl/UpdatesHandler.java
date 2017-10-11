@@ -22,6 +22,12 @@ public class UpdatesHandler {
     private TelegramBot bot;
     private UpdatesListener listener;
 
+    private final long sleepTimeout;
+
+    public UpdatesHandler(long sleepTimeout) {
+        this.sleepTimeout = sleepTimeout;
+    }
+
     public void start(TelegramBot bot, UpdatesListener listener, GetUpdates request) {
         this.bot = bot;
         this.listener = listener;
@@ -42,6 +48,7 @@ public class UpdatesHandler {
                 if (listener == null) return;
 
                 if (!response.isOk() || response.updates() == null || response.updates().size() <= 0) {
+                    sleep();
                     getUpdates(request);
                     return;
                 }
@@ -60,6 +67,7 @@ public class UpdatesHandler {
 
             @Override
             public void onFailure(GetUpdates request, IOException e) {
+                sleep();
                 getUpdates(request);
             }
         });
@@ -69,4 +77,11 @@ public class UpdatesHandler {
         return updates.get(updates.size() - 1).updateId();
     }
 
+    private void sleep() {
+        if (sleepTimeout <= 0L) return;
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ignored) {
+        }
+    }
 }
