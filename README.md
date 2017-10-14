@@ -49,12 +49,12 @@ JAR-file:
 ## Creating your bot
 
 ```java
-TelegramBot bot = TelegramBotAdapter.build("BOT_TOKEN");
+TelegramBot bot = new TelegramBot("BOT_TOKEN");
 ```
 Network operations based on OkHttp library.  
 You can build bot with custom OkHttpClient, for specific timeouts or interceptors.
 ```java
-TelegramBot bot = TelegramBotAdapter.buildCustom("BOT_TOKEN", okHttpClient);
+TelegramBot bot = new TelegramBot.Builder("BOT_TOKEN").okHttpClient(client).build();
 ```
 
 ## Making requests
