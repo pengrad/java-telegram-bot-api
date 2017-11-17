@@ -80,7 +80,7 @@ public class UpdatesHandler {
     private void sleep() {
         if (sleepTimeout <= 0L) return;
         try {
-            Thread.sleep(100);
+            Thread.sleep(sleepTimeout);
         } catch (InterruptedException ignored) {
         }
     }
