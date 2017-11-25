@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.request;
 
-import com.google.gson.Gson;
 import com.pengrad.telegrambot.model.request.ShippingOption;
 import com.pengrad.telegrambot.response.BaseResponse;
 
@@ -9,8 +8,6 @@ import com.pengrad.telegrambot.response.BaseResponse;
  * 25 May 2017
  */
 public class AnswerShippingQuery extends BaseRequest<AnswerShippingQuery, BaseResponse> {
-
-    private static Gson gson = new Gson();
 
     public AnswerShippingQuery(String shippingQueryId, ShippingOption... shippingOptions) {
         super(BaseResponse.class);

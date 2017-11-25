@@ -31,6 +31,11 @@ abstract public class BaseRequest<T extends BaseRequest, R extends BaseResponse>
         return thisAsT;
     }
 
+    protected T addAll(Map<String, Object> values) {
+        parameters.putAll(values);
+        return thisAsT;
+    }
+
     public String getMethod() {
         String className = this.getClass().getSimpleName();
         return Character.toLowerCase(className.charAt(0)) + className.substring(1);

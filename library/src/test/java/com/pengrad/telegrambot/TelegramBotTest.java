@@ -41,12 +41,13 @@ public class TelegramBotTest {
     Integer memberBot = 215003245;
 
     Path resourcePath = Paths.get("src/test/resources");
-    String imagefile = resourcePath.resolve("image.png").toString();
     File imageFile = resourcePath.resolve("image.jpg").toFile();
+    byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
     File stickerFile = resourcePath.resolve("imageSticker.png").toFile();
     String audioFile = resourcePath.resolve("beep.mp3").toString();
     String docFile = resourcePath.resolve("doc.txt").toString();
-    String videoFile = resourcePath.resolve("tabs.mp4").toString();
+    File videoFile = resourcePath.resolve("tabs.mp4").toFile();
+    byte[] videoBytes = Files.readAllBytes(videoFile.toPath());
     String videoNoteFile = resourcePath.resolve("video_note.mp4").toString();
     String certificateFile = resourcePath.resolve("cert.pem").toString();
     String someUrl = "http://google.com";
@@ -505,13 +506,12 @@ public class TelegramBotTest {
         MessageTest.checkMessage(message);
         PhotoSizeTest.checkPhotos(false, message.photo());
 
-        message = bot.execute(new SendPhoto(chatId, new File(imagefile))).message();
+        message = bot.execute(new SendPhoto(chatId, imageFile)).message();
         MessageTest.checkMessage(message);
         PhotoSizeTest.checkPhotos(message.photo());
 
-        byte[] bytes = Files.readAllBytes(new File(imagefile).toPath());
         String caption = "caption";
-        message = bot.execute(new SendPhoto(channelName, bytes).caption(caption)).message();
+        message = bot.execute(new SendPhoto(channelName, imageBytes).caption(caption)).message();
         MessageTest.checkMessage(message);
         assertEquals(caption, message.caption());
         PhotoSizeTest.checkPhotos(message.photo());
@@ -523,12 +523,11 @@ public class TelegramBotTest {
         MessageTest.checkMessage(message);
         StickerTest.check(message.sticker(), true, false);
 
-        message = bot.execute(new SendSticker(chatId, new File(imagefile))).message();
+        message = bot.execute(new SendSticker(chatId, imageFile)).message();
         MessageTest.checkMessage(message);
         StickerTest.check(message.sticker(), false, true);
 
-        byte[] bytes = Files.readAllBytes(new File(imagefile).toPath());
-        message = bot.execute(new SendSticker(chatId, bytes)).message();
+        message = bot.execute(new SendSticker(chatId, imageBytes)).message();
         MessageTest.checkMessage(message);
         StickerTest.check(message.sticker(), false, true);
     }
@@ -539,14 +538,13 @@ public class TelegramBotTest {
         MessageTest.checkMessage(message);
         VideoTest.check(message.video(), false);
 
-        message = bot.execute(new SendVideo(chatId, new File(videoFile))).message();
+        message = bot.execute(new SendVideo(chatId, videoFile)).message();
         MessageTest.checkMessage(message);
         VideoTest.check(message.video());
 
-        byte[] bytes = Files.readAllBytes(new File(videoFile).toPath());
         String caption = "my video";
         Integer duration = 100;
-        message = bot.execute(new SendVideo(chatId, bytes).caption(caption).duration(duration).height(1).width(2)).message();
+        message = bot.execute(new SendVideo(chatId, videoBytes).caption(caption).duration(duration).height(1).width(2)).message();
         MessageTest.checkMessage(message);
         assertEquals(caption, message.caption());
 
@@ -981,5 +979,19 @@ public class TelegramBotTest {
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
         assertEquals("Bad Request: can't set channel sticker set", response.description());
+    }
+
+    @Test
+    public void sendMediaGroup() {
+        MessagesResponse response = bot.execute(new SendMediaGroup(chatId,
+                new InputMediaPhoto(photoFileId),
+                new InputMediaPhoto(imageFile).caption("some caption"),
+                new InputMediaPhoto(imageBytes),
+                new InputMediaVideo(videoFileId),
+                new InputMediaVideo(videoFile),
+                new InputMediaVideo(videoBytes).caption("my video").duration(10).width(11).height(12)
+        ));
+        assertTrue(response.isOk());
+        assertEquals(6, response.messages().length);
     }
 }
