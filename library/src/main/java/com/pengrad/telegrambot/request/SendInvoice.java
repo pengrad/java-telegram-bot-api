@@ -15,6 +15,10 @@ public class SendInvoice extends AbstractSendRequest<SendInvoice> {
                 .add("start_parameter", startParameter).add("currency", currency).add("prices", serialize(prices));
     }
 
+    public SendInvoice providerData(String providerData) {
+        return add("provider_data", providerData);
+    }
+
     public SendInvoice photoUrl(String photoUrl) {
         return add("photo_url", photoUrl);
     }

@@ -718,6 +718,7 @@ public class TelegramBotTest {
     public void sendInvoice() {
         SendResponse response = bot.execute(new SendInvoice(chatId, "title", "desc", "my_payload",
                 "284685063:TEST:NThlNWQ3NDk0ZDQ5", "my_start_param", "USD", new LabeledPrice("label", 200))
+                .providerData("{\"foo\" : \"bar\"}")
                 .photoUrl("https://telegram.org/img/t_logo.png").photoSize(100).photoHeight(100).photoWidth(100)
                 .needPhoneNumber(true).needShippingAddress(true).needEmail(true).needName(true)
                 .isFlexible(true)
