@@ -1,13 +1,20 @@
 package com.pengrad.telegrambot;
 
-import com.pengrad.telegrambot.model.*;
+import com.pengrad.telegrambot.model.Animation;
+import com.pengrad.telegrambot.model.CallbackQuery;
+import com.pengrad.telegrambot.model.Message;
+import com.pengrad.telegrambot.model.Update;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.Before;
 import org.junit.Test;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertTrue;
 
@@ -17,47 +24,17 @@ import static org.junit.Assert.assertTrue;
  */
 public class ModelTest {
 
-    private Class[] classes;
+    private Set<Class> classes;
 
     @Before
     public void setClasses() {
-        classes = new Class[]{
-                Animation.class,
-                Audio.class,
-                CallbackQuery.class,
-                Chat.class,
-                ChatMember.class,
-                ChatPhoto.class,
-                ChosenInlineResult.class,
-                Contact.class,
-                Document.class,
-                File.class,
-                Game.class,
-                GameHighScore.class,
-                InlineQuery.class,
-                Invoice.class,
-                Location.class,
-                MaskPosition.class,
-                Message.class,
-                MessageEntity.class,
-                OrderInfo.class,
-                PhotoSize.class,
-                PreCheckoutQuery.class,
-                ResponseParameters.class,
-                ShippingAddress.class,
-                ShippingQuery.class,
-                Sticker.class,
-                StickerSet.class,
-                SuccessfulPayment.class,
-                Update.class,
-                User.class,
-                UserProfilePhotos.class,
-                Venue.class,
-                Video.class,
-                VideoNote.class,
-                Voice.class,
-                WebhookInfo.class
-        };
+        String modelPackage = Animation.class.getPackage().getName();
+        Reflections reflections = new Reflections(modelPackage, new SubTypesScanner(false));
+        Set<Class<?>> allSubPackageClasses = reflections.getSubTypesOf(Object.class);
+        classes = allSubPackageClasses
+                .stream()
+                .filter(c -> c.getPackage().getName().equals(modelPackage))
+                .collect(Collectors.toSet());
     }
 
     @Test

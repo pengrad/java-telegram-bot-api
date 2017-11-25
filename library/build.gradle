@@ -16,6 +16,7 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     testCompile 'nl.jqno.equalsverifier:equalsverifier:2.3'
+    testCompile 'org.reflections:reflections:0.9.11'
 }
 
 jacoco {

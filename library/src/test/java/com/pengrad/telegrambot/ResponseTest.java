@@ -1,13 +1,15 @@
 package com.pengrad.telegrambot;
 
-import com.pengrad.telegrambot.response.*;
+import com.pengrad.telegrambot.response.BaseResponse;
 import org.junit.Before;
 import org.junit.Test;
+import org.reflections.Reflections;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 
@@ -17,25 +19,13 @@ import static org.junit.Assert.assertTrue;
  */
 public class ResponseTest {
 
-    private Class[] classes;
+    private Set<Class<? extends BaseResponse>> classes;
 
     @Before
     public void setClasses() {
-        classes = new Class[]{
-                BaseResponse.class,
-                GetChatAdministratorsResponse.class,
-                GetChatMemberResponse.class,
-                GetChatMembersCountResponse.class,
-                GetChatResponse.class,
-                GetFileResponse.class,
-                GetGameHighScoresResponse.class,
-                GetMeResponse.class,
-                GetUpdatesResponse.class,
-                GetUserProfilePhotosResponse.class,
-                GetWebhookInfoResponse.class,
-                SendResponse.class,
-                StringResponse.class
-        };
+        Reflections reflections = new Reflections(BaseResponse.class.getPackage().getName());
+        classes = reflections.getSubTypesOf(BaseResponse.class);
+        classes.add(BaseResponse.class);
     }
 
     @Test
