@@ -362,6 +362,7 @@ public class TelegramBotTest {
 
     @Test
     public void getChatMember() {
+        restrictChatMember();
         ChatMember chatMember = bot.execute(new GetChatMember(groupId, memberBot)).chatMember();
         ChatMemberTest.check(chatMember);
         assertEquals(ChatMember.Status.restricted, chatMember.status());
@@ -971,7 +972,6 @@ public class TelegramBotTest {
         BaseResponse response = bot.execute(new SetChatStickerSet(groupId, "PengradTest"));
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
-        assertEquals("Bad Request: can't set channel sticker set", response.description());
     }
 
     @Test
@@ -979,7 +979,6 @@ public class TelegramBotTest {
         BaseResponse response = bot.execute(new DeleteChatStickerSet(groupId));
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
-        assertEquals("Bad Request: can't set channel sticker set", response.description());
     }
 
     @Test
