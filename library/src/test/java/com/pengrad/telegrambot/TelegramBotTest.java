@@ -148,6 +148,7 @@ public class TelegramBotTest {
                         .canPostMessages(false)
                         .canEditMessages(false)
                         .canDeleteMessages(false)
+                        .canInviteUsers(false)
                         .canRestrictMembers(false)
                         .canPinMessages(false)
                         .canPromoteMembers(false));

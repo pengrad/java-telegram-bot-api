@@ -29,6 +29,10 @@ public class PromoteChatMember extends BaseRequest<PromoteChatMember, BaseRespon
         return add("can_delete_messages", canDeleteMessages);
     }
 
+    public PromoteChatMember canInviteUsers(boolean canInviteUsers) {
+        return add("can_invite_users", canInviteUsers);
+    }
+
     public PromoteChatMember canRestrictMembers(boolean canRestrictMembers) {
         return add("can_restrict_members", canRestrictMembers);
     }
