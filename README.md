@@ -9,14 +9,14 @@ Full support of all Bot API 3.5 methods with Payment and Gaming Platform
 
 Gradle:
 ```groovy
-compile 'com.github.pengrad:java-telegram-bot-api:3.5.0'
+compile 'com.github.pengrad:java-telegram-bot-api:3.5.1'
 ```
 Maven:
 ```xml
 <dependency>
   <groupId>com.github.pengrad</groupId>
   <artifactId>java-telegram-bot-api</artifactId>
-  <version>3.5.0</version>
+  <version>3.5.1</version>
 </dependency>
 ```
 JAR-file:  
