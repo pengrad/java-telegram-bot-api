@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.model.MaskPosition;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -13,5 +14,9 @@ public class AddStickerToSet extends AbstractUploadRequest<AddStickerToSet, Base
         add("user_id", userId);
         add("name", name);
         add("emojis", emojis);
+    }
+
+    public AddStickerToSet maskPosition(MaskPosition maskPosition) {
+        return add("mask_position", serialize(maskPosition));
     }
 }

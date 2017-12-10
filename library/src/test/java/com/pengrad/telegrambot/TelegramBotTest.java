@@ -908,7 +908,8 @@ public class TelegramBotTest {
     @Test
     public void addStickerToSet() {
         BaseResponse response = bot.execute(
-                new AddStickerToSet(chatId, stickerSet, "BQADAgADuAAD7yupS4eB23UmZhGuAg", "\uD83D\uDE15"));
+                new AddStickerToSet(chatId, stickerSet, "BQADAgADuAAD7yupS4eB23UmZhGuAg", "\uD83D\uDE15")
+                        .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f)));
         assertTrue(response.isOk());
     }
 
