@@ -179,15 +179,15 @@ public class TelegramBotTest {
     public void editMessageCaption() {
         String text = "Update " + System.currentTimeMillis();
 
-        BaseResponse response = bot.execute(new EditMessageCaption(chatId, 8124, text)
+        BaseResponse response = bot.execute(new EditMessageCaption(chatId, 8124)
                 .caption(text)
                 .replyMarkup(new InlineKeyboardMarkup()));
         assertTrue(response.isOk());
 
-        response = bot.execute(new EditMessageCaption(channelName, 511, text).caption(text));
+        response = bot.execute(new EditMessageCaption(channelName, 511).caption(text));
         assertTrue(response.isOk());
 
-        response = bot.execute(new EditMessageCaption("AgAAAPrwAQCj_Q4D2s-51_8jsuU", "").caption(text));
+        response = bot.execute(new EditMessageCaption("AgAAAPrwAQCj_Q4D2s-51_8jsuU").caption(text));
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: MESSAGE_ID_INVALID", response.description());
@@ -204,13 +204,13 @@ public class TelegramBotTest {
         InlineKeyboardMarkup gameKeyboard = new InlineKeyboardMarkup(new InlineKeyboardButton[]{
                 new InlineKeyboardButton(text).callbackGame("test game")});
 
-        BaseResponse response = bot.execute(new EditMessageReplyMarkup(chatId, 8124, text).replyMarkup(keyboard));
+        BaseResponse response = bot.execute(new EditMessageReplyMarkup(chatId, 8124).replyMarkup(keyboard));
         assertTrue(response.isOk());
 
-        response = bot.execute(new EditMessageReplyMarkup(channelName, 511, text).replyMarkup(keyboard));
+        response = bot.execute(new EditMessageReplyMarkup(channelName, 511).replyMarkup(keyboard));
         assertTrue(response.isOk());
 
-        response = bot.execute(new EditMessageReplyMarkup("AgAAAPrwAQCj_Q4D2s-51_8jsuU", "").replyMarkup(gameKeyboard));
+        response = bot.execute(new EditMessageReplyMarkup("AgAAAPrwAQCj_Q4D2s-51_8jsuU").replyMarkup(gameKeyboard));
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: MESSAGE_ID_INVALID", response.description());

@@ -10,14 +10,30 @@ import com.pengrad.telegrambot.response.SendResponse;
  */
 public class EditMessageReplyMarkup extends BaseRequest<EditMessageReplyMarkup, BaseResponse> {
 
-    public EditMessageReplyMarkup(Object chatId, int messageId, String text) {
+    public EditMessageReplyMarkup(Object chatId, int messageId) {
         super(SendResponse.class);
-        add("chat_id", chatId).add("message_id", messageId).add("text", text);
+        add("chat_id", chatId).add("message_id", messageId);
     }
 
-    public EditMessageReplyMarkup(String inlineMessageId, String text) {
+    public EditMessageReplyMarkup(String inlineMessageId) {
         super(BaseResponse.class);
-        add("inline_message_id", inlineMessageId).add("text", text);
+        add("inline_message_id", inlineMessageId);
+    }
+
+    /**
+     * @deprecated Use EditMessageReplyMarkup(Object chatId, int messageId)
+     */
+    @Deprecated
+    public EditMessageReplyMarkup(Object chatId, int messageId, String text) {
+        this(chatId, messageId);
+    }
+
+    /**
+     * @deprecated Use EditMessageReplyMarkup(String inlineMessageId)
+     */
+    @Deprecated
+    public EditMessageReplyMarkup(String inlineMessageId, String text) {
+        this(inlineMessageId);
     }
 
     public EditMessageReplyMarkup replyMarkup(InlineKeyboardMarkup replyMarkup) {

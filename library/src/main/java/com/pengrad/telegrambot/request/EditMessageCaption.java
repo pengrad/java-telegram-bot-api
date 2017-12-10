@@ -10,14 +10,30 @@ import com.pengrad.telegrambot.response.SendResponse;
  */
 public class EditMessageCaption extends BaseRequest<EditMessageCaption, BaseResponse> {
 
-    public EditMessageCaption(Object chatId, int messageId, String text) {
+    public EditMessageCaption(Object chatId, int messageId) {
         super(SendResponse.class);
-        add("chat_id", chatId).add("message_id", messageId).add("text", text);
+        add("chat_id", chatId).add("message_id", messageId);
     }
 
-    public EditMessageCaption(String inlineMessageId, String text) {
+    public EditMessageCaption(String inlineMessageId) {
         super(BaseResponse.class);
-        add("inline_message_id", inlineMessageId).add("text", text);
+        add("inline_message_id", inlineMessageId);
+    }
+
+    /**
+     * @deprecated Use EditMessageCaption(Object chatId, int messageId)
+     */
+    @Deprecated
+    public EditMessageCaption(Object chatId, int messageId, String text) {
+        this(chatId, messageId);
+    }
+
+    /**
+     * @deprecated Use EditMessageCaption(String inlineMessageId)
+     */
+    @Deprecated
+    public EditMessageCaption(String inlineMessageId, String text) {
+        this(inlineMessageId);
     }
 
     public EditMessageCaption caption(String caption) {
