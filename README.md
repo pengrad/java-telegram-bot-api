@@ -338,14 +338,14 @@ class GetChatAdministratorsResponse  {
 GetChatMembersCount
 ```java
 class GetChatMembersCountResponse  { 
-  ChatMember chatMember() 
+  int count() 
 }
 ```
 
 GetChatMember
 ```java
 class GetChatMemberResponse  {
-  int count() 
+  ChatMember chatMember() 
 }
 ```
 
