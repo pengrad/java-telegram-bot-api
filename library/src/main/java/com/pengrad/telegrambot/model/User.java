@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -62,13 +64,13 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", is_bot=" + is_bot +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", username='" + username + '\'' +
-                ", language_code='" + language_code + '\'' +
-                '}';
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("is_bot", is_bot)
+                .append("first_name", first_name)
+                .append("last_name", last_name)
+                .append("username", username)
+                .append("language_code", language_code)
+                .toString();
     }
 }

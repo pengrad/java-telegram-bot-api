@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -41,9 +43,9 @@ public class UserProfilePhotos implements Serializable {
 
     @Override
     public String toString() {
-        return "UserProfilePhotos{" +
-                "total_count=" + total_count +
-                ", photos=" + Arrays.deepToString(photos) +
-                '}';
+        return new ToStringBuilder(this)
+                .append("total_count", total_count)
+                .append("photos", photos)
+                .toString();
     }
 }

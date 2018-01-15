@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -47,10 +49,10 @@ public class GameHighScore implements Serializable {
 
     @Override
     public String toString() {
-        return "GameHighScore{" +
-                "position=" + position +
-                ", user=" + user +
-                ", score=" + score +
-                '}';
+        return new ToStringBuilder(this)
+                .append("position", position)
+                .append("user", user)
+                .append("score", score)
+                .toString();
     }
 }

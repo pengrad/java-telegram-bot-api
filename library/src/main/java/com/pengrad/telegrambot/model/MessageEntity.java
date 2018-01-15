@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -66,12 +68,12 @@ public class MessageEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "MessageEntity{" +
-                "type=" + type +
-                ", offset=" + offset +
-                ", length=" + length +
-                ", url='" + url + '\'' +
-                ", user=" + user +
-                '}';
+        return new ToStringBuilder(this)
+                .append("type", type)
+                .append("offset", offset)
+                .append("length", length)
+                .append("url", url)
+                .append("user", user)
+                .toString();
     }
 }

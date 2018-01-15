@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -55,11 +57,11 @@ public class Venue implements Serializable {
 
     @Override
     public String toString() {
-        return "Venue{" +
-                "location=" + location +
-                ", title='" + title + '\'' +
-                ", address='" + address + '\'' +
-                ", foursquare_id='" + foursquare_id + '\'' +
-                '}';
+        return  new ToStringBuilder(this)
+                .append("location", location)
+                .append("title", title)
+                .append("address", address)
+                .append("foursquare_id", foursquare_id)
+                .toString();
     }
 }

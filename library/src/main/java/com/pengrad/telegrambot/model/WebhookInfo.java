@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -82,14 +84,14 @@ public class WebhookInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "WebhookInfo{" +
-                "url='" + url + '\'' +
-                ", has_custom_certificate=" + has_custom_certificate +
-                ", pending_update_count=" + pending_update_count +
-                ", last_error_date=" + last_error_date +
-                ", last_error_message='" + last_error_message + '\'' +
-                ", max_connections=" + max_connections +
-                ", allowed_updates=" + Arrays.toString(allowed_updates) +
-                '}';
+        return new ToStringBuilder(this)
+                .append("url", url)
+                .append("has_custom_certificate", has_custom_certificate)
+                .append("pending_update_count", pending_update_count)
+                .append("last_error_date", last_error_date)
+                .append("last_error_message", last_error_message)
+                .append("max_connections", max_connections)
+                .append("allowed_updates", allowed_updates)
+                .toString();
     }
 }

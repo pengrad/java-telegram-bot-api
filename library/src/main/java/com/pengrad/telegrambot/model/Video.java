@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -68,14 +70,14 @@ public class Video implements Serializable {
 
     @Override
     public String toString() {
-        return "Video{" +
-                "file_id='" + file_id + '\'' +
-                ", width=" + width +
-                ", height=" + height +
-                ", duration=" + duration +
-                ", thumb=" + thumb +
-                ", mime_type='" + mime_type + '\'' +
-                ", file_size=" + file_size +
-                '}';
+        return new ToStringBuilder(this)
+                .append("file_id", file_id)
+                .append("width", width)
+                .append("height", height)
+                .append("duration", duration)
+                .append("thumb", thumb)
+                .append("mime_type", mime_type)
+                .append("file_size", file_size)
+                .toString();
     }
 }

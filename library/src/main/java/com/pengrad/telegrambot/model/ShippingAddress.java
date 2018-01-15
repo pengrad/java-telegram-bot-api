@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -64,13 +66,13 @@ public class ShippingAddress implements Serializable {
 
     @Override
     public String toString() {
-        return "ShippingAddress{" +
-                "country_code='" + country_code + '\'' +
-                ", state='" + state + '\'' +
-                ", city='" + city + '\'' +
-                ", street_line1='" + street_line1 + '\'' +
-                ", street_line2='" + street_line2 + '\'' +
-                ", post_code='" + post_code + '\'' +
-                '}';
+        return new ToStringBuilder(this)
+                .append("country_code", country_code)
+                .append("state", state)
+                .append("city", city)
+                .append("street_line1", street_line1)
+                .append("street_line2", street_line2)
+                .append("post_code", post_code)
+                .toString();
     }
 }

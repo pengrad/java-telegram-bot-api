@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -50,11 +52,11 @@ public class PhotoSize implements Serializable {
 
     @Override
     public String toString() {
-        return "PhotoSize{" +
-                "file_id='" + file_id + '\'' +
-                ", width=" + width +
-                ", height=" + height +
-                ", file_size=" + file_size +
-                '}';
+        return new ToStringBuilder(this)
+                .append("file_id", file_id)
+                .append("width", width)
+                .append("height", height)
+                .append("file_size", file_size)
+                .toString();
     }
 }

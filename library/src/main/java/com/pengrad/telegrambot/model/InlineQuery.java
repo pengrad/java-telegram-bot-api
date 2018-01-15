@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -57,12 +59,12 @@ public class InlineQuery implements Serializable {
 
     @Override
     public String toString() {
-        return "InlineQuery{" +
-                "id='" + id + '\'' +
-                ", from=" + from +
-                ", location=" + location +
-                ", query='" + query + '\'' +
-                ", offset='" + offset + '\'' +
-                '}';
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("from", from)
+                .append("location", location)
+                .append("query", query)
+                .append("offset", offset)
+                .toString();
     }
 }

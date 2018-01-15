@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -41,9 +43,9 @@ public class ChatPhoto implements Serializable {
 
     @Override
     public String toString() {
-        return "ChatPhoto{" +
-                "small_file_id='" + small_file_id + '\'' +
-                ", big_file_id='" + big_file_id + '\'' +
-                '}';
+        return new ToStringBuilder(this)
+                .append("small_file_id", small_file_id)
+                .append("big_file_id", big_file_id)
+                .toString();
     }
 }
