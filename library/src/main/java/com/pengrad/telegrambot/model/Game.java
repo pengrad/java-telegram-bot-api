@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -72,13 +74,13 @@ public class Game implements Serializable {
 
     @Override
     public String toString() {
-        return "Game{" +
-                "title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", photo=" + Arrays.toString(photo) +
-                ", text='" + text + '\'' +
-                ", text_entities=" + Arrays.toString(text_entities) +
-                ", animation=" + animation +
-                '}';
+        return new ToStringBuilder(this)
+                .append("title", title)
+                .append("description", description)
+                .append("photo", photo)
+                .append("text", text)
+                .append("text_enitities", text_entities)
+                .append("animation", animation)
+                .toString();
     }
 }

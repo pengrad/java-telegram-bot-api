@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -51,11 +53,11 @@ public class ShippingQuery implements Serializable {
 
     @Override
     public String toString() {
-        return "ShippingQuery{" +
-                "id='" + id + '\'' +
-                ", from=" + from +
-                ", invoice_payload='" + invoice_payload + '\'' +
-                ", shipping_address=" + shipping_address +
-                '}';
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("from", from)
+                .append("invoice_payload", invoice_payload)
+                .append("shipping_address", shipping_address)
+                .toString();
     }
 }

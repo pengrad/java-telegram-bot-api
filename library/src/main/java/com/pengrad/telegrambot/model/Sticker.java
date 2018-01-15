@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -74,15 +76,15 @@ public class Sticker implements Serializable {
 
     @Override
     public String toString() {
-        return "Sticker{" +
-                "file_id='" + file_id + '\'' +
-                ", width=" + width +
-                ", height=" + height +
-                ", thumb=" + thumb +
-                ", emoji='" + emoji + '\'' +
-                ", set_name='" + set_name + '\'' +
-                ", mask_position=" + mask_position +
-                ", file_size=" + file_size +
-                '}';
+        return new ToStringBuilder(this)
+                .append("file_id", file_id)
+                .append("width", width)
+                .append("height", height)
+                .append("thumb", thumb)
+                .append("emoji", emoji)
+                .append("set_name", set_name)
+                .append("mask_position", mask_position)
+                .append("file_size", file_size)
+                .toString();
     }
 }

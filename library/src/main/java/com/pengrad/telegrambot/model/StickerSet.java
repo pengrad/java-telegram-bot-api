@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -56,11 +58,11 @@ public class StickerSet implements Serializable {
 
     @Override
     public String toString() {
-        return "StickerSet{" +
-                "name='" + name + '\'' +
-                ", title='" + title + '\'' +
-                ", contains_masks=" + contains_masks +
-                ", stickers=" + Arrays.toString(stickers) +
-                '}';
+        return new ToStringBuilder(this)
+                .append("name", name)
+                .append("title", title)
+                .append("contains_masks", contains_masks)
+                .append("stickers", stickers)
+                .toString();
     }
 }

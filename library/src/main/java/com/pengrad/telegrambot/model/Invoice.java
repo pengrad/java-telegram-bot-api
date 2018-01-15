@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -59,12 +61,12 @@ public class Invoice implements Serializable {
 
     @Override
     public String toString() {
-        return "Invoice{" +
-                "title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", start_parameter='" + start_parameter + '\'' +
-                ", currency='" + currency + '\'' +
-                ", total_amount=" + total_amount +
-                '}';
+        return new ToStringBuilder(this)
+                .append("title", title)
+                .append("description", description)
+                .append("start_parameter", start_parameter)
+                .append("currency", currency)
+                .append("total_amount", total_amount)
+                .toString();
     }
 }

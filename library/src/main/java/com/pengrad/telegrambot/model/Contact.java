@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -51,11 +53,11 @@ public class Contact implements Serializable {
 
     @Override
     public String toString() {
-        return "Contact{" +
-                "phone_number='" + phone_number + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", user_id=" + user_id +
-                '}';
+        return new ToStringBuilder(this)
+                .append("phone_number", phone_number)
+                .append("first_name", first_name)
+                .append("last_name", last_name)
+                .append("user_id", user_id)
+                .toString();
     }
 }

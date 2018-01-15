@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -297,48 +299,48 @@ public class Message implements Serializable {
 
     @Override
     public String toString() {
-        return "Message{" +
-                "message_id=" + message_id +
-                ", from=" + from +
-                ", date=" + date +
-                ", chat=" + chat +
-                ", forward_from=" + forward_from +
-                ", forward_from_chat=" + forward_from_chat +
-                ", forward_from_message_id=" + forward_from_message_id +
-                ", forward_signature='" + forward_signature + '\'' +
-                ", forward_date=" + forward_date +
-                ", reply_to_message=" + reply_to_message +
-                ", edit_date=" + edit_date +
-                ", author_signature='" + author_signature + '\'' +
-                ", text='" + text + '\'' +
-                ", entities=" + Arrays.toString(entities) +
-                ", caption_entities=" + Arrays.toString(caption_entities) +
-                ", audio=" + audio +
-                ", document=" + document +
-                ", game=" + game +
-                ", photo=" + Arrays.toString(photo) +
-                ", sticker=" + sticker +
-                ", video=" + video +
-                ", voice=" + voice +
-                ", video_note=" + video_note +
-                ", new_chat_members=" + Arrays.toString(new_chat_members) +
-                ", caption='" + caption + '\'' +
-                ", contact=" + contact +
-                ", location=" + location +
-                ", venue=" + venue +
-                ", new_chat_member=" + new_chat_member +
-                ", left_chat_member=" + left_chat_member +
-                ", new_chat_title='" + new_chat_title + '\'' +
-                ", new_chat_photo=" + Arrays.toString(new_chat_photo) +
-                ", delete_chat_photo=" + delete_chat_photo +
-                ", group_chat_created=" + group_chat_created +
-                ", supergroup_chat_created=" + supergroup_chat_created +
-                ", channel_chat_created=" + channel_chat_created +
-                ", migrate_to_chat_id=" + migrate_to_chat_id +
-                ", migrate_from_chat_id=" + migrate_from_chat_id +
-                ", pinned_message=" + pinned_message +
-                ", invoice=" + invoice +
-                ", successful_payment=" + successful_payment +
-                '}';
+        return new ToStringBuilder(this)
+                .append("message_id", message_id)
+                .append("from", from)
+                .append("date", date)
+                .append("chat", chat)
+                .append("forward_from", forward_from)
+                .append("forward_from_chat", forward_from_chat)
+                .append("forward_from_message_id", forward_from_message_id)
+                .append("forward_signature", forward_signature)
+                .append("forward_date", forward_date)
+                .append("reply_to_message", reply_to_message)
+                .append("edit_date", edit_date)
+                .append("author_signature", author_signature)
+                .append("text", text)
+                .append("entities", entities)
+                .append("caption_entities", caption_entities)
+                .append("audio", audio)
+                .append("document", document)
+                .append("game", game)
+                .append("photo", photo)
+                .append("sticker", sticker)
+                .append("video", video)
+                .append("voice", voice)
+                .append("video_note", video_note)
+                .append("new_chat_members", new_chat_members)
+                .append("caption", caption)
+                .append("contact", contact)
+                .append("location", location)
+                .append("venue", venue)
+                .append("new_chat_member", new_chat_member)
+                .append("left_chat_member", left_chat_member)
+                .append("new_chat_title", new_chat_title)
+                .append("new_chat_photo", new_chat_photo)
+                .append("delete_chat_photo", delete_chat_photo)
+                .append("group_chat_created", group_chat_created)
+                .append("supergroup_chat_created", supergroup_chat_created)
+                .append("channel_chat_created", channel_chat_created)
+                .append("migrate_to_chat_id", migrate_to_chat_id)
+                .append("migrate_from_chat_id", migrate_from_chat_id)
+                .append("pinned_message", pinned_message)
+                .append("invoice", invoice)
+                .append("successful_payment", successful_payment)
+                .toString();
     }
 }

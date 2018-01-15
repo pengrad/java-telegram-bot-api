@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import com.google.gson.Gson;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 
@@ -74,11 +75,11 @@ public class MaskPosition implements Serializable {
 
     @Override
     public String toString() {
-        return "MaskPosition{" +
-                "point='" + point + '\'' +
-                ", x_shift=" + x_shift +
-                ", y_shift=" + y_shift +
-                ", scale=" + scale +
-                '}';
+        return new ToStringBuilder(this)
+                .append("point", point)
+                .append("x_shift", x_shift)
+                .append("y_shift", y_shift)
+                .append("scale", scale)
+                .toString();
     }
 }

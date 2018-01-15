@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -69,14 +71,14 @@ public class CallbackQuery implements Serializable {
 
     @Override
     public String toString() {
-        return "CallbackQuery{" +
-                "id='" + id + '\'' +
-                ", from=" + from +
-                ", message=" + message +
-                ", inline_message_id='" + inline_message_id + '\'' +
-                ", chat_instance='" + chat_instance + '\'' +
-                ", data='" + data + '\'' +
-                ", game_short_name='" + game_short_name + '\'' +
-                '}';
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("from", from)
+                .append("message", message)
+                .append("inline_message_id", inline_message_id)
+                .append("chat_instance", chat_instance)
+                .append("data", data)
+                .append("game_short_name", game_short_name)
+                .toString();
     }
 }

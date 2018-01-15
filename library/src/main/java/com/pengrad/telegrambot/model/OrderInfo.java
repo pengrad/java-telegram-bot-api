@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -53,11 +55,11 @@ public class OrderInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "OrderInfo{" +
-                "name='" + name + '\'' +
-                ", phone_number='" + phone_number + '\'' +
-                ", email='" + email + '\'' +
-                ", shipping_address=" + shipping_address +
-                '}';
+        return new ToStringBuilder(this)
+                .append("name", name)
+                .append("phone_number", phone_number)
+                .append("email", email)
+                .append("shipping_address", shipping_address)
+                .toString();
     }
 }

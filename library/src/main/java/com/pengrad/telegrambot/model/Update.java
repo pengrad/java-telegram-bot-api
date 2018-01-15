@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -91,17 +93,17 @@ public class Update implements Serializable {
 
     @Override
     public String toString() {
-        return "Update{" +
-                "update_id=" + update_id +
-                ", message=" + message +
-                ", edited_message=" + edited_message +
-                ", channel_post=" + channel_post +
-                ", edited_channel_post=" + edited_channel_post +
-                ", inline_query=" + inline_query +
-                ", chosen_inline_result=" + chosen_inline_result +
-                ", callback_query=" + callback_query +
-                ", shipping_query=" + shipping_query +
-                ", pre_checkout_query=" + pre_checkout_query +
-                '}';
+        return new ToStringBuilder(this)
+                .append("update_id", update_id)
+                .append("message", message)
+                .append("edited_message", edited_message)
+                .append("channel_post", channel_post)
+                .append("edited_channel_post", edited_channel_post)
+                .append("inline_query", inline_query)
+                .append("chosen_inline_result", chosen_inline_result)
+                .append("callback_query", callback_query)
+                .append("shipping_query", shipping_query)
+                .append("pre_checkout_query", pre_checkout_query)
+                .toString();
     }
 }

@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -58,12 +60,12 @@ public class ChosenInlineResult implements Serializable {
 
     @Override
     public String toString() {
-        return "ChosenInlineResult{" +
-                "result_id='" + result_id + '\'' +
-                ", from=" + from +
-                ", location=" + location +
-                ", inline_message_id='" + inline_message_id + '\'' +
-                ", query='" + query + '\'' +
-                '}';
+        return new ToStringBuilder(this)
+                .append("result_id", result_id)
+                .append("from", from)
+                .append("location", location)
+                .append("inline_message_id", inline_message_id)
+                .append("query", query)
+                .toString();
     }
 }

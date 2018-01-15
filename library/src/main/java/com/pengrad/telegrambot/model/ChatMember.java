@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -154,23 +156,23 @@ public class ChatMember implements Serializable {
 
     @Override
     public String toString() {
-        return "ChatMember{" +
-                "user=" + user +
-                ", status=" + status +
-                ", until_date=" + until_date +
-                ", can_be_edited=" + can_be_edited +
-                ", can_change_info=" + can_change_info +
-                ", can_post_messages=" + can_post_messages +
-                ", can_edit_messages=" + can_edit_messages +
-                ", can_delete_messages=" + can_delete_messages +
-                ", can_invite_users=" + can_invite_users +
-                ", can_restrict_members=" + can_restrict_members +
-                ", can_pin_messages=" + can_pin_messages +
-                ", can_promote_members=" + can_promote_members +
-                ", can_send_messages=" + can_send_messages +
-                ", can_send_media_messages=" + can_send_media_messages +
-                ", can_send_other_messages=" + can_send_other_messages +
-                ", can_add_web_page_previews=" + can_add_web_page_previews +
-                '}';
+        return new ToStringBuilder(this)
+                .append("user", user)
+                .append("status", status)
+                .append("until_date", until_date)
+                .append("can_be_edited", can_be_edited)
+                .append("can_change_info", can_change_info)
+                .append("can_post_messages", can_post_messages)
+                .append("can_edit_messages", can_edit_messages)
+                .append("can_delete_messages", can_delete_messages)
+                .append("can_invite_users", can_invite_users)
+                .append("can_restrict_members", can_restrict_members)
+                .append("can_pin_messages", can_pin_messages)
+                .append("can_promote_members", can_promote_members)
+                .append("can_send_messages", can_send_messages)
+                .append("can_send_media_messages", can_send_media_messages)
+                .append("can_send_other_messages", can_send_other_messages)
+                .append("can_add_web_page_previews", can_add_web_page_previews)
+                .toString();
     }
 }

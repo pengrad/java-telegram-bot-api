@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -40,9 +42,9 @@ public class Location implements Serializable {
 
     @Override
     public String toString() {
-        return "Location{" +
-                "longitude=" + longitude +
-                ", latitude=" + latitude +
-                '}';
+        return new ToStringBuilder(this)
+                .append("longitude", longitude)
+                .append("latitude", latitude)
+                .toString();
     }
 }

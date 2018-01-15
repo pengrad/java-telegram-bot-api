@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -79,14 +81,14 @@ public class SuccessfulPayment implements Serializable {
 
     @Override
     public String toString() {
-        return "SuccessfulPayment{" +
-                "currency='" + currency + '\'' +
-                ", total_amount=" + total_amount +
-                ", invoice_payload='" + invoice_payload + '\'' +
-                ", shipping_option_id='" + shipping_option_id + '\'' +
-                ", order_info=" + order_info +
-                ", telegram_payment_charge_id='" + telegram_payment_charge_id + '\'' +
-                ", provider_payment_charge_id='" + provider_payment_charge_id + '\'' +
-                '}';
+        return new ToStringBuilder(this)
+                .append("currency", currency)
+                .append("total_amount", total_amount)
+                .append("invoice_payload", invoice_payload)
+                .append("shipping_option_id", shipping_option_id)
+                .append("order_info", order_info)
+                .append("telegram_payment_charge_id", telegram_payment_charge_id)
+                .append("provider_payment_charge_id", provider_payment_charge_id)
+                .toString();
     }
 }

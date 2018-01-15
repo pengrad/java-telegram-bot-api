@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -62,13 +64,13 @@ public class Audio implements Serializable {
 
     @Override
     public String toString() {
-        return "Audio{" +
-                "file_id='" + file_id + '\'' +
-                ", duration=" + duration +
-                ", performer='" + performer + '\'' +
-                ", title='" + title + '\'' +
-                ", mime_type='" + mime_type + '\'' +
-                ", file_size=" + file_size +
-                '}';
+        return new ToStringBuilder(this)
+                .append("file_id", file_id)
+                .append("duration", duration)
+                .append("performer", performer)
+                .append("title", title)
+                .append("mime_type", mime_type)
+                .append("file_size", file_size)
+                .toString();
     }
 }

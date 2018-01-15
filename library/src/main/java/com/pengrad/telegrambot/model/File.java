@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -44,10 +46,10 @@ public class File implements Serializable {
 
     @Override
     public String toString() {
-        return "File{" +
-                "file_id='" + file_id + '\'' +
-                ", file_size=" + file_size +
-                ", file_path='" + file_path + '\'' +
-                '}';
+        return new ToStringBuilder(this)
+                .append("file_id", file_id)
+                .append("file_size", file_size)
+                .append("file_path", file_path)
+                .toString();
     }
 }

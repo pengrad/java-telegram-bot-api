@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -41,9 +43,9 @@ public class ResponseParameters implements Serializable {
 
     @Override
     public String toString() {
-        return "ResponseParameters{" +
-                "migrate_to_chat_id=" + migrate_to_chat_id +
-                ", retry_after=" + retry_after +
-                '}';
+        return new ToStringBuilder(this)
+                .append("migrate_to_chat_id", migrate_to_chat_id)
+                .append("retry_after", retry_after)
+                .toString();
     }
 }

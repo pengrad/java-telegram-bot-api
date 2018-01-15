@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 
@@ -120,20 +121,20 @@ public class Chat implements Serializable {
 
     @Override
     public String toString() {
-        return "Chat{" +
-                "id=" + id +
-                ", type=" + type +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", username='" + username + '\'' +
-                ", title='" + title + '\'' +
-                ", all_members_are_administrators=" + all_members_are_administrators +
-                ", photo=" + photo +
-                ", description='" + description + '\'' +
-                ", invite_link='" + invite_link + '\'' +
-                ", pinned_message=" + pinned_message +
-                ", sticker_set_name='" + sticker_set_name + '\'' +
-                ", can_set_sticker_set=" + can_set_sticker_set +
-                '}';
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("type", type)
+                .append("first_name", first_name)
+                .append("last_name", last_name)
+                .append("username", username)
+                .append("title", title)
+                .append("all_members_are_administrators", all_members_are_administrators)
+                .append("photo", photo)
+                .append("description", description)
+                .append("invite_link", invite_link)
+                .append("pinned_message", pinned_message)
+                .append("sticker_set_name", sticker_set_name)
+                .append("can_set_sticker_set", can_set_sticker_set)
+                .toString();
     }
 }

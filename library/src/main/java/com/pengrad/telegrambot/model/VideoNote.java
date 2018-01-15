@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -56,12 +58,12 @@ public class VideoNote implements Serializable {
 
     @Override
     public String toString() {
-        return "VideoNote{" +
-                "file_id='" + file_id + '\'' +
-                ", length=" + length +
-                ", duration=" + duration +
-                ", thumb=" + thumb +
-                ", file_size=" + file_size +
-                '}';
+        return new ToStringBuilder(this)
+                .append("file_id", file_id)
+                .append("length", length)
+                .append("duration", duration)
+                .append("thumb", thumb)
+                .append("file_size", file_size)
+                .toString();
     }
 }

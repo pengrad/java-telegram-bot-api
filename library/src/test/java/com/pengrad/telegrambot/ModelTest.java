@@ -13,6 +13,7 @@ import org.reflections.scanners.SubTypesScanner;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,8 @@ import static org.junit.Assert.assertTrue;
 public class ModelTest {
 
     private Set<Class> classes;
+
+    private Random random = new Random();
 
     @Before
     public void setClasses() {
@@ -65,14 +68,41 @@ public class ModelTest {
                     .verify();
         }
     }
+    private Object getRandomValueForField(Field field) throws IllegalAccessException, InstantiationException {
+        Class<?> type = field.getType();
+
+        if (type.isEnum()) {
+            Object[] enumValues = type.getEnumConstants();
+            return enumValues[random.nextInt(enumValues.length)];
+        } else if (type.equals(Integer.TYPE) || type.equals(Integer.class)) {
+            return random.nextInt();
+        } else if (type.equals(Long.TYPE) || type.equals(Long.class)) {
+            return random.nextLong();
+        } else if (type.equals(Double.TYPE) || type.equals(Double.class)) {
+            return random.nextDouble();
+        } else if (type.equals(Float.TYPE) || type.equals(Float.class)) {
+            return random.nextFloat();
+        } else if (type.equals(Boolean.class)) {
+            return random.nextBoolean();
+        }
+        return type.newInstance();
+    }
 
     @Test
     public void testToString() throws IllegalAccessException, InstantiationException {
         for (Class c : classes) {
-            String toString = c.newInstance().toString();
+            Object instance = c.newInstance();
+            String toString = instance.toString();
             for (Field f : c.getDeclaredFields()) {
                 if (Modifier.isStatic(f.getModifiers())) {
                     continue;
+                }
+                if (classes.contains(f.getType()) || f.getType().isArray()) {
+                    continue;
+                }
+                f.setAccessible(true);
+                if (f.get(instance) == null) {
+                    f.set(instance, getRandomValueForField(f));
                 }
                 assertTrue(c.getSimpleName() + " toString doesn't contain " + f.getName(), toString.contains(f.getName()));
             }
