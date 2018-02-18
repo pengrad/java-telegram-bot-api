@@ -42,6 +42,10 @@ public class SendVideo extends AbstractMultipartRequest<SendVideo> {
         return add("parse_mode", parseMode.name());
     }
 
+    public SendVideo supportsStreaming(boolean supportsStreaming) {
+        return add("supports_streaming", supportsStreaming);
+    }
+
     @Override
     protected String getFileParamName() {
         return "video";

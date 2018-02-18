@@ -576,7 +576,9 @@ public class TelegramBotTest {
         String caption = "caption <b>bold</b>";
         Integer duration = 100;
         message = bot.execute(
-                new SendVideo(chatId, videoBytes).caption(caption).parseMode(ParseMode.HTML).duration(duration).height(1).width(2))
+                new SendVideo(chatId, videoBytes)
+                        .caption(caption).parseMode(ParseMode.HTML)
+                        .duration(duration).height(1).width(2).supportsStreaming(true))
                 .message();
         MessageTest.checkMessage(message);
         assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
@@ -1033,7 +1035,7 @@ public class TelegramBotTest {
                 new InputMediaVideo(videoFileId),
                 new InputMediaVideo(videoFile),
                 new InputMediaVideo(videoBytes).caption("my video <b>bold</b>").parseMode(ParseMode.HTML)
-                        .duration(10).width(11).height(12)
+                        .duration(10).width(11).height(12).supportsStreaming(true)
         ));
         assertTrue(response.isOk());
         assertEquals(6, response.messages().length);

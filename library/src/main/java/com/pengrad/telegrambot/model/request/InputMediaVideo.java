@@ -11,6 +11,7 @@ public class InputMediaVideo extends InputMedia<InputMediaVideo> implements Seri
     private final static long serialVersionUID = 1L;
 
     private Integer width, height, duration;
+    private Boolean supports_streaming;
 
     public InputMediaVideo(String media) {
         super("video", media);
@@ -36,6 +37,11 @@ public class InputMediaVideo extends InputMedia<InputMediaVideo> implements Seri
 
     public InputMediaVideo duration(Integer duration) {
         this.duration = duration;
+        return this;
+    }
+
+    public InputMediaVideo supportsStreaming(boolean supportsStreaming) {
+        this.supports_streaming = supportsStreaming;
         return this;
     }
 }
