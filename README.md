@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/pengrad/java-telegram-bot-api.svg?branch=master)](https://travis-ci.org/pengrad/java-telegram-bot-api)
 [![codecov](https://codecov.io/gh/pengrad/java-telegram-bot-api/branch/master/graph/badge.svg)](https://codecov.io/gh/pengrad/java-telegram-bot-api)  
 
-Full support of all Bot API 3.5 methods with Payment and Gaming Platform
+Full support of all Bot API 3.6 methods with Payment and Gaming Platform
 
 ## Download
 
