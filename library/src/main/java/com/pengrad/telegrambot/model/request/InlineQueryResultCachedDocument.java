@@ -14,7 +14,7 @@ public class InlineQueryResultCachedDocument extends InlineQueryResult<InlineQue
 
     private String description;
     private String caption;
-
+    private String parse_mode;
 
     public InlineQueryResultCachedDocument(String id, String fileId, String title) {
         super("document", id);
@@ -29,6 +29,11 @@ public class InlineQueryResultCachedDocument extends InlineQueryResult<InlineQue
 
     public InlineQueryResultCachedDocument caption(String caption) {
         this.caption = caption;
+        return this;
+    }
+
+    public InlineQueryResultCachedDocument parseMode(ParseMode parseMode) {
+        this.parse_mode = parseMode.name();
         return this;
     }
 }

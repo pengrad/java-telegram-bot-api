@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.model.request.ParseMode;
+
 import java.io.File;
 
 /**
@@ -22,6 +24,10 @@ public class SendVoice extends AbstractMultipartRequest<SendVoice> {
 
     public SendVoice caption(String caption) {
         return add("caption", caption);
+    }
+
+    public SendVoice parseMode(ParseMode parseMode) {
+        return add("parse_mode", parseMode.name());
     }
 
     public SendVoice duration(int duration) {

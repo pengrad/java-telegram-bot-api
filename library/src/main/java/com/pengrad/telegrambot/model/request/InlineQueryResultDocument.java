@@ -17,6 +17,7 @@ public class InlineQueryResultDocument extends InlineQueryResult<InlineQueryResu
     private String mime_type;
 
     private String caption;
+    private String parse_mode;
     private String description;
     private String thumb_url;
     private Integer thumb_width;
@@ -32,6 +33,11 @@ public class InlineQueryResultDocument extends InlineQueryResult<InlineQueryResu
 
     public InlineQueryResultDocument caption(String caption) {
         this.caption = caption;
+        return this;
+    }
+
+    public InlineQueryResultDocument parseMode(ParseMode parseMode) {
+        this.parse_mode = parseMode.name();
         return this;
     }
 

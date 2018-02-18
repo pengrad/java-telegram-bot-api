@@ -14,7 +14,7 @@ public class InlineQueryResultCachedVideo extends InlineQueryResult<InlineQueryR
 
     private String description;
     private String caption;
-
+    private String parse_mode;
 
     public InlineQueryResultCachedVideo(String id, String fileId, String title) {
         super("video", id);
@@ -29,6 +29,11 @@ public class InlineQueryResultCachedVideo extends InlineQueryResult<InlineQueryR
 
     public InlineQueryResultCachedVideo caption(String caption) {
         this.caption = caption;
+        return this;
+    }
+
+    public InlineQueryResultCachedVideo parseMode(ParseMode parseMode) {
+        this.parse_mode = parseMode.name();
         return this;
     }
 }

@@ -17,6 +17,7 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult<InlineQueryResu
     private Integer mpeg4_duration;
     private String title;
     private String caption;
+    private String parse_mode;
 
     public InlineQueryResultMpeg4Gif(String id, String mpeg4Url, String thumbUrl) {
         super("mpeg4_gif", id);
@@ -46,6 +47,11 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult<InlineQueryResu
 
     public InlineQueryResultMpeg4Gif caption(String caption) {
         this.caption = caption;
+        return this;
+    }
+
+    public InlineQueryResultMpeg4Gif parseMode(ParseMode parseMode) {
+        this.parse_mode = parseMode.name();
         return this;
     }
 }

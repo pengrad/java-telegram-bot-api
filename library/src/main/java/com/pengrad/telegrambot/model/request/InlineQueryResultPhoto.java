@@ -17,6 +17,7 @@ public class InlineQueryResultPhoto extends InlineQueryResult<InlineQueryResultP
     private String title;
     private String description;
     private String caption;
+    private String parse_mode;
 
     public InlineQueryResultPhoto(String id, String photoUrl, String thumbUrl) {
         super("photo", id);
@@ -46,6 +47,11 @@ public class InlineQueryResultPhoto extends InlineQueryResult<InlineQueryResultP
 
     public InlineQueryResultPhoto caption(String caption) {
         this.caption = caption;
+        return this;
+    }
+
+    public InlineQueryResultPhoto parseMode(ParseMode parseMode) {
+        this.parse_mode = parseMode.name();
         return this;
     }
 }

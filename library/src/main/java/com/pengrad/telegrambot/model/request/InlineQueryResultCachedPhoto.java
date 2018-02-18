@@ -14,7 +14,7 @@ public class InlineQueryResultCachedPhoto extends InlineQueryResult<InlineQueryR
     private String title;
     private String description;
     private String caption;
-
+    private String parse_mode;
 
     public InlineQueryResultCachedPhoto(String id, String fileId) {
         super("photo", id);
@@ -33,6 +33,11 @@ public class InlineQueryResultCachedPhoto extends InlineQueryResult<InlineQueryR
 
     public InlineQueryResultCachedPhoto caption(String caption) {
         this.caption = caption;
+        return this;
+    }
+
+    public InlineQueryResultCachedPhoto parseMode(ParseMode parseMode) {
+        this.parse_mode = parseMode.name();
         return this;
     }
 }

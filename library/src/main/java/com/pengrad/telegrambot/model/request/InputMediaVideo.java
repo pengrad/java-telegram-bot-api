@@ -7,10 +7,9 @@ import java.io.Serializable;
  * Stas Parshin
  * 23 November 2017
  */
-public class InputMediaVideo extends InputMedia implements Serializable {
-    private final static long serialVersionUID = 0L;
+public class InputMediaVideo extends InputMedia<InputMediaVideo> implements Serializable {
+    private final static long serialVersionUID = 1L;
 
-    private String caption;
     private Integer width, height, duration;
 
     public InputMediaVideo(String media) {
@@ -23,11 +22,6 @@ public class InputMediaVideo extends InputMedia implements Serializable {
 
     public InputMediaVideo(byte[] media) {
         super("video", media);
-    }
-
-    public InputMediaVideo caption(String caption) {
-        this.caption = caption;
-        return this;
     }
 
     public InputMediaVideo width(Integer width) {

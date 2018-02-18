@@ -177,14 +177,23 @@ public class TelegramBotTest {
 
     @Test
     public void editMessageCaption() {
-        String text = "Update " + System.currentTimeMillis();
+        String text = "Update " + System.currentTimeMillis() + " <b>bold</b>";
 
-        BaseResponse response = bot.execute(new EditMessageCaption(chatId, 8124)
+        SendResponse sendResponse = (SendResponse) bot.execute(new EditMessageCaption(chatId, 8124)
                 .caption(text)
+                .parseMode(ParseMode.HTML)
                 .replyMarkup(new InlineKeyboardMarkup()));
-        assertTrue(response.isOk());
+        assertTrue(sendResponse.isOk());
 
-        response = bot.execute(new EditMessageCaption(channelName, 511).caption(text));
+        Message message = sendResponse.message();
+        assertEquals(text.replace("<b>", "").replace("</b>", ""), message.caption());
+
+        MessageEntity captionEntity = message.captionEntities()[0];
+        assertEquals(MessageEntity.Type.bold, captionEntity.type());
+        assertEquals((Integer) 21, captionEntity.offset());
+        assertEquals((Integer) 4, captionEntity.length());
+
+        BaseResponse response = bot.execute(new EditMessageCaption(channelName, 511).caption(text));
         assertTrue(response.isOk());
 
         response = bot.execute(new EditMessageCaption("AgAAAPrwAQCj_Q4D2s-51_8jsuU").caption(text));
@@ -241,33 +250,33 @@ public class TelegramBotTest {
                 new InlineQueryResultArticle("4", "title",
                         new InputVenueMessageContent(50f, 50f, "title", "address").foursquareId("sqrId")),
                 new InlineQueryResultArticle("5", "title", "message"),
-                new InlineQueryResultAudio("6", someUrl, "title").caption("cap").performer("perf").audioDuration(100),
+                new InlineQueryResultAudio("6", someUrl, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML).performer("perf").audioDuration(100),
                 new InlineQueryResultContact("7", "123123123", "name").lastName("lastName")
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
-                new InlineQueryResultDocument("8", someUrl, "title", "application/pdf").caption("cap").description("desc")
+                new InlineQueryResultDocument("8", someUrl, "title", "application/pdf").caption("cap <b>bold</b>").parseMode(ParseMode.HTML).description("desc")
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultGame("9", "pengrad_test_game").replyMarkup(keyboardMarkup),
-                new InlineQueryResultGif("10", someUrl, someUrl).caption("cap").title("title")
+                new InlineQueryResultGif("10", someUrl, someUrl).caption("cap <b>bold</b>").parseMode(ParseMode.HTML).title("title")
                         .gifHeight(100).gifWidth(100).gifDuration(100),
                 new InlineQueryResultLocation("11", 50f, 50f, "title").livePeriod(60)
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
-                new InlineQueryResultMpeg4Gif("12", someUrl, someUrl).caption("cap").title("title")
+                new InlineQueryResultMpeg4Gif("12", someUrl, someUrl).caption("cap <b>bold</b>").parseMode(ParseMode.HTML).title("title")
                         .mpeg4Height(100).mpeg4Width(100).mpeg4Duration(100),
                 new InlineQueryResultPhoto("13", someUrl, someUrl).photoWidth(100).photoHeight(100).title("title")
-                        .description("desc").caption("cap"),
+                        .description("desc").caption("cap <b>bold</b>").parseMode(ParseMode.HTML),
                 new InlineQueryResultVenue("14", 54f, 55f, "title", "address").foursquareId("frsqrId")
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
-                new InlineQueryResultVideo("15", someUrl, VIDEO_MIME_TYPE, "text", someUrl, "title").caption("cap")
+                new InlineQueryResultVideo("15", someUrl, VIDEO_MIME_TYPE, "text", someUrl, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML)
                         .videoWidth(100).videoHeight(100).videoDuration(100).description("desc"),
-                new InlineQueryResultVoice("16", someUrl, "title").caption("cap").voiceDuration(100),
-                new InlineQueryResultCachedAudio("17", audioFileId).caption("cap"),
-                new InlineQueryResultCachedDocument("18", stickerId, "title").caption("cap").description("desc"),
-                new InlineQueryResultCachedGif("19", gifFileId).caption("cap").title("title"),
-                new InlineQueryResultCachedMpeg4Gif("21", gifFileId).caption("cap").title("title"),
-                new InlineQueryResultCachedPhoto("22", photoFileId).caption("cap").description("desc").title("title"),
+                new InlineQueryResultVoice("16", someUrl, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML).voiceDuration(100),
+                new InlineQueryResultCachedAudio("17", audioFileId).caption("cap <b>bold</b>").parseMode(ParseMode.HTML),
+                new InlineQueryResultCachedDocument("18", stickerId, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML).description("desc"),
+                new InlineQueryResultCachedGif("19", gifFileId).caption("cap <b>bold</b>").parseMode(ParseMode.HTML).title("title"),
+                new InlineQueryResultCachedMpeg4Gif("21", gifFileId).caption("cap <b>bold</b>").parseMode(ParseMode.HTML).title("title"),
+                new InlineQueryResultCachedPhoto("22", photoFileId).caption("cap <b>bold</b>").parseMode(ParseMode.HTML).description("desc").title("title"),
                 new InlineQueryResultCachedSticker("23", stickerId),
-                new InlineQueryResultCachedVideo("24", videoFileId, "title").caption("cap").description("desc"),
-                new InlineQueryResultCachedVoice("25", voiceFileId, "title").caption("cap"),
+                new InlineQueryResultCachedVideo("24", videoFileId, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML).description("desc"),
+                new InlineQueryResultCachedVoice("25", voiceFileId, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML),
         };
 
         BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQueryId, results)
@@ -464,15 +473,17 @@ public class TelegramBotTest {
         AudioTest.checkAudio(message.audio());
 
         byte[] bytes = Files.readAllBytes(new File(audioFile).toPath());
-        String cap = "http://ya.ru", title = "title", performer = "performer";
+        String cap = "http://ya.ru  <b>bold</b>", title = "title", performer = "performer";
+        ParseMode parseMode = ParseMode.HTML;
         int duration = 100;
-        SendAudio sendAudio = new SendAudio(chatId, bytes).duration(duration).caption(cap).performer(performer).title(title);
+        SendAudio sendAudio = new SendAudio(chatId, bytes).duration(duration)
+                .caption(cap).parseMode(parseMode).performer(performer).title(title);
         message = bot.execute(sendAudio).message();
         MessageTest.checkMessage(message);
 
         Audio audio = message.audio();
         AudioTest.checkAudio(audio);
-        assertEquals(cap, message.caption());
+        assertEquals(cap.replace("<b>", "").replace("</b>", ""), message.caption());
         assertEquals((Integer) 100, audio.duration());
         assertEquals(performer, audio.performer());
         assertEquals(title, audio.title());
@@ -481,6 +492,11 @@ public class TelegramBotTest {
         assertEquals(MessageEntity.Type.url, captionEntity.type());
         assertEquals((Integer) 0, captionEntity.offset());
         assertEquals((Integer) 12, captionEntity.length());
+
+        captionEntity = message.captionEntities()[1];
+        assertEquals(MessageEntity.Type.bold, captionEntity.type());
+        assertEquals((Integer) 14, captionEntity.offset());
+        assertEquals((Integer) 4, captionEntity.length());
     }
 
     @Test
@@ -494,12 +510,20 @@ public class TelegramBotTest {
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
 
-        String caption = "caption", fileName = "my doc.zip";
-        message = bot.execute(new SendDocument(chatId, new File(docFile)).fileName(fileName).caption(caption)).message();
+        String caption = "caption <b>bold</b>", fileName = "my doc.zip";
+        ParseMode parseMode = ParseMode.HTML;
+        message = bot.execute(
+                new SendDocument(chatId, new File(docFile)).fileName(fileName).caption(caption).parseMode(parseMode))
+                .message();
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
-        assertEquals(caption, message.caption());
+        assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
         assertEquals(fileName, message.document().fileName());
+
+        MessageEntity captionEntity = message.captionEntities()[0];
+        assertEquals(MessageEntity.Type.bold, captionEntity.type());
+        assertEquals((Integer) 8, captionEntity.offset());
+        assertEquals((Integer) 4, captionEntity.length());
     }
 
     @Test
@@ -512,11 +536,16 @@ public class TelegramBotTest {
         MessageTest.checkMessage(message);
         PhotoSizeTest.checkPhotos(message.photo());
 
-        String caption = "caption";
-        message = bot.execute(new SendPhoto(channelName, imageBytes).caption(caption)).message();
+        String caption = "caption <b>bold</b>";
+        message = bot.execute(new SendPhoto(channelName, imageBytes).caption(caption).parseMode(ParseMode.HTML)).message();
         MessageTest.checkMessage(message);
-        assertEquals(caption, message.caption());
+        assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
         PhotoSizeTest.checkPhotos(message.photo());
+
+        MessageEntity captionEntity = message.captionEntities()[0];
+        assertEquals(MessageEntity.Type.bold, captionEntity.type());
+        assertEquals((Integer) 8, captionEntity.offset());
+        assertEquals((Integer) 4, captionEntity.length());
     }
 
     @Test
@@ -544,17 +573,24 @@ public class TelegramBotTest {
         MessageTest.checkMessage(message);
         VideoTest.check(message.video());
 
-        String caption = "my video";
+        String caption = "caption <b>bold</b>";
         Integer duration = 100;
-        message = bot.execute(new SendVideo(chatId, videoBytes).caption(caption).duration(duration).height(1).width(2)).message();
+        message = bot.execute(
+                new SendVideo(chatId, videoBytes).caption(caption).parseMode(ParseMode.HTML).duration(duration).height(1).width(2))
+                .message();
         MessageTest.checkMessage(message);
-        assertEquals(caption, message.caption());
+        assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
 
         Video video = message.video();
         VideoTest.check(message.video());
         assertEquals(duration, video.duration());
         assertEquals((Integer) 120, video.height());
         assertEquals((Integer) 400, video.width());
+
+        MessageEntity captionEntity = message.captionEntities()[0];
+        assertEquals(MessageEntity.Type.bold, captionEntity.type());
+        assertEquals((Integer) 8, captionEntity.offset());
+        assertEquals((Integer) 4, captionEntity.length());
     }
 
     @Test
@@ -568,13 +604,18 @@ public class TelegramBotTest {
         VoiceTest.check(message.voice());
 
         byte[] array = Files.readAllBytes(new File(audioFile).toPath());
-        String caption = "caption";
+        String caption = "caption <b>bold</b>";
         Integer duration = 100;
-        message = bot.execute(new SendVoice(chatId, array).caption(caption).duration(duration)).message();
+        message = bot.execute(new SendVoice(chatId, array).caption(caption).parseMode(ParseMode.HTML).duration(duration)).message();
         MessageTest.checkMessage(message);
-        assertEquals(caption, message.caption());
+        assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
         VoiceTest.check(message.voice());
         assertEquals(duration, message.voice().duration());
+
+        MessageEntity captionEntity = message.captionEntities()[0];
+        assertEquals(MessageEntity.Type.bold, captionEntity.type());
+        assertEquals((Integer) 8, captionEntity.offset());
+        assertEquals((Integer) 4, captionEntity.length());
     }
 
     @Test
@@ -987,13 +1028,22 @@ public class TelegramBotTest {
     public void sendMediaGroup() {
         MessagesResponse response = bot.execute(new SendMediaGroup(chatId,
                 new InputMediaPhoto(photoFileId),
-                new InputMediaPhoto(imageFile).caption("some caption"),
+                new InputMediaPhoto(imageFile).caption("some caption <b>bold</b>").parseMode(ParseMode.HTML),
                 new InputMediaPhoto(imageBytes),
                 new InputMediaVideo(videoFileId),
                 new InputMediaVideo(videoFile),
-                new InputMediaVideo(videoBytes).caption("my video").duration(10).width(11).height(12)
+                new InputMediaVideo(videoBytes).caption("my video <b>bold</b>").parseMode(ParseMode.HTML)
+                        .duration(10).width(11).height(12)
         ));
         assertTrue(response.isOk());
         assertEquals(6, response.messages().length);
+        int messagesWithCaption = 0;
+        for (Message message : response.messages()) {
+            if (message.caption() != null) {
+                assertEquals(MessageEntity.Type.bold, message.captionEntities()[0].type());
+                messagesWithCaption++;
+            }
+        }
+        assertEquals(2, messagesWithCaption);
     }
 }

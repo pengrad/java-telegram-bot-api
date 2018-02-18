@@ -17,6 +17,7 @@ public class InlineQueryResultGif extends InlineQueryResult<InlineQueryResultGif
     private Integer gif_duration;
     private String title;
     private String caption;
+    private String parse_mode;
 
     public InlineQueryResultGif(String id, String gifUrl, String thumbUrl) {
         super("gif", id);
@@ -46,6 +47,11 @@ public class InlineQueryResultGif extends InlineQueryResult<InlineQueryResultGif
 
     public InlineQueryResultGif caption(String caption) {
         this.caption = caption;
+        return this;
+    }
+
+    public InlineQueryResultGif parseMode(ParseMode parseMode) {
+        this.parse_mode = parseMode.name();
         return this;
     }
 }

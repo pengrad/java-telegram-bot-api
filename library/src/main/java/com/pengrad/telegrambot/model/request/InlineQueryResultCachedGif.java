@@ -13,7 +13,7 @@ public class InlineQueryResultCachedGif extends InlineQueryResult<InlineQueryRes
 
     private String title;
     private String caption;
-
+    private String parse_mode;
 
     public InlineQueryResultCachedGif(String id, String fileId) {
         super("gif", id);
@@ -27,6 +27,11 @@ public class InlineQueryResultCachedGif extends InlineQueryResult<InlineQueryRes
 
     public InlineQueryResultCachedGif caption(String caption) {
         this.caption = caption;
+        return this;
+    }
+
+    public InlineQueryResultCachedGif parseMode(ParseMode parseMode) {
+        this.parse_mode = parseMode.name();
         return this;
     }
 }

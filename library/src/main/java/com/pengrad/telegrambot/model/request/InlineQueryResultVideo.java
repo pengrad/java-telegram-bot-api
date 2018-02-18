@@ -18,6 +18,7 @@ public class InlineQueryResultVideo extends InlineQueryResult<InlineQueryResultV
     private String title;
 
     private String caption;
+    private String parse_mode;
     private Integer video_width;
     private Integer video_height;
     private Integer video_duration;
@@ -38,6 +39,11 @@ public class InlineQueryResultVideo extends InlineQueryResult<InlineQueryResultV
 
     public InlineQueryResultVideo caption(String caption) {
         this.caption = caption;
+        return this;
+    }
+
+    public InlineQueryResultVideo parseMode(ParseMode parseMode) {
+        this.parse_mode = parseMode.name();
         return this;
     }
 

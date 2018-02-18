@@ -13,6 +13,7 @@ public class InlineQueryResultVoice extends InlineQueryResult<InlineQueryResultV
     private String title;
 
     private String caption;
+    private String parse_mode;
     private Integer voice_duration;
 
     public InlineQueryResultVoice(String id, String voiceUrl, String title) {
@@ -28,6 +29,11 @@ public class InlineQueryResultVoice extends InlineQueryResult<InlineQueryResultV
 
     public InlineQueryResultVoice voiceDuration(Integer voiceDuration) {
         this.voice_duration = voiceDuration;
+        return this;
+    }
+
+    public InlineQueryResultVoice parseMode(ParseMode parseMode) {
+        this.parse_mode = parseMode.name();
         return this;
     }
 }

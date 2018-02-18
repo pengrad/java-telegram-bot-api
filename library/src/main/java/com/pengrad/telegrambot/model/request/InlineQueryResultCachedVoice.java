@@ -13,6 +13,7 @@ public class InlineQueryResultCachedVoice extends InlineQueryResult<InlineQueryR
     private String title;
 
     private String caption;
+    private String parse_mode;
 
     public InlineQueryResultCachedVoice(String id, String fileId, String title) {
         super("voice", id);
@@ -22,6 +23,11 @@ public class InlineQueryResultCachedVoice extends InlineQueryResult<InlineQueryR
 
     public InlineQueryResultCachedVoice caption(String caption) {
         this.caption = caption;
+        return this;
+    }
+
+    public InlineQueryResultCachedVoice parseMode(ParseMode parseMode) {
+        this.parse_mode = parseMode.name();
         return this;
     }
 }

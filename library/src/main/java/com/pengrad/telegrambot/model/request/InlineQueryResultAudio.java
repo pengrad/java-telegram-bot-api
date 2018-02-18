@@ -13,6 +13,7 @@ public class InlineQueryResultAudio extends InlineQueryResult<InlineQueryResultA
     private String title;
 
     private String caption;
+    private String parse_mode;
     private String performer;
     private Integer audio_duration;
 
@@ -24,6 +25,11 @@ public class InlineQueryResultAudio extends InlineQueryResult<InlineQueryResultA
 
     public InlineQueryResultAudio caption(String caption) {
         this.caption = caption;
+        return this;
+    }
+
+    public InlineQueryResultAudio parseMode(ParseMode parseMode) {
+        this.parse_mode = parseMode.name();
         return this;
     }
 
