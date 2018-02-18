@@ -52,6 +52,7 @@ public class Message implements Serializable {
     private Message pinned_message;
     private Invoice invoice;
     private SuccessfulPayment successful_payment;
+    private String connected_website;
 
     public Integer messageId() {
         return message_id;
@@ -225,6 +226,10 @@ public class Message implements Serializable {
         return successful_payment;
     }
 
+    public String connectedWebsite() {
+        return connected_website;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -294,7 +299,9 @@ public class Message implements Serializable {
         if (pinned_message != null ? !pinned_message.equals(message.pinned_message) : message.pinned_message != null)
             return false;
         if (invoice != null ? !invoice.equals(message.invoice) : message.invoice != null) return false;
-        return successful_payment != null ? successful_payment.equals(message.successful_payment) : message.successful_payment == null;
+        if (successful_payment != null ? !successful_payment.equals(message.successful_payment) : message.successful_payment != null)
+            return false;
+        return connected_website != null ? connected_website.equals(message.connected_website) : message.connected_website == null;
     }
 
     @Override
@@ -347,6 +354,7 @@ public class Message implements Serializable {
                 ", pinned_message=" + pinned_message +
                 ", invoice=" + invoice +
                 ", successful_payment=" + successful_payment +
+                ", connected_website='" + connected_website + '\'' +
                 '}';
     }
 }
