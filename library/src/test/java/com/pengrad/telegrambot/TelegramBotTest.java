@@ -1037,8 +1037,13 @@ public class TelegramBotTest {
         ));
         assertTrue(response.isOk());
         assertEquals(6, response.messages().length);
+
+        String mediaGroupId = response.messages()[0].mediaGroupId();
+        assertNotNull(mediaGroupId);
+
         int messagesWithCaption = 0;
         for (Message message : response.messages()) {
+            assertEquals(mediaGroupId, message.mediaGroupId());
             if (message.caption() != null) {
                 assertEquals(MessageEntity.Type.bold, message.captionEntities()[0].type());
                 messagesWithCaption++;
