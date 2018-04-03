@@ -240,7 +240,7 @@ InlineKeyboardMarkup
 ```java
 InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
         new InlineKeyboardButton[]{
-                new InlineKeyboardButton("url").url("url"),
+                new InlineKeyboardButton("url").url("www.google.com""),
                 new InlineKeyboardButton("callback_data").callbackData("callback_data"),
                 new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query")
         });
