@@ -91,7 +91,7 @@ public class TelegramBotClient {
                 } else if (value instanceof File) {
                     builder.addFormDataPart(name, request.getFileName(), RequestBody.create(contentType, (File) value));
                 } else {
-                    builder.addFormDataPart(name, String.valueOf(value));
+                    builder.addFormDataPart(name, serialize(value));
                 }
             }
 
