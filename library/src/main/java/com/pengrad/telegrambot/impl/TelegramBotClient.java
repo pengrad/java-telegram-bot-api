@@ -99,9 +99,15 @@ public class TelegramBotClient {
         } else {
             FormBody.Builder builder = new FormBody.Builder();
             for (Map.Entry<String, Object> parameter : request.getParameters().entrySet()) {
-                builder.add(parameter.getKey(), String.valueOf(parameter.getValue()));
+                builder.add(parameter.getKey(), serialize(parameter.getValue()));
             }
             return builder.build();
         }
+    }
+
+    private String serialize(Object value) {
+        return value instanceof String
+                ? String.valueOf(value)
+                : gson.toJson(value);
     }
 }

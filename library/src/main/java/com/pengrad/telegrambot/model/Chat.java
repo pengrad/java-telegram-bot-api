@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class Chat implements Serializable {
     private final static long serialVersionUID = 0L;
 
+    // todo remove gson @SerializedName dependency
     public enum Type {
         @SerializedName("private")Private, group, supergroup, channel
     }

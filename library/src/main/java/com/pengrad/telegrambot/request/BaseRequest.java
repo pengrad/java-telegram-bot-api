@@ -65,15 +65,10 @@ abstract public class BaseRequest<T extends BaseRequest, R extends BaseResponse>
         return 0;
     }
 
+    // todo remove gson dependency
     public String toWebhookResponse() {
         Map<String, Object> fullMap = new HashMap<String, Object>(parameters);
         fullMap.put("method", getMethod());
         return gson.toJson(fullMap);
-    }
-
-    // Serialize model objects. Basically convert to json
-    // todo move to TelegramBotClient, let it serialize everything in request time
-    protected String serialize(Object o) {
-        return gson.toJson(o);
     }
 }
