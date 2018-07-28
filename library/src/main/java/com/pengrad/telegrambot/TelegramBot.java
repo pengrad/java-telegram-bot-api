@@ -1,9 +1,14 @@
 package com.pengrad.telegrambot;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import com.pengrad.telegrambot.impl.FileApi;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.impl.UpdatesHandler;
+import com.pengrad.telegrambot.model.Chat;
 import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.GetUpdates;
@@ -11,6 +16,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+
+import java.io.IOException;
 
 /**
  * Stas Parshin
@@ -115,7 +122,23 @@ public class TelegramBot {
         }
 
         private static Gson gson() {
-            return new Gson();
+            final Gson gson = new Gson();
+            TypeAdapter<Chat.Type> chatTypeAdapter = new TypeAdapter<Chat.Type>() {
+                @Override
+                public void write(JsonWriter out, Chat.Type value) throws IOException {
+                    out.value(value == Chat.Type.Private ? "private" : value.name());
+                }
+
+                @Override
+                public Chat.Type read(JsonReader in) throws IOException {
+                    String s = in.nextString();
+                    if (s.equals("private")) return Chat.Type.Private;
+                    else return gson.fromJson(s, Chat.Type.class);
+                }
+            };
+            return new GsonBuilder()
+                    .registerTypeAdapter(Chat.Type.class, chatTypeAdapter)
+                    .create();
         }
 
         private static String apiUrl(String apiUrl, String botToken) {
