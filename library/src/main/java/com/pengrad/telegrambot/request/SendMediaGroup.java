@@ -19,7 +19,7 @@ public class SendMediaGroup extends BaseRequest<SendMediaGroup, MessagesResponse
 
         for (InputMedia m : media) {
             Map<String, Object> attachments = m.getAttachments();
-            if (attachments != null) {
+            if (attachments != null && attachments.size() > 0) {
                 addAll(attachments);
                 isMultipart = true;
             }

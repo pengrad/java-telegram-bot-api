@@ -44,8 +44,10 @@ public class TelegramBotTest {
     File imageFile = resourcePath.resolve("image.jpg").toFile();
     byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
     File stickerFile = resourcePath.resolve("imageSticker.png").toFile();
-    String audioFile = resourcePath.resolve("beep.mp3").toString();
-    String docFile = resourcePath.resolve("doc.txt").toString();
+    File audioFile = resourcePath.resolve("beep.mp3").toFile();
+    byte[] audioBytes = Files.readAllBytes(audioFile.toPath());
+    File docFile = resourcePath.resolve("doc.txt").toFile();
+    byte[] docBytes = Files.readAllBytes(docFile.toPath());
     File videoFile = resourcePath.resolve("tabs.mp4").toFile();
     byte[] videoBytes = Files.readAllBytes(videoFile.toPath());
     String videoNoteFile = resourcePath.resolve("video_note.mp4").toString();
@@ -59,6 +61,11 @@ public class TelegramBotTest {
     String gifFileId = "CgADAgADfQADgNqgSTt9SzatJhc3Ag";
     String withSpaceFileId = "BAADAgADZwADkg-4SQI5WM0SPNHrAg";
     String stickerSet = "testset_by_pengrad_test_bot";
+    String imageUrl = "https://telegram.org/img/t_logo.png";
+    File thumbFile = resourcePath.resolve("thumb.jpg").toFile();
+    byte[] thumbBytes = Files.readAllBytes(thumbFile.toPath());
+    File gifFile = resourcePath.resolve("anim3.gif").toFile();
+    byte[] gifBytes = Files.readAllBytes(gifFile.toPath());
 
     public TelegramBotTest() throws IOException {
         String token, chat, group;
@@ -463,20 +470,19 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void sendAudio() throws IOException {
+    public void sendAudio() {
         Message message = bot.execute(new SendAudio(chatId, audioFileId)).message();
         MessageTest.checkMessage(message);
         AudioTest.checkAudio(message.audio(), false, false);
 
-        message = bot.execute(new SendAudio(chatId, new File(audioFile))).message();
+        message = bot.execute(new SendAudio(chatId, audioFile)).message();
         MessageTest.checkMessage(message);
         AudioTest.checkAudio(message.audio());
 
-        byte[] bytes = Files.readAllBytes(new File(audioFile).toPath());
         String cap = "http://ya.ru  <b>bold</b>", title = "title", performer = "performer";
         ParseMode parseMode = ParseMode.HTML;
         int duration = 100;
-        SendAudio sendAudio = new SendAudio(chatId, bytes).duration(duration)
+        SendAudio sendAudio = new SendAudio(chatId, audioBytes).duration(duration)
                 .caption(cap).parseMode(parseMode).performer(performer).title(title);
         message = bot.execute(sendAudio).message();
         MessageTest.checkMessage(message);
@@ -500,20 +506,19 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void sendDocument() throws IOException {
+    public void sendDocument() {
         Message message = bot.execute(new SendDocument(chatId, docFileId)).message();
         MessageTest.checkMessage(message);
-        DocumentTest.check(message.document(), false);
+        DocumentTest.check(message.document());
 
-        byte[] bytes = Files.readAllBytes(new File(docFile).toPath());
-        message = bot.execute(new SendDocument(chatId, bytes)).message();
+        message = bot.execute(new SendDocument(chatId, docBytes)).message();
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
 
         String caption = "caption <b>bold</b>", fileName = "my doc.zip";
         ParseMode parseMode = ParseMode.HTML;
         message = bot.execute(
-                new SendDocument(chatId, new File(docFile)).fileName(fileName).caption(caption).parseMode(parseMode))
+                new SendDocument(chatId, docFile).fileName(fileName).caption(caption).parseMode(parseMode))
                 .message();
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
@@ -596,19 +601,18 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void sendVoice() throws IOException {
+    public void sendVoice() {
         Message message = bot.execute(new SendVoice(chatId, voiceFileId)).message();
         MessageTest.checkMessage(message);
         VoiceTest.check(message.voice(), false);
 
-        message = bot.execute(new SendVoice(chatId, new File(audioFile))).message();
+        message = bot.execute(new SendVoice(chatId, audioFile)).message();
         MessageTest.checkMessage(message);
         VoiceTest.check(message.voice());
 
-        byte[] array = Files.readAllBytes(new File(audioFile).toPath());
         String caption = "caption <b>bold</b>";
         Integer duration = 100;
-        message = bot.execute(new SendVoice(chatId, array).caption(caption).parseMode(ParseMode.HTML).duration(duration)).message();
+        message = bot.execute(new SendVoice(chatId, audioBytes).caption(caption).parseMode(ParseMode.HTML).duration(duration)).message();
         MessageTest.checkMessage(message);
         assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
         VoiceTest.check(message.voice());
@@ -1052,5 +1056,64 @@ public class TelegramBotTest {
             }
         }
         assertEquals(2, messagesWithCaption);
+    }
+
+    @Test
+    public void editMessageMedia() {
+        int messageId = 13541;
+        SendResponse response;
+
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
+                new InputMediaDocument(docFile).thumb(thumbFile)));
+        assertEquals((Integer) 14, response.message().document().fileSize());
+        assertEquals((Integer) 4312, response.message().document().thumb().fileSize());
+
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
+                new InputMediaDocument(docBytes).thumb(thumbBytes)));
+        assertEquals((Integer) 14, response.message().document().fileSize());
+        assertEquals((Integer) 4312, response.message().document().thumb().fileSize());
+
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaDocument(docFileId)));
+        MessageTest.checkMessage(response.message());
+        DocumentTest.check(response.message().document());
+
+
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFile)));
+        // todo why is it video?
+        assertEquals(new Integer(1), response.message().video().duration());
+
+        Integer durationAnim = 17, width = 21, height = 22;
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
+                new InputMediaAnimation(gifBytes).duration(durationAnim).width(width).height(height)
+        ));
+        // todo why is it video?
+        Video video = response.message().video();
+        assertEquals(new Integer(1), video.duration());
+        assertEquals(width, video.width());
+        assertEquals(height, video.height());
+
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFileId)));
+        assertTrue(response.isOk());
+        // todo check animation object in message
+//        assertEquals(new Integer(3), response.message().animation().duration());
+        assertNotNull(response.message().document());
+        assertEquals((Integer) 57527, response.message().document().fileSize());
+        assertEquals("video/mp4", response.message().document().mimeType());
+
+
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioFile)));
+        assertEquals((Integer) 10286, response.message().audio().fileSize());
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioBytes)));
+        assertEquals((Integer) 10286, response.message().audio().fileSize());
+        Integer duration = 34;
+        String performer = "some performer", title = "just a title";
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
+                new InputMediaAudio(audioFile).duration(duration).performer(performer).title(title)
+        ));
+        Audio audio = response.message().audio();
+        assertEquals((Integer) 10286, audio.fileSize());
+        assertEquals(duration, audio.duration());
+        assertEquals(performer, audio.performer());
+        assertEquals(title, audio.title());
     }
 }

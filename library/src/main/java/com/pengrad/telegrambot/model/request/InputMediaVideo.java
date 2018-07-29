@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model.request;
 
+import com.pengrad.telegrambot.request.ContentTypes;
+
 import java.io.File;
 import java.io.Serializable;
 
@@ -43,5 +45,15 @@ public class InputMediaVideo extends InputMedia<InputMediaVideo> implements Seri
     public InputMediaVideo supportsStreaming(boolean supportsStreaming) {
         this.supports_streaming = supportsStreaming;
         return this;
+    }
+
+    @Override
+    public String getDefaultFileName() {
+        return ContentTypes.VIDEO_FILE_NAME;
+    }
+
+    @Override
+    public String getContentType() {
+        return ContentTypes.VIDEO_MIME_TYPE;
     }
 }
