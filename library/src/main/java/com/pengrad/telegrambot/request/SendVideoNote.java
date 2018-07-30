@@ -28,6 +28,14 @@ public class SendVideoNote extends AbstractMultipartRequest<SendVideoNote> {
         return add("length", length);
     }
 
+    public SendVideoNote thumb(byte[] thumb) {
+        return super.thumb(thumb);
+    }
+
+    public SendVideoNote thumb(File thumb) {
+        return super.thumb(thumb);
+    }
+
     @Override
     protected String getFileParamName() {
         return "video_note";

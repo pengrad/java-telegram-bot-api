@@ -8,7 +8,7 @@ import java.io.File;
  */
 abstract public class AbstractMultipartRequest<T extends AbstractMultipartRequest> extends AbstractSendRequest<T> {
 
-    private final boolean isMultipart;
+    private boolean isMultipart;
     private String fileName;
 
     public AbstractMultipartRequest(Object chatId, Object file) {
@@ -29,6 +29,11 @@ abstract public class AbstractMultipartRequest<T extends AbstractMultipartReques
     public T fileName(String fileName) {
         this.fileName = fileName;
         return thisAsT;
+    }
+
+    protected T thumb(Object thumb) {
+        isMultipart = true;
+        return add("thumb", thumb);
     }
 
     @Override

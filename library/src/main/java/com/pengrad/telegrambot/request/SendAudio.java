@@ -42,6 +42,14 @@ public class SendAudio extends AbstractMultipartRequest<SendAudio> {
         return add("title", title);
     }
 
+    public SendAudio thumb(byte[] thumb) {
+        return super.thumb(thumb);
+    }
+
+    public SendAudio thumb(File thumb) {
+        return super.thumb(thumb);
+    }
+
     @Override
     protected String getFileParamName() {
         return "audio";

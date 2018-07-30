@@ -15,6 +15,7 @@ public class Audio implements Serializable {
     private String title;
     private String mime_type;
     private Integer file_size;
+    private PhotoSize thumb;
 
     public String fileId() {
         return file_id;
@@ -40,6 +41,10 @@ public class Audio implements Serializable {
         return file_size;
     }
 
+    public PhotoSize thumb() {
+        return thumb;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,7 +57,8 @@ public class Audio implements Serializable {
         if (performer != null ? !performer.equals(audio.performer) : audio.performer != null) return false;
         if (title != null ? !title.equals(audio.title) : audio.title != null) return false;
         if (mime_type != null ? !mime_type.equals(audio.mime_type) : audio.mime_type != null) return false;
-        return file_size != null ? file_size.equals(audio.file_size) : audio.file_size == null;
+        if (file_size != null ? !file_size.equals(audio.file_size) : audio.file_size != null) return false;
+        return thumb != null ? thumb.equals(audio.thumb) : audio.thumb == null;
     }
 
     @Override
@@ -69,6 +75,7 @@ public class Audio implements Serializable {
                 ", title='" + title + '\'' +
                 ", mime_type='" + mime_type + '\'' +
                 ", file_size=" + file_size +
+                ", thumb=" + thumb +
                 '}';
     }
 }

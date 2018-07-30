@@ -11,15 +11,16 @@ import static org.junit.Assert.assertNotNull;
 public class AudioTest {
 
     public static void checkAudio(Audio audio) {
-        checkAudio(audio, true, true);
+        checkAudio(audio, true);
     }
 
-    public static void checkAudio(Audio audio, boolean performer, boolean checkSize) {
+    public static void checkAudio(Audio audio, boolean thumb) {
         assertNotNull(audio.fileId());
         assertNotNull(audio.duration());
         assertNotNull(audio.title());
         assertNotNull(audio.mimeType());
-        if (checkSize) assertNotNull(audio.fileSize());
-        if (performer) assertNotNull(audio.performer());
+        assertNotNull(audio.fileSize());
+        assertNotNull(audio.performer());
+        if (thumb) assertNotNull(audio.thumb());
     }
 }

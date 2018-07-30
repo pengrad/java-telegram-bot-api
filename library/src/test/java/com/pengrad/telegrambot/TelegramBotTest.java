@@ -4,9 +4,11 @@ import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
 import org.junit.Test;
 
 import java.io.File;
@@ -50,7 +52,8 @@ public class TelegramBotTest {
     byte[] docBytes = Files.readAllBytes(docFile.toPath());
     File videoFile = resourcePath.resolve("tabs.mp4").toFile();
     byte[] videoBytes = Files.readAllBytes(videoFile.toPath());
-    String videoNoteFile = resourcePath.resolve("video_note.mp4").toString();
+    File videoNoteFile = resourcePath.resolve("video_note.mp4").toFile();
+    byte[] videoNoteBytes = Files.readAllBytes(videoNoteFile.toPath());
     String certificateFile = resourcePath.resolve("cert.pem").toString();
     String someUrl = "http://google.com";
     String audioFileId = "CQADAgADXAADgNqgSevw7NljQE4lAg";
@@ -64,6 +67,7 @@ public class TelegramBotTest {
     String imageUrl = "https://telegram.org/img/t_logo.png";
     File thumbFile = resourcePath.resolve("thumb.jpg").toFile();
     byte[] thumbBytes = Files.readAllBytes(thumbFile.toPath());
+    Integer thumbSize = 4312;
     File gifFile = resourcePath.resolve("anim3.gif").toFile();
     byte[] gifBytes = Files.readAllBytes(gifFile.toPath());
 
@@ -473,16 +477,17 @@ public class TelegramBotTest {
     public void sendAudio() {
         Message message = bot.execute(new SendAudio(chatId, audioFileId)).message();
         MessageTest.checkMessage(message);
-        AudioTest.checkAudio(message.audio(), false, false);
+        AudioTest.checkAudio(message.audio(), false);
 
-        message = bot.execute(new SendAudio(chatId, audioFile)).message();
+        message = bot.execute(new SendAudio(chatId, audioFile).thumb(thumbFile)).message();
         MessageTest.checkMessage(message);
         AudioTest.checkAudio(message.audio());
+        assertEquals(thumbSize, message.audio().thumb().fileSize());
 
         String cap = "http://ya.ru  <b>bold</b>", title = "title", performer = "performer";
         ParseMode parseMode = ParseMode.HTML;
         int duration = 100;
-        SendAudio sendAudio = new SendAudio(chatId, audioBytes).duration(duration)
+        SendAudio sendAudio = new SendAudio(chatId, audioBytes).thumb(thumbBytes).duration(duration)
                 .caption(cap).parseMode(parseMode).performer(performer).title(title);
         message = bot.execute(sendAudio).message();
         MessageTest.checkMessage(message);
@@ -493,6 +498,7 @@ public class TelegramBotTest {
         assertEquals((Integer) 100, audio.duration());
         assertEquals(performer, audio.performer());
         assertEquals(title, audio.title());
+        assertEquals(thumbSize, audio.thumb().fileSize());
 
         MessageEntity captionEntity = message.captionEntities()[0];
         assertEquals(MessageEntity.Type.url, captionEntity.type());
@@ -511,19 +517,21 @@ public class TelegramBotTest {
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
 
-        message = bot.execute(new SendDocument(chatId, docBytes)).message();
+        message = bot.execute(new SendDocument(chatId, docBytes).thumb(thumbBytes)).message();
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
+        assertEquals(thumbSize, message.document().thumb().fileSize());
 
         String caption = "caption <b>bold</b>", fileName = "my doc.zip";
         ParseMode parseMode = ParseMode.HTML;
         message = bot.execute(
-                new SendDocument(chatId, docFile).fileName(fileName).caption(caption).parseMode(parseMode))
+                new SendDocument(chatId, docFile).fileName(fileName).thumb(thumbFile).caption(caption).parseMode(parseMode))
                 .message();
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
         assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
         assertEquals(fileName, message.document().fileName());
+        assertEquals(thumbSize, message.document().thumb().fileSize());
 
         MessageEntity captionEntity = message.captionEntities()[0];
         assertEquals(MessageEntity.Type.bold, captionEntity.type());
@@ -569,19 +577,20 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void sendVideo() throws IOException {
+    public void sendVideo() {
         Message message = bot.execute(new SendVideo(chatId, videoFileId)).message();
         MessageTest.checkMessage(message);
         VideoTest.check(message.video(), false);
 
-        message = bot.execute(new SendVideo(chatId, videoFile)).message();
+        message = bot.execute(new SendVideo(chatId, videoFile).thumb(thumbFile)).message();
         MessageTest.checkMessage(message);
         VideoTest.check(message.video());
+        assertEquals(thumbSize, message.video().thumb().fileSize());
 
         String caption = "caption <b>bold</b>";
         Integer duration = 100;
         message = bot.execute(
-                new SendVideo(chatId, videoBytes)
+                new SendVideo(chatId, videoBytes).thumb(thumbBytes)
                         .caption(caption).parseMode(ParseMode.HTML)
                         .duration(duration).height(1).width(2).supportsStreaming(true))
                 .message();
@@ -593,6 +602,7 @@ public class TelegramBotTest {
         assertEquals(duration, video.duration());
         assertEquals((Integer) 120, video.height());
         assertEquals((Integer) 400, video.width());
+        assertEquals(thumbSize, video.thumb().fileSize());
 
         MessageEntity captionEntity = message.captionEntities()[0];
         assertEquals(MessageEntity.Type.bold, captionEntity.type());
@@ -754,13 +764,14 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void sendVideoNoteFile() throws IOException {
-        SendResponse response = bot.execute(new SendVideoNote(chatId, new File(videoNoteFile)).length(20).duration(30));
+    public void sendVideoNoteFile() {
+        SendResponse response = bot.execute(new SendVideoNote(chatId, videoNoteFile).thumb(thumbFile).length(20).duration(30));
         VideoNoteCheck.check(response.message().videoNote(), true);
+        assertEquals(thumbSize, response.message().videoNote().thumb().fileSize());
 
-        byte[] bytes = Files.readAllBytes(new File(videoNoteFile).toPath());
-        response = bot.execute(new SendVideoNote(chatId, bytes));
+        response = bot.execute(new SendVideoNote(chatId, videoNoteBytes).thumb(thumbBytes));
         VideoNoteCheck.check(response.message().videoNote(), true);
+        assertEquals(thumbSize, response.message().videoNote().thumb().fileSize());
     }
 
     @Test

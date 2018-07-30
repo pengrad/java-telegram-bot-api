@@ -22,6 +22,14 @@ public class SendDocument extends AbstractMultipartRequest<SendDocument> {
         super(chatId, document);
     }
 
+    public SendDocument thumb(byte[] thumb) {
+        return super.thumb(thumb);
+    }
+
+    public SendDocument thumb(File thumb) {
+        return super.thumb(thumb);
+    }
+
     public SendDocument caption(String caption) {
         return add("caption", caption);
     }

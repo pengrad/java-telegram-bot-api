@@ -34,6 +34,14 @@ public class SendVideo extends AbstractMultipartRequest<SendVideo> {
         return add("height", height);
     }
 
+    public SendVideo thumb(byte[] thumb) {
+        return super.thumb(thumb);
+    }
+
+    public SendVideo thumb(File thumb) {
+        return super.thumb(thumb);
+    }
+
     public SendVideo caption(String caption) {
         return add("caption", caption);
     }
