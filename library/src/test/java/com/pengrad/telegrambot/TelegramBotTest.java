@@ -2,6 +2,8 @@ package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.*;
+import com.pengrad.telegrambot.passport.PassportElementErrorDataField;
+import com.pengrad.telegrambot.passport.SetPassportDataErrors;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
 import okhttp3.OkHttpClient;
@@ -1165,5 +1167,16 @@ public class TelegramBotTest {
         assertEquals((Integer) 3, animation.duration());
         assertEquals((Integer) 128, animation.width());
         assertEquals((Integer) 128, animation.height());
+    }
+
+    @Test
+    public void setPassportDataErrors() {
+        BaseResponse response = bot.execute(new SetPassportDataErrors(chatId,
+                new PassportElementErrorDataField("personal_details", "first_name",
+                        "data_hash",
+                        "error in page 1")
+        ));
+        System.out.println(response);
+        assertTrue(response.isOk());
     }
 }
