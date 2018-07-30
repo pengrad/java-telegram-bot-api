@@ -103,7 +103,7 @@ public class TelegramBotTest {
     @Test
     public void getUpdates() {
         GetUpdates getUpdates = new GetUpdates()
-                .offset(144932952)
+                .offset(864855330)
                 .allowedUpdates("")
                 .timeout(0)
                 .limit(10);
@@ -471,6 +471,10 @@ public class TelegramBotTest {
         Message message = bot.execute(new ForwardMessage(channelName, channelName, 651)).message();
         assertNotNull(message.authorSignature());
         assertNotNull(message.forwardSignature());
+
+        message = bot.execute(new ForwardMessage(chatId, groupId, 352)).message();
+        assertEquals(MessageEntity.Type.text_mention, message.entities()[0].type());
+        assertNotNull(message.entities()[0].user());
     }
 
     @Test
@@ -484,7 +488,7 @@ public class TelegramBotTest {
         AudioTest.checkAudio(message.audio());
         assertEquals(thumbSize, message.audio().thumb().fileSize());
 
-        String cap = "http://ya.ru  <b>bold</b>", title = "title", performer = "performer";
+        String cap = "http://ya.ru  <b>bold</b> #audio @pengrad_test_bot", title = "title", performer = "performer";
         ParseMode parseMode = ParseMode.HTML;
         int duration = 100;
         SendAudio sendAudio = new SendAudio(chatId, audioBytes).thumb(thumbBytes).duration(duration)
@@ -509,6 +513,8 @@ public class TelegramBotTest {
         assertEquals(MessageEntity.Type.bold, captionEntity.type());
         assertEquals((Integer) 14, captionEntity.offset());
         assertEquals((Integer) 4, captionEntity.length());
+
+        assertEquals(MessageEntity.Type.hashtag, message.captionEntities()[2].type());
     }
 
     @Test

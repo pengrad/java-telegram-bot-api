@@ -10,7 +10,8 @@ public class MessageEntity implements Serializable {
     private final static long serialVersionUID = 0L;
 
     public enum Type {
-        mention, hashtag, bot_command, url, email, bold, italic, code, pre, text_link, text_mention;
+        mention, hashtag, cashtag, bot_command, url, email, phone_number, bold, italic, code, pre, text_link,
+        text_mention
     }
 
     private Type type;
