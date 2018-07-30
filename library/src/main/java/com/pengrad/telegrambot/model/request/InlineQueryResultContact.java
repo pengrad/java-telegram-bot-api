@@ -13,6 +13,7 @@ public class InlineQueryResultContact extends InlineQueryResult<InlineQueryResul
     private String first_name;
 
     private String last_name;
+    private String vcard;
     private String thumb_url;
     private Integer thumb_width;
     private Integer thumb_height;
@@ -25,6 +26,11 @@ public class InlineQueryResultContact extends InlineQueryResult<InlineQueryResul
 
     public InlineQueryResultContact lastName(String lastName) {
         this.last_name = lastName;
+        return this;
+    }
+
+    public InlineQueryResultContact vcard(String vcard) {
+        this.vcard = vcard;
         return this;
     }
 

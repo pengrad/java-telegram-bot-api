@@ -13,6 +13,7 @@ public class Contact implements Serializable {
     private String first_name;
     private String last_name;
     private Integer user_id;
+    private String vcard;
 
     public String phoneNumber() {
         return phone_number;
@@ -30,6 +31,10 @@ public class Contact implements Serializable {
         return user_id;
     }
 
+    public String vcard() {
+        return vcard;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -37,11 +42,11 @@ public class Contact implements Serializable {
 
         Contact contact = (Contact) o;
 
-        if (phone_number != null ? !phone_number.equals(contact.phone_number) : contact.phone_number != null)
-            return false;
+        if (phone_number != null ? !phone_number.equals(contact.phone_number) : contact.phone_number != null) return false;
         if (first_name != null ? !first_name.equals(contact.first_name) : contact.first_name != null) return false;
         if (last_name != null ? !last_name.equals(contact.last_name) : contact.last_name != null) return false;
-        return user_id != null ? user_id.equals(contact.user_id) : contact.user_id == null;
+        if (user_id != null ? !user_id.equals(contact.user_id) : contact.user_id != null) return false;
+        return vcard != null ? vcard.equals(contact.vcard) : contact.vcard == null;
     }
 
     @Override
@@ -56,6 +61,7 @@ public class Contact implements Serializable {
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", user_id=" + user_id +
+                ", vcard='" + vcard + '\'' +
                 '}';
     }
 }

@@ -254,13 +254,13 @@ public class TelegramBotTest {
                         new InputTextMessageContent("message").disableWebPagePreview(false).parseMode(ParseMode.HTML))
                         .url(someUrl).hideUrl(true).description("desc").thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultArticle("2", "title",
-                        new InputContactMessageContent("123123123", "na,e").lastName("lastName")),
+                        new InputContactMessageContent("123123123", "na,e").lastName("lastName").vcard("qr vcard")),
                 new InlineQueryResultArticle("3", "title", new InputLocationMessageContent(50f, 50f).livePeriod(60)),
                 new InlineQueryResultArticle("4", "title",
                         new InputVenueMessageContent(50f, 50f, "title", "address").foursquareId("sqrId").foursquareType("frType")),
                 new InlineQueryResultArticle("5", "title", "message"),
                 new InlineQueryResultAudio("6", someUrl, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML).performer("perf").audioDuration(100),
-                new InlineQueryResultContact("7", "123123123", "name").lastName("lastName")
+                new InlineQueryResultContact("7", "123123123", "name").lastName("lastName").vcard("tt vcard")
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultDocument("8", someUrl, "title", "application/pdf").caption("cap <b>bold</b>").parseMode(ParseMode.HTML).description("desc")
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
@@ -735,11 +735,12 @@ public class TelegramBotTest {
 
     @Test
     public void sendContact() {
-        String phone = "000111", name = "first", lastName = "last";
-        Contact contact = bot.execute(new SendContact(chatId, phone, name).lastName(lastName)).message().contact();
+        String phone = "000111", name = "first", lastName = "last", vcard = "ok vcard";
+        Contact contact = bot.execute(new SendContact(chatId, phone, name).lastName(lastName).vcard(vcard)).message().contact();
         assertEquals(phone, contact.phoneNumber());
         assertEquals(name, contact.firstName());
         assertEquals(lastName, contact.lastName());
+        assertEquals(vcard, contact.vcard());
         assertNull(contact.userId());
     }
 

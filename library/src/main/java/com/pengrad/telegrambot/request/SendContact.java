@@ -15,4 +15,8 @@ public class SendContact extends AbstractSendRequest<SendContact> {
     public SendContact lastName(String lastName) {
         return add("last_name", lastName);
     }
+
+    public SendContact vcard(String vcard) {
+        return add("vcard", vcard);
+    }
 }

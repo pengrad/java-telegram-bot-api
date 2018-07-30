@@ -12,6 +12,7 @@ public class InputContactMessageContent extends InputMessageContent implements S
     private String phone_number;
     private String first_name;
     private String last_name;
+    private String vcard;
 
     public InputContactMessageContent(String phoneNumber, String firstName) {
         this.phone_number = phoneNumber;
@@ -20,6 +21,11 @@ public class InputContactMessageContent extends InputMessageContent implements S
 
     public InputContactMessageContent lastName(String lastName) {
         this.last_name = lastName;
+        return this;
+    }
+
+    public InputContactMessageContent vcard(String vcard) {
+        this.vcard = vcard;
         return this;
     }
 }
