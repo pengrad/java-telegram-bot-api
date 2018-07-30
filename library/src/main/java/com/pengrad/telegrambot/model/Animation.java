@@ -10,6 +10,9 @@ public class Animation implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private String file_id;
+    private Integer width;
+    private Integer height;
+    private Integer duration;
     private PhotoSize thumb;
     private String file_name;
     private String mime_type;
@@ -17,6 +20,18 @@ public class Animation implements Serializable {
 
     public String fileId() {
         return file_id;
+    }
+
+    public Integer width() {
+        return width;
+    }
+
+    public Integer height() {
+        return height;
+    }
+
+    public Integer duration() {
+        return duration;
     }
 
     public PhotoSize thumb() {
@@ -43,6 +58,9 @@ public class Animation implements Serializable {
         Animation animation = (Animation) o;
 
         if (file_id != null ? !file_id.equals(animation.file_id) : animation.file_id != null) return false;
+        if (width != null ? !width.equals(animation.width) : animation.width != null) return false;
+        if (height != null ? !height.equals(animation.height) : animation.height != null) return false;
+        if (duration != null ? !duration.equals(animation.duration) : animation.duration != null) return false;
         if (thumb != null ? !thumb.equals(animation.thumb) : animation.thumb != null) return false;
         if (file_name != null ? !file_name.equals(animation.file_name) : animation.file_name != null) return false;
         if (mime_type != null ? !mime_type.equals(animation.mime_type) : animation.mime_type != null) return false;
@@ -58,6 +76,9 @@ public class Animation implements Serializable {
     public String toString() {
         return "Animation{" +
                 "file_id='" + file_id + '\'' +
+                ", width=" + width +
+                ", height=" + height +
+                ", duration=" + duration +
                 ", thumb=" + thumb +
                 ", file_name='" + file_name + '\'' +
                 ", mime_type='" + mime_type + '\'' +

@@ -28,6 +28,7 @@ public class Message implements Serializable {
     private MessageEntity[] caption_entities;
     private Audio audio;
     private Document document;
+    private Animation animation;
     private Game game;
     private PhotoSize[] photo;
     private Sticker sticker;
@@ -124,6 +125,10 @@ public class Message implements Serializable {
 
     public Document document() {
         return document;
+    }
+
+    public Animation animation() {
+        return animation;
     }
 
     public Game game() {
@@ -263,6 +268,7 @@ public class Message implements Serializable {
         if (!Arrays.equals(caption_entities, message.caption_entities)) return false;
         if (audio != null ? !audio.equals(message.audio) : message.audio != null) return false;
         if (document != null ? !document.equals(message.document) : message.document != null) return false;
+        if (animation != null ? !animation.equals(message.animation) : message.animation != null) return false;
         if (game != null ? !game.equals(message.game) : message.game != null) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(photo, message.photo)) return false;
@@ -330,6 +336,7 @@ public class Message implements Serializable {
                 ", caption_entities=" + Arrays.toString(caption_entities) +
                 ", audio=" + audio +
                 ", document=" + document +
+                ", animation=" + animation +
                 ", game=" + game +
                 ", photo=" + Arrays.toString(photo) +
                 ", sticker=" + sticker +

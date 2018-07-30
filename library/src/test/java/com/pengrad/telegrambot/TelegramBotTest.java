@@ -4,11 +4,9 @@ import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
 import org.junit.Test;
 
 import java.io.File;
@@ -1132,5 +1130,35 @@ public class TelegramBotTest {
         assertEquals(duration, audio.duration());
         assertEquals(performer, audio.performer());
         assertEquals(title, audio.title());
+    }
+
+    @Test
+    public void sendAnimation() {
+        Integer width = 340, height = 240;
+        String caption = "gif *file*", captionCheck = "gif file";
+        SendResponse response = bot.execute(new SendAnimation(chatId, gifFile)
+                .duration(222).width(width).height(height).thumb(thumbFile)
+                .caption(caption).parseMode(ParseMode.Markdown));
+        assertTrue(response.isOk());
+        Animation animation = response.message().animation();
+        assertEquals((Integer) 1, animation.duration());
+        assertEquals(width, animation.width());
+        assertEquals(height, animation.height());
+        assertEquals(thumbSize, animation.thumb().fileSize());
+        assertEquals(captionCheck, response.message().caption());
+        assertEquals(MessageEntity.Type.bold, response.message().captionEntities()[0].type());
+
+        response = bot.execute(new SendAnimation(chatId, gifBytes).thumb(thumbBytes));
+        animation = response.message().animation();
+        assertEquals((Integer) 1, animation.duration());
+        assertEquals((Integer) 160, animation.width());
+        assertEquals((Integer) 160, animation.height());
+        assertEquals(thumbSize, animation.thumb().fileSize());
+
+        response = bot.execute(new SendAnimation(chatId, gifFileId));
+        animation = response.message().animation();
+        assertEquals((Integer) 3, animation.duration());
+        assertEquals((Integer) 128, animation.width());
+        assertEquals((Integer) 128, animation.height());
     }
 }
