@@ -13,6 +13,7 @@ public class Venue implements Serializable {
     private String title;
     private String address;
     private String foursquare_id;
+    private String foursquare_type;
 
     public Location location() {
         return location;
@@ -30,6 +31,10 @@ public class Venue implements Serializable {
         return foursquare_id;
     }
 
+    public String foursquareType() {
+        return foursquare_type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -40,8 +45,8 @@ public class Venue implements Serializable {
         if (location != null ? !location.equals(venue.location) : venue.location != null) return false;
         if (title != null ? !title.equals(venue.title) : venue.title != null) return false;
         if (address != null ? !address.equals(venue.address) : venue.address != null) return false;
-        return foursquare_id != null ? foursquare_id.equals(venue.foursquare_id) : venue.foursquare_id == null;
-
+        if (foursquare_id != null ? !foursquare_id.equals(venue.foursquare_id) : venue.foursquare_id != null) return false;
+        return foursquare_type != null ? foursquare_type.equals(venue.foursquare_type) : venue.foursquare_type == null;
     }
 
     @Override
@@ -50,6 +55,7 @@ public class Venue implements Serializable {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (foursquare_id != null ? foursquare_id.hashCode() : 0);
+        result = 31 * result + (foursquare_type != null ? foursquare_type.hashCode() : 0);
         return result;
     }
 
@@ -60,6 +66,7 @@ public class Venue implements Serializable {
                 ", title='" + title + '\'' +
                 ", address='" + address + '\'' +
                 ", foursquare_id='" + foursquare_id + '\'' +
+                ", foursquare_type='" + foursquare_type + '\'' +
                 '}';
     }
 }

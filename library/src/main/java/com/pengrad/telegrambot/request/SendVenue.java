@@ -17,4 +17,8 @@ public class SendVenue extends AbstractSendRequest<SendVenue> {
     public SendVenue foursquareId(String foursquareId) {
         return add("foursquare_id", foursquareId);
     }
+
+    public SendVenue foursquareType(String foursquareType) {
+        return add("foursquare_type", foursquareType);
+    }
 }

@@ -257,7 +257,7 @@ public class TelegramBotTest {
                         new InputContactMessageContent("123123123", "na,e").lastName("lastName")),
                 new InlineQueryResultArticle("3", "title", new InputLocationMessageContent(50f, 50f).livePeriod(60)),
                 new InlineQueryResultArticle("4", "title",
-                        new InputVenueMessageContent(50f, 50f, "title", "address").foursquareId("sqrId")),
+                        new InputVenueMessageContent(50f, 50f, "title", "address").foursquareId("sqrId").foursquareType("frType")),
                 new InlineQueryResultArticle("5", "title", "message"),
                 new InlineQueryResultAudio("6", someUrl, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML).performer("perf").audioDuration(100),
                 new InlineQueryResultContact("7", "123123123", "name").lastName("lastName")
@@ -273,7 +273,7 @@ public class TelegramBotTest {
                         .mpeg4Height(100).mpeg4Width(100).mpeg4Duration(100),
                 new InlineQueryResultPhoto("13", someUrl, someUrl).photoWidth(100).photoHeight(100).title("title")
                         .description("desc").caption("cap <b>bold</b>").parseMode(ParseMode.HTML),
-                new InlineQueryResultVenue("14", 54f, 55f, "title", "address").foursquareId("frsqrId")
+                new InlineQueryResultVenue("14", 54f, 55f, "title", "address").foursquareId("frsqrId").foursquareType("frType")
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultVideo("15", someUrl, VIDEO_MIME_TYPE, "text", someUrl, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML)
                         .videoWidth(100).videoHeight(100).videoDuration(100).description("desc"),
@@ -720,13 +720,17 @@ public class TelegramBotTest {
     @Test
     public void sendVenue() {
         Float lat = 21.999998f, lng = 105.2f;
-        String title = "title", address = "addr", frsqrId = "asdfasdf";
-        Venue venue = bot.execute(new SendVenue(chatId, lat, lng, title, address).foursquareId(frsqrId)).message().venue();
+        String title = "title", address = "addr", frsqrId = "asdfasdf", frsqrType = "frType";
+        Venue venue = bot.execute(new SendVenue(chatId, lat, lng, title, address)
+                .foursquareId(frsqrId)
+                .foursquareType(frsqrType)
+        ).message().venue();
         assertEquals(lat, venue.location().latitude());
         assertEquals(lng, venue.location().longitude());
         assertEquals(address, venue.address());
         assertEquals(title, venue.title());
         assertEquals(frsqrId, venue.foursquareId());
+        assertEquals(frsqrType, venue.foursquareType());
     }
 
     @Test

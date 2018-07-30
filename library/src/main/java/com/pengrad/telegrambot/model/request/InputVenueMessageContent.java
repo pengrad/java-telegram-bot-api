@@ -14,6 +14,7 @@ public class InputVenueMessageContent extends InputMessageContent implements Ser
     private String title;
     private String address;
     private String foursquare_id;
+    private String foursquare_type;
 
     public InputVenueMessageContent(Float latitude, Float longitude, String title, String address) {
         this.latitude = latitude;
@@ -24,6 +25,11 @@ public class InputVenueMessageContent extends InputMessageContent implements Ser
 
     public InputVenueMessageContent foursquareId(String foursquareId) {
         this.foursquare_id = foursquareId;
+        return this;
+    }
+
+    public InputVenueMessageContent foursquareType(String foursquareType) {
+        this.foursquare_type = foursquareType;
         return this;
     }
 }
