@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.passport;
 
+import com.pengrad.telegrambot.passport.crypt.Decrypt;
+
 import java.io.Serializable;
 
 /**
@@ -12,6 +14,10 @@ public class EncryptedCredentials implements Serializable {
     private String data;
     private String hash;
     private String secret;
+
+    public Credentials decrypt(String privateKey) throws Exception {
+        return Decrypt.decryptCredentials(this, privateKey);
+    }
 
     public String data() {
         return data;

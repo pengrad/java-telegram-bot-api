@@ -8,7 +8,7 @@ import java.io.OutputStream;
  * Stas Parshin
  * 31 July 2018
  */
-public class Aes256Cbc {
+class Aes256Cbc {
 
     private final Cbc cbc;
     private final ByteArrayOutputStream baos;

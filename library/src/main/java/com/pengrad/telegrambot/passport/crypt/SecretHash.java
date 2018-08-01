@@ -8,16 +8,12 @@ import java.util.Arrays;
  * Stas Parshin
  * 31 July 2018
  */
-public class SecretHash {
+class SecretHash {
 
     private final byte[] secretHash;
 
     public SecretHash(byte[] secret, byte[] hash) throws Exception {
         secretHash = sha512(concat(secret, hash));
-    }
-
-    public SecretHash(String secret, String hash) throws Exception {
-        this(secret.getBytes(), hash.getBytes());
     }
 
     public byte[] key() {

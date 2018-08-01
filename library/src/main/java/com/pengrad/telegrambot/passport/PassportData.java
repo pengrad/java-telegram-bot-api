@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.passport;
 
+import com.pengrad.telegrambot.passport.crypt.Decrypt;
+
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -20,6 +22,33 @@ public class PassportData implements Serializable {
     public EncryptedCredentials credentials() {
         return credentials;
     }
+
+    public Credentials decryptCredentials(String privateKey) throws Exception {
+        return Decrypt.decryptCredentials(credentials, privateKey);
+    }
+
+//    public String decryptData(String privateKey) throws Exception {
+//        return decryptData(decryptCredentials(privateKey));
+//    }
+//
+//    public String decryptData(Credentials credentials) {
+//        for (EncryptedPassportElement el : data) {
+//
+//        }
+//    }
+//
+//    class PassportDecrypt {
+//        private PassportData passportData;
+//        private String privateKey;
+//
+//        public Credentials credentials() {
+//            return Decrypt.decryptCredentials(passportData.credentials, privateKey);
+//        }
+//
+//
+//
+//
+//    }
 
     @Override
     public boolean equals(Object o) {

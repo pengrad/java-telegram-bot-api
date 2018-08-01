@@ -6,9 +6,11 @@ import com.pengrad.telegrambot.passport.*;
 import com.pengrad.telegrambot.passport.crypt.Decrypt;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
 import org.junit.Test;
 
 import java.io.File;
@@ -41,6 +43,7 @@ public class TelegramBotTest {
     String channelName = "@bottest";
     Long channelId = -1001002720332L;
     Integer memberBot = 215003245;
+    String privateKey;
 
     Path resourcePath = Paths.get("src/test/resources");
     File imageFile = resourcePath.resolve("image.jpg").toFile();
@@ -72,7 +75,7 @@ public class TelegramBotTest {
     byte[] gifBytes = Files.readAllBytes(gifFile.toPath());
 
     public TelegramBotTest() throws IOException {
-        String token, chat, group;
+        String token, chat, group, Private;
 
         try {
             Properties properties = new Properties();
@@ -81,16 +84,19 @@ public class TelegramBotTest {
             token = properties.getProperty("TEST_TOKEN");
             chat = properties.getProperty("CHAT_ID");
             group = properties.getProperty("GROUP_ID");
+            Private = properties.getProperty("PRIVATE_KEY");
 
         } catch (Exception e) {
             token = System.getenv("TEST_TOKEN");
             chat = System.getenv("CHAT_ID");
             group = System.getenv("GROUP_ID");
+            Private = System.getenv("PRIVATE_KEY");
         }
 
         bot = TelegramBotAdapter.buildDebug(token);
         chatId = Integer.parseInt(chat);
         groupId = Long.parseLong(group);
+        privateKey = Private;
     }
 
     @Test
@@ -1191,35 +1197,22 @@ public class TelegramBotTest {
                 break;
             }
         }
+        assertNotNull(passportData);
         System.out.println(passportData);
-        Credentials credentials = Decrypt.decryptCredentials(passportData.credentials(), Private);
-        System.out.println("+++++++++++");
+
+        Credentials credentials = passportData.credentials().decrypt(privateKey);
         System.out.println(credentials);
 
         for (EncryptedPassportElement encElement : passportData.data()) {
-            if (encElement.type() == EncryptedPassportElement.Type.driver_license) {
-                String encData = encElement.data();
-                SecureValue s = credentials.secureData().driverLicense();
-                String val = Decrypt.decryptData(s.data(), encData);
-//                System.out.println(val);
+            System.out.println(encElement.type());
+            System.out.println(encElement.decryptData(credentials));
 
 
-                String encFile = encElement.frontSide().fileId();
-                FileCredentials fc = credentials.secureData().driverLicense().frontSide();
-                Decrypt.decryptFile(fc, encFile);
-
-                encFile = encElement.reverseSide().fileId();
-                fc = credentials.secureData().driverLicense().frontSide();
-                Decrypt.decryptFile(fc, encFile);
-            }
-
-            if (encElement.type() == EncryptedPassportElement.Type.personal_details) {
-                String encData = encElement.data();
-                SecureValue s = credentials.secureData().personalDetails();
-                String val = Decrypt.decryptData(s.data(), encData);
-//                System.out.println(val);
-            }
+            bot.decryptPassportFile(encElement.frontSide(), credentials);
         }
+
+
+//            }
 //        decryptCredData(encrCredDataBytes, kb, ivb);
     }
 }

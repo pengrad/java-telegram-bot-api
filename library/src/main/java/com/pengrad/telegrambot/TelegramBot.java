@@ -5,9 +5,14 @@ import com.pengrad.telegrambot.impl.FileApi;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.impl.UpdatesHandler;
 import com.pengrad.telegrambot.model.File;
+import com.pengrad.telegrambot.passport.Credentials;
+import com.pengrad.telegrambot.passport.PassportFile;
 import com.pengrad.telegrambot.request.BaseRequest;
+import com.pengrad.telegrambot.request.GetFile;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.BaseResponse;
+import com.pengrad.telegrambot.response.GetFileResponse;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -42,6 +47,12 @@ public class TelegramBot {
 
     public String getFullFilePath(File file) {
         return fileApi.getFullFilePath(file.filePath());
+    }
+
+    public void decryptPassportFile(PassportFile passportFile, Credentials credentials) {
+        GetFileResponse response = execute(new GetFile(passportFile.fileId()));
+        response.file().filePath();
+        getFullFilePath(response.file());
     }
 
     public void setUpdatesListener(UpdatesListener listener) {

@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.passport;
 
+import java.lang.reflect.Field;
+
 /**
  * Stas Parshin
  * 31 July 2018
@@ -18,6 +20,15 @@ public class SecureData {
             rental_agreement,
             passport_registration,
             temporary_registration;
+
+    public SecureValue ofType(EncryptedPassportElement.Type type) {
+        try {
+            Field field = getClass().getDeclaredField(type.name());
+            return (SecureValue) field.get(this);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Don't have SecureDate for type " + type.name(), e);
+        }
+    }
 
     public SecureValue personalDetails() {
         return personal_details;

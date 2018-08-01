@@ -7,6 +7,7 @@ import com.pengrad.telegrambot.passport.EncryptedCredentials;
 import com.pengrad.telegrambot.passport.FileCredentials;
 
 import javax.crypto.Cipher;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +16,6 @@ import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.RSAPrivateCrtKeySpec;
 import java.util.Arrays;
-import java.util.Base64;
 
 /**
  * Stas Parshin
@@ -58,7 +58,6 @@ public class Decrypt {
         int padding = cred[0] & 0xFF;
         cred = Arrays.copyOfRange(cred, padding, cred.length);
         String credStr = new String(cred);
-        System.out.println(credStr);
         return credStr;
     }
 

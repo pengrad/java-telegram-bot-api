@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.passport;
 
+import com.pengrad.telegrambot.passport.crypt.Decrypt;
+
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -23,6 +25,40 @@ public class EncryptedPassportElement implements Serializable {
     private PassportFile front_side;
     private PassportFile reverse_side;
     private PassportFile selfie;
+
+    public String decryptData(Credentials credentials) throws Exception {
+        if (data == null) return "";
+        SecureValue secureValue = credentials.secureData().ofType(type);
+        return Decrypt.decryptData(secureValue.data(), data);
+    }
+
+    private SecureValue secureValueByType(Type type, SecureData secureData) {
+        switch (type) {
+            case personal_details:
+                return secureData.personalDetails();
+            case passport:
+                return secureData.bankStatement();
+            case internal_passport:
+                return secureData.bankStatement();
+            case driver_license:
+                return secureData.bankStatement();
+            case identity_card:
+                return secureData.bankStatement();
+            case address:
+                return secureData.bankStatement();
+            case utility_bill:
+                return secureData.bankStatement();
+            case bank_statement:
+                return secureData.bankStatement();
+            case rental_agreement:
+                return secureData.bankStatement();
+            case passport_registration:
+                return secureData.bankStatement();
+            case temporary_registration:
+                return secureData.bankStatement();
+        }
+        throw new IllegalArgumentException("Don't have SecureDate for type " + type.name());
+    }
 
     public Type type() {
         return type;
