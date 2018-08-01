@@ -1,149 +1,30 @@
-package com.pengrad.telegrambot;
+package com.pengrad.telegrambot.passport.crypt;
 
-
-import com.pengrad.telegrambot.request.GetFile;
-import com.pengrad.telegrambot.response.GetFileResponse;
-import com.sun.xml.internal.rngom.parse.host.Base;
-
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.security.MessageDigest;
-import java.util.Arrays;
-import java.util.Base64;
-
-import javax.xml.bind.DatatypeConverter;
 
 /**
  * Stas Parshin
  * 31 July 2018
  */
-public class PassportTest {
+public class Aes256Cbc {
 
+    private final Cbc cbc;
+    private final ByteArrayOutputStream baos;
 
-    public static void main(String[] args) throws Exception {
-//        OutputStream os = System.out;
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        os = baos;
-//        Cbc cbc = new Cbc(new byte[]{-39, 76, -53, -16, -69, -49, 113, -30, -113, 10, 36, 48, 86, 111, 31, -90},
-//                new byte[]{24, -70, -100, -77, 65, -40, 108, 36, -88, 98, 45, 104, 104, 88, -107, 91, -30, 81, -103, -64, -96, -25, 92, 28, -51, -87, 75, 121, 50, 54, 20, -106},
-//                os);
-//        byte[] encData = new byte[]{116, 25, 99, -30, 96, 104, 7, -72, -101, 50, 112, -126, 91, -115, -44, 72, 22, 92, 121, 38, 68, -37, 56, -95, -96, 19, 55, -37, -42, 26, -91, 61, -49, -2, 35, -114, -6, -124, 19, 119, -90, 127, 102, 122, 40, 72, -55, 12, 89, -39, -24, -15, -61, -42, -42, 38, 69, 99, -46, 35, 100, -25, -35, -1, 89, 56, 8, 114, -32, -107, 36, 60, 80, -6, -30, -70, 109, 64, -22, 31, 38, -86, 119, 14, -93, 119, -23, -26, -27, 95, -35, -69, -21, 25, 106, 3, -30, 101, -54, -76, -3, -8, -5, 50, 78, 2, 109, 8, 18, -50, 45, 75, -120, -12, -58, -80, -6, -52, -27, -96, -9, -1, 84, 82, -118, 90, -59, -30, -111, 76, 45, -124, -14, 11, -121, -24, 56, 119, -17, 30, 114, 91, -90, -34, 14, 50, -98, 101, 26, -92, 92, 8, -41, -82, -124, 35, 25, 12, -38, 105, 75, 22, 59, -41, 45, 116, -94, -122, -78, 51, -23, -92, 57, 106, -107, 58, -1, 0, -19, -36, -8, -74, -104, 43, 11, 92, -27, 8, 123, -109, 13, -122, 76, 8, 56, -113, 80, -27, -9, 71, 0, -112, -114, -64, -36, -90, 113, 57, 63, 4, -97, 102, 102, 41, 38, -58, -28, 43, -89, 101, 125, -45, -75, -75, 92, -37, 113, 49, -73, 67, -73, -116, -75, 19, -16, -41, -76, -37, -32, 29, 32, 3, -26, -121, -112, 54, 45, -37, -119, -42, 113, 20, -103, -62, -128, -60, -83, -56, 51, 3, -89, 20, 80, 19, 109, 93, -121, 125, 48, 89, 67, 81, 1, -2, 43, -116, -39, 7, -113, -5, 78, -26, 2, 64, 44, 101, -67, 51, 73, -50, 116, 60, 119, 43, -57, -52, 33, 74, -102, -114, 20, 52, -43, -93, -101, -57, 88, -116, 39, -5, -94, -109, -113, -20, -112, 9, 48, 68, 117, 61, 51, 37, 96, 67, 83, -64, -115, -63, 13, 108, -96, 16, -72, 11, 99, 123, -107, 37, -121, 82, -22, 18, 52, -36, -16, -52, 65, -66, 114, -123, 101, -124, -11, 15, -45, 0, -32, 73, 11, -44, -36, -28, 126, -104, 11, 82, 4, -81, 37, 25, 121, -78, -32, 18, -46, 17, 9, 70, -30, -56, -83, 116, 52, 119, 126, 7, -9, 53, 18, -105, -3, -1, 42, 89, -9, 127, 90, 101, -37, -12, 105, -55, -107, -39, 70, 80, -30, -16, 96, -43, -109, -35, -33, 9, -29, -67, -49, -75, -90, -123, -50, 114, -120, -32, -15, -127, 57, 101, 52, -44, 48, 97, 44, 37, 89, 80, -73, -112, -59, -128, -43, 83, 4, -98, -6, 77, 42, 39, -91, 58, -2, -8, 57, -57, 121, 116, -33, -29, 84, -89, 81, 27, -108, -95, -27, -102, -124, -8, 70, -72, 96, 21, -111, 15, -37, -6, 82, -110, 6, -84, 34, 108, 33, 39, 35, 58, -111, 27, -123, -76, 117, 28, 71, 21, 48, -108, -104, -31, 81, -120, 18, 6, -123, -69, -117, -121, -63, 78, 104, 54, 51, -40, 60, 7, -8, -114, -83, -109, 41, 31, 88, 46, 73, -110, -42, 30, 74, 108, -83, -101, -23, -56, -89, -92, 82, 34, -8, 69, -125, 14, -98, -103, 103, -74, -11, 2, 81, -116, 30, -68, 126, -25, 23, -19, 81, -79, 28, -45, -43, 84, 110, -41, -41, -4, 99, -2, 16, 16, -127, 42, -14, -19, 29, 84, -27, -128, 28, 105, 83, -25, 115, 52, 93, 28, 17, 59, 109, -23, -68, -77, -5, 77, -80, 84, -128, -49, 21, -36, -4, -103, -15, -84, 99, 5, 48, 89, -3, -58, -24, 93, 121, 117, 2, 104, -32, 20, -123, -21, -66, 37, 93, -45, 102, -53, -66, 75, 41, 48, 55, -23, -7, 9, 72, 7, 12, 111, 45, 107, -91, -126, 71, 54, -59, -60, 10, -30, -28, 7, 104, -91, -14, -123, -76, 70, -123, 23, 28, 28, -123, 31, 11, -72, 54, 105, -75, -128, 113, 45, 8, 110, -106, -100, 15, -98, 121, -120, 42, -91, -80, -100, 87, 33, -72, 118, -50, 21, -92, -27, 126, 33, 81, 25, 111, -38, -43, 77, 59, -111, 117, -6, 108, -123, 124, 27, 101, 11, 43, 53, -88, -53, -46, 45, -42, -4, 12, -25, -100, 76, 91, 101, -69, -59, 41, -56, 41, -93, -70, 116, -93, -88, -60, -77, -100, 116, 124, 70, 115, 52, 27, 53, -72, -82, -29, -55, -71, 38, -69, -13, -82, 63, -74, 112, 27, -120, 114, 82, -28, -80, 113, 42, -38, -75, -46, -120, -68, -48, -81, -102};
-//        cbc.decrypt(encData);
-////        cbc.finishDecryption();
-//        byte[] data = baos.toByteArray();
-//        byte[] shaData = sha256b(data);
-////        System.out.println("Data Hash first " + shaData[0] + " last " + shaData[shaData.length - 1]);
-//        int padding = data[0] & 0xFF;
-//        data = Arrays.copyOfRange(data, padding, data.length);
-//        System.out.println(new String(data));
+    public Aes256Cbc(byte[] key, byte[] iv) {
+        baos = new ByteArrayOutputStream();
+        cbc = new Cbc(iv, key, baos);
+    }
 
-//
-        String encData = "K5Sru8OV+a5uatFgucFCNXTMOAd6JIyJt1MY1OcW7NQH2Va/zH0MIGLeip4NiB4OYrO5dljp6+NfowhEGBKMlRi1L2WJlNSHLJU6txol7GrcpJ5KdVw8s0PcFUIbjvMt5y0J9jkk5esRIHPtPB0T719caDHJ+PFXsAmtOwYllymICSec9qdduLUu+uGaLz6frRgVP8Hsc2hKR2lEZjHw4lcR8VeZwLwP1Yl8O7HaZ7lJqQinLcZ7Jt+Tag+Oe9Fpq8AJnPaH7j+6JYIKHgWzuQ==";
-        String hash = "2fURfeow3nuU38w+CMQiAwr6azqrgn7CVTUpe1YxulU=";
-        String secret = "HgIyv1N3j9dvuygPhDdUl3xTUWXFFW8GkX2Gg2qH398=";
-
-        encData = "tUH64yPz+31a2sQvbgtaMd0ZWo5266k+SWwht42l1T9wSpBNVyhEO1Xr9Ld39/yshJrX43gQU/g/sG1lDlhGG7fLyqQpCKIfGaWnPj94maCEsAWFZbIareVkjXSyDxN0VMXq30F3Zhknsi6ZqOc+stzblo+AsClV2wVysbDwal1mmzXK+bOT/ydvRJq1UHX7Okz4Mhx0OrQPOdiCBtuZPNXDWEMpjWM60f5FMEZtOybWTbNF0bFLoSz9w4YbniKH";
-        hash = "iFqWHCoXRAk+ka+NpUx1e+H06rhrp2NS03gWQ5fh5u0=";
-        secret = "i6EtH1dhMtN7LOkvrHSvicNIjRc0u0EuFs4/8FcLZa8=";
-
-        encData = "8i20v5STakTTngL/5FbqS0bhQvIWcv9dXAUZBroBUwwZx4PQJ/exJJjvSXpbCTihjB+BqJzCmjiuc7bN5+u2HRUfnXkHE2EAFLfVXUGLZf8W0uxQkBaN/uJ0l9oKBucm7MI/hbSfyHuqr73rj5YzeWGxcoVDFy2MSPrWzznWuWxyQ98u6x943OMQE0/XDqMhvbXqLZ1HL9nVxHtODpEOvutD21X0IglCiV1CZaKjNoxPRxF6Ns8HfVfUiJoDoh3tsVup1lHh22ouG1YzjhXscaVCJfxNlpaIBp5EeSh4zqFeHPX8fwxdOz/2rqm/dI/d046+6W6/Nmej5TF8GmWEfDcIaKotRjCduVDdTREfNFIgKfsHkMmPl2Dqakrxz46jXJYtG9wW/qAZ8giwWEBGvg==";
-        hash = "ad6LfxLJGpCdhhRLF8PHD36uFXMCEFWwS+Wnc776wXY=";
-        secret = "j6wqUo8Z3h04J6px0Nb4M6/AJzdQ0OFKpJyCm63fc8Y=";
-
-        encData = "DgADAgADYQEAArelAAFLkpkNswABm39wAg";
-        hash = "72uO0w2cUBKrZhkxFA7rk/p4u3+0l28IDRZdxgvnHes=";
-        secret = "A59spfwXxTrLrFkEDEH9sDD9RBhw5AcveBSnExrk6BA=";
-
-        String t = hash;
-//        hash = secret;
-//        secret = t;
-
-        byte[] encAddBytes = Base64.getMimeDecoder().decode(encData);
-        encAddBytes = Arrays.copyOf(encAddBytes, 32);
-        byte[] hashBytes = Base64.getMimeDecoder().decode(hash);
-        byte[] secretBytes = Base64.getMimeDecoder().decode(secret);
-        byte[] secretHash = TelegramBotTest.sha512(TelegramBotTest.concat(secretBytes, hashBytes));
-        byte[] k = Arrays.copyOfRange(secretHash, 0, 32);
-        byte[] iv = Arrays.copyOfRange(secretHash, 32, 48);
-//
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        Cbc cbc = new Cbc(iv, k, baos);
-        cbc.decrypt(encAddBytes);
+    public byte[] decrypt(byte[] data) throws Exception {
+        cbc.decrypt(data);
         cbc.finishDecryption();
-        System.out.println(baos.toByteArray()[0] & 0xFF);
-        System.out.println(new String(baos.toByteArray()));
-        System.out.println();
-
-
-        TelegramBot bot = TelegramBotAdapter.buildDebug("124920712:AAFRx6H1mjHGbQ4r2mVVsZuRkuPJQiNPWSc");
-        GetFileResponse response = bot.execute(new GetFile(Base64.getMimeEncoder().encodeToString(baos.toByteArray())));
-        System.out.println(response);
-
-
-        System.out.println("++++++++++++++++++++++++++++++");
-
-//        String encAdddata = "DgADAgADYQEAArelAAFLkpkNswABm39wAg";
-//        byte[] encAddB = Base64.getMimeDecoder().decode(encAdddata);
-//        encAddB = Arrays.copyOf(encAddB, 32);
-//        System.out.println(encAddB.length);
-//        String addHash = "72uO0w2cUBKrZhkxFA7rk/p4u3+0l28IDRZdxgvnHes=";
-//        String addSecr = "A59spfwXxTrLrFkEDEH9sDD9RBhw5AcveBSnExrk6BA=";
-//        byte[] ahb = Base64.getMimeDecoder().decode(addHash);
-//        byte[] asb = Base64.getMimeDecoder().decode(addSecr);
-//        byte[] dsh = TelegramBotTest.sha512(TelegramBotTest.concat(asb, ahb));
-//        byte[] k = Arrays.copyOfRange(dsh, 0, 32);
-//        byte[] iv = Arrays.copyOfRange(dsh, 32, 48);
-////
-//        AES AES = new AES();
-//        AES.roundKey = new Data[AES.ROUNDS + 1];
-//        AES.key = new Data(k);
-//        AES.IV = new Data(iv);
-//        AES.CBC_MODE = true;
-//        AES.iStream = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(encAddB)));
-//        AES.decrypt();
-//        System.out.println(new String(AES.baos.toByteArray()));
-//        System.out.println("123123123123123123123123");
-
-
-//        baos = new ByteArrayOutputStream();
-//        cbc = new Cbc(iv, k, baos);
-//        cbc.decrypt(encAddB);
-//        cbc.finishDecryption();
-//        System.out.println(baos.toByteArray().length);
-//        System.out.println(new String(baos.toByteArray()));
-//
-//        if (true) return;
-//        System.out.println("++++++++++++++++++++++++++++++");
-//
-//        String fileId = "DgADAgADYQEAArelAAFLkpkNswABm39wAg";
-//        byte[] fidb = Base64.getMimeDecoder().decode(fileId);
-//        String fHash = "72uO0w2cUBKrZhkxFA7rk/p4u3+0l28IDRZdxgvnHes=";
-//        String fSecr = "A59spfwXxTrLrFkEDEH9sDD9RBhw5AcveBSnExrk6BA=";
-//        ahb = Base64.getMimeDecoder().decode(fHash);
-//        asb = Base64.getMimeDecoder().decode(fSecr);
-//        dsh = TelegramBotTest.sha512(TelegramBotTest.concat(asb, ahb));
-//        System.out.println(dsh.length);
-//        k = Arrays.copyOfRange(dsh, 0, 32);
-//        iv = Arrays.copyOfRange(dsh, 32, 48);
-//
-//        baos = new ByteArrayOutputStream();
-//        cbc = new Cbc(iv, k, baos);
-//        cbc.decrypt(fidb);
-////        cbc.finishDecryption();
-//        System.out.println(baos.toByteArray().length);
-//        System.out.println(new String(baos.toByteArray()));
+        return baos.toByteArray();
     }
 
-    static byte[] sha256b(byte[] string) throws Exception {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        return digest.digest(string);
-    }
-
-    public static final class Aes256 {
+    static final class Aes256 {
 
         /**
          * Number of {@code byte}s needed for 32 bit words.
@@ -600,7 +481,7 @@ public class PassportTest {
         }
     }
 
-    public static class Cbc {
+    static class Cbc {
 
         /**
          * size of a block in {@code byte}s
@@ -652,8 +533,8 @@ public class PassportTest {
         /**
          * Creates the temporary buffers.
          *
-         * @param iv     initial value of {@link Cbc#_tmp}
-         * @param key    key for {@link Cbc#_cipher}
+         * @param iv initial value of {@link Cbc#_tmp}
+         * @param key key for {@link Cbc#_cipher}
          * @param output stream where the encrypted or decrypted data is written
          */
         public Cbc(byte[] iv, byte[] key, OutputStream output) {
@@ -672,7 +553,7 @@ public class PassportTest {
         /**
          * Encrypts a block. {@link Cbc#_current} will be modified.
          *
-         * @param inBuffer  array containing the input block
+         * @param inBuffer array containing the input block
          * @param outBuffer storage of the encrypted block
          */
         private void encryptBlock(byte[] inBuffer, byte[] outBuffer) {
@@ -686,7 +567,7 @@ public class PassportTest {
         /**
          * Decrypts a block. {@link Cbc#_current} will be modified.
          *
-         * @param inBuffer  storage of the encrypted block
+         * @param inBuffer storage of the encrypted block
          * @param outBuffer storage of the decrypted block
          */
         private void decryptBlock(byte[] inBuffer) {
@@ -727,7 +608,7 @@ public class PassportTest {
          * Encrypts a part of the array. Only the first {@code length} {@code byte}s of the array will
          * be encrypted.
          *
-         * @param data   {@code byte}s that should be encrypted
+         * @param data {@code byte}s that should be encrypted
          * @param length number of {@code byte}s that should be encrypted
          * @throws IOException if the writing fails
          */
@@ -750,7 +631,7 @@ public class PassportTest {
          * Decrypts a part of the array. Only the first {@code length} {@code byte}s of the array will
          * be decrypted.
          *
-         * @param data   {@code byte}s that should be decrypted
+         * @param data {@code byte}s that should be decrypted
          * @param length number of {@code byte}s that should be decrypted
          * @throws IOException if the writing fails
          */
@@ -792,7 +673,7 @@ public class PassportTest {
          * Finishes the decryption process.
          *
          * @throws DecryptException if the last block is no legal conclusion of the stream
-         * @throws IOException      if the writing fails
+         * @throws IOException if the writing fails
          */
         public void finishDecryption() throws DecryptException, IOException {
             if (this._overflowUsed != 0) {
@@ -802,26 +683,20 @@ public class PassportTest {
                 return;
             }
 
-            System.out.println(new String(_current));
-            System.out.println(new String(_buffer));
-            System.out.println(new String(_tmp));
-            System.out.println(new String(_outBuffer));
-            System.out.println(new String(_overflow));
-
             int pad = this._outBuffer[BLOCK_SIZE - 1] & 0xff;
-//            if (pad <= 0 || pad > BLOCK_SIZE) {
+            if (pad <= 0 || pad > BLOCK_SIZE) {
 //                throw new DecryptException();
-//            }
+            }
 
 //            int left = BLOCK_SIZE - pad;
 //            if (left > 0) {
-            this._output.write(this._outBuffer, 0, 16);
+                this._output.write(this._outBuffer, 0, 16);
 //            }
             this._output.close();
         }
     }
 
-    public static final class DecryptException extends Exception {
+    static final class DecryptException extends Exception {
 
         private static final long serialVersionUID = -935882404526228391L;
 
@@ -832,4 +707,5 @@ public class PassportTest {
             super("Decryption failed.");
         }
     }
+
 }

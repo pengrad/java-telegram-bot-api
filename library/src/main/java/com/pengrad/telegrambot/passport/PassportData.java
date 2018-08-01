@@ -13,6 +13,14 @@ public class PassportData implements Serializable {
     private EncryptedPassportElement[] data;
     private EncryptedCredentials credentials;
 
+    public EncryptedPassportElement[] data() {
+        return data;
+    }
+
+    public EncryptedCredentials credentials() {
+        return credentials;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

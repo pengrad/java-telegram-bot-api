@@ -13,6 +13,18 @@ public class PassportFile implements Serializable {
     private Integer file_size;
     private Integer file_date;
 
+    public String fileId() {
+        return file_id;
+    }
+
+    public Integer fileSize() {
+        return file_size;
+    }
+
+    public Integer fileDate() {
+        return file_date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

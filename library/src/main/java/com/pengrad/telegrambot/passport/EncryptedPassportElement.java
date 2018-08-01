@@ -24,6 +24,38 @@ public class EncryptedPassportElement implements Serializable {
     private PassportFile reverse_side;
     private PassportFile selfie;
 
+    public Type type() {
+        return type;
+    }
+
+    public String data() {
+        return data;
+    }
+
+    public String phoneNumber() {
+        return phone_number;
+    }
+
+    public String email() {
+        return email;
+    }
+
+    public PassportFile[] files() {
+        return files;
+    }
+
+    public PassportFile frontSide() {
+        return front_side;
+    }
+
+    public PassportFile reverseSide() {
+        return reverse_side;
+    }
+
+    public PassportFile selfie() {
+        return selfie;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

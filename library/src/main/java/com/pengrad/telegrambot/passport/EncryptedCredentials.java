@@ -13,6 +13,18 @@ public class EncryptedCredentials implements Serializable {
     private String hash;
     private String secret;
 
+    public String data() {
+        return data;
+    }
+
+    public String hash() {
+        return hash;
+    }
+
+    public String secret() {
+        return secret;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

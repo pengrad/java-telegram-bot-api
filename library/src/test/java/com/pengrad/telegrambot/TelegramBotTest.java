@@ -1,190 +1,31 @@
 package com.pengrad.telegrambot;
 
-import com.pengrad.telegrambot.model.Animation;
-import com.pengrad.telegrambot.model.Audio;
-import com.pengrad.telegrambot.model.CallbackQuery;
-import com.pengrad.telegrambot.model.Chat;
-import com.pengrad.telegrambot.model.ChatMember;
-import com.pengrad.telegrambot.model.Contact;
-import com.pengrad.telegrambot.model.Game;
-import com.pengrad.telegrambot.model.GameHighScore;
-import com.pengrad.telegrambot.model.InlineQuery;
-import com.pengrad.telegrambot.model.Location;
-import com.pengrad.telegrambot.model.MaskPosition;
-import com.pengrad.telegrambot.model.Message;
-import com.pengrad.telegrambot.model.MessageEntity;
-import com.pengrad.telegrambot.model.PhotoSize;
-import com.pengrad.telegrambot.model.PreCheckoutQuery;
-import com.pengrad.telegrambot.model.ShippingQuery;
-import com.pengrad.telegrambot.model.Sticker;
-import com.pengrad.telegrambot.model.StickerSet;
-import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.model.UserProfilePhotos;
-import com.pengrad.telegrambot.model.Venue;
-import com.pengrad.telegrambot.model.Video;
-import com.pengrad.telegrambot.model.WebhookInfo;
-import com.pengrad.telegrambot.model.request.ChatAction;
-import com.pengrad.telegrambot.model.request.ForceReply;
-import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
-import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
-import com.pengrad.telegrambot.model.request.InlineQueryResult;
-import com.pengrad.telegrambot.model.request.InlineQueryResultArticle;
-import com.pengrad.telegrambot.model.request.InlineQueryResultAudio;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedAudio;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedDocument;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedGif;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedMpeg4Gif;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedPhoto;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedSticker;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedVideo;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedVoice;
-import com.pengrad.telegrambot.model.request.InlineQueryResultContact;
-import com.pengrad.telegrambot.model.request.InlineQueryResultDocument;
-import com.pengrad.telegrambot.model.request.InlineQueryResultGame;
-import com.pengrad.telegrambot.model.request.InlineQueryResultGif;
-import com.pengrad.telegrambot.model.request.InlineQueryResultLocation;
-import com.pengrad.telegrambot.model.request.InlineQueryResultMpeg4Gif;
-import com.pengrad.telegrambot.model.request.InlineQueryResultPhoto;
-import com.pengrad.telegrambot.model.request.InlineQueryResultVenue;
-import com.pengrad.telegrambot.model.request.InlineQueryResultVideo;
-import com.pengrad.telegrambot.model.request.InlineQueryResultVoice;
-import com.pengrad.telegrambot.model.request.InputContactMessageContent;
-import com.pengrad.telegrambot.model.request.InputLocationMessageContent;
-import com.pengrad.telegrambot.model.request.InputMediaAnimation;
-import com.pengrad.telegrambot.model.request.InputMediaAudio;
-import com.pengrad.telegrambot.model.request.InputMediaDocument;
-import com.pengrad.telegrambot.model.request.InputMediaPhoto;
-import com.pengrad.telegrambot.model.request.InputMediaVideo;
-import com.pengrad.telegrambot.model.request.InputTextMessageContent;
-import com.pengrad.telegrambot.model.request.InputVenueMessageContent;
-import com.pengrad.telegrambot.model.request.KeyboardButton;
-import com.pengrad.telegrambot.model.request.LabeledPrice;
-import com.pengrad.telegrambot.model.request.ParseMode;
-import com.pengrad.telegrambot.model.request.ReplyKeyboardHide;
-import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
-import com.pengrad.telegrambot.model.request.ReplyKeyboardRemove;
-import com.pengrad.telegrambot.model.request.ShippingOption;
-import com.pengrad.telegrambot.passport.PassportElementErrorDataField;
-import com.pengrad.telegrambot.passport.SetPassportDataErrors;
-import com.pengrad.telegrambot.request.AddStickerToSet;
-import com.pengrad.telegrambot.request.AnswerCallbackQuery;
-import com.pengrad.telegrambot.request.AnswerInlineQuery;
-import com.pengrad.telegrambot.request.AnswerPreCheckoutQuery;
-import com.pengrad.telegrambot.request.AnswerShippingQuery;
-import com.pengrad.telegrambot.request.CreateNewStickerSet;
-import com.pengrad.telegrambot.request.DeleteChatPhoto;
-import com.pengrad.telegrambot.request.DeleteChatStickerSet;
-import com.pengrad.telegrambot.request.DeleteMessage;
-import com.pengrad.telegrambot.request.DeleteStickerFromSet;
-import com.pengrad.telegrambot.request.DeleteWebhook;
-import com.pengrad.telegrambot.request.EditMessageCaption;
-import com.pengrad.telegrambot.request.EditMessageLiveLocation;
-import com.pengrad.telegrambot.request.EditMessageMedia;
-import com.pengrad.telegrambot.request.EditMessageReplyMarkup;
-import com.pengrad.telegrambot.request.EditMessageText;
-import com.pengrad.telegrambot.request.ExportChatInviteLink;
-import com.pengrad.telegrambot.request.ForwardMessage;
-import com.pengrad.telegrambot.request.GetChat;
-import com.pengrad.telegrambot.request.GetChatAdministrators;
-import com.pengrad.telegrambot.request.GetChatMember;
-import com.pengrad.telegrambot.request.GetChatMembersCount;
-import com.pengrad.telegrambot.request.GetFile;
-import com.pengrad.telegrambot.request.GetGameHighScores;
-import com.pengrad.telegrambot.request.GetMe;
-import com.pengrad.telegrambot.request.GetStickerSet;
-import com.pengrad.telegrambot.request.GetUpdates;
-import com.pengrad.telegrambot.request.GetUserProfilePhotos;
-import com.pengrad.telegrambot.request.GetWebhookInfo;
-import com.pengrad.telegrambot.request.KickChatMember;
-import com.pengrad.telegrambot.request.LeaveChat;
-import com.pengrad.telegrambot.request.PinChatMessage;
-import com.pengrad.telegrambot.request.PromoteChatMember;
-import com.pengrad.telegrambot.request.RestrictChatMember;
-import com.pengrad.telegrambot.request.SendAnimation;
-import com.pengrad.telegrambot.request.SendAudio;
-import com.pengrad.telegrambot.request.SendChatAction;
-import com.pengrad.telegrambot.request.SendContact;
-import com.pengrad.telegrambot.request.SendDocument;
-import com.pengrad.telegrambot.request.SendGame;
-import com.pengrad.telegrambot.request.SendInvoice;
-import com.pengrad.telegrambot.request.SendLocation;
-import com.pengrad.telegrambot.request.SendMediaGroup;
-import com.pengrad.telegrambot.request.SendMessage;
-import com.pengrad.telegrambot.request.SendPhoto;
-import com.pengrad.telegrambot.request.SendSticker;
-import com.pengrad.telegrambot.request.SendVenue;
-import com.pengrad.telegrambot.request.SendVideo;
-import com.pengrad.telegrambot.request.SendVideoNote;
-import com.pengrad.telegrambot.request.SendVoice;
-import com.pengrad.telegrambot.request.SetChatDescription;
-import com.pengrad.telegrambot.request.SetChatPhoto;
-import com.pengrad.telegrambot.request.SetChatStickerSet;
-import com.pengrad.telegrambot.request.SetChatTitle;
-import com.pengrad.telegrambot.request.SetGameScore;
-import com.pengrad.telegrambot.request.SetStickerPositionInSet;
-import com.pengrad.telegrambot.request.SetWebhook;
-import com.pengrad.telegrambot.request.StopMessageLiveLocation;
-import com.pengrad.telegrambot.request.UnbanChatMember;
-import com.pengrad.telegrambot.request.UnpinChatMessage;
-import com.pengrad.telegrambot.request.UploadStickerFile;
-import com.pengrad.telegrambot.response.BaseResponse;
-import com.pengrad.telegrambot.response.GetChatAdministratorsResponse;
-import com.pengrad.telegrambot.response.GetChatMembersCountResponse;
-import com.pengrad.telegrambot.response.GetFileResponse;
-import com.pengrad.telegrambot.response.GetMeResponse;
-import com.pengrad.telegrambot.response.GetStickerSetResponse;
-import com.pengrad.telegrambot.response.GetUpdatesResponse;
-import com.pengrad.telegrambot.response.GetUserProfilePhotosResponse;
-import com.pengrad.telegrambot.response.GetWebhookInfoResponse;
-import com.pengrad.telegrambot.response.MessagesResponse;
-import com.pengrad.telegrambot.response.SendResponse;
-import com.pengrad.telegrambot.response.StringResponse;
-
+import com.pengrad.telegrambot.model.*;
+import com.pengrad.telegrambot.model.request.*;
+import com.pengrad.telegrambot.passport.*;
+import com.pengrad.telegrambot.passport.crypt.Decrypt;
+import com.pengrad.telegrambot.request.*;
+import com.pengrad.telegrambot.response.*;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.Key;
-import java.security.KeyFactory;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.spec.RSAPrivateCrtKeySpec;
-import java.util.Arrays;
-import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
 import static com.pengrad.telegrambot.request.ContentTypes.VIDEO_MIME_TYPE;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * stas
@@ -1341,494 +1182,44 @@ public class TelegramBotTest {
 
     @Test
     public void passport() throws Exception {
-        String encrCredData = "dBlj4mBoB7ibMnCCW43USBZceSZE2zihoBM329YapT3P/iOO+oQTd6Z/ZnooSMkMWdno8cPW1iZFY9IjZOfd/1k4CHLglSQ8UPrium1A6h8mqncOo3fp5uVf3bvrGWoD4mXKtP34+zJOAm0IEs4tS4j0xrD6zOWg9/9UUopaxeKRTC2E8guH6Dh37x5yW6beDjKeZRqkXAjXroQjGQzaaUsWO9ctdKKGsjPppDlqlTr/AO3c+LaYKwtc5Qh7kw2GTAg4j1Dl90cAkI7A3KZxOT8En2ZmKSbG5CunZX3TtbVc23Ext0O3jLUT8Ne02+AdIAPmh5A2LduJ1nEUmcKAxK3IMwOnFFATbV2HfTBZQ1EB/iuM2QeP+07mAkAsZb0zSc50PHcrx8whSpqOFDTVo5vHWIwn+6KTj+yQCTBEdT0zJWBDU8CNwQ1soBC4C2N7lSWHUuoSNNzwzEG+coVlhPUP0wDgSQvU3OR+mAtSBK8lGXmy4BLSEQlG4sitdDR3fgf3NRKX/f8qWfd/WmXb9GnJldlGUOLwYNWT3d8J473PtaaFznKI4PGBOWU01DBhLCVZULeQxYDVUwSe+k0qJ6U6/vg5x3l03+NUp1EblKHlmoT4RrhgFZEP2/pSkgasImwhJyM6kRuFtHUcRxUwlJjhUYgSBoW7i4fBTmg2M9g8B/iOrZMpH1guSZLWHkpsrZvpyKekUiL4RYMOnplntvUCUYwevH7nF+1RsRzT1VRu19f8Y/4QEIEq8u0dVOWAHGlT53M0XRwRO23pvLP7TbBUgM8V3PyZ8axjBTBZ/cboXXl1AmjgFIXrviVd02bLvkspMDfp+QlIBwxvLWulgkc2xcQK4uQHaKXyhbRGhRccHIUfC7g2abWAcS0IbpacD555iCqlsJxXIbh2zhWk5X4hURlv2tVNO5F1+myFfBtlCys1qMvSLdb8DOecTFtlu8UpyCmjunSjqMSznHR8RnM0GzW4ruPJuSa7864/tnAbiHJS5LBxKtq10oi80K+a";
-        byte[] encrCredDataBytes = Base64.getMimeDecoder().decode(encrCredData);
-        System.out.println(encrCredDataBytes.length);
-        System.out.println(Arrays.toString(encrCredDataBytes));
-        String encrCredSecret = "HHZ089rPHeaG8igCGrBtxQuBGgYjShwjZNeeLMxzXZDHUOpB2hoFVH/RPfTCXLpz95UqxI/DkIofGT8bI4z64xaen8YvQxY3bEIILjqwdE+6J4cUBUT14+oYWdwLkS5XH2WuOg2Mcc5KPocGHrczScEFukMjjGfl+KkioAO0rto99h8nuYi6ZT6WAhzHCDbb3cU/Qo5U1k/PcVtRKqIqFCixkjjbQzXRf/T2tRoTSOhMs/FF/DW0AfA6V/JRHbORqUV7msGZSlrY9NI9NmQHfW681yjZ+puU9EG3wey5CZ0cXV/HTUIu8FvnNY+5ko8+RrthpA0SAQ+zXYkYk7Ad7g==";
-        byte[] encrCredSecretBytes = Base64.getMimeDecoder().decode(encrCredSecret);
-        String credSecret = decryptCredSecret(encrCredSecretBytes);
-        byte[] csb = decryptCredSecretB(encrCredSecretBytes);
-//        byte[] csb = credSecret.getBytes();
-        String credHash = "L9ZwbVM6bqg8wTOCSox2OlXdGM+7CnRzsnftp8jSr6I=";
-        byte[] chb = Base64.getMimeDecoder().decode(credHash);
-        credHash = new String(chb);
-        System.out.println("Cred Hash first " + chb[0] + " last " + chb[chb.length - 1]);
-        System.out.println("Cred Hash Len: " + chb.length);
-        String credSecretHash = sha512(credSecret + credHash);
-        String k = credSecretHash.substring(0, 32);
-        byte[] kb = DatatypeConverter.parseHexBinary(k);
-        String iv = credSecretHash.substring(32, 64);
-        byte[] ivb = DatatypeConverter.parseHexBinary(iv);
-        byte[] cshb = sha512(concat(csb, chb));
-//        System.out.println(credSecretHash);
-        System.out.println(cshb.length);
-//        System.out.println(new String(cshb).length());
-        kb = Arrays.copyOfRange(cshb, 0, 32);
-        ivb = Arrays.copyOfRange(cshb, 32, 48);
-        System.out.println(Arrays.toString(kb));
-        System.out.println(Arrays.toString(ivb));
-
-//        byte[] credSHb = DatatypeConverter.parseHexBinary(credSecretHash);
-//        encrCredDataBytes = Arrays.copyOf(encrCredDataBytes, 1024);
-        System.out.println(
-                decryptCredData(encrCredDataBytes, kb, ivb
-//                        Arrays.copyOfRange(credSHb, 0, 16)
-//                        Arrays.copyOfRange(credSHb, 32, 64)
-                ));
-    }
-
-    static byte[] concat(byte[]... arrays) {
-        int length = 0;
-        for (byte[] array : arrays) {
-            length += array.length;
-        }
-        byte[] result = new byte[length];
-        int pos = 0;
-        for (byte[] array : arrays) {
-            for (byte element : array) {
-                result[pos] = element;
-                pos++;
+        List<Update> updates = bot.execute(new GetUpdates()).updates();
+        Collections.reverse(updates);
+        PassportData passportData = null;
+        for (Update update : updates) {
+            if (update.message() != null && update.message().passportData() != null) {
+                passportData = update.message().passportData();
+                break;
             }
         }
-        return result;
-    }
-
-    byte[] decryptCredSecretB(byte[] encrCredSecret) throws Exception {
-        String pkcs8Pem = Private;
-        pkcs8Pem = pkcs8Pem.replace("-----BEGIN RSA PRIVATE KEY-----", "");
-        pkcs8Pem = pkcs8Pem.replace("-----END RSA PRIVATE KEY-----", "");
-//        pkcs8Pem = pkcs8Pem.replaceAll("\\s+", "");
-
-        // Base64 decode the result
-        byte[] pkcs8EncodedBytes =
-                Base64.getMimeDecoder().decode(pkcs8Pem);
-//                Base64.decode(pkcs8Pem, Base64.DEFAULT);
-//        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(pkcs8EncodedBytes);
-        KeyFactory kf = KeyFactory.getInstance("RSA");
-        PrivateKey privKey = (RSAPrivateKey) kf.generatePrivate(getRSAKeySpec(pkcs8EncodedBytes));
-
-        Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-1AndMGF1Padding");
-        cipher.init(Cipher.DECRYPT_MODE, privKey);
-        byte[] cipherData = cipher.doFinal(encrCredSecret);
-        return cipherData;
-//        return new String(cipherData);
-//        return Base64.encodeToString(cipherData, Base64.DEFAULT);
-    }
-
-    String decryptCredSecret(byte[] encrCredSecret) throws Exception {
-        return new String(decryptCredSecretB(encrCredSecret));
-    }
-
-    String decryptCredData(byte[] credData, String key, String iv) throws Exception {
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        Key secretKey = makeKey(key);
-        IvParameterSpec ivSpec = new IvParameterSpec(iv.getBytes());
-        secretKey = new SecretKeySpec(DatatypeConverter.parseHexBinary(key), "AES");
-        System.out.println(iv);
-        byte[] ivb = DatatypeConverter.parseHexBinary(iv);
-        System.out.println(ivb.length);
-
-        ivSpec = new IvParameterSpec(ivb);
-        cipher.init(Cipher.DECRYPT_MODE, secretKey, ivSpec);
-        byte[] data = cipher.doFinal(credData);
-        return new String(data);
-    }
-
-    byte[] decryptCredData(byte[] credData, byte[] key, byte[] iv) throws Exception {
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
-        IvParameterSpec ivSpec = new IvParameterSpec(iv);
-        System.out.println("key len: " + key.length);
-        cipher.init(Cipher.DECRYPT_MODE, secretKey, ivSpec);
-        System.out.println(credData.length);
-        byte[] data = cipher.doFinal(credData);
-        byte[] shaData = sha256b(data);
-        System.out.println("Data Hash first " + shaData[0] + " last " + shaData[shaData.length - 1]);
-//        return new String(data);
-//        System.out.println(new String(data));
-        System.out.println(data[0]);
-        data = Arrays.copyOfRange(data, 35, data.length);
-//        System.out.println(new String(data));
-        shaData = sha256b(data);
-        System.out.println("Data Hash first " + shaData[0] + " last " + shaData[shaData.length - 1]);
-        return data;
-    }
-
-    Key makeKey(String keyStr) {
-//            MessageDigest md = MessageDigest.getInstance("SHA-256");
-//            byte[] key = md.digest(keyStr.getBytes("UTF-8"));
-        byte[] key = sha256a(keyStr);
-        return new SecretKeySpec(key, "AES");
-    }
-
-    private RSAPrivateCrtKeySpec getRSAKeySpec(byte[] keyBytes) throws IOException {
-
-        DerParser parser = new DerParser(keyBytes);
-
-        Asn1Object sequence = parser.read();
-        if (sequence.getType() != DerParser.SEQUENCE)
-            throw new IOException("Invalid DER: not a sequence"); //$NON-NLS-1$
-
-        // Parse inside the sequence
-        parser = sequence.getParser();
-
-        parser.read(); // Skip version
-        BigInteger modulus = parser.read().getInteger();
-        BigInteger publicExp = parser.read().getInteger();
-        BigInteger privateExp = parser.read().getInteger();
-        BigInteger prime1 = parser.read().getInteger();
-        BigInteger prime2 = parser.read().getInteger();
-        BigInteger exp1 = parser.read().getInteger();
-        BigInteger exp2 = parser.read().getInteger();
-        BigInteger crtCoef = parser.read().getInteger();
-
-        RSAPrivateCrtKeySpec keySpec = new RSAPrivateCrtKeySpec(
-                modulus, publicExp, privateExp, prime1, prime2,
-                exp1, exp2, crtCoef);
-
-        return keySpec;
-    }
-
-
-    String sha512(String string) {
-        String hash = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-//            md.update(salt.getBytes(StandardCharsets.UTF_8));
-            byte[] bytes = md.digest(string.getBytes("UTF-8"));
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            hash = sb.toString();
-//            hash = new String(bytes);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return hash;
-    }
-
-    static byte[] sha512(byte[] string) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-512");
-//            md.update(salt.getBytes(StandardCharsets.UTF_8));
-        byte[] bytes = md.digest(string);
-        return bytes;
-    }
-
-    byte[] sha256a(String string) {
-        byte[] hash = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-//            md.update(salt.getBytes(StandardCharsets.UTF_8));
-            byte[] bytes = md.digest(string.getBytes("UTF-8"));
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            hash = sb.toString().getBytes();
-//            hash = new String(bytes);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return hash;
-    }
-
-    String sha256a(byte[] string) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] bytes = md.digest(string);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < bytes.length; i++) {
-            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-        }
-        return sb.toString();
-    }
-
-    String sha256(String string) throws Exception {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(string.getBytes("UTF-8"));
-        return new String(hash);
-    }
-
-    String sha256(byte[] string) throws Exception {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(string);
-        return new String(hash);
-    }
-
-    byte[] sha256b(byte[] string) throws Exception {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        return digest.digest(string);
-    }
-
-
-    String Private = "";
-
-
-    class DerParser {
-
-        // Classes
-        public final static int UNIVERSAL = 0x00;
-        public final static int APPLICATION = 0x40;
-        public final static int CONTEXT = 0x80;
-        public final static int PRIVATE = 0xC0;
-
-        // Constructed Flag
-        public final static int CONSTRUCTED = 0x20;
-
-        // Tag and data types
-        public final static int ANY = 0x00;
-        public final static int BOOLEAN = 0x01;
-        public final static int INTEGER = 0x02;
-        public final static int BIT_STRING = 0x03;
-        public final static int OCTET_STRING = 0x04;
-        public final static int NULL = 0x05;
-        public final static int OBJECT_IDENTIFIER = 0x06;
-        public final static int REAL = 0x09;
-        public final static int ENUMERATED = 0x0a;
-        public final static int RELATIVE_OID = 0x0d;
-
-        public final static int SEQUENCE = 0x10;
-        public final static int SET = 0x11;
-
-        public final static int NUMERIC_STRING = 0x12;
-        public final static int PRINTABLE_STRING = 0x13;
-        public final static int T61_STRING = 0x14;
-        public final static int VIDEOTEX_STRING = 0x15;
-        public final static int IA5_STRING = 0x16;
-        public final static int GRAPHIC_STRING = 0x19;
-        public final static int ISO646_STRING = 0x1A;
-        public final static int GENERAL_STRING = 0x1B;
-
-        public final static int UTF8_STRING = 0x0C;
-        public final static int UNIVERSAL_STRING = 0x1C;
-        public final static int BMP_STRING = 0x1E;
-
-        public final static int UTC_TIME = 0x17;
-        public final static int GENERALIZED_TIME = 0x18;
-
-        protected InputStream in;
-
-        /**
-         * Create a new DER decoder from an input stream.
-         *
-         * @param in The DER encoded stream
-         */
-        public DerParser(InputStream in) throws IOException {
-            this.in = in;
-        }
-
-        /**
-         * Create a new DER decoder from a byte array.
-         *
-         * @param The encoded bytes
-         * @throws IOException
-         */
-        public DerParser(byte[] bytes) throws IOException {
-            this(new ByteArrayInputStream(bytes));
-        }
-
-        /**
-         * Read next object. If it's constructed, the value holds
-         * encoded content and it should be parsed by a new
-         * parser from <code>Asn1Object.getParser</code>.
-         *
-         * @return A object
-         * @throws IOException
-         */
-        public Asn1Object read() throws IOException {
-            int tag = in.read();
-
-            if (tag == -1)
-                throw new IOException("Invalid DER: stream too short, missing tag"); //$NON-NLS-1$
-
-            int length = getLength();
-
-            byte[] value = new byte[length];
-            int n = in.read(value);
-            if (n < length)
-                throw new IOException("Invalid DER: stream too short, missing value"); //$NON-NLS-1$
-
-            Asn1Object o = new Asn1Object(tag, length, value);
-
-            return o;
-        }
-
-        /**
-         * Decode the length of the field. Can only support length
-         * encoding up to 4 octets.
-         * <p>
-         * <p/>In BER/DER encoding, length can be encoded in 2 forms,
-         * <ul>
-         * <li>Short form. One octet. Bit 8 has value "0" and bits 7-1
-         * give the length.
-         * <li>Long form. Two to 127 octets (only 4 is supported here).
-         * Bit 8 of first octet has value "1" and bits 7-1 give the
-         * number of additional length octets. Second and following
-         * octets give the length, base 256, most significant digit first.
-         * </ul>
-         *
-         * @return The length as integer
-         * @throws IOException
-         */
-        private int getLength() throws IOException {
-
-            int i = in.read();
-            if (i == -1)
-                throw new IOException("Invalid DER: length missing"); //$NON-NLS-1$
-
-            // A single byte short length
-            if ((i & ~0x7F) == 0)
-                return i;
-
-            int num = i & 0x7F;
-
-            // We can't handle length longer than 4 bytes
-            if (i >= 0xFF || num > 4)
-                throw new IOException("Invalid DER: length field too big (" //$NON-NLS-1$
-                        + i + ")"); //$NON-NLS-1$
-
-            byte[] bytes = new byte[num];
-            int n = in.read(bytes);
-            if (n < num)
-                throw new IOException("Invalid DER: length too short"); //$NON-NLS-1$
-
-            return new BigInteger(1, bytes).intValue();
-        }
-
-    }
-
-
-    /**
-     * An ASN.1 TLV. The object is not parsed. It can
-     * only handle integers and strings.
-     *
-     * @author zhang
-     */
-    class Asn1Object {
-
-        protected final int type;
-        protected final int length;
-        protected final byte[] value;
-        protected final int tag;
-
-        /**
-         * Construct a ASN.1 TLV. The TLV could be either a
-         * constructed or primitive entity.
-         * <p>
-         * <p/>The first byte in DER encoding is made of following fields,
-         * <pre>
-         * -------------------------------------------------
-         * |Bit 8|Bit 7|Bit 6|Bit 5|Bit 4|Bit 3|Bit 2|Bit 1|
-         * -------------------------------------------------
-         * |  Class    | CF  |     +      Type             |
-         * -------------------------------------------------
-         * </pre>
-         * <ul>
-         * <li>Class: Universal, Application, Context or Private
-         * <li>CF: Constructed flag. If 1, the field is constructed.
-         * <li>Type: This is actually called tag in ASN.1. It
-         * indicates data type (Integer, String) or a construct
-         * (sequence, choice, set).
-         * </ul>
-         *
-         * @param tag    Tag or Identifier
-         * @param length Length of the field
-         * @param value  Encoded octet string for the field.
-         */
-        public Asn1Object(int tag, int length, byte[] value) {
-            this.tag = tag;
-            this.type = tag & 0x1F;
-            this.length = length;
-            this.value = value;
-        }
-
-        public int getType() {
-            return type;
-        }
-
-        public int getLength() {
-            return length;
-        }
-
-        public byte[] getValue() {
-            return value;
-        }
-
-        public boolean isConstructed() {
-            return (tag & DerParser.CONSTRUCTED) == DerParser.CONSTRUCTED;
-        }
-
-        /**
-         * For constructed field, return a parser for its content.
-         *
-         * @return A parser for the construct.
-         * @throws IOException
-         */
-        public DerParser getParser() throws IOException {
-            if (!isConstructed())
-                throw new IOException("Invalid DER: can't parse primitive entity"); //$NON-NLS-1$
-
-            return new DerParser(value);
-        }
-
-        /**
-         * Get the value as integer
-         *
-         * @return BigInteger
-         * @throws IOException
-         */
-        public BigInteger getInteger() throws IOException {
-            if (type != DerParser.INTEGER)
-                throw new IOException("Invalid DER: object is not integer"); //$NON-NLS-1$
-
-            return new BigInteger(value);
-        }
-
-        /**
-         * Get value as string. Most strings are treated
-         * as Latin-1.
-         *
-         * @return Java string
-         * @throws IOException
-         */
-        public String getString() throws IOException {
-
-            String encoding;
-
-            switch (type) {
-
-                // Not all are Latin-1 but it's the closest thing
-                case DerParser.NUMERIC_STRING:
-                case DerParser.PRINTABLE_STRING:
-                case DerParser.VIDEOTEX_STRING:
-                case DerParser.IA5_STRING:
-                case DerParser.GRAPHIC_STRING:
-                case DerParser.ISO646_STRING:
-                case DerParser.GENERAL_STRING:
-                    encoding = "ISO-8859-1"; //$NON-NLS-1$
-                    break;
-
-                case DerParser.BMP_STRING:
-                    encoding = "UTF-16BE"; //$NON-NLS-1$
-                    break;
-
-                case DerParser.UTF8_STRING:
-                    encoding = "UTF-8"; //$NON-NLS-1$
-                    break;
-
-                case DerParser.UNIVERSAL_STRING:
-                    throw new IOException("Invalid DER: can't handle UCS-4 string"); //$NON-NLS-1$
-
-                default:
-                    throw new IOException("Invalid DER: object is not a string"); //$NON-NLS-1$
+        System.out.println(passportData);
+        Credentials credentials = Decrypt.decryptCredentials(passportData.credentials(), Private);
+        System.out.println("+++++++++++");
+        System.out.println(credentials);
+
+        for (EncryptedPassportElement encElement : passportData.data()) {
+            if (encElement.type() == EncryptedPassportElement.Type.driver_license) {
+                String encData = encElement.data();
+                SecureValue s = credentials.secureData().driverLicense();
+                String val = Decrypt.decryptData(s.data(), encData);
+//                System.out.println(val);
+
+
+                String encFile = encElement.frontSide().fileId();
+                FileCredentials fc = credentials.secureData().driverLicense().frontSide();
+                Decrypt.decryptFile(fc, encFile);
+
+                encFile = encElement.reverseSide().fileId();
+                fc = credentials.secureData().driverLicense().frontSide();
+                Decrypt.decryptFile(fc, encFile);
             }
 
-            return new String(value, encoding);
+            if (encElement.type() == EncryptedPassportElement.Type.personal_details) {
+                String encData = encElement.data();
+                SecureValue s = credentials.secureData().personalDetails();
+                String val = Decrypt.decryptData(s.data(), encData);
+//                System.out.println(val);
+            }
         }
+//        decryptCredData(encrCredDataBytes, kb, ivb);
     }
 }
