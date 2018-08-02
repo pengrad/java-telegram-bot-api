@@ -26,7 +26,7 @@ public class SecureData {
             Field field = getClass().getDeclaredField(type.name());
             return (SecureValue) field.get(this);
         } catch (Exception e) {
-            throw new IllegalArgumentException("Don't have SecureDate for type " + type.name(), e);
+            return null;
         }
     }
 

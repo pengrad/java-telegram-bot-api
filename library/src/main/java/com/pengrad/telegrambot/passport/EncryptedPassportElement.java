@@ -1,6 +1,9 @@
 package com.pengrad.telegrambot.passport;
 
-import com.pengrad.telegrambot.passport.crypt.Decrypt;
+import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.model.File;
+import com.pengrad.telegrambot.passport.decrypt.Decrypt;
+import com.pengrad.telegrambot.request.GetFile;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -29,35 +32,37 @@ public class EncryptedPassportElement implements Serializable {
     public String decryptData(Credentials credentials) throws Exception {
         if (data == null) return "";
         SecureValue secureValue = credentials.secureData().ofType(type);
-        return Decrypt.decryptData(secureValue.data(), data);
+        DataCredentials dataCredentials = secureValue.data();
+        return Decrypt.decryptData(data, dataCredentials.dataHash(), dataCredentials.secret());
     }
 
-    private SecureValue secureValueByType(Type type, SecureData secureData) {
-        switch (type) {
-            case personal_details:
-                return secureData.personalDetails();
-            case passport:
-                return secureData.bankStatement();
-            case internal_passport:
-                return secureData.bankStatement();
-            case driver_license:
-                return secureData.bankStatement();
-            case identity_card:
-                return secureData.bankStatement();
-            case address:
-                return secureData.bankStatement();
-            case utility_bill:
-                return secureData.bankStatement();
-            case bank_statement:
-                return secureData.bankStatement();
-            case rental_agreement:
-                return secureData.bankStatement();
-            case passport_registration:
-                return secureData.bankStatement();
-            case temporary_registration:
-                return secureData.bankStatement();
+    public byte[] decryptFile(PassportFile passportFile, FileCredentials fileCredentials, TelegramBot bot) throws Exception {
+        File file = bot.execute(new GetFile(passportFile.fileId())).file();
+        byte[] fileData = bot.getFileContent(file);
+        return decryptFile(fileData, fileCredentials);
+    }
+
+    public byte[] decryptFile(PassportFile passportFile, Credentials credentials, TelegramBot bot) throws Exception {
+        FileCredentials fileCredentials = findFileCredentials(passportFile, credentials);
+        if (fileCredentials == null) {
+            throw new IllegalArgumentException("Don't have file credentials for " + passportFile);
         }
-        throw new IllegalArgumentException("Don't have SecureDate for type " + type.name());
+        return decryptFile(passportFile, fileCredentials, bot);
+    }
+
+    public byte[] decryptFile(byte[] fileData, FileCredentials fileCredentials) throws Exception {
+        return Decrypt.decryptFile(fileData, fileCredentials.fileHash(), fileCredentials.secret());
+    }
+
+    private FileCredentials findFileCredentials(PassportFile passportFile, Credentials credentials) {
+        SecureValue secureValue = credentials.secureData().ofType(type);
+        if (passportFile.equals(front_side)) return secureValue.frontSide();
+        if (passportFile.equals(reverse_side)) return secureValue.reverseSide();
+        if (passportFile.equals(selfie)) return secureValue.selfie();
+        for (int i = 0; i < files.length; i++) {
+            if (passportFile.equals(files[i])) return secureValue.files()[i];
+        }
+        return null;
     }
 
     public Type type() {

@@ -3,7 +3,6 @@ package com.pengrad.telegrambot;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.passport.*;
-import com.pengrad.telegrambot.passport.crypt.Decrypt;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
 
@@ -15,6 +14,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -22,6 +22,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
@@ -1187,7 +1189,7 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void passport() throws Exception {
+    public void decryptPassport() throws Exception {
         List<Update> updates = bot.execute(new GetUpdates()).updates();
         Collections.reverse(updates);
         PassportData passportData = null;
@@ -1207,12 +1209,21 @@ public class TelegramBotTest {
             System.out.println(encElement.type());
             System.out.println(encElement.decryptData(credentials));
 
+            List<PassportFile> files = new ArrayList<PassportFile>();
+            files.add(encElement.frontSide());
+            files.add(encElement.reverseSide());
+            files.add(encElement.selfie());
+            if (encElement.files() != null) {
+                files.addAll(Arrays.asList(encElement.files()));
+            }
 
-            bot.decryptPassportFile(encElement.frontSide(), credentials);
+            System.out.println("files: " + Arrays.toString(files.toArray()));
+            for (int i = 0; i < files.size(); i++) {
+                PassportFile file = files.get(i);
+                if (file == null) continue;
+                byte[] data = encElement.decryptFile(file, credentials, bot);
+                new FileOutputStream(Paths.get("../" + encElement.type() + i + ".jpg").toFile()).write(data);
+            }
         }
-
-
-//            }
-//        decryptCredData(encrCredDataBytes, kb, ivb);
     }
 }

@@ -1,6 +1,6 @@
 package com.pengrad.telegrambot.passport;
 
-import com.pengrad.telegrambot.passport.crypt.Decrypt;
+import com.pengrad.telegrambot.passport.decrypt.Decrypt;
 
 import java.io.Serializable;
 
@@ -16,7 +16,7 @@ public class EncryptedCredentials implements Serializable {
     private String secret;
 
     public Credentials decrypt(String privateKey) throws Exception {
-        return Decrypt.decryptCredentials(this, privateKey);
+        return Decrypt.decryptCredentials(privateKey, data, hash, secret);
     }
 
     public String data() {

@@ -1,4 +1,4 @@
-package com.pengrad.telegrambot.passport.crypt;
+package com.pengrad.telegrambot.passport.decrypt;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

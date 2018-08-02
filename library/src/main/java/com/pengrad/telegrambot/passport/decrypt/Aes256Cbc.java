@@ -1,4 +1,4 @@
-package com.pengrad.telegrambot.passport.crypt;
+package com.pengrad.telegrambot.passport.decrypt;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

@@ -1,12 +1,4 @@
-package com.pengrad.telegrambot.passport.crypt;
-
-import com.google.gson.Gson;
-import com.pengrad.telegrambot.passport.Credentials;
-import com.pengrad.telegrambot.passport.DataCredentials;
-import com.pengrad.telegrambot.passport.EncryptedCredentials;
-import com.pengrad.telegrambot.passport.FileCredentials;
-
-import javax.crypto.Cipher;
+package com.pengrad.telegrambot.passport.decrypt;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -15,72 +7,22 @@ import java.math.BigInteger;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.RSAPrivateCrtKeySpec;
-import java.util.Arrays;
+
+import javax.crypto.Cipher;
 
 /**
  * Stas Parshin
- * 31 July 2018
+ * 02 August 2018
  */
+class RsaOaep {
 
-// Decrypt the credentials secret ( secret field in EncryptedCredentials) using your private key
-// (set OAEP padding option, e.g. OPENSSL_PKCS1_OAEP_PADDING in PHP)
-public class Decrypt {
-
-    public Decrypt(EncryptedCredentials credentials, String privateKey) {
-
-    }
-
-    public static Credentials decryptCredentials(EncryptedCredentials credentials, String privateKey) throws Exception {
-        byte[] s = base64(credentials.secret());
-//        byte[] s = Base64.getMimeDecoder().decode(credentials.secret());
-        byte[] secret = decryptCredSecretB(s, privateKey);
-
-        byte[] h = base64(credentials.hash());
-        SecretHash secretHash = new SecretHash(secret, h);
-
-        byte[] d = base64(credentials.data());
-        byte[] cred = new Aes256Cbc(secretHash.key(), secretHash.iv()).decrypt(d);
-        int padding = cred[0] & 0xFF;
-        cred = Arrays.copyOfRange(cred, padding, cred.length);
-        String credStr = new String(cred);
-        return new Gson().fromJson(credStr, Credentials.class);
-    }
-
-    private static byte[] base64(String str) {
-        return Base64.getMimeDecoder().decode(str);
-    }
-
-    public static String decryptData(DataCredentials credentials, String data) throws Exception {
-        SecretHash secretHash = new SecretHash(base64(credentials.secret()), base64(credentials.dataHash()));
-
-        byte[] d = base64(data);
-        byte[] cred = new Aes256Cbc(secretHash.key(), secretHash.iv()).decrypt(d);
-        int padding = cred[0] & 0xFF;
-        cred = Arrays.copyOfRange(cred, padding, cred.length);
-        String credStr = new String(cred);
-        return credStr;
-    }
-
-    public static String decryptFile(FileCredentials credentials, String data) throws Exception {
-        SecretHash secretHash = new SecretHash(base64(credentials.secret()), base64(credentials.fileHash()));
-
-        byte[] d = base64(data);
-        byte[] cred = new Aes256Cbc(secretHash.key(), secretHash.iv()).decrypt(d);
-//        int padding = cred[0] & 0xFF;
-//        cred = Arrays.copyOfRange(cred, padding, cred.length);
-        String credStr = Base64.getEncoder().encodeToString(cred);
-        System.out.println(credStr);
-        return credStr;
-    }
-
-    private static byte[] decryptCredSecretB(byte[] secret, String privateKey) throws Exception {
+    static byte[] decrypt(String privateKey, byte[] secret) throws Exception {
         String pkcs8Pem = privateKey;
         pkcs8Pem = pkcs8Pem.replace("-----BEGIN RSA PRIVATE KEY-----", "");
         pkcs8Pem = pkcs8Pem.replace("-----END RSA PRIVATE KEY-----", "");
         pkcs8Pem = pkcs8Pem.replaceAll("\\s+", "");
-        byte[] pkcs8EncodedBytes = base64(pkcs8Pem);
+        byte[] pkcs8EncodedBytes = Base64.getMimeDecoder().decode(pkcs8Pem);
 
-        // Base64 decode the result
         KeyFactory kf = KeyFactory.getInstance("RSA");
         PrivateKey privKey = kf.generatePrivate(getRSAKeySpec(pkcs8EncodedBytes));
 
@@ -117,7 +59,7 @@ public class Decrypt {
         return keySpec;
     }
 
-    static class DerParser {
+    private static class DerParser {
 
         // Classes
         public final static int UNIVERSAL = 0x00;
@@ -256,7 +198,7 @@ public class Decrypt {
      *
      * @author zhang
      */
-    static class Asn1Object {
+    private static class Asn1Object {
 
         protected final int type;
         protected final int length;
@@ -378,4 +320,5 @@ public class Decrypt {
             return new String(value, encoding);
         }
     }
+
 }
