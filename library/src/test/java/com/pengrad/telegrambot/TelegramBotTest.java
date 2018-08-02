@@ -1183,7 +1183,7 @@ public class TelegramBotTest {
     public void setPassportDataErrors() {
         BaseResponse response = bot.execute(new SetPassportDataErrors(chatId,
                 new PassportElementErrorDataField("personal_details", "first_name",
-                        "data_hash",
+                        "TueU2/SswOD5wgQ6uXQ62mJrr0Jdf30r/QQ/jyETHFM=",
                         "error in page 1")
         ));
         System.out.println(response);
