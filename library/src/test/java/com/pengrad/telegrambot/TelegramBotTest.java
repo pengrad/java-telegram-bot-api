@@ -2,6 +2,7 @@ package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.*;
+import com.pengrad.telegrambot.passport.*;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
 import okhttp3.OkHttpClient;
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -18,9 +20,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 import static com.pengrad.telegrambot.request.ContentTypes.VIDEO_MIME_TYPE;
 import static org.junit.Assert.*;
@@ -39,6 +39,8 @@ public class TelegramBotTest {
     String channelName = "@bottest";
     Long channelId = -1001002720332L;
     Integer memberBot = 215003245;
+    String privateKey;
+    String testPassportData;
 
     Path resourcePath = Paths.get("src/test/resources");
     File imageFile = resourcePath.resolve("image.jpg").toFile();
@@ -70,7 +72,7 @@ public class TelegramBotTest {
     byte[] gifBytes = Files.readAllBytes(gifFile.toPath());
 
     public TelegramBotTest() throws IOException {
-        String token, chat, group;
+        String token, chat, group, Private;
 
         try {
             Properties properties = new Properties();
@@ -79,16 +81,20 @@ public class TelegramBotTest {
             token = properties.getProperty("TEST_TOKEN");
             chat = properties.getProperty("CHAT_ID");
             group = properties.getProperty("GROUP_ID");
+            Private = properties.getProperty("PRIVATE_KEY");
+            testPassportData = properties.getProperty("TEST_PASSPORT_DATA");
 
         } catch (Exception e) {
             token = System.getenv("TEST_TOKEN");
             chat = System.getenv("CHAT_ID");
             group = System.getenv("GROUP_ID");
+            Private = System.getenv("PRIVATE_KEY");
         }
 
         bot = TelegramBotAdapter.buildDebug(token);
         chatId = Integer.parseInt(chat);
         groupId = Long.parseLong(group);
+        privateKey = Private;
     }
 
     @Test
@@ -101,11 +107,11 @@ public class TelegramBotTest {
     @Test
     public void getUpdates() {
         GetUpdates getUpdates = new GetUpdates()
-                .offset(864855330)
+                .offset(864855364)
                 .allowedUpdates("")
                 .timeout(0)
-                .limit(10);
-        assertEquals(10, getUpdates.getLimit());
+                .limit(100);
+        assertEquals(100, getUpdates.getLimit());
         GetUpdatesResponse response = bot.execute(getUpdates);
         UpdateTest.check(response.updates());
     }
@@ -1165,5 +1171,56 @@ public class TelegramBotTest {
         assertEquals((Integer) 3, animation.duration());
         assertEquals((Integer) 128, animation.width());
         assertEquals((Integer) 128, animation.height());
+    }
+
+    @Test
+    public void setPassportDataErrors() {
+        BaseResponse response = bot.execute(new SetPassportDataErrors(chatId,
+                new PassportElementErrorDataField("personal_details", "first_name",
+                        "TueU2/SswOD5wgQ6uXQ62mJrr0Jdf30r/QQ/jyETHFM=",
+                        "error in page 1")
+        ));
+        System.out.println(response);
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void decryptPassport() throws Exception {
+        List<Update> updates = bot.execute(new GetUpdates()).updates();
+        Collections.reverse(updates);
+        PassportData passportData = null;
+        for (Update update : updates) {
+            if (update.message() != null && update.message().passportData() != null) {
+                passportData = update.message().passportData();
+                break;
+            }
+        }
+        if (passportData == null) {
+            passportData = BotUtils.parseUpdate(testPassportData).message().passportData();
+        }
+        assertNotNull(passportData);
+
+        Credentials credentials = passportData.credentials().decrypt(privateKey);
+        System.out.println(credentials);
+
+        for (EncryptedPassportElement encElement : passportData.data()) {
+            System.out.println(encElement.decryptData(credentials));
+
+            List<PassportFile> files = new ArrayList<PassportFile>();
+            files.add(encElement.frontSide());
+            files.add(encElement.reverseSide());
+            files.add(encElement.selfie());
+            if (encElement.files() != null) {
+                files.addAll(Arrays.asList(encElement.files()));
+            }
+
+            System.out.println("files: " + Arrays.toString(files.toArray()));
+            for (int i = 0; i < files.size(); i++) {
+                PassportFile file = files.get(i);
+                if (file == null) continue;
+                byte[] data = encElement.decryptFile(file, credentials, bot);
+                new FileOutputStream(Paths.get("build/" + encElement.type() + i + ".jpg").toFile()).write(data);
+            }
+        }
     }
 }

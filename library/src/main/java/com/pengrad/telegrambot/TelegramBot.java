@@ -8,6 +8,11 @@ import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.BaseResponse;
+
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -42,6 +47,15 @@ public class TelegramBot {
 
     public String getFullFilePath(File file) {
         return fileApi.getFullFilePath(file.filePath());
+    }
+
+    public byte[] getFileContent(File file) throws Exception {
+        String fileUrl = getFullFilePath(file);
+        URLConnection connection = new URL(fileUrl).openConnection();
+        InputStream is = connection.getInputStream();
+        byte[] data = BotUtils.getBytesFromInputStream(is);
+        is.close();
+        return data;
     }
 
     public void setUpdatesListener(UpdatesListener listener) {

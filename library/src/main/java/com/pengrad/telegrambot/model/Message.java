@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.passport.PassportData;
+
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -54,6 +56,7 @@ public class Message implements Serializable {
     private Invoice invoice;
     private SuccessfulPayment successful_payment;
     private String connected_website;
+    private PassportData passport_data;
 
     public Integer messageId() {
         return message_id;
@@ -235,6 +238,10 @@ public class Message implements Serializable {
         return connected_website;
     }
 
+    public PassportData passportData() {
+        return passport_data;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -307,7 +314,9 @@ public class Message implements Serializable {
         if (invoice != null ? !invoice.equals(message.invoice) : message.invoice != null) return false;
         if (successful_payment != null ? !successful_payment.equals(message.successful_payment) : message.successful_payment != null)
             return false;
-        return connected_website != null ? connected_website.equals(message.connected_website) : message.connected_website == null;
+        if (connected_website != null ? !connected_website.equals(message.connected_website) : message.connected_website != null)
+            return false;
+        return passport_data != null ? passport_data.equals(message.passport_data) : message.passport_data == null;
     }
 
     @Override
@@ -362,6 +371,7 @@ public class Message implements Serializable {
                 ", invoice=" + invoice +
                 ", successful_payment=" + successful_payment +
                 ", connected_website='" + connected_website + '\'' +
+                ", passport_data=" + passport_data +
                 '}';
     }
 }
