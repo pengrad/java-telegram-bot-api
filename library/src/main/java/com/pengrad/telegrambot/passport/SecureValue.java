@@ -35,6 +35,31 @@ public class SecureValue {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SecureValue that = (SecureValue) o;
+
+        if (data != null ? !data.equals(that.data) : that.data != null) return false;
+        if (front_side != null ? !front_side.equals(that.front_side) : that.front_side != null) return false;
+        if (reverse_side != null ? !reverse_side.equals(that.reverse_side) : that.reverse_side != null) return false;
+        if (selfie != null ? !selfie.equals(that.selfie) : that.selfie != null) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(files, that.files);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = data != null ? data.hashCode() : 0;
+        result = 31 * result + (front_side != null ? front_side.hashCode() : 0);
+        result = 31 * result + (reverse_side != null ? reverse_side.hashCode() : 0);
+        result = 31 * result + (selfie != null ? selfie.hashCode() : 0);
+        result = 31 * result + Arrays.hashCode(files);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SecureValue{" +
                 "data=" + data +
