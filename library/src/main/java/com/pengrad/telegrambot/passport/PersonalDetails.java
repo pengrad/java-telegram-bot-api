@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.passport;
 
+import java.io.Serializable;
+
 /**
  * Stas Parshin
  * 02 August 2018
  */
-public class PersonalDetails extends DecryptedData {
+public class PersonalDetails extends DecryptedData implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String first_name;
     private String last_name;

@@ -1,12 +1,14 @@
 package com.pengrad.telegrambot.passport;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * Stas Parshin
  * 31 July 2018
  */
-public class SecureValue {
+public class SecureValue implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private DataCredentials data;
     private FileCredentials front_side;

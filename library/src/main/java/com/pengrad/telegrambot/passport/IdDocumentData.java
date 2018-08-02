@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.passport;
 
+import java.io.Serializable;
+
 /**
  * Stas Parshin
  * 02 August 2018
  */
-public class IdDocumentData extends DecryptedData {
+public class IdDocumentData extends DecryptedData implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String document_no;
     private String expiry_date;

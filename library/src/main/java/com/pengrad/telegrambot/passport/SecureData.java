@@ -1,12 +1,14 @@
 package com.pengrad.telegrambot.passport;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
 /**
  * Stas Parshin
  * 31 July 2018
  */
-public class SecureData {
+public class SecureData implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private SecureValue
             personal_details,

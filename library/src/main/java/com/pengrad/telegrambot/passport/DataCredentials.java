@@ -1,10 +1,13 @@
 package com.pengrad.telegrambot.passport;
 
+import java.io.Serializable;
+
 /**
  * Stas Parshin
  * 31 July 2018
  */
-public class DataCredentials {
+public class DataCredentials implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private String data_hash;
     private String secret;
