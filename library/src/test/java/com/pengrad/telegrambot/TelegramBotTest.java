@@ -72,7 +72,7 @@ public class TelegramBotTest {
     byte[] gifBytes = Files.readAllBytes(gifFile.toPath());
 
     public TelegramBotTest() throws IOException {
-        String token, chat, group, Private;
+        String token, chat, group;
 
         try {
             Properties properties = new Properties();
@@ -81,20 +81,20 @@ public class TelegramBotTest {
             token = properties.getProperty("TEST_TOKEN");
             chat = properties.getProperty("CHAT_ID");
             group = properties.getProperty("GROUP_ID");
-            Private = properties.getProperty("PRIVATE_KEY");
+            privateKey = properties.getProperty("PRIVATE_KEY");
             testPassportData = properties.getProperty("TEST_PASSPORT_DATA");
 
         } catch (Exception e) {
             token = System.getenv("TEST_TOKEN");
             chat = System.getenv("CHAT_ID");
             group = System.getenv("GROUP_ID");
-            Private = System.getenv("PRIVATE_KEY");
+            privateKey = System.getenv("PRIVATE_KEY");
+            testPassportData = System.getenv("TEST_PASSPORT_DATA");
         }
 
         bot = TelegramBotAdapter.buildDebug(token);
         chatId = Integer.parseInt(chat);
         groupId = Long.parseLong(group);
-        privateKey = Private;
     }
 
     @Test
