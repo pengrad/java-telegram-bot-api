@@ -46,6 +46,7 @@ public class TelegramBotTest {
     Long channelId = -1001002720332L;
     Integer memberBot = 215003245;
     String privateKey;
+    String testPassportData;
 
     Path resourcePath = Paths.get("src/test/resources");
     File imageFile = resourcePath.resolve("image.jpg").toFile();
@@ -87,6 +88,7 @@ public class TelegramBotTest {
             chat = properties.getProperty("CHAT_ID");
             group = properties.getProperty("GROUP_ID");
             Private = properties.getProperty("PRIVATE_KEY");
+            testPassportData = properties.getProperty("TEST_PASSPORT_DATA");
 
         } catch (Exception e) {
             token = System.getenv("TEST_TOKEN");
@@ -1199,14 +1201,15 @@ public class TelegramBotTest {
                 break;
             }
         }
+        if (passportData == null) {
+            passportData = BotUtils.parseUpdate(testPassportData).message().passportData();
+        }
         assertNotNull(passportData);
-        System.out.println(passportData);
 
         Credentials credentials = passportData.credentials().decrypt(privateKey);
         System.out.println(credentials);
 
         for (EncryptedPassportElement encElement : passportData.data()) {
-            System.out.println(encElement.type());
             System.out.println(encElement.decryptData(credentials));
 
             List<PassportFile> files = new ArrayList<PassportFile>();
@@ -1222,7 +1225,7 @@ public class TelegramBotTest {
                 PassportFile file = files.get(i);
                 if (file == null) continue;
                 byte[] data = encElement.decryptFile(file, credentials, bot);
-                new FileOutputStream(Paths.get("../" + encElement.type() + i + ".jpg").toFile()).write(data);
+                new FileOutputStream(Paths.get("build/" + encElement.type() + i + ".jpg").toFile()).write(data);
             }
         }
     }

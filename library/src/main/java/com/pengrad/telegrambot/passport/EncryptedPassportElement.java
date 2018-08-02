@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.passport;
 
+import com.google.gson.Gson;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.passport.decrypt.Decrypt;
@@ -29,11 +30,13 @@ public class EncryptedPassportElement implements Serializable {
     private PassportFile reverse_side;
     private PassportFile selfie;
 
-    public String decryptData(Credentials credentials) throws Exception {
-        if (data == null) return "";
+    public DecryptedData decryptData(Credentials credentials) throws Exception {
+        Class<? extends DecryptedData> clazz = dataClass();
+        if (clazz == null || data == null) return null;
         SecureValue secureValue = credentials.secureData().ofType(type);
         DataCredentials dataCredentials = secureValue.data();
-        return Decrypt.decryptData(data, dataCredentials.dataHash(), dataCredentials.secret());
+        String dataStr = Decrypt.decryptData(data, dataCredentials.dataHash(), dataCredentials.secret());
+        return new Gson().fromJson(dataStr, clazz);
     }
 
     public byte[] decryptFile(PassportFile passportFile, FileCredentials fileCredentials, TelegramBot bot) throws Exception {
@@ -62,6 +65,16 @@ public class EncryptedPassportElement implements Serializable {
         for (int i = 0; i < files.length; i++) {
             if (passportFile.equals(files[i])) return secureValue.files()[i];
         }
+        return null;
+    }
+
+    private Class<? extends DecryptedData> dataClass() {
+        if (Type.personal_details == type) return PersonalDetails.class;
+        if (Type.passport == type) return IdDocumentData.class;
+        if (Type.internal_passport == type) return IdDocumentData.class;
+        if (Type.driver_license == type) return IdDocumentData.class;
+        if (Type.identity_card == type) return IdDocumentData.class;
+        if (Type.address == type) return ResidentialAddress.class;
         return null;
     }
 
