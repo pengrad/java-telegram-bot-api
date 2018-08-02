@@ -5,11 +5,9 @@ import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.passport.*;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
 import org.junit.Test;
 
 import java.io.File;
@@ -22,11 +20,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 import static com.pengrad.telegrambot.request.ContentTypes.VIDEO_MIME_TYPE;
 import static org.junit.Assert.*;
@@ -116,8 +110,8 @@ public class TelegramBotTest {
                 .offset(864855364)
                 .allowedUpdates("")
                 .timeout(0)
-                .limit(1000);
-//        assertEquals(10, getUpdates.getLimit());
+                .limit(100);
+        assertEquals(100, getUpdates.getLimit());
         GetUpdatesResponse response = bot.execute(getUpdates);
         UpdateTest.check(response.updates());
     }
