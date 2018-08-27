@@ -1,5 +1,5 @@
 # Java API for [Telegram Bots and Gaming Platform](https://core.telegram.org/bots)
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.pengrad/java-telegram-bot-api.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.pengrad/java-telegram-bot-api)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.pengrad/java-telegram-bot-api.svg)](https://search.maven.org/artifact/com.github.pengrad/java-telegram-bot-api)
 [![Build Status](https://travis-ci.org/pengrad/java-telegram-bot-api.svg?branch=master)](https://travis-ci.org/pengrad/java-telegram-bot-api)
 [![codecov](https://codecov.io/gh/pengrad/java-telegram-bot-api/branch/master/graph/badge.svg)](https://codecov.io/gh/pengrad/java-telegram-bot-api)  
 
