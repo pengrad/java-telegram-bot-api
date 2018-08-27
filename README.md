@@ -9,14 +9,14 @@ Full support of all Bot API 4.0 methods with [Telegram Passport](https://telegra
 
 Gradle:
 ```groovy
-compile 'com.github.pengrad:java-telegram-bot-api:4.0.0'
+compile 'com.github.pengrad:java-telegram-bot-api:4.1.0'
 ```
 Maven:
 ```xml
 <dependency>
   <groupId>com.github.pengrad</groupId>
   <artifactId>java-telegram-bot-api</artifactId>
-  <version>4.0.0</version>
+  <version>4.1.0</version>
 </dependency>
 ```
 JAR-file:  
