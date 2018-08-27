@@ -11,13 +11,22 @@ public class Credentials implements Serializable {
 
     private SecureData secure_data;
     private String payload;
+    private String nonce;
 
     public SecureData secureData() {
         return secure_data;
     }
 
+    /**
+     * @deprecated Use nonce
+     */
+    @Deprecated
     public String payload() {
         return payload;
+    }
+
+    public String nonce() {
+        return nonce;
     }
 
     @Override
@@ -28,13 +37,13 @@ public class Credentials implements Serializable {
         Credentials that = (Credentials) o;
 
         if (secure_data != null ? !secure_data.equals(that.secure_data) : that.secure_data != null) return false;
-        return payload != null ? payload.equals(that.payload) : that.payload == null;
+        return nonce != null ? nonce.equals(that.nonce) : that.nonce == null;
     }
 
     @Override
     public int hashCode() {
         int result = secure_data != null ? secure_data.hashCode() : 0;
-        result = 31 * result + (payload != null ? payload.hashCode() : 0);
+        result = 31 * result + (nonce != null ? nonce.hashCode() : 0);
         return result;
     }
 
@@ -43,6 +52,7 @@ public class Credentials implements Serializable {
         return "Credentials{" +
                 "secure_data=" + secure_data +
                 ", payload='" + payload + '\'' +
+                ", nonce='" + nonce + '\'' +
                 '}';
     }
 }
