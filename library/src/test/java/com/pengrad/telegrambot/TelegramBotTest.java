@@ -1186,22 +1186,20 @@ public class TelegramBotTest {
 
     @Test
     public void decryptPassport() throws Exception {
-        List<Update> updates = bot.execute(new GetUpdates()).updates();
-        Collections.reverse(updates);
-        PassportData passportData = null;
-        for (Update update : updates) {
-            if (update.message() != null && update.message().passportData() != null) {
-                passportData = update.message().passportData();
-                break;
-            }
-        }
-        if (passportData == null) {
-            passportData = BotUtils.parseUpdate(testPassportData).message().passportData();
-        }
+        PassportData passportData = BotUtils.parseUpdate(testPassportData).message().passportData();
         assertNotNull(passportData);
 
         Credentials credentials = passportData.credentials().decrypt(privateKey);
         System.out.println(credentials);
+        System.out.println("nonce: " + credentials.nonce());
+
+        for (EncryptedPassportElement encElement : passportData.data()) {
+            if (encElement.type() != EncryptedPassportElement.Type.personal_details) continue;
+            PersonalDetails personalDetails = (PersonalDetails) encElement.decryptData(credentials);
+            System.out.println(personalDetails);
+        }
+
+        if (true) return;
 
         for (EncryptedPassportElement encElement : passportData.data()) {
             System.out.println(encElement.decryptData(credentials));
@@ -1212,6 +1210,9 @@ public class TelegramBotTest {
             files.add(encElement.selfie());
             if (encElement.files() != null) {
                 files.addAll(Arrays.asList(encElement.files()));
+            }
+            if (encElement.translation() != null) {
+                files.addAll(Arrays.asList(encElement.translation()));
             }
 
             System.out.println("files: " + Arrays.toString(files.toArray()));
