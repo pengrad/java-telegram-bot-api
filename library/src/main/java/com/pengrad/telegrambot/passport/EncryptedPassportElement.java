@@ -29,6 +29,8 @@ public class EncryptedPassportElement implements Serializable {
     private PassportFile front_side;
     private PassportFile reverse_side;
     private PassportFile selfie;
+    private PassportFile[] translation;
+    private String hash;
 
     public DecryptedData decryptData(Credentials credentials) throws Exception {
         Class<? extends DecryptedData> clazz = dataClass();
@@ -62,8 +64,15 @@ public class EncryptedPassportElement implements Serializable {
         if (passportFile.equals(front_side)) return secureValue.frontSide();
         if (passportFile.equals(reverse_side)) return secureValue.reverseSide();
         if (passportFile.equals(selfie)) return secureValue.selfie();
-        for (int i = 0; i < files.length; i++) {
-            if (passportFile.equals(files[i])) return secureValue.files()[i];
+        if (files != null) {
+            for (int i = 0; i < files.length; i++) {
+                if (passportFile.equals(files[i])) return secureValue.files()[i];
+            }
+        }
+        if (translation != null) {
+            for (int i = 0; i < translation.length; i++) {
+                if (passportFile.equals(translation[i])) return secureValue.translation()[i];
+            }
         }
         return null;
     }
@@ -110,6 +119,14 @@ public class EncryptedPassportElement implements Serializable {
         return selfie;
     }
 
+    public PassportFile[] translation() {
+        return translation;
+    }
+
+    public String hash() {
+        return hash;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -125,7 +142,10 @@ public class EncryptedPassportElement implements Serializable {
         if (!Arrays.equals(files, that.files)) return false;
         if (front_side != null ? !front_side.equals(that.front_side) : that.front_side != null) return false;
         if (reverse_side != null ? !reverse_side.equals(that.reverse_side) : that.reverse_side != null) return false;
-        return selfie != null ? selfie.equals(that.selfie) : that.selfie == null;
+        if (selfie != null ? !selfie.equals(that.selfie) : that.selfie != null) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(translation, that.translation)) return false;
+        return hash != null ? hash.equals(that.hash) : that.hash == null;
     }
 
     @Override
@@ -138,6 +158,8 @@ public class EncryptedPassportElement implements Serializable {
         result = 31 * result + (front_side != null ? front_side.hashCode() : 0);
         result = 31 * result + (reverse_side != null ? reverse_side.hashCode() : 0);
         result = 31 * result + (selfie != null ? selfie.hashCode() : 0);
+        result = 31 * result + Arrays.hashCode(translation);
+        result = 31 * result + (hash != null ? hash.hashCode() : 0);
         return result;
     }
 
@@ -152,6 +174,8 @@ public class EncryptedPassportElement implements Serializable {
                 ", front_side=" + front_side +
                 ", reverse_side=" + reverse_side +
                 ", selfie=" + selfie +
+                ", translation=" + Arrays.toString(translation) +
+                ", hash='" + hash + '\'' +
                 '}';
     }
 }
