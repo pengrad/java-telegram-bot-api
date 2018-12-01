@@ -75,12 +75,13 @@ public class TelegramBot {
         static final String API_URL = "https://api.telegram.org/bot";
 
         private final String botToken;
-        private final FileApi fileApi;
+        private FileApi fileApi;
         private TelegramBotClient api;
         private UpdatesHandler updatesHandler;
 
         private OkHttpClient okHttpClient;
         private String apiUrl;
+        private String fileApiUrl;
 
         public Builder(String botToken) {
             this.botToken = botToken;
@@ -104,6 +105,11 @@ public class TelegramBot {
             return this;
         }
 
+        public Builder fileApiUrl(String fileApiUrl) {
+            this.fileApiUrl = fileApiUrl;
+            return this;
+        }
+
         public Builder updateListenerSleep(long millis) {
             updatesHandler = new UpdatesHandler(millis);
             return this;
@@ -114,6 +120,9 @@ public class TelegramBot {
                 OkHttpClient client = okHttpClient != null ? okHttpClient : client(null);
                 String baseUrl = apiUrl(apiUrl != null ? apiUrl : API_URL, botToken);
                 api = new TelegramBotClient(client, gson(), baseUrl);
+            }
+            if (fileApiUrl != null) {
+                fileApi = new FileApi(fileApiUrl, botToken);
             }
             return new TelegramBot(this);
         }
