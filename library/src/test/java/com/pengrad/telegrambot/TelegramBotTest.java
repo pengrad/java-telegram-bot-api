@@ -8,6 +8,7 @@ import com.pengrad.telegrambot.response.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.junit.Test;
 
 import java.io.File;
@@ -21,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static com.pengrad.telegrambot.request.ContentTypes.VIDEO_MIME_TYPE;
 import static org.junit.Assert.*;
@@ -92,7 +94,12 @@ public class TelegramBotTest {
             testPassportData = System.getenv("TEST_PASSPORT_DATA");
         }
 
-        bot = TelegramBotAdapter.buildDebug(token);
+        bot = new TelegramBot.Builder(token)
+                .okHttpClient(new OkHttpClient.Builder()
+                        .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                        .readTimeout(60, TimeUnit.SECONDS) // setWebhook with certificate fails with timeout exception
+                        .build())
+                .build();
         chatId = Integer.parseInt(chat);
         groupId = Long.parseLong(group);
     }
