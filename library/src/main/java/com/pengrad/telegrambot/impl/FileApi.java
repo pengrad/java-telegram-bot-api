@@ -17,6 +17,10 @@ public class FileApi {
         this.apiUrl = FILE_API + token + "/";
     }
 
+    public FileApi(String apiUrl, String token) {
+        this.apiUrl = apiUrl + token + "/";
+    }
+
     public String getFullFilePath(String filePath) {
         int slash = filePath.lastIndexOf('/') + 1;
         String path = filePath.substring(0, slash);
