@@ -2,6 +2,8 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.pengrad/java-telegram-bot-api.svg)](https://search.maven.org/artifact/com.github.pengrad/java-telegram-bot-api)
 [![Build Status](https://travis-ci.org/pengrad/java-telegram-bot-api.svg?branch=master)](https://travis-ci.org/pengrad/java-telegram-bot-api)
 [![codecov](https://codecov.io/gh/pengrad/java-telegram-bot-api/branch/master/graph/badge.svg)](https://codecov.io/gh/pengrad/java-telegram-bot-api)  
+[![Code Quality: Java](https://img.shields.io/lgtm/grade/java/g/pengrad/java-telegram-bot-api.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/pengrad/java-telegram-bot-api/context:java)
+[![Total Alerts](https://img.shields.io/lgtm/alerts/g/pengrad/java-telegram-bot-api.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/pengrad/java-telegram-bot-api/alerts)
 
 Full support of all Bot API 4.1 methods with [Telegram Passport](https://telegram.org/blog/passport) and Decryption API
 
