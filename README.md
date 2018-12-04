@@ -1,17 +1,21 @@
-# Java API for [Telegram Bots and Gaming Platform](https://core.telegram.org/bots)
+# Java Telegram Bot API
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.pengrad/java-telegram-bot-api.svg)](https://search.maven.org/artifact/com.github.pengrad/java-telegram-bot-api)
 [![Build Status](https://travis-ci.org/pengrad/java-telegram-bot-api.svg?branch=master)](https://travis-ci.org/pengrad/java-telegram-bot-api)
 <!--
 [![codecov](https://codecov.io/gh/pengrad/java-telegram-bot-api/branch/master/graph/badge.svg)](https://codecov.io/gh/pengrad/java-telegram-bot-api)  
 -->
 
-Full support of all Bot API 4.1 methods with [Telegram Passport](https://telegram.org/blog/passport) and Decryption API
+Java library for interacting with official [Telegram Bot API](https://core.telegram.org/bots/api)
+- Full support of all Bot API 4.1 methods
+- Telegram [Passport](https://core.telegram.org/passport) and Decryption API
+- Bot [Payments](https://core.telegram.org/bots/payments)
+- [Gaming Platform](https://telegram.org/blog/games)
 
 ## Download
 
 Gradle:
 ```groovy
-compile 'com.github.pengrad:java-telegram-bot-api:4.1.0'
+implementation 'com.github.pengrad:java-telegram-bot-api:4.1.0'
 ```
 Maven:
 ```xml
@@ -21,7 +25,6 @@ Maven:
   <version>4.1.0</version>
 </dependency>
 ```
-JAR-file:  
 [JAR with all dependencies on release page](https://github.com/pengrad/java-telegram-bot-api/releases)
 
 ## Contents
