@@ -51,8 +51,10 @@ SendResponse response = bot.execute(new SendMessage(chatId, "Hello!"));
 - [Available types](#available-types)
 - [Available methods](#available-methods)
 - [Updating messages](#updating-messages)
+- [Stickers](#stickers)
 - [Inline mode](#inline-mode)
-- [Payments](#payments)  
+- [Payments](#payments)
+- [Telegram Passport](#telegram-passport)
 - [Games](#games)
 
 ### Creating your bot
@@ -60,7 +62,7 @@ SendResponse response = bot.execute(new SendMessage(chatId, "Hello!"));
 ```java
 TelegramBot bot = new TelegramBot("BOT_TOKEN");
 ```
-Network operations based on OkHttp library.  
+Network operations based on [OkHttp](https://github.com/square/okhttp) library.  
 You can build bot with custom OkHttpClient, for specific timeouts or interceptors.
 ```java
 TelegramBot bot = new TelegramBot.Builder("BOT_TOKEN").okHttpClient(client).build();
@@ -396,6 +398,9 @@ DeleteMessage deleteMessage = new DeleteMessage(chatId, messageId);
 BaseResponse response = bot.execute(deleteMessage);
 ```
 
+### Stickers
+info about stickers
+
 ### Inline mode
 
 Getting updates
@@ -481,6 +486,9 @@ BaseResponse response = bot.execute(answerPreCheckoutQuery);
 AnswerPreCheckoutQuery answerCheckout = new AnswerPreCheckoutQuery(preCheckoutQueryId, "Sorry, item not available");
 BaseResponse response = bot.execute(answerPreCheckoutQuery);
 ```
+
+### Telegram Passport
+info about passport
 
 ### Games
 
