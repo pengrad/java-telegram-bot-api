@@ -27,6 +27,23 @@ Maven:
 ```
 [JAR with all dependencies on release page](https://github.com/pengrad/java-telegram-bot-api/releases)
 
+## Usage
+```java
+// Create your bot passing the token received from @BotFather
+TelegramBot bot = new TelegramBot("BOT_TOKEN");
+
+// Register for updates
+bot.setUpdatesListener(updates -> {
+    // ... process updates
+    // return id of last processed update or confirm them all
+    return UpdatesListener.CONFIRMED_UPDATES_ALL;
+});
+
+// Send messages
+long chatId = update.message().chat().id();
+SendResponse response = bot.execute(new SendMessage(chatId, "Hello!"));
+```
+
 ## Contents
 
 - [Creating your bot](#creating-your-bot)
@@ -49,7 +66,6 @@ Maven:
   - [Answer inline query](#answer-inline-query)
 - [Payments](#payments)  
 - [Games](#games)
-- [Test Telegram Bot API](#test-telegram-bot-api)
 
 ## Creating your bot
 
@@ -495,6 +511,3 @@ Get game high scores
 GetGameHighScoresResponse response = bot.execute(new GetGameHighScores(userId, chatId, messageId));
 GameHighScore[] scores = response.result();
 ```
-
-### Test Telegram Bot API
-Test on [RapidAPI](https://rapidapi.com/package/TelegramBot/functions?utm_source=TelegramGitHub&utm_medium=button)
