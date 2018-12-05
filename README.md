@@ -44,8 +44,7 @@ long chatId = update.message().chat().id();
 SendResponse response = bot.execute(new SendMessage(chatId, "Hello!"));
 ```
 
-## Contents
-
+## Documentation
 - [Creating your bot](#creating-your-bot)
 - [Making requests](#making-requests)
 - [Getting updates](#getting-updates)
@@ -67,7 +66,7 @@ SendResponse response = bot.execute(new SendMessage(chatId, "Hello!"));
 - [Payments](#payments)  
 - [Games](#games)
 
-## Creating your bot
+### Creating your bot
 
 ```java
 TelegramBot bot = new TelegramBot("BOT_TOKEN");
@@ -78,7 +77,7 @@ You can build bot with custom OkHttpClient, for specific timeouts or interceptor
 TelegramBot bot = new TelegramBot.Builder("BOT_TOKEN").okHttpClient(client).build();
 ```
 
-## Making requests
+### Making requests
 
 Synchronous
 ```java
@@ -104,7 +103,7 @@ Request [in response to update](https://core.telegram.org/bots/faq#how-can-i-mak
 String response = request.toWebhookResponse();
 ```
 
-## Getting updates
+### Getting updates
 
 You can use **getUpdates** request, parse incoming **Webhook** request, or set listener to receive updates.  
 Update object just copies Telegram's response.
@@ -120,7 +119,7 @@ class Update {
 }
 ```
 
-### Get updates
+#### Get updates
 
 Building request
 ```java
@@ -154,7 +153,7 @@ bot.execute(getUpdates, new Callback<GetUpdates, GetUpdatesResponse>() {
 });
 ```
 
-### Webhook
+#### Webhook
 
 Building request
 ```java
@@ -191,7 +190,7 @@ Update update = BotUtils.parseUpdate(reader); // or from java.io.Reader
 Message message = update.message();
 ``` 
 
-### Updates Listener
+#### Updates Listener
 
 You can set listener to receiving incoming updates as if using Webhook.  
 This will trigger executing getUpdates requests in a loop.
@@ -218,7 +217,7 @@ To stop receiving updates
 bot.removeGetUpdatesListener();
 ```
 
-## Available types
+### Available types
 
 All types have the same name as original ones.  
 Type's fields are methods in lowerCamelCase.
@@ -228,7 +227,7 @@ Types used in responses **(Update, Message, User, Document...)** are in `com.pen
 Types used in requests **(Keyboard, InlineQueryResult, ParseMode, InputMessageContent...)** are in `com.pengrad.telegrambot.model.request` package.  
 When creating request's type required params should be passed in constructor, optional params can be added in chains.
 
-### Keyboards
+#### Keyboards
 
 ForceReply, ReplyKeyboardRemove
 ```java
@@ -267,20 +266,20 @@ InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
         });
 ```
 
-### Chat Action
+#### Chat Action
 ```java
 ChatAction action = ChatAction.typing;
 ChatAction action = ChatAction.upload_photo;
 ChatAction action = ChatAction.find_location;
 ```
 
-## Available methods
+### Available methods
 
 All request methods have the same names as original ones.  
 Required params should be passed in constructor.  
 Optional params can be added in chains.
 
-### Send message 
+#### Send message 
 
 All send requests **(SendMessage, SendPhoto, SendLocation...)** return **SendResponse** object that contains **Message**.
 ```java
@@ -310,13 +309,13 @@ bot.execute(request, new Callback<SendMessage, SendResponse>() {
 });
 ```
 
-### Formatting options
+#### Formatting options
 ```java
 ParseMode parseMode = ParseMode.Markdown;
 ParseMode parseMode = ParseMode.HTML;
 ```
 
-### Get file
+#### Get file
 ```java
 GetFile request = new GetFile("fileId")
 GetFileResponse getFileResponse = bot.execute(request);
@@ -331,7 +330,7 @@ To get downloading link as `https://api.telegram.org/file/bot<token>/<file_path>
 String fullPath = bot.getFullFilePath(file);  // com.pengrad.telegrambot.model.File
 ```
 
-### Other requests
+#### Other requests
 
 All requests return BaseResponse if not mention here
 ```java
@@ -384,7 +383,7 @@ class GetUserProfilePhotosResponse {
 }
 ```
 
-## Updating messages
+### Updating messages
 
 Normal message
 ```java
@@ -408,7 +407,7 @@ DeleteMessage deleteMessage = new DeleteMessage(chatId, messageId);
 BaseResponse response = bot.execute(deleteMessage);
 ```
 
-## Inline mode
+### Inline mode
 
 Getting updates
 ```java
@@ -428,7 +427,7 @@ Update update = BotUtils.parseUpdate(reader); // from java.io.Reader
 InlineQuery inlineQuery = update.inlineQuery();
 ```
 
-### Inline query result
+#### Inline query result
 ```java
 InlineQueryResult r1 = new InlineQueryResultPhoto("id", "photoUrl", "thumbUrl");
 InlineQueryResult r2 = new InlineQueryResultArticle("id", "title", "message text").thumbUrl("url");
@@ -440,7 +439,7 @@ InlineQueryResult r5 = new InlineQueryResultVideo(
     .inputMessageContent(new InputLocationMessageContent(21.03f, 105.83f));
 ```
 
-### Answer inline query
+#### Answer inline query
 ```java
 BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQuery.id(), r1, r2, r3, r4, r5));
 
