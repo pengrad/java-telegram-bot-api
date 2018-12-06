@@ -508,7 +508,17 @@ BaseResponse response = bot.execute(answerPreCheckoutQuery);
 ```
 
 ### Telegram Passport
-info about passport
+
+Set Passport data errors
+``` java
+SetPassportDataErrors setPassportDataErrors = new SetPassportDataErrors(chatId,
+        new PassportElementErrorDataField("personal_details", "first_name", "dataHash",
+                "Please enter a valid First name"),
+        new PassportElementErrorSelfie("driver_license", "fileHash",
+                "Can't see your face on photo")
+);
+bot.execute(setPassportDataErrors);
+```
 
 ### Games
 
