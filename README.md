@@ -559,7 +559,7 @@ if (element.translation() != null) {
 // Decrypt
 for (PassportFile file : files) {
     if (file == null) continue;
-    byte[] data = element.decryptFile(file, credentials, bot); // make GetFile request and decrypt content
+    byte[] data = element.decryptFile(file, credentials, bot); // GetFile request and decrypt content
     // save to file if needed
     new FileOutputStream("files/" + element.type()).write(data);
 }
