@@ -1,15 +1,21 @@
-# Java API for [Telegram Bots and Gaming Platform](https://core.telegram.org/bots)
+# Java Telegram Bot API
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.pengrad/java-telegram-bot-api.svg)](https://search.maven.org/artifact/com.github.pengrad/java-telegram-bot-api)
 [![Build Status](https://travis-ci.org/pengrad/java-telegram-bot-api.svg?branch=master)](https://travis-ci.org/pengrad/java-telegram-bot-api)
+<!--
 [![codecov](https://codecov.io/gh/pengrad/java-telegram-bot-api/branch/master/graph/badge.svg)](https://codecov.io/gh/pengrad/java-telegram-bot-api)  
+-->
 
-Full support of all Bot API 4.1 methods with [Telegram Passport](https://telegram.org/blog/passport) and Decryption API
+Java library for interacting with [Telegram Bot API](https://core.telegram.org/bots/api)
+- Full support of all Bot API 4.1 methods
+- Telegram [Passport](https://core.telegram.org/passport) and Decryption API
+- Bot [Payments](https://core.telegram.org/bots/payments)
+- [Gaming Platform](https://telegram.org/blog/games)
 
 ## Download
 
 Gradle:
 ```groovy
-compile 'com.github.pengrad:java-telegram-bot-api:4.1.0'
+implementation 'com.github.pengrad:java-telegram-bot-api:4.1.0'
 ```
 Maven:
 ```xml
@@ -19,45 +25,50 @@ Maven:
   <version>4.1.0</version>
 </dependency>
 ```
-JAR-file:  
 [JAR with all dependencies on release page](https://github.com/pengrad/java-telegram-bot-api/releases)
 
-## Contents
+## Usage
+```java
+// Create your bot passing the token received from @BotFather
+TelegramBot bot = new TelegramBot("BOT_TOKEN");
 
+// Register for updates
+bot.setUpdatesListener(updates -> {
+    // ... process updates
+    // return id of last processed update or confirm them all
+    return UpdatesListener.CONFIRMED_UPDATES_ALL;
+});
+
+// Send messages
+long chatId = update.message().chat().id();
+SendResponse response = bot.execute(new SendMessage(chatId, "Hello!"));
+```
+
+## Documentation
 - [Creating your bot](#creating-your-bot)
 - [Making requests](#making-requests)
 - [Getting updates](#getting-updates)
-  - [Get Updates](#get-updates)
-  - [Webhook](#webhook)
-  - [Updates Listener](#updates-listener)
 - [Available types](#available-types)
-  - [Keyboards](#keyboards)
-  - [Chat Action](#chat-action)  
 - [Available methods](#available-methods)
-  - [Send message](#send-message)
-  - [Formatting options](#formatting-options)
-  - [Get file](#get-file)
-  - [Other requests](#other-requests)
 - [Updating messages](#updating-messages)
+- [Stickers](#stickers)
 - [Inline mode](#inline-mode)
-  - [Inline query result](#inline-query-result)
-  - [Answer inline query](#answer-inline-query)
-- [Payments](#payments)  
+- [Payments](#payments)
+- [Telegram Passport](#telegram-passport)
 - [Games](#games)
-- [Test Telegram Bot API](#test-telegram-bot-api)
 
-## Creating your bot
+### Creating your bot
 
 ```java
 TelegramBot bot = new TelegramBot("BOT_TOKEN");
 ```
-Network operations based on OkHttp library.  
+Network operations based on [OkHttp](https://github.com/square/okhttp) library.  
 You can build bot with custom OkHttpClient, for specific timeouts or interceptors.
 ```java
 TelegramBot bot = new TelegramBot.Builder("BOT_TOKEN").okHttpClient(client).build();
 ```
 
-## Making requests
+### Making requests
 
 Synchronous
 ```java
@@ -83,7 +94,7 @@ Request [in response to update](https://core.telegram.org/bots/faq#how-can-i-mak
 String response = request.toWebhookResponse();
 ```
 
-## Getting updates
+### Getting updates
 
 You can use **getUpdates** request, parse incoming **Webhook** request, or set listener to receive updates.  
 Update object just copies Telegram's response.
@@ -99,7 +110,7 @@ class Update {
 }
 ```
 
-### Get updates
+#### Get updates
 
 Building request
 ```java
@@ -133,7 +144,7 @@ bot.execute(getUpdates, new Callback<GetUpdates, GetUpdatesResponse>() {
 });
 ```
 
-### Webhook
+#### Webhook
 
 Building request
 ```java
@@ -170,7 +181,7 @@ Update update = BotUtils.parseUpdate(reader); // or from java.io.Reader
 Message message = update.message();
 ``` 
 
-### Updates Listener
+#### Updates Listener
 
 You can set listener to receiving incoming updates as if using Webhook.  
 This will trigger executing getUpdates requests in a loop.
@@ -197,7 +208,7 @@ To stop receiving updates
 bot.removeGetUpdatesListener();
 ```
 
-## Available types
+### Available types
 
 All types have the same name as original ones.  
 Type's fields are methods in lowerCamelCase.
@@ -207,7 +218,7 @@ Types used in responses **(Update, Message, User, Document...)** are in `com.pen
 Types used in requests **(Keyboard, InlineQueryResult, ParseMode, InputMessageContent...)** are in `com.pengrad.telegrambot.model.request` package.  
 When creating request's type required params should be passed in constructor, optional params can be added in chains.
 
-### Keyboards
+#### Keyboards
 
 ForceReply, ReplyKeyboardRemove
 ```java
@@ -242,24 +253,24 @@ InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
         new InlineKeyboardButton[]{
                 new InlineKeyboardButton("url").url("www.google.com"),
                 new InlineKeyboardButton("callback_data").callbackData("callback_data"),
-                new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query")
+                new InlineKeyboardButton("Switch!").switchInlineQuery("switch_inline_query")
         });
 ```
 
-### Chat Action
+#### Chat Action
 ```java
 ChatAction action = ChatAction.typing;
 ChatAction action = ChatAction.upload_photo;
 ChatAction action = ChatAction.find_location;
 ```
 
-## Available methods
+### Available methods
 
 All request methods have the same names as original ones.  
 Required params should be passed in constructor.  
 Optional params can be added in chains.
 
-### Send message 
+#### Send message 
 
 All send requests **(SendMessage, SendPhoto, SendLocation...)** return **SendResponse** object that contains **Message**.
 ```java
@@ -289,13 +300,13 @@ bot.execute(request, new Callback<SendMessage, SendResponse>() {
 });
 ```
 
-### Formatting options
+#### Formatting options
 ```java
 ParseMode parseMode = ParseMode.Markdown;
 ParseMode parseMode = ParseMode.HTML;
 ```
 
-### Get file
+#### Get file
 ```java
 GetFile request = new GetFile("fileId")
 GetFileResponse getFileResponse = bot.execute(request);
@@ -310,7 +321,7 @@ To get downloading link as `https://api.telegram.org/file/bot<token>/<file_path>
 String fullPath = bot.getFullFilePath(file);  // com.pengrad.telegrambot.model.File
 ```
 
-### Other requests
+#### Other requests
 
 All requests return BaseResponse if not mention here
 ```java
@@ -363,7 +374,7 @@ class GetUserProfilePhotosResponse {
 }
 ```
 
-## Updating messages
+### Updating messages
 
 Normal message
 ```java
@@ -387,7 +398,30 @@ DeleteMessage deleteMessage = new DeleteMessage(chatId, messageId);
 BaseResponse response = bot.execute(deleteMessage);
 ```
 
-## Inline mode
+### Stickers
+
+Send sticker
+```java
+// File or byte[] or string fileId of existing sticker or string URL
+SendSticker sendSticker = new SendSticker(chatId, imageFile);
+SendResponse response = bot.execute(sendSticker);
+```
+
+Get sticker set
+```java
+GetStickerSet getStickerSet = new GetStickerSet(stickerSet);
+GetStickerSetResponse response = bot.execute(getStickerSet);
+StickerSet stickerSet = response.stickerSet();
+```
+
+Upload sticker file
+```java
+// File or byte[] or string URL
+UploadStickerFile uploadStickerFile = new UploadStickerFile(chatId, stickerFile);
+GetFileResponse response = bot.execute(uploadStickerFile);
+```
+
+### Inline mode
 
 Getting updates
 ```java
@@ -407,7 +441,7 @@ Update update = BotUtils.parseUpdate(reader); // from java.io.Reader
 InlineQuery inlineQuery = update.inlineQuery();
 ```
 
-### Inline query result
+#### Inline query result
 ```java
 InlineQueryResult r1 = new InlineQueryResultPhoto("id", "photoUrl", "thumbUrl");
 InlineQueryResult r2 = new InlineQueryResultArticle("id", "title", "message text").thumbUrl("url");
@@ -419,7 +453,7 @@ InlineQueryResult r5 = new InlineQueryResultVideo(
     .inputMessageContent(new InputLocationMessageContent(21.03f, 105.83f));
 ```
 
-### Answer inline query
+#### Answer inline query
 ```java
 BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQuery.id(), r1, r2, r3, r4, r5));
 
@@ -452,14 +486,18 @@ SendResponse response = bot.execute(sendInvoice);
 
 Answer shipping query
 ```java
+LabeledPrice[] prices = new LabeledPrice[]{
+        new LabeledPrice("delivery", 100),
+        new LabeledPrice("tips", 50)
+};
 AnswerShippingQuery answerShippingQuery = new AnswerShippingQuery(shippingQueryId,
-        new ShippingOption("1", "VNPT", new LabeledPrice("delivery", 100), new LabeledPrice("tips", 50)),
+        new ShippingOption("1", "VNPT", prices),
         new ShippingOption("2", "FREE", new LabeledPrice("free delivery", 0))
 );
 BaseResponse response = bot.execute(answerShippingQuery);
 
 // answer with error
-AnswerShippingQuery answerShippingError = new AnswerShippingQuery(shippingQueryId, "Can't delivery to your address");
+AnswerShippingQuery answerShippingError = new AnswerShippingQuery(id, "Can't deliver here!");
 BaseResponse response = bot.execute(answerShippingError);
 ```
 
@@ -469,8 +507,77 @@ AnswerPreCheckoutQuery answerCheckout = new AnswerPreCheckoutQuery(preCheckoutQu
 BaseResponse response = bot.execute(answerPreCheckoutQuery);
 
 // answer with error
-AnswerPreCheckoutQuery answerCheckout = new AnswerPreCheckoutQuery(preCheckoutQueryId, "Sorry, item not available");
+AnswerPreCheckoutQuery answerCheckout = new AnswerPreCheckoutQuery(id, "Sorry, item not available");
 BaseResponse response = bot.execute(answerPreCheckoutQuery);
+```
+
+### Telegram Passport
+
+When the user confirms your request by pressing the ‘Authorize’ button, the Bot API sends an Update with the field passport_data to the bot that contains encrypted Telegram Passport data. [Telegram Passport Manual](https://core.telegram.org/passport#receiving-information)
+
+#### Receiving information 
+You can get encrypted Passport data from Update (via UpdatesListener or Webhook)
+```java
+PassportData passportData = update.message().passportData();
+```
+PassportData contains array of `EncryptedPassportElement` and `EncryptedCredentials`.  
+You need to decrypt `Credentials` using private key (public key you uploaded to `@BotFather`)
+```java
+String privateKey = "...";
+EncryptedCredentials encryptedCredentials = passportData.credentials();
+Credentials credentials = encryptedCredentials.decrypt(privateKey);
+```
+These `Credentials` can be used to decrypt encrypted data in `EncryptedPassportElement`.
+```java
+EncryptedPassportElement[] encryptedPassportElements = passportData.data();
+for (EncryptedPassportElement element : encryptedPassportElements) {
+    DecryptedData decryptedData = element.decryptData(credentials);
+    // DecryptedData can be cast to specific type by checking instanceOf 
+    if (decryptedData instanceof PersonalDetails) {
+        PersonalDetails personalDetails = (PersonalDetails) decryptedData;
+    }
+    // Or by checking type of passport element
+    if (element.type() == EncryptedPassportElement.Type.address) {
+        ResidentialAddress address = (ResidentialAddress) decryptedData;
+    }
+}
+```
+`EncryptedPassportElement` also contains array of `PassportFile` (file uploaded to Telegram Passport).  
+You need to download them 1 by 1 and decrypt content.  
+This library supports downloading and decryption, returns decrypted byte[]
+```java
+EncryptedPassportElement element = ...
+
+// Combine all files 
+List<PassportFile> files = new ArrayList<PassportFile>();
+files.add(element.frontSide());
+files.add(element.reverseSide());
+files.add(element.selfie());
+if (element.files() != null) {
+    files.addAll(Arrays.asList(element.files()));
+}
+if (element.translation() != null) {
+    files.addAll(Arrays.asList(element.translation()));
+}
+
+// Decrypt
+for (PassportFile file : files) {
+    if (file == null) continue;
+    byte[] data = element.decryptFile(file, credentials, bot); // GetFile request and decrypt content
+    // save to file if needed
+    new FileOutputStream("files/" + element.type()).write(data);
+}
+```
+
+#### Set Passport data errors
+``` java
+SetPassportDataErrors setPassportDataErrors = new SetPassportDataErrors(chatId,
+        new PassportElementErrorDataField("personal_details", "first_name", "dataHash",
+                "Please enter a valid First name"),
+        new PassportElementErrorSelfie("driver_license", "fileHash",
+                "Can't see your face on photo")
+);
+bot.execute(setPassportDataErrors);
 ```
 
 ### Games
@@ -490,6 +597,3 @@ Get game high scores
 GetGameHighScoresResponse response = bot.execute(new GetGameHighScores(userId, chatId, messageId));
 GameHighScore[] scores = response.result();
 ```
-
-### Test Telegram Bot API
-Test on [RapidAPI](https://rapidapi.com/package/TelegramBot/functions?utm_source=TelegramGitHub&utm_medium=button)
