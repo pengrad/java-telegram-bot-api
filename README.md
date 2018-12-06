@@ -509,7 +509,63 @@ BaseResponse response = bot.execute(answerPreCheckoutQuery);
 
 ### Telegram Passport
 
-Set Passport data errors
+When the user confirms your request by pressing the ‘Authorize’ button, the Bot API sends an Update with the field passport_data to the bot that contains encrypted Telegram Passport data. [Telegram Passport Manual](https://core.telegram.org/passport#receiving-information)
+
+#### Receiving information 
+You can get encrypted Passport data from Update (via UpdatesListener or Webhook)
+```java
+PassportData passportData = update.message().passportData();
+```
+PassportData contains array of `EncryptedPassportElement` and `EncryptedCredentials`.  
+You need to decrypt `Credentials` using private key (public key you uploaded to `@BotFather`)
+```java
+String privateKey = "...";
+EncryptedCredentials encryptedCredentials = passportData.credentials();
+Credentials credentials = encryptedCredentials.decrypt(privateKey);
+```
+These `Credentials` can be used to decrypt encrypted data in `EncryptedPassportElement`.
+```java
+EncryptedPassportElement[] encryptedPassportElements = passportData.data();
+for (EncryptedPassportElement element : encryptedPassportElements) {
+    DecryptedData decryptedData = element.decryptData(credentials);
+    // DecryptedData can be cast to specific type by checking instanceOf 
+    if (decryptedData instanceof PersonalDetails) {
+        PersonalDetails personalDetails = (PersonalDetails) decryptedData;
+    }
+    // Or by checking type of passport element
+    if (element.type() == EncryptedPassportElement.Type.address) {
+        ResidentialAddress address = (ResidentialAddress) decryptedData;
+    }
+}
+```
+`EncryptedPassportElement` also contains array of `PassportFile` (file uploaded to Telegram Passport).  
+You need to download them 1 by 1 and decrypt content.  
+This library supports downloading and decryption 
+```java
+EncryptedPassportElement element = ...
+
+// Combine all files 
+List<PassportFile> files = new ArrayList<PassportFile>();
+files.add(element.frontSide());
+files.add(element.reverseSide());
+files.add(element.selfie());
+if (element.files() != null) {
+    files.addAll(Arrays.asList(element.files()));
+}
+if (element.translation() != null) {
+    files.addAll(Arrays.asList(element.translation()));
+}
+
+// Decrypt
+for (PassportFile file : files) {
+    if (file == null) continue;
+    byte[] data = element.decryptFile(file, credentials, bot);
+    // save to file if needed
+    new FileOutputStream("files/" + element.type()).write(data);
+}
+```
+
+#### Set Passport data errors
 ``` java
 SetPassportDataErrors setPassportDataErrors = new SetPassportDataErrors(chatId,
         new PassportElementErrorDataField("personal_details", "first_name", "dataHash",
