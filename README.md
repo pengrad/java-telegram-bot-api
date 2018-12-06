@@ -497,7 +497,7 @@ AnswerShippingQuery answerShippingQuery = new AnswerShippingQuery(shippingQueryI
 BaseResponse response = bot.execute(answerShippingQuery);
 
 // answer with error
-AnswerShippingQuery answerShippingError = new AnswerShippingQuery(id, "Can't deliver to your address");
+AnswerShippingQuery answerShippingError = new AnswerShippingQuery(id, "Can't deliver here!");
 BaseResponse response = bot.execute(answerShippingError);
 ```
 
