@@ -540,7 +540,7 @@ for (EncryptedPassportElement element : encryptedPassportElements) {
 ```
 `EncryptedPassportElement` also contains array of `PassportFile` (file uploaded to Telegram Passport).  
 You need to download them 1 by 1 and decrypt content.  
-This library supports downloading and decryption 
+This library supports downloading and decryption, returns decrypted byte[]
 ```java
 EncryptedPassportElement element = ...
 
@@ -559,7 +559,7 @@ if (element.translation() != null) {
 // Decrypt
 for (PassportFile file : files) {
     if (file == null) continue;
-    byte[] data = element.decryptFile(file, credentials, bot);
+    byte[] data = element.decryptFile(file, credentials, bot); // make GetFile request and decrypt content
     // save to file if needed
     new FileOutputStream("files/" + element.type()).write(data);
 }
