@@ -253,7 +253,7 @@ InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
         new InlineKeyboardButton[]{
                 new InlineKeyboardButton("url").url("www.google.com"),
                 new InlineKeyboardButton("callback_data").callbackData("callback_data"),
-                new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query")
+                new InlineKeyboardButton("Switch!").switchInlineQuery("switch_inline_query")
         });
 ```
 
@@ -486,14 +486,18 @@ SendResponse response = bot.execute(sendInvoice);
 
 Answer shipping query
 ```java
+LabeledPrice[] prices = new LabeledPrice[]{
+        new LabeledPrice("delivery", 100),
+        new LabeledPrice("tips", 50)
+};
 AnswerShippingQuery answerShippingQuery = new AnswerShippingQuery(shippingQueryId,
-        new ShippingOption("1", "VNPT", new LabeledPrice("delivery", 100), new LabeledPrice("tips", 50)),
+        new ShippingOption("1", "VNPT", prices),
         new ShippingOption("2", "FREE", new LabeledPrice("free delivery", 0))
 );
 BaseResponse response = bot.execute(answerShippingQuery);
 
 // answer with error
-AnswerShippingQuery answerShippingError = new AnswerShippingQuery(shippingQueryId, "Can't delivery to your address");
+AnswerShippingQuery answerShippingError = new AnswerShippingQuery(id, "Can't delivery to your address");
 BaseResponse response = bot.execute(answerShippingError);
 ```
 
@@ -503,7 +507,7 @@ AnswerPreCheckoutQuery answerCheckout = new AnswerPreCheckoutQuery(preCheckoutQu
 BaseResponse response = bot.execute(answerPreCheckoutQuery);
 
 // answer with error
-AnswerPreCheckoutQuery answerCheckout = new AnswerPreCheckoutQuery(preCheckoutQueryId, "Sorry, item not available");
+AnswerPreCheckoutQuery answerCheckout = new AnswerPreCheckoutQuery(id, "Sorry, item not available");
 BaseResponse response = bot.execute(answerPreCheckoutQuery);
 ```
 
