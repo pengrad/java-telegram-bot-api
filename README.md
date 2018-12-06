@@ -399,7 +399,27 @@ BaseResponse response = bot.execute(deleteMessage);
 ```
 
 ### Stickers
-info about stickers
+
+Send sticker
+```java
+// File or byte[] or string fileId of existing sticker or string URL
+SendSticker sendSticker = new SendSticker(chatId, imageFile);
+SendResponse response = bot.execute(sendSticker);
+```
+
+Get sticker set
+```java
+GetStickerSet getStickerSet = new GetStickerSet(stickerSet);
+GetStickerSetResponse response = bot.execute(getStickerSet);
+StickerSet stickerSet = response.stickerSet();
+```
+
+Upload sticker file
+```java
+// File or byte[] or string URL
+UploadStickerFile uploadStickerFile = new UploadStickerFile(chatId, stickerFile);
+GetFileResponse response = bot.execute(uploadStickerFile);
+```
 
 ### Inline mode
 
