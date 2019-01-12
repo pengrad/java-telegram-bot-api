@@ -10,9 +10,9 @@ compileTestJava {
 }
 
 dependencies {
-    compile 'com.google.code.gson:gson:2.8.2'
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    compile 'com.google.code.gson:gson:2.8.5'
+    compile 'com.squareup.okhttp3:okhttp:3.12.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.12.1'
 
     testCompile 'junit:junit:4.12'
     testCompile 'nl.jqno.equalsverifier:equalsverifier:2.3'
