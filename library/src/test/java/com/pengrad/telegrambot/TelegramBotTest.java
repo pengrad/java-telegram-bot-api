@@ -304,7 +304,7 @@ public class TelegramBotTest {
 
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: QUERY_ID_INVALID", response.description());
+            assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
         }
     }
 
@@ -333,7 +333,7 @@ public class TelegramBotTest {
 
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: QUERY_ID_INVALID", response.description());
+            assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
         }
     }
 
@@ -831,7 +831,7 @@ public class TelegramBotTest {
 
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: QUERY_ID_INVALID", response.description());
+            assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
         }
     }
 
@@ -844,7 +844,7 @@ public class TelegramBotTest {
 
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: QUERY_ID_INVALID", response.description());
+            assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
         }
     }
 
@@ -869,7 +869,7 @@ public class TelegramBotTest {
 
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: QUERY_ID_INVALID", response.description());
+            assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
         }
     }
 
@@ -882,7 +882,7 @@ public class TelegramBotTest {
 
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: QUERY_ID_INVALID", response.description());
+            assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
         }
     }
 
@@ -1051,7 +1051,8 @@ public class TelegramBotTest {
         response = bot.execute(new StopMessageLiveLocation("AgAAAPrwAQCj_Q4D2s-51_8jsuU"));
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: message is not modified", response.description());
+            assertEquals("Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply_markup of the message",
+                    response.description());
         }
     }
 
@@ -1118,23 +1119,21 @@ public class TelegramBotTest {
 
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFile)));
-        // todo why is it video?
-        assertEquals(new Integer(1), response.message().video().duration());
+        assertEquals(new Integer(1), response.message().animation().duration());
 
         Integer durationAnim = 17, width = 21, height = 22;
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
                 new InputMediaAnimation(gifBytes).duration(durationAnim).width(width).height(height)
         ));
-        // todo why is it video?
-        Video video = response.message().video();
-        assertEquals(new Integer(1), video.duration());
-        assertEquals(width, video.width());
-        assertEquals(height, video.height());
+        Animation animation = response.message().animation();
+        assertEquals(Integer.valueOf(1), animation.duration());
+        assertEquals(width, animation.width());
+        assertEquals(height, animation.height());
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFileId)));
         assertTrue(response.isOk());
-        // todo check animation object in message
-//        assertEquals(new Integer(3), response.message().animation().duration());
+        assertEquals(Integer.valueOf(3), response.message().animation().duration());
+        assertEquals(gifFileId, response.message().animation().fileId());
         assertNotNull(response.message().document());
         assertEquals((Integer) 57527, response.message().document().fileSize());
         assertEquals("video/mp4", response.message().document().mimeType());
