@@ -20,6 +20,7 @@ public class Message implements Serializable {
     private Chat forward_from_chat;
     private Integer forward_from_message_id;
     private String forward_signature;
+    private String forward_sender_name;
     private Integer forward_date;
     private Message reply_to_message;
     private Integer edit_date;
@@ -89,6 +90,10 @@ public class Message implements Serializable {
 
     public String forwardSignature() {
         return forward_signature;
+    }
+
+    public String forwardSenderName() {
+        return forward_sender_name;
     }
 
     public Integer forwardDate() {
@@ -265,6 +270,8 @@ public class Message implements Serializable {
             return false;
         if (forward_signature != null ? !forward_signature.equals(message.forward_signature) : message.forward_signature != null)
             return false;
+        if (forward_sender_name != null ? !forward_sender_name.equals(message.forward_sender_name) : message.forward_sender_name != null)
+            return false;
         if (forward_date != null ? !forward_date.equals(message.forward_date) : message.forward_date != null) return false;
         if (reply_to_message != null ? !reply_to_message.equals(message.reply_to_message) : message.reply_to_message != null)
             return false;
@@ -341,6 +348,7 @@ public class Message implements Serializable {
                 ", forward_from_chat=" + forward_from_chat +
                 ", forward_from_message_id=" + forward_from_message_id +
                 ", forward_signature='" + forward_signature + '\'' +
+                ", forward_sender_name='" + forward_sender_name + '\'' +
                 ", forward_date=" + forward_date +
                 ", reply_to_message=" + reply_to_message +
                 ", edit_date=" + edit_date +
