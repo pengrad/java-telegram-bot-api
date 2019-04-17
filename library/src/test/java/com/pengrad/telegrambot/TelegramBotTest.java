@@ -391,11 +391,14 @@ public class TelegramBotTest {
         ChatMember chatMember = bot.execute(new GetChatMember(groupId, memberBot)).chatMember();
         ChatMemberTest.check(chatMember);
         assertEquals(ChatMember.Status.restricted, chatMember.status());
-        assertTrue(chatMember.untilDate() == 0);
-        assertEquals(false, chatMember.canSendMessages());
-        assertEquals(false, chatMember.canSendMediaMessages());
-        assertEquals(false, chatMember.canSendOtherMessages());
-        assertEquals(false, chatMember.canAddWebPagePreviews());
+        assertEquals(Integer.valueOf(0), chatMember.untilDate());
+        assertNull(chatMember.canPostMessages());
+        assertNull(chatMember.canEditMessages());
+        assertTrue(chatMember.isMember());
+        assertFalse(chatMember.canSendMessages());
+        assertFalse(chatMember.canSendMediaMessages());
+        assertFalse(chatMember.canSendOtherMessages());
+        assertFalse(chatMember.canAddWebPagePreviews());
     }
 
     @Test

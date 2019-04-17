@@ -26,6 +26,7 @@ public class ChatMember implements Serializable {
     private Boolean can_restrict_members;
     private Boolean can_pin_messages;
     private Boolean can_promote_members;
+    private Boolean is_member;
     private Boolean can_send_messages;
     private Boolean can_send_media_messages;
     private Boolean can_send_other_messages;
@@ -79,6 +80,10 @@ public class ChatMember implements Serializable {
         return can_promote_members;
     }
 
+    public Boolean isMember() {
+        return is_member;
+    }
+
     public Boolean canSendMessages() {
         return can_send_messages;
     }
@@ -122,6 +127,7 @@ public class ChatMember implements Serializable {
             return false;
         if (can_promote_members != null ? !can_promote_members.equals(that.can_promote_members) : that.can_promote_members != null)
             return false;
+        if (is_member != null ? !is_member.equals(that.is_member) : that.is_member != null) return false;
         if (can_send_messages != null ? !can_send_messages.equals(that.can_send_messages) : that.can_send_messages != null)
             return false;
         if (can_send_media_messages != null ? !can_send_media_messages.equals(that.can_send_media_messages) : that.can_send_media_messages != null)
@@ -145,6 +151,7 @@ public class ChatMember implements Serializable {
         result = 31 * result + (can_restrict_members != null ? can_restrict_members.hashCode() : 0);
         result = 31 * result + (can_pin_messages != null ? can_pin_messages.hashCode() : 0);
         result = 31 * result + (can_promote_members != null ? can_promote_members.hashCode() : 0);
+        result = 31 * result + (is_member != null ? is_member.hashCode() : 0);
         result = 31 * result + (can_send_messages != null ? can_send_messages.hashCode() : 0);
         result = 31 * result + (can_send_media_messages != null ? can_send_media_messages.hashCode() : 0);
         result = 31 * result + (can_send_other_messages != null ? can_send_other_messages.hashCode() : 0);
@@ -167,6 +174,7 @@ public class ChatMember implements Serializable {
                 ", can_restrict_members=" + can_restrict_members +
                 ", can_pin_messages=" + can_pin_messages +
                 ", can_promote_members=" + can_promote_members +
+                ", is_member=" + is_member +
                 ", can_send_messages=" + can_send_messages +
                 ", can_send_media_messages=" + can_send_media_messages +
                 ", can_send_other_messages=" + can_send_other_messages +
