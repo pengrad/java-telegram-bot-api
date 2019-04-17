@@ -41,6 +41,7 @@ public class Message implements Serializable {
     private Contact contact;
     private Location location;
     private Venue venue;
+    private Poll poll;
     private User new_chat_member;
     private User[] new_chat_members;
     private User left_chat_member;
@@ -174,6 +175,10 @@ public class Message implements Serializable {
         return venue;
     }
 
+    public Poll poll() {
+        return poll;
+    }
+
     /**
      * @deprecated Replaced with new_chat_members
      */
@@ -287,6 +292,7 @@ public class Message implements Serializable {
         if (contact != null ? !contact.equals(message.contact) : message.contact != null) return false;
         if (location != null ? !location.equals(message.location) : message.location != null) return false;
         if (venue != null ? !venue.equals(message.venue) : message.venue != null) return false;
+        if (poll != null ? !poll.equals(message.poll) : message.poll != null) return false;
         if (new_chat_member != null ? !new_chat_member.equals(message.new_chat_member) : message.new_chat_member != null)
             return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
@@ -356,6 +362,7 @@ public class Message implements Serializable {
                 ", contact=" + contact +
                 ", location=" + location +
                 ", venue=" + venue +
+                ", poll=" + poll +
                 ", new_chat_member=" + new_chat_member +
                 ", new_chat_members=" + Arrays.toString(new_chat_members) +
                 ", left_chat_member=" + left_chat_member +

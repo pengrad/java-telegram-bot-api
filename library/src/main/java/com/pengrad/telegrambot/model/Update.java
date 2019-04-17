@@ -19,6 +19,7 @@ public class Update implements Serializable {
     private CallbackQuery callback_query;
     private ShippingQuery shipping_query;
     private PreCheckoutQuery pre_checkout_query;
+    private Poll poll;
 
     public Integer updateId() {
         return update_id;
@@ -60,6 +61,10 @@ public class Update implements Serializable {
         return pre_checkout_query;
     }
 
+    public Poll poll() {
+        return poll;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,7 +86,9 @@ public class Update implements Serializable {
             return false;
         if (shipping_query != null ? !shipping_query.equals(update.shipping_query) : update.shipping_query != null)
             return false;
-        return pre_checkout_query != null ? pre_checkout_query.equals(update.pre_checkout_query) : update.pre_checkout_query == null;
+        if (pre_checkout_query != null ? !pre_checkout_query.equals(update.pre_checkout_query) : update.pre_checkout_query != null)
+            return false;
+        return poll != null ? poll.equals(update.poll) : update.poll == null;
     }
 
     @Override
@@ -102,6 +109,7 @@ public class Update implements Serializable {
                 ", callback_query=" + callback_query +
                 ", shipping_query=" + shipping_query +
                 ", pre_checkout_query=" + pre_checkout_query +
+                ", poll=" + poll +
                 '}';
     }
 }
