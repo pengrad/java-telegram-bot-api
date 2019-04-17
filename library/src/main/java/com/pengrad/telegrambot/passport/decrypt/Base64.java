@@ -27,7 +27,7 @@ import java.util.Arrays;
  * href="http://www.ietf.org/rfc/rfc2045.txt">RFC 2045</a>.
  *
  * <ul>
- * <li><a name="basic"><b>Basic</b></a>
+ * <li><a id="basic"><b>Basic</b></a>
  * <p>
  * Uses "The Base64 Alphabet" as specified in Table 1 of RFC 4648 and RFC 2045
  * for encoding and decoding operation. The encoder does not add any line feed
@@ -36,7 +36,7 @@ import java.util.Arrays;
  * </p>
  * </li>
  *
- * <li><a name="url"><b>URL and Filename safe</b></a>
+ * <li><a id="url"><b>URL and Filename safe</b></a>
  * <p>
  * Uses the "URL and Filename safe Base64 Alphabet" as specified in Table 2 of
  * RFC 4648 for encoding and decoding. The encoder does not add any line feed
@@ -45,7 +45,7 @@ import java.util.Arrays;
  * </p>
  * </li>
  *
- * <li><a name="mime"><b>MIME</b></a>
+ * <li><a id="mime"><b>MIME</b></a>
  * <p>
  * Uses the "The Base64 Alphabet" as specified in Table 1 of RFC 2045 for
  * encoding and decoding operation. The encoded output must be represented in
