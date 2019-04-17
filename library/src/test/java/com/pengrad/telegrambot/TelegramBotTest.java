@@ -473,15 +473,25 @@ public class TelegramBotTest {
     @Test
     public void forwardMessage() {
         SendResponse response = bot.execute(new ForwardMessage(chatId, chatId, forwardMessageId).disableNotification(true));
-        MessageTest.checkForwardedMessage(response.message());
+        Message message = response.message();
+        MessageTest.checkMessage(message);
+        assertNotNull(message.forwardDate());
+        assertNotNull(message.forwardSenderName());
+        assertNull(message.forwardFrom());
 
-        Message message = bot.execute(new ForwardMessage(channelName, channelName, 651)).message();
+        message = bot.execute(new ForwardMessage(channelName, channelName, 651)).message();
         assertNotNull(message.authorSignature());
         assertNotNull(message.forwardSignature());
+        assertEquals(Integer.valueOf(651), message.forwardFromMessageId());
+        Chat chat = message.forwardFromChat();
+        assertEquals(channelName, "@" + chat.username());
+        assertEquals(Chat.Type.channel, chat.type());
+        assertNull(message.forwardSenderName());
 
         message = bot.execute(new ForwardMessage(chatId, groupId, 352)).message();
         assertEquals(MessageEntity.Type.text_mention, message.entities()[0].type());
         assertNotNull(message.entities()[0].user());
+        assertNotNull(message.forwardSenderName());
     }
 
     @Test

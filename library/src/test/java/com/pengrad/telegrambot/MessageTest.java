@@ -16,12 +16,6 @@ public class MessageTest {
         ChatTest.checkChat(message.chat());
     }
 
-    public static void checkForwardedMessage(Message message) {
-        checkMessage(message);
-        assertNotNull(message.forwardDate());
-        UserTest.checkUser(message.forwardFrom());
-    }
-
     public static void checkTextMessage(Message message) {
         checkMessage(message);
         assertNotNull(message.text());
