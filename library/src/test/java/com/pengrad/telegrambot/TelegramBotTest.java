@@ -107,7 +107,7 @@ public class TelegramBotTest {
     @Test
     public void getUpdates() {
         GetUpdates getUpdates = new GetUpdates()
-                .offset(864855364)
+                .offset(870644071)
                 .allowedUpdates("")
                 .timeout(0)
                 .limit(100);
@@ -1222,6 +1222,43 @@ public class TelegramBotTest {
                 byte[] data = encElement.decryptFile(file, credentials, bot);
                 new FileOutputStream(Paths.get("build/" + encElement.type() + i + ".jpg").toFile()).write(data);
             }
+        }
+    }
+
+    @Test
+    public void sendPoll() {
+        String question = "Question ?";
+        String[] answers = {"Answer 1", "Answer 2"};
+        SendResponse sendResponse = bot.execute(new SendPoll(groupId, question, answers));
+        Poll poll = sendResponse.message().poll();
+        assertFalse(poll.isClosed());
+        assertEquals(question, poll.question());
+        assertEquals(answers.length, poll.options().length);
+        for (int i = 0; i < answers.length; i++) {
+            PollOption option = poll.options()[i];
+            assertEquals(answers[i], option.text());
+            assertEquals(Integer.valueOf(0), option.voterCount());
+        }
+    }
+
+    @Test
+    public void stopPoll() throws InterruptedException {
+        String question = "Question ?";
+        String[] answers = {"Answer 1", "Answer 2"};
+        SendResponse sendResponse = bot.execute(new SendPoll(groupId, question, answers));
+        Integer messageId = sendResponse.message().messageId();
+
+        Thread.sleep(1000);
+
+        PollResponse response = bot.execute(new StopPoll(groupId, messageId));
+        Poll poll = response.poll();
+        assertTrue(poll.isClosed());
+        assertEquals(question, poll.question());
+        assertEquals(answers.length, poll.options().length);
+        for (int i = 0; i < answers.length; i++) {
+            PollOption option = poll.options()[i];
+            assertEquals(answers[i], option.text());
+            assertEquals(Integer.valueOf(0), option.voterCount());
         }
     }
 }
