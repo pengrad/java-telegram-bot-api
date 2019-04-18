@@ -374,6 +374,13 @@ class GetUserProfilePhotosResponse {
 }
 ```
 
+StopPoll
+```java
+class PollResponse {
+  Poll poll()
+}
+```
+
 ### Updating messages
 
 Normal message
