@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
+import okhttp3.internal.platform.Platform;
 
 import java.io.IOException;
 import java.util.List;
@@ -48,6 +49,11 @@ public class UpdatesHandler {
                 if (listener == null) return;
 
                 if (!response.isOk() || response.updates() == null || response.updates().size() <= 0) {
+                    if (!response.isOk()) {
+                        Platform.get().log(Platform.INFO,
+                                "Update listener error for request " + request.toWebhookResponse() +
+                                        " with response " + response.errorCode() + " " + response.description(), null);
+                    }
                     sleep();
                     getUpdates(request);
                     return;
@@ -67,6 +73,7 @@ public class UpdatesHandler {
 
             @Override
             public void onFailure(GetUpdates request, IOException e) {
+                Platform.get().log(Platform.INFO, "Update listener failure", e);
                 sleep();
                 getUpdates(request);
             }
