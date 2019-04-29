@@ -34,12 +34,20 @@ public class TelegramBotClient {
         client.newCall(createRequest(request)).enqueue(new okhttp3.Callback() {
             @Override
             public void onResponse(Call call, Response response) {
+                R result = null;
+                Exception exception = null;
                 try {
-                    R result = gson.fromJson(response.body().string(), request.getResponseType());
-                    callback.onResponse(request, result);
+                    result = gson.fromJson(response.body().string(), request.getResponseType());
                 } catch (Exception e) {
-                    IOException ioEx = e instanceof IOException ? (IOException) e : new IOException(e);
+                    exception = e;
+                }
+                if (result != null) {
+                    callback.onResponse(request, result);
+                } else if (exception != null) {
+                    IOException ioEx = exception instanceof IOException ? (IOException) exception : new IOException(exception);
                     callback.onFailure(request, ioEx);
+                } else {
+                    callback.onFailure(request, new IOException("Empty response"));
                 }
             }
 
