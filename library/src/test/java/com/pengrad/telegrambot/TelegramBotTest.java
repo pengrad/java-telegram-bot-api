@@ -1348,4 +1348,9 @@ public class TelegramBotTest {
         });
         latch.await(10, TimeUnit.SECONDS);
     }
+
+    @Test
+    public void toWebhookResponse() {
+        assertEquals("{\"method\":\"getMe\"}", new GetMe().toWebhookResponse());
+    }
 }
