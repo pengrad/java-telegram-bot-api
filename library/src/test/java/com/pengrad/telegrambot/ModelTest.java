@@ -4,10 +4,9 @@ import com.pengrad.telegrambot.model.Animation;
 import com.pengrad.telegrambot.model.CallbackQuery;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
-
+import com.pengrad.telegrambot.passport.Credentials;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.reflections.Reflections;
@@ -15,7 +14,8 @@ import org.reflections.scanners.SubTypesScanner;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,14 +32,16 @@ public class ModelTest {
     @Before
     public void setClasses() {
         String modelPackage = Animation.class.getPackage().getName();
-        Reflections reflections = new Reflections(modelPackage, new SubTypesScanner(false));
-        Set<Class<?>> allSubPackageClasses = reflections.getSubTypesOf(Object.class);
-        classes = new HashSet<Class>();
-        for (Class clazz : allSubPackageClasses) {
-            if (clazz.getPackage().getName().equals(modelPackage)) {
-                classes.add(clazz);
-            }
-        }
+        String passportPackage = Credentials.class.getPackage().getName();
+        List<String> packages = Arrays.asList(modelPackage, passportPackage);
+
+        classes = new Reflections(packages, new SubTypesScanner(false))
+                .getSubTypesOf(Object.class)
+                .stream()
+                .filter(clazz -> packages.contains(clazz.getPackage().getName())
+                        && !clazz.getSimpleName().startsWith("PassportElementError")
+                        && !Modifier.isAbstract(clazz.getModifiers())
+                ).collect(Collectors.toSet());
     }
 
     @Test

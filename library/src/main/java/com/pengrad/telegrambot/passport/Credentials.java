@@ -37,6 +37,7 @@ public class Credentials implements Serializable {
         Credentials that = (Credentials) o;
 
         if (secure_data != null ? !secure_data.equals(that.secure_data) : that.secure_data != null) return false;
+        if (payload != null ? !payload.equals(that.payload) : that.payload != null) return false;
         return nonce != null ? nonce.equals(that.nonce) : that.nonce == null;
     }
 
