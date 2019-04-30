@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.passport.*;
@@ -20,6 +21,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import static com.pengrad.telegrambot.request.ContentTypes.VIDEO_MIME_TYPE;
 import static org.junit.Assert.*;
@@ -178,6 +181,7 @@ public class TelegramBotTest {
                 .disableWebPagePreview(true)
                 .replyMarkup(new InlineKeyboardMarkup()));
         assertTrue(response.isOk());
+        assertNotNull(((SendResponse) response).message().editDate());
 
         response = bot.execute(new EditMessageText(channelName, 306, text));
         assertTrue(response.isOk());
@@ -357,6 +361,13 @@ public class TelegramBotTest {
         assertTrue(chat.description().contains("New desc"));
         assertNotNull(new URL(chat.inviteLink()).toURI());
         if (chat.pinnedMessage() != null) MessageTest.checkMessage(chat.pinnedMessage());
+        assertNull(chat.allMembersAreAdministrators());
+        assertNull(chat.stickerSetName());
+        assertNull(chat.canSetStickerSet());
+
+        chat = bot.execute(new GetChat(chatId)).chat();
+        assertNotNull(chat.firstName());
+        assertNotNull(chat.lastName());
     }
 
     @Test
@@ -426,6 +437,7 @@ public class TelegramBotTest {
     public void sendMessage() {
         SendResponse sendResponse = bot.execute(new SendMessage(chatId, "reply this message").replyMarkup(new ForceReply()));
         MessageTest.checkTextMessage(sendResponse.message());
+        assertNotNull(sendResponse.message().from());
 
         sendResponse = bot.execute(new SendMessage(chatId, "remove keyboard")
                 .replyMarkup(new ReplyKeyboardRemove())
@@ -433,6 +445,7 @@ public class TelegramBotTest {
                 .replyToMessageId(8087)
         );
         MessageTest.checkTextMessage(sendResponse.message());
+        assertNotNull(sendResponse.message().replyToMessage());
 
         sendResponse = bot.execute(new SendMessage(chatId, "hide keyboard").replyMarkup(new ReplyKeyboardHide()));
         MessageTest.checkTextMessage(sendResponse.message());
@@ -1300,5 +1313,39 @@ public class TelegramBotTest {
             assertEquals(answers[i], option.text());
             assertEquals(Integer.valueOf(0), option.voterCount());
         }
+    }
+
+    @Test
+    public void testAsyncCallback() throws Exception {
+        CountDownLatch latch = new CountDownLatch(1);
+        bot.execute(new GetMe(), new Callback<GetMe, GetMeResponse>() {
+            @Override
+            public void onResponse(GetMe request, GetMeResponse response) {
+                latch.countDown();
+            }
+
+            @Override
+            public void onFailure(GetMe request, IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        latch.await(10, TimeUnit.SECONDS);
+    }
+
+    @Test
+    public void botClientError() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        TelegramBotClient botClient = new TelegramBotClient(new OkHttpClient(), null, TelegramBot.Builder.API_URL);
+        botClient.send(new GetMe(), new Callback<GetMe, BaseResponse>() {
+            @Override
+            public void onResponse(GetMe request, BaseResponse response) {
+            }
+
+            @Override
+            public void onFailure(GetMe request, IOException e) {
+                latch.countDown();
+            }
+        });
+        latch.await(10, TimeUnit.SECONDS);
     }
 }
