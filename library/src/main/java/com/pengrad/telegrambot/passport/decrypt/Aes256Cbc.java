@@ -297,98 +297,6 @@ class Aes256Cbc {
         }
 
         /**
-         * Changes all {@code byte}s in the state by the s-box.
-         */
-        private void substituteState() {
-            for (int i = 0; i < BLOCK_SIZE; ++i) {
-                this._tmp[i] = this._sBox[this._tmp[i] & 0xff];
-            }
-        }
-
-        /**
-         * Rotates the last three rows of the state.
-         */
-        private void shiftRows() {
-            byte tmp = this._tmp[1];
-            this._tmp[1] = this._tmp[5];
-            this._tmp[5] = this._tmp[9];
-            this._tmp[9] = this._tmp[13];
-            this._tmp[13] = tmp;
-
-            tmp = this._tmp[2];
-            this._tmp[2] = this._tmp[10];
-            this._tmp[10] = tmp;
-            tmp = this._tmp[6];
-            this._tmp[6] = this._tmp[14];
-            this._tmp[14] = tmp;
-
-            tmp = this._tmp[3];
-            this._tmp[3] = this._tmp[15];
-            this._tmp[15] = this._tmp[11];
-            this._tmp[11] = this._tmp[7];
-            this._tmp[7] = tmp;
-        }
-
-        /**
-         * Mixes one column of the state.
-         *
-         * @param index position of the first element of the column
-         */
-        private void mixColumn(int index) {
-            int s0 = mul(2, this._tmp[index]) ^ mul(3, this._tmp[index + 1])
-                    ^ (this._tmp[index + 2] & 0xff) ^ (this._tmp[index + 3] & 0xff);
-            int s1 = (this._tmp[index] & 0xff) ^ mul(2, this._tmp[index + 1])
-                    ^ mul(3, this._tmp[index + 2]) ^ (this._tmp[index + 3] & 0xff);
-            int s2 = (this._tmp[index] & 0xff) ^ (this._tmp[index + 1] & 0xff)
-                    ^ mul(2, this._tmp[index + 2]) ^ mul(3, this._tmp[index + 3]);
-            int s3 = mul(3, this._tmp[index]) ^ (this._tmp[index + 1] & 0xff)
-                    ^ (this._tmp[index + 2] & 0xff) ^ mul(2, this._tmp[index + 3]);
-            this._tmp[index] = (byte) (s0 & 0xff);
-            this._tmp[index + 1] = (byte) (s1 & 0xff);
-            this._tmp[index + 2] = (byte) (s2 & 0xff);
-            this._tmp[index + 3] = (byte) (s3 & 0xff);
-        }
-
-        /**
-         * Mixes all columns of the state.
-         */
-        private void mixColumns() {
-            mixColumn(0);
-            mixColumn(4);
-            mixColumn(8);
-            mixColumn(12);
-        }
-
-        /**
-         * Encrypts one block. The input block lies in {@code inBlock} starting at the position
-         * {@code inIndex}. The {@code inBlock} won't be modified by this method. The encrypted block
-         * will be stored in {@code outBlock} starting at position {@code outIndex}.
-         *
-         * @param inBlock  array containing the input block
-         * @param inIndex  starting of the input block in {@code inBlock}
-         * @param outBlock array to store the encrypted block
-         * @param outIndex starting of the encrypted block in {@code outBlock}
-         */
-        public void encrypt(byte[] inBlock, int inIndex, byte[] outBlock,
-                            int outIndex) {
-            System.arraycopy(inBlock, inIndex, this._tmp, 0, BLOCK_SIZE);
-
-            addRoundKey(0);
-            for (int round = 1; round < ROUNDS; ++round) {
-                substituteState();
-                shiftRows();
-                mixColumns();
-                addRoundKey(round * BLOCK_SIZE);
-            }
-
-            substituteState();
-            shiftRows();
-            addRoundKey(ROUNDS * BLOCK_SIZE);
-
-            System.arraycopy(this._tmp, 0, outBlock, outIndex, BLOCK_SIZE);
-        }
-
-        /**
          * Rotates the last three rows of the state. This method inverses {@link Aes256#shiftRows}.
          */
         private void invShiftRows() {
@@ -551,20 +459,6 @@ class Aes256Cbc {
         }
 
         /**
-         * Encrypts a block. {@link Cbc#_current} will be modified.
-         *
-         * @param inBuffer array containing the input block
-         * @param outBuffer storage of the encrypted block
-         */
-        private void encryptBlock(byte[] inBuffer, byte[] outBuffer) {
-            for (int i = 0; i < BLOCK_SIZE; ++i) {
-                this._current[i] ^= inBuffer[i];
-            }
-            this._cipher.encrypt(this._current, 0, this._current, 0);
-            System.arraycopy(this._current, 0, outBuffer, 0, BLOCK_SIZE);
-        }
-
-        /**
          * Decrypts a block. {@link Cbc#_current} will be modified.
          *
          * @param inBuffer storage of the encrypted block
@@ -581,18 +475,6 @@ class Aes256Cbc {
         }
 
         /**
-         * Encrypts the array. The whole array will be encrypted.
-         *
-         * @param data {@code byte}s that should be encrypted
-         * @throws IOException if the writing fails
-         */
-        public void encrypt(byte[] data) throws IOException {
-            if (data != null) {
-                encrypt(data, data.length);
-            }
-        }
-
-        /**
          * Decrypts the array. The whole array will be decrypted.
          *
          * @param data {@code byte}s that should be decrypted
@@ -601,29 +483,6 @@ class Aes256Cbc {
         public void decrypt(byte[] data) throws IOException {
             if (data != null) {
                 decrypt(data, data.length);
-            }
-        }
-
-        /**
-         * Encrypts a part of the array. Only the first {@code length} {@code byte}s of the array will
-         * be encrypted.
-         *
-         * @param data {@code byte}s that should be encrypted
-         * @param length number of {@code byte}s that should be encrypted
-         * @throws IOException if the writing fails
-         */
-        public void encrypt(byte[] data, int length) throws IOException {
-            if (data == null || length <= 0) {
-                return;
-            }
-
-            for (int i = 0; i < length; ++i) {
-                this._overflow[this._overflowUsed++] = data[i];
-                if (this._overflowUsed == BLOCK_SIZE) {
-                    encryptBlock(this._overflow, this._outBuffer);
-                    this._output.write(this._outBuffer);
-                    this._overflowUsed = 0;
-                }
             }
         }
 
@@ -654,22 +513,6 @@ class Aes256Cbc {
         }
 
         /**
-         * Finishes the encryption process.
-         *
-         * @throws IOException if the writing fails
-         */
-        public void finishEncryption() throws IOException {
-            byte pad = (byte) (BLOCK_SIZE - this._overflowUsed);
-            while (this._overflowUsed < BLOCK_SIZE) {
-                this._overflow[this._overflowUsed++] = pad;
-            }
-
-            encryptBlock(this._overflow, this._outBuffer);
-            this._output.write(this._outBuffer);
-            this._output.close();
-        }
-
-        /**
          * Finishes the decryption process.
          *
          * @throws DecryptException if the last block is no legal conclusion of the stream
@@ -696,16 +539,9 @@ class Aes256Cbc {
         }
     }
 
-    static final class DecryptException extends Exception {
+    private static final class DecryptException extends Exception {
 
         private static final long serialVersionUID = -935882404526228391L;
-
-        /**
-         * Creates the exception.
-         */
-        public DecryptException() {
-            super("Decryption failed.");
-        }
     }
 
 }

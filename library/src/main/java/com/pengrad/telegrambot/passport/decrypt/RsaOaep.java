@@ -276,48 +276,6 @@ class RsaOaep {
 
             return new BigInteger(value);
         }
-
-        /**
-         * Get value as string. Most strings are treated
-         * as Latin-1.
-         *
-         * @return Java string
-         * @throws IOException
-         */
-        public String getString() throws IOException {
-
-            String encoding;
-
-            switch (type) {
-
-                // Not all are Latin-1 but it's the closest thing
-                case DerParser.NUMERIC_STRING:
-                case DerParser.PRINTABLE_STRING:
-                case DerParser.VIDEOTEX_STRING:
-                case DerParser.IA5_STRING:
-                case DerParser.GRAPHIC_STRING:
-                case DerParser.ISO646_STRING:
-                case DerParser.GENERAL_STRING:
-                    encoding = "ISO-8859-1"; //$NON-NLS-1$
-                    break;
-
-                case DerParser.BMP_STRING:
-                    encoding = "UTF-16BE"; //$NON-NLS-1$
-                    break;
-
-                case DerParser.UTF8_STRING:
-                    encoding = "UTF-8"; //$NON-NLS-1$
-                    break;
-
-                case DerParser.UNIVERSAL_STRING:
-                    throw new IOException("Invalid DER: can't handle UCS-4 string"); //$NON-NLS-1$
-
-                default:
-                    throw new IOException("Invalid DER: object is not a string"); //$NON-NLS-1$
-            }
-
-            return new String(value, encoding);
-        }
     }
 
 }
