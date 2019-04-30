@@ -468,10 +468,12 @@ public class TelegramBotTest {
 
     @Test
     public void sendMessageToChannel() {
-        SendMessage request = new SendMessage(channelName, "channel message");
+        String url = "https://google.com/";
+        SendMessage request = new SendMessage(channelName, "channel message [GG](" + url + ")").parseMode(ParseMode.Markdown);
         SendResponse sendResponse = bot.execute(request);
         Message message = sendResponse.message();
         MessageTest.checkTextMessage(message);
+        assertEquals(url, message.entities()[0].url());
     }
 
     @Test
