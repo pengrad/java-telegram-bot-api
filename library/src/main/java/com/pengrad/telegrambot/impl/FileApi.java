@@ -14,7 +14,7 @@ public class FileApi {
     private final String apiUrl;
 
     public FileApi(String token) {
-        this.apiUrl = FILE_API + token + "/";
+        this(FILE_API, token);
     }
 
     public FileApi(String apiUrl, String token) {
