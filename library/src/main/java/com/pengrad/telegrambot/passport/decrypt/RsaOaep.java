@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.passport.decrypt;
 
+import javax.crypto.Cipher;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,8 +8,6 @@ import java.math.BigInteger;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.RSAPrivateCrtKeySpec;
-
-import javax.crypto.Cipher;
 
 /**
  * Stas Parshin
@@ -21,7 +20,7 @@ class RsaOaep {
         pkcs8Pem = pkcs8Pem.replace("-----BEGIN RSA PRIVATE KEY-----", "");
         pkcs8Pem = pkcs8Pem.replace("-----END RSA PRIVATE KEY-----", "");
         pkcs8Pem = pkcs8Pem.replaceAll("\\s+", "");
-        byte[] pkcs8EncodedBytes = Base64.getMimeDecoder().decode(pkcs8Pem);
+        byte[] pkcs8EncodedBytes = Base64.decode(pkcs8Pem, 0);
 
         KeyFactory kf = KeyFactory.getInstance("RSA");
         PrivateKey privKey = kf.generatePrivate(getRSAKeySpec(pkcs8EncodedBytes));

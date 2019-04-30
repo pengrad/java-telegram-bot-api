@@ -44,6 +44,6 @@ public class Decrypt {
     }
 
     private static byte[] base64(String str) {
-        return Base64.getMimeDecoder().decode(str);
+        return Base64.decode(str, 0);
     }
 }
