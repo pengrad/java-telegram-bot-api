@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -1202,37 +1201,66 @@ public class TelegramBotTest {
         assertNotNull(passportData);
 
         Credentials credentials = passportData.credentials().decrypt(privateKey);
-        System.out.println(credentials);
-        System.out.println("nonce: " + credentials.nonce());
+        assertEquals("nonce", credentials.payload());
+        assertNull(credentials.nonce());
+
+        SecureData secureData = credentials.secureData();
+        assertNotNull(secureData.personalDetails());
+        assertNull(secureData.internalPassport());
+        assertNull(secureData.driverLicense());
+        assertNull(secureData.identityCard());
+        assertNull(secureData.address());
+        assertNull(secureData.utilityBill());
+        assertNull(secureData.bankStatement());
+        assertNull(secureData.rentalAgreement());
+        assertNull(secureData.passportRegistration());
+        assertNull(secureData.temporaryRegistration());
+
+        SecureValue securePassport = secureData.passport();
+        assertNull(securePassport.reverseSide());
+        assertNull(securePassport.selfie());
+        assertNull(securePassport.files());
 
         for (EncryptedPassportElement encElement : passportData.data()) {
-            if (encElement.type() != EncryptedPassportElement.Type.personal_details) continue;
-            PersonalDetails personalDetails = (PersonalDetails) encElement.decryptData(credentials);
-            System.out.println(personalDetails);
-        }
-
-        if (true) return;
-
-        for (EncryptedPassportElement encElement : passportData.data()) {
-            System.out.println(encElement.decryptData(credentials));
-
-            List<PassportFile> files = new ArrayList<PassportFile>();
-            files.add(encElement.frontSide());
-            files.add(encElement.reverseSide());
-            files.add(encElement.selfie());
-            if (encElement.files() != null) {
-                files.addAll(Arrays.asList(encElement.files()));
-            }
-            if (encElement.translation() != null) {
-                files.addAll(Arrays.asList(encElement.translation()));
+            assertNotNull(encElement.data());
+            if (encElement.type() == EncryptedPassportElement.Type.personal_details) {
+                assertEquals("DVUCaJq6oU/hItqZjuclmKL1bWwMSACR9w0Kx8PjoHg=", encElement.hash());
+                assertNull(encElement.phoneNumber());
+                assertNull(encElement.email());
+                PersonalDetails pd = (PersonalDetails) encElement.decryptData(credentials);
+                assertEquals("Sz2", pd.firstName());
+                assertEquals("P", pd.lastName());
+                assertEquals("smid", pd.middleName());
+                assertEquals("1.1.1980", pd.birthDate());
+                assertEquals("male", pd.gender());
+                assertEquals("RU", pd.countryCode());
+                assertEquals("RU", pd.residenceCountryCode());
+                assertEquals("имя", pd.firstNameNative());
+                assertEquals("фамилия", pd.lastNameNative());
+                assertEquals("среднее", pd.middleNameNative());
             }
 
-            System.out.println("files: " + Arrays.toString(files.toArray()));
-            for (int i = 0; i < files.size(); i++) {
-                PassportFile file = files.get(i);
-                if (file == null) continue;
-                byte[] data = encElement.decryptFile(file, credentials, bot);
-                new FileOutputStream(Paths.get("build/" + encElement.type() + i + ".jpg").toFile()).write(data);
+            if (encElement.type() == EncryptedPassportElement.Type.passport) {
+                assertEquals(Integer.valueOf(260608), encElement.frontSide().fileSize());
+                assertEquals(Integer.valueOf(1535386777), encElement.frontSide().fileDate());
+
+                List<PassportFile> files = new ArrayList<>();
+                files.add(encElement.frontSide());
+                files.add(encElement.reverseSide());
+                files.add(encElement.selfie());
+                if (encElement.files() != null) {
+                    files.addAll(Arrays.asList(encElement.files()));
+                }
+                if (encElement.translation() != null) {
+                    files.addAll(Arrays.asList(encElement.translation()));
+                }
+                for (int i = 0; i < files.size(); i++) {
+                    PassportFile file = files.get(i);
+                    if (file == null) continue;
+                    byte[] data = encElement.decryptFile(file, credentials, bot);
+                    assertTrue(data.length > 0);
+                    // new FileOutputStream(Paths.get("build/" + encElement.type() + i + ".jpg").toFile()).write(data);
+                }
             }
         }
     }
