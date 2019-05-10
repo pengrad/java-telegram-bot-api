@@ -1,7 +1,6 @@
 package com.pengrad.telegrambot.sample.spark;
 
 import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.TelegramBotAdapter;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
@@ -28,7 +27,7 @@ public class AqivnBot extends BotHandler {
         Properties properties = new Properties();
         properties.load(new FileInputStream("local.properties"));
         token = properties.getProperty("AQIVN_TOKEN");
-        bot = TelegramBotAdapter.buildDebug(token);
+        bot = new TelegramBot.Builder(token).debug().build();
     }
 
     @Override

@@ -43,7 +43,6 @@ public class Message implements Serializable {
     private Location location;
     private Venue venue;
     private Poll poll;
-    private User new_chat_member;
     private User[] new_chat_members;
     private User left_chat_member;
     private String new_chat_title;
@@ -184,14 +183,6 @@ public class Message implements Serializable {
         return poll;
     }
 
-    /**
-     * @deprecated Replaced with new_chat_members
-     */
-    @Deprecated
-    public User newChatMember() {
-        return new_chat_member;
-    }
-
     public User[] newChatMembers() {
         return new_chat_members;
     }
@@ -300,8 +291,6 @@ public class Message implements Serializable {
         if (location != null ? !location.equals(message.location) : message.location != null) return false;
         if (venue != null ? !venue.equals(message.venue) : message.venue != null) return false;
         if (poll != null ? !poll.equals(message.poll) : message.poll != null) return false;
-        if (new_chat_member != null ? !new_chat_member.equals(message.new_chat_member) : message.new_chat_member != null)
-            return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(new_chat_members, message.new_chat_members)) return false;
         if (left_chat_member != null ? !left_chat_member.equals(message.left_chat_member) : message.left_chat_member != null)
@@ -371,7 +360,6 @@ public class Message implements Serializable {
                 ", location=" + location +
                 ", venue=" + venue +
                 ", poll=" + poll +
-                ", new_chat_member=" + new_chat_member +
                 ", new_chat_members=" + Arrays.toString(new_chat_members) +
                 ", left_chat_member=" + left_chat_member +
                 ", new_chat_title='" + new_chat_title + '\'' +

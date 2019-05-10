@@ -10,19 +10,10 @@ public class Credentials implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private SecureData secure_data;
-    private String payload;
     private String nonce;
 
     public SecureData secureData() {
         return secure_data;
-    }
-
-    /**
-     * @deprecated Use nonce
-     */
-    @Deprecated
-    public String payload() {
-        return payload;
     }
 
     public String nonce() {
@@ -37,7 +28,6 @@ public class Credentials implements Serializable {
         Credentials that = (Credentials) o;
 
         if (secure_data != null ? !secure_data.equals(that.secure_data) : that.secure_data != null) return false;
-        if (payload != null ? !payload.equals(that.payload) : that.payload != null) return false;
         return nonce != null ? nonce.equals(that.nonce) : that.nonce == null;
     }
 
@@ -52,7 +42,6 @@ public class Credentials implements Serializable {
     public String toString() {
         return "Credentials{" +
                 "secure_data=" + secure_data +
-                ", payload='" + payload + '\'' +
                 ", nonce='" + nonce + '\'' +
                 '}';
     }

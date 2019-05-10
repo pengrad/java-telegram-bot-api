@@ -16,7 +16,7 @@ public class TestGetUpdatesListener {
     public static void main(String[] args) throws IOException {
         Properties properties = new Properties();
         properties.load(new FileInputStream("local.properties"));
-        final TelegramBot bot = TelegramBotAdapter.build(properties.getProperty("TEST_TOKEN"));
+        final TelegramBot bot = new TelegramBot(properties.getProperty("TEST_TOKEN"));
 
         bot.setUpdatesListener(new UpdatesListener() {
 

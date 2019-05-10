@@ -20,7 +20,6 @@ public class MessageTest {
     public static void checkTextMessage(Message message) {
         checkMessage(message);
         assertNotNull(message.text());
-        assertNull(message.newChatMember());
         assertNull(message.newChatMembers());
         assertNull(message.leftChatMember());
         assertNull(message.newChatTitle());
