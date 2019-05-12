@@ -10,6 +10,7 @@ compileTestJava {
 }
 
 dependencies {
+    compile project(":core")
     compile 'com.google.code.gson:gson:2.8.5'
     compile 'com.squareup.okhttp3:okhttp:3.12.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.12.1'
