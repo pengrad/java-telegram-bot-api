@@ -21,22 +21,6 @@ public class EditMessageCaption extends BaseRequest<EditMessageCaption, BaseResp
         add("inline_message_id", inlineMessageId);
     }
 
-    /**
-     * @deprecated Use EditMessageCaption(Object chatId, int messageId)
-     */
-    @Deprecated
-    public EditMessageCaption(Object chatId, int messageId, String text) {
-        this(chatId, messageId);
-    }
-
-    /**
-     * @deprecated Use EditMessageCaption(String inlineMessageId)
-     */
-    @Deprecated
-    public EditMessageCaption(String inlineMessageId, String text) {
-        this(inlineMessageId);
-    }
-
     public EditMessageCaption caption(String caption) {
         return add("caption", caption);
     }

@@ -447,9 +447,6 @@ public class TelegramBotTest {
         MessageTest.checkTextMessage(sendResponse.message());
         assertNotNull(sendResponse.message().replyToMessage());
 
-        sendResponse = bot.execute(new SendMessage(chatId, "hide keyboard").replyMarkup(new ReplyKeyboardHide()));
-        MessageTest.checkTextMessage(sendResponse.message());
-
         sendResponse = bot.execute(new SendMessage(chatId, "message with keyboard")
                 .parseMode(ParseMode.HTML)
                 .disableWebPagePreview(false)
@@ -729,7 +726,7 @@ public class TelegramBotTest {
         assertTrue(response.isOk());
 
         SendResponse sendResponse = (SendResponse) bot.execute(
-                new SetGameScore(chatId, res + 1, chatId, 8162).force(true).editMessage(false).disableEditMessage(true));
+                new SetGameScore(chatId, res + 1, chatId, 8162).force(true).disableEditMessage(true));
         GameTest.check(sendResponse.message().game());
     }
 
@@ -1216,7 +1213,6 @@ public class TelegramBotTest {
         assertNotNull(passportData);
 
         Credentials credentials = passportData.credentials().decrypt(privateKey);
-        assertEquals("nonce", credentials.payload());
         assertNull(credentials.nonce());
 
         SecureData secureData = credentials.secureData();

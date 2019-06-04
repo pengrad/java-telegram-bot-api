@@ -26,9 +26,4 @@ public class SetGameScore extends BaseRequest<SetGameScore, BaseResponse> {
     public SetGameScore disableEditMessage(boolean disableEditMessage) {
         return add("disable_edit_message", disableEditMessage);
     }
-
-    @Deprecated
-    public SetGameScore editMessage(boolean editMessage) {
-        return add("edit_message", editMessage);
-    }
 }

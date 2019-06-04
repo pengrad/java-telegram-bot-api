@@ -45,7 +45,7 @@ public class TestLoopGetUpdates {
     public static void main2(String[] args) throws IOException {
         Properties properties = new Properties();
         properties.load(new FileInputStream("local.properties"));
-        TelegramBot bot = TelegramBotAdapter.build(properties.getProperty("TEST_TOKEN"));
+        TelegramBot bot = new TelegramBot(properties.getProperty("TEST_TOKEN"));
 
         GetUpdatesResponse updatesResponse;
         int j = 0;

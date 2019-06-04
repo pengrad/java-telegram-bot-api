@@ -20,22 +20,6 @@ public class EditMessageReplyMarkup extends BaseRequest<EditMessageReplyMarkup, 
         add("inline_message_id", inlineMessageId);
     }
 
-    /**
-     * @deprecated Use EditMessageReplyMarkup(Object chatId, int messageId)
-     */
-    @Deprecated
-    public EditMessageReplyMarkup(Object chatId, int messageId, String text) {
-        this(chatId, messageId);
-    }
-
-    /**
-     * @deprecated Use EditMessageReplyMarkup(String inlineMessageId)
-     */
-    @Deprecated
-    public EditMessageReplyMarkup(String inlineMessageId, String text) {
-        this(inlineMessageId);
-    }
-
     public EditMessageReplyMarkup replyMarkup(InlineKeyboardMarkup replyMarkup) {
         return add("reply_markup", replyMarkup);
     }
