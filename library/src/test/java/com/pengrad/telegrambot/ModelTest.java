@@ -4,6 +4,8 @@ import com.pengrad.telegrambot.model.Animation;
 import com.pengrad.telegrambot.model.CallbackQuery;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
+import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.passport.Credentials;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -15,8 +17,10 @@ import org.reflections.scanners.SubTypesScanner;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertTrue;
@@ -28,6 +32,7 @@ import static org.junit.Assert.assertTrue;
 public class ModelTest {
 
     private Set<Class> classes;
+    private HashMap<Class, Supplier<Object>> customInstance = new HashMap<>();
 
     @Before
     public void setClasses() {
@@ -42,6 +47,12 @@ public class ModelTest {
                         && !clazz.getSimpleName().startsWith("PassportElementError")
                         && !Modifier.isAbstract(clazz.getModifiers())
                 ).collect(Collectors.toSet());
+
+        // classes from model/request available in responses
+        classes.add(InlineKeyboardMarkup.class);
+        classes.add(InlineKeyboardButton.class);
+        customInstance.put(InlineKeyboardMarkup.class, InlineKeyboardMarkup::new);
+        customInstance.put(InlineKeyboardButton.class, () -> new InlineKeyboardButton(""));
     }
 
     @Test
@@ -76,7 +87,8 @@ public class ModelTest {
     @Test
     public void testToString() throws IllegalAccessException, InstantiationException {
         for (Class c : classes) {
-            String toString = c.newInstance().toString();
+            Object instance = customInstance.containsKey(c) ? customInstance.get(c).get() : c.newInstance();
+            String toString = instance.toString();
             for (Field f : c.getDeclaredFields()) {
                 if (Modifier.isStatic(f.getModifiers())) {
                     continue;
