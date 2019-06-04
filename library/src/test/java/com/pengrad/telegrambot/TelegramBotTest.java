@@ -1351,4 +1351,21 @@ public class TelegramBotTest {
     public void toWebhookResponse() {
         assertEquals("{\"method\":\"getMe\"}", new GetMe().toWebhookResponse());
     }
+
+    @Test
+    public void loginButton() {
+        String text = "login";
+        String url = "http://pengrad.herokuapp.com/hello";
+        SendResponse response = bot.execute(
+                new SendMessage(chatId, "Login button").replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton[]{
+                        new InlineKeyboardButton(text).loginUrl(new LoginUrl(url)
+                                .forwardText("forwarded login")
+                                .botUsername("pengrad_test_bot")
+                                .requestWriteAccess(true))
+                })));
+        assertTrue(response.isOk());
+        InlineKeyboardButton button = response.message().replyMarkup().inlineKeyboard()[0][0];
+        assertEquals(text, button.text());
+        assertEquals(url, button.url());
+    }
 }

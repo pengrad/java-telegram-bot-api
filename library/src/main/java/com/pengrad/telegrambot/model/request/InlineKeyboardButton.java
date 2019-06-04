@@ -11,6 +11,7 @@ public class InlineKeyboardButton implements Serializable {
 
     private String text;
     private String url;
+    private LoginUrl login_url;
     private String callback_data;
     private String switch_inline_query;
     private String switch_inline_query_current_chat;
@@ -25,6 +26,11 @@ public class InlineKeyboardButton implements Serializable {
 
     public InlineKeyboardButton url(String url) {
         this.url = url;
+        return this;
+    }
+
+    public InlineKeyboardButton loginUrl(LoginUrl loginUrl) {
+        login_url = loginUrl;
         return this;
     }
 
