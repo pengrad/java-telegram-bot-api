@@ -57,7 +57,7 @@ public class TelegramBotTest {
     File videoNoteFile = resourcePath.resolve("video_note.mp4").toFile();
     byte[] videoNoteBytes = Files.readAllBytes(videoNoteFile.toPath());
     String certificateFile = resourcePath.resolve("cert.pem").toString();
-    String someUrl = "http://google.com";
+    String someUrl = "http://google.com/";
     String audioFileId = "CQADAgADXAADgNqgSevw7NljQE4lAg";
     String docFileId = "BQADAgADuwADgNqYSaVAUsHMq6hqAg";
     String voiceFileId = "AwADAgADYwADuYNZSZww_hkrzCIpAg";
@@ -711,12 +711,37 @@ public class TelegramBotTest {
 
     @Test
     public void sendGame() {
+        InlineKeyboardButton[] buttons = {
+                new InlineKeyboardButton("inline game").callbackGame("pengrad test game description"),
+                new InlineKeyboardButton("inline ok").callbackData("callback ok"),
+                new InlineKeyboardButton("cancel").callbackData("callback cancel"),
+                new InlineKeyboardButton("url").url(someUrl),
+                new InlineKeyboardButton("switch inline").switchInlineQuery("query"),
+                new InlineKeyboardButton("switch inline current").switchInlineQueryCurrentChat("query"),
+        };
+
+        InlineKeyboardButton[][] inlineKeyboard = new InlineKeyboardButton[1][];
+        inlineKeyboard[0] = buttons;
+        InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(inlineKeyboard);
+
         String desc = "pengrad_test_game";
-        Message message = bot.execute(new SendGame(chatId, desc)).message();
+        Message message = bot.execute(new SendGame(chatId, desc).replyMarkup(keyboardMarkup)).message();
         MessageTest.checkMessage(message);
         Game game = message.game();
         GameTest.check(game);
         assertEquals(desc, game.description());
+
+        InlineKeyboardButton[] actualButtons = message.replyMarkup().inlineKeyboard()[0];
+        assertEquals(buttons.length, actualButtons.length);
+        assertNotNull(actualButtons[0].callbackGame());
+        for (int i = 1; i < buttons.length; i++) {
+            assertEquals(buttons[i].text(), actualButtons[i].text());
+        }
+        assertEquals(buttons[1].callbackData(), actualButtons[1].callbackData());
+        assertEquals(buttons[2].callbackData(), actualButtons[2].callbackData());
+        assertEquals(buttons[3].url(), actualButtons[3].url());
+        assertEquals(buttons[4].switchInlineQuery(), actualButtons[4].switchInlineQuery());
+        assertEquals(buttons[5].switchInlineQueryCurrentChat(), actualButtons[5].switchInlineQueryCurrentChat());
     }
 
     @Test
@@ -828,6 +853,9 @@ public class TelegramBotTest {
                 }))
         );
         InvoiceCheck.check(response.message().invoice());
+        InlineKeyboardButton payButton = response.message().replyMarkup().inlineKeyboard()[0][0];
+        assertTrue(payButton.isPay());
+        assertEquals("just pay", payButton.text());
     }
 
     @Test

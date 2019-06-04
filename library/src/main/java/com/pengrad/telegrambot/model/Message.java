@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.passport.PassportData;
 
 import java.io.Serializable;
@@ -58,6 +59,7 @@ public class Message implements Serializable {
     private SuccessfulPayment successful_payment;
     private String connected_website;
     private PassportData passport_data;
+    private InlineKeyboardMarkup reply_markup;
 
     public Integer messageId() {
         return message_id;
@@ -243,6 +245,10 @@ public class Message implements Serializable {
         return passport_data;
     }
 
+    public InlineKeyboardMarkup replyMarkup() {
+        return reply_markup;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -318,7 +324,8 @@ public class Message implements Serializable {
             return false;
         if (connected_website != null ? !connected_website.equals(message.connected_website) : message.connected_website != null)
             return false;
-        return passport_data != null ? passport_data.equals(message.passport_data) : message.passport_data == null;
+        if (passport_data != null ? !passport_data.equals(message.passport_data) : message.passport_data != null) return false;
+        return reply_markup != null ? reply_markup.equals(message.reply_markup) : message.reply_markup == null;
     }
 
     @Override
@@ -375,6 +382,7 @@ public class Message implements Serializable {
                 ", successful_payment=" + successful_payment +
                 ", connected_website='" + connected_website + '\'' +
                 ", passport_data=" + passport_data +
+                ", reply_markup=" + reply_markup +
                 '}';
     }
 }
