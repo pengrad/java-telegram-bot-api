@@ -1062,7 +1062,7 @@ public class TelegramBotTest {
         response = bot.execute(new StopMessageLiveLocation("AgAAAPrwAQCj_Q4D2s-51_8jsuU"));
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply_markup of the message",
+            assertEquals("Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message",
                     response.description());
         }
     }
