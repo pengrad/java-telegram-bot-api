@@ -1396,4 +1396,15 @@ public class TelegramBotTest {
         assertEquals(text, button.text());
         assertEquals(url, button.url());
     }
+
+    @Test
+    public void multipartNonAscii() {
+        String caption = "хорошо";
+        Message message = bot.execute(
+                new SendPhoto(chatId, imageFile).fileName("файл.txt").caption(caption)
+        ).message();
+        assertEquals(caption, message.caption());
+        MessageTest.checkMessage(message);
+        PhotoSizeTest.checkPhotos(message.photo());
+    }
 }
