@@ -63,7 +63,15 @@ public class TelegramBot {
     }
 
     public void setUpdatesListener(UpdatesListener listener, GetUpdates request) {
-        updatesHandler.start(this, listener, request);
+        setUpdatesListener(listener, null, request);
+    }
+
+    public void setUpdatesListener(UpdatesListener listener, ExceptionHandler exceptionHandler) {
+        setUpdatesListener(listener, exceptionHandler, new GetUpdates());
+    }
+
+    public void setUpdatesListener(UpdatesListener listener, ExceptionHandler exceptionHandler, GetUpdates request) {
+        updatesHandler.start(this, listener, exceptionHandler, request);
     }
 
     public void removeGetUpdatesListener() {
