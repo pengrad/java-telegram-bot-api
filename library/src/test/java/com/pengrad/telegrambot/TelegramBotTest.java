@@ -1355,7 +1355,7 @@ public class TelegramBotTest {
                 throw new RuntimeException(e);
             }
         });
-        latch.await(10, TimeUnit.SECONDS);
+        assertTrue(latch.await(5, TimeUnit.SECONDS));
     }
 
     @Test
@@ -1372,7 +1372,7 @@ public class TelegramBotTest {
                 latch.countDown();
             }
         });
-        latch.await(10, TimeUnit.SECONDS);
+        assertTrue(latch.await(5, TimeUnit.SECONDS));
     }
 
     @Test
