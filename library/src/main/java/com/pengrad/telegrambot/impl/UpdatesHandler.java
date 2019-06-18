@@ -52,7 +52,9 @@ public class UpdatesHandler {
                 if (!response.isOk() || response.updates() == null || response.updates().size() <= 0) {
                     if (!response.isOk()) {
                         if (exceptionHandler != null) {
-                            exceptionHandler.onException(new TelegramException("", response));
+                            String message = "GetUpdates failed with error_code " +
+                                    response.errorCode() + " " + response.description();
+                            exceptionHandler.onException(new TelegramException(message, response));
                         } else {
                             Platform.get().log(Platform.INFO,
                                     "Update listener error for request " + request.toWebhookResponse() +

@@ -86,10 +86,10 @@ public class UpdatesListenerTest {
     @Test
     public void telegramError() throws InterruptedException {
         withLatch(3, latch -> {
-            bot = new TelegramBot("bad_token");
+            bot = new TelegramBot("12312312:token");
             bot.setUpdatesListener(updates -> 0, e -> {
                 assertFalse(e.response().isOk());
-                assertEquals(404, e.response().errorCode());
+                assertEquals(401, e.response().errorCode());
                 assertNull(e.getCause());
                 latch.countDown();
             });
@@ -99,7 +99,7 @@ public class UpdatesListenerTest {
     @Test
     public void telegramErrorLogging() throws InterruptedException {
         withLatch(3, latch -> {
-            bot = new TelegramBot("bad_token");
+            bot = new TelegramBot("12312312:token");
             bot.setUpdatesListener(updates -> 0);
             Logger logger = Logger.getLogger(OkHttpClient.class.getName());
             logger.addHandler(new OneShotHandler(() -> {
