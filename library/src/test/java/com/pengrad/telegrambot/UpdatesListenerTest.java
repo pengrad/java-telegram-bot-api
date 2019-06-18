@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
  */
 public class UpdatesListenerTest {
 
-    private static String token() {
+    public static String token() {
         String token;
         try {
             Properties properties = new Properties();
