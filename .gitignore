@@ -3,6 +3,7 @@
 .gradle
 build
 out
+target
 
 .DS_Store
 local.properties
