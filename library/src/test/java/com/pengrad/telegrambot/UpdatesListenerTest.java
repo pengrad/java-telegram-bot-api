@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.request.GetUpdates;
 import okhttp3.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +38,18 @@ public class UpdatesListenerTest {
     }
 
     private TelegramBot bot;
+
+    public static void main(String[] args) {
+        TelegramBot bot = new TelegramBot.Builder(token()).debug().build();
+        bot.setUpdatesListener(updates -> {
+            System.out.println(updates);
+            updates.get(100).message();
+            return UpdatesListener.CONFIRMED_UPDATES_ALL;
+        }, e -> {
+            System.out.println(e);
+            e.printStackTrace();
+        }, new GetUpdates());
+    }
 
     @Before
     public void initBot() {

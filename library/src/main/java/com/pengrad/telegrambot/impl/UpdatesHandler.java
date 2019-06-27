@@ -51,40 +51,34 @@ public class UpdatesHandler {
 
                 if (!response.isOk() || response.updates() == null || response.updates().size() <= 0) {
                     if (!response.isOk()) {
-                        if (exceptionHandler != null) {
-                            String message = "GetUpdates failed with error_code " +
-                                    response.errorCode() + " " + response.description();
-                            exceptionHandler.onException(new TelegramException(message, response));
-                        } else {
-                            Platform.get().log(Platform.INFO,
-                                    "Update listener error for request " + request.toWebhookResponse() +
-                                            " with response " + response.errorCode() + " " + response.description(), null);
-                        }
+                        String message = "GetUpdates failed for request " + request.toWebhookResponse() +
+                                " with error_code " + response.errorCode() + " " + response.description();
+                        handleException(new TelegramException(message, response), message);
                     }
                     sleep();
                     getUpdates(request);
                     return;
                 }
 
-                List<Update> updates = response.updates();
-                int lastConfirmedUpdate = listener.process(updates);
+                try {
+                    List<Update> updates = response.updates();
+                    int lastConfirmedUpdate = listener.process(updates);
 
-                if (lastConfirmedUpdate != CONFIRMED_UPDATES_NONE) {
-                    int offset = lastConfirmedUpdate == CONFIRMED_UPDATES_ALL
-                            ? lastUpdateId(updates) + 1
-                            : lastConfirmedUpdate + 1;
-                    request = request.offset(offset);
+                    if (lastConfirmedUpdate != CONFIRMED_UPDATES_NONE) {
+                        int offset = lastConfirmedUpdate == CONFIRMED_UPDATES_ALL
+                                ? lastUpdateId(updates) + 1
+                                : lastConfirmedUpdate + 1;
+                        request = request.offset(offset);
+                    }
+                } catch (Exception e) {
+                    handleException(e, "Exception in update listener for request " + request.toWebhookResponse());
                 }
                 getUpdates(request);
             }
 
             @Override
             public void onFailure(GetUpdates request, IOException e) {
-                if (exceptionHandler != null) {
-                    exceptionHandler.onException(new TelegramException(e));
-                } else {
-                    Platform.get().log(Platform.INFO, "Update listener failure", e);
-                }
+                handleException(e, "GetUpdates failed for request " + request.toWebhookResponse());
                 sleep();
                 getUpdates(request);
             }
@@ -100,6 +94,17 @@ public class UpdatesHandler {
         try {
             Thread.sleep(sleepTimeout);
         } catch (InterruptedException ignored) {
+        }
+    }
+
+    private void handleException(Exception e, String message) {
+        if (exceptionHandler != null) {
+            TelegramException telegramException = (e instanceof TelegramException)
+                    ? (TelegramException) e
+                    : new TelegramException(e);
+            exceptionHandler.onException(telegramException);
+        } else {
+            Platform.get().log(Platform.INFO, message, e);
         }
     }
 }
