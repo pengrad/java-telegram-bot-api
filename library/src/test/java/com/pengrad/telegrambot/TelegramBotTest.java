@@ -37,6 +37,7 @@ public class TelegramBotTest {
     Integer chatId;
     Long groupId;
     Integer forwardMessageId = 1;
+    Integer forwardMessageIdUser = 23714;
     String stickerId = "BQADAgAD4AAD9HsZAAGVRXVaYXiJVAI";
     String channelName = "@bottest";
     Long channelId = -1001002720332L;
@@ -109,7 +110,7 @@ public class TelegramBotTest {
     @Test
     public void getUpdates() {
         GetUpdates getUpdates = new GetUpdates()
-                .offset(870644071)
+                .offset(870646632)
                 .allowedUpdates("")
                 .timeout(0)
                 .limit(100);
@@ -489,6 +490,13 @@ public class TelegramBotTest {
         assertNotNull(message.forwardDate());
         assertNotNull(message.forwardSenderName());
         assertNull(message.forwardFrom());
+
+        // message from user with open account
+        message = bot.execute(new ForwardMessage(chatId, chatId, forwardMessageIdUser)).message();
+        MessageTest.checkMessage(message);
+        assertNotNull(message.forwardDate());
+        assertNull(message.forwardSenderName());
+        assertNotNull(message.forwardFrom());
 
         message = bot.execute(new ForwardMessage(channelName, channelName, 651)).message();
         assertNotNull(message.authorSignature());
