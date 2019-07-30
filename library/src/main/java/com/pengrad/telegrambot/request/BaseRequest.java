@@ -13,7 +13,7 @@ import java.util.Map;
  */
 abstract public class BaseRequest<T extends BaseRequest, R extends BaseResponse> {
 
-    private static final Gson gson = new Gson();
+    protected static final Gson gson = new Gson();
 
     @SuppressWarnings("unchecked")
     protected final T thisAsT = (T) this;

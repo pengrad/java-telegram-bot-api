@@ -953,6 +953,47 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void setChatPermissions() throws InterruptedException {
+        for (boolean bool : new boolean[]{true, false}) {
+            ChatPermissions setPerms = new ChatPermissions();
+            setPerms.canSendMessages(bool);
+            setPerms.canSendMediaMessages(bool);
+            setPerms.canSendPolls(bool);
+            setPerms.canSendOtherMessages(bool);
+            setPerms.canAddWebPagePreviews(bool);
+            setPerms.canChangeInfo(bool);
+            setPerms.canInviteUsers(bool);
+            setPerms.canPinMessages(bool);
+            BaseResponse response = bot.execute(new SetChatPermissions(groupId, setPerms));
+            assertTrue(response.isOk());
+
+            Thread.sleep(1000);
+
+            Chat chat = bot.execute(new GetChat(groupId)).chat();
+            ChatPermissions permissions = chat.permissions();
+            if (bool) {
+                assertTrue(permissions.canSendMessages());
+                assertTrue(permissions.canSendMediaMessages());
+                assertTrue(permissions.canSendPolls());
+                assertTrue(permissions.canSendOtherMessages());
+                assertTrue(permissions.canAddWebPagePreviews());
+                assertTrue(permissions.canChangeInfo());
+                assertTrue(permissions.canInviteUsers());
+                assertTrue(permissions.canPinMessages());
+            } else {
+                assertFalse(permissions.canSendMessages());
+                assertFalse(permissions.canSendMediaMessages());
+                assertFalse(permissions.canSendPolls());
+                assertFalse(permissions.canSendOtherMessages());
+                assertFalse(permissions.canAddWebPagePreviews());
+                assertFalse(permissions.canChangeInfo());
+                assertFalse(permissions.canInviteUsers());
+                assertFalse(permissions.canPinMessages());
+            }
+        }
+    }
+
+    @Test
     public void exportChatInviteLink() {
         StringResponse response = bot.execute(new ExportChatInviteLink(groupId));
         assertTrue(response.isOk());
