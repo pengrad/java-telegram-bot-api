@@ -49,6 +49,7 @@ public class TelegramBotTest {
     File imageFile = resourcePath.resolve("image.jpg").toFile();
     byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
     File stickerFile = resourcePath.resolve("imageSticker.png").toFile();
+    File stickerFileAnim = resourcePath.resolve("sticker_anim.tgs").toFile();
     File audioFile = resourcePath.resolve("beep.mp3").toFile();
     byte[] audioBytes = Files.readAllBytes(audioFile.toPath());
     File docFile = resourcePath.resolve("doc.txt").toFile();
@@ -110,7 +111,7 @@ public class TelegramBotTest {
     @Test
     public void getUpdates() {
         GetUpdates getUpdates = new GetUpdates()
-                .offset(870646632)
+                .offset(870646662)
                 .allowedUpdates("")
                 .timeout(0)
                 .limit(100);
@@ -605,9 +606,15 @@ public class TelegramBotTest {
 
     @Test
     public void sendSticker() throws IOException {
-        Message message = bot.execute(new SendSticker(chatId, stickerId)).message();
+        Message message = bot.execute(new SendSticker(chatId, stickerFileAnim)).message();
+        MessageTest.checkMessage(message);
+        StickerTest.check(message.sticker(), false, true);
+        assertTrue(message.sticker().isAnimated());
+
+        message = bot.execute(new SendSticker(chatId, stickerId)).message();
         MessageTest.checkMessage(message);
         StickerTest.check(message.sticker(), true, false);
+        assertFalse(message.sticker().isAnimated());
 
         message = bot.execute(new SendSticker(chatId, imageFile)).message();
         MessageTest.checkMessage(message);
@@ -1011,6 +1018,7 @@ public class TelegramBotTest {
         assertTrue(stickerSet.containsMasks());
         assertEquals(this.stickerSet, stickerSet.name());
         assertEquals("test1", stickerSet.title());
+        assertFalse(stickerSet.isAnimated());
 
         Sticker sticker = stickerSet.stickers()[0];
         assertEquals(this.stickerSet, sticker.setName());
