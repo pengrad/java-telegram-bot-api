@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/pengrad/java-telegram-bot-api/branch/master/graph/badge.svg)](https://codecov.io/gh/pengrad/java-telegram-bot-api)
 
 Java library for interacting with [Telegram Bot API](https://core.telegram.org/bots/api)
-- Full support of all Bot API 4.3 methods
+- Full support of all Bot API 4.4 methods
 - Telegram [Passport](https://core.telegram.org/passport) and Decryption API
 - Bot [Payments](https://core.telegram.org/bots/payments)
 - [Gaming Platform](https://telegram.org/blog/games)
