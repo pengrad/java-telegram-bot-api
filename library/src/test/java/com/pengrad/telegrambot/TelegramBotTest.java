@@ -65,7 +65,7 @@ public class TelegramBotTest {
     String voiceFileId = "AwADAgADYwADuYNZSZww_hkrzCIpAg";
     String videoFileId = "BAADAgADZAADuYNZSXhLnzJTZ2yvAg";
     String photoFileId = "AgADAgADDKgxG7mDWUlvyFIJ9XfF9yszSw0ABBhVadWwbAK1z-wIAAEC";
-    String gifFileId = "CgADAgADfQADgNqgSTt9SzatJhc3Ag";
+    String gifFileId = "CgADAgADfQADgNqgSTt9SzatJhc3FgQ";
     String withSpaceFileId = "BAADAgADZwADkg-4SQI5WM0SPNHrAg";
     String stickerSet = "testset_by_pengrad_test_bot";
     String imageUrl = "https://telegram.org/img/t_logo.png";
