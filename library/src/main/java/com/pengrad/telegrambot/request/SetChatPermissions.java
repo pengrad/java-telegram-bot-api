@@ -11,6 +11,6 @@ public class SetChatPermissions extends BaseRequest<SetChatPermissions, BaseResp
 
     public SetChatPermissions(Object chatId, ChatPermissions permissions) {
         super(BaseResponse.class);
-        add("chat_id", chatId).add("permissions", gson.toJson(permissions));
+        add("chat_id", chatId).add("permissions", serialize(permissions));
     }
 }
