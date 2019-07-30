@@ -16,7 +16,7 @@ public class RestrictChatMember extends BaseRequest<RestrictChatMember, BaseResp
 
     public RestrictChatMember(Object chatId, int userId, ChatPermissions permissions) {
         super(BaseResponse.class);
-        add("chat_id", chatId).add("user_id", userId).add("permissions", gson.toJson(permissions));
+        add("chat_id", chatId).add("user_id", userId).add("permissions", serialize(permissions));
     }
 
     public RestrictChatMember untilDate(int untilDate) {
