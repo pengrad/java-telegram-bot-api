@@ -407,6 +407,10 @@ public class TelegramBotTest {
         assertNull(chatMember.canPostMessages());
         assertNull(chatMember.canEditMessages());
         assertTrue(chatMember.isMember());
+        assertTrue(chatMember.canChangeInfo());
+        assertTrue(chatMember.canInviteUsers());
+        assertTrue(chatMember.canPinMessages());
+        assertTrue(chatMember.canSendPolls());
         assertFalse(chatMember.canSendMessages());
         assertFalse(chatMember.canSendMediaMessages());
         assertFalse(chatMember.canSendOtherMessages());
