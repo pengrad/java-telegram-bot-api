@@ -149,7 +149,15 @@ public class TelegramBotTest {
 
     @Test
     public void restrictChatMember() {
-        BaseResponse response = bot.execute(
+        ChatPermissions permissions = new ChatPermissions()
+                .canChangeInfo(true)
+                .canInviteUsers(true)
+                .canPinMessages(true)
+                .canSendPolls(true);
+        BaseResponse response = bot.execute(new RestrictChatMember(groupId, memberBot, permissions));
+        assertTrue(response.isOk());
+
+        response = bot.execute(
                 new RestrictChatMember(groupId, memberBot)
                         .untilDate(100)
                         .canSendMessages(false)

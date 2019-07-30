@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.model.ChatPermissions;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -11,6 +12,11 @@ public class RestrictChatMember extends BaseRequest<RestrictChatMember, BaseResp
     public RestrictChatMember(Object chatId, int userId) {
         super(BaseResponse.class);
         add("chat_id", chatId).add("user_id", userId);
+    }
+
+    public RestrictChatMember(Object chatId, int userId, ChatPermissions permissions) {
+        super(BaseResponse.class);
+        add("chat_id", chatId).add("user_id", userId).add("permissions", gson.toJson(permissions));
     }
 
     public RestrictChatMember untilDate(int untilDate) {
