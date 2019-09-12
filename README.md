@@ -276,7 +276,6 @@ SendMessage request = new SendMessage(chatId, "text")
         .parseMode(ParseMode.HTML)
         .disableWebPagePreview(true)
         .disableNotification(true)
-        .replyToMessageId(1)
         .replyMarkup(new ForceReply());
 
 // sync
