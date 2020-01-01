@@ -568,6 +568,61 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void underlineStrikethroughMessageEntity() {
+        String cap = "<u>under1</u> <ins>under2</ins> <s>strike1</s> <strike>strike2</strike> <del>strike3</del>";
+        cap += " <u><del>nested-tag</del></u>";
+        ParseMode parseMode = ParseMode.HTML;
+        SendAudio sendAudio = new SendAudio(chatId, audioFileId).caption(cap).parseMode(parseMode);
+        Message message = bot.execute(sendAudio).message();
+        MessageTest.checkMessage(message);
+
+        String htmlCaption = cap
+                .replace("<u>", "").replace("</u>", "")
+                .replace("<ins>", "").replace("</ins>", "")
+                .replace("<s>", "").replace("</s>", "")
+                .replace("<strike>", "").replace("</strike>", "")
+                .replace("<del>", "").replace("</del>", "");
+        assertEquals(htmlCaption, message.caption());
+
+        assertEquals(7, message.captionEntities().length);
+
+        MessageEntity captionEntity = message.captionEntities()[0];
+        assertEquals(MessageEntity.Type.underline, captionEntity.type());
+        assertEquals((Integer) 0, captionEntity.offset());
+        assertEquals((Integer) 6, captionEntity.length());
+
+        captionEntity = message.captionEntities()[1];
+        assertEquals(MessageEntity.Type.underline, captionEntity.type());
+        assertEquals((Integer) 7, captionEntity.offset());
+        assertEquals((Integer) 6, captionEntity.length());
+
+        captionEntity = message.captionEntities()[2];
+        assertEquals(MessageEntity.Type.strikethrough, captionEntity.type());
+        assertEquals((Integer) 14, captionEntity.offset());
+        assertEquals((Integer) 7, captionEntity.length());
+
+        captionEntity = message.captionEntities()[3];
+        assertEquals(MessageEntity.Type.strikethrough, captionEntity.type());
+        assertEquals((Integer) 22, captionEntity.offset());
+        assertEquals((Integer) 7, captionEntity.length());
+
+        captionEntity = message.captionEntities()[4];
+        assertEquals(MessageEntity.Type.strikethrough, captionEntity.type());
+        assertEquals((Integer) 30, captionEntity.offset());
+        assertEquals((Integer) 7, captionEntity.length());
+
+        captionEntity = message.captionEntities()[5];
+        assertEquals(MessageEntity.Type.underline, captionEntity.type());
+        assertEquals((Integer) 38, captionEntity.offset());
+        assertEquals((Integer) 10, captionEntity.length());
+
+        captionEntity = message.captionEntities()[6];
+        assertEquals(MessageEntity.Type.strikethrough, captionEntity.type());
+        assertEquals((Integer) 38, captionEntity.offset());
+        assertEquals((Integer) 10, captionEntity.length());
+    }
+
+    @Test
     public void sendDocument() {
         Message message = bot.execute(new SendDocument(chatId, docFileId)).message();
         MessageTest.checkMessage(message);
