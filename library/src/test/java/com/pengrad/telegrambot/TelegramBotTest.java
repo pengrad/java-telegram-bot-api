@@ -136,7 +136,7 @@ public class TelegramBotTest {
         BaseResponse response = bot.execute(new KickChatMember(channelName, chatId).untilDate(123));
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
-        assertEquals("Bad Request: user is an administrator of the chat", response.description());
+        assertEquals("Bad Request: can't remove chat owner", response.description());
     }
 
     @Test
@@ -144,26 +144,27 @@ public class TelegramBotTest {
         BaseResponse response = bot.execute(new UnbanChatMember(channelName, chatId));
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
-        assertEquals("Bad Request: user is an administrator of the chat", response.description());
+        assertEquals("Bad Request: can't remove chat owner", response.description());
     }
 
     @Test
     public void restrictChatMember() {
-        ChatPermissions permissions = new ChatPermissions()
-                .canChangeInfo(true)
-                .canInviteUsers(true)
-                .canPinMessages(true)
-                .canSendPolls(true);
-        BaseResponse response = bot.execute(new RestrictChatMember(groupId, memberBot, permissions));
-        assertTrue(response.isOk());
-
-        response = bot.execute(
+        // old way of restrict
+        BaseResponse response = bot.execute(
                 new RestrictChatMember(groupId, memberBot)
                         .untilDate(100)
                         .canSendMessages(false)
                         .canSendMediaMessages(false)
                         .canSendOtherMessages(false)
                         .canAddWebPagePreviews(false));
+        assertTrue(response.isOk());
+
+        ChatPermissions permissions = new ChatPermissions()
+                .canChangeInfo(true)
+                .canInviteUsers(true)
+                .canPinMessages(true)
+                .canSendPolls(true); // implies can_send_messages
+        response = bot.execute(new RestrictChatMember(groupId, memberBot, permissions));
         assertTrue(response.isOk());
     }
 
@@ -419,7 +420,7 @@ public class TelegramBotTest {
         assertTrue(chatMember.canInviteUsers());
         assertTrue(chatMember.canPinMessages());
         assertTrue(chatMember.canSendPolls());
-        assertFalse(chatMember.canSendMessages());
+        assertTrue(chatMember.canSendMessages());
         assertFalse(chatMember.canSendMediaMessages());
         assertFalse(chatMember.canSendOtherMessages());
         assertFalse(chatMember.canAddWebPagePreviews());
