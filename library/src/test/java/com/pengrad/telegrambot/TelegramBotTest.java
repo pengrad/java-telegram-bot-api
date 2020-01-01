@@ -623,6 +623,40 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void underlineStrikethroughMarkdown() {
+        String cap = "__under1__ ~strike1~ __~nested~__";
+        ParseMode parseMode = ParseMode.MarkdownV2;
+        SendAudio sendAudio = new SendAudio(chatId, audioFileId).caption(cap).parseMode(parseMode);
+        Message message = bot.execute(sendAudio).message();
+        MessageTest.checkMessage(message);
+
+        String htmlCaption = cap.replace("__", "").replace("~", "");
+        assertEquals(htmlCaption, message.caption());
+
+        assertEquals(4, message.captionEntities().length);
+
+        MessageEntity captionEntity = message.captionEntities()[0];
+        assertEquals(MessageEntity.Type.underline, captionEntity.type());
+        assertEquals((Integer) 0, captionEntity.offset());
+        assertEquals((Integer) 6, captionEntity.length());
+
+        captionEntity = message.captionEntities()[1];
+        assertEquals(MessageEntity.Type.strikethrough, captionEntity.type());
+        assertEquals((Integer) 7, captionEntity.offset());
+        assertEquals((Integer) 7, captionEntity.length());
+
+        captionEntity = message.captionEntities()[2];
+        assertEquals(MessageEntity.Type.underline, captionEntity.type());
+        assertEquals((Integer) 15, captionEntity.offset());
+        assertEquals((Integer) 6, captionEntity.length());
+
+        captionEntity = message.captionEntities()[3];
+        assertEquals(MessageEntity.Type.strikethrough, captionEntity.type());
+        assertEquals((Integer) 15, captionEntity.offset());
+        assertEquals((Integer) 6, captionEntity.length());
+    }
+
+    @Test
     public void sendDocument() {
         Message message = bot.execute(new SendDocument(chatId, docFileId)).message();
         MessageTest.checkMessage(message);
