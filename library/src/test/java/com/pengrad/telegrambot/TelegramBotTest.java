@@ -366,7 +366,7 @@ public class TelegramBotTest {
     @Test
     public void getChat() throws MalformedURLException, URISyntaxException {
         Chat chat = bot.execute(new GetChat(groupId)).chat();
-        ChatTest.checkChat(chat);
+        ChatTest.checkChat(chat, true);
         assertEquals(Chat.Type.supergroup, chat.type());
         assertTrue(chat.title().contains("Test Bot Group"));
         assertTrue(chat.description().contains("New desc"));

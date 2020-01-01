@@ -11,9 +11,13 @@ import static org.junit.Assert.assertNotNull;
 public class ChatTest {
 
     public static void checkChat(Chat chat) {
+        checkChat(chat, chat.photo() != null);
+    }
+
+    public static void checkChat(Chat chat, boolean photo) {
         assertNotNull(chat.id());
         assertNotNull(chat.type());
-        if (chat.photo() != null) ChatPhotoTest.check(chat.photo());
+        if (photo) ChatPhotoTest.check(chat.photo());
     }
 
 }
