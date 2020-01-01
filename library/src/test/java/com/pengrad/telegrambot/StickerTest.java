@@ -12,6 +12,7 @@ public class StickerTest {
 
     public static void check(Sticker sticker, boolean emoji, boolean fileSize) {
         assertNotNull(sticker.fileId());
+        assertNotNull(sticker.fileUniqueId());
         assertNotNull(sticker.width());
         assertNotNull(sticker.height());
         PhotoSizeTest.checkPhotos(sticker.thumb());

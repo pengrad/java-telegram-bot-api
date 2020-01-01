@@ -10,6 +10,7 @@ public class Sticker implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private String file_id;
+    private String file_unique_id;
     private Integer width;
     private Integer height;
     private Boolean is_animated;
@@ -21,6 +22,10 @@ public class Sticker implements Serializable {
 
     public String fileId() {
         return file_id;
+    }
+
+    public String fileUniqueId() {
+        return file_unique_id;
     }
 
     public Integer width() {
@@ -63,6 +68,8 @@ public class Sticker implements Serializable {
         Sticker sticker = (Sticker) o;
 
         if (file_id != null ? !file_id.equals(sticker.file_id) : sticker.file_id != null) return false;
+        if (file_unique_id != null ? !file_unique_id.equals(sticker.file_unique_id) : sticker.file_unique_id != null)
+            return false;
         if (width != null ? !width.equals(sticker.width) : sticker.width != null) return false;
         if (height != null ? !height.equals(sticker.height) : sticker.height != null) return false;
         if (is_animated != null ? !is_animated.equals(sticker.is_animated) : sticker.is_animated != null) return false;
@@ -82,6 +89,7 @@ public class Sticker implements Serializable {
     public String toString() {
         return "Sticker{" +
                 "file_id='" + file_id + '\'' +
+                ", file_unique_id='" + file_unique_id + '\'' +
                 ", width=" + width +
                 ", height=" + height +
                 ", is_animated=" + is_animated +

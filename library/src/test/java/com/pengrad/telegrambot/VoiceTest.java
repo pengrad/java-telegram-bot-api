@@ -16,6 +16,7 @@ public class VoiceTest {
 
     public static void check(Voice voice, boolean checkSize) {
         assertNotNull(voice.fileId());
+        assertNotNull(voice.fileUniqueId());
         assertNotNull(voice.mimeType());
         assertNotNull(voice.duration());
         if (checkSize) assertNotNull(voice.fileSize());

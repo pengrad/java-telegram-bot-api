@@ -16,6 +16,7 @@ public class VideoNoteCheck {
 
     public static void check(VideoNote videoNote, boolean full) {
         assertNotNull(videoNote.fileId());
+        assertNotNull(videoNote.fileUniqueId());
         assertNotNull(videoNote.length());
         assertNotNull(videoNote.duration());
         PhotoSizeTest.checkPhotos(videoNote.thumb());

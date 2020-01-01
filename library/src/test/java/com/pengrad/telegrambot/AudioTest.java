@@ -16,6 +16,7 @@ public class AudioTest {
 
     public static void checkAudio(Audio audio, boolean thumb) {
         assertNotNull(audio.fileId());
+        assertNotNull(audio.fileUniqueId());
         assertNotNull(audio.duration());
         assertNotNull(audio.title());
         assertNotNull(audio.mimeType());

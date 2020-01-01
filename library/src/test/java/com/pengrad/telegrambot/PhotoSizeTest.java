@@ -17,6 +17,7 @@ public class PhotoSizeTest {
     public static void checkPhotos(boolean checkSize, PhotoSize... photos) {
         for (PhotoSize photo : photos) {
             assertNotNull(photo.fileId());
+            assertNotNull(photo.fileUniqueId());
             assertNotNull(photo.width());
             assertNotNull(photo.height());
             if (checkSize) assertNotNull(photo.fileSize());
