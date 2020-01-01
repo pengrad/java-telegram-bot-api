@@ -12,7 +12,9 @@ public class ChatPhotoTest {
 
     public static void check(ChatPhoto photo) {
         assertNotNull(photo.smallFileId());
+        assertNotNull(photo.smallFileUniqueId());
         assertNotNull(photo.bigFileId());
+        assertNotNull(photo.bigFileUniqueId());
     }
 
 }

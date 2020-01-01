@@ -10,14 +10,24 @@ public class ChatPhoto implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private String small_file_id;
+    private String small_file_unique_id;
     private String big_file_id;
+    private String big_file_unique_id;
 
     public String smallFileId() {
         return small_file_id;
     }
 
+    public String smallFileUniqueId() {
+        return small_file_unique_id;
+    }
+
     public String bigFileId() {
         return big_file_id;
+    }
+
+    public String bigFileUniqueId() {
+        return big_file_unique_id;
     }
 
     @Override
@@ -29,7 +39,10 @@ public class ChatPhoto implements Serializable {
 
         if (small_file_id != null ? !small_file_id.equals(chatPhoto.small_file_id) : chatPhoto.small_file_id != null)
             return false;
-        return big_file_id != null ? big_file_id.equals(chatPhoto.big_file_id) : chatPhoto.big_file_id == null;
+        if (small_file_unique_id != null ? !small_file_unique_id.equals(chatPhoto.small_file_unique_id) : chatPhoto.small_file_unique_id != null)
+            return false;
+        if (big_file_id != null ? !big_file_id.equals(chatPhoto.big_file_id) : chatPhoto.big_file_id != null) return false;
+        return big_file_unique_id != null ? big_file_unique_id.equals(chatPhoto.big_file_unique_id) : chatPhoto.big_file_unique_id == null;
     }
 
     @Override
@@ -43,7 +56,9 @@ public class ChatPhoto implements Serializable {
     public String toString() {
         return "ChatPhoto{" +
                 "small_file_id='" + small_file_id + '\'' +
+                ", small_file_unique_id='" + small_file_unique_id + '\'' +
                 ", big_file_id='" + big_file_id + '\'' +
+                ", big_file_unique_id='" + big_file_unique_id + '\'' +
                 '}';
     }
 }
