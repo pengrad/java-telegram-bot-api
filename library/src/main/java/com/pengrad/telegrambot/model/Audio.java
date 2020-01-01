@@ -10,6 +10,7 @@ public class Audio implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private String file_id;
+    private String file_unique_id;
     private Integer duration;
     private String performer;
     private String title;
@@ -19,6 +20,10 @@ public class Audio implements Serializable {
 
     public String fileId() {
         return file_id;
+    }
+
+    public String fileUniqueId() {
+        return file_unique_id;
     }
 
     public Integer duration() {
@@ -53,6 +58,7 @@ public class Audio implements Serializable {
         Audio audio = (Audio) o;
 
         if (file_id != null ? !file_id.equals(audio.file_id) : audio.file_id != null) return false;
+        if (file_unique_id != null ? !file_unique_id.equals(audio.file_unique_id) : audio.file_unique_id != null) return false;
         if (duration != null ? !duration.equals(audio.duration) : audio.duration != null) return false;
         if (performer != null ? !performer.equals(audio.performer) : audio.performer != null) return false;
         if (title != null ? !title.equals(audio.title) : audio.title != null) return false;
@@ -70,6 +76,7 @@ public class Audio implements Serializable {
     public String toString() {
         return "Audio{" +
                 "file_id='" + file_id + '\'' +
+                ", file_unique_id='" + file_unique_id + '\'' +
                 ", duration=" + duration +
                 ", performer='" + performer + '\'' +
                 ", title='" + title + '\'' +

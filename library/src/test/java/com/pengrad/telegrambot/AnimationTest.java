@@ -13,6 +13,7 @@ public class AnimationTest {
 
     public static void check(Animation animation) {
         assertNotNull(animation.fileId());
+        assertNotNull(animation.fileUniqueId());
         assertNotNull(animation.fileName());
         assertNotNull(animation.mimeType());
         assertTrue(animation.fileSize() > 0);

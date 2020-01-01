@@ -16,6 +16,7 @@ public class DocumentTest {
 
     public static void check(Document document, boolean checkSize) {
         assertNotNull(document.fileId());
+        assertNotNull(document.fileUniqueId());
         assertNotNull(document.fileName());
         assertNotNull(document.mimeType());
         if (checkSize) assertNotNull(document.fileSize());

@@ -16,6 +16,7 @@ public class FileTest {
 
     public static void check(File file, boolean path) {
         assertNotNull(file.fileId());
+        assertNotNull(file.fileUniqueId());
         assertNotNull(file.fileSize());
         if (path) assertNotNull(file.filePath());
     }

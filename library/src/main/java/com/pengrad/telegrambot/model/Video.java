@@ -10,6 +10,7 @@ public class Video implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private String file_id;
+    private String file_unique_id;
     private Integer width;
     private Integer height;
     private Integer duration;
@@ -19,6 +20,10 @@ public class Video implements Serializable {
 
     public String fileId() {
         return file_id;
+    }
+
+    public String fileUniqueId() {
+        return file_unique_id;
     }
 
     public Integer width() {
@@ -53,6 +58,7 @@ public class Video implements Serializable {
         Video video = (Video) o;
 
         if (file_id != null ? !file_id.equals(video.file_id) : video.file_id != null) return false;
+        if (file_unique_id != null ? !file_unique_id.equals(video.file_unique_id) : video.file_unique_id != null) return false;
         if (width != null ? !width.equals(video.width) : video.width != null) return false;
         if (height != null ? !height.equals(video.height) : video.height != null) return false;
         if (duration != null ? !duration.equals(video.duration) : video.duration != null) return false;
@@ -70,6 +76,7 @@ public class Video implements Serializable {
     public String toString() {
         return "Video{" +
                 "file_id='" + file_id + '\'' +
+                ", file_unique_id='" + file_unique_id + '\'' +
                 ", width=" + width +
                 ", height=" + height +
                 ", duration=" + duration +

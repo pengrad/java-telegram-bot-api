@@ -16,6 +16,7 @@ public class VideoTest {
 
     public static void check(Video video, boolean checkSize) {
         assertNotNull(video.fileId());
+        assertNotNull(video.fileUniqueId());
         assertNotNull(video.duration());
         assertNotNull(video.width());
         assertNotNull(video.height());
