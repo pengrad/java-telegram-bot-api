@@ -28,6 +28,7 @@ public class Chat implements Serializable {
     //Channel and Group
     private String title;
 
+    // TODO delete this field
     private Boolean all_members_are_administrators;
 
     private ChatPhoto photo;
@@ -35,6 +36,7 @@ public class Chat implements Serializable {
     private String invite_link;
     private Message pinned_message;
     private ChatPermissions permissions;
+    private Integer slow_mode_delay;
     private String sticker_set_name;
     private Boolean can_set_sticker_set;
 
@@ -86,6 +88,10 @@ public class Chat implements Serializable {
         return permissions;
     }
 
+    public Integer slowModeDelay() {
+        return slow_mode_delay;
+    }
+
     public String stickerSetName() {
         return sticker_set_name;
     }
@@ -114,6 +120,8 @@ public class Chat implements Serializable {
         if (invite_link != null ? !invite_link.equals(chat.invite_link) : chat.invite_link != null) return false;
         if (pinned_message != null ? !pinned_message.equals(chat.pinned_message) : chat.pinned_message != null) return false;
         if (permissions != null ? !permissions.equals(chat.permissions) : chat.permissions != null) return false;
+        if (slow_mode_delay != null ? !slow_mode_delay.equals(chat.slow_mode_delay) : chat.slow_mode_delay != null)
+            return false;
         if (sticker_set_name != null ? !sticker_set_name.equals(chat.sticker_set_name) : chat.sticker_set_name != null)
             return false;
         return can_set_sticker_set != null ? can_set_sticker_set.equals(chat.can_set_sticker_set) : chat.can_set_sticker_set == null;
@@ -139,6 +147,7 @@ public class Chat implements Serializable {
                 ", invite_link='" + invite_link + '\'' +
                 ", pinned_message=" + pinned_message +
                 ", permissions=" + permissions +
+                ", slow_mode_delay=" + slow_mode_delay +
                 ", sticker_set_name='" + sticker_set_name + '\'' +
                 ", can_set_sticker_set=" + can_set_sticker_set +
                 '}';
