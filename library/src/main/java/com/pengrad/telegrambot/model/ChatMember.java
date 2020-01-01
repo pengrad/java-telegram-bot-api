@@ -16,6 +16,7 @@ public class ChatMember implements Serializable {
     private User user;
     private Status status;
 
+    private String custom_title;
     private Integer until_date;
     private Boolean can_be_edited;
     private Boolean can_post_messages;
@@ -39,6 +40,10 @@ public class ChatMember implements Serializable {
 
     public Status status() {
         return status;
+    }
+
+    public String customTitle() {
+        return custom_title;
     }
 
     public Integer untilDate() {
@@ -114,6 +119,7 @@ public class ChatMember implements Serializable {
 
         if (user != null ? !user.equals(that.user) : that.user != null) return false;
         if (status != that.status) return false;
+        if (custom_title != null ? !custom_title.equals(that.custom_title) : that.custom_title != null) return false;
         if (until_date != null ? !until_date.equals(that.until_date) : that.until_date != null) return false;
         if (can_be_edited != null ? !can_be_edited.equals(that.can_be_edited) : that.can_be_edited != null) return false;
         if (can_post_messages != null ? !can_post_messages.equals(that.can_post_messages) : that.can_post_messages != null)
@@ -147,6 +153,7 @@ public class ChatMember implements Serializable {
     public int hashCode() {
         int result = user != null ? user.hashCode() : 0;
         result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (custom_title != null ? custom_title.hashCode() : 0);
         result = 31 * result + (until_date != null ? until_date.hashCode() : 0);
         result = 31 * result + (can_be_edited != null ? can_be_edited.hashCode() : 0);
         result = 31 * result + (can_post_messages != null ? can_post_messages.hashCode() : 0);
@@ -171,6 +178,7 @@ public class ChatMember implements Serializable {
         return "ChatMember{" +
                 "user=" + user +
                 ", status=" + status +
+                ", custom_title='" + custom_title + '\'' +
                 ", until_date=" + until_date +
                 ", can_be_edited=" + can_be_edited +
                 ", can_post_messages=" + can_post_messages +
