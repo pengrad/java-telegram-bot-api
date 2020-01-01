@@ -1055,6 +1055,20 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void setChatAdministratorCustomTitle() {
+        BaseResponse response = bot.execute(new PromoteChatMember(groupId, memberBot).canPromoteMembers(true));
+        assertTrue(response.isOk());
+
+        String customTitle = "aqi " + new Random().nextInt(999999);
+        response = bot.execute(new SetChatAdministratorCustomTitle(groupId, memberBot, customTitle));
+        assertTrue(response.isOk());
+
+        ChatMember member = bot.execute(new GetChatMember(groupId, memberBot)).chatMember();
+        ChatMemberTest.check(member);
+        assertEquals(customTitle, member.customTitle());
+    }
+
+    @Test
     public void setChatPermissions() throws InterruptedException {
         for (boolean bool : new boolean[]{true, false}) {
             ChatPermissions setPerms = new ChatPermissions();
