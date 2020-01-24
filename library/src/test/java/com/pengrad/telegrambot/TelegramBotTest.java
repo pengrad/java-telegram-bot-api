@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot;
 
+import com.google.gson.Gson;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.passport.*;
@@ -93,9 +94,9 @@ public class TelegramBotTest {
             testPassportData = System.getenv("TEST_PASSPORT_DATA");
         }
 
-        bot = new TelegramBot.Builder(token).debug().build();
-        chatId = Integer.parseInt(chat);
-        groupId = Long.parseLong(group);
+//        bot = new TelegramBot.Builder(token).debug().build();
+//        chatId = Integer.parseInt(chat);
+//        groupId = Long.parseLong(group);
     }
 
     @Test

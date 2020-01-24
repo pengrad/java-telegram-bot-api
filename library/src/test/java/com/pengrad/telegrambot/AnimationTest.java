@@ -2,6 +2,8 @@ package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.model.Animation;
 
+import java.io.Serializable;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -12,6 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class AnimationTest {
 
     public static void check(Animation animation) {
+        Serializable s = animation;
         assertNotNull(animation.fileId());
         assertNotNull(animation.fileName());
         assertNotNull(animation.mimeType());

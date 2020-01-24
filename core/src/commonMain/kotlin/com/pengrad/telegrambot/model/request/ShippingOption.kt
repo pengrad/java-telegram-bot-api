@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model.request
 
 import java.io.Serializable
+import kotlin.jvm.JvmStatic
 
 /**
  * Stas Parshin

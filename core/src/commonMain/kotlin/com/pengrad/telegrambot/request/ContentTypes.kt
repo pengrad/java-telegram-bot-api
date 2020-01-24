@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.request
 
+import kotlin.jvm.JvmField
+
 /**
  * stas
  * 5/1/16.

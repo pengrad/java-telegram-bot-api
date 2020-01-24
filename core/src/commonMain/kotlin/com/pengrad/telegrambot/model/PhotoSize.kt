@@ -1,12 +1,13 @@
 package com.pengrad.telegrambot.model
 
-import java.io.Serializable
+import kotlinx.serialization.*
 
 /**
  * stas
  * 8/4/15.
  */
-class PhotoSize : Serializable {
+@Serializable
+class PhotoSize: java.io.Serializable {
 
     private val file_id: String? = null
     private val width: Int? = null
