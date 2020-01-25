@@ -657,6 +657,19 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void preMessageEntity() {
+        String cap = "```java\n" +
+                "String s = new String();\n" +
+                "```";
+        ParseMode parseMode = ParseMode.MarkdownV2;
+        SendAudio sendAudio = new SendAudio(chatId, audioFileId).caption(cap).parseMode(parseMode);
+        Message message = bot.execute(sendAudio).message();
+        MessageTest.checkMessage(message);
+        assertEquals(1, message.captionEntities().length);
+        assertEquals("java", message.captionEntities()[0].language());
+    }
+
+    @Test
     public void sendDocument() {
         Message message = bot.execute(new SendDocument(chatId, docFileId)).message();
         MessageTest.checkMessage(message);

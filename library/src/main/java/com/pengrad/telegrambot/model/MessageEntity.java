@@ -19,6 +19,7 @@ public class MessageEntity implements Serializable {
     private Integer length;
     private String url;
     private User user;
+    private String language;
 
     public Type type() {
         return type;
@@ -40,6 +41,10 @@ public class MessageEntity implements Serializable {
         return user;
     }
 
+    public String language() {
+        return language;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,8 +56,8 @@ public class MessageEntity implements Serializable {
         if (offset != null ? !offset.equals(that.offset) : that.offset != null) return false;
         if (length != null ? !length.equals(that.length) : that.length != null) return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
-        return user != null ? user.equals(that.user) : that.user == null;
-
+        if (user != null ? !user.equals(that.user) : that.user != null) return false;
+        return language != null ? language.equals(that.language) : that.language == null;
     }
 
     @Override
@@ -62,6 +67,7 @@ public class MessageEntity implements Serializable {
         result = 31 * result + (length != null ? length.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (language != null ? language.hashCode() : 0);
         return result;
     }
 
@@ -73,6 +79,7 @@ public class MessageEntity implements Serializable {
                 ", length=" + length +
                 ", url='" + url + '\'' +
                 ", user=" + user +
+                ", language='" + language + '\'' +
                 '}';
     }
 }
