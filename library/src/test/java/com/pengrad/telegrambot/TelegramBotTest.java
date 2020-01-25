@@ -1051,13 +1051,17 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void setChatAdministratorCustomTitle() {
+    public void setChatAdministratorCustomTitle() throws InterruptedException {
         BaseResponse response = bot.execute(new PromoteChatMember(groupId, memberBot).canPromoteMembers(true));
         assertTrue(response.isOk());
+
+        Thread.sleep(1000);
 
         String customTitle = "aqi " + new Random().nextInt(999999);
         response = bot.execute(new SetChatAdministratorCustomTitle(groupId, memberBot, customTitle));
         assertTrue(response.isOk());
+
+        Thread.sleep(1000);
 
         ChatMember member = bot.execute(new GetChatMember(groupId, memberBot)).chatMember();
         ChatMemberTest.check(member);
