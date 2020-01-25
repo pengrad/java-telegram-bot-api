@@ -1,30 +1,25 @@
 package com.pengrad.telegrambot;
 
-import com.pengrad.telegrambot.impl.TelegramBotClient;
+import com.pengrad.telegrambot.impl.*;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.*;
+import com.pengrad.telegrambot.passport.Credentials;
 import com.pengrad.telegrambot.passport.*;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.junit.Test;
+
+import org.junit.*;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.*;
+import java.net.*;
+import java.nio.file.*;
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
-import static com.pengrad.telegrambot.request.ContentTypes.VIDEO_MIME_TYPE;
+import okhttp3.*;
+
+import static com.pengrad.telegrambot.request.ContentTypes.*;
 import static org.junit.Assert.*;
 
 /**
@@ -104,8 +99,12 @@ public class TelegramBotTest {
     @Test
     public void getMe() {
         GetMeResponse response = bot.execute(new GetMe());
-        UserTest.checkUser(response.user());
-        assertTrue(response.user().isBot());
+        User user = response.user();
+        UserTest.checkUser(user);
+        assertTrue(user.isBot());
+        assertTrue(user.canJoinGroups());
+        assertTrue(user.canReadAllGroupMessages());
+        assertTrue(user.supportsInlineQueries());
     }
 
     @Test
@@ -658,6 +657,19 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void preMessageEntity() {
+        String cap = "```java\n" +
+                "String s = new String();\n" +
+                "```";
+        ParseMode parseMode = ParseMode.MarkdownV2;
+        SendAudio sendAudio = new SendAudio(chatId, audioFileId).caption(cap).parseMode(parseMode);
+        Message message = bot.execute(sendAudio).message();
+        MessageTest.checkMessage(message);
+        assertEquals(1, message.captionEntities().length);
+        assertEquals("java", message.captionEntities()[0].language());
+    }
+
+    @Test
     public void sendDocument() {
         Message message = bot.execute(new SendDocument(chatId, docFileId)).message();
         MessageTest.checkMessage(message);
@@ -1056,13 +1068,17 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void setChatAdministratorCustomTitle() {
+    public void setChatAdministratorCustomTitle() throws InterruptedException {
         BaseResponse response = bot.execute(new PromoteChatMember(groupId, memberBot).canPromoteMembers(true));
         assertTrue(response.isOk());
+
+        Thread.sleep(1000);
 
         String customTitle = "aqi " + new Random().nextInt(999999);
         response = bot.execute(new SetChatAdministratorCustomTitle(groupId, memberBot, customTitle));
         assertTrue(response.isOk());
+
+        Thread.sleep(1000);
 
         ChatMember member = bot.execute(new GetChatMember(groupId, memberBot)).chatMember();
         ChatMemberTest.check(member);
@@ -1345,8 +1361,9 @@ public class TelegramBotTest {
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFileId)));
         assertTrue(response.isOk());
+        AnimationTest.check(response.message().animation());
         assertEquals(Integer.valueOf(3), response.message().animation().duration());
-        assertEquals(gifFileId, response.message().animation().fileId());
+        assertNotEquals(gifFileId, response.message().animation().fileId());
         assertNotNull(response.message().document());
         assertEquals((Integer) 57527, response.message().document().fileSize());
         assertEquals("video/mp4", response.message().document().mimeType());
@@ -1482,9 +1499,15 @@ public class TelegramBotTest {
     public void sendPoll() {
         String question = "Question ?";
         String[] answers = {"Answer 1", "Answer 2"};
-        SendResponse sendResponse = bot.execute(new SendPoll(groupId, question, answers));
+        SendResponse sendResponse = bot.execute(
+                new SendPoll(groupId, question, answers)
+                        .isAnonymous(false)
+                        .type(Poll.Type.quiz)
+                        .allowsMultipleAnswers(false)
+                        .correctOptionId(1)
+                        .isClosed(true)
+        );
         Poll poll = sendResponse.message().poll();
-        assertFalse(poll.isClosed());
         assertEquals(question, poll.question());
         assertEquals(answers.length, poll.options().length);
         for (int i = 0; i < answers.length; i++) {
@@ -1492,6 +1515,35 @@ public class TelegramBotTest {
             assertEquals(answers[i], option.text());
             assertEquals(Integer.valueOf(0), option.voterCount());
         }
+        assertFalse(poll.isAnonymous());
+        assertEquals(poll.type(), Poll.Type.quiz);
+        assertFalse(poll.allowsMultipleAnswers());
+        assertEquals(poll.totalVoterCount(), Integer.valueOf(0));
+        assertEquals(poll.correctOptionId(), Integer.valueOf(1));
+        assertTrue(poll.isClosed());
+    }
+
+    @Test
+    public void sendPollWithKeyboard() {
+        String question = "Question ?";
+        String[] answers = {"Answer 1", "Answer 2"};
+        SendResponse sendResponse = bot.execute(
+                new SendPoll(chatId, question, answers)
+                        .type("regular")
+                        .allowsMultipleAnswers(true)
+                        .replyMarkup(new ReplyKeyboardMarkup(new KeyboardButton[]{
+                                new KeyboardButton("all polls").requestPoll(new KeyboardButtonPollType()),
+                                new KeyboardButton("quiz").requestPoll(new KeyboardButtonPollType(Poll.Type.quiz)),
+                                new KeyboardButton("regular").requestPoll(new KeyboardButtonPollType("regular"))
+                        }))
+        );
+        Poll poll = sendResponse.message().poll();
+        assertEquals(question, poll.question());
+        assertEquals(answers.length, poll.options().length);
+        assertTrue(poll.isAnonymous());
+        assertEquals(poll.totalVoterCount(), Integer.valueOf(0));
+        assertEquals(poll.type(), Poll.Type.regular);
+        assertTrue(poll.allowsMultipleAnswers());
     }
 
     @Test

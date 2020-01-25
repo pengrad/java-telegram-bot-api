@@ -15,6 +15,9 @@ public class User implements Serializable {
     private String last_name;
     private String username;
     private String language_code;
+    private Boolean can_join_groups;
+    private Boolean can_read_all_group_messages;
+    private Boolean supports_inline_queries;
 
     public Integer id() {
         return id;
@@ -40,6 +43,18 @@ public class User implements Serializable {
         return language_code;
     }
 
+    public Boolean canJoinGroups() {
+        return can_join_groups;
+    }
+
+    public Boolean canReadAllGroupMessages() {
+        return can_read_all_group_messages;
+    }
+
+    public Boolean supportsInlineQueries() {
+        return supports_inline_queries;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,7 +67,13 @@ public class User implements Serializable {
         if (first_name != null ? !first_name.equals(user.first_name) : user.first_name != null) return false;
         if (last_name != null ? !last_name.equals(user.last_name) : user.last_name != null) return false;
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
-        return language_code != null ? language_code.equals(user.language_code) : user.language_code == null;
+        if (language_code != null ? !language_code.equals(user.language_code) : user.language_code != null)
+            return false;
+        if (can_join_groups != null ? !can_join_groups.equals(user.can_join_groups) : user.can_join_groups != null)
+            return false;
+        if (can_read_all_group_messages != null ? !can_read_all_group_messages.equals(user.can_read_all_group_messages) : user.can_read_all_group_messages != null)
+            return false;
+        return supports_inline_queries != null ? supports_inline_queries.equals(user.supports_inline_queries) : user.supports_inline_queries == null;
     }
 
     @Override
@@ -69,6 +90,9 @@ public class User implements Serializable {
                 ", last_name='" + last_name + '\'' +
                 ", username='" + username + '\'' +
                 ", language_code='" + language_code + '\'' +
+                ", can_join_groups=" + can_join_groups +
+                ", can_read_all_group_messages=" + can_read_all_group_messages +
+                ", supports_inline_queries=" + supports_inline_queries +
                 '}';
     }
 }

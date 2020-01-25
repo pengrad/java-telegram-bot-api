@@ -8,14 +8,15 @@ import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.BaseResponse;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * Stas Parshin
@@ -138,6 +139,7 @@ public class TelegramBot {
         private static OkHttpClient client(Interceptor interceptor) {
             OkHttpClient.Builder builder = new OkHttpClient.Builder()
                     .connectTimeout(75, TimeUnit.SECONDS)
+                    .writeTimeout(75, TimeUnit.SECONDS)
                     .readTimeout(75, TimeUnit.SECONDS);
             if (interceptor != null) builder.addInterceptor(interceptor);
             return builder.build();
