@@ -1496,8 +1496,32 @@ public class TelegramBotTest {
         assertFalse(poll.isAnonymous());
         assertEquals(poll.type(), Poll.Type.quiz);
         assertFalse(poll.allowsMultipleAnswers());
+        assertEquals(poll.totalVoterCount(), Integer.valueOf(0));
         assertEquals(poll.correctOptionId(), Integer.valueOf(1));
         assertTrue(poll.isClosed());
+    }
+
+    @Test
+    public void sendPollWithKeyboard() {
+        String question = "Question ?";
+        String[] answers = {"Answer 1", "Answer 2"};
+        SendResponse sendResponse = bot.execute(
+                new SendPoll(chatId, question, answers)
+                        .type("regular")
+                        .allowsMultipleAnswers(true)
+                        .replyMarkup(new ReplyKeyboardMarkup(new KeyboardButton[]{
+                                new KeyboardButton("all polls").requestPoll(new KeyboardButtonPollType()),
+                                new KeyboardButton("quiz").requestPoll(new KeyboardButtonPollType(Poll.Type.quiz)),
+                                new KeyboardButton("regular").requestPoll(new KeyboardButtonPollType("regular"))
+                        }))
+        );
+        Poll poll = sendResponse.message().poll();
+        assertEquals(question, poll.question());
+        assertEquals(answers.length, poll.options().length);
+        assertTrue(poll.isAnonymous());
+        assertEquals(poll.totalVoterCount(), Integer.valueOf(0));
+        assertEquals(poll.type(), Poll.Type.regular);
+        assertTrue(poll.allowsMultipleAnswers());
     }
 
     @Test
