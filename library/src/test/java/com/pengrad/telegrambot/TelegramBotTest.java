@@ -1340,8 +1340,9 @@ public class TelegramBotTest {
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFileId)));
         assertTrue(response.isOk());
+        AnimationTest.check(response.message().animation());
         assertEquals(Integer.valueOf(3), response.message().animation().duration());
-        assertEquals(gifFileId, response.message().animation().fileId());
+        assertNotEquals(gifFileId, response.message().animation().fileId());
         assertNotNull(response.message().document());
         assertEquals((Integer) 57527, response.message().document().fileSize());
         assertEquals("video/mp4", response.message().document().mimeType());
