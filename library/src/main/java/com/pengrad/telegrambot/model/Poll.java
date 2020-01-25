@@ -17,7 +17,12 @@ public class Poll implements Serializable {
     private String id;
     private String question;
     private PollOption[] options;
+    private Integer total_voter_count;
     private Boolean is_closed;
+    private Boolean is_anonymous;
+    private Type type;
+    private Boolean allows_multiple_answers;
+    private Integer correct_option_id;
 
     public String id() {
         return id;
@@ -31,8 +36,28 @@ public class Poll implements Serializable {
         return options;
     }
 
+    public Integer totalVoterCount() {
+        return total_voter_count;
+    }
+
     public Boolean isClosed() {
         return is_closed;
+    }
+
+    public Boolean isAnonymous() {
+        return is_anonymous;
+    }
+
+    public Type type() {
+        return type;
+    }
+
+    public Boolean allowsMultipleAnswers() {
+        return allows_multiple_answers;
+    }
+
+    public Integer correctOptionId() {
+        return correct_option_id;
     }
 
     @Override
@@ -46,7 +71,14 @@ public class Poll implements Serializable {
         if (question != null ? !question.equals(poll.question) : poll.question != null) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(options, poll.options)) return false;
-        return is_closed != null ? is_closed.equals(poll.is_closed) : poll.is_closed == null;
+        if (total_voter_count != null ? !total_voter_count.equals(poll.total_voter_count) : poll.total_voter_count != null)
+            return false;
+        if (is_closed != null ? !is_closed.equals(poll.is_closed) : poll.is_closed != null) return false;
+        if (is_anonymous != null ? !is_anonymous.equals(poll.is_anonymous) : poll.is_anonymous != null) return false;
+        if (type != poll.type) return false;
+        if (allows_multiple_answers != null ? !allows_multiple_answers.equals(poll.allows_multiple_answers) : poll.allows_multiple_answers != null)
+            return false;
+        return correct_option_id != null ? correct_option_id.equals(poll.correct_option_id) : poll.correct_option_id == null;
     }
 
     @Override
@@ -60,7 +92,12 @@ public class Poll implements Serializable {
                 "id='" + id + '\'' +
                 ", question='" + question + '\'' +
                 ", options=" + Arrays.toString(options) +
+                ", total_voter_count=" + total_voter_count +
                 ", is_closed=" + is_closed +
+                ", is_anonymous=" + is_anonymous +
+                ", type=" + type +
+                ", allows_multiple_answers=" + allows_multiple_answers +
+                ", correct_option_id=" + correct_option_id +
                 '}';
     }
 }

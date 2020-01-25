@@ -1481,7 +1481,7 @@ public class TelegramBotTest {
                 new SendPoll(groupId, question, answers)
                         .isAnonymous(false)
                         .type(Poll.Type.quiz)
-                        .allowsMultipleAnswers(true)
+                        .allowsMultipleAnswers(false)
                         .correctOptionId(1)
                         .isClosed(true)
         );
@@ -1493,6 +1493,10 @@ public class TelegramBotTest {
             assertEquals(answers[i], option.text());
             assertEquals(Integer.valueOf(0), option.voterCount());
         }
+        assertFalse(poll.isAnonymous());
+        assertEquals(poll.type(), Poll.Type.quiz);
+        assertFalse(poll.allowsMultipleAnswers());
+        assertEquals(poll.correctOptionId(), Integer.valueOf(1));
         assertTrue(poll.isClosed());
     }
 
