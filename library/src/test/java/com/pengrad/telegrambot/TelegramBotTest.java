@@ -1,30 +1,25 @@
 package com.pengrad.telegrambot;
 
-import com.pengrad.telegrambot.impl.TelegramBotClient;
+import com.pengrad.telegrambot.impl.*;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.*;
+import com.pengrad.telegrambot.passport.Credentials;
 import com.pengrad.telegrambot.passport.*;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.junit.Test;
+
+import org.junit.*;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.*;
+import java.net.*;
+import java.nio.file.*;
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
-import static com.pengrad.telegrambot.request.ContentTypes.VIDEO_MIME_TYPE;
+import okhttp3.*;
+
+import static com.pengrad.telegrambot.request.ContentTypes.*;
 import static org.junit.Assert.*;
 
 /**
@@ -1482,9 +1477,15 @@ public class TelegramBotTest {
     public void sendPoll() {
         String question = "Question ?";
         String[] answers = {"Answer 1", "Answer 2"};
-        SendResponse sendResponse = bot.execute(new SendPoll(groupId, question, answers));
+        SendResponse sendResponse = bot.execute(
+                new SendPoll(groupId, question, answers)
+                        .isAnonymous(false)
+                        .type(Poll.Type.quiz)
+                        .allowsMultipleAnswers(true)
+                        .correctOptionId(1)
+                        .isClosed(true)
+        );
         Poll poll = sendResponse.message().poll();
-        assertFalse(poll.isClosed());
         assertEquals(question, poll.question());
         assertEquals(answers.length, poll.options().length);
         for (int i = 0; i < answers.length; i++) {
@@ -1492,6 +1493,7 @@ public class TelegramBotTest {
             assertEquals(answers[i], option.text());
             assertEquals(Integer.valueOf(0), option.voterCount());
         }
+        assertTrue(poll.isClosed());
     }
 
     @Test

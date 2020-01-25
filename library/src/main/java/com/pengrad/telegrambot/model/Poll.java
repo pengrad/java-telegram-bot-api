@@ -10,6 +10,10 @@ import java.util.Arrays;
 public class Poll implements Serializable {
     private final static long serialVersionUID = 0L;
 
+    public enum Type {
+        quiz, regular
+    }
+
     private String id;
     private String question;
     private PollOption[] options;
