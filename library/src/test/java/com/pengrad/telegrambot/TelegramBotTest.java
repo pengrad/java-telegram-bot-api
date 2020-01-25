@@ -99,8 +99,12 @@ public class TelegramBotTest {
     @Test
     public void getMe() {
         GetMeResponse response = bot.execute(new GetMe());
-        UserTest.checkUser(response.user());
-        assertTrue(response.user().isBot());
+        User user = response.user();
+        UserTest.checkUser(user);
+        assertTrue(user.isBot());
+        assertTrue(user.canJoinGroups());
+        assertTrue(user.canReadAllGroupMessages());
+        assertTrue(user.supportsInlineQueries());
     }
 
     @Test
