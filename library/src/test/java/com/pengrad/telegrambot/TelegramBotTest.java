@@ -18,6 +18,7 @@ import java.util.*;
 import java.util.concurrent.*;
 
 import okhttp3.*;
+import okhttp3.logging.*;
 
 import static com.pengrad.telegrambot.request.ContentTypes.*;
 import static org.junit.Assert.*;
@@ -90,8 +91,13 @@ public class TelegramBotTest {
             privateKey = System.getenv("PRIVATE_KEY");
             testPassportData = System.getenv("TEST_PASSPORT_DATA");
         }
-
-        bot = new TelegramBot.Builder(token).debug().build();
+        bot = new TelegramBot.Builder(token)
+                .okHttpClient(new OkHttpClient.Builder()
+                        .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                        .addInterceptor(new RetryInterceptor(1000))
+                        .build()
+                )
+                .build();
         chatId = Integer.parseInt(chat);
         groupId = Long.parseLong(group);
     }
@@ -805,15 +811,13 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void setWebhook() throws IOException, InterruptedException {
+    public void setWebhook() throws IOException {
         String url = "https://google.com";
         Integer maxConnections = 100;
         String[] allowedUpdates = {"message", "callback_query"};
         BaseResponse response = bot.execute(new SetWebhook().url(url).certificate(new File(certificateFile))
                 .maxConnections(100).allowedUpdates(allowedUpdates));
         assertTrue(response.isOk());
-
-        Thread.sleep(1000);
 
         WebhookInfo webhookInfo = bot.execute(new GetWebhookInfo()).webhookInfo();
         assertEquals(url, webhookInfo.url());
@@ -826,8 +830,6 @@ public class TelegramBotTest {
         response = bot.execute(new SetWebhook().url("https://google.com")
                 .certificate(Files.readAllBytes(new File(certificateFile).toPath())).allowedUpdates(""));
         assertTrue(response.isOk());
-
-        Thread.sleep(1000);
 
         response = bot.execute(new SetWebhook());
         assertTrue(response.isOk());
