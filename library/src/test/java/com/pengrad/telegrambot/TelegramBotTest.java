@@ -73,6 +73,7 @@ public class TelegramBotTest {
 
     public TelegramBotTest() throws IOException {
         String token, chat, group;
+        boolean localBuild = false;
 
         try {
             Properties properties = new Properties();
@@ -83,6 +84,7 @@ public class TelegramBotTest {
             group = properties.getProperty("GROUP_ID");
             privateKey = properties.getProperty("PRIVATE_KEY");
             testPassportData = properties.getProperty("TEST_PASSPORT_DATA");
+            localBuild = true;
 
         } catch (Exception e) {
             token = System.getenv("TEST_TOKEN");
@@ -91,13 +93,15 @@ public class TelegramBotTest {
             privateKey = System.getenv("PRIVATE_KEY");
             testPassportData = System.getenv("TEST_PASSPORT_DATA");
         }
-        bot = new TelegramBot.Builder(token)
-                .okHttpClient(new OkHttpClient.Builder()
-                        .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                        .addInterceptor(new RetryInterceptor(1000))
-                        .build()
-                )
-                .build();
+        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
+                .connectTimeout(75, TimeUnit.SECONDS)
+                .writeTimeout(75, TimeUnit.SECONDS)
+                .readTimeout(75, TimeUnit.SECONDS)
+                .addInterceptor(new RetryInterceptor(1000));
+        if (localBuild) {
+            okHttpBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+        }
+        bot = new TelegramBot.Builder(token).okHttpClient(okHttpBuilder.build()).build();
         chatId = Integer.parseInt(chat);
         groupId = Long.parseLong(group);
     }

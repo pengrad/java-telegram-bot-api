@@ -46,13 +46,13 @@ public class RetryInterceptor implements Interceptor {
                     } else {
                         sleepTimeMillis = defaultSleepMillis;
                     }
-                    System.out.println("++++ response not OK, sleep for " + sleepTimeMillis + " ms");
+                    System.err.println("++++ response " + response.code() + " sleep for " + sleepTimeMillis + " ms");
                     Thread.sleep(sleepTimeMillis);
                 }
             } catch (Exception e) {
                 exception = e;
-                System.out.println("++++ exception " + e.getMessage());
-                e.printStackTrace(System.out);
+                System.err.println("++++ exception " + e.getMessage());
+                e.printStackTrace(System.err);
                 try {
                     Thread.sleep(defaultSleepMillis);
                 } catch (InterruptedException ignored) {}
