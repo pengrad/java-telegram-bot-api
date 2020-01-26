@@ -1,20 +1,18 @@
 package com.pengrad.telegrambot;
 
-import com.pengrad.telegrambot.model.Update;
-import okhttp3.*;
-import org.junit.Before;
-import org.junit.Test;
+import com.pengrad.telegrambot.model.*;
 
-import java.io.FileInputStream;
-import java.time.Duration;
-import java.util.Properties;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+import org.junit.*;
+
+import java.io.*;
+import java.time.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.*;
+import java.util.function.*;
+import java.util.logging.*;
+
+import okhttp3.*;
 
 import static org.junit.Assert.*;
 
@@ -80,7 +78,6 @@ public class UpdatesListenerTest {
                 }
             });
         });
-        bot.removeGetUpdatesListener();
     }
 
     @Test
@@ -142,6 +139,7 @@ public class UpdatesListenerTest {
         CountDownLatch latch = new CountDownLatch(1);
         body.accept(latch);
         assertTrue(latch.await(secTimeout, TimeUnit.SECONDS));
+        bot.removeGetUpdatesListener();
     }
 
     private static class OneShotHandler extends ConsoleHandler {

@@ -18,6 +18,7 @@ import java.util.*;
 import java.util.concurrent.*;
 
 import okhttp3.*;
+import okhttp3.logging.*;
 
 import static com.pengrad.telegrambot.request.ContentTypes.*;
 import static org.junit.Assert.*;
@@ -72,6 +73,7 @@ public class TelegramBotTest {
 
     public TelegramBotTest() throws IOException {
         String token, chat, group;
+        boolean localBuild = false;
 
         try {
             Properties properties = new Properties();
@@ -82,6 +84,7 @@ public class TelegramBotTest {
             group = properties.getProperty("GROUP_ID");
             privateKey = properties.getProperty("PRIVATE_KEY");
             testPassportData = properties.getProperty("TEST_PASSPORT_DATA");
+            localBuild = true;
 
         } catch (Exception e) {
             token = System.getenv("TEST_TOKEN");
@@ -90,8 +93,15 @@ public class TelegramBotTest {
             privateKey = System.getenv("PRIVATE_KEY");
             testPassportData = System.getenv("TEST_PASSPORT_DATA");
         }
-
-        bot = new TelegramBot.Builder(token).debug().build();
+        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
+                .connectTimeout(75, TimeUnit.SECONDS)
+                .writeTimeout(75, TimeUnit.SECONDS)
+                .readTimeout(75, TimeUnit.SECONDS)
+                .addInterceptor(new RetryInterceptor(1000));
+        if (localBuild) {
+            okHttpBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+        }
+        bot = new TelegramBot.Builder(token).okHttpClient(okHttpBuilder.build()).build();
         chatId = Integer.parseInt(chat);
         groupId = Long.parseLong(group);
     }
@@ -698,7 +708,7 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void sendPhoto() throws IOException {
+    public void sendPhoto() {
         Message message = bot.execute(new SendPhoto(chatId, photoFileId)).message();
         MessageTest.checkMessage(message);
         PhotoSizeTest.checkPhotos(false, message.photo());
@@ -720,7 +730,7 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void sendSticker() throws IOException {
+    public void sendSticker() {
         Message message = bot.execute(new SendSticker(chatId, stickerFileAnim)).message();
         MessageTest.checkMessage(message);
         StickerTest.check(message.sticker(), false, true);
@@ -805,15 +815,13 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void setWebhook() throws IOException, InterruptedException {
+    public void setWebhook() throws IOException {
         String url = "https://google.com";
         Integer maxConnections = 100;
         String[] allowedUpdates = {"message", "callback_query"};
         BaseResponse response = bot.execute(new SetWebhook().url(url).certificate(new File(certificateFile))
                 .maxConnections(100).allowedUpdates(allowedUpdates));
         assertTrue(response.isOk());
-
-        Thread.sleep(1000);
 
         WebhookInfo webhookInfo = bot.execute(new GetWebhookInfo()).webhookInfo();
         assertEquals(url, webhookInfo.url());
@@ -826,8 +834,6 @@ public class TelegramBotTest {
         response = bot.execute(new SetWebhook().url("https://google.com")
                 .certificate(Files.readAllBytes(new File(certificateFile).toPath())).allowedUpdates(""));
         assertTrue(response.isOk());
-
-        Thread.sleep(1000);
 
         response = bot.execute(new SetWebhook());
         assertTrue(response.isOk());
@@ -1068,17 +1074,13 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void setChatAdministratorCustomTitle() throws InterruptedException {
+    public void setChatAdministratorCustomTitle() {
         BaseResponse response = bot.execute(new PromoteChatMember(groupId, memberBot).canPromoteMembers(true));
         assertTrue(response.isOk());
-
-        Thread.sleep(1000);
 
         String customTitle = "aqi " + new Random().nextInt(999999);
         response = bot.execute(new SetChatAdministratorCustomTitle(groupId, memberBot, customTitle));
         assertTrue(response.isOk());
-
-        Thread.sleep(1000);
 
         ChatMember member = bot.execute(new GetChatMember(groupId, memberBot)).chatMember();
         ChatMemberTest.check(member);
@@ -1086,7 +1088,7 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void setChatPermissions() throws InterruptedException {
+    public void setChatPermissions() {
         for (boolean bool : new boolean[]{true, false}) {
             ChatPermissions setPerms = new ChatPermissions();
             setPerms.canSendMessages(bool);
@@ -1099,8 +1101,6 @@ public class TelegramBotTest {
             setPerms.canPinMessages(bool);
             BaseResponse response = bot.execute(new SetChatPermissions(groupId, setPerms));
             assertTrue(response.isOk());
-
-            Thread.sleep(1000);
 
             Chat chat = bot.execute(new GetChat(groupId)).chat();
             ChatPermissions permissions = chat.permissions();
@@ -1211,7 +1211,7 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void createNewStickerSet() throws IOException {
+    public void createNewStickerSet() {
         BaseResponse response = bot.execute(
                 new CreateNewStickerSet(chatId, "test" + System.currentTimeMillis() + "_by_pengrad_test_bot",
                         "test1", stickerFile, "\uD83D\uDE00")
@@ -1348,7 +1348,7 @@ public class TelegramBotTest {
 
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFile)));
-        assertEquals(new Integer(1), response.message().animation().duration());
+        assertEquals(Integer.valueOf(1), response.message().animation().duration());
 
         Integer durationAnim = 17, width = 21, height = 22;
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
@@ -1547,13 +1547,11 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void stopPoll() throws InterruptedException {
+    public void stopPoll() {
         String question = "Question ?";
         String[] answers = {"Answer 1", "Answer 2"};
         SendResponse sendResponse = bot.execute(new SendPoll(groupId, question, answers));
         Integer messageId = sendResponse.message().messageId();
-
-        Thread.sleep(1000);
 
         PollResponse response = bot.execute(new StopPoll(groupId, messageId));
         Poll poll = response.poll();

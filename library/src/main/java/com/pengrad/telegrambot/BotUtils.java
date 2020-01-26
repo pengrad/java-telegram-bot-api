@@ -14,6 +14,8 @@ import java.io.Reader;
  */
 public class BotUtils {
 
+    private BotUtils() {}
+
     private static Gson gson = new Gson();
 
     public static Update parseUpdate(String update) {
