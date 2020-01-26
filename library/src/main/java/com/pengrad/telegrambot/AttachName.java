@@ -8,6 +8,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class AttachName {
 
+    private AttachName() {}
+
     private static final AtomicInteger counter = new AtomicInteger();
 
     public static String next() {
