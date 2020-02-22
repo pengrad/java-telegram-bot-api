@@ -43,6 +43,7 @@ public class TelegramBotTest {
     String testCallbackQuery;
     String testInlineQuery;
     String testChosenInlineResult;
+    String testPollAnswer;
 
     Path resourcePath = Paths.get("src/test/resources");
     File imageFile = resourcePath.resolve("image.jpg").toFile();
@@ -90,6 +91,7 @@ public class TelegramBotTest {
             testCallbackQuery = properties.getProperty("TEST_CALLBACK_QUERY");
             testInlineQuery = properties.getProperty("TEST_INLINE_QUERY");
             testChosenInlineResult = properties.getProperty("TEST_CHOSEN_INLINE_RESULT");
+            testPollAnswer = properties.getProperty("TEST_POLL_ANSWER");
             localBuild = true;
 
         } catch (Exception e) {
@@ -101,6 +103,7 @@ public class TelegramBotTest {
             testCallbackQuery = System.getenv("TEST_CALLBACK_QUERY");
             testInlineQuery = System.getenv("TEST_INLINE_QUERY");
             testChosenInlineResult = System.getenv("TEST_CHOSEN_INLINE_RESULT");
+            testPollAnswer = System.getenv("TEST_POLL_ANSWER");
         }
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
                 .connectTimeout(75, TimeUnit.SECONDS)
@@ -129,7 +132,7 @@ public class TelegramBotTest {
     @Test
     public void getUpdates() {
         GetUpdates getUpdates = new GetUpdates()
-                .offset(870646662)
+                .offset(874203551)
                 .allowedUpdates("")
                 .timeout(0)
                 .limit(100);
@@ -1590,6 +1593,18 @@ public class TelegramBotTest {
             assertEquals(answers[i], option.text());
             assertEquals(Integer.valueOf(0), option.voterCount());
         }
+    }
+
+    @Test
+    public void pollAnswer() {
+        // pollAnswer is sent when user answers in a non-anonymous poll
+        PollAnswer pollAnswer = BotUtils.parseUpdate(testPollAnswer).pollAnswer();
+
+        assertNotNull(pollAnswer);
+        assertFalse(pollAnswer.pollId().isEmpty());
+        UserTest.checkUser(pollAnswer.user(), true);
+        assertEquals(Integer.valueOf(12345), pollAnswer.user().id());
+        assertArrayEquals(new Integer[]{0, 2}, pollAnswer.optionIds());
     }
 
     @Test
