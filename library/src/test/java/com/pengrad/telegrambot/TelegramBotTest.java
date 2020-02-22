@@ -112,7 +112,7 @@ public class TelegramBotTest {
         User user = response.user();
         UserTest.checkUser(user);
         assertTrue(user.isBot());
-        assertTrue(user.canJoinGroups());
+        assertFalse(user.canJoinGroups()); // can be changed via BotFather
         assertTrue(user.canReadAllGroupMessages());
         assertTrue(user.supportsInlineQueries());
     }
