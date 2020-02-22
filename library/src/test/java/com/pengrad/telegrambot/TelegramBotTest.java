@@ -1557,6 +1557,7 @@ public class TelegramBotTest {
                         .isClosed(true)
         );
         Poll poll = sendResponse.message().poll();
+        assertFalse(poll.id().isEmpty());
         assertEquals(question, poll.question());
         assertEquals(answers.length, poll.options().length);
         for (int i = 0; i < answers.length; i++) {
