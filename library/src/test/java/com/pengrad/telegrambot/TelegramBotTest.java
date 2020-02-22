@@ -774,6 +774,7 @@ public class TelegramBotTest {
         assertEquals(duration, video.duration());
         assertEquals((Integer) 120, video.height());
         assertEquals((Integer) 400, video.width());
+        assertEquals("video/mp4", video.mimeType());
         assertNotEquals("telegram should generate thumb", thumbSize, video.thumb().fileSize());
 
         MessageEntity captionEntity = message.captionEntities()[0];
