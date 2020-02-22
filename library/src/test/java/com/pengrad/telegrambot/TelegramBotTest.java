@@ -872,6 +872,7 @@ public class TelegramBotTest {
         assertNotNull(actualButtons[0].callbackGame());
         for (int i = 1; i < buttons.length; i++) {
             assertEquals(buttons[i].text(), actualButtons[i].text());
+            assertFalse(buttons[i].isPay());
         }
         assertEquals(buttons[1].callbackData(), actualButtons[1].callbackData());
         assertEquals(buttons[2].callbackData(), actualButtons[2].callbackData());
@@ -1368,7 +1369,8 @@ public class TelegramBotTest {
         assertEquals((Integer) 57527, response.message().document().fileSize());
         assertEquals("video/mp4", response.message().document().mimeType());
 
-
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioFileId)));
+        assertEquals((Integer) 10286, response.message().audio().fileSize());
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioFile)));
         assertEquals((Integer) 10286, response.message().audio().fileSize());
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioBytes)));
@@ -1383,6 +1385,12 @@ public class TelegramBotTest {
         assertEquals(duration, audio.duration());
         assertEquals(performer, audio.performer());
         assertEquals(title, audio.title());
+
+        // send multipart InputMediaPhoto, InputMediaVideo to cover getFileName and getContentType
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaPhoto(photoFileId).thumb(thumbFile)));
+        assertNotNull(response.message().photo());
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaVideo(videoFileId).thumb(thumbFile)));
+        assertNotNull(response.message().video());
     }
 
     @Test
