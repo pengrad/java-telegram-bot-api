@@ -42,6 +42,7 @@ public class TelegramBotTest {
     String testPassportData;
     String testCallbackQuery;
     String testInlineQuery;
+    String testChosenInlineResult;
 
     Path resourcePath = Paths.get("src/test/resources");
     File imageFile = resourcePath.resolve("image.jpg").toFile();
@@ -88,6 +89,7 @@ public class TelegramBotTest {
             testPassportData = properties.getProperty("TEST_PASSPORT_DATA");
             testCallbackQuery = properties.getProperty("TEST_CALLBACK_QUERY");
             testInlineQuery = properties.getProperty("TEST_INLINE_QUERY");
+            testChosenInlineResult = properties.getProperty("TEST_CHOSEN_INLINE_RESULT");
             localBuild = true;
 
         } catch (Exception e) {
@@ -98,6 +100,7 @@ public class TelegramBotTest {
             testPassportData = System.getenv("TEST_PASSPORT_DATA");
             testCallbackQuery = System.getenv("TEST_CALLBACK_QUERY");
             testInlineQuery = System.getenv("TEST_INLINE_QUERY");
+            testChosenInlineResult = System.getenv("TEST_CHOSEN_INLINE_RESULT");
         }
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
                 .connectTimeout(75, TimeUnit.SECONDS)
@@ -344,6 +347,21 @@ public class TelegramBotTest {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
         }
+    }
+
+    @Test
+    public void chosenInlineResult() {
+        // chosenInlineResult is sent after user choose result from AnswerInlineQuery
+        // should be enabled for bot https://core.telegram.org/bots/inline#collecting-feedback
+        ChosenInlineResult inlineResult = BotUtils.parseUpdate(testChosenInlineResult).chosenInlineResult();
+
+        assertNotNull(inlineResult);
+        assertFalse(inlineResult.resultId().isEmpty());
+        UserTest.checkUser(inlineResult.from(), true);
+        assertEquals(Integer.valueOf(12345), inlineResult.from().id());
+        assertEquals("hi", inlineResult.query());
+        assertEquals("1", inlineResult.resultId());
+        assertNull(inlineResult.inlineMessageId());
     }
 
     @Test
