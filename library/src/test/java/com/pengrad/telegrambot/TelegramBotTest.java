@@ -45,6 +45,7 @@ public class TelegramBotTest {
     String testChosenInlineResult;
     String testPollAnswer;
     String testShippingQuery;
+    String testPreCheckoutQuery;
 
     Path resourcePath = Paths.get("src/test/resources");
     File imageFile = resourcePath.resolve("image.jpg").toFile();
@@ -94,6 +95,7 @@ public class TelegramBotTest {
             testChosenInlineResult = properties.getProperty("TEST_CHOSEN_INLINE_RESULT");
             testPollAnswer = properties.getProperty("TEST_POLL_ANSWER");
             testShippingQuery = properties.getProperty("TEST_SHIP_QUERY");
+            testPreCheckoutQuery = properties.getProperty("TEST_PRECHECKOUT_QUERY");
             localBuild = true;
 
         } catch (Exception e) {
@@ -107,6 +109,7 @@ public class TelegramBotTest {
             testChosenInlineResult = System.getenv("TEST_CHOSEN_INLINE_RESULT");
             testPollAnswer = System.getenv("TEST_POLL_ANSWER");
             testShippingQuery = System.getenv("TEST_SHIP_QUERY");
+            testPreCheckoutQuery = System.getenv("TEST_PRECHECKOUT_QUERY");
         }
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
                 .connectTimeout(75, TimeUnit.SECONDS)
@@ -1015,7 +1018,11 @@ public class TelegramBotTest {
 
                 }))
         );
+        Invoice invoice = response.message().invoice();
         InvoiceCheck.check(response.message().invoice());
+        assertEquals("USD", invoice.currency());
+        assertEquals(Integer.valueOf(200), invoice.totalAmount());
+
         InlineKeyboardButton payButton = response.message().replyMarkup().inlineKeyboard()[0][0];
         assertTrue(payButton.isPay());
         assertEquals("just pay", payButton.text());
@@ -1032,13 +1039,7 @@ public class TelegramBotTest {
         assertEquals("my_payload", shippingQuery.invoicePayload());
 
         ShippingAddress address = shippingQuery.shippingAddress();
-        assertNotNull(address);
-        assertEquals("US", address.countryCode());
-        assertEquals("Florida", address.state());
-        assertEquals("Miami", address.city());
-        assertEquals("Djs", address.streetLine1());
-        assertEquals("Djdjdjd", address.streetLine2());
-        assertEquals("25168", address.postCode());
+        checkTestShippingAddress(address);
 
         BaseResponse response = bot.execute(new AnswerShippingQuery(shippingQueryId,
                 new ShippingOption("1", "VNPT", new LabeledPrice("delivery", 100), new LabeledPrice("tips", 50)),
@@ -1064,10 +1065,34 @@ public class TelegramBotTest {
         }
     }
 
+    private void checkTestShippingAddress(ShippingAddress address) {
+        assertNotNull(address);
+        assertEquals("US", address.countryCode());
+        assertEquals("Florida", address.state());
+        assertEquals("Miami", address.city());
+        assertEquals("Djs", address.streetLine1());
+        assertEquals("Djdjdjd", address.streetLine2());
+        assertEquals("25168", address.postCode());
+    }
+
     @Test
     public void answerPreCheckoutQuery() {
-        PreCheckoutQuery preCheckoutQuery = getLastPreCheckoutQuery();
-        String preCheckoutQueryId = preCheckoutQuery != null ? preCheckoutQuery.id() : "invalid_query_id";
+        PreCheckoutQuery preCheckoutQuery = BotUtils.parseUpdate(testPreCheckoutQuery).preCheckoutQuery();
+
+        String preCheckoutQueryId = preCheckoutQuery.id();
+        assertEquals("112233", preCheckoutQueryId);
+        UserTest.checkUser(preCheckoutQuery.from(), true);
+        assertEquals(Integer.valueOf(12345), preCheckoutQuery.from().id());
+        assertEquals("USD", preCheckoutQuery.currency());
+        assertEquals(Integer.valueOf(200), preCheckoutQuery.totalAmount());
+        assertEquals("my_payload", preCheckoutQuery.invoicePayload());
+        assertEquals("2", preCheckoutQuery.shippingOptionId());
+
+        OrderInfo orderInfo = preCheckoutQuery.orderInfo();
+        assertEquals("uName", orderInfo.name());
+        assertEquals("+123456789", orderInfo.phoneNumber());
+        assertEquals("aaa@aaa.com", orderInfo.email());
+        checkTestShippingAddress(orderInfo.shippingAddress());
 
         BaseResponse response = bot.execute(new AnswerPreCheckoutQuery(preCheckoutQueryId));
 
@@ -1079,8 +1104,8 @@ public class TelegramBotTest {
 
     @Test
     public void answerPreCheckoutQueryError() {
-        PreCheckoutQuery preCheckoutQuery = getLastPreCheckoutQuery();
-        String preCheckoutQueryId = preCheckoutQuery != null ? preCheckoutQuery.id() : "invalid_query_id";
+        PreCheckoutQuery preCheckoutQuery = BotUtils.parseUpdate(testPreCheckoutQuery).preCheckoutQuery();
+        String preCheckoutQueryId = preCheckoutQuery.id();
 
         BaseResponse response = bot.execute(new AnswerPreCheckoutQuery(preCheckoutQueryId, "cant sell to you"));
 
@@ -1088,18 +1113,6 @@ public class TelegramBotTest {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
         }
-    }
-
-    private PreCheckoutQuery getLastPreCheckoutQuery() {
-        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
-        List<Update> updates = updatesResponse.updates();
-        Collections.reverse(updates);
-        for (Update update : updates) {
-            if (update.preCheckoutQuery() != null) {
-                return update.preCheckoutQuery();
-            }
-        }
-        return null;
     }
 
     @Test
