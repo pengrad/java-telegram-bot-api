@@ -365,6 +365,7 @@ public class TelegramBotTest {
         assertEquals("hi", inlineResult.query());
         assertEquals("1", inlineResult.resultId());
         assertNull(inlineResult.inlineMessageId());
+        assertNull(inlineResult.location());
     }
 
     @Test
