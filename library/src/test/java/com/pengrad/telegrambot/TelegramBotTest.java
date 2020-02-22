@@ -44,6 +44,7 @@ public class TelegramBotTest {
     String testInlineQuery;
     String testChosenInlineResult;
     String testPollAnswer;
+    String testShippingQuery;
 
     Path resourcePath = Paths.get("src/test/resources");
     File imageFile = resourcePath.resolve("image.jpg").toFile();
@@ -92,6 +93,7 @@ public class TelegramBotTest {
             testInlineQuery = properties.getProperty("TEST_INLINE_QUERY");
             testChosenInlineResult = properties.getProperty("TEST_CHOSEN_INLINE_RESULT");
             testPollAnswer = properties.getProperty("TEST_POLL_ANSWER");
+            testShippingQuery = properties.getProperty("TEST_SHIP_QUERY");
             localBuild = true;
 
         } catch (Exception e) {
@@ -104,6 +106,7 @@ public class TelegramBotTest {
             testInlineQuery = System.getenv("TEST_INLINE_QUERY");
             testChosenInlineResult = System.getenv("TEST_CHOSEN_INLINE_RESULT");
             testPollAnswer = System.getenv("TEST_POLL_ANSWER");
+            testShippingQuery = System.getenv("TEST_SHIP_QUERY");
         }
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
                 .connectTimeout(75, TimeUnit.SECONDS)
@@ -132,7 +135,7 @@ public class TelegramBotTest {
     @Test
     public void getUpdates() {
         GetUpdates getUpdates = new GetUpdates()
-                .offset(874203551)
+                .offset(874203582)
                 .allowedUpdates("")
                 .timeout(0)
                 .limit(100);
@@ -1020,8 +1023,22 @@ public class TelegramBotTest {
 
     @Test
     public void answerShippingQuery() {
-        ShippingQuery shippingQuery = getLastShippingQuery();
-        String shippingQueryId = shippingQuery != null ? shippingQuery.id() : "invalid_query_id";
+        ShippingQuery shippingQuery = BotUtils.parseUpdate(testShippingQuery).shippingQuery();
+
+        String shippingQueryId = shippingQuery.id();
+        assertFalse(shippingQueryId.isEmpty());
+        UserTest.checkUser(shippingQuery.from(), true);
+        assertEquals(Integer.valueOf(12345), shippingQuery.from().id());
+        assertEquals("my_payload", shippingQuery.invoicePayload());
+
+        ShippingAddress address = shippingQuery.shippingAddress();
+        assertNotNull(address);
+        assertEquals("US", address.countryCode());
+        assertEquals("Florida", address.state());
+        assertEquals("Miami", address.city());
+        assertEquals("Djs", address.streetLine1());
+        assertEquals("Djdjdjd", address.streetLine2());
+        assertEquals("25168", address.postCode());
 
         BaseResponse response = bot.execute(new AnswerShippingQuery(shippingQueryId,
                 new ShippingOption("1", "VNPT", new LabeledPrice("delivery", 100), new LabeledPrice("tips", 50)),
@@ -1036,8 +1053,8 @@ public class TelegramBotTest {
 
     @Test
     public void answerShippingQueryError() {
-        ShippingQuery shippingQuery = getLastShippingQuery();
-        String shippingQueryId = shippingQuery != null ? shippingQuery.id() : "invalid_query_id";
+        ShippingQuery shippingQuery = BotUtils.parseUpdate(testShippingQuery).shippingQuery();
+        String shippingQueryId = shippingQuery.id();
 
         BaseResponse response = bot.execute(new AnswerShippingQuery(shippingQueryId, "cant delivery so far"));
 
@@ -1045,18 +1062,6 @@ public class TelegramBotTest {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
         }
-    }
-
-    private ShippingQuery getLastShippingQuery() {
-        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
-        List<Update> updates = updatesResponse.updates();
-        Collections.reverse(updates);
-        for (Update update : updates) {
-            if (update.shippingQuery() != null) {
-                return update.shippingQuery();
-            }
-        }
-        return null;
     }
 
     @Test
