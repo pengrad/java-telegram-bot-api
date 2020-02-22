@@ -41,6 +41,7 @@ public class TelegramBotTest {
     String privateKey;
     String testPassportData;
     String testCallbackQuery;
+    String testInlineQuery;
 
     Path resourcePath = Paths.get("src/test/resources");
     File imageFile = resourcePath.resolve("image.jpg").toFile();
@@ -86,6 +87,7 @@ public class TelegramBotTest {
             privateKey = properties.getProperty("PRIVATE_KEY");
             testPassportData = properties.getProperty("TEST_PASSPORT_DATA");
             testCallbackQuery = properties.getProperty("TEST_CALLBACK_QUERY");
+            testInlineQuery = properties.getProperty("TEST_INLINE_QUERY");
             localBuild = true;
 
         } catch (Exception e) {
@@ -95,6 +97,7 @@ public class TelegramBotTest {
             privateKey = System.getenv("PRIVATE_KEY");
             testPassportData = System.getenv("TEST_PASSPORT_DATA");
             testCallbackQuery = System.getenv("TEST_CALLBACK_QUERY");
+            testInlineQuery = System.getenv("TEST_INLINE_QUERY");
         }
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
                 .connectTimeout(75, TimeUnit.SECONDS)
@@ -269,8 +272,17 @@ public class TelegramBotTest {
 
     @Test
     public void answerInline() {
-        InlineQuery lastInlineQuery = getLastInlineQuery();
-        String inlineQueryId = lastInlineQuery != null ? lastInlineQuery.id() : "invalid_query_id";
+        // inlineQuery sent by client after typing "@bot query" in message field
+        InlineQuery inlineQuery = BotUtils.parseUpdate(testInlineQuery).inlineQuery();
+
+        String inlineQueryId = inlineQuery.id();
+        assertFalse(inlineQueryId.isEmpty());
+        UserTest.checkUser(inlineQuery.from(), true);
+        assertEquals(Integer.valueOf(12345), inlineQuery.from().id());
+        assertEquals("if", inlineQuery.query());
+        assertEquals("offset", inlineQuery.offset());
+        assertNull(inlineQuery.location());
+
 
         InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton[]{
                 new InlineKeyboardButton("inline game").callbackGame("pengrad test game description"),
@@ -334,25 +346,15 @@ public class TelegramBotTest {
         }
     }
 
-    private InlineQuery getLastInlineQuery() {
-        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
-        List<Update> updates = updatesResponse.updates();
-        Collections.reverse(updates);
-        for (Update update : updates) {
-            if (update.inlineQuery() != null) {
-                return update.inlineQuery();
-            }
-        }
-        return null;
-    }
-
     @Test
     public void answerCallback() {
+        // callbackQuery sent by client after pressing on InlineKeyboardButton (used in sendGame() test)
         CallbackQuery callbackQuery = BotUtils.parseUpdate(testCallbackQuery).callbackQuery();
 
         assertNotNull(callbackQuery);
         assertFalse(callbackQuery.id().isEmpty());
         UserTest.checkUser(callbackQuery.from(), true);
+        assertEquals(chatId, callbackQuery.from().id());
         MessageTest.checkMessage(callbackQuery.message());
         assertFalse(callbackQuery.chatInstance().isEmpty());
         assertEquals("pengrad_test_game", callbackQuery.gameShortName());
