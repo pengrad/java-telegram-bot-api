@@ -40,6 +40,7 @@ public class TelegramBotTest {
     Integer memberBot = 215003245;
     String privateKey;
     String testPassportData;
+    String testCallbackQuery;
 
     Path resourcePath = Paths.get("src/test/resources");
     File imageFile = resourcePath.resolve("image.jpg").toFile();
@@ -84,6 +85,7 @@ public class TelegramBotTest {
             group = properties.getProperty("GROUP_ID");
             privateKey = properties.getProperty("PRIVATE_KEY");
             testPassportData = properties.getProperty("TEST_PASSPORT_DATA");
+            testCallbackQuery = properties.getProperty("TEST_CALLBACK_QUERY");
             localBuild = true;
 
         } catch (Exception e) {
@@ -92,6 +94,7 @@ public class TelegramBotTest {
             group = System.getenv("GROUP_ID");
             privateKey = System.getenv("PRIVATE_KEY");
             testPassportData = System.getenv("TEST_PASSPORT_DATA");
+            testCallbackQuery = System.getenv("TEST_CALLBACK_QUERY");
         }
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
                 .connectTimeout(75, TimeUnit.SECONDS)
@@ -345,31 +348,26 @@ public class TelegramBotTest {
 
     @Test
     public void answerCallback() {
-        CallbackQuery callbackQuery = getLastCallbackQuery();
-        String callbackQueryId = callbackQuery != null ? callbackQuery.id() : "invalid_query_id";
+        CallbackQuery callbackQuery = BotUtils.parseUpdate(testCallbackQuery).callbackQuery();
 
-        BaseResponse response = bot.execute(new AnswerCallbackQuery(callbackQueryId)
+        assertNotNull(callbackQuery);
+        assertFalse(callbackQuery.id().isEmpty());
+        UserTest.checkUser(callbackQuery.from(), true);
+        MessageTest.checkMessage(callbackQuery.message());
+        assertFalse(callbackQuery.chatInstance().isEmpty());
+        assertEquals("pengrad_test_game", callbackQuery.gameShortName());
+        assertNull(callbackQuery.inlineMessageId());
+        assertNull(callbackQuery.data());
+
+        BaseResponse response = bot.execute(new AnswerCallbackQuery(callbackQuery.id())
                 .text("answer callback")
                 .url("telegram.me/pengrad_test_bot?game=pengrad_test_game")
                 .showAlert(false)
                 .cacheTime(1));
 
-        if (!response.isOk()) {
-            assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
-        }
-    }
-
-    private CallbackQuery getLastCallbackQuery() {
-        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
-        List<Update> updates = updatesResponse.updates();
-        Collections.reverse(updates);
-        for (Update update : updates) {
-            if (update.callbackQuery() != null) {
-                return update.callbackQuery();
-            }
-        }
-        return null;
+        assertFalse(response.isOk());
+        assertEquals(400, response.errorCode());
+        assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
     }
 
     @Test
