@@ -84,7 +84,7 @@ public class InlineKeyboardButton implements Serializable {
     }
 
     public boolean isPay() {
-        return pay != null && pay;
+        return pay != null ? pay : false;
     }
 
     @Override

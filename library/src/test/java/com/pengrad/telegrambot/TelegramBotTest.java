@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot;
 
+import com.google.gson.*;
 import com.pengrad.telegrambot.impl.*;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.*;
@@ -40,6 +41,12 @@ public class TelegramBotTest {
     Integer memberBot = 215003245;
     String privateKey;
     String testPassportData;
+    String testCallbackQuery;
+    String testInlineQuery;
+    String testChosenInlineResult;
+    String testPollAnswer;
+    String testShippingQuery;
+    String testPreCheckoutQuery;
 
     Path resourcePath = Paths.get("src/test/resources");
     File imageFile = resourcePath.resolve("image.jpg").toFile();
@@ -84,6 +91,12 @@ public class TelegramBotTest {
             group = properties.getProperty("GROUP_ID");
             privateKey = properties.getProperty("PRIVATE_KEY");
             testPassportData = properties.getProperty("TEST_PASSPORT_DATA");
+            testCallbackQuery = properties.getProperty("TEST_CALLBACK_QUERY");
+            testInlineQuery = properties.getProperty("TEST_INLINE_QUERY");
+            testChosenInlineResult = properties.getProperty("TEST_CHOSEN_INLINE_RESULT");
+            testPollAnswer = properties.getProperty("TEST_POLL_ANSWER");
+            testShippingQuery = properties.getProperty("TEST_SHIP_QUERY");
+            testPreCheckoutQuery = properties.getProperty("TEST_PRECHECKOUT_QUERY");
             localBuild = true;
 
         } catch (Exception e) {
@@ -92,6 +105,12 @@ public class TelegramBotTest {
             group = System.getenv("GROUP_ID");
             privateKey = System.getenv("PRIVATE_KEY");
             testPassportData = System.getenv("TEST_PASSPORT_DATA");
+            testCallbackQuery = System.getenv("TEST_CALLBACK_QUERY");
+            testInlineQuery = System.getenv("TEST_INLINE_QUERY");
+            testChosenInlineResult = System.getenv("TEST_CHOSEN_INLINE_RESULT");
+            testPollAnswer = System.getenv("TEST_POLL_ANSWER");
+            testShippingQuery = System.getenv("TEST_SHIP_QUERY");
+            testPreCheckoutQuery = System.getenv("TEST_PRECHECKOUT_QUERY");
         }
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
                 .connectTimeout(75, TimeUnit.SECONDS)
@@ -120,7 +139,7 @@ public class TelegramBotTest {
     @Test
     public void getUpdates() {
         GetUpdates getUpdates = new GetUpdates()
-                .offset(870646662)
+                .offset(874203582)
                 .allowedUpdates("")
                 .timeout(0)
                 .limit(100);
@@ -266,8 +285,17 @@ public class TelegramBotTest {
 
     @Test
     public void answerInline() {
-        InlineQuery lastInlineQuery = getLastInlineQuery();
-        String inlineQueryId = lastInlineQuery != null ? lastInlineQuery.id() : "invalid_query_id";
+        // inlineQuery sent by client after typing "@bot query" in message field
+        InlineQuery inlineQuery = BotUtils.parseUpdate(testInlineQuery).inlineQuery();
+
+        String inlineQueryId = inlineQuery.id();
+        assertFalse(inlineQueryId.isEmpty());
+        UserTest.checkUser(inlineQuery.from(), true);
+        assertEquals(Integer.valueOf(12345), inlineQuery.from().id());
+        assertEquals("if", inlineQuery.query());
+        assertEquals("offset", inlineQuery.offset());
+        assertNull(inlineQuery.location());
+
 
         InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton[]{
                 new InlineKeyboardButton("inline game").callbackGame("pengrad test game description"),
@@ -331,45 +359,46 @@ public class TelegramBotTest {
         }
     }
 
-    private InlineQuery getLastInlineQuery() {
-        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
-        List<Update> updates = updatesResponse.updates();
-        Collections.reverse(updates);
-        for (Update update : updates) {
-            if (update.inlineQuery() != null) {
-                return update.inlineQuery();
-            }
-        }
-        return null;
+    @Test
+    public void chosenInlineResult() {
+        // chosenInlineResult is sent after user choose result from AnswerInlineQuery
+        // should be enabled for bot https://core.telegram.org/bots/inline#collecting-feedback
+        ChosenInlineResult inlineResult = BotUtils.parseUpdate(testChosenInlineResult).chosenInlineResult();
+
+        assertNotNull(inlineResult);
+        assertFalse(inlineResult.resultId().isEmpty());
+        UserTest.checkUser(inlineResult.from(), true);
+        assertEquals(Integer.valueOf(12345), inlineResult.from().id());
+        assertEquals("hi", inlineResult.query());
+        assertEquals("1", inlineResult.resultId());
+        assertNull(inlineResult.inlineMessageId());
+        assertNull(inlineResult.location());
     }
 
     @Test
     public void answerCallback() {
-        CallbackQuery callbackQuery = getLastCallbackQuery();
-        String callbackQueryId = callbackQuery != null ? callbackQuery.id() : "invalid_query_id";
+        // callbackQuery sent by client after pressing on InlineKeyboardButton (used in sendGame() test)
+        CallbackQuery callbackQuery = BotUtils.parseUpdate(testCallbackQuery).callbackQuery();
 
-        BaseResponse response = bot.execute(new AnswerCallbackQuery(callbackQueryId)
+        assertNotNull(callbackQuery);
+        assertFalse(callbackQuery.id().isEmpty());
+        UserTest.checkUser(callbackQuery.from(), true);
+        assertEquals(chatId, callbackQuery.from().id());
+        MessageTest.checkMessage(callbackQuery.message());
+        assertFalse(callbackQuery.chatInstance().isEmpty());
+        assertEquals("pengrad_test_game", callbackQuery.gameShortName());
+        assertNull(callbackQuery.inlineMessageId());
+        assertNull(callbackQuery.data());
+
+        BaseResponse response = bot.execute(new AnswerCallbackQuery(callbackQuery.id())
                 .text("answer callback")
                 .url("telegram.me/pengrad_test_bot?game=pengrad_test_game")
                 .showAlert(false)
                 .cacheTime(1));
 
-        if (!response.isOk()) {
-            assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
-        }
-    }
-
-    private CallbackQuery getLastCallbackQuery() {
-        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
-        List<Update> updates = updatesResponse.updates();
-        Collections.reverse(updates);
-        for (Update update : updates) {
-            if (update.callbackQuery() != null) {
-                return update.callbackQuery();
-            }
-        }
-        return null;
+        assertFalse(response.isOk());
+        assertEquals(400, response.errorCode());
+        assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
     }
 
     @Test
@@ -776,6 +805,7 @@ public class TelegramBotTest {
         assertEquals(duration, video.duration());
         assertEquals((Integer) 120, video.height());
         assertEquals((Integer) 400, video.width());
+        assertEquals("video/mp4", video.mimeType());
         assertNotEquals("telegram should generate thumb", thumbSize, video.thumb().fileSize());
 
         MessageEntity captionEntity = message.captionEntities()[0];
@@ -872,6 +902,7 @@ public class TelegramBotTest {
         assertNotNull(actualButtons[0].callbackGame());
         for (int i = 1; i < buttons.length; i++) {
             assertEquals(buttons[i].text(), actualButtons[i].text());
+            assertFalse(buttons[i].isPay());
         }
         assertEquals(buttons[1].callbackData(), actualButtons[1].callbackData());
         assertEquals(buttons[2].callbackData(), actualButtons[2].callbackData());
@@ -988,7 +1019,11 @@ public class TelegramBotTest {
 
                 }))
         );
+        Invoice invoice = response.message().invoice();
         InvoiceCheck.check(response.message().invoice());
+        assertEquals("USD", invoice.currency());
+        assertEquals(Integer.valueOf(200), invoice.totalAmount());
+
         InlineKeyboardButton payButton = response.message().replyMarkup().inlineKeyboard()[0][0];
         assertTrue(payButton.isPay());
         assertEquals("just pay", payButton.text());
@@ -996,8 +1031,16 @@ public class TelegramBotTest {
 
     @Test
     public void answerShippingQuery() {
-        ShippingQuery shippingQuery = getLastShippingQuery();
-        String shippingQueryId = shippingQuery != null ? shippingQuery.id() : "invalid_query_id";
+        ShippingQuery shippingQuery = BotUtils.parseUpdate(testShippingQuery).shippingQuery();
+
+        String shippingQueryId = shippingQuery.id();
+        assertFalse(shippingQueryId.isEmpty());
+        UserTest.checkUser(shippingQuery.from(), true);
+        assertEquals(Integer.valueOf(12345), shippingQuery.from().id());
+        assertEquals("my_payload", shippingQuery.invoicePayload());
+
+        ShippingAddress address = shippingQuery.shippingAddress();
+        checkTestShippingAddress(address);
 
         BaseResponse response = bot.execute(new AnswerShippingQuery(shippingQueryId,
                 new ShippingOption("1", "VNPT", new LabeledPrice("delivery", 100), new LabeledPrice("tips", 50)),
@@ -1012,8 +1055,8 @@ public class TelegramBotTest {
 
     @Test
     public void answerShippingQueryError() {
-        ShippingQuery shippingQuery = getLastShippingQuery();
-        String shippingQueryId = shippingQuery != null ? shippingQuery.id() : "invalid_query_id";
+        ShippingQuery shippingQuery = BotUtils.parseUpdate(testShippingQuery).shippingQuery();
+        String shippingQueryId = shippingQuery.id();
 
         BaseResponse response = bot.execute(new AnswerShippingQuery(shippingQueryId, "cant delivery so far"));
 
@@ -1023,22 +1066,34 @@ public class TelegramBotTest {
         }
     }
 
-    private ShippingQuery getLastShippingQuery() {
-        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
-        List<Update> updates = updatesResponse.updates();
-        Collections.reverse(updates);
-        for (Update update : updates) {
-            if (update.shippingQuery() != null) {
-                return update.shippingQuery();
-            }
-        }
-        return null;
+    private void checkTestShippingAddress(ShippingAddress address) {
+        assertNotNull(address);
+        assertEquals("US", address.countryCode());
+        assertEquals("Florida", address.state());
+        assertEquals("Miami", address.city());
+        assertEquals("Djs", address.streetLine1());
+        assertEquals("Djdjdjd", address.streetLine2());
+        assertEquals("25168", address.postCode());
     }
 
     @Test
     public void answerPreCheckoutQuery() {
-        PreCheckoutQuery preCheckoutQuery = getLastPreCheckoutQuery();
-        String preCheckoutQueryId = preCheckoutQuery != null ? preCheckoutQuery.id() : "invalid_query_id";
+        PreCheckoutQuery preCheckoutQuery = BotUtils.parseUpdate(testPreCheckoutQuery).preCheckoutQuery();
+
+        String preCheckoutQueryId = preCheckoutQuery.id();
+        assertEquals("112233", preCheckoutQueryId);
+        UserTest.checkUser(preCheckoutQuery.from(), true);
+        assertEquals(Integer.valueOf(12345), preCheckoutQuery.from().id());
+        assertEquals("USD", preCheckoutQuery.currency());
+        assertEquals(Integer.valueOf(200), preCheckoutQuery.totalAmount());
+        assertEquals("my_payload", preCheckoutQuery.invoicePayload());
+        assertEquals("2", preCheckoutQuery.shippingOptionId());
+
+        OrderInfo orderInfo = preCheckoutQuery.orderInfo();
+        assertEquals("uName", orderInfo.name());
+        assertEquals("+123456789", orderInfo.phoneNumber());
+        assertEquals("aaa@aaa.com", orderInfo.email());
+        checkTestShippingAddress(orderInfo.shippingAddress());
 
         BaseResponse response = bot.execute(new AnswerPreCheckoutQuery(preCheckoutQueryId));
 
@@ -1050,8 +1105,8 @@ public class TelegramBotTest {
 
     @Test
     public void answerPreCheckoutQueryError() {
-        PreCheckoutQuery preCheckoutQuery = getLastPreCheckoutQuery();
-        String preCheckoutQueryId = preCheckoutQuery != null ? preCheckoutQuery.id() : "invalid_query_id";
+        PreCheckoutQuery preCheckoutQuery = BotUtils.parseUpdate(testPreCheckoutQuery).preCheckoutQuery();
+        String preCheckoutQueryId = preCheckoutQuery.id();
 
         BaseResponse response = bot.execute(new AnswerPreCheckoutQuery(preCheckoutQueryId, "cant sell to you"));
 
@@ -1061,16 +1116,31 @@ public class TelegramBotTest {
         }
     }
 
-    private PreCheckoutQuery getLastPreCheckoutQuery() {
-        GetUpdatesResponse updatesResponse = bot.execute(new GetUpdates());
-        List<Update> updates = updatesResponse.updates();
-        Collections.reverse(updates);
-        for (Update update : updates) {
-            if (update.preCheckoutQuery() != null) {
-                return update.preCheckoutQuery();
-            }
-        }
-        return null;
+    @Test
+    public void testSuccessfulPayment() {
+        String jsonPayment = "{\"update_id\":263104091,\"message\":{\"message_id\":14442,\"from\":{\"id\":12345,\"is_bot\":false,\"first_name\":\"fName\",\"last_name\":\"lName\",\"username\":\"uName\",\"language_code\":\"en-US\"},\"chat\":{\"id\":12345,\"first_name\":\"fName\",\"last_name\":\"lName\",\"username\":\"uName\",\"type\":\"private\"},\"date\":1535389477,\"successful_payment\":{\"currency\":\"USD\",\"total_amount\":200,\"invoice_payload\":\"my_payload\",\"shipping_option_id\":\"2\",\"order_info\":{\"name\":\"uName\",\"phone_number\":\"+123456789\",\"email\":\"aaa@aaa.com\",\"shipping_address\":{\"country_code\":\"US\",\"state\":\"Florida\",\"city\":\"Miami\",\"street_line1\":\"Djs\",\"street_line2\":\"Djdjdjd\",\"post_code\":\"25168\"}},\"telegram_payment_charge_id\":\"tcid\",\"provider_payment_charge_id\":\"pcid\"}}}";
+        Message message = BotUtils.parseUpdate(jsonPayment).message();
+        SuccessfulPayment payment = message.successfulPayment();
+
+        assertEquals(Integer.valueOf(14442), message.messageId());
+        UserTest.checkUser(message.from(), true);
+        ChatTest.checkChat(message.chat());
+        assertEquals(Integer.valueOf(12345), message.from().id());
+        assertEquals(Long.valueOf(12345), message.chat().id());
+
+        assertNotNull(payment);
+        assertEquals("USD", payment.currency());
+        assertEquals(Integer.valueOf(200), payment.totalAmount());
+        assertEquals("my_payload", payment.invoicePayload());
+        assertEquals("2", payment.shippingOptionId());
+        assertEquals("tcid", payment.telegramPaymentChargeId());
+        assertEquals("pcid", payment.providerPaymentChargeId());
+
+        OrderInfo orderInfo = payment.orderInfo();
+        assertEquals("uName", orderInfo.name());
+        assertEquals("+123456789", orderInfo.phoneNumber());
+        assertEquals("aaa@aaa.com", orderInfo.email());
+        checkTestShippingAddress(orderInfo.shippingAddress());
     }
 
     @Test
@@ -1368,7 +1438,8 @@ public class TelegramBotTest {
         assertEquals((Integer) 57527, response.message().document().fileSize());
         assertEquals("video/mp4", response.message().document().mimeType());
 
-
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioFileId)));
+        assertEquals((Integer) 10286, response.message().audio().fileSize());
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioFile)));
         assertEquals((Integer) 10286, response.message().audio().fileSize());
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioBytes)));
@@ -1383,6 +1454,12 @@ public class TelegramBotTest {
         assertEquals(duration, audio.duration());
         assertEquals(performer, audio.performer());
         assertEquals(title, audio.title());
+
+        // send multipart InputMediaPhoto, InputMediaVideo to cover getFileName and getContentType
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaPhoto(photoFileId).thumb(thumbFile)));
+        assertNotNull(response.message().photo());
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaVideo(videoFileId).thumb(thumbFile)));
+        assertNotNull(response.message().video());
     }
 
     @Test
@@ -1508,6 +1585,7 @@ public class TelegramBotTest {
                         .isClosed(true)
         );
         Poll poll = sendResponse.message().poll();
+        assertFalse(poll.id().isEmpty());
         assertEquals(question, poll.question());
         assertEquals(answers.length, poll.options().length);
         for (int i = 0; i < answers.length; i++) {
@@ -1563,6 +1641,18 @@ public class TelegramBotTest {
             assertEquals(answers[i], option.text());
             assertEquals(Integer.valueOf(0), option.voterCount());
         }
+    }
+
+    @Test
+    public void pollAnswer() {
+        // pollAnswer is sent when user answers in a non-anonymous poll
+        PollAnswer pollAnswer = BotUtils.parseUpdate(testPollAnswer).pollAnswer();
+
+        assertNotNull(pollAnswer);
+        assertFalse(pollAnswer.pollId().isEmpty());
+        UserTest.checkUser(pollAnswer.user(), true);
+        assertEquals(Integer.valueOf(12345), pollAnswer.user().id());
+        assertArrayEquals(new Integer[]{0, 2}, pollAnswer.optionIds());
     }
 
     @Test
@@ -1630,5 +1720,15 @@ public class TelegramBotTest {
         assertEquals(caption, message.caption());
         MessageTest.checkMessage(message);
         PhotoSizeTest.checkPhotos(message.photo());
+    }
+
+    @Test
+    public void testResponseParameters() {
+        String errorJson = "{\"ok\":false,\"error_code\":400,\"description\":\"Bad Request: description\",\"parameters\":{\"migrate_to_chat_id\":123456789000,\"retry_after\":3}}";
+        BaseResponse response = new Gson().fromJson(errorJson, BaseResponse.class);
+        ResponseParameters parameters = response.parameters();
+        assertNotNull(parameters);
+        assertEquals(Long.valueOf(123456789000L), parameters.migrateToChatId());
+        assertEquals(Integer.valueOf(3), parameters.retryAfter());
     }
 }
