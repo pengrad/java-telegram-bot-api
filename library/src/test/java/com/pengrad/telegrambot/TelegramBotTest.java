@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot;
 
+import com.google.gson.*;
 import com.pengrad.telegrambot.impl.*;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.*;
@@ -1719,5 +1720,15 @@ public class TelegramBotTest {
         assertEquals(caption, message.caption());
         MessageTest.checkMessage(message);
         PhotoSizeTest.checkPhotos(message.photo());
+    }
+
+    @Test
+    public void testResponseParameters() {
+        String errorJson = "{\"ok\":false,\"error_code\":400,\"description\":\"Bad Request: description\",\"parameters\":{\"migrate_to_chat_id\":123456789000,\"retry_after\":3}}";
+        BaseResponse response = new Gson().fromJson(errorJson, BaseResponse.class);
+        ResponseParameters parameters = response.parameters();
+        assertNotNull(parameters);
+        assertEquals(Long.valueOf(123456789000L), parameters.migrateToChatId());
+        assertEquals(Integer.valueOf(3), parameters.retryAfter());
     }
 }
