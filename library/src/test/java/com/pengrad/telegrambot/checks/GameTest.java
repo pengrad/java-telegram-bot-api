@@ -1,8 +1,8 @@
-package com.pengrad.telegrambot;
+package com.pengrad.telegrambot.checks;
 
-import com.pengrad.telegrambot.model.Game;
+import com.pengrad.telegrambot.model.*;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * Stas Parshin
@@ -16,7 +16,7 @@ public class GameTest {
         assertNotNull(game.text());
         assertNotNull(game.textEntities());
         PhotoSizeTest.checkPhotos(game.photo());
-        AnimationTest.check(game.animation());
+        AnimationCheck.check(game.animation());
     }
 
 }

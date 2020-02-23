@@ -1,4 +1,4 @@
-package com.pengrad.telegrambot;
+package com.pengrad.telegrambot.checks;
 
 import com.pengrad.telegrambot.model.File;
 
