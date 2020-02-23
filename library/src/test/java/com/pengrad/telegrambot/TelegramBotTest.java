@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot;
 
 import com.google.gson.*;
+import com.pengrad.telegrambot.checks.*;
 import com.pengrad.telegrambot.impl.*;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.*;
@@ -1299,7 +1300,7 @@ public class TelegramBotTest {
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFileId)));
         assertTrue(response.isOk());
-        AnimationTest.check(response.message().animation());
+        AnimationCheck.check(response.message().animation());
         assertEquals(Integer.valueOf(3), response.message().animation().duration());
         assertNotEquals(gifFileId, response.message().animation().fileId());
         assertNotNull(response.message().document());
