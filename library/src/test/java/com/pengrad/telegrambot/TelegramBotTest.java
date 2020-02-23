@@ -30,88 +30,34 @@ import static org.junit.Assert.*;
  */
 public class TelegramBotTest {
 
-    TelegramBot bot;
-    Integer chatId;
-    Long groupId;
-    Integer forwardMessageId = 1;
-    Integer forwardMessageIdUser = 23714;
-    String stickerId = "BQADAgAD4AAD9HsZAAGVRXVaYXiJVAI";
-    String channelName = "@bottest";
-    Long channelId = -1001002720332L;
-    Integer memberBot = 215003245;
-    String privateKey;
-    String testPassportData;
-    String testCallbackQuery;
-    String testInlineQuery;
-    String testChosenInlineResult;
-    String testPollAnswer;
-    String testShippingQuery;
-    String testPreCheckoutQuery;
+    private static Properties props = new Properties();
 
-    Path resourcePath = Paths.get("src/test/resources");
-    File imageFile = resourcePath.resolve("image.jpg").toFile();
-    byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
-    File stickerFile = resourcePath.resolve("imageSticker.png").toFile();
-    File stickerFileAnim = resourcePath.resolve("sticker_anim.tgs").toFile();
-    File audioFile = resourcePath.resolve("beep.mp3").toFile();
-    byte[] audioBytes = Files.readAllBytes(audioFile.toPath());
-    File docFile = resourcePath.resolve("doc.txt").toFile();
-    byte[] docBytes = Files.readAllBytes(docFile.toPath());
-    File videoFile = resourcePath.resolve("tabs.mp4").toFile();
-    byte[] videoBytes = Files.readAllBytes(videoFile.toPath());
-    File videoNoteFile = resourcePath.resolve("video_note.mp4").toFile();
-    byte[] videoNoteBytes = Files.readAllBytes(videoNoteFile.toPath());
-    String certificateFile = resourcePath.resolve("cert.pem").toString();
-    String someUrl = "http://google.com/";
-    String audioFileId = "CQADAgADXAADgNqgSevw7NljQE4lAg";
-    String docFileId = "BQADAgADuwADgNqYSaVAUsHMq6hqAg";
-    String voiceFileId = "AwADAgADYwADuYNZSZww_hkrzCIpAg";
-    String videoFileId = "BAADAgADZAADuYNZSXhLnzJTZ2yvAg";
-    String photoFileId = "AgADAgADDKgxG7mDWUlvyFIJ9XfF9yszSw0ABBhVadWwbAK1z-wIAAEC";
-    String gifFileId = "CgADAgADfQADgNqgSTt9SzatJhc3FgQ";
-    String withSpaceFileId = "BAADAgADZwADkg-4SQI5WM0SPNHrAg";
-    String stickerSet = "testset_by_pengrad_test_bot";
-    String imageUrl = "https://telegram.org/img/t_logo.png";
-    File thumbFile = resourcePath.resolve("thumb.jpg").toFile();
-    byte[] thumbBytes = Files.readAllBytes(thumbFile.toPath());
-    Integer thumbSize = 3718;
-    File gifFile = resourcePath.resolve("anim3.gif").toFile();
-    byte[] gifBytes = Files.readAllBytes(gifFile.toPath());
+    static String getProp(String key) {
+        return props.getProperty(key, System.getenv(key));
+    }
 
-    public TelegramBotTest() throws IOException {
-        String token, chat, group;
-        boolean localBuild = false;
-
+    static {
         try {
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("local.properties"));
+            props.load(new FileInputStream("local.properties"));
+        } catch (Exception ignored) {}
 
-            token = properties.getProperty("TEST_TOKEN");
-            chat = properties.getProperty("CHAT_ID");
-            group = properties.getProperty("GROUP_ID");
-            privateKey = properties.getProperty("PRIVATE_KEY");
-            testPassportData = properties.getProperty("TEST_PASSPORT_DATA");
-            testCallbackQuery = properties.getProperty("TEST_CALLBACK_QUERY");
-            testInlineQuery = properties.getProperty("TEST_INLINE_QUERY");
-            testChosenInlineResult = properties.getProperty("TEST_CHOSEN_INLINE_RESULT");
-            testPollAnswer = properties.getProperty("TEST_POLL_ANSWER");
-            testShippingQuery = properties.getProperty("TEST_SHIP_QUERY");
-            testPreCheckoutQuery = properties.getProperty("TEST_PRECHECKOUT_QUERY");
-            localBuild = true;
+        String chat = getProp("CHAT_ID");
+        String group = getProp("GROUP_ID");
+        chatId = Integer.parseInt(chat);
+        groupId = Long.parseLong(group);
 
-        } catch (Exception e) {
-            token = System.getenv("TEST_TOKEN");
-            chat = System.getenv("CHAT_ID");
-            group = System.getenv("GROUP_ID");
-            privateKey = System.getenv("PRIVATE_KEY");
-            testPassportData = System.getenv("TEST_PASSPORT_DATA");
-            testCallbackQuery = System.getenv("TEST_CALLBACK_QUERY");
-            testInlineQuery = System.getenv("TEST_INLINE_QUERY");
-            testChosenInlineResult = System.getenv("TEST_CHOSEN_INLINE_RESULT");
-            testPollAnswer = System.getenv("TEST_POLL_ANSWER");
-            testShippingQuery = System.getenv("TEST_SHIP_QUERY");
-            testPreCheckoutQuery = System.getenv("TEST_PRECHECKOUT_QUERY");
-        }
+        privateKey = getProp("PRIVATE_KEY");
+        testPassportData = getProp("TEST_PASSPORT_DATA");
+        testCallbackQuery = getProp("TEST_CALLBACK_QUERY");
+        testInlineQuery = getProp("TEST_INLINE_QUERY");
+        testChosenInlineResult = getProp("TEST_CHOSEN_INLINE_RESULT");
+        testPollAnswer = getProp("TEST_POLL_ANSWER");
+    }
+
+    public static TelegramBot createTestBot() {
+        boolean localBuild = new File("local.properties").exists();
+        String token = getProp("TEST_TOKEN");
+
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
                 .connectTimeout(75, TimeUnit.SECONDS)
                 .writeTimeout(75, TimeUnit.SECONDS)
@@ -120,9 +66,69 @@ public class TelegramBotTest {
         if (localBuild) {
             okHttpBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
         }
-        bot = new TelegramBot.Builder(token).okHttpClient(okHttpBuilder.build()).build();
-        chatId = Integer.parseInt(chat);
-        groupId = Long.parseLong(group);
+        return new TelegramBot.Builder(token).okHttpClient(okHttpBuilder.build()).build();
+    }
+
+    static TelegramBot bot = createTestBot();
+    static Integer chatId;
+    static Long groupId;
+    Integer forwardMessageId = 1;
+    Integer forwardMessageIdUser = 23714;
+    String stickerId = "BQADAgAD4AAD9HsZAAGVRXVaYXiJVAI";
+    String channelName = "@bottest";
+    Long channelId = -1001002720332L;
+    Integer memberBot = 215003245;
+    static String privateKey;
+    static String testPassportData;
+    static String testCallbackQuery;
+    static String testInlineQuery;
+    static String testChosenInlineResult;
+    static String testPollAnswer;
+    static String testShippingQuery;
+    static String testPreCheckoutQuery;
+
+    static Path resourcePath = Paths.get("src/test/resources");
+    static File imageFile = resourcePath.resolve("image.jpg").toFile();
+    static byte[] imageBytes;
+    static File stickerFile = resourcePath.resolve("imageSticker.png").toFile();
+    static File stickerFileAnim = resourcePath.resolve("sticker_anim.tgs").toFile();
+    static File audioFile = resourcePath.resolve("beep.mp3").toFile();
+    static byte[] audioBytes;
+    static File docFile = resourcePath.resolve("doc.txt").toFile();
+    static byte[] docBytes;
+    static File videoFile = resourcePath.resolve("tabs.mp4").toFile();
+    static byte[] videoBytes;
+    static File videoNoteFile = resourcePath.resolve("video_note.mp4").toFile();
+    static byte[] videoNoteBytes;
+    static String certificateFile = resourcePath.resolve("cert.pem").toString();
+    static String someUrl = "http://google.com/";
+    static String audioFileId = "CQADAgADXAADgNqgSevw7NljQE4lAg";
+    static String docFileId = "BQADAgADuwADgNqYSaVAUsHMq6hqAg";
+    static String voiceFileId = "AwADAgADYwADuYNZSZww_hkrzCIpAg";
+    static String videoFileId = "BAADAgADZAADuYNZSXhLnzJTZ2yvAg";
+    static String photoFileId = "AgADAgADDKgxG7mDWUlvyFIJ9XfF9yszSw0ABBhVadWwbAK1z-wIAAEC";
+    static String gifFileId = "CgADAgADfQADgNqgSTt9SzatJhc3FgQ";
+    static String withSpaceFileId = "BAADAgADZwADkg-4SQI5WM0SPNHrAg";
+    static String stickerSet = "testset_by_pengrad_test_bot";
+    static String imageUrl = "https://telegram.org/img/t_logo.png";
+    static File thumbFile = resourcePath.resolve("thumb.jpg").toFile();
+    static byte[] thumbBytes;
+    static Integer thumbSize = 3718;
+    static File gifFile = resourcePath.resolve("anim3.gif").toFile();
+    static byte[] gifBytes;
+
+    static {
+        try {
+            imageBytes = Files.readAllBytes(imageFile.toPath());
+            audioBytes = Files.readAllBytes(audioFile.toPath());
+            docBytes = Files.readAllBytes(docFile.toPath());
+            videoBytes = Files.readAllBytes(videoFile.toPath());
+            videoNoteBytes = Files.readAllBytes(videoNoteFile.toPath());
+            thumbBytes = Files.readAllBytes(thumbFile.toPath());
+            gifBytes = Files.readAllBytes(gifFile.toPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -1003,144 +1009,6 @@ public class TelegramBotTest {
         response = bot.execute(new SendVideoNote(chatId, videoNoteBytes).thumb(thumbBytes));
         VideoNoteCheck.check(response.message().videoNote(), true);
         assertNotEquals("telegram should generate thumb", thumbSize, response.message().videoNote().thumb().fileSize());
-    }
-
-    @Test
-    public void sendInvoice() {
-        SendResponse response = bot.execute(new SendInvoice(chatId, "title", "desc", "my_payload",
-                "284685063:TEST:NThlNWQ3NDk0ZDQ5", "my_start_param", "USD", new LabeledPrice("label", 200))
-                .providerData("{\"foo\" : \"bar\"}")
-                .photoUrl("https://telegram.org/img/t_logo.png").photoSize(100).photoHeight(100).photoWidth(100)
-                .needPhoneNumber(true).needShippingAddress(true).needEmail(true).needName(true)
-                .isFlexible(true)
-                .replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton[]{
-                        new InlineKeyboardButton("just pay").pay(),
-                        new InlineKeyboardButton("google it").url("www.google.com")
-
-                }))
-        );
-        Invoice invoice = response.message().invoice();
-        InvoiceCheck.check(response.message().invoice());
-        assertEquals("USD", invoice.currency());
-        assertEquals(Integer.valueOf(200), invoice.totalAmount());
-
-        InlineKeyboardButton payButton = response.message().replyMarkup().inlineKeyboard()[0][0];
-        assertTrue(payButton.isPay());
-        assertEquals("just pay", payButton.text());
-    }
-
-    @Test
-    public void answerShippingQuery() {
-        ShippingQuery shippingQuery = BotUtils.parseUpdate(testShippingQuery).shippingQuery();
-
-        String shippingQueryId = shippingQuery.id();
-        assertFalse(shippingQueryId.isEmpty());
-        UserTest.checkUser(shippingQuery.from(), true);
-        assertEquals(Integer.valueOf(12345), shippingQuery.from().id());
-        assertEquals("my_payload", shippingQuery.invoicePayload());
-
-        ShippingAddress address = shippingQuery.shippingAddress();
-        checkTestShippingAddress(address);
-
-        BaseResponse response = bot.execute(new AnswerShippingQuery(shippingQueryId,
-                new ShippingOption("1", "VNPT", new LabeledPrice("delivery", 100), new LabeledPrice("tips", 50)),
-                new ShippingOption("2", "FREE", new LabeledPrice("free delivery", 0))
-        ));
-
-        if (!response.isOk()) {
-            assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
-        }
-    }
-
-    @Test
-    public void answerShippingQueryError() {
-        ShippingQuery shippingQuery = BotUtils.parseUpdate(testShippingQuery).shippingQuery();
-        String shippingQueryId = shippingQuery.id();
-
-        BaseResponse response = bot.execute(new AnswerShippingQuery(shippingQueryId, "cant delivery so far"));
-
-        if (!response.isOk()) {
-            assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
-        }
-    }
-
-    private void checkTestShippingAddress(ShippingAddress address) {
-        assertNotNull(address);
-        assertEquals("US", address.countryCode());
-        assertEquals("Florida", address.state());
-        assertEquals("Miami", address.city());
-        assertEquals("Djs", address.streetLine1());
-        assertEquals("Djdjdjd", address.streetLine2());
-        assertEquals("25168", address.postCode());
-    }
-
-    @Test
-    public void answerPreCheckoutQuery() {
-        PreCheckoutQuery preCheckoutQuery = BotUtils.parseUpdate(testPreCheckoutQuery).preCheckoutQuery();
-
-        String preCheckoutQueryId = preCheckoutQuery.id();
-        assertEquals("112233", preCheckoutQueryId);
-        UserTest.checkUser(preCheckoutQuery.from(), true);
-        assertEquals(Integer.valueOf(12345), preCheckoutQuery.from().id());
-        assertEquals("USD", preCheckoutQuery.currency());
-        assertEquals(Integer.valueOf(200), preCheckoutQuery.totalAmount());
-        assertEquals("my_payload", preCheckoutQuery.invoicePayload());
-        assertEquals("2", preCheckoutQuery.shippingOptionId());
-
-        OrderInfo orderInfo = preCheckoutQuery.orderInfo();
-        assertEquals("uName", orderInfo.name());
-        assertEquals("+123456789", orderInfo.phoneNumber());
-        assertEquals("aaa@aaa.com", orderInfo.email());
-        checkTestShippingAddress(orderInfo.shippingAddress());
-
-        BaseResponse response = bot.execute(new AnswerPreCheckoutQuery(preCheckoutQueryId));
-
-        if (!response.isOk()) {
-            assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
-        }
-    }
-
-    @Test
-    public void answerPreCheckoutQueryError() {
-        PreCheckoutQuery preCheckoutQuery = BotUtils.parseUpdate(testPreCheckoutQuery).preCheckoutQuery();
-        String preCheckoutQueryId = preCheckoutQuery.id();
-
-        BaseResponse response = bot.execute(new AnswerPreCheckoutQuery(preCheckoutQueryId, "cant sell to you"));
-
-        if (!response.isOk()) {
-            assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
-        }
-    }
-
-    @Test
-    public void testSuccessfulPayment() {
-        String jsonPayment = "{\"update_id\":263104091,\"message\":{\"message_id\":14442,\"from\":{\"id\":12345,\"is_bot\":false,\"first_name\":\"fName\",\"last_name\":\"lName\",\"username\":\"uName\",\"language_code\":\"en-US\"},\"chat\":{\"id\":12345,\"first_name\":\"fName\",\"last_name\":\"lName\",\"username\":\"uName\",\"type\":\"private\"},\"date\":1535389477,\"successful_payment\":{\"currency\":\"USD\",\"total_amount\":200,\"invoice_payload\":\"my_payload\",\"shipping_option_id\":\"2\",\"order_info\":{\"name\":\"uName\",\"phone_number\":\"+123456789\",\"email\":\"aaa@aaa.com\",\"shipping_address\":{\"country_code\":\"US\",\"state\":\"Florida\",\"city\":\"Miami\",\"street_line1\":\"Djs\",\"street_line2\":\"Djdjdjd\",\"post_code\":\"25168\"}},\"telegram_payment_charge_id\":\"tcid\",\"provider_payment_charge_id\":\"pcid\"}}}";
-        Message message = BotUtils.parseUpdate(jsonPayment).message();
-        SuccessfulPayment payment = message.successfulPayment();
-
-        assertEquals(Integer.valueOf(14442), message.messageId());
-        UserTest.checkUser(message.from(), true);
-        ChatTest.checkChat(message.chat());
-        assertEquals(Integer.valueOf(12345), message.from().id());
-        assertEquals(Long.valueOf(12345), message.chat().id());
-
-        assertNotNull(payment);
-        assertEquals("USD", payment.currency());
-        assertEquals(Integer.valueOf(200), payment.totalAmount());
-        assertEquals("my_payload", payment.invoicePayload());
-        assertEquals("2", payment.shippingOptionId());
-        assertEquals("tcid", payment.telegramPaymentChargeId());
-        assertEquals("pcid", payment.providerPaymentChargeId());
-
-        OrderInfo orderInfo = payment.orderInfo();
-        assertEquals("uName", orderInfo.name());
-        assertEquals("+123456789", orderInfo.phoneNumber());
-        assertEquals("aaa@aaa.com", orderInfo.email());
-        checkTestShippingAddress(orderInfo.shippingAddress());
     }
 
     @Test
