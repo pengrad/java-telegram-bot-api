@@ -1116,6 +1116,33 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void testSuccessfulPayment() {
+        String jsonPayment = "{\"update_id\":263104091,\"message\":{\"message_id\":14442,\"from\":{\"id\":12345,\"is_bot\":false,\"first_name\":\"fName\",\"last_name\":\"lName\",\"username\":\"uName\",\"language_code\":\"en-US\"},\"chat\":{\"id\":12345,\"first_name\":\"fName\",\"last_name\":\"lName\",\"username\":\"uName\",\"type\":\"private\"},\"date\":1535389477,\"successful_payment\":{\"currency\":\"USD\",\"total_amount\":200,\"invoice_payload\":\"my_payload\",\"shipping_option_id\":\"2\",\"order_info\":{\"name\":\"uName\",\"phone_number\":\"+123456789\",\"email\":\"aaa@aaa.com\",\"shipping_address\":{\"country_code\":\"US\",\"state\":\"Florida\",\"city\":\"Miami\",\"street_line1\":\"Djs\",\"street_line2\":\"Djdjdjd\",\"post_code\":\"25168\"}},\"telegram_payment_charge_id\":\"tcid\",\"provider_payment_charge_id\":\"pcid\"}}}";
+        Message message = BotUtils.parseUpdate(jsonPayment).message();
+        SuccessfulPayment payment = message.successfulPayment();
+
+        assertEquals(Integer.valueOf(14442), message.messageId());
+        UserTest.checkUser(message.from(), true);
+        ChatTest.checkChat(message.chat());
+        assertEquals(Integer.valueOf(12345), message.from().id());
+        assertEquals(Long.valueOf(12345), message.chat().id());
+
+        assertNotNull(payment);
+        assertEquals("USD", payment.currency());
+        assertEquals(Integer.valueOf(200), payment.totalAmount());
+        assertEquals("my_payload", payment.invoicePayload());
+        assertEquals("2", payment.shippingOptionId());
+        assertEquals("tcid", payment.telegramPaymentChargeId());
+        assertEquals("pcid", payment.providerPaymentChargeId());
+
+        OrderInfo orderInfo = payment.orderInfo();
+        assertEquals("uName", orderInfo.name());
+        assertEquals("+123456789", orderInfo.phoneNumber());
+        assertEquals("aaa@aaa.com", orderInfo.email());
+        checkTestShippingAddress(orderInfo.shippingAddress());
+    }
+
+    @Test
     public void setChatAdministratorCustomTitle() {
         BaseResponse response = bot.execute(new PromoteChatMember(groupId, memberBot).canPromoteMembers(true));
         assertTrue(response.isOk());
