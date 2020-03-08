@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'jacoco'
+apply plugin: 'kotlin'
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
@@ -10,6 +11,7 @@ compileTestJava {
 }
 
 dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
     compile 'com.google.code.gson:gson:2.8.5'
     compile 'com.squareup.okhttp3:okhttp:3.12.3'
     compile 'com.squareup.okhttp3:logging-interceptor:3.12.3'

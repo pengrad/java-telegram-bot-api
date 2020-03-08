@@ -146,7 +146,7 @@ public class TelegramBotTest {
     @Test
     public void getUpdates() {
         GetUpdates getUpdates = new GetUpdates()
-                .offset(874203582)
+                .offset(874203684)
                 .allowedUpdates("")
                 .timeout(0)
                 .limit(100);
@@ -421,10 +421,26 @@ public class TelegramBotTest {
         assertNull(chat.allMembersAreAdministrators());
         assertNull(chat.stickerSetName());
         assertNull(chat.canSetStickerSet());
+    }
 
-        chat = bot.execute(new GetChat(chatId)).chat();
+    @Test
+    public void getPrivateChat() {
+        Chat chat = bot.execute(new GetChat(chatId)).chat();
+        ChatTest.checkChat(chat, true);
+        assertEquals(Chat.Type.Private, chat.type());
+        assertEquals(chatId.intValue(), chat.id().intValue());
         assertNotNull(chat.firstName());
         assertNotNull(chat.lastName());
+    }
+
+    @Test
+    public void getGroupChat() {
+        Long groupId = -379852359L;
+        Chat chat = bot.execute(new GetChat(groupId)).chat();
+        ChatTest.checkChat(chat);
+        assertEquals(Chat.Type.group, chat.type());
+        assertEquals(groupId, chat.id());
+        assertTrue(chat.allMembersAreAdministrators());
     }
 
     @Test
