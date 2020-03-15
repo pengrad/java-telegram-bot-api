@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.model
 
-import com.pengrad.telegrambot.impl.SerialName
 import java.io.Serializable
 
 /**
@@ -10,8 +9,8 @@ import java.io.Serializable
 data class StickerSet(
         @get:JvmName("name") val name: String? = null,
         @get:JvmName("title") val title: String? = null,
-        @get:JvmName("isAnimated") @SerialName("is_animated") val isAnimated: Boolean? = null,
-        @get:JvmName("containsMasks") @SerialName("contains_masks") val containsMasks: Boolean? = null,
+        @get:JvmName("isAnimated") val is_animated: Boolean? = null,
+        @get:JvmName("containsMasks") val contains_masks: Boolean? = null,
         @get:JvmSynthetic val stickers: List<Sticker>? = null
 ) : Serializable {
 

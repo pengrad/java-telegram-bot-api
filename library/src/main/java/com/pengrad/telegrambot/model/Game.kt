@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.model
 
-import com.pengrad.telegrambot.impl.SerialName
 import java.io.Serializable
 
 /**
@@ -12,12 +11,12 @@ data class Game(
         @get:JvmName("description") val description: String? = null,
         @get:JvmSynthetic val photo: List<PhotoSize>? = null,
         @get:JvmName("text") val text: String? = null,
-        @get:JvmSynthetic @SerialName("text_entities") val textEntities: List<MessageEntity>? = null,
+        @get:JvmSynthetic val text_entities: List<MessageEntity>? = null,
         @get:JvmName("animation") val animation: Animation? = null
 ) : Serializable {
 
     fun photo(): Array<PhotoSize>? = photo?.toTypedArray()
-    fun textEntities(): Array<MessageEntity>? = textEntities?.toTypedArray()
+    fun textEntities(): Array<MessageEntity>? = text_entities?.toTypedArray()
 
     companion object {
         private const val serialVersionUID = 0L

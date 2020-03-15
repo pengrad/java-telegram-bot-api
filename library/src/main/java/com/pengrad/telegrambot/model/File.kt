@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.model
 
-import com.pengrad.telegrambot.impl.SerialName
 import java.io.Serializable
 
 /**
@@ -8,10 +7,10 @@ import java.io.Serializable
  * 16 October 2015
  */
 data class File(
-        @get:JvmName("fileId") @SerialName("file_id") val fileId: String? = null,
-        @get:JvmName("fileUniqueId") @SerialName("file_unique_id") val fileUniqueId: String? = null,
-        @get:JvmName("fileSize") @SerialName("file_size") val fileSize: Int? = null,
-        @get:JvmName("filePath") @SerialName("file_path") val filePath: String? = null
+        @get:JvmName("fileId") val file_id: String? = null,
+        @get:JvmName("fileUniqueId") val file_unique_id: String? = null,
+        @get:JvmName("fileSize") val file_size: Int? = null,
+        @get:JvmName("filePath") val file_path: String? = null
 ) : Serializable {
     companion object {
         private const val serialVersionUID = 0L

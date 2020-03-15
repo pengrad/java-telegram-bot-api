@@ -1,7 +1,5 @@
 package com.pengrad.telegrambot.model
 
-import com.google.gson.Gson
-import com.pengrad.telegrambot.impl.SerialName
 import java.io.Serializable
 
 /**
@@ -10,8 +8,8 @@ import java.io.Serializable
  */
 data class MaskPosition(
         @get:JvmName("point") var point: String? = null,
-        @get:JvmName("xShift") @SerialName("x_shift") var xShift: Float? = null,
-        @get:JvmName("yShift") @SerialName("y_shift") var yShift: Float? = null,
+        @get:JvmName("xShift") var x_shift: Float? = null,
+        @get:JvmName("yShift") var y_shift: Float? = null,
         @get:JvmName("scale") var scale: Float? = null
 ) : Serializable {
 

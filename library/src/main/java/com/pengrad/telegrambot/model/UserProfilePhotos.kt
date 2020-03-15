@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.model
 
-import com.pengrad.telegrambot.impl.SerialName
 import java.io.Serializable
 
 /**
@@ -8,7 +7,7 @@ import java.io.Serializable
  * 8/5/15.
  */
 data class UserProfilePhotos(
-        @get:JvmName("totalCount") @SerialName("total_count") val totalCount: Int? = null,
+        @get:JvmName("totalCount") val total_count: Int? = null,
         @get:JvmSynthetic val photos: List<List<PhotoSize>>? = null
 ) : Serializable {
 

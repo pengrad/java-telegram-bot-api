@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.model
 
-import com.pengrad.telegrambot.impl.SerialName
 import java.io.Serializable
 
 /**
@@ -9,12 +8,12 @@ import java.io.Serializable
  */
 data class SuccessfulPayment(
         @get:JvmName("currency") val currency: String? = null,
-        @get:JvmName("totalAmount") @SerialName("total_amount") val totalAmount: Int? = null,
-        @get:JvmName("invoicePayload") @SerialName("invoice_payload") val invoicePayload: String? = null,
-        @get:JvmName("shippingOptionId") @SerialName("shipping_option_id") val shippingOptionId: String? = null,
-        @get:JvmName("orderInfo") @SerialName("order_info") val orderInfo: OrderInfo? = null,
-        @get:JvmName("telegramPaymentChargeId") @SerialName("telegram_payment_charge_id") val telegramPaymentChargeId: String? = null,
-        @get:JvmName("providerPaymentChargeId") @SerialName("provider_payment_charge_id") val providerPaymentChargeId: String? = null
+        @get:JvmName("totalAmount") val total_amount: Int? = null,
+        @get:JvmName("invoicePayload") val invoice_payload: String? = null,
+        @get:JvmName("shippingOptionId") val shipping_option_id: String? = null,
+        @get:JvmName("orderInfo") val order_info: OrderInfo? = null,
+        @get:JvmName("telegramPaymentChargeId") val telegram_payment_charge_id: String? = null,
+        @get:JvmName("providerPaymentChargeId") val provider_payment_charge_id: String? = null
 ) : Serializable {
     companion object {
         private const val serialVersionUID = 0L

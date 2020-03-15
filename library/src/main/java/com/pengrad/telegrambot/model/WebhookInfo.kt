@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.model
 
-import com.pengrad.telegrambot.impl.SerialName
 import java.io.Serializable
 
 /**
@@ -9,15 +8,15 @@ import java.io.Serializable
  */
 data class WebhookInfo(
         @get:JvmName("url") val url: String? = null,
-        @get:JvmName("hasCustomCertificate") @SerialName("has_custom_certificate") val hasCustomCertificate: Boolean? = null,
-        @get:JvmName("pendingUpdateCount") @SerialName("pending_update_count") val pendingUpdateCount: Int? = null,
-        @get:JvmName("lastErrorDate") @SerialName("last_error_date") val lastErrorDate: Int? = null,
-        @get:JvmName("lastErrorMessage") @SerialName("last_error_message") val lastErrorMessage: String? = null,
-        @get:JvmName("maxConnections") @SerialName("max_connections") val maxConnections: Int? = null,
-        @get:JvmSynthetic @SerialName("allowed_updates") val allowedUpdates: List<String>? = null
+        @get:JvmName("hasCustomCertificate") val has_custom_certificate: Boolean? = null,
+        @get:JvmName("pendingUpdateCount") val pending_update_count: Int? = null,
+        @get:JvmName("lastErrorDate") val last_error_date: Int? = null,
+        @get:JvmName("lastErrorMessage") val last_error_message: String? = null,
+        @get:JvmName("maxConnections") val max_connections: Int? = null,
+        @get:JvmSynthetic val allowed_updates: List<String>? = null
 ) : Serializable {
 
-    fun allowedUpdates(): Array<String>? = allowedUpdates?.toTypedArray()
+    fun allowedUpdates(): Array<String>? = allowed_updates?.toTypedArray()
 
     companion object {
         private const val serialVersionUID = 0L
