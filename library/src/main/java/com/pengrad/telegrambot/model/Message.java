@@ -1,10 +1,10 @@
 package com.pengrad.telegrambot.model;
 
-import com.pengrad.telegrambot.model.request.*;
-import com.pengrad.telegrambot.passport.*;
+import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
+import com.pengrad.telegrambot.passport.PassportData;
 
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * stas
