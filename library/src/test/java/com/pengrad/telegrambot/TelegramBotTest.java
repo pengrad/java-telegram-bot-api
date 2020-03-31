@@ -1345,19 +1345,22 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void createNewStickerSetTgs() {
-        BaseResponse response = bot.execute(
-                CreateNewStickerSet.tgsSticker(
-                        chatId, "test" + System.currentTimeMillis() + "_by_pengrad_test_bot",
-                        "test1", "\uD83D\uDE00", stickerFileAnim));
-        assertTrue(response.isOk());
-    }
-
-    @Test
     public void addStickerToSet() {
         BaseResponse response = bot.execute(
                 new AddStickerToSet(chatId, stickerSet, "BQADAgADuAAD7yupS4eB23UmZhGuAg", "\uD83D\uDE15")
                         .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f)));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void createSetAndAddStickerTgs() {
+        String setName = "test" + System.currentTimeMillis() + "_by_pengrad_test_bot";
+        BaseResponse response = bot.execute(
+                CreateNewStickerSet.tgsSticker(chatId, setName, "test1", "\uD83D\uDE00", stickerFileAnim));
+        assertTrue(response.isOk());
+
+        response = bot.execute(
+                AddStickerToSet.tgsSticker(chatId, setName, "\uD83D\uDE15", stickerFileAnim));
         assertTrue(response.isOk());
     }
 

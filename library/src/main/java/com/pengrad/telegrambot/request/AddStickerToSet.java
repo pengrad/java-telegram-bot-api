@@ -9,8 +9,16 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class AddStickerToSet extends AbstractUploadRequest<AddStickerToSet, BaseResponse> {
 
+    public static AddStickerToSet tgsSticker(Integer userId, String name, String emojis, Object tgsSticker) {
+        return new AddStickerToSet(userId, name, emojis, "tgs_sticker", tgsSticker);
+    }
+
     public AddStickerToSet(Integer userId, String name, Object pngSticker, String emojis) {
-        super(BaseResponse.class, "png_sticker", pngSticker);
+        this(userId, name, emojis, "png_sticker", pngSticker);
+    }
+
+    private AddStickerToSet(Integer userId, String name, String emojis, String stickerParam, Object sticker) {
+        super(BaseResponse.class, stickerParam, sticker);
         add("user_id", userId);
         add("name", name);
         add("emojis", emojis);
