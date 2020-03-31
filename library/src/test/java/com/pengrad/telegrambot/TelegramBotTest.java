@@ -1604,6 +1604,9 @@ public class TelegramBotTest {
     @Test
     public void sendDice() {
         SendResponse response = bot.execute(new SendDice(chatId));
-        System.out.println(response);
+        Dice dice = response.message().dice();
+        assertNotNull(dice);
+        assertTrue(dice.value() >= 1 && dice.value() <= 6);
+        assertNotNull(dice.value());
     }
 }
