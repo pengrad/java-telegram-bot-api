@@ -1397,6 +1397,14 @@ public class TelegramBotTest {
         BaseResponse response = bot.execute(new SetStickerSetThumb(stickerSetAnim, chatId, thumbFile));
         assertTrue(response.isOk());
 
+        StickerSet set = bot.execute(new GetStickerSet(stickerSetAnim)).stickerSet();
+        assertTrue(set.isAnimated());
+        PhotoSize thumb = set.thumb();
+        PhotoSizeTest.checkPhotos(thumb);
+        assertEquals(Integer.valueOf(100), thumb.width());
+        assertEquals(Integer.valueOf(100), thumb.height());
+        assertEquals(Integer.valueOf(8244), thumb.fileSize());
+
         // clear thumb by not sending it
         response = bot.execute(new SetStickerSetThumb(stickerSetAnim, chatId));
         assertTrue(response.isOk());
