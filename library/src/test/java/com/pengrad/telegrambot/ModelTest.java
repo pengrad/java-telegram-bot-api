@@ -7,13 +7,13 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.passport.Credentials;
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 import static org.junit.Assert.assertTrue;
 
@@ -85,9 +88,9 @@ public class ModelTest {
     }
 
     @Test
-    public void testToString() throws IllegalAccessException, InstantiationException {
+    public void testToString() throws Exception {
         for (Class c : classes) {
-            Object instance = customInstance.containsKey(c) ? customInstance.get(c).get() : c.newInstance();
+            Object instance = customInstance.containsKey(c) ? customInstance.get(c).get() : defaultInstance(c);
             String toString = instance.toString();
             for (Field f : c.getDeclaredFields()) {
                 if (Modifier.isStatic(f.getModifiers())) {
@@ -96,5 +99,11 @@ public class ModelTest {
                 assertTrue(c.getSimpleName() + " toString doesn't contain " + f.getName(), toString.contains(f.getName()));
             }
         }
+    }
+
+    private Object defaultInstance(Class c) throws Exception {
+        Constructor constructor = c.getDeclaredConstructor();
+        constructor.setAccessible(true);
+        return constructor.newInstance();
     }
 }
