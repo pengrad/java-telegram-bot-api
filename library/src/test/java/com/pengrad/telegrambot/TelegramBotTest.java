@@ -1419,11 +1419,14 @@ public class TelegramBotTest {
             assertEquals("Bad Request: message can't be edited", response.description());
         }
 
-        response = bot.execute(new EditMessageLiveLocation("AgAAAPrwAQCj_Q4D2s-51_8jsuU", 21, 105));
-        if (!response.isOk()) {
-            assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: message is not modified", response.description());
-        }
+        String buttonText = "btn_" + System.currentTimeMillis();
+        response = bot.execute(
+                new EditMessageLiveLocation("AgAAAPrwAQCj_Q4D2s-51_8jsuU", 21, 102)
+                        .replyMarkup(new InlineKeyboardMarkup(
+                                new InlineKeyboardButton[]{new InlineKeyboardButton(buttonText).callbackGame(buttonText)}
+                        ))
+        );
+        assertTrue(response.isOk());
     }
 
     @Test
