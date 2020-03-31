@@ -156,6 +156,7 @@ import com.pengrad.telegrambot.request.SetChatTitle;
 import com.pengrad.telegrambot.request.SetGameScore;
 import com.pengrad.telegrambot.request.SetMyCommands;
 import com.pengrad.telegrambot.request.SetStickerPositionInSet;
+import com.pengrad.telegrambot.request.SetStickerSetThumb;
 import com.pengrad.telegrambot.request.SetWebhook;
 import com.pengrad.telegrambot.request.StopMessageLiveLocation;
 import com.pengrad.telegrambot.request.StopPoll;
@@ -296,6 +297,7 @@ public class TelegramBotTest {
     static String gifFileId = "CgADAgADfQADgNqgSTt9SzatJhc3FgQ";
     static String withSpaceFileId = "BAADAgADZwADkg-4SQI5WM0SPNHrAg";
     static String stickerSet = "testset_by_pengrad_test_bot";
+    static String stickerSetAnim = "testset_anim_by_pengrad_test_bot";
     static String imageUrl = "https://telegram.org/img/t_logo.png";
     static File thumbFile = resourcePath.resolve("thumb.jpg").toFile();
     static byte[] thumbBytes;
@@ -1387,6 +1389,17 @@ public class TelegramBotTest {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: STICKERSET_NOT_MODIFIED", response.description());
         }
+    }
+
+    @Test
+    public void setStickerSetThumb() {
+        String thumbFile = "CAACAgIAAxkBAAJ0ll6DO4bNCynpfZmS6g-YcGY2zrP5AAIBAAPANk8TGC5zMKs_LVEYBA";
+        BaseResponse response = bot.execute(new SetStickerSetThumb(stickerSetAnim, chatId, thumbFile));
+        assertTrue(response.isOk());
+
+        // clear thumb by not sending it
+        response = bot.execute(new SetStickerSetThumb(stickerSetAnim, chatId));
+        assertTrue(response.isOk());
     }
 
     @Test
