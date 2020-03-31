@@ -331,7 +331,7 @@ public class TelegramBotTest {
     @Test
     public void getUpdates() {
         GetUpdates getUpdates = new GetUpdates()
-                .offset(874203582)
+                .offset(874204133)
                 .allowedUpdates("")
                 .timeout(0)
                 .limit(100);
@@ -1341,6 +1341,15 @@ public class TelegramBotTest {
                         "test1", stickerFile, "\uD83D\uDE00")
                         .containsMasks(true)
                         .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f)));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void createNewStickerSetTgs() {
+        BaseResponse response = bot.execute(
+                CreateNewStickerSet.tgsSticker(
+                        chatId, "test" + System.currentTimeMillis() + "_by_pengrad_test_bot",
+                        "test1", "\uD83D\uDE00", stickerFileAnim));
         assertTrue(response.isOk());
     }
 
