@@ -1,10 +1,10 @@
 package com.pengrad.telegrambot.model;
 
-import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
-import com.pengrad.telegrambot.passport.PassportData;
+import com.pengrad.telegrambot.model.request.*;
+import com.pengrad.telegrambot.passport.*;
 
-import java.io.Serializable;
-import java.util.Arrays;
+import java.io.*;
+import java.util.*;
 
 /**
  * stas
@@ -44,6 +44,7 @@ public class Message implements Serializable {
     private Location location;
     private Venue venue;
     private Poll poll;
+    private Dice dice;
     private User[] new_chat_members;
     private User left_chat_member;
     private String new_chat_title;
@@ -185,6 +186,10 @@ public class Message implements Serializable {
         return poll;
     }
 
+    public Dice dice() {
+        return dice;
+    }
+
     public User[] newChatMembers() {
         return new_chat_members;
     }
@@ -260,7 +265,8 @@ public class Message implements Serializable {
         if (from != null ? !from.equals(message.from) : message.from != null) return false;
         if (date != null ? !date.equals(message.date) : message.date != null) return false;
         if (chat != null ? !chat.equals(message.chat) : message.chat != null) return false;
-        if (forward_from != null ? !forward_from.equals(message.forward_from) : message.forward_from != null) return false;
+        if (forward_from != null ? !forward_from.equals(message.forward_from) : message.forward_from != null)
+            return false;
         if (forward_from_chat != null ? !forward_from_chat.equals(message.forward_from_chat) : message.forward_from_chat != null)
             return false;
         if (forward_from_message_id != null ? !forward_from_message_id.equals(message.forward_from_message_id) : message.forward_from_message_id != null)
@@ -269,7 +275,8 @@ public class Message implements Serializable {
             return false;
         if (forward_sender_name != null ? !forward_sender_name.equals(message.forward_sender_name) : message.forward_sender_name != null)
             return false;
-        if (forward_date != null ? !forward_date.equals(message.forward_date) : message.forward_date != null) return false;
+        if (forward_date != null ? !forward_date.equals(message.forward_date) : message.forward_date != null)
+            return false;
         if (reply_to_message != null ? !reply_to_message.equals(message.reply_to_message) : message.reply_to_message != null)
             return false;
         if (edit_date != null ? !edit_date.equals(message.edit_date) : message.edit_date != null) return false;
@@ -297,6 +304,7 @@ public class Message implements Serializable {
         if (location != null ? !location.equals(message.location) : message.location != null) return false;
         if (venue != null ? !venue.equals(message.venue) : message.venue != null) return false;
         if (poll != null ? !poll.equals(message.poll) : message.poll != null) return false;
+        if (dice != null ? !dice.equals(message.dice) : message.dice != null) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(new_chat_members, message.new_chat_members)) return false;
         if (left_chat_member != null ? !left_chat_member.equals(message.left_chat_member) : message.left_chat_member != null)
@@ -324,7 +332,8 @@ public class Message implements Serializable {
             return false;
         if (connected_website != null ? !connected_website.equals(message.connected_website) : message.connected_website != null)
             return false;
-        if (passport_data != null ? !passport_data.equals(message.passport_data) : message.passport_data != null) return false;
+        if (passport_data != null ? !passport_data.equals(message.passport_data) : message.passport_data != null)
+            return false;
         return reply_markup != null ? reply_markup.equals(message.reply_markup) : message.reply_markup == null;
     }
 
@@ -367,6 +376,7 @@ public class Message implements Serializable {
                 ", location=" + location +
                 ", venue=" + venue +
                 ", poll=" + poll +
+                ", dice=" + dice +
                 ", new_chat_members=" + Arrays.toString(new_chat_members) +
                 ", left_chat_member=" + left_chat_member +
                 ", new_chat_title='" + new_chat_title + '\'' +
