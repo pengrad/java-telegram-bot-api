@@ -14,7 +14,7 @@ public class BotCommand implements Serializable {
         this.description = description;
     }
 
-    private BotCommand() {}
+    BotCommand() {}
 
     private String command;
     private String description;
