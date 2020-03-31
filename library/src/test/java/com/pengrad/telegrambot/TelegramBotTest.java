@@ -1600,4 +1600,10 @@ public class TelegramBotTest {
         assertEquals(Long.valueOf(123456789000L), parameters.migrateToChatId());
         assertEquals(Integer.valueOf(3), parameters.retryAfter());
     }
+
+    @Test
+    public void sendDice() {
+        SendResponse response = bot.execute(new SendDice(chatId));
+        System.out.println(response);
+    }
 }
