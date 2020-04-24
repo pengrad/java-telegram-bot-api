@@ -1695,6 +1695,7 @@ public class TelegramBotTest {
         assertEquals("Some explanation of poll", poll.explanation());
         assertEquals(1, poll.explanationEntities().length);
         assertEquals(MessageEntity.Type.underline, poll.explanationEntities()[0].type());
+        assertTrue(poll.openPeriod() >= 495 && poll.openPeriod() <= 500);
     }
 
     @Test
@@ -1720,6 +1721,7 @@ public class TelegramBotTest {
         assertEquals(poll.totalVoterCount(), Integer.valueOf(0));
         assertEquals(poll.type(), Poll.Type.regular);
         assertTrue(poll.allowsMultipleAnswers());
+        assertEquals(closeDate, poll.closeDate().longValue());
     }
 
     @Test
