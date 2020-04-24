@@ -9,7 +9,12 @@ import java.io.Serializable;
 public class Dice implements Serializable {
     private final static long serialVersionUID = 0L;
 
+    private String emoji;
     private Integer value;
+
+    public String emoji() {
+        return emoji;
+    }
 
     public Integer value() {
         return value;
@@ -22,18 +27,22 @@ public class Dice implements Serializable {
 
         Dice dice = (Dice) o;
 
+        if (emoji != null ? !emoji.equals(dice.emoji) : dice.emoji != null) return false;
         return value != null ? value.equals(dice.value) : dice.value == null;
     }
 
     @Override
     public int hashCode() {
-        return value != null ? value.hashCode() : 0;
+        int result = emoji != null ? emoji.hashCode() : 0;
+        result = 31 * result + (value != null ? value.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
         return "Dice{" +
-                "value=" + value +
+                "emoji='" + emoji + '\'' +
+                ", value=" + value +
                 '}';
     }
 }
