@@ -1673,6 +1673,8 @@ public class TelegramBotTest {
                         .allowsMultipleAnswers(false)
                         .correctOptionId(1)
                         .isClosed(true)
+                        .explanation("Some __explanation__ of poll")
+                        .explanationParseMode(ParseMode.MarkdownV2)
         );
         Poll poll = sendResponse.message().poll();
         assertFalse(poll.id().isEmpty());
