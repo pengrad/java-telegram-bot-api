@@ -1672,9 +1672,10 @@ public class TelegramBotTest {
                         .type(Poll.Type.quiz)
                         .allowsMultipleAnswers(false)
                         .correctOptionId(1)
-                        .isClosed(true)
+                        .isClosed(false)
                         .explanation("Some __explanation__ of poll")
                         .explanationParseMode(ParseMode.MarkdownV2)
+                        .openPeriod(500)
         );
         Poll poll = sendResponse.message().poll();
         assertFalse(poll.id().isEmpty());
@@ -1690,7 +1691,7 @@ public class TelegramBotTest {
         assertFalse(poll.allowsMultipleAnswers());
         assertEquals(poll.totalVoterCount(), Integer.valueOf(0));
         assertEquals(poll.correctOptionId(), Integer.valueOf(1));
-        assertTrue(poll.isClosed());
+        assertFalse(poll.isClosed());
         assertEquals("Some explanation of poll", poll.explanation());
         assertEquals(1, poll.explanationEntities().length);
         assertEquals(MessageEntity.Type.underline, poll.explanationEntities()[0].type());
@@ -1700,6 +1701,7 @@ public class TelegramBotTest {
     public void sendPollWithKeyboard() {
         String question = "Question ?";
         String[] answers = {"Answer 1", "Answer 2"};
+        long closeDate = System.currentTimeMillis() / 1000 + 500;
         SendResponse sendResponse = bot.execute(
                 new SendPoll(chatId, question, answers)
                         .type("regular")
@@ -1709,6 +1711,7 @@ public class TelegramBotTest {
                                 new KeyboardButton("quiz").requestPoll(new KeyboardButtonPollType(Poll.Type.quiz)),
                                 new KeyboardButton("regular").requestPoll(new KeyboardButtonPollType("regular"))
                         }))
+                        .closeDate(closeDate)
         );
         Poll poll = sendResponse.message().poll();
         assertEquals(question, poll.question());

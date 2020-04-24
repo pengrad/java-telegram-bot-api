@@ -27,16 +27,12 @@ public class SendPoll extends AbstractSendRequest<SendPoll> {
         return add("type", type);
     }
 
-    public SendPoll correctOptionId(int correctOptionId) {
-        return add("correct_option_id", correctOptionId);
-    }
-
     public SendPoll allowsMultipleAnswers(boolean allowsMultipleAnswers) {
         return add("allows_multiple_answers", allowsMultipleAnswers);
     }
 
-    public SendPoll isClosed(boolean isClosed) {
-        return add("is_closed", isClosed);
+    public SendPoll correctOptionId(int correctOptionId) {
+        return add("correct_option_id", correctOptionId);
     }
 
     public SendPoll explanation(String explanation) {
@@ -45,5 +41,17 @@ public class SendPoll extends AbstractSendRequest<SendPoll> {
 
     public SendPoll explanationParseMode(ParseMode parseMode) {
         return add("explanation_parse_mode", parseMode);
+    }
+
+    public SendPoll openPeriod(int openPeriod) {
+        return add("open_period", openPeriod);
+    }
+
+    public SendPoll closeDate(long closeDate) {
+        return add("close_date", closeDate);
+    }
+
+    public SendPoll isClosed(boolean isClosed) {
+        return add("is_closed", isClosed);
     }
 }
