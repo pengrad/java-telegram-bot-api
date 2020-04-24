@@ -1691,6 +1691,9 @@ public class TelegramBotTest {
         assertEquals(poll.totalVoterCount(), Integer.valueOf(0));
         assertEquals(poll.correctOptionId(), Integer.valueOf(1));
         assertTrue(poll.isClosed());
+        assertEquals("Some explanation of poll", poll.explanation());
+        assertEquals(1, poll.explanationEntities().length);
+        assertEquals(MessageEntity.Type.underline, poll.explanationEntities()[0].type());
     }
 
     @Test

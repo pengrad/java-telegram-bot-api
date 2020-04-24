@@ -23,6 +23,8 @@ public class Poll implements Serializable {
     private Type type;
     private Boolean allows_multiple_answers;
     private Integer correct_option_id;
+    private String explanation;
+    private MessageEntity[] explanation_entities;
 
     public String id() {
         return id;
@@ -60,6 +62,14 @@ public class Poll implements Serializable {
         return correct_option_id;
     }
 
+    public String explanation() {
+        return explanation;
+    }
+
+    public MessageEntity[] explanationEntities() {
+        return explanation_entities;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -78,7 +88,11 @@ public class Poll implements Serializable {
         if (type != poll.type) return false;
         if (allows_multiple_answers != null ? !allows_multiple_answers.equals(poll.allows_multiple_answers) : poll.allows_multiple_answers != null)
             return false;
-        return correct_option_id != null ? correct_option_id.equals(poll.correct_option_id) : poll.correct_option_id == null;
+        if (correct_option_id != null ? !correct_option_id.equals(poll.correct_option_id) : poll.correct_option_id != null)
+            return false;
+        if (explanation != null ? !explanation.equals(poll.explanation) : poll.explanation != null) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(explanation_entities, poll.explanation_entities);
     }
 
     @Override
@@ -98,6 +112,8 @@ public class Poll implements Serializable {
                 ", type=" + type +
                 ", allows_multiple_answers=" + allows_multiple_answers +
                 ", correct_option_id=" + correct_option_id +
+                ", explanation='" + explanation + '\'' +
+                ", explanation_entities=" + Arrays.toString(explanation_entities) +
                 '}';
     }
 }
