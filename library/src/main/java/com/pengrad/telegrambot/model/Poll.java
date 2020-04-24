@@ -25,6 +25,8 @@ public class Poll implements Serializable {
     private Integer correct_option_id;
     private String explanation;
     private MessageEntity[] explanation_entities;
+    private Integer open_period;
+    private Integer close_date;
 
     public String id() {
         return id;
@@ -70,6 +72,14 @@ public class Poll implements Serializable {
         return explanation_entities;
     }
 
+    public Integer openPeriod() {
+        return open_period;
+    }
+
+    public Integer closeDate() {
+        return close_date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,7 +102,9 @@ public class Poll implements Serializable {
             return false;
         if (explanation != null ? !explanation.equals(poll.explanation) : poll.explanation != null) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(explanation_entities, poll.explanation_entities);
+        if (!Arrays.equals(explanation_entities, poll.explanation_entities)) return false;
+        if (open_period != null ? !open_period.equals(poll.open_period) : poll.open_period != null) return false;
+        return close_date != null ? close_date.equals(poll.close_date) : poll.close_date == null;
     }
 
     @Override
@@ -114,6 +126,8 @@ public class Poll implements Serializable {
                 ", correct_option_id=" + correct_option_id +
                 ", explanation='" + explanation + '\'' +
                 ", explanation_entities=" + Arrays.toString(explanation_entities) +
+                ", open_period=" + open_period +
+                ", close_date=" + close_date +
                 '}';
     }
 }
