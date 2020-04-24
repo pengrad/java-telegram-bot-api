@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.request;
 
 import com.pengrad.telegrambot.model.Poll;
+import com.pengrad.telegrambot.model.request.ParseMode;
 
 /**
  * Stas Parshin
@@ -36,5 +37,13 @@ public class SendPoll extends AbstractSendRequest<SendPoll> {
 
     public SendPoll isClosed(boolean isClosed) {
         return add("is_closed", isClosed);
+    }
+
+    public SendPoll explanation(String explanation) {
+        return add("explanation", explanation);
+    }
+
+    public SendPoll explanationParseMode(ParseMode parseMode) {
+        return add("explanation_parse_mode", parseMode);
     }
 }
