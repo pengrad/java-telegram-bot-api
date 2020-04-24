@@ -1838,7 +1838,11 @@ public class TelegramBotTest {
         Dice dice = response.message().dice();
         assertNotNull(dice);
         assertTrue(dice.value() >= 1 && dice.value() <= 6);
-        assertNotNull(dice.value());
+
+        response = bot.execute(new SendDice(chatId).darts());
+        dice = response.message().dice();
+        assertNotNull(dice);
+        assertTrue(dice.value() >= 1 && dice.value() <= 6);
     }
 
     @Test
