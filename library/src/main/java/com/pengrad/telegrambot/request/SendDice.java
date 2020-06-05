@@ -10,11 +10,15 @@ public class SendDice extends AbstractSendRequest<SendDice> {
         super(chatId);
     }
 
+    public SendDice emoji(String emoji) {
+        return add("emoji", emoji);
+    }
+
     public SendDice darts() {
         return emoji("🎯");
     }
 
-    public SendDice emoji(String emoji) {
-        return add("emoji", emoji);
+    public SendDice basketball() {
+        return emoji("🏀");
     }
 }
