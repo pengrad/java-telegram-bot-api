@@ -24,6 +24,7 @@ public class Message implements Serializable {
     private String forward_sender_name;
     private Integer forward_date;
     private Message reply_to_message;
+    private User via_bot;
     private Integer edit_date;
     private String media_group_id;
     private String author_signature;
@@ -104,6 +105,10 @@ public class Message implements Serializable {
 
     public Message replyToMessage() {
         return reply_to_message;
+    }
+
+    public User viaBot() {
+        return via_bot;
     }
 
     public Integer editDate() {
@@ -279,6 +284,7 @@ public class Message implements Serializable {
             return false;
         if (reply_to_message != null ? !reply_to_message.equals(message.reply_to_message) : message.reply_to_message != null)
             return false;
+        if (via_bot != null ? !via_bot.equals(message.via_bot) : message.via_bot != null) return false;
         if (edit_date != null ? !edit_date.equals(message.edit_date) : message.edit_date != null) return false;
         if (media_group_id != null ? !media_group_id.equals(message.media_group_id) : message.media_group_id != null)
             return false;
@@ -356,6 +362,7 @@ public class Message implements Serializable {
                 ", forward_sender_name='" + forward_sender_name + '\'' +
                 ", forward_date=" + forward_date +
                 ", reply_to_message=" + reply_to_message +
+                ", via_bot=" + via_bot +
                 ", edit_date=" + edit_date +
                 ", media_group_id='" + media_group_id + '\'' +
                 ", author_signature='" + author_signature + '\'' +
