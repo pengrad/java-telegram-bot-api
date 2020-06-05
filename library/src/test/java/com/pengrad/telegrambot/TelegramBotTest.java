@@ -1850,6 +1850,12 @@ public class TelegramBotTest {
         assertNotNull(dice);
         assertTrue(dice.value() >= 1 && dice.value() <= 6);
         assertEquals("🎯", dice.emoji());
+
+        response = bot.execute(new SendDice(chatId).basketball());
+        dice = response.message().dice();
+        assertNotNull(dice);
+        assertTrue(dice.value() >= 1 && dice.value() <= 5);
+        assertEquals("🏀", dice.emoji());
     }
 
     @Test
