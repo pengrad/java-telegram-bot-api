@@ -517,10 +517,12 @@ public class TelegramBotTest {
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultGame("9", "pengrad_test_game").replyMarkup(keyboardMarkup),
                 new InlineQueryResultGif("10", someUrl, someUrl).caption("cap <b>bold</b>").parseMode(ParseMode.HTML).title("title")
+                        .thumbMimeType("image/gif")
                         .gifHeight(100).gifWidth(100).gifDuration(100),
                 new InlineQueryResultLocation("11", 50f, 50f, "title").livePeriod(60)
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultMpeg4Gif("12", someUrl, someUrl).caption("cap <b>bold</b>").parseMode(ParseMode.HTML).title("title")
+                        .thumbMimeType("image/gif")
                         .mpeg4Height(100).mpeg4Width(100).mpeg4Duration(100),
                 new InlineQueryResultPhoto("13", someUrl, someUrl).photoWidth(100).photoHeight(100).title("title")
                         .description("desc").caption("cap <b>bold</b>").parseMode(ParseMode.HTML),

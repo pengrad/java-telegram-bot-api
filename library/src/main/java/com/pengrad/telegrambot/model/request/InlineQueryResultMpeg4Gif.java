@@ -15,6 +15,7 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult<InlineQueryResu
     private Integer mpeg4_width;
     private Integer mpeg4_height;
     private Integer mpeg4_duration;
+    private String thumb_mime_type;
     private String title;
     private String caption;
     private String parse_mode;
@@ -37,6 +38,11 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult<InlineQueryResu
 
     public InlineQueryResultMpeg4Gif mpeg4Duration(Integer mpeg4Duration) {
         this.mpeg4_duration = mpeg4Duration;
+        return this;
+    }
+
+    public InlineQueryResultMpeg4Gif thumbMimeType(String thumbMimeType) {
+        this.thumb_mime_type = thumbMimeType;
         return this;
     }
 
