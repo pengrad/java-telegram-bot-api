@@ -15,6 +15,7 @@ public class InlineQueryResultGif extends InlineQueryResult<InlineQueryResultGif
     private Integer gif_width;
     private Integer gif_height;
     private Integer gif_duration;
+    private String thumb_mime_type;
     private String title;
     private String caption;
     private String parse_mode;
@@ -37,6 +38,11 @@ public class InlineQueryResultGif extends InlineQueryResult<InlineQueryResultGif
 
     public InlineQueryResultGif gifDuration(Integer gifDuration) {
         this.gif_duration = gifDuration;
+        return this;
+    }
+
+    public InlineQueryResultGif thumbMimeType(String thumbMimeType) {
+        this.thumb_mime_type = thumbMimeType;
         return this;
     }
 
