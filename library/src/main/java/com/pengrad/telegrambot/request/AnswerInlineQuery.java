@@ -9,9 +9,9 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class AnswerInlineQuery extends BaseRequest<AnswerInlineQuery, BaseResponse> {
 
-    public AnswerInlineQuery(String inlineQueryId, InlineQueryResult... results) {
+    public AnswerInlineQuery(String inlineQueryId, InlineQueryResult<?>... results) {
         super(BaseResponse.class);
-        add("inline_query_id", inlineQueryId).add("results", serialize(results));
+        add("inline_query_id", inlineQueryId).add("results", results);
     }
 
     public AnswerInlineQuery cacheTime(int cacheTime) {

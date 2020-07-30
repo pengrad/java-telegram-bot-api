@@ -25,6 +25,6 @@ public class AddStickerToSet extends AbstractUploadRequest<AddStickerToSet, Base
     }
 
     public AddStickerToSet maskPosition(MaskPosition maskPosition) {
-        return add("mask_position", serialize(maskPosition));
+        return add("mask_position", maskPosition);
     }
 }

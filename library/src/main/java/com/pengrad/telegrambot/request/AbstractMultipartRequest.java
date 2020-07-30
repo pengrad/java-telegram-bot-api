@@ -6,7 +6,7 @@ import java.io.File;
  * stas
  * 5/1/16.
  */
-abstract public class AbstractMultipartRequest<T extends AbstractMultipartRequest> extends AbstractSendRequest<T> {
+abstract public class AbstractMultipartRequest<T extends AbstractMultipartRequest<T>> extends AbstractSendRequest<T> {
 
     private boolean isMultipart;
     private String fileName;

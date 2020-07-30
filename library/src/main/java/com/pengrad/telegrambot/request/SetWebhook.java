@@ -35,7 +35,7 @@ public class SetWebhook extends BaseRequest<SetWebhook, BaseResponse> {
     }
 
     public SetWebhook allowedUpdates(String... allowedUpdates) {
-        return add("allowed_updates", serialize(allowedUpdates));
+        return add("allowed_updates", allowedUpdates);
     }
 
     @Override

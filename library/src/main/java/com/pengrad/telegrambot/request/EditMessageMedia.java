@@ -14,23 +14,23 @@ import java.util.Map;
 public class EditMessageMedia extends BaseRequest<EditMessageMedia, BaseResponse> {
 
     private boolean isMultipart;
-    private InputMedia media;
+    private InputMedia<?> media;
 
-    public EditMessageMedia(Object chatId, int messageId, InputMedia media) {
+    public EditMessageMedia(Object chatId, int messageId, InputMedia<?> media) {
         super(SendResponse.class);
         add("chat_id", chatId).add("message_id", messageId);
         addMedia(media);
     }
 
-    public EditMessageMedia(String inlineMessageId, InputMedia media) {
+    public EditMessageMedia(String inlineMessageId, InputMedia<?> media) {
         super(BaseResponse.class);
         add("inline_message_id", inlineMessageId);
         addMedia(media);
     }
 
-    private void addMedia(InputMedia media) {
+    private void addMedia(InputMedia<?> media) {
         this.media = media;
-        add("media", serialize(media));
+        add("media", media);
         Map<String, Object> attachments = media.getAttachments();
         if (attachments != null && attachments.size() > 0) {
             addAll(attachments);

@@ -8,7 +8,7 @@ import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import java.util.Iterator;
+import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -28,7 +28,7 @@ public class CheckTelegramAuth {
         String hash = null;
         long authDate = 0;
         String[] params = authQueryParams.split("&");
-        TreeSet<String> set = new TreeSet<String>();
+        Set<String> set = new TreeSet<>();
         for (String p : params) {
             if (p.startsWith("hash=")) {
                 hash = p.substring(5);
@@ -41,7 +41,7 @@ public class CheckTelegramAuth {
         }
         this.hash = hash;
         this.authDate = authDate;
-        this.dataCheck = join(set, "\n");
+        this.dataCheck = String.join("\n", set);
         this.botToken = botToken;
     }
 
@@ -72,15 +72,4 @@ public class CheckTelegramAuth {
         return String.format("%040x", new BigInteger(1, str));
     }
 
-    private static String join(Iterable<String> elements, CharSequence separator) {
-        StringBuilder builder = new StringBuilder();
-        Iterator<String> it = elements.iterator();
-        if (it.hasNext()) {
-            builder.append(it.next());
-            while (it.hasNext()) {
-                builder.append(separator).append(it.next());
-            }
-        }
-        return builder.toString();
-    }
 }

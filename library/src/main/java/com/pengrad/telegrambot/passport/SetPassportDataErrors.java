@@ -11,6 +11,6 @@ public class SetPassportDataErrors extends BaseRequest<SetPassportDataErrors, Ba
 
     public SetPassportDataErrors(int userId, PassportElementError... errors) {
         super(BaseResponse.class);
-        add("user_id", userId).add("errors", serialize(errors));
+        add("user_id", userId).add("errors", errors);
     }
 }
