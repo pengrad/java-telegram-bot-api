@@ -78,6 +78,11 @@ public class TelegramBot {
     public void removeGetUpdatesListener() {
         updatesHandler.stop();
     }
+    
+    public void a(String s, int a){
+        updatesHandler.stop();
+    }
+    
 
     public static final class Builder {
 
