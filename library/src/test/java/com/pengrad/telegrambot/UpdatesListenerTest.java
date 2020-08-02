@@ -98,8 +98,7 @@ public class UpdatesListenerTest {
         withLatch(3, latch -> {
             bot = new TelegramBot("12312312:token");
             bot.setUpdatesListener(updates -> 0);
-            Logger logger = Logger.getLogger(OkHttpClient.class.getName());
-            logger.addHandler(new OneShotHandler(() -> {
+            Logger.getGlobal().addHandler(new OneShotHandler(() -> {
                 System.out.println("get log");
                 latch.countDown();
             }));
@@ -127,8 +126,7 @@ public class UpdatesListenerTest {
                     .okHttpClient(new OkHttpClient.Builder().callTimeout(Duration.ofMillis(1)).build())
                     .build();
             bot.setUpdatesListener(updates -> 0);
-            Logger logger = Logger.getLogger(OkHttpClient.class.getName());
-            logger.addHandler(new OneShotHandler(() -> {
+            Logger.getGlobal().addHandler(new OneShotHandler(() -> {
                 System.out.println("get log");
                 latch.countDown();
             }));

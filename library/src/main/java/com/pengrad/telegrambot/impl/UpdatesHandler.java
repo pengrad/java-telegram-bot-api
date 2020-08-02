@@ -4,10 +4,11 @@ import com.pengrad.telegrambot.*;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
-import okhttp3.internal.platform.Platform;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static com.pengrad.telegrambot.UpdatesListener.CONFIRMED_UPDATES_ALL;
 import static com.pengrad.telegrambot.UpdatesListener.CONFIRMED_UPDATES_NONE;
@@ -56,9 +57,9 @@ public class UpdatesHandler {
                                     response.errorCode() + " " + response.description();
                             exceptionHandler.onException(new TelegramException(message, response));
                         } else {
-                            Platform.get().log(Platform.INFO,
+                            Logger.getGlobal().log(Level.INFO,
                                     "Update listener error for request " + request.toWebhookResponse() +
-                                            " with response " + response.errorCode() + " " + response.description(), null);
+                                            " with response " + response.errorCode() + " " + response.description());
                         }
                     }
                     sleep();
@@ -83,7 +84,7 @@ public class UpdatesHandler {
                 if (exceptionHandler != null) {
                     exceptionHandler.onException(new TelegramException(e));
                 } else {
-                    Platform.get().log(Platform.INFO, "Update listener failure", e);
+                    Logger.getGlobal().log(Level.INFO, "Update listener failure", e);
                 }
                 sleep();
                 getUpdates(request);
