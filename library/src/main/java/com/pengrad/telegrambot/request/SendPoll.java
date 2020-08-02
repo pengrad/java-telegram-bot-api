@@ -24,7 +24,7 @@ public class SendPoll extends AbstractSendRequest<SendPoll> {
     }
 
     public SendPoll type(Poll.Type type) {
-        return add("type", type);
+        return add("type", type.name());
     }
 
     public SendPoll allowsMultipleAnswers(boolean allowsMultipleAnswers) {
@@ -40,7 +40,7 @@ public class SendPoll extends AbstractSendRequest<SendPoll> {
     }
 
     public SendPoll explanationParseMode(ParseMode parseMode) {
-        return add("explanation_parse_mode", parseMode);
+        return add("explanation_parse_mode", parseMode.name());
     }
 
     public SendPoll openPeriod(int openPeriod) {
