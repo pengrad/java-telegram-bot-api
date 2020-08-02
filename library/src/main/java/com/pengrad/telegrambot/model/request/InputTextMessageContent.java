@@ -10,7 +10,7 @@ public class InputTextMessageContent extends InputMessageContent implements Seri
     private final static long serialVersionUID = 0L;
 
     private String message_text;
-    private ParseMode parse_mode;
+    private String parse_mode;
     private Boolean disable_web_page_preview;
 
     public InputTextMessageContent(String messageText) {
@@ -18,7 +18,7 @@ public class InputTextMessageContent extends InputMessageContent implements Seri
     }
 
     public InputTextMessageContent parseMode(ParseMode parseMode) {
-        this.parse_mode = parseMode;
+        this.parse_mode = parseMode.name();
         return this;
     }
 
