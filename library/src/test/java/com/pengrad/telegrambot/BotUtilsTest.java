@@ -1,13 +1,16 @@
 package com.pengrad.telegrambot;
 
-import com.pengrad.telegrambot.model.*;
+import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.response.SendResponse;
+import org.junit.Test;
 
-import org.junit.*;
-
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.StringReader;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Stas Parshin
@@ -41,4 +44,11 @@ public class BotUtilsTest {
         byte[] bytes = BotUtils.getBytesFromInputStream(new ByteArrayInputStream(src));
         assertArrayEquals(bytes, src);
     }
+
+    @Test
+    public void parseNull() {
+        assertNull(BotUtils.fromJson(null, SendResponse.class));
+        assertNull(BotUtils.fromJson("",SendResponse.class));
+    }
+
 }

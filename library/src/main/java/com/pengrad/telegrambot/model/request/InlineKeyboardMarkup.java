@@ -15,10 +15,6 @@ public class InlineKeyboardMarkup extends Keyboard implements Serializable {
 
     private final List<List<InlineKeyboardButton>> inline_keyboard;
 
-    public InlineKeyboardMarkup() {
-        this.inline_keyboard = new ArrayList<>();
-    }
-
     public InlineKeyboardMarkup(InlineKeyboardButton[]... keyboard) {
         this.inline_keyboard = new ArrayList<>();
         if(keyboard!=null) {
@@ -26,10 +22,6 @@ public class InlineKeyboardMarkup extends Keyboard implements Serializable {
                 addRow(row);
             }
         }
-    }
-
-    public static InlineKeyboardMarkup create(InlineKeyboardButton... keyboard) {
-        return new InlineKeyboardMarkup().addRow(keyboard);
     }
 
     public InlineKeyboardMarkup addRow(InlineKeyboardButton... keyboard) {
@@ -49,7 +41,7 @@ public class InlineKeyboardMarkup extends Keyboard implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof InlineKeyboardMarkup)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         InlineKeyboardMarkup that = (InlineKeyboardMarkup) o;
         return Objects.equals(inline_keyboard, that.inline_keyboard);
     }
@@ -57,5 +49,12 @@ public class InlineKeyboardMarkup extends Keyboard implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(inline_keyboard);
+    }
+
+    @Override
+    public String toString() {
+        return "InlineKeyboardMarkup{" +
+                "inline_keyboard=" + inline_keyboard +
+                '}';
     }
 }

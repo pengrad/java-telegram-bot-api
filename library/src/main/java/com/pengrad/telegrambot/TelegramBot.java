@@ -53,7 +53,7 @@ public class TelegramBot {
     public byte[] getFileContent(File file) throws IOException {
         String fileUrl = getFullFilePath(file);
         URLConnection connection = new URL(fileUrl).openConnection();
-        try ( InputStream is = connection.getInputStream()) {
+        try (InputStream is = connection.getInputStream()) {
             return BotUtils.getBytesFromInputStream(is);
         }
     }

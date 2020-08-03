@@ -17,23 +17,21 @@ public class ReplyKeyboardMarkup extends Keyboard implements Serializable {
     private boolean one_time_keyboard;
     private boolean selective;
 
-    public ReplyKeyboardMarkup(boolean resize_keyboard, boolean one_time_keyboard, boolean selective) {
+    public ReplyKeyboardMarkup() {
+        this.keyboard = new ArrayList<>();
+        this.resize_keyboard = false;
+        this.one_time_keyboard = false;
+        this.selective = false;
+    }
+
+    public ReplyKeyboardMarkup(String[][] keyboard, boolean resize_keyboard, boolean one_time_keyboard, boolean selective) {
         this.keyboard = new ArrayList<>();
         this.resize_keyboard = resize_keyboard;
         this.one_time_keyboard = one_time_keyboard;
         this.selective = selective;
-    }
-
-    public ReplyKeyboardMarkup() {
-        this(false,false,false);
-    }
-
-    public static ReplyKeyboardMarkup create(String... firstLine) {
-        return new ReplyKeyboardMarkup().addRow(firstLine);
-    }
-
-    public static ReplyKeyboardMarkup create(KeyboardButton... firstLine) {
-        return new ReplyKeyboardMarkup().addRow(firstLine);
+        for (String[] line : keyboard) {
+            addRow(line);
+        }
     }
 
     public ReplyKeyboardMarkup(String[]... keyboard) {
@@ -62,14 +60,6 @@ public class ReplyKeyboardMarkup extends Keyboard implements Serializable {
         }
         this.keyboard.add(newRow);
         return this;
-    }
-
-    @Deprecated
-    public ReplyKeyboardMarkup(String[][] keyboard, boolean resize_keyboard, boolean one_time_keyboard, boolean selective) {
-        this(resize_keyboard,one_time_keyboard,selective);
-        for (String[] line : keyboard) {
-            addRow(line);
-        }
     }
 
     public ReplyKeyboardMarkup resizeKeyboard(boolean resizeKeyboard) {

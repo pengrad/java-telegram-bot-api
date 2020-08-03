@@ -92,7 +92,7 @@ public class TelegramBotClient {
                 .build();
     }
 
-    RequestBody createRequestBody(BaseRequest<?, ?> request) {
+    private RequestBody createRequestBody(BaseRequest<?, ?> request) {
         if (request.isMultipart()) {
             MediaType contentType = MediaType.parse(request.getContentType());
 
@@ -120,8 +120,10 @@ public class TelegramBotClient {
         }
     }
 
-    String toParamValue(Object obj) {
-        if (obj.getClass().isPrimitive() || obj.getClass().getName().startsWith("java.lang")) {
+    private String toParamValue(Object obj) {
+        if (obj.getClass().isPrimitive() ||
+                obj.getClass().isEnum() ||
+                obj.getClass().getName().startsWith("java.lang")) {
             return String.valueOf(obj);
         }
         return gson.toJson(obj);

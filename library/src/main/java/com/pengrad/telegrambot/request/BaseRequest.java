@@ -62,9 +62,8 @@ abstract public class BaseRequest<T extends BaseRequest<T, R>, R extends BaseRes
         return 0;
     }
 
-
     public String toWebhookResponse() {
-        Map<String, Object> fullMap = new LinkedHashMap<>(getParameters());
+        Map<String, Object> fullMap = new LinkedHashMap<>(parameters);
         fullMap.put("method", getMethod());
         return BotUtils.toJson(fullMap);
     }

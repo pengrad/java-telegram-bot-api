@@ -16,11 +16,11 @@ public interface UpdatesListener {
     /**
      * Callback handler with available updates
      *
-     * @param updates the available updated
-     * @return The number of processed Updates:
+     * @param updates available updates
+     * @return id of the last processed update which should not be re-delivered
      *  There are 2 convienient values:
-     *      @see com.pengrad.telegrambot.UpdatesListener#CONFIRMED_UPDATES_ALL
-     *      @see com.pengrad.telegrambot.UpdatesListener#CONFIRMED_UPDATES_NONE
+     *      @see #CONFIRMED_UPDATES_ALL
+     *      @see #CONFIRMED_UPDATES_NONE
      */
     int process(List<Update> updates);
 
