@@ -12,7 +12,7 @@ public class SendPoll extends AbstractSendRequest<SendPoll> {
     public SendPoll(Object chatId, String question, String... options) {
         super(chatId);
         add("question", question);
-        add("options", serialize(options));
+        add("options", options);
     }
 
     public SendPoll isAnonymous(boolean isAnonymous) {

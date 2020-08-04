@@ -1,7 +1,5 @@
 package com.pengrad.telegrambot.model;
 
-import com.google.gson.Gson;
-
 import java.io.Serializable;
 
 /**
@@ -10,7 +8,6 @@ import java.io.Serializable;
  */
 public class MaskPosition implements Serializable {
     private final static long serialVersionUID = 0L;
-    private final static Gson gson = new Gson();
 
     public enum Point {
         forehead, eyes, mouth, chin

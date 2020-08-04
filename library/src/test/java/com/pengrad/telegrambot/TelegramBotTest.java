@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot;
 
-import com.google.gson.Gson;
 import com.pengrad.telegrambot.checks.AnimationCheck;
 import com.pengrad.telegrambot.checks.AudioTest;
 import com.pengrad.telegrambot.checks.ChatMemberTest;
@@ -177,7 +176,10 @@ import com.pengrad.telegrambot.response.MessagesResponse;
 import com.pengrad.telegrambot.response.PollResponse;
 import com.pengrad.telegrambot.response.SendResponse;
 import com.pengrad.telegrambot.response.StringResponse;
-
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.junit.Test;
 
 import java.io.File;
@@ -196,11 +198,6 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 import static com.pengrad.telegrambot.request.ContentTypes.VIDEO_MIME_TYPE;
 import static org.junit.Assert.assertArrayEquals;
@@ -1656,8 +1653,7 @@ public class TelegramBotTest {
                 if (encElement.translation() != null) {
                     files.addAll(Arrays.asList(encElement.translation()));
                 }
-                for (int i = 0; i < files.size(); i++) {
-                    PassportFile file = files.get(i);
+                for (PassportFile file:files) {
                     if (file == null) continue;
                     byte[] data = encElement.decryptFile(file, credentials, bot);
                     assertTrue(data.length > 0);
@@ -1781,9 +1777,9 @@ public class TelegramBotTest {
     public void botClientError() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
         TelegramBotClient botClient = new TelegramBotClient(new OkHttpClient(), null, TelegramBot.Builder.API_URL);
-        botClient.send(new GetMe(), new Callback<GetMe, BaseResponse>() {
+        botClient.send(new GetMe(), new Callback<GetMe, GetMeResponse>() {
             @Override
-            public void onResponse(GetMe request, BaseResponse response) {
+            public void onResponse(GetMe request, GetMeResponse response) {
             }
 
             @Override
@@ -1830,7 +1826,7 @@ public class TelegramBotTest {
     @Test
     public void testResponseParameters() {
         String errorJson = "{\"ok\":false,\"error_code\":400,\"description\":\"Bad Request: description\",\"parameters\":{\"migrate_to_chat_id\":123456789000,\"retry_after\":3}}";
-        BaseResponse response = new Gson().fromJson(errorJson, BaseResponse.class);
+        BaseResponse response = BotUtils.fromJson(errorJson, BaseResponse.class);
         ResponseParameters parameters = response.parameters();
         assertNotNull(parameters);
         assertEquals(Long.valueOf(123456789000L), parameters.migrateToChatId());

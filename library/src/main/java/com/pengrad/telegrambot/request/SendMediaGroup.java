@@ -13,11 +13,11 @@ public class SendMediaGroup extends BaseRequest<SendMediaGroup, MessagesResponse
 
     private boolean isMultipart = false;
 
-    public SendMediaGroup(Object chatId, InputMedia... media) {
+    public SendMediaGroup(Object chatId, InputMedia<?>... media) {
         super(MessagesResponse.class);
-        add("chat_id", chatId).add("media", serialize(media));
+        add("chat_id", chatId).add("media", media);
 
-        for (InputMedia m : media) {
+        for (InputMedia<?> m : media) {
             Map<String, Object> attachments = m.getAttachments();
             if (attachments != null && attachments.size() > 0) {
                 addAll(attachments);

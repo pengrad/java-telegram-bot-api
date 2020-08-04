@@ -16,7 +16,7 @@ public class BotUtils {
 
     private BotUtils() {}
 
-    private static Gson gson = new Gson();
+    private static final Gson gson = new Gson();
 
     public static Update parseUpdate(String update) {
         return gson.fromJson(update, Update.class);
@@ -35,4 +35,11 @@ public class BotUtils {
         return os.toByteArray();
     }
 
+    public static <R> R fromJson(String jsonString, Class<R> resClass) {
+        return gson.fromJson(jsonString,resClass);
+    }
+
+    public static String toJson(Object obj) {
+        return gson.toJson(obj);
+    }
 }

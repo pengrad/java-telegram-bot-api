@@ -30,7 +30,7 @@ public class GetUpdates extends BaseRequest<GetUpdates, GetUpdatesResponse> {
     }
 
     public GetUpdates allowedUpdates(String... allowedUpdates) {
-        return add("allowed_updates", serialize(allowedUpdates));
+        return add("allowed_updates", allowedUpdates);
     }
 
     @Override

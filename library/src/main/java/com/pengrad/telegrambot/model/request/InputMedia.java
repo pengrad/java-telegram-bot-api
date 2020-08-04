@@ -11,7 +11,7 @@ import java.util.Map;
  * Stas Parshin
  * 23 November 2017
  */
-abstract public class InputMedia<T extends InputMedia> implements Serializable {
+abstract public class InputMedia<T extends InputMedia<T>> implements Serializable {
     private final static long serialVersionUID = 0L;
 
     @SuppressWarnings("unchecked")
@@ -23,7 +23,7 @@ abstract public class InputMedia<T extends InputMedia> implements Serializable {
     private String caption;
     private String parse_mode;
 
-    transient private Map<String, Object> attachments = new HashMap<String, Object>();
+    transient private Map<String, Object> attachments = new HashMap<>();
     transient private String filename;
 
     InputMedia(String type, Object media) {

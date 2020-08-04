@@ -9,7 +9,7 @@ import java.io.IOException;
  * stas
  * 5/3/16.
  */
-public interface Callback<T extends BaseRequest, R extends BaseResponse> {
+public interface Callback<T extends BaseRequest<T, R>, R extends BaseResponse> {
 
     void onResponse(T request, R response);
 

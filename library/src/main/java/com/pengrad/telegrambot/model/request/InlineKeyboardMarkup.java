@@ -1,7 +1,10 @@
 package com.pengrad.telegrambot.model.request;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * stas
@@ -10,28 +13,48 @@ import java.util.Arrays;
 public class InlineKeyboardMarkup extends Keyboard implements Serializable {
     private final static long serialVersionUID = 0L;
 
-    private final InlineKeyboardButton[][] inline_keyboard;
+    private final List<List<InlineKeyboardButton>> inline_keyboard;
 
     public InlineKeyboardMarkup(InlineKeyboardButton[]... keyboard) {
-        this.inline_keyboard = keyboard;
+        this.inline_keyboard = new ArrayList<>();
+        if(keyboard!=null) {
+            for (InlineKeyboardButton[] row : keyboard) {
+                addRow(row);
+            }
+        }
+    }
+
+    public InlineKeyboardMarkup addRow(InlineKeyboardButton... keyboard) {
+        this.inline_keyboard.add(Arrays.asList(keyboard));
+        return this;
     }
 
     public InlineKeyboardButton[][] inlineKeyboard() {
-        return inline_keyboard;
+        InlineKeyboardButton[][] res = new InlineKeyboardButton[inline_keyboard.size()][];
+        for (int i = 0; i < inline_keyboard.size(); i++) {
+            List<InlineKeyboardButton> line = inline_keyboard.get(i);
+            res[i] = line.toArray(new InlineKeyboardButton[]{});
+        }
+        return res;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         InlineKeyboardMarkup that = (InlineKeyboardMarkup) o;
-
-        return Arrays.deepEquals(inline_keyboard, that.inline_keyboard);
+        return Objects.equals(inline_keyboard, that.inline_keyboard);
     }
 
     @Override
     public int hashCode() {
-        return Arrays.deepHashCode(inline_keyboard);
+        return Objects.hash(inline_keyboard);
+    }
+
+    @Override
+    public String toString() {
+        return "InlineKeyboardMarkup{" +
+                "inline_keyboard=" + inline_keyboard +
+                '}';
     }
 }

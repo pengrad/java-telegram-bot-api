@@ -11,6 +11,6 @@ public class SetMyCommands extends BaseRequest<SetMyCommands, BaseResponse> {
 
     public SetMyCommands(BotCommand... commands) {
         super(BaseResponse.class);
-        add("commands", serialize(commands));
+        add("commands", commands);
     }
 }
