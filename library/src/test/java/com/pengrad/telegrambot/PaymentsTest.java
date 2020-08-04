@@ -31,11 +31,9 @@ public class PaymentsTest {
                 .photoUrl("https://telegram.org/img/t_logo.png").photoSize(100).photoHeight(100).photoWidth(100)
                 .needPhoneNumber(true).needShippingAddress(true).needEmail(true).needName(true)
                 .isFlexible(true)
-                .replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton[]{
+                .replyMarkup(new InlineKeyboardMarkup(
                         new InlineKeyboardButton("just pay").pay(),
-                        new InlineKeyboardButton("google it").url("www.google.com")
-
-                }))
+                        new InlineKeyboardButton("google it").url("www.google.com")))
         );
         Invoice invoice = response.message().invoice();
         InvoiceCheck.check(response.message().invoice());

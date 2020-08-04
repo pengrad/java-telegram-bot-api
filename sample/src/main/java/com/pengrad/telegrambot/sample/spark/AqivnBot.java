@@ -52,7 +52,7 @@ public class AqivnBot extends BotHandler {
     }
 
     private Keyboard simpleKeyboard() {
-        return new ReplyKeyboardMarkup(new String[]{"Get!"});
+        return new ReplyKeyboardMarkup("Get!");
     }
 
     private String documentToAqiString(Document document) {

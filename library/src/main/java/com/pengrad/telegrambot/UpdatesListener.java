@@ -18,9 +18,9 @@ public interface UpdatesListener {
      *
      * @param updates available updates
      * @return id of the last processed update which should not be re-delivered
-     *  There are 2 convienient values:
-     *      @see #CONFIRMED_UPDATES_ALL
-     *      @see #CONFIRMED_UPDATES_NONE
+     * There are 2 convenient values:
+     * @see #CONFIRMED_UPDATES_ALL
+     * @see #CONFIRMED_UPDATES_NONE
      */
     int process(List<Update> updates);
 

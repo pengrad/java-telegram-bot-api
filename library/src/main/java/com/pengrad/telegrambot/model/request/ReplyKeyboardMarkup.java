@@ -17,13 +17,6 @@ public class ReplyKeyboardMarkup extends Keyboard implements Serializable {
     private boolean one_time_keyboard;
     private boolean selective;
 
-    public ReplyKeyboardMarkup() {
-        this.keyboard = new ArrayList<>();
-        this.resize_keyboard = false;
-        this.one_time_keyboard = false;
-        this.selective = false;
-    }
-
     public ReplyKeyboardMarkup(String[][] keyboard, boolean resize_keyboard, boolean one_time_keyboard, boolean selective) {
         this.keyboard = new ArrayList<>();
         this.resize_keyboard = resize_keyboard;
@@ -35,17 +28,22 @@ public class ReplyKeyboardMarkup extends Keyboard implements Serializable {
     }
 
     public ReplyKeyboardMarkup(String[]... keyboard) {
-        this();
-        for (String[] row : keyboard) {
+        this(keyboard, false, false, false);
+    }
+
+    public ReplyKeyboardMarkup(KeyboardButton[]... keyboard) {
+        this(new String[0][]);
+        for (KeyboardButton[] row : keyboard) {
             addRow(row);
         }
     }
 
-    public ReplyKeyboardMarkup(KeyboardButton[]... keyboard) {
-        this();
-        for (KeyboardButton[] row : keyboard) {
-            addRow(row);
-        }
+    public ReplyKeyboardMarkup(String... keyboard) {
+        this(new String[][]{keyboard});
+    }
+
+    public ReplyKeyboardMarkup(KeyboardButton... keyboard) {
+        this(new KeyboardButton[][]{keyboard});
     }
 
     public ReplyKeyboardMarkup addRow(KeyboardButton... buttons) {
@@ -55,7 +53,7 @@ public class ReplyKeyboardMarkup extends Keyboard implements Serializable {
 
     public ReplyKeyboardMarkup addRow(String... buttons) {
         List<KeyboardButton> newRow = new ArrayList<>();
-        for(String button: buttons) {
+        for (String button : buttons) {
             newRow.add(new KeyboardButton(button));
         }
         this.keyboard.add(newRow);

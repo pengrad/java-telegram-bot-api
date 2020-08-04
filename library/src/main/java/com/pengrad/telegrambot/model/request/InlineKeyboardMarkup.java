@@ -15,13 +15,19 @@ public class InlineKeyboardMarkup extends Keyboard implements Serializable {
 
     private final List<List<InlineKeyboardButton>> inline_keyboard;
 
-    public InlineKeyboardMarkup(InlineKeyboardButton[]... keyboard) {
+    public InlineKeyboardMarkup() {
         this.inline_keyboard = new ArrayList<>();
-        if(keyboard!=null) {
-            for (InlineKeyboardButton[] row : keyboard) {
-                addRow(row);
-            }
+    }
+
+    public InlineKeyboardMarkup(InlineKeyboardButton[]... keyboard) {
+        this();
+        for (InlineKeyboardButton[] row : keyboard) {
+            addRow(row);
         }
+    }
+
+    public InlineKeyboardMarkup(InlineKeyboardButton... keyboard) {
+        this(new InlineKeyboardButton[][]{keyboard});
     }
 
     public InlineKeyboardMarkup addRow(InlineKeyboardButton... keyboard) {
