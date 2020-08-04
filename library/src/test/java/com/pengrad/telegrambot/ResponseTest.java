@@ -30,8 +30,8 @@ public class ResponseTest {
 
     @Test
     public void testToString() throws IllegalAccessException, InstantiationException, InvocationTargetException {
-        for (Class c : classes) {
-            Constructor constructor = c.getDeclaredConstructors()[0];
+        for (Class<? extends BaseResponse> c : classes) {
+            Constructor<?> constructor = c.getDeclaredConstructors()[0];
             constructor.setAccessible(true);
             String toString = constructor.newInstance().toString();
             for (Field f : c.getDeclaredFields()) {

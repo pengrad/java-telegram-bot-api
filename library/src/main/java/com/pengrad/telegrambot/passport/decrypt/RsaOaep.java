@@ -114,7 +114,7 @@ class RsaOaep {
         /**
          * Create a new DER decoder from a byte array.
          *
-         * @param The encoded bytes
+         * @param bytes The encoded bytes
          * @throws IOException
          */
         public DerParser(byte[] bytes) throws IOException {
@@ -255,7 +255,7 @@ class RsaOaep {
          * For constructed field, return a parser for its content.
          *
          * @return A parser for the construct.
-         * @throws IOException
+         * @throws IOException when not constucted
          */
         public DerParser getParser() throws IOException {
             if (!isConstructed())
@@ -268,7 +268,7 @@ class RsaOaep {
          * Get the value as integer
          *
          * @return BigInteger
-         * @throws IOException
+         * @throws IOException invalid der
          */
         public BigInteger getInteger() throws IOException {
             if (type != DerParser.INTEGER)

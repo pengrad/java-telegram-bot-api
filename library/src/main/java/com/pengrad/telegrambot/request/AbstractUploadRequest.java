@@ -8,7 +8,7 @@ import java.io.File;
  * Stas Parshin
  * 23 July 2017
  */
-abstract public class AbstractUploadRequest<T extends BaseRequest, R extends BaseResponse> extends BaseRequest<T, R> {
+abstract public class AbstractUploadRequest<T extends BaseRequest<T, R>, R extends BaseResponse> extends BaseRequest<T, R> {
 
     private final boolean isMultipart;
 

@@ -12,7 +12,7 @@ public class SendInvoice extends AbstractSendRequest<SendInvoice> {
                        String startParameter, String currency, LabeledPrice... prices) {
         super(chatId);
         add("title", title).add("description", description).add("payload", payload).add("provider_token", providerToken)
-                .add("start_parameter", startParameter).add("currency", currency).add("prices", serialize(prices));
+                .add("start_parameter", startParameter).add("currency", currency).add("prices", prices);
     }
 
     public SendInvoice providerData(String providerData) {

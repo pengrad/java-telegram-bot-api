@@ -6,7 +6,7 @@ import java.io.Serializable;
  * stas
  * 1/12/16.
  */
-public abstract class InlineQueryResult<T extends InlineQueryResult> implements Serializable {
+public abstract class InlineQueryResult<T extends InlineQueryResult<T>> implements Serializable {
     private final static long serialVersionUID = 0L;
 
     @SuppressWarnings("unchecked")

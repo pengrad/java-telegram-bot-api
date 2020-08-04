@@ -11,7 +11,7 @@ public class AnswerShippingQuery extends BaseRequest<AnswerShippingQuery, BaseRe
 
     public AnswerShippingQuery(String shippingQueryId, ShippingOption... shippingOptions) {
         super(BaseResponse.class);
-        add("shipping_query_id", shippingQueryId).add("ok", true).add("shipping_options", serialize(shippingOptions));
+        add("shipping_query_id", shippingQueryId).add("ok", true).add("shipping_options", shippingOptions);
     }
 
     public AnswerShippingQuery(String shippingQueryId, String errorMessage) {

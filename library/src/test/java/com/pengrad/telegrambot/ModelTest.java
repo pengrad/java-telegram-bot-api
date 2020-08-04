@@ -7,7 +7,8 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.passport.Credentials;
-
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.Before;
 import org.junit.Test;
 import org.reflections.Reflections;
@@ -19,12 +20,10 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
 
 import static org.junit.Assert.assertTrue;
 
@@ -34,8 +33,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class ModelTest {
 
-    private Set<Class> classes;
-    private HashMap<Class, Supplier<Object>> customInstance = new HashMap<>();
+    private Set<Class<?>> classes;
+    private final Map<Class<?>, Supplier<Object>> customInstance = new HashMap<>();
 
     @Before
     public void setClasses() {
@@ -59,28 +58,28 @@ public class ModelTest {
     }
 
     @Test
-    public void testEquals() throws IllegalAccessException, InstantiationException, NoSuchFieldException {
-        Object callbackQuery = CallbackQuery.class.newInstance();
+    public void testEquals() throws ReflectiveOperationException {
+        CallbackQuery callbackQuery = CallbackQuery.class.getDeclaredConstructor().newInstance();
         Field f = CallbackQuery.class.getDeclaredField("id");
         f.setAccessible(true);
         f.set(callbackQuery, "2");
 
-        Object message = Message.class.newInstance();
+        Message message = Message.class.getDeclaredConstructor().newInstance();
         f = Message.class.getDeclaredField("message_id");
         f.setAccessible(true);
         f.set(message, 11);
 
-        Object update = Update.class.newInstance();
+        Update update = Update.class.getDeclaredConstructor().newInstance();
         f = Update.class.getDeclaredField("update_id");
         f.setAccessible(true);
         f.set(update, 1);
 
-        for (Class c : classes) {
+        for (Class<?> c : classes) {
             EqualsVerifier.forClass(c)
                     .usingGetClass()
-                    .withPrefabValues(Update.class, Update.class.newInstance(), update)
-                    .withPrefabValues(Message.class, Message.class.newInstance(), message)
-                    .withPrefabValues(CallbackQuery.class, CallbackQuery.class.newInstance(), callbackQuery)
+                    .withPrefabValues(Update.class, Update.class.getDeclaredConstructor().newInstance(), update)
+                    .withPrefabValues(Message.class, Message.class.getDeclaredConstructor().newInstance(), message)
+                    .withPrefabValues(CallbackQuery.class, CallbackQuery.class.getDeclaredConstructor().newInstance(), callbackQuery)
                     .suppress(Warning.STRICT_HASHCODE)
                     .suppress(Warning.NONFINAL_FIELDS)
                     .verify();
@@ -89,7 +88,7 @@ public class ModelTest {
 
     @Test
     public void testToString() throws Exception {
-        for (Class c : classes) {
+        for (Class<?> c : classes) {
             Object instance = customInstance.containsKey(c) ? customInstance.get(c).get() : defaultInstance(c);
             String toString = instance.toString();
             for (Field f : c.getDeclaredFields()) {
@@ -101,8 +100,8 @@ public class ModelTest {
         }
     }
 
-    private Object defaultInstance(Class c) throws Exception {
-        Constructor constructor = c.getDeclaredConstructor();
+    private <R> R defaultInstance(Class<R> c) throws Exception {
+        Constructor<R> constructor = c.getDeclaredConstructor();
         constructor.setAccessible(true);
         return constructor.newInstance();
     }

@@ -1,6 +1,9 @@
 package com.pengrad.telegrambot.model.request;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * stas
@@ -9,31 +12,54 @@ import java.io.Serializable;
 public class ReplyKeyboardMarkup extends Keyboard implements Serializable {
     private final static long serialVersionUID = 0L;
 
-    private final KeyboardButton[][] keyboard;
+    private final List<List<KeyboardButton>> keyboard;
     private boolean resize_keyboard;
     private boolean one_time_keyboard;
     private boolean selective;
 
-    public ReplyKeyboardMarkup(String[]... keyboard) {
-        this(keyboard, false, false, false);
+    public ReplyKeyboardMarkup() {
+        this.keyboard = new ArrayList<>();
+        this.resize_keyboard = false;
+        this.one_time_keyboard = false;
+        this.selective = false;
     }
 
     public ReplyKeyboardMarkup(String[][] keyboard, boolean resize_keyboard, boolean one_time_keyboard, boolean selective) {
-        KeyboardButton[][] keyboardButtons = new KeyboardButton[keyboard.length][];
-        for (int i = 0; i < keyboard.length; i++) {
-            keyboardButtons[i] = new KeyboardButton[keyboard[i].length];
-            for (int j = 0; j < keyboard[i].length; j++) {
-                keyboardButtons[i][j] = new KeyboardButton(keyboard[i][j]);
-            }
-        }
-        this.keyboard = keyboardButtons;
+        this.keyboard = new ArrayList<>();
         this.resize_keyboard = resize_keyboard;
         this.one_time_keyboard = one_time_keyboard;
         this.selective = selective;
+        for (String[] line : keyboard) {
+            addRow(line);
+        }
+    }
+
+    public ReplyKeyboardMarkup(String[]... keyboard) {
+        this();
+        for (String[] row : keyboard) {
+            addRow(row);
+        }
     }
 
     public ReplyKeyboardMarkup(KeyboardButton[]... keyboard) {
-        this.keyboard = keyboard;
+        this();
+        for (KeyboardButton[] row : keyboard) {
+            addRow(row);
+        }
+    }
+
+    public ReplyKeyboardMarkup addRow(KeyboardButton... buttons) {
+        this.keyboard.add(Arrays.asList(buttons));
+        return this;
+    }
+
+    public ReplyKeyboardMarkup addRow(String... buttons) {
+        List<KeyboardButton> newRow = new ArrayList<>();
+        for(String button: buttons) {
+            newRow.add(new KeyboardButton(button));
+        }
+        this.keyboard.add(newRow);
+        return this;
     }
 
     public ReplyKeyboardMarkup resizeKeyboard(boolean resizeKeyboard) {

@@ -30,6 +30,6 @@ public class CreateNewStickerSet extends AbstractUploadRequest<CreateNewStickerS
     }
 
     public CreateNewStickerSet maskPosition(MaskPosition maskPosition) {
-        return add("mask_position", serialize(maskPosition)).containsMasks(true);
+        return add("mask_position", maskPosition).containsMasks(true);
     }
 }
