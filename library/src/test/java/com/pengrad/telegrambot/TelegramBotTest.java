@@ -214,7 +214,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class TelegramBotTest {
 
-    private static Properties props = new Properties();
+    private static final Properties props = new Properties();
 
     static String getProp(String key) {
         return props.getProperty(key, System.getenv(key));
@@ -223,7 +223,8 @@ public class TelegramBotTest {
     static {
         try {
             props.load(new FileInputStream("local.properties"));
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         String chat = getProp("CHAT_ID");
         String group = getProp("GROUP_ID");
@@ -455,11 +456,8 @@ public class TelegramBotTest {
     public void editMessageReplyMarkup() {
         String text = "Update" + System.currentTimeMillis();
 
-        InlineKeyboardMarkup keyboard = new InlineKeyboardMarkup(new InlineKeyboardButton[]{
-                new InlineKeyboardButton(text).url("https://google.com")});
-
-        InlineKeyboardMarkup gameKeyboard = new InlineKeyboardMarkup(new InlineKeyboardButton[]{
-                new InlineKeyboardButton(text).callbackGame("test game")});
+        InlineKeyboardMarkup keyboard = new InlineKeyboardMarkup(new InlineKeyboardButton(text).url("https://google.com"));
+        InlineKeyboardMarkup gameKeyboard = new InlineKeyboardMarkup(new InlineKeyboardButton(text).callbackGame("test game"));
 
         BaseResponse response = bot.execute(new EditMessageReplyMarkup(chatId, 8124).replyMarkup(keyboard));
         assertTrue(response.isOk());
@@ -488,16 +486,15 @@ public class TelegramBotTest {
         assertNull(inlineQuery.location());
 
 
-        InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton[]{
+        InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(
                 new InlineKeyboardButton("inline game").callbackGame("pengrad test game description"),
                 new InlineKeyboardButton("inline ok").callbackData("callback ok"),
                 new InlineKeyboardButton("cancel").callbackData("callback cancel"),
                 new InlineKeyboardButton("url").url(someUrl),
                 new InlineKeyboardButton("switch inline").switchInlineQuery("query"),
-                new InlineKeyboardButton("switch inline current").switchInlineQueryCurrentChat("query"),
-        });
+                new InlineKeyboardButton("switch inline current").switchInlineQueryCurrentChat("query"));
 
-        InlineQueryResult[] results = new InlineQueryResult[]{
+        InlineQueryResult<?>[] results = new InlineQueryResult[]{
                 new InlineQueryResultArticle("1", "title",
                         new InputTextMessageContent("message").disableWebPagePreview(false).parseMode(ParseMode.HTML))
                         .url(someUrl).hideUrl(true).description("desc").thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
@@ -697,16 +694,16 @@ public class TelegramBotTest {
         sendResponse = bot.execute(new SendMessage(chatId, "message with keyboard")
                 .parseMode(ParseMode.HTML)
                 .disableWebPagePreview(false)
-                .replyMarkup(new ReplyKeyboardMarkup(new KeyboardButton[]{
+                .replyMarkup(new ReplyKeyboardMarkup(
                         new KeyboardButton("contact").requestContact(true),
-                        new KeyboardButton("location").requestLocation(true)})
+                        new KeyboardButton("location").requestLocation(true))
                         .oneTimeKeyboard(true)
                         .resizeKeyboard(true)
                         .selective(true)));
         MessageTest.checkTextMessage(sendResponse.message());
 
         sendResponse = bot.execute(new SendMessage(chatId, "simple buttons")
-                .replyMarkup(new ReplyKeyboardMarkup(new String[]{"ok", "cancel"})));
+                .replyMarkup(new ReplyKeyboardMarkup("ok", "cancel")));
         MessageTest.checkTextMessage(sendResponse.message());
     }
 
@@ -1318,12 +1315,12 @@ public class TelegramBotTest {
             StickerTest.check(sticker, true, true);
         }
         assertTrue(stickerSet.containsMasks());
-        assertEquals(this.stickerSet, stickerSet.name());
+        assertEquals(TelegramBotTest.stickerSet, stickerSet.name());
         assertEquals("test1", stickerSet.title());
         assertFalse(stickerSet.isAnimated());
 
         Sticker sticker = stickerSet.stickers()[0];
-        assertEquals(this.stickerSet, sticker.setName());
+        assertEquals(TelegramBotTest.stickerSet, sticker.setName());
         MaskPosition maskPosition = sticker.maskPosition();
         assertEquals(MaskPosition.Point.forehead.name(), maskPosition.point());
         assertEquals(0f, maskPosition.xShift(), 0);
@@ -1424,9 +1421,7 @@ public class TelegramBotTest {
         String buttonText = "btn_" + System.currentTimeMillis();
         response = bot.execute(
                 new EditMessageLiveLocation("AgAAAPrwAQCj_Q4D2s-51_8jsuU", 21, 102)
-                        .replyMarkup(new InlineKeyboardMarkup(
-                                new InlineKeyboardButton[]{new InlineKeyboardButton(buttonText).callbackGame(buttonText)}
-                        ))
+                        .replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton(buttonText).callbackGame(buttonText)))
         );
         assertTrue(response.isOk());
     }
@@ -1653,7 +1648,7 @@ public class TelegramBotTest {
                 if (encElement.translation() != null) {
                     files.addAll(Arrays.asList(encElement.translation()));
                 }
-                for (PassportFile file:files) {
+                for (PassportFile file : files) {
                     if (file == null) continue;
                     byte[] data = encElement.decryptFile(file, credentials, bot);
                     assertTrue(data.length > 0);
@@ -1708,11 +1703,10 @@ public class TelegramBotTest {
                 new SendPoll(chatId, question, answers)
                         .type("regular")
                         .allowsMultipleAnswers(true)
-                        .replyMarkup(new ReplyKeyboardMarkup(new KeyboardButton[]{
+                        .replyMarkup(new ReplyKeyboardMarkup(
                                 new KeyboardButton("all polls").requestPoll(new KeyboardButtonPollType()),
                                 new KeyboardButton("quiz").requestPoll(new KeyboardButtonPollType(Poll.Type.quiz)),
-                                new KeyboardButton("regular").requestPoll(new KeyboardButtonPollType("regular"))
-                        }))
+                                new KeyboardButton("regular").requestPoll(new KeyboardButtonPollType("regular"))))
                         .closeDate(closeDate)
         );
         Poll poll = sendResponse.message().poll();
@@ -1800,12 +1794,11 @@ public class TelegramBotTest {
         String text = "login";
         String url = "http://pengrad.herokuapp.com/hello";
         SendResponse response = bot.execute(
-                new SendMessage(chatId, "Login button").replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton[]{
+                new SendMessage(chatId, "Login button").replyMarkup(new InlineKeyboardMarkup(
                         new InlineKeyboardButton(text).loginUrl(new LoginUrl(url)
                                 .forwardText("forwarded login")
                                 .botUsername("pengrad_test_bot")
-                                .requestWriteAccess(true))
-                })));
+                                .requestWriteAccess(true)))));
         assertTrue(response.isOk());
         InlineKeyboardButton button = response.message().replyMarkup().inlineKeyboard()[0][0];
         assertEquals(text, button.text());
