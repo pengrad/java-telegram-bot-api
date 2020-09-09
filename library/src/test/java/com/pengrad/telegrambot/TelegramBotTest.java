@@ -984,7 +984,7 @@ public class TelegramBotTest {
         assertNotEquals("telegram should generate thumb", thumbSize, message.video().thumb().fileSize());
 
         String caption = "caption <b>bold</b>";
-        Integer duration = 100;
+        int duration = 100;
         message = bot.execute(
                 new SendVideo(chatId, videoBytes).thumb(thumbBytes)
                         .caption(caption).parseMode(ParseMode.HTML)
@@ -1018,7 +1018,7 @@ public class TelegramBotTest {
         VoiceTest.check(message.voice());
 
         String caption = "caption <b>bold</b>";
-        Integer duration = 100;
+        int duration = 100;
         message = bot.execute(new SendVoice(chatId, audioBytes).caption(caption).parseMode(ParseMode.HTML).duration(duration)).message();
         MessageTest.checkMessage(message);
         assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
@@ -1126,7 +1126,7 @@ public class TelegramBotTest {
 
     @Test
     public void sendLocation() {
-        Float lat = 21.999998f, lng = 105.2f;
+        float lat = 21.999998f, lng = 105.2f;
         Location location = bot.execute(new SendLocation(chatId, lat, lng).livePeriod(60)).message().location();
         assertEquals(lat, location.latitude());
         assertEquals(lng, location.longitude());
@@ -1134,7 +1134,7 @@ public class TelegramBotTest {
 
     @Test
     public void sendVenue() {
-        Float lat = 21.999998f, lng = 105.2f;
+        float lat = 21.999998f, lng = 105.2f;
         String title = "title", address = "addr", frsqrId = "asdfasdf", frsqrType = "frType";
         Venue venue = bot.execute(new SendVenue(chatId, lat, lng, title, address)
                 .foursquareId(frsqrId)
@@ -1551,7 +1551,7 @@ public class TelegramBotTest {
 
     @Test
     public void sendAnimation() {
-        Integer width = 340, height = 240;
+        int width = 340, height = 240;
         String caption = "gif *file*", captionCheck = "gif file";
         SendResponse response = bot.execute(new SendAnimation(chatId, gifFile)
                 .duration(222).width(width).height(height).thumb(thumbFile)
