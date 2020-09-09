@@ -22,7 +22,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 /**
@@ -138,7 +138,6 @@ public class KursBot implements Route {
             Element root = (Element) doc.getElementsByTagName("ValCurs").item(0);
             String date = root.getAttribute("Date");
             String usd = "", eur = "";
-            ;
             NodeList valutes = root.getElementsByTagName("Valute");
             for (int i = 0; i < valutes.getLength(); i++) {
                 Element valute = (Element) valutes.item(i);
@@ -158,7 +157,7 @@ public class KursBot implements Route {
 
     private String readStringFromUrl(String url) throws IOException {
         try (InputStream is = new URL(url).openStream()) {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             int cp;
             while ((cp = rd.read()) != -1) {

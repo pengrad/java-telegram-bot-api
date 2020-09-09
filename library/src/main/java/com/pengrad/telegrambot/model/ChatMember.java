@@ -11,7 +11,7 @@ public class ChatMember implements Serializable {
     private final static long serialVersionUID = 0L;
 
     public enum Status {
-        creator, administrator, member, restricted, left, kicked;
+        creator, administrator, member, restricted, left, kicked
     }
 
     private User user;

@@ -56,9 +56,7 @@ public class StickerSet implements Serializable {
             return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(stickers, that.stickers)) return false;
-        if (!Objects.equals(thumb, that.thumb)) return false;
-
-        return true;
+        return Objects.equals(thumb, that.thumb);
     }
 
     @Override
