@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -37,12 +38,12 @@ public class ChatPhoto implements Serializable {
 
         ChatPhoto chatPhoto = (ChatPhoto) o;
 
-        if (small_file_id != null ? !small_file_id.equals(chatPhoto.small_file_id) : chatPhoto.small_file_id != null)
+        if (!Objects.equals(small_file_id, chatPhoto.small_file_id))
             return false;
-        if (small_file_unique_id != null ? !small_file_unique_id.equals(chatPhoto.small_file_unique_id) : chatPhoto.small_file_unique_id != null)
+        if (!Objects.equals(small_file_unique_id, chatPhoto.small_file_unique_id))
             return false;
-        if (big_file_id != null ? !big_file_id.equals(chatPhoto.big_file_id) : chatPhoto.big_file_id != null) return false;
-        return big_file_unique_id != null ? big_file_unique_id.equals(chatPhoto.big_file_unique_id) : chatPhoto.big_file_unique_id == null;
+        if (!Objects.equals(big_file_id, chatPhoto.big_file_id)) return false;
+        return Objects.equals(big_file_unique_id, chatPhoto.big_file_unique_id);
     }
 
     @Override

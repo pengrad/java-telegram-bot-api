@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -37,10 +38,10 @@ public class File implements Serializable {
 
         File file = (File) o;
 
-        if (file_id != null ? !file_id.equals(file.file_id) : file.file_id != null) return false;
-        if (file_unique_id != null ? !file_unique_id.equals(file.file_unique_id) : file.file_unique_id != null) return false;
-        if (file_size != null ? !file_size.equals(file.file_size) : file.file_size != null) return false;
-        return file_path != null ? file_path.equals(file.file_path) : file.file_path == null;
+        if (!Objects.equals(file_id, file.file_id)) return false;
+        if (!Objects.equals(file_unique_id, file.file_unique_id)) return false;
+        if (!Objects.equals(file_size, file.file_size)) return false;
+        return Objects.equals(file_path, file.file_path);
     }
 
     @Override

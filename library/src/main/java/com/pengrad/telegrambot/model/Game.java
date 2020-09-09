@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -49,14 +50,14 @@ public class Game implements Serializable {
 
         Game game = (Game) o;
 
-        if (title != null ? !title.equals(game.title) : game.title != null) return false;
-        if (description != null ? !description.equals(game.description) : game.description != null) return false;
+        if (!Objects.equals(title, game.title)) return false;
+        if (!Objects.equals(description, game.description)) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(photo, game.photo)) return false;
-        if (text != null ? !text.equals(game.text) : game.text != null) return false;
+        if (!Objects.equals(text, game.text)) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(text_entities, game.text_entities)) return false;
-        return animation != null ? animation.equals(game.animation) : game.animation == null;
+        return Objects.equals(animation, game.animation);
     }
 
     @Override

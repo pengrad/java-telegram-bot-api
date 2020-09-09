@@ -8,6 +8,7 @@ import com.pengrad.telegrambot.request.GetFile;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -135,17 +136,17 @@ public class EncryptedPassportElement implements Serializable {
         EncryptedPassportElement that = (EncryptedPassportElement) o;
 
         if (type != that.type) return false;
-        if (data != null ? !data.equals(that.data) : that.data != null) return false;
-        if (phone_number != null ? !phone_number.equals(that.phone_number) : that.phone_number != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (!Objects.equals(data, that.data)) return false;
+        if (!Objects.equals(phone_number, that.phone_number)) return false;
+        if (!Objects.equals(email, that.email)) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(files, that.files)) return false;
-        if (front_side != null ? !front_side.equals(that.front_side) : that.front_side != null) return false;
-        if (reverse_side != null ? !reverse_side.equals(that.reverse_side) : that.reverse_side != null) return false;
-        if (selfie != null ? !selfie.equals(that.selfie) : that.selfie != null) return false;
+        if (!Objects.equals(front_side, that.front_side)) return false;
+        if (!Objects.equals(reverse_side, that.reverse_side)) return false;
+        if (!Objects.equals(selfie, that.selfie)) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(translation, that.translation)) return false;
-        return hash != null ? hash.equals(that.hash) : that.hash == null;
+        return Objects.equals(hash, that.hash);
     }
 
     @Override

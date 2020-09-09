@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.passport;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -30,7 +31,7 @@ public class PassportData implements Serializable {
 
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(data, that.data)) return false;
-        return credentials != null ? credentials.equals(that.credentials) : that.credentials == null;
+        return Objects.equals(credentials, that.credentials);
     }
 
     @Override

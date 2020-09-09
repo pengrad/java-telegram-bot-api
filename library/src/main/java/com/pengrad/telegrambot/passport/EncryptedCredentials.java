@@ -3,6 +3,7 @@ package com.pengrad.telegrambot.passport;
 import com.pengrad.telegrambot.passport.decrypt.Decrypt;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -38,9 +39,9 @@ public class EncryptedCredentials implements Serializable {
 
         EncryptedCredentials that = (EncryptedCredentials) o;
 
-        if (data != null ? !data.equals(that.data) : that.data != null) return false;
-        if (hash != null ? !hash.equals(that.hash) : that.hash != null) return false;
-        return secret != null ? secret.equals(that.secret) : that.secret == null;
+        if (!Objects.equals(data, that.data)) return false;
+        if (!Objects.equals(hash, that.hash)) return false;
+        return Objects.equals(secret, that.secret);
     }
 
     @Override

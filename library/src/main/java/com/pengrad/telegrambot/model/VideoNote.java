@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -47,13 +48,13 @@ public class VideoNote implements Serializable {
 
         VideoNote videoNote = (VideoNote) o;
 
-        if (file_id != null ? !file_id.equals(videoNote.file_id) : videoNote.file_id != null) return false;
-        if (file_unique_id != null ? !file_unique_id.equals(videoNote.file_unique_id) : videoNote.file_unique_id != null)
+        if (!Objects.equals(file_id, videoNote.file_id)) return false;
+        if (!Objects.equals(file_unique_id, videoNote.file_unique_id))
             return false;
-        if (length != null ? !length.equals(videoNote.length) : videoNote.length != null) return false;
-        if (duration != null ? !duration.equals(videoNote.duration) : videoNote.duration != null) return false;
-        if (thumb != null ? !thumb.equals(videoNote.thumb) : videoNote.thumb != null) return false;
-        return file_size != null ? file_size.equals(videoNote.file_size) : videoNote.file_size == null;
+        if (!Objects.equals(length, videoNote.length)) return false;
+        if (!Objects.equals(duration, videoNote.duration)) return false;
+        if (!Objects.equals(thumb, videoNote.thumb)) return false;
+        return Objects.equals(file_size, videoNote.file_size);
     }
 
     @Override

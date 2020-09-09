@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -37,11 +38,11 @@ public class ShippingQuery implements Serializable {
 
         ShippingQuery that = (ShippingQuery) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (from != null ? !from.equals(that.from) : that.from != null) return false;
-        if (invoice_payload != null ? !invoice_payload.equals(that.invoice_payload) : that.invoice_payload != null)
+        if (!Objects.equals(id, that.id)) return false;
+        if (!Objects.equals(from, that.from)) return false;
+        if (!Objects.equals(invoice_payload, that.invoice_payload))
             return false;
-        return shipping_address != null ? shipping_address.equals(that.shipping_address) : that.shipping_address == null;
+        return Objects.equals(shipping_address, that.shipping_address);
     }
 
     @Override

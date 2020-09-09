@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.passport;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -27,8 +28,8 @@ public class DataCredentials implements Serializable {
 
         DataCredentials that = (DataCredentials) o;
 
-        if (data_hash != null ? !data_hash.equals(that.data_hash) : that.data_hash != null) return false;
-        return secret != null ? secret.equals(that.secret) : that.secret == null;
+        if (!Objects.equals(data_hash, that.data_hash)) return false;
+        return Objects.equals(secret, that.secret);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model.request;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -94,16 +95,16 @@ public class InlineKeyboardButton implements Serializable {
 
         InlineKeyboardButton that = (InlineKeyboardButton) o;
 
-        if (text != null ? !text.equals(that.text) : that.text != null) return false;
-        if (url != null ? !url.equals(that.url) : that.url != null) return false;
-        if (login_url != null ? !login_url.equals(that.login_url) : that.login_url != null) return false;
-        if (callback_data != null ? !callback_data.equals(that.callback_data) : that.callback_data != null) return false;
-        if (switch_inline_query != null ? !switch_inline_query.equals(that.switch_inline_query) : that.switch_inline_query != null)
+        if (!Objects.equals(text, that.text)) return false;
+        if (!Objects.equals(url, that.url)) return false;
+        if (!Objects.equals(login_url, that.login_url)) return false;
+        if (!Objects.equals(callback_data, that.callback_data)) return false;
+        if (!Objects.equals(switch_inline_query, that.switch_inline_query))
             return false;
-        if (switch_inline_query_current_chat != null ? !switch_inline_query_current_chat.equals(that.switch_inline_query_current_chat) : that.switch_inline_query_current_chat != null)
+        if (!Objects.equals(switch_inline_query_current_chat, that.switch_inline_query_current_chat))
             return false;
-        if (callback_game != null ? !callback_game.equals(that.callback_game) : that.callback_game != null) return false;
-        return pay != null ? pay.equals(that.pay) : that.pay == null;
+        if (!Objects.equals(callback_game, that.callback_game)) return false;
+        return Objects.equals(pay, that.pay);
     }
 
     @Override

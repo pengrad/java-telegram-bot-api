@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -27,8 +28,8 @@ public class Location implements Serializable {
 
         Location location = (Location) o;
 
-        if (longitude != null ? !longitude.equals(location.longitude) : location.longitude != null) return false;
-        return latitude != null ? latitude.equals(location.latitude) : location.latitude == null;
+        if (!Objects.equals(longitude, location.longitude)) return false;
+        return Objects.equals(latitude, location.latitude);
     }
 
     @Override

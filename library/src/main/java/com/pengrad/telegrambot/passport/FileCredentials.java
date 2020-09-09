@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.passport;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -27,8 +28,8 @@ public class FileCredentials implements Serializable {
 
         FileCredentials that = (FileCredentials) o;
 
-        if (file_hash != null ? !file_hash.equals(that.file_hash) : that.file_hash != null) return false;
-        return secret != null ? secret.equals(that.secret) : that.secret == null;
+        if (!Objects.equals(file_hash, that.file_hash)) return false;
+        return Objects.equals(secret, that.secret);
     }
 
     @Override

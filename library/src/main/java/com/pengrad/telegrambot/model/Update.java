@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -77,26 +78,26 @@ public class Update implements Serializable {
 
         Update update = (Update) o;
 
-        if (update_id != null ? !update_id.equals(update.update_id) : update.update_id != null) return false;
-        if (message != null ? !message.equals(update.message) : update.message != null) return false;
-        if (edited_message != null ? !edited_message.equals(update.edited_message) : update.edited_message != null)
+        if (!Objects.equals(update_id, update.update_id)) return false;
+        if (!Objects.equals(message, update.message)) return false;
+        if (!Objects.equals(edited_message, update.edited_message))
             return false;
-        if (channel_post != null ? !channel_post.equals(update.channel_post) : update.channel_post != null)
+        if (!Objects.equals(channel_post, update.channel_post))
             return false;
-        if (edited_channel_post != null ? !edited_channel_post.equals(update.edited_channel_post) : update.edited_channel_post != null)
+        if (!Objects.equals(edited_channel_post, update.edited_channel_post))
             return false;
-        if (inline_query != null ? !inline_query.equals(update.inline_query) : update.inline_query != null)
+        if (!Objects.equals(inline_query, update.inline_query))
             return false;
-        if (chosen_inline_result != null ? !chosen_inline_result.equals(update.chosen_inline_result) : update.chosen_inline_result != null)
+        if (!Objects.equals(chosen_inline_result, update.chosen_inline_result))
             return false;
-        if (callback_query != null ? !callback_query.equals(update.callback_query) : update.callback_query != null)
+        if (!Objects.equals(callback_query, update.callback_query))
             return false;
-        if (shipping_query != null ? !shipping_query.equals(update.shipping_query) : update.shipping_query != null)
+        if (!Objects.equals(shipping_query, update.shipping_query))
             return false;
-        if (pre_checkout_query != null ? !pre_checkout_query.equals(update.pre_checkout_query) : update.pre_checkout_query != null)
+        if (!Objects.equals(pre_checkout_query, update.pre_checkout_query))
             return false;
-        if (poll != null ? !poll.equals(update.poll) : update.poll != null) return false;
-        return poll_answer != null ? poll_answer.equals(update.poll_answer) : update.poll_answer == null;
+        if (!Objects.equals(poll, update.poll)) return false;
+        return Objects.equals(poll_answer, update.poll_answer);
     }
 
     @Override

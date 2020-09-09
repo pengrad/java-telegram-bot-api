@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -52,15 +53,15 @@ public class PreCheckoutQuery implements Serializable {
 
         PreCheckoutQuery that = (PreCheckoutQuery) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (from != null ? !from.equals(that.from) : that.from != null) return false;
-        if (currency != null ? !currency.equals(that.currency) : that.currency != null) return false;
-        if (total_amount != null ? !total_amount.equals(that.total_amount) : that.total_amount != null) return false;
-        if (invoice_payload != null ? !invoice_payload.equals(that.invoice_payload) : that.invoice_payload != null)
+        if (!Objects.equals(id, that.id)) return false;
+        if (!Objects.equals(from, that.from)) return false;
+        if (!Objects.equals(currency, that.currency)) return false;
+        if (!Objects.equals(total_amount, that.total_amount)) return false;
+        if (!Objects.equals(invoice_payload, that.invoice_payload))
             return false;
-        if (shipping_option_id != null ? !shipping_option_id.equals(that.shipping_option_id) : that.shipping_option_id != null)
+        if (!Objects.equals(shipping_option_id, that.shipping_option_id))
             return false;
-        return order_info != null ? order_info.equals(that.order_info) : that.order_info == null;
+        return Objects.equals(order_info, that.order_info);
     }
 
     @Override

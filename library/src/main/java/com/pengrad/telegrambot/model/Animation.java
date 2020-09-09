@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -62,16 +63,16 @@ public class Animation implements Serializable {
 
         Animation animation = (Animation) o;
 
-        if (file_id != null ? !file_id.equals(animation.file_id) : animation.file_id != null) return false;
-        if (file_unique_id != null ? !file_unique_id.equals(animation.file_unique_id) : animation.file_unique_id != null)
+        if (!Objects.equals(file_id, animation.file_id)) return false;
+        if (!Objects.equals(file_unique_id, animation.file_unique_id))
             return false;
-        if (width != null ? !width.equals(animation.width) : animation.width != null) return false;
-        if (height != null ? !height.equals(animation.height) : animation.height != null) return false;
-        if (duration != null ? !duration.equals(animation.duration) : animation.duration != null) return false;
-        if (thumb != null ? !thumb.equals(animation.thumb) : animation.thumb != null) return false;
-        if (file_name != null ? !file_name.equals(animation.file_name) : animation.file_name != null) return false;
-        if (mime_type != null ? !mime_type.equals(animation.mime_type) : animation.mime_type != null) return false;
-        return file_size != null ? file_size.equals(animation.file_size) : animation.file_size == null;
+        if (!Objects.equals(width, animation.width)) return false;
+        if (!Objects.equals(height, animation.height)) return false;
+        if (!Objects.equals(duration, animation.duration)) return false;
+        if (!Objects.equals(thumb, animation.thumb)) return false;
+        if (!Objects.equals(file_name, animation.file_name)) return false;
+        if (!Objects.equals(mime_type, animation.mime_type)) return false;
+        return Objects.equals(file_size, animation.file_size);
     }
 
     @Override

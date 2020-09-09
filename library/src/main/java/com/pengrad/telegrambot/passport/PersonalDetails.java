@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.passport;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -67,19 +68,19 @@ public class PersonalDetails extends DecryptedData implements Serializable {
 
         PersonalDetails that = (PersonalDetails) o;
 
-        if (first_name != null ? !first_name.equals(that.first_name) : that.first_name != null) return false;
-        if (last_name != null ? !last_name.equals(that.last_name) : that.last_name != null) return false;
-        if (middle_name != null ? !middle_name.equals(that.middle_name) : that.middle_name != null) return false;
-        if (birth_date != null ? !birth_date.equals(that.birth_date) : that.birth_date != null) return false;
-        if (gender != null ? !gender.equals(that.gender) : that.gender != null) return false;
-        if (country_code != null ? !country_code.equals(that.country_code) : that.country_code != null) return false;
-        if (residence_country_code != null ? !residence_country_code.equals(that.residence_country_code) : that.residence_country_code != null)
+        if (!Objects.equals(first_name, that.first_name)) return false;
+        if (!Objects.equals(last_name, that.last_name)) return false;
+        if (!Objects.equals(middle_name, that.middle_name)) return false;
+        if (!Objects.equals(birth_date, that.birth_date)) return false;
+        if (!Objects.equals(gender, that.gender)) return false;
+        if (!Objects.equals(country_code, that.country_code)) return false;
+        if (!Objects.equals(residence_country_code, that.residence_country_code))
             return false;
-        if (first_name_native != null ? !first_name_native.equals(that.first_name_native) : that.first_name_native != null)
+        if (!Objects.equals(first_name_native, that.first_name_native))
             return false;
-        if (last_name_native != null ? !last_name_native.equals(that.last_name_native) : that.last_name_native != null)
+        if (!Objects.equals(last_name_native, that.last_name_native))
             return false;
-        return middle_name_native != null ? middle_name_native.equals(that.middle_name_native) : that.middle_name_native == null;
+        return Objects.equals(middle_name_native, that.middle_name_native);
     }
 
     @Override

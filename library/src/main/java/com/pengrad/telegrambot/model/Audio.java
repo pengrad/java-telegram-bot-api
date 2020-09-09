@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -57,14 +58,14 @@ public class Audio implements Serializable {
 
         Audio audio = (Audio) o;
 
-        if (file_id != null ? !file_id.equals(audio.file_id) : audio.file_id != null) return false;
-        if (file_unique_id != null ? !file_unique_id.equals(audio.file_unique_id) : audio.file_unique_id != null) return false;
-        if (duration != null ? !duration.equals(audio.duration) : audio.duration != null) return false;
-        if (performer != null ? !performer.equals(audio.performer) : audio.performer != null) return false;
-        if (title != null ? !title.equals(audio.title) : audio.title != null) return false;
-        if (mime_type != null ? !mime_type.equals(audio.mime_type) : audio.mime_type != null) return false;
-        if (file_size != null ? !file_size.equals(audio.file_size) : audio.file_size != null) return false;
-        return thumb != null ? thumb.equals(audio.thumb) : audio.thumb == null;
+        if (!Objects.equals(file_id, audio.file_id)) return false;
+        if (!Objects.equals(file_unique_id, audio.file_unique_id)) return false;
+        if (!Objects.equals(duration, audio.duration)) return false;
+        if (!Objects.equals(performer, audio.performer)) return false;
+        if (!Objects.equals(title, audio.title)) return false;
+        if (!Objects.equals(mime_type, audio.mime_type)) return false;
+        if (!Objects.equals(file_size, audio.file_size)) return false;
+        return Objects.equals(thumb, audio.thumb);
     }
 
     @Override

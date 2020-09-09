@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.passport;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -37,10 +38,10 @@ public class PassportFile implements Serializable {
 
         PassportFile that = (PassportFile) o;
 
-        if (file_id != null ? !file_id.equals(that.file_id) : that.file_id != null) return false;
-        if (file_unique_id != null ? !file_unique_id.equals(that.file_unique_id) : that.file_unique_id != null) return false;
-        if (file_size != null ? !file_size.equals(that.file_size) : that.file_size != null) return false;
-        return file_date != null ? file_date.equals(that.file_date) : that.file_date == null;
+        if (!Objects.equals(file_id, that.file_id)) return false;
+        if (!Objects.equals(file_unique_id, that.file_unique_id)) return false;
+        if (!Objects.equals(file_size, that.file_size)) return false;
+        return Objects.equals(file_date, that.file_date);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -97,20 +98,20 @@ public class ChatPermissions implements Serializable {
 
         ChatPermissions that = (ChatPermissions) o;
 
-        if (can_send_messages != null ? !can_send_messages.equals(that.can_send_messages) : that.can_send_messages != null)
+        if (!Objects.equals(can_send_messages, that.can_send_messages))
             return false;
-        if (can_send_media_messages != null ? !can_send_media_messages.equals(that.can_send_media_messages) : that.can_send_media_messages != null)
+        if (!Objects.equals(can_send_media_messages, that.can_send_media_messages))
             return false;
-        if (can_send_polls != null ? !can_send_polls.equals(that.can_send_polls) : that.can_send_polls != null) return false;
-        if (can_send_other_messages != null ? !can_send_other_messages.equals(that.can_send_other_messages) : that.can_send_other_messages != null)
+        if (!Objects.equals(can_send_polls, that.can_send_polls)) return false;
+        if (!Objects.equals(can_send_other_messages, that.can_send_other_messages))
             return false;
-        if (can_add_web_page_previews != null ? !can_add_web_page_previews.equals(that.can_add_web_page_previews) : that.can_add_web_page_previews != null)
+        if (!Objects.equals(can_add_web_page_previews, that.can_add_web_page_previews))
             return false;
-        if (can_change_info != null ? !can_change_info.equals(that.can_change_info) : that.can_change_info != null)
+        if (!Objects.equals(can_change_info, that.can_change_info))
             return false;
-        if (can_invite_users != null ? !can_invite_users.equals(that.can_invite_users) : that.can_invite_users != null)
+        if (!Objects.equals(can_invite_users, that.can_invite_users))
             return false;
-        return can_pin_messages != null ? can_pin_messages.equals(that.can_pin_messages) : that.can_pin_messages == null;
+        return Objects.equals(can_pin_messages, that.can_pin_messages);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -117,36 +118,36 @@ public class ChatMember implements Serializable {
 
         ChatMember that = (ChatMember) o;
 
-        if (user != null ? !user.equals(that.user) : that.user != null) return false;
+        if (!Objects.equals(user, that.user)) return false;
         if (status != that.status) return false;
-        if (custom_title != null ? !custom_title.equals(that.custom_title) : that.custom_title != null) return false;
-        if (until_date != null ? !until_date.equals(that.until_date) : that.until_date != null) return false;
-        if (can_be_edited != null ? !can_be_edited.equals(that.can_be_edited) : that.can_be_edited != null) return false;
-        if (can_post_messages != null ? !can_post_messages.equals(that.can_post_messages) : that.can_post_messages != null)
+        if (!Objects.equals(custom_title, that.custom_title)) return false;
+        if (!Objects.equals(until_date, that.until_date)) return false;
+        if (!Objects.equals(can_be_edited, that.can_be_edited)) return false;
+        if (!Objects.equals(can_post_messages, that.can_post_messages))
             return false;
-        if (can_edit_messages != null ? !can_edit_messages.equals(that.can_edit_messages) : that.can_edit_messages != null)
+        if (!Objects.equals(can_edit_messages, that.can_edit_messages))
             return false;
-        if (can_delete_messages != null ? !can_delete_messages.equals(that.can_delete_messages) : that.can_delete_messages != null)
+        if (!Objects.equals(can_delete_messages, that.can_delete_messages))
             return false;
-        if (can_restrict_members != null ? !can_restrict_members.equals(that.can_restrict_members) : that.can_restrict_members != null)
+        if (!Objects.equals(can_restrict_members, that.can_restrict_members))
             return false;
-        if (can_promote_members != null ? !can_promote_members.equals(that.can_promote_members) : that.can_promote_members != null)
+        if (!Objects.equals(can_promote_members, that.can_promote_members))
             return false;
-        if (can_change_info != null ? !can_change_info.equals(that.can_change_info) : that.can_change_info != null)
+        if (!Objects.equals(can_change_info, that.can_change_info))
             return false;
-        if (can_invite_users != null ? !can_invite_users.equals(that.can_invite_users) : that.can_invite_users != null)
+        if (!Objects.equals(can_invite_users, that.can_invite_users))
             return false;
-        if (can_pin_messages != null ? !can_pin_messages.equals(that.can_pin_messages) : that.can_pin_messages != null)
+        if (!Objects.equals(can_pin_messages, that.can_pin_messages))
             return false;
-        if (is_member != null ? !is_member.equals(that.is_member) : that.is_member != null) return false;
-        if (can_send_messages != null ? !can_send_messages.equals(that.can_send_messages) : that.can_send_messages != null)
+        if (!Objects.equals(is_member, that.is_member)) return false;
+        if (!Objects.equals(can_send_messages, that.can_send_messages))
             return false;
-        if (can_send_media_messages != null ? !can_send_media_messages.equals(that.can_send_media_messages) : that.can_send_media_messages != null)
+        if (!Objects.equals(can_send_media_messages, that.can_send_media_messages))
             return false;
-        if (can_send_polls != null ? !can_send_polls.equals(that.can_send_polls) : that.can_send_polls != null) return false;
-        if (can_send_other_messages != null ? !can_send_other_messages.equals(that.can_send_other_messages) : that.can_send_other_messages != null)
+        if (!Objects.equals(can_send_polls, that.can_send_polls)) return false;
+        if (!Objects.equals(can_send_other_messages, that.can_send_other_messages))
             return false;
-        return can_add_web_page_previews != null ? can_add_web_page_previews.equals(that.can_add_web_page_previews) : that.can_add_web_page_previews == null;
+        return Objects.equals(can_add_web_page_previews, that.can_add_web_page_previews);
     }
 
     @Override

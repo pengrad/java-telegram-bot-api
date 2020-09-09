@@ -5,6 +5,7 @@ import com.pengrad.telegrambot.passport.PassportData;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * stas
@@ -266,81 +267,81 @@ public class Message implements Serializable {
 
         Message message = (Message) o;
 
-        if (message_id != null ? !message_id.equals(message.message_id) : message.message_id != null) return false;
-        if (from != null ? !from.equals(message.from) : message.from != null) return false;
-        if (date != null ? !date.equals(message.date) : message.date != null) return false;
-        if (chat != null ? !chat.equals(message.chat) : message.chat != null) return false;
-        if (forward_from != null ? !forward_from.equals(message.forward_from) : message.forward_from != null)
+        if (!Objects.equals(message_id, message.message_id)) return false;
+        if (!Objects.equals(from, message.from)) return false;
+        if (!Objects.equals(date, message.date)) return false;
+        if (!Objects.equals(chat, message.chat)) return false;
+        if (!Objects.equals(forward_from, message.forward_from))
             return false;
-        if (forward_from_chat != null ? !forward_from_chat.equals(message.forward_from_chat) : message.forward_from_chat != null)
+        if (!Objects.equals(forward_from_chat, message.forward_from_chat))
             return false;
-        if (forward_from_message_id != null ? !forward_from_message_id.equals(message.forward_from_message_id) : message.forward_from_message_id != null)
+        if (!Objects.equals(forward_from_message_id, message.forward_from_message_id))
             return false;
-        if (forward_signature != null ? !forward_signature.equals(message.forward_signature) : message.forward_signature != null)
+        if (!Objects.equals(forward_signature, message.forward_signature))
             return false;
-        if (forward_sender_name != null ? !forward_sender_name.equals(message.forward_sender_name) : message.forward_sender_name != null)
+        if (!Objects.equals(forward_sender_name, message.forward_sender_name))
             return false;
-        if (forward_date != null ? !forward_date.equals(message.forward_date) : message.forward_date != null)
+        if (!Objects.equals(forward_date, message.forward_date))
             return false;
-        if (reply_to_message != null ? !reply_to_message.equals(message.reply_to_message) : message.reply_to_message != null)
+        if (!Objects.equals(reply_to_message, message.reply_to_message))
             return false;
-        if (via_bot != null ? !via_bot.equals(message.via_bot) : message.via_bot != null) return false;
-        if (edit_date != null ? !edit_date.equals(message.edit_date) : message.edit_date != null) return false;
-        if (media_group_id != null ? !media_group_id.equals(message.media_group_id) : message.media_group_id != null)
+        if (!Objects.equals(via_bot, message.via_bot)) return false;
+        if (!Objects.equals(edit_date, message.edit_date)) return false;
+        if (!Objects.equals(media_group_id, message.media_group_id))
             return false;
-        if (author_signature != null ? !author_signature.equals(message.author_signature) : message.author_signature != null)
+        if (!Objects.equals(author_signature, message.author_signature))
             return false;
-        if (text != null ? !text.equals(message.text) : message.text != null) return false;
+        if (!Objects.equals(text, message.text)) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(entities, message.entities)) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(caption_entities, message.caption_entities)) return false;
-        if (audio != null ? !audio.equals(message.audio) : message.audio != null) return false;
-        if (document != null ? !document.equals(message.document) : message.document != null) return false;
-        if (animation != null ? !animation.equals(message.animation) : message.animation != null) return false;
-        if (game != null ? !game.equals(message.game) : message.game != null) return false;
+        if (!Objects.equals(audio, message.audio)) return false;
+        if (!Objects.equals(document, message.document)) return false;
+        if (!Objects.equals(animation, message.animation)) return false;
+        if (!Objects.equals(game, message.game)) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(photo, message.photo)) return false;
-        if (sticker != null ? !sticker.equals(message.sticker) : message.sticker != null) return false;
-        if (video != null ? !video.equals(message.video) : message.video != null) return false;
-        if (voice != null ? !voice.equals(message.voice) : message.voice != null) return false;
-        if (video_note != null ? !video_note.equals(message.video_note) : message.video_note != null) return false;
-        if (caption != null ? !caption.equals(message.caption) : message.caption != null) return false;
-        if (contact != null ? !contact.equals(message.contact) : message.contact != null) return false;
-        if (location != null ? !location.equals(message.location) : message.location != null) return false;
-        if (venue != null ? !venue.equals(message.venue) : message.venue != null) return false;
-        if (poll != null ? !poll.equals(message.poll) : message.poll != null) return false;
-        if (dice != null ? !dice.equals(message.dice) : message.dice != null) return false;
+        if (!Objects.equals(sticker, message.sticker)) return false;
+        if (!Objects.equals(video, message.video)) return false;
+        if (!Objects.equals(voice, message.voice)) return false;
+        if (!Objects.equals(video_note, message.video_note)) return false;
+        if (!Objects.equals(caption, message.caption)) return false;
+        if (!Objects.equals(contact, message.contact)) return false;
+        if (!Objects.equals(location, message.location)) return false;
+        if (!Objects.equals(venue, message.venue)) return false;
+        if (!Objects.equals(poll, message.poll)) return false;
+        if (!Objects.equals(dice, message.dice)) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(new_chat_members, message.new_chat_members)) return false;
-        if (left_chat_member != null ? !left_chat_member.equals(message.left_chat_member) : message.left_chat_member != null)
+        if (!Objects.equals(left_chat_member, message.left_chat_member))
             return false;
-        if (new_chat_title != null ? !new_chat_title.equals(message.new_chat_title) : message.new_chat_title != null)
+        if (!Objects.equals(new_chat_title, message.new_chat_title))
             return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(new_chat_photo, message.new_chat_photo)) return false;
-        if (delete_chat_photo != null ? !delete_chat_photo.equals(message.delete_chat_photo) : message.delete_chat_photo != null)
+        if (!Objects.equals(delete_chat_photo, message.delete_chat_photo))
             return false;
-        if (group_chat_created != null ? !group_chat_created.equals(message.group_chat_created) : message.group_chat_created != null)
+        if (!Objects.equals(group_chat_created, message.group_chat_created))
             return false;
-        if (supergroup_chat_created != null ? !supergroup_chat_created.equals(message.supergroup_chat_created) : message.supergroup_chat_created != null)
+        if (!Objects.equals(supergroup_chat_created, message.supergroup_chat_created))
             return false;
-        if (channel_chat_created != null ? !channel_chat_created.equals(message.channel_chat_created) : message.channel_chat_created != null)
+        if (!Objects.equals(channel_chat_created, message.channel_chat_created))
             return false;
-        if (migrate_to_chat_id != null ? !migrate_to_chat_id.equals(message.migrate_to_chat_id) : message.migrate_to_chat_id != null)
+        if (!Objects.equals(migrate_to_chat_id, message.migrate_to_chat_id))
             return false;
-        if (migrate_from_chat_id != null ? !migrate_from_chat_id.equals(message.migrate_from_chat_id) : message.migrate_from_chat_id != null)
+        if (!Objects.equals(migrate_from_chat_id, message.migrate_from_chat_id))
             return false;
-        if (pinned_message != null ? !pinned_message.equals(message.pinned_message) : message.pinned_message != null)
+        if (!Objects.equals(pinned_message, message.pinned_message))
             return false;
-        if (invoice != null ? !invoice.equals(message.invoice) : message.invoice != null) return false;
-        if (successful_payment != null ? !successful_payment.equals(message.successful_payment) : message.successful_payment != null)
+        if (!Objects.equals(invoice, message.invoice)) return false;
+        if (!Objects.equals(successful_payment, message.successful_payment))
             return false;
-        if (connected_website != null ? !connected_website.equals(message.connected_website) : message.connected_website != null)
+        if (!Objects.equals(connected_website, message.connected_website))
             return false;
-        if (passport_data != null ? !passport_data.equals(message.passport_data) : message.passport_data != null)
+        if (!Objects.equals(passport_data, message.passport_data))
             return false;
-        return reply_markup != null ? reply_markup.equals(message.reply_markup) : message.reply_markup == null;
+        return Objects.equals(reply_markup, message.reply_markup);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.pengrad.telegrambot.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -107,24 +108,24 @@ public class Chat implements Serializable {
 
         Chat chat = (Chat) o;
 
-        if (id != null ? !id.equals(chat.id) : chat.id != null) return false;
+        if (!Objects.equals(id, chat.id)) return false;
         if (type != chat.type) return false;
-        if (first_name != null ? !first_name.equals(chat.first_name) : chat.first_name != null) return false;
-        if (last_name != null ? !last_name.equals(chat.last_name) : chat.last_name != null) return false;
-        if (username != null ? !username.equals(chat.username) : chat.username != null) return false;
-        if (title != null ? !title.equals(chat.title) : chat.title != null) return false;
-        if (all_members_are_administrators != null ? !all_members_are_administrators.equals(chat.all_members_are_administrators) : chat.all_members_are_administrators != null)
+        if (!Objects.equals(first_name, chat.first_name)) return false;
+        if (!Objects.equals(last_name, chat.last_name)) return false;
+        if (!Objects.equals(username, chat.username)) return false;
+        if (!Objects.equals(title, chat.title)) return false;
+        if (!Objects.equals(all_members_are_administrators, chat.all_members_are_administrators))
             return false;
-        if (photo != null ? !photo.equals(chat.photo) : chat.photo != null) return false;
-        if (description != null ? !description.equals(chat.description) : chat.description != null) return false;
-        if (invite_link != null ? !invite_link.equals(chat.invite_link) : chat.invite_link != null) return false;
-        if (pinned_message != null ? !pinned_message.equals(chat.pinned_message) : chat.pinned_message != null) return false;
-        if (permissions != null ? !permissions.equals(chat.permissions) : chat.permissions != null) return false;
-        if (slow_mode_delay != null ? !slow_mode_delay.equals(chat.slow_mode_delay) : chat.slow_mode_delay != null)
+        if (!Objects.equals(photo, chat.photo)) return false;
+        if (!Objects.equals(description, chat.description)) return false;
+        if (!Objects.equals(invite_link, chat.invite_link)) return false;
+        if (!Objects.equals(pinned_message, chat.pinned_message)) return false;
+        if (!Objects.equals(permissions, chat.permissions)) return false;
+        if (!Objects.equals(slow_mode_delay, chat.slow_mode_delay))
             return false;
-        if (sticker_set_name != null ? !sticker_set_name.equals(chat.sticker_set_name) : chat.sticker_set_name != null)
+        if (!Objects.equals(sticker_set_name, chat.sticker_set_name))
             return false;
-        return can_set_sticker_set != null ? can_set_sticker_set.equals(chat.can_set_sticker_set) : chat.can_set_sticker_set == null;
+        return Objects.equals(can_set_sticker_set, chat.can_set_sticker_set);
     }
 
     @Override

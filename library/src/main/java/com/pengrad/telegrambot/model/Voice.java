@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -42,11 +43,11 @@ public class Voice implements Serializable {
 
         Voice voice = (Voice) o;
 
-        if (file_id != null ? !file_id.equals(voice.file_id) : voice.file_id != null) return false;
-        if (file_unique_id != null ? !file_unique_id.equals(voice.file_unique_id) : voice.file_unique_id != null) return false;
-        if (duration != null ? !duration.equals(voice.duration) : voice.duration != null) return false;
-        if (mime_type != null ? !mime_type.equals(voice.mime_type) : voice.mime_type != null) return false;
-        return file_size != null ? file_size.equals(voice.file_size) : voice.file_size == null;
+        if (!Objects.equals(file_id, voice.file_id)) return false;
+        if (!Objects.equals(file_unique_id, voice.file_unique_id)) return false;
+        if (!Objects.equals(duration, voice.duration)) return false;
+        if (!Objects.equals(mime_type, voice.mime_type)) return false;
+        return Objects.equals(file_size, voice.file_size);
     }
 
     @Override

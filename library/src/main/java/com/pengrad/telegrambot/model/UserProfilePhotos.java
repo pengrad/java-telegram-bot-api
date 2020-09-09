@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * stas
@@ -28,7 +29,7 @@ public class UserProfilePhotos implements Serializable {
 
         UserProfilePhotos that = (UserProfilePhotos) o;
 
-        if (total_count != null ? !total_count.equals(that.total_count) : that.total_count != null) return false;
+        if (!Objects.equals(total_count, that.total_count)) return false;
         return Arrays.deepEquals(photos, that.photos);
     }
 

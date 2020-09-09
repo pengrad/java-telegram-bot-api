@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -32,9 +33,9 @@ public class GameHighScore implements Serializable {
 
         GameHighScore that = (GameHighScore) o;
 
-        if (position != null ? !position.equals(that.position) : that.position != null) return false;
-        if (user != null ? !user.equals(that.user) : that.user != null) return false;
-        return score != null ? score.equals(that.score) : that.score == null;
+        if (!Objects.equals(position, that.position)) return false;
+        if (!Objects.equals(user, that.user)) return false;
+        return Objects.equals(score, that.score);
     }
 
     @Override

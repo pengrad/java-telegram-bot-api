@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.passport;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -27,8 +28,8 @@ public class IdDocumentData extends DecryptedData implements Serializable {
 
         IdDocumentData that = (IdDocumentData) o;
 
-        if (document_no != null ? !document_no.equals(that.document_no) : that.document_no != null) return false;
-        return expiry_date != null ? expiry_date.equals(that.expiry_date) : that.expiry_date == null;
+        if (!Objects.equals(document_no, that.document_no)) return false;
+        return Objects.equals(expiry_date, that.expiry_date);
     }
 
     @Override

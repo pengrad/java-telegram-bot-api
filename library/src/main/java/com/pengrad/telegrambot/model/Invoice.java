@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -39,12 +40,12 @@ public class Invoice implements Serializable {
 
         Invoice invoice = (Invoice) o;
 
-        if (title != null ? !title.equals(invoice.title) : invoice.title != null) return false;
-        if (description != null ? !description.equals(invoice.description) : invoice.description != null) return false;
-        if (start_parameter != null ? !start_parameter.equals(invoice.start_parameter) : invoice.start_parameter != null)
+        if (!Objects.equals(title, invoice.title)) return false;
+        if (!Objects.equals(description, invoice.description)) return false;
+        if (!Objects.equals(start_parameter, invoice.start_parameter))
             return false;
-        if (currency != null ? !currency.equals(invoice.currency) : invoice.currency != null) return false;
-        return total_amount != null ? total_amount.equals(invoice.total_amount) : invoice.total_amount == null;
+        if (!Objects.equals(currency, invoice.currency)) return false;
+        return Objects.equals(total_amount, invoice.total_amount);
     }
 
     @Override

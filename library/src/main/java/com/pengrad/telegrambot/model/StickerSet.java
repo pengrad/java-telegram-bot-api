@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -48,14 +49,14 @@ public class StickerSet implements Serializable {
 
         StickerSet that = (StickerSet) o;
 
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (is_animated != null ? !is_animated.equals(that.is_animated) : that.is_animated != null) return false;
-        if (contains_masks != null ? !contains_masks.equals(that.contains_masks) : that.contains_masks != null)
+        if (!Objects.equals(name, that.name)) return false;
+        if (!Objects.equals(title, that.title)) return false;
+        if (!Objects.equals(is_animated, that.is_animated)) return false;
+        if (!Objects.equals(contains_masks, that.contains_masks))
             return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(stickers, that.stickers)) return false;
-        if (thumb != null ? !thumb.equals(that.thumb) : that.thumb != null) return false;
+        if (!Objects.equals(thumb, that.thumb)) return false;
 
         return true;
     }

@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -52,16 +53,16 @@ public class SuccessfulPayment implements Serializable {
 
         SuccessfulPayment that = (SuccessfulPayment) o;
 
-        if (currency != null ? !currency.equals(that.currency) : that.currency != null) return false;
-        if (total_amount != null ? !total_amount.equals(that.total_amount) : that.total_amount != null) return false;
-        if (invoice_payload != null ? !invoice_payload.equals(that.invoice_payload) : that.invoice_payload != null)
+        if (!Objects.equals(currency, that.currency)) return false;
+        if (!Objects.equals(total_amount, that.total_amount)) return false;
+        if (!Objects.equals(invoice_payload, that.invoice_payload))
             return false;
-        if (shipping_option_id != null ? !shipping_option_id.equals(that.shipping_option_id) : that.shipping_option_id != null)
+        if (!Objects.equals(shipping_option_id, that.shipping_option_id))
             return false;
-        if (order_info != null ? !order_info.equals(that.order_info) : that.order_info != null) return false;
-        if (telegram_payment_charge_id != null ? !telegram_payment_charge_id.equals(that.telegram_payment_charge_id) : that.telegram_payment_charge_id != null)
+        if (!Objects.equals(order_info, that.order_info)) return false;
+        if (!Objects.equals(telegram_payment_charge_id, that.telegram_payment_charge_id))
             return false;
-        return provider_payment_charge_id != null ? provider_payment_charge_id.equals(that.provider_payment_charge_id) : that.provider_payment_charge_id == null;
+        return Objects.equals(provider_payment_charge_id, that.provider_payment_charge_id);
 
     }
 

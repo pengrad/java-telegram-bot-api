@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -42,12 +43,12 @@ public class ChosenInlineResult implements Serializable {
 
         ChosenInlineResult that = (ChosenInlineResult) o;
 
-        if (result_id != null ? !result_id.equals(that.result_id) : that.result_id != null) return false;
-        if (from != null ? !from.equals(that.from) : that.from != null) return false;
-        if (location != null ? !location.equals(that.location) : that.location != null) return false;
-        if (inline_message_id != null ? !inline_message_id.equals(that.inline_message_id) : that.inline_message_id != null)
+        if (!Objects.equals(result_id, that.result_id)) return false;
+        if (!Objects.equals(from, that.from)) return false;
+        if (!Objects.equals(location, that.location)) return false;
+        if (!Objects.equals(inline_message_id, that.inline_message_id))
             return false;
-        return query != null ? query.equals(that.query) : that.query == null;
+        return Objects.equals(query, that.query);
 
     }
 

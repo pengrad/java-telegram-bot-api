@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -33,8 +34,8 @@ public class PollAnswer implements Serializable {
 
         PollAnswer that = (PollAnswer) o;
 
-        if (poll_id != null ? !poll_id.equals(that.poll_id) : that.poll_id != null) return false;
-        if (user != null ? !user.equals(that.user) : that.user != null) return false;
+        if (!Objects.equals(poll_id, that.poll_id)) return false;
+        if (!Objects.equals(user, that.user)) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         return Arrays.equals(option_ids, that.option_ids);
     }

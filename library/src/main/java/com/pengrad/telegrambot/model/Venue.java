@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -42,11 +43,11 @@ public class Venue implements Serializable {
 
         Venue venue = (Venue) o;
 
-        if (location != null ? !location.equals(venue.location) : venue.location != null) return false;
-        if (title != null ? !title.equals(venue.title) : venue.title != null) return false;
-        if (address != null ? !address.equals(venue.address) : venue.address != null) return false;
-        if (foursquare_id != null ? !foursquare_id.equals(venue.foursquare_id) : venue.foursquare_id != null) return false;
-        return foursquare_type != null ? foursquare_type.equals(venue.foursquare_type) : venue.foursquare_type == null;
+        if (!Objects.equals(location, venue.location)) return false;
+        if (!Objects.equals(title, venue.title)) return false;
+        if (!Objects.equals(address, venue.address)) return false;
+        if (!Objects.equals(foursquare_id, venue.foursquare_id)) return false;
+        return Objects.equals(foursquare_type, venue.foursquare_type);
     }
 
     @Override

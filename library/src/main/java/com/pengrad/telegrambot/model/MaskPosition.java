@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -54,10 +55,10 @@ public class MaskPosition implements Serializable {
 
         MaskPosition that = (MaskPosition) o;
 
-        if (point != null ? !point.equals(that.point) : that.point != null) return false;
-        if (x_shift != null ? !x_shift.equals(that.x_shift) : that.x_shift != null) return false;
-        if (y_shift != null ? !y_shift.equals(that.y_shift) : that.y_shift != null) return false;
-        return scale != null ? scale.equals(that.scale) : that.scale == null;
+        if (!Objects.equals(point, that.point)) return false;
+        if (!Objects.equals(x_shift, that.x_shift)) return false;
+        if (!Objects.equals(y_shift, that.y_shift)) return false;
+        return Objects.equals(scale, that.scale);
     }
 
     @Override

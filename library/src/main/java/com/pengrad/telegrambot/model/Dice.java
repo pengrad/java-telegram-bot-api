@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -27,8 +28,8 @@ public class Dice implements Serializable {
 
         Dice dice = (Dice) o;
 
-        if (emoji != null ? !emoji.equals(dice.emoji) : dice.emoji != null) return false;
-        return value != null ? value.equals(dice.value) : dice.value == null;
+        if (!Objects.equals(emoji, dice.emoji)) return false;
+        return Objects.equals(value, dice.value);
     }
 
     @Override

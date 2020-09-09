@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -87,24 +88,24 @@ public class Poll implements Serializable {
 
         Poll poll = (Poll) o;
 
-        if (id != null ? !id.equals(poll.id) : poll.id != null) return false;
-        if (question != null ? !question.equals(poll.question) : poll.question != null) return false;
+        if (!Objects.equals(id, poll.id)) return false;
+        if (!Objects.equals(question, poll.question)) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(options, poll.options)) return false;
-        if (total_voter_count != null ? !total_voter_count.equals(poll.total_voter_count) : poll.total_voter_count != null)
+        if (!Objects.equals(total_voter_count, poll.total_voter_count))
             return false;
-        if (is_closed != null ? !is_closed.equals(poll.is_closed) : poll.is_closed != null) return false;
-        if (is_anonymous != null ? !is_anonymous.equals(poll.is_anonymous) : poll.is_anonymous != null) return false;
+        if (!Objects.equals(is_closed, poll.is_closed)) return false;
+        if (!Objects.equals(is_anonymous, poll.is_anonymous)) return false;
         if (type != poll.type) return false;
-        if (allows_multiple_answers != null ? !allows_multiple_answers.equals(poll.allows_multiple_answers) : poll.allows_multiple_answers != null)
+        if (!Objects.equals(allows_multiple_answers, poll.allows_multiple_answers))
             return false;
-        if (correct_option_id != null ? !correct_option_id.equals(poll.correct_option_id) : poll.correct_option_id != null)
+        if (!Objects.equals(correct_option_id, poll.correct_option_id))
             return false;
-        if (explanation != null ? !explanation.equals(poll.explanation) : poll.explanation != null) return false;
+        if (!Objects.equals(explanation, poll.explanation)) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(explanation_entities, poll.explanation_entities)) return false;
-        if (open_period != null ? !open_period.equals(poll.open_period) : poll.open_period != null) return false;
-        return close_date != null ? close_date.equals(poll.close_date) : poll.close_date == null;
+        if (!Objects.equals(open_period, poll.open_period)) return false;
+        return Objects.equals(close_date, poll.close_date);
     }
 
     @Override

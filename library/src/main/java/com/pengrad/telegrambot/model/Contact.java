@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -42,11 +43,11 @@ public class Contact implements Serializable {
 
         Contact contact = (Contact) o;
 
-        if (phone_number != null ? !phone_number.equals(contact.phone_number) : contact.phone_number != null) return false;
-        if (first_name != null ? !first_name.equals(contact.first_name) : contact.first_name != null) return false;
-        if (last_name != null ? !last_name.equals(contact.last_name) : contact.last_name != null) return false;
-        if (user_id != null ? !user_id.equals(contact.user_id) : contact.user_id != null) return false;
-        return vcard != null ? vcard.equals(contact.vcard) : contact.vcard == null;
+        if (!Objects.equals(phone_number, contact.phone_number)) return false;
+        if (!Objects.equals(first_name, contact.first_name)) return false;
+        if (!Objects.equals(last_name, contact.last_name)) return false;
+        if (!Objects.equals(user_id, contact.user_id)) return false;
+        return Objects.equals(vcard, contact.vcard);
     }
 
     @Override

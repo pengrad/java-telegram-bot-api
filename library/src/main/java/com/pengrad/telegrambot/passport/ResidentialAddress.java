@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.passport;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -47,12 +48,12 @@ public class ResidentialAddress extends DecryptedData implements Serializable {
 
         ResidentialAddress that = (ResidentialAddress) o;
 
-        if (street_line1 != null ? !street_line1.equals(that.street_line1) : that.street_line1 != null) return false;
-        if (street_line2 != null ? !street_line2.equals(that.street_line2) : that.street_line2 != null) return false;
-        if (city != null ? !city.equals(that.city) : that.city != null) return false;
-        if (state != null ? !state.equals(that.state) : that.state != null) return false;
-        if (country_code != null ? !country_code.equals(that.country_code) : that.country_code != null) return false;
-        return post_code != null ? post_code.equals(that.post_code) : that.post_code == null;
+        if (!Objects.equals(street_line1, that.street_line1)) return false;
+        if (!Objects.equals(street_line2, that.street_line2)) return false;
+        if (!Objects.equals(city, that.city)) return false;
+        if (!Objects.equals(state, that.state)) return false;
+        if (!Objects.equals(country_code, that.country_code)) return false;
+        return Objects.equals(post_code, that.post_code);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -27,9 +28,9 @@ public class ResponseParameters implements Serializable {
 
         ResponseParameters that = (ResponseParameters) o;
 
-        if (migrate_to_chat_id != null ? !migrate_to_chat_id.equals(that.migrate_to_chat_id) : that.migrate_to_chat_id != null)
+        if (!Objects.equals(migrate_to_chat_id, that.migrate_to_chat_id))
             return false;
-        return retry_after != null ? retry_after.equals(that.retry_after) : that.retry_after == null;
+        return Objects.equals(retry_after, that.retry_after);
     }
 
     @Override

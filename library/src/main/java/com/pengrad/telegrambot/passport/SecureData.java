@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.passport;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -83,21 +84,21 @@ public class SecureData implements Serializable {
 
         SecureData that = (SecureData) o;
 
-        if (personal_details != null ? !personal_details.equals(that.personal_details) : that.personal_details != null)
+        if (!Objects.equals(personal_details, that.personal_details))
             return false;
-        if (passport != null ? !passport.equals(that.passport) : that.passport != null) return false;
-        if (internal_passport != null ? !internal_passport.equals(that.internal_passport) : that.internal_passport != null)
+        if (!Objects.equals(passport, that.passport)) return false;
+        if (!Objects.equals(internal_passport, that.internal_passport))
             return false;
-        if (driver_license != null ? !driver_license.equals(that.driver_license) : that.driver_license != null) return false;
-        if (identity_card != null ? !identity_card.equals(that.identity_card) : that.identity_card != null) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (utility_bill != null ? !utility_bill.equals(that.utility_bill) : that.utility_bill != null) return false;
-        if (bank_statement != null ? !bank_statement.equals(that.bank_statement) : that.bank_statement != null) return false;
-        if (rental_agreement != null ? !rental_agreement.equals(that.rental_agreement) : that.rental_agreement != null)
+        if (!Objects.equals(driver_license, that.driver_license)) return false;
+        if (!Objects.equals(identity_card, that.identity_card)) return false;
+        if (!Objects.equals(address, that.address)) return false;
+        if (!Objects.equals(utility_bill, that.utility_bill)) return false;
+        if (!Objects.equals(bank_statement, that.bank_statement)) return false;
+        if (!Objects.equals(rental_agreement, that.rental_agreement))
             return false;
-        if (passport_registration != null ? !passport_registration.equals(that.passport_registration) : that.passport_registration != null)
+        if (!Objects.equals(passport_registration, that.passport_registration))
             return false;
-        return temporary_registration != null ? temporary_registration.equals(that.temporary_registration) : that.temporary_registration == null;
+        return Objects.equals(temporary_registration, that.temporary_registration);
     }
 
     @Override

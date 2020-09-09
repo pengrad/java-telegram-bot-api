@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -53,11 +54,11 @@ public class MessageEntity implements Serializable {
         MessageEntity that = (MessageEntity) o;
 
         if (type != that.type) return false;
-        if (offset != null ? !offset.equals(that.offset) : that.offset != null) return false;
-        if (length != null ? !length.equals(that.length) : that.length != null) return false;
-        if (url != null ? !url.equals(that.url) : that.url != null) return false;
-        if (user != null ? !user.equals(that.user) : that.user != null) return false;
-        return language != null ? language.equals(that.language) : that.language == null;
+        if (!Objects.equals(offset, that.offset)) return false;
+        if (!Objects.equals(length, that.length)) return false;
+        if (!Objects.equals(url, that.url)) return false;
+        if (!Objects.equals(user, that.user)) return false;
+        return Objects.equals(language, that.language);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -62,18 +63,18 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (id != null ? !id.equals(user.id) : user.id != null) return false;
-        if (is_bot != null ? !is_bot.equals(user.is_bot) : user.is_bot != null) return false;
-        if (first_name != null ? !first_name.equals(user.first_name) : user.first_name != null) return false;
-        if (last_name != null ? !last_name.equals(user.last_name) : user.last_name != null) return false;
-        if (username != null ? !username.equals(user.username) : user.username != null) return false;
-        if (language_code != null ? !language_code.equals(user.language_code) : user.language_code != null)
+        if (!Objects.equals(id, user.id)) return false;
+        if (!Objects.equals(is_bot, user.is_bot)) return false;
+        if (!Objects.equals(first_name, user.first_name)) return false;
+        if (!Objects.equals(last_name, user.last_name)) return false;
+        if (!Objects.equals(username, user.username)) return false;
+        if (!Objects.equals(language_code, user.language_code))
             return false;
-        if (can_join_groups != null ? !can_join_groups.equals(user.can_join_groups) : user.can_join_groups != null)
+        if (!Objects.equals(can_join_groups, user.can_join_groups))
             return false;
-        if (can_read_all_group_messages != null ? !can_read_all_group_messages.equals(user.can_read_all_group_messages) : user.can_read_all_group_messages != null)
+        if (!Objects.equals(can_read_all_group_messages, user.can_read_all_group_messages))
             return false;
-        return supports_inline_queries != null ? supports_inline_queries.equals(user.supports_inline_queries) : user.supports_inline_queries == null;
+        return Objects.equals(supports_inline_queries, user.supports_inline_queries);
     }
 
     @Override

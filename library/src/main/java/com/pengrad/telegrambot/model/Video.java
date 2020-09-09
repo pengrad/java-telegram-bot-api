@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -57,14 +58,14 @@ public class Video implements Serializable {
 
         Video video = (Video) o;
 
-        if (file_id != null ? !file_id.equals(video.file_id) : video.file_id != null) return false;
-        if (file_unique_id != null ? !file_unique_id.equals(video.file_unique_id) : video.file_unique_id != null) return false;
-        if (width != null ? !width.equals(video.width) : video.width != null) return false;
-        if (height != null ? !height.equals(video.height) : video.height != null) return false;
-        if (duration != null ? !duration.equals(video.duration) : video.duration != null) return false;
-        if (thumb != null ? !thumb.equals(video.thumb) : video.thumb != null) return false;
-        if (mime_type != null ? !mime_type.equals(video.mime_type) : video.mime_type != null) return false;
-        return file_size != null ? file_size.equals(video.file_size) : video.file_size == null;
+        if (!Objects.equals(file_id, video.file_id)) return false;
+        if (!Objects.equals(file_unique_id, video.file_unique_id)) return false;
+        if (!Objects.equals(width, video.width)) return false;
+        if (!Objects.equals(height, video.height)) return false;
+        if (!Objects.equals(duration, video.duration)) return false;
+        if (!Objects.equals(thumb, video.thumb)) return false;
+        if (!Objects.equals(mime_type, video.mime_type)) return false;
+        return Objects.equals(file_size, video.file_size);
     }
 
     @Override
