@@ -132,7 +132,7 @@ Message message = update.message()
 bot.execute(getUpdates, new Callback<GetUpdates, GetUpdatesResponse>() {
     @Override
     public void onResponse(GetUpdates request, GetUpdatesResponse response) {
-        List<Update> updates = updatesResponse.updates();
+        List<Update> updates = response.updates();
     }
     
     @Override
