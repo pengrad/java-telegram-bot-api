@@ -12,6 +12,8 @@ import java.io.Serializable;
 public class InputMediaDocument extends InputMedia<InputMediaDocument> implements Serializable {
     private final static long serialVersionUID = 0L;
 
+    private Boolean disable_content_type_detection;
+
     public InputMediaDocument(String media) {
         super("document", media);
     }
@@ -22,6 +24,11 @@ public class InputMediaDocument extends InputMedia<InputMediaDocument> implement
 
     public InputMediaDocument(byte[] media) {
         super("document", media);
+    }
+
+    public InputMediaDocument disableContentTypeDetection(boolean disableContentTypeDetection) {
+        disable_content_type_detection = disableContentTypeDetection;
+        return this;
     }
 
     @Override
