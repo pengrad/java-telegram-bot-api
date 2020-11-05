@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -13,6 +14,7 @@ public class WebhookInfo implements Serializable {
     private String url;
     private Boolean has_custom_certificate;
     private Integer pending_update_count;
+    private String ip_address;
     private Integer last_error_date;
     private String last_error_message;
     private Integer max_connections;
@@ -28,6 +30,10 @@ public class WebhookInfo implements Serializable {
 
     public Integer pendingUpdateCount() {
         return pending_update_count;
+    }
+
+    public String ipAddress() {
+        return ip_address;
     }
 
     public Integer lastErrorDate() {
@@ -50,32 +56,20 @@ public class WebhookInfo implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         WebhookInfo that = (WebhookInfo) o;
-
-        if (url != null ? !url.equals(that.url) : that.url != null) return false;
-        if (has_custom_certificate != null ? !has_custom_certificate.equals(that.has_custom_certificate) : that.has_custom_certificate != null)
-            return false;
-        if (pending_update_count != null ? !pending_update_count.equals(that.pending_update_count) : that.pending_update_count != null)
-            return false;
-        if (last_error_date != null ? !last_error_date.equals(that.last_error_date) : that.last_error_date != null)
-            return false;
-        if (last_error_message != null ? !last_error_message.equals(that.last_error_message) : that.last_error_message != null)
-            return false;
-        if (max_connections != null ? !max_connections.equals(that.max_connections) : that.max_connections != null)
-            return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(allowed_updates, that.allowed_updates);
+        return Objects.equals(url, that.url) &&
+                Objects.equals(has_custom_certificate, that.has_custom_certificate) &&
+                Objects.equals(pending_update_count, that.pending_update_count) &&
+                Objects.equals(ip_address, that.ip_address) &&
+                Objects.equals(last_error_date, that.last_error_date) &&
+                Objects.equals(last_error_message, that.last_error_message) &&
+                Objects.equals(max_connections, that.max_connections) &&
+                Arrays.equals(allowed_updates, that.allowed_updates);
     }
 
     @Override
     public int hashCode() {
-        int result = url != null ? url.hashCode() : 0;
-        result = 31 * result + (has_custom_certificate != null ? has_custom_certificate.hashCode() : 0);
-        result = 31 * result + (pending_update_count != null ? pending_update_count.hashCode() : 0);
-        result = 31 * result + (last_error_date != null ? last_error_date.hashCode() : 0);
-        result = 31 * result + (last_error_message != null ? last_error_message.hashCode() : 0);
-        result = 31 * result + (max_connections != null ? max_connections.hashCode() : 0);
+        int result = Objects.hash(url, has_custom_certificate, pending_update_count, ip_address, last_error_date, last_error_message, max_connections);
         result = 31 * result + Arrays.hashCode(allowed_updates);
         return result;
     }
@@ -86,6 +80,7 @@ public class WebhookInfo implements Serializable {
                 "url='" + url + '\'' +
                 ", has_custom_certificate=" + has_custom_certificate +
                 ", pending_update_count=" + pending_update_count +
+                ", ip_address='" + ip_address + '\'' +
                 ", last_error_date=" + last_error_date +
                 ", last_error_message='" + last_error_message + '\'' +
                 ", max_connections=" + max_connections +

@@ -1042,8 +1042,15 @@ public class TelegramBotTest {
         String url = "https://google.com";
         Integer maxConnections = 100;
         String[] allowedUpdates = {"message", "callback_query"};
-        BaseResponse response = bot.execute(new SetWebhook().url(url).certificate(new File(certificateFile))
-                .maxConnections(100).allowedUpdates(allowedUpdates));
+        String ipAddress = "1.1.1.1";
+        BaseResponse response = bot.execute(new SetWebhook()
+                .url(url)
+                .certificate(new File(certificateFile))
+                .ipAddress(ipAddress)
+                .maxConnections(100)
+                .allowedUpdates(allowedUpdates)
+                .dropPendingUpdates(true)
+        );
         assertTrue(response.isOk());
 
         WebhookInfo webhookInfo = bot.execute(new GetWebhookInfo()).webhookInfo();
@@ -1053,6 +1060,9 @@ public class TelegramBotTest {
         assertArrayEquals(allowedUpdates, webhookInfo.allowedUpdates());
         assertNotNull(webhookInfo.lastErrorDate());
         assertNotNull(webhookInfo.lastErrorMessage());
+        assertEquals(ipAddress, webhookInfo.ipAddress());
+        assertEquals(0, webhookInfo.pendingUpdateCount().intValue());
+
 
         response = bot.execute(new SetWebhook().url("https://google.com")
                 .certificate(Files.readAllBytes(new File(certificateFile).toPath())).allowedUpdates(""));
@@ -1064,7 +1074,7 @@ public class TelegramBotTest {
 
     @Test
     public void deleteWebhook() {
-        BaseResponse response = bot.execute(new DeleteWebhook());
+        BaseResponse response = bot.execute(new DeleteWebhook().dropPendingUpdates(true));
         assertTrue(response.isOk());
     }
 
