@@ -38,6 +38,10 @@ public class SendDocument extends AbstractMultipartRequest<SendDocument> {
         return add("parse_mode", parseMode.name());
     }
 
+    public SendDocument disableContentTypeDetection(boolean disableContentTypeDetection) {
+        return add("disable_content_type_detection", disableContentTypeDetection);
+    }
+
     @Override
     protected String getFileParamName() {
         return "document";

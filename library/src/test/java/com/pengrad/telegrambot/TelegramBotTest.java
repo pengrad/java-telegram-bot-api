@@ -901,7 +901,8 @@ public class TelegramBotTest {
         String caption = "caption <b>bold</b>", fileName = "my doc.zip";
         ParseMode parseMode = ParseMode.HTML;
         message = bot.execute(
-                new SendDocument(chatId, docFile).fileName(fileName).thumb(thumbFile).caption(caption).parseMode(parseMode))
+                new SendDocument(chatId, docFile).fileName(fileName).thumb(thumbFile).caption(caption).parseMode(parseMode)
+                        .disableContentTypeDetection(true))
                 .message();
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
@@ -1487,7 +1488,10 @@ public class TelegramBotTest {
         SendResponse response;
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
-                new InputMediaDocument(docFile).thumb(thumbFile)));
+                new InputMediaDocument(docFile)
+                        .thumb(thumbFile)
+                        .disableContentTypeDetection(true)
+        ));
         assertEquals((Integer) 14, response.message().document().fileSize());
         assertEquals(thumbSize, response.message().document().thumb().fileSize());
 
