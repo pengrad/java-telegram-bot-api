@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -11,6 +12,10 @@ public class Location implements Serializable {
 
     private Float longitude;
     private Float latitude;
+    private Float horizontal_accuracy;
+    private Integer live_period;
+    private Integer heading;
+    private Integer proximity_alert_radius;
 
     public Float longitude() {
         return longitude;
@@ -20,22 +25,38 @@ public class Location implements Serializable {
         return latitude;
     }
 
+    public Float horizontalAccuracy() {
+        return horizontal_accuracy;
+    }
+
+    public Integer livePeriod() {
+        return live_period;
+    }
+
+    public Integer heading() {
+        return heading;
+    }
+
+    public Integer proximityAlertRadius() {
+        return proximity_alert_radius;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Location location = (Location) o;
-
-        if (longitude != null ? !longitude.equals(location.longitude) : location.longitude != null) return false;
-        return latitude != null ? latitude.equals(location.latitude) : location.latitude == null;
+        return Objects.equals(longitude, location.longitude) &&
+                Objects.equals(latitude, location.latitude) &&
+                Objects.equals(horizontal_accuracy, location.horizontal_accuracy) &&
+                Objects.equals(live_period, location.live_period) &&
+                Objects.equals(heading, location.heading) &&
+                Objects.equals(proximity_alert_radius, location.proximity_alert_radius);
     }
 
     @Override
     public int hashCode() {
-        int result = longitude != null ? longitude.hashCode() : 0;
-        result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
-        return result;
+        return Objects.hash(longitude, latitude, horizontal_accuracy, live_period, heading, proximity_alert_radius);
     }
 
     @Override
@@ -43,6 +64,10 @@ public class Location implements Serializable {
         return "Location{" +
                 "longitude=" + longitude +
                 ", latitude=" + latitude +
+                ", horizontal_accuracy=" + horizontal_accuracy +
+                ", live_period=" + live_period +
+                ", heading=" + heading +
+                ", proximity_alert_radius=" + proximity_alert_radius +
                 '}';
     }
 }

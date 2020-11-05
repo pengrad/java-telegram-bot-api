@@ -20,6 +20,18 @@ public class EditMessageLiveLocation extends BaseRequest<EditMessageLiveLocation
         add("inline_message_id", inlineMessageId).add("latitude", latitude).add("longitude", longitude);
     }
 
+    public EditMessageLiveLocation horizontalAccuracy(float horizontalAccuracy) {
+        return add("horizontal_accuracy", horizontalAccuracy);
+    }
+
+    public EditMessageLiveLocation heading(int heading) {
+        return add("heading", heading);
+    }
+
+    public EditMessageLiveLocation proximityAlertRadius(int proximityAlertRadius) {
+        return add("proximity_alert_radius", proximityAlertRadius);
+    }
+
     public EditMessageLiveLocation replyMarkup(InlineKeyboardMarkup replyMarkup) {
         return add("reply_markup", replyMarkup);
     }

@@ -412,7 +412,8 @@ public class TelegramBotTest {
                         .url(someUrl).hideUrl(true).description("desc").thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultArticle("2", "title",
                         new InputContactMessageContent("123123123", "na,e").lastName("lastName").vcard("qr vcard")),
-                new InlineQueryResultArticle("3", "title", new InputLocationMessageContent(50f, 50f).livePeriod(60)),
+                new InlineQueryResultArticle("3", "title", new InputLocationMessageContent(50f, 50f)
+                        .livePeriod(60).heading(100).horizontalAccuracy(10f).proximityAlertRadius(500)),
                 new InlineQueryResultArticle("4", "title",
                         new InputVenueMessageContent(50f, 50f, "title", "address").foursquareId("sqrId").foursquareType("frType")),
                 new InlineQueryResultArticle("5", "title", "message"),
@@ -426,6 +427,7 @@ public class TelegramBotTest {
                         .thumbMimeType("image/gif")
                         .gifHeight(100).gifWidth(100).gifDuration(100),
                 new InlineQueryResultLocation("11", 50f, 50f, "title").livePeriod(60)
+                        .heading(100).horizontalAccuracy(10f).proximityAlertRadius(500)
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultMpeg4Gif("12", someUrl, someUrl).caption("cap <b>bold</b>").parseMode(ParseMode.HTML).title("title")
                         .thumbMimeType("image/gif")
@@ -1059,10 +1061,20 @@ public class TelegramBotTest {
 
     @Test
     public void sendLocation() {
-        Float lat = 21.999998f, lng = 105.2f;
-        Location location = bot.execute(new SendLocation(chatId, lat, lng).livePeriod(60)).message().location();
-        assertEquals(lat, location.latitude());
-        assertEquals(lng, location.longitude());
+        float lat = 21.999998f, lng = 105.2f, horizontalAccuracy = 1.9f;
+        int livePeriod = 60, heading = 120, proximityAlertRadius = 50000;
+        Location location = bot.execute(new SendLocation(chatId, lat, lng)
+                .horizontalAccuracy(horizontalAccuracy)
+                .livePeriod(livePeriod)
+                .heading(heading)
+                .proximityAlertRadius(proximityAlertRadius)
+        ).message().location();
+        assertEquals(lat, location.latitude(), 0.00001f);
+        assertEquals(lng, location.longitude(), 0.00001f);
+        assertEquals(horizontalAccuracy, location.horizontalAccuracy(), 0.11f);
+        assertEquals(livePeriod, location.livePeriod().intValue());
+        assertEquals(heading, location.heading().intValue());
+        assertEquals(proximityAlertRadius, location.proximityAlertRadius().intValue());
     }
 
     @Test
@@ -1357,6 +1369,9 @@ public class TelegramBotTest {
         String buttonText = "btn_" + System.currentTimeMillis();
         response = bot.execute(
                 new EditMessageLiveLocation("AgAAAPrwAQCj_Q4D2s-51_8jsuU", 21, 102)
+                        .horizontalAccuracy(1f)
+                        .heading(10)
+                        .proximityAlertRadius(100)
                         .replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton(buttonText).callbackGame(buttonText)))
         );
         assertTrue(response.isOk());
