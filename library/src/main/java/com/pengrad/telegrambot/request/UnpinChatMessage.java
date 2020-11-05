@@ -12,4 +12,8 @@ public class UnpinChatMessage extends BaseRequest<UnpinChatMessage, BaseResponse
         super(BaseResponse.class);
         add("chat_id", chatId);
     }
+
+    public UnpinChatMessage messageId(Integer messageId) {
+        return add("message_id", messageId);
+    }
 }
