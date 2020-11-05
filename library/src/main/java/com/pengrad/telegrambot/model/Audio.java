@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -14,6 +15,7 @@ public class Audio implements Serializable {
     private Integer duration;
     private String performer;
     private String title;
+    private String file_name;
     private String mime_type;
     private Integer file_size;
     private PhotoSize thumb;
@@ -38,6 +40,10 @@ public class Audio implements Serializable {
         return title;
     }
 
+    public String fileName() {
+        return file_name;
+    }
+
     public String mimeType() {
         return mime_type;
     }
@@ -54,17 +60,16 @@ public class Audio implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Audio audio = (Audio) o;
-
-        if (file_id != null ? !file_id.equals(audio.file_id) : audio.file_id != null) return false;
-        if (file_unique_id != null ? !file_unique_id.equals(audio.file_unique_id) : audio.file_unique_id != null) return false;
-        if (duration != null ? !duration.equals(audio.duration) : audio.duration != null) return false;
-        if (performer != null ? !performer.equals(audio.performer) : audio.performer != null) return false;
-        if (title != null ? !title.equals(audio.title) : audio.title != null) return false;
-        if (mime_type != null ? !mime_type.equals(audio.mime_type) : audio.mime_type != null) return false;
-        if (file_size != null ? !file_size.equals(audio.file_size) : audio.file_size != null) return false;
-        return thumb != null ? thumb.equals(audio.thumb) : audio.thumb == null;
+        return Objects.equals(file_id, audio.file_id) &&
+                Objects.equals(file_unique_id, audio.file_unique_id) &&
+                Objects.equals(duration, audio.duration) &&
+                Objects.equals(performer, audio.performer) &&
+                Objects.equals(title, audio.title) &&
+                Objects.equals(file_name, audio.file_name) &&
+                Objects.equals(mime_type, audio.mime_type) &&
+                Objects.equals(file_size, audio.file_size) &&
+                Objects.equals(thumb, audio.thumb);
     }
 
     @Override
@@ -80,6 +85,7 @@ public class Audio implements Serializable {
                 ", duration=" + duration +
                 ", performer='" + performer + '\'' +
                 ", title='" + title + '\'' +
+                ", file_name='" + file_name + '\'' +
                 ", mime_type='" + mime_type + '\'' +
                 ", file_size=" + file_size +
                 ", thumb=" + thumb +
