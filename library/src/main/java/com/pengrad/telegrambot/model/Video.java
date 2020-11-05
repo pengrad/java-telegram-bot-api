@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -15,6 +16,7 @@ public class Video implements Serializable {
     private Integer height;
     private Integer duration;
     private PhotoSize thumb;
+    private String file_name;
     private String mime_type;
     private Integer file_size;
 
@@ -42,6 +44,10 @@ public class Video implements Serializable {
         return thumb;
     }
 
+    public String fileName() {
+        return file_name;
+    }
+
     public String mimeType() {
         return mime_type;
     }
@@ -54,17 +60,16 @@ public class Video implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Video video = (Video) o;
-
-        if (file_id != null ? !file_id.equals(video.file_id) : video.file_id != null) return false;
-        if (file_unique_id != null ? !file_unique_id.equals(video.file_unique_id) : video.file_unique_id != null) return false;
-        if (width != null ? !width.equals(video.width) : video.width != null) return false;
-        if (height != null ? !height.equals(video.height) : video.height != null) return false;
-        if (duration != null ? !duration.equals(video.duration) : video.duration != null) return false;
-        if (thumb != null ? !thumb.equals(video.thumb) : video.thumb != null) return false;
-        if (mime_type != null ? !mime_type.equals(video.mime_type) : video.mime_type != null) return false;
-        return file_size != null ? file_size.equals(video.file_size) : video.file_size == null;
+        return Objects.equals(file_id, video.file_id) &&
+                Objects.equals(file_unique_id, video.file_unique_id) &&
+                Objects.equals(width, video.width) &&
+                Objects.equals(height, video.height) &&
+                Objects.equals(duration, video.duration) &&
+                Objects.equals(thumb, video.thumb) &&
+                Objects.equals(file_name, video.file_name) &&
+                Objects.equals(mime_type, video.mime_type) &&
+                Objects.equals(file_size, video.file_size);
     }
 
     @Override
@@ -81,6 +86,7 @@ public class Video implements Serializable {
                 ", height=" + height +
                 ", duration=" + duration +
                 ", thumb=" + thumb +
+                ", file_name='" + file_name + '\'' +
                 ", mime_type='" + mime_type + '\'' +
                 ", file_size=" + file_size +
                 '}';

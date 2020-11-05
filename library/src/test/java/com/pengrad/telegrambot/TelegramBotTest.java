@@ -968,6 +968,7 @@ public class TelegramBotTest {
         MessageTest.checkMessage(message);
         VideoTest.check(message.video());
         assertNotEquals("telegram should generate thumb", thumbSize, message.video().thumb().fileSize());
+        assertEquals("tabs.mp4", message.video().fileName());
 
         String caption = "caption <b>bold</b>";
         Integer duration = 100;
@@ -1528,7 +1529,7 @@ public class TelegramBotTest {
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioBytes)));
         assertEquals((Integer) 10286, response.message().audio().fileSize());
         Integer duration = 34;
-        String performer = "some performer", title = "just a title";
+        String performer = "some performer", title = "just a title", fileName = "beep.mp3";
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
                 new InputMediaAudio(audioFile).duration(duration).performer(performer).title(title)
         ));
@@ -1537,6 +1538,7 @@ public class TelegramBotTest {
         assertEquals(duration, audio.duration());
         assertEquals(performer, audio.performer());
         assertEquals(title, audio.title());
+        assertEquals(fileName, audio.fileName());
 
         // send multipart InputMediaPhoto, InputMediaVideo to cover getFileName and getContentType
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaPhoto(photoFileId).thumb(thumbFile)));
