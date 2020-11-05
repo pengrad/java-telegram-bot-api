@@ -68,72 +68,7 @@ import com.pengrad.telegrambot.passport.PersonalDetails;
 import com.pengrad.telegrambot.passport.SecureData;
 import com.pengrad.telegrambot.passport.SecureValue;
 import com.pengrad.telegrambot.passport.SetPassportDataErrors;
-import com.pengrad.telegrambot.request.AddStickerToSet;
-import com.pengrad.telegrambot.request.AnswerCallbackQuery;
-import com.pengrad.telegrambot.request.AnswerInlineQuery;
-import com.pengrad.telegrambot.request.CreateNewStickerSet;
-import com.pengrad.telegrambot.request.DeleteChatPhoto;
-import com.pengrad.telegrambot.request.DeleteChatStickerSet;
-import com.pengrad.telegrambot.request.DeleteMessage;
-import com.pengrad.telegrambot.request.DeleteStickerFromSet;
-import com.pengrad.telegrambot.request.DeleteWebhook;
-import com.pengrad.telegrambot.request.EditMessageCaption;
-import com.pengrad.telegrambot.request.EditMessageLiveLocation;
-import com.pengrad.telegrambot.request.EditMessageMedia;
-import com.pengrad.telegrambot.request.EditMessageReplyMarkup;
-import com.pengrad.telegrambot.request.EditMessageText;
-import com.pengrad.telegrambot.request.ExportChatInviteLink;
-import com.pengrad.telegrambot.request.ForwardMessage;
-import com.pengrad.telegrambot.request.GetChat;
-import com.pengrad.telegrambot.request.GetChatAdministrators;
-import com.pengrad.telegrambot.request.GetChatMember;
-import com.pengrad.telegrambot.request.GetChatMembersCount;
-import com.pengrad.telegrambot.request.GetFile;
-import com.pengrad.telegrambot.request.GetGameHighScores;
-import com.pengrad.telegrambot.request.GetMe;
-import com.pengrad.telegrambot.request.GetMyCommands;
-import com.pengrad.telegrambot.request.GetStickerSet;
-import com.pengrad.telegrambot.request.GetUpdates;
-import com.pengrad.telegrambot.request.GetUserProfilePhotos;
-import com.pengrad.telegrambot.request.GetWebhookInfo;
-import com.pengrad.telegrambot.request.KickChatMember;
-import com.pengrad.telegrambot.request.LeaveChat;
-import com.pengrad.telegrambot.request.PinChatMessage;
-import com.pengrad.telegrambot.request.PromoteChatMember;
-import com.pengrad.telegrambot.request.RestrictChatMember;
-import com.pengrad.telegrambot.request.SendAnimation;
-import com.pengrad.telegrambot.request.SendAudio;
-import com.pengrad.telegrambot.request.SendChatAction;
-import com.pengrad.telegrambot.request.SendContact;
-import com.pengrad.telegrambot.request.SendDice;
-import com.pengrad.telegrambot.request.SendDocument;
-import com.pengrad.telegrambot.request.SendGame;
-import com.pengrad.telegrambot.request.SendLocation;
-import com.pengrad.telegrambot.request.SendMediaGroup;
-import com.pengrad.telegrambot.request.SendMessage;
-import com.pengrad.telegrambot.request.SendPhoto;
-import com.pengrad.telegrambot.request.SendPoll;
-import com.pengrad.telegrambot.request.SendSticker;
-import com.pengrad.telegrambot.request.SendVenue;
-import com.pengrad.telegrambot.request.SendVideo;
-import com.pengrad.telegrambot.request.SendVideoNote;
-import com.pengrad.telegrambot.request.SendVoice;
-import com.pengrad.telegrambot.request.SetChatAdministratorCustomTitle;
-import com.pengrad.telegrambot.request.SetChatDescription;
-import com.pengrad.telegrambot.request.SetChatPermissions;
-import com.pengrad.telegrambot.request.SetChatPhoto;
-import com.pengrad.telegrambot.request.SetChatStickerSet;
-import com.pengrad.telegrambot.request.SetChatTitle;
-import com.pengrad.telegrambot.request.SetGameScore;
-import com.pengrad.telegrambot.request.SetMyCommands;
-import com.pengrad.telegrambot.request.SetStickerPositionInSet;
-import com.pengrad.telegrambot.request.SetStickerSetThumb;
-import com.pengrad.telegrambot.request.SetWebhook;
-import com.pengrad.telegrambot.request.StopMessageLiveLocation;
-import com.pengrad.telegrambot.request.StopPoll;
-import com.pengrad.telegrambot.request.UnbanChatMember;
-import com.pengrad.telegrambot.request.UnpinChatMessage;
-import com.pengrad.telegrambot.request.UploadStickerFile;
+import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.BaseResponse;
 import com.pengrad.telegrambot.response.GetChatAdministratorsResponse;
 import com.pengrad.telegrambot.response.GetChatMembersCountResponse;
@@ -1298,11 +1233,8 @@ public class TelegramBotTest {
 
     @Test
     public void unpinChatMessage() {
-        BaseResponse response = bot.execute(new UnpinChatMessage(groupId));
-        if (!response.isOk()) {
-            assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: CHAT_NOT_MODIFIED", response.description());
-        }
+        BaseResponse response = bot.execute(new UnpinChatMessage(groupId).messageId(3600));
+        assertTrue(response.isOk());
     }
 
     @Test
