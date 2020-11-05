@@ -18,35 +18,7 @@ import com.pengrad.telegrambot.checks.VideoTest;
 import com.pengrad.telegrambot.checks.VoiceTest;
 import com.pengrad.telegrambot.checks.WebhookInfoTest;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
-import com.pengrad.telegrambot.model.Animation;
-import com.pengrad.telegrambot.model.Audio;
-import com.pengrad.telegrambot.model.BotCommand;
-import com.pengrad.telegrambot.model.CallbackQuery;
-import com.pengrad.telegrambot.model.Chat;
-import com.pengrad.telegrambot.model.ChatMember;
-import com.pengrad.telegrambot.model.ChatPermissions;
-import com.pengrad.telegrambot.model.ChosenInlineResult;
-import com.pengrad.telegrambot.model.Contact;
-import com.pengrad.telegrambot.model.Dice;
-import com.pengrad.telegrambot.model.Game;
-import com.pengrad.telegrambot.model.GameHighScore;
-import com.pengrad.telegrambot.model.InlineQuery;
-import com.pengrad.telegrambot.model.Location;
-import com.pengrad.telegrambot.model.MaskPosition;
-import com.pengrad.telegrambot.model.Message;
-import com.pengrad.telegrambot.model.MessageEntity;
-import com.pengrad.telegrambot.model.PhotoSize;
-import com.pengrad.telegrambot.model.Poll;
-import com.pengrad.telegrambot.model.PollAnswer;
-import com.pengrad.telegrambot.model.PollOption;
-import com.pengrad.telegrambot.model.ResponseParameters;
-import com.pengrad.telegrambot.model.Sticker;
-import com.pengrad.telegrambot.model.StickerSet;
-import com.pengrad.telegrambot.model.User;
-import com.pengrad.telegrambot.model.UserProfilePhotos;
-import com.pengrad.telegrambot.model.Venue;
-import com.pengrad.telegrambot.model.Video;
-import com.pengrad.telegrambot.model.WebhookInfo;
+import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.ChatAction;
 import com.pengrad.telegrambot.model.request.ForceReply;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
@@ -263,6 +235,7 @@ public class TelegramBotTest {
     String channelName = "@bottest";
     Long channelId = -1001002720332L;
     Integer memberBot = 215003245;
+    Long localGroup = -1001431704825L;
     static String privateKey;
     static String testPassportData;
     static String testCallbackQuery;
@@ -604,10 +577,19 @@ public class TelegramBotTest {
         assertNull(chat.allMembersAreAdministrators());
         assertNull(chat.stickerSetName());
         assertNull(chat.canSetStickerSet());
+        assertEquals(channelId, chat.linkedChatId());
 
         chat = bot.execute(new GetChat(chatId)).chat();
         assertNotNull(chat.firstName());
         assertNotNull(chat.lastName());
+        assertEquals("yo", chat.bio());
+
+        chat = bot.execute(new GetChat(localGroup)).chat();
+        ChatLocation location = chat.location();
+        assertNotNull(location);
+        assertEquals(60.94062f, location.location().latitude(), 0f);
+        assertEquals(76.58071f, location.location().longitude(), 0f);
+        assertTrue(location.address().endsWith("Russia"));
     }
 
     @Test
