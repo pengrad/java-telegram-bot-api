@@ -177,8 +177,8 @@ public class TelegramBotTest {
     static String testInlineQuery;
     static String testChosenInlineResult;
     static String testPollAnswer;
-    static String testShippingQuery;
-    static String testPreCheckoutQuery;
+//    static String testShippingQuery;
+//    static String testPreCheckoutQuery;
 
     static Path resourcePath = Paths.get("src/test/resources");
     static File imageFile = resourcePath.resolve("image.jpg").toFile();
@@ -204,7 +204,7 @@ public class TelegramBotTest {
     static String withSpaceFileId = "BAADAgADZwADkg-4SQI5WM0SPNHrAg";
     static String stickerSet = "testset_by_pengrad_test_bot";
     static String stickerSetAnim = "testset_anim_by_pengrad_test_bot";
-    static String imageUrl = "https://telegram.org/img/t_logo.png";
+    //    static String imageUrl = "https://telegram.org/img/t_logo.png";
     static File thumbFile = resourcePath.resolve("thumb.jpg").toFile();
     static byte[] thumbBytes;
     static Integer thumbSize = 3718;
@@ -909,7 +909,7 @@ public class TelegramBotTest {
         assertEquals("tabs.mp4", message.video().fileName());
 
         String caption = "caption <b>bold</b>";
-        Integer duration = 100;
+        int duration = 100;
         message = bot.execute(
                 new SendVideo(chatId, videoBytes).thumb(thumbBytes)
                         .caption(caption).parseMode(ParseMode.HTML)
@@ -920,9 +920,9 @@ public class TelegramBotTest {
 
         Video video = message.video();
         VideoTest.check(message.video());
-        assertEquals(duration, video.duration());
-        assertEquals((Integer) 120, video.height());
-        assertEquals((Integer) 400, video.width());
+        assertEquals(duration, video.duration().intValue());
+        assertEquals(120, video.height().intValue());
+        assertEquals(400, video.width().intValue());
         assertEquals("video/mp4", video.mimeType());
         assertNotEquals("telegram should generate thumb", thumbSize, video.thumb().fileSize());
 
@@ -943,17 +943,17 @@ public class TelegramBotTest {
         VoiceTest.check(message.voice());
 
         String caption = "caption <b>bold</b>";
-        Integer duration = 100;
+        int duration = 100;
         message = bot.execute(new SendVoice(chatId, audioBytes).caption(caption).parseMode(ParseMode.HTML).duration(duration)).message();
         MessageTest.checkMessage(message);
         assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
         VoiceTest.check(message.voice());
-        assertEquals(duration, message.voice().duration());
+        assertEquals(duration, message.voice().duration().intValue());
 
         MessageEntity captionEntity = message.captionEntities()[0];
         assertEquals(MessageEntity.Type.bold, captionEntity.type());
-        assertEquals((Integer) 8, captionEntity.offset());
-        assertEquals((Integer) 4, captionEntity.length());
+        assertEquals(8, captionEntity.offset().intValue());
+        assertEquals(4, captionEntity.length().intValue());
     }
 
     @Test
@@ -1079,14 +1079,14 @@ public class TelegramBotTest {
 
     @Test
     public void sendVenue() {
-        Float lat = 21.999998f, lng = 105.2f;
+        float lat = 21.999998f, lng = 105.2f;
         String title = "title", address = "addr", frsqrId = "asdfasdf", frsqrType = "frType";
         Venue venue = bot.execute(new SendVenue(chatId, lat, lng, title, address)
                 .foursquareId(frsqrId)
                 .foursquareType(frsqrType)
         ).message().venue();
-        assertEquals(lat, venue.location().latitude());
-        assertEquals(lng, venue.location().longitude());
+        assertEquals(lat, venue.location().latitude(), 0f);
+        assertEquals(lng, venue.location().longitude(), 0f);
         assertEquals(address, venue.address());
         assertEquals(title, venue.title());
         assertEquals(frsqrId, venue.foursquareId());
@@ -1506,7 +1506,7 @@ public class TelegramBotTest {
 
     @Test
     public void sendAnimation() {
-        Integer width = 340, height = 240;
+        int width = 340, height = 240;
         String caption = "gif *file*", captionCheck = "gif file";
         SendResponse response = bot.execute(new SendAnimation(chatId, gifFile)
                 .duration(222).width(width).height(height).thumb(thumbFile)
@@ -1514,8 +1514,8 @@ public class TelegramBotTest {
         assertTrue(response.isOk());
         Animation animation = response.message().animation();
         assertEquals((Integer) 1, animation.duration());
-        assertEquals(width, animation.width());
-        assertEquals(height, animation.height());
+        assertEquals(width, animation.width().intValue());
+        assertEquals(height, animation.height().intValue());
         assertNotEquals("telegram should generate thumb", thumbSize, animation.thumb().fileSize());
         assertEquals(captionCheck, response.message().caption());
         assertEquals(MessageEntity.Type.bold, response.message().captionEntities()[0].type());
