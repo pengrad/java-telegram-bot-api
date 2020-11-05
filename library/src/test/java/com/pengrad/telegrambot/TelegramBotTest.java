@@ -338,6 +338,10 @@ public class TelegramBotTest {
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
         assertEquals("Bad Request: can't remove chat owner", response.description());
+
+        // returns true for non-banned member with onlyIfBanned(true)
+        response = bot.execute(new UnbanChatMember(channelName, chatId).onlyIfBanned(true));
+        assertTrue(response.isOk());
     }
 
     @Test
