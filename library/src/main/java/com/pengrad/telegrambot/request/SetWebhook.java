@@ -30,12 +30,20 @@ public class SetWebhook extends BaseRequest<SetWebhook, BaseResponse> {
         return add("certificate", certificate);
     }
 
+    public SetWebhook ipAddress(String ipAddress) {
+        return add("ip_address", ipAddress);
+    }
+
     public SetWebhook maxConnections(int maxConnections) {
         return add("max_connections", maxConnections);
     }
 
     public SetWebhook allowedUpdates(String... allowedUpdates) {
         return add("allowed_updates", allowedUpdates);
+    }
+
+    public SetWebhook dropPendingUpdates(boolean dropPendingUpdates) {
+        return add("drop_pending_updates", dropPendingUpdates);
     }
 
     @Override
