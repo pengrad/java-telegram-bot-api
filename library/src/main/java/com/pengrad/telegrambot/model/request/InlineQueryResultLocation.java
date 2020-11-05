@@ -13,7 +13,11 @@ public class InlineQueryResultLocation extends InlineQueryResult<InlineQueryResu
     private float longitude;
     private String title;
 
+    private Float horizontal_accuracy;
     private Integer live_period;
+    private Integer heading;
+    private Integer proximity_alert_radius;
+
     private String thumb_url;
     private Integer thumb_width;
     private Integer thumb_height;
@@ -25,8 +29,23 @@ public class InlineQueryResultLocation extends InlineQueryResult<InlineQueryResu
         this.title = title;
     }
 
+    public InlineQueryResultLocation horizontalAccuracy(float horizontalAccuracy) {
+        horizontal_accuracy = horizontalAccuracy;
+        return this;
+    }
+
     public InlineQueryResultLocation livePeriod(Integer livePeriod) {
         live_period = livePeriod;
+        return this;
+    }
+
+    public InlineQueryResultLocation heading(int heading) {
+        this.heading = heading;
+        return this;
+    }
+
+    public InlineQueryResultLocation proximityAlertRadius(int proximityAlertRadius) {
+        proximity_alert_radius = proximityAlertRadius;
         return this;
     }
 
