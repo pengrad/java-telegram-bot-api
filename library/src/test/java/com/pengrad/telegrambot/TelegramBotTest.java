@@ -1238,6 +1238,12 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void unpinAllChatMessages() {
+        BaseResponse response = bot.execute(new UnpinAllChatMessages(groupId));
+        assertTrue(response.isOk());
+    }
+
+    @Test
     public void getStickerSet() {
         GetStickerSetResponse response = bot.execute(new GetStickerSet(stickerSet));
         StickerSet stickerSet = response.stickerSet();
