@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model.request;
 
+import com.pengrad.telegrambot.model.MessageEntity;
+
 import java.io.Serializable;
 
 /**
@@ -12,6 +14,7 @@ public class InputTextMessageContent extends InputMessageContent implements Seri
     private String message_text;
     private String parse_mode;
     private Boolean disable_web_page_preview;
+    private MessageEntity[] entities;
 
     public InputTextMessageContent(String messageText) {
         this.message_text = messageText;
@@ -19,6 +22,11 @@ public class InputTextMessageContent extends InputMessageContent implements Seri
 
     public InputTextMessageContent parseMode(ParseMode parseMode) {
         this.parse_mode = parseMode.name();
+        return this;
+    }
+
+    public InputTextMessageContent entities(MessageEntity... entities) {
+        this.entities = entities;
         return this;
     }
 

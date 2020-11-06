@@ -396,7 +396,9 @@ public class TelegramBotTest {
 
         InlineQueryResult<?>[] results = new InlineQueryResult[]{
                 new InlineQueryResultArticle("1", "title",
-                        new InputTextMessageContent("message").disableWebPagePreview(false).parseMode(ParseMode.HTML))
+                        new InputTextMessageContent("message")
+                                .entities(new MessageEntity(MessageEntity.Type.bold, 0, 2))
+                                .disableWebPagePreview(false).parseMode(ParseMode.HTML))
                         .url(someUrl).hideUrl(true).description("desc").thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultArticle("2", "title",
                         new InputContactMessageContent("123123123", "na,e").lastName("lastName").vcard("qr vcard")),
@@ -422,6 +424,8 @@ public class TelegramBotTest {
                         .mpeg4Height(100).mpeg4Width(100).mpeg4Duration(100),
                 new InlineQueryResultPhoto("13", someUrl, someUrl).photoWidth(100).photoHeight(100).title("title")
                         .description("desc").caption("cap <b>bold</b>").parseMode(ParseMode.HTML),
+                new InlineQueryResultPhoto("131", someUrl, someUrl).photoWidth(100).photoHeight(100).title("title")
+                        .description("desc").caption("bold").captionEntities(new MessageEntity(MessageEntity.Type.bold, 0, 2)),
                 new InlineQueryResultVenue("14", 54f, 55f, "title", "address").foursquareId("frsqrId").foursquareType("frType")
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultVideo("15", someUrl, VIDEO_MIME_TYPE, "text", someUrl, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML)
@@ -1412,9 +1416,18 @@ public class TelegramBotTest {
 
     @Test
     public void sendMediaGroup() {
+        String url = "https://google.com/";
+        User user = new User(memberBot);
+        String language = "ru";
         MessagesResponse response = bot.execute(new SendMediaGroup(chatId,
                 new InputMediaPhoto(photoFileId),
-                new InputMediaPhoto(imageFile).caption("some caption <b>bold</b>").parseMode(ParseMode.HTML),
+                new InputMediaPhoto(imageFile).caption("some caption bold")
+                        .captionEntities(
+                                new MessageEntity(MessageEntity.Type.bold, 0, 4),
+                                new MessageEntity(MessageEntity.Type.text_link, 5, 1).url(url),
+                                new MessageEntity(MessageEntity.Type.text_mention, 6, 1).user(user),
+                                new MessageEntity(MessageEntity.Type.pre, 7, 1).language(language)
+                        ),
                 new InputMediaPhoto(imageBytes),
                 new InputMediaVideo(videoFileId),
                 new InputMediaVideo(videoFile),
@@ -1436,6 +1449,15 @@ public class TelegramBotTest {
             }
         }
         assertEquals(2, messagesWithCaption);
+
+        MessageEntity[] entities = response.messages()[1].captionEntities();
+        assertEquals(MessageEntity.Type.bold, entities[0].type());
+        assertEquals(MessageEntity.Type.text_link, entities[1].type());
+        assertEquals(MessageEntity.Type.text_mention, entities[2].type());
+        assertEquals(MessageEntity.Type.pre, entities[3].type());
+        assertEquals(url, entities[1].url());
+        assertEquals(user.id(), entities[2].user().id());
+        assertEquals(language, entities[3].language());
     }
 
     @Test

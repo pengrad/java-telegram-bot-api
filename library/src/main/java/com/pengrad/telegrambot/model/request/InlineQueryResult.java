@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model.request;
 
+import com.pengrad.telegrambot.model.MessageEntity;
+
 import java.io.Serializable;
 
 /**
@@ -14,12 +16,18 @@ public abstract class InlineQueryResult<T extends InlineQueryResult<T>> implemen
 
     private String type;
     private String id;
+    private MessageEntity[] caption_entities;
     private InputMessageContent input_message_content;
     private InlineKeyboardMarkup reply_markup;
 
     public InlineQueryResult(String type, String id) {
         this.type = type;
         this.id = id;
+    }
+
+    public T captionEntities(MessageEntity... entities) {
+        this.caption_entities = entities;
+        return thisAsT;
     }
 
     public T inputMessageContent(InputMessageContent inputMessageContent) {

@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.response.BaseResponse;
@@ -27,6 +28,10 @@ public class EditMessageCaption extends BaseRequest<EditMessageCaption, BaseResp
 
     public EditMessageCaption parseMode(ParseMode parseMode) {
         return add("parse_mode", parseMode.name());
+    }
+
+    public EditMessageCaption captionEntities(MessageEntity... entities) {
+        return add("caption_entities", entities);
     }
 
     public EditMessageCaption replyMarkup(InlineKeyboardMarkup replyMarkup) {

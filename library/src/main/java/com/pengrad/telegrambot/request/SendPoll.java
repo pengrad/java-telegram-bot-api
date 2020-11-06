@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.Poll;
 import com.pengrad.telegrambot.model.request.ParseMode;
 
@@ -41,6 +42,10 @@ public class SendPoll extends AbstractSendRequest<SendPoll> {
 
     public SendPoll explanationParseMode(ParseMode parseMode) {
         return add("explanation_parse_mode", parseMode.name());
+    }
+
+    public SendPoll explanationEntities(MessageEntity... entities) {
+        return add("explanation_entities", entities);
     }
 
     public SendPoll openPeriod(int openPeriod) {

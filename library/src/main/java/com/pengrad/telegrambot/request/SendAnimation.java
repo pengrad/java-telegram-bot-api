@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.request.ParseMode;
 
 import java.io.File;
@@ -48,6 +49,10 @@ public class SendAnimation extends AbstractMultipartRequest<SendAnimation> {
 
     public SendAnimation parseMode(ParseMode parseMode) {
         return add("parse_mode", parseMode.name());
+    }
+
+    public SendAnimation captionEntities(MessageEntity... entities) {
+        return add("caption_entities", entities);
     }
 
     @Override
