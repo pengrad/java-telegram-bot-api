@@ -13,6 +13,10 @@ public class PromoteChatMember extends BaseRequest<PromoteChatMember, BaseRespon
         add("chat_id", chatId).add("user_id", userId);
     }
 
+    public PromoteChatMember isAnonymous(boolean isAnonymous) {
+        return add("is_anonymous", isAnonymous);
+    }
+
     public PromoteChatMember canChangeInfo(boolean canChangeInfo) {
         return add("can_change_info", canChangeInfo);
     }
