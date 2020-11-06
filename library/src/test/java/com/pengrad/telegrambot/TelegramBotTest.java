@@ -1156,6 +1156,7 @@ public class TelegramBotTest {
         ChatMember member = bot.execute(new GetChatMember(groupId, memberBot)).chatMember();
         ChatMemberTest.check(member);
         assertEquals(customTitle, member.customTitle());
+        assertFalse(member.isAnonymous());
     }
 
     @Test

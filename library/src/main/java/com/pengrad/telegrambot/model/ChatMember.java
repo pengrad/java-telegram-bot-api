@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -17,6 +18,7 @@ public class ChatMember implements Serializable {
     private Status status;
 
     private String custom_title;
+    private Boolean is_anonymous;
     private Integer until_date;
     private Boolean can_be_edited;
     private Boolean can_post_messages;
@@ -44,6 +46,10 @@ public class ChatMember implements Serializable {
 
     public String customTitle() {
         return custom_title;
+    }
+
+    public Boolean isAnonymous() {
+        return is_anonymous;
     }
 
     public Integer untilDate() {
@@ -114,63 +120,32 @@ public class ChatMember implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ChatMember that = (ChatMember) o;
-
-        if (user != null ? !user.equals(that.user) : that.user != null) return false;
-        if (status != that.status) return false;
-        if (custom_title != null ? !custom_title.equals(that.custom_title) : that.custom_title != null) return false;
-        if (until_date != null ? !until_date.equals(that.until_date) : that.until_date != null) return false;
-        if (can_be_edited != null ? !can_be_edited.equals(that.can_be_edited) : that.can_be_edited != null) return false;
-        if (can_post_messages != null ? !can_post_messages.equals(that.can_post_messages) : that.can_post_messages != null)
-            return false;
-        if (can_edit_messages != null ? !can_edit_messages.equals(that.can_edit_messages) : that.can_edit_messages != null)
-            return false;
-        if (can_delete_messages != null ? !can_delete_messages.equals(that.can_delete_messages) : that.can_delete_messages != null)
-            return false;
-        if (can_restrict_members != null ? !can_restrict_members.equals(that.can_restrict_members) : that.can_restrict_members != null)
-            return false;
-        if (can_promote_members != null ? !can_promote_members.equals(that.can_promote_members) : that.can_promote_members != null)
-            return false;
-        if (can_change_info != null ? !can_change_info.equals(that.can_change_info) : that.can_change_info != null)
-            return false;
-        if (can_invite_users != null ? !can_invite_users.equals(that.can_invite_users) : that.can_invite_users != null)
-            return false;
-        if (can_pin_messages != null ? !can_pin_messages.equals(that.can_pin_messages) : that.can_pin_messages != null)
-            return false;
-        if (is_member != null ? !is_member.equals(that.is_member) : that.is_member != null) return false;
-        if (can_send_messages != null ? !can_send_messages.equals(that.can_send_messages) : that.can_send_messages != null)
-            return false;
-        if (can_send_media_messages != null ? !can_send_media_messages.equals(that.can_send_media_messages) : that.can_send_media_messages != null)
-            return false;
-        if (can_send_polls != null ? !can_send_polls.equals(that.can_send_polls) : that.can_send_polls != null) return false;
-        if (can_send_other_messages != null ? !can_send_other_messages.equals(that.can_send_other_messages) : that.can_send_other_messages != null)
-            return false;
-        return can_add_web_page_previews != null ? can_add_web_page_previews.equals(that.can_add_web_page_previews) : that.can_add_web_page_previews == null;
+        return Objects.equals(user, that.user) &&
+                status == that.status &&
+                Objects.equals(custom_title, that.custom_title) &&
+                Objects.equals(is_anonymous, that.is_anonymous) &&
+                Objects.equals(until_date, that.until_date) &&
+                Objects.equals(can_be_edited, that.can_be_edited) &&
+                Objects.equals(can_post_messages, that.can_post_messages) &&
+                Objects.equals(can_edit_messages, that.can_edit_messages) &&
+                Objects.equals(can_delete_messages, that.can_delete_messages) &&
+                Objects.equals(can_restrict_members, that.can_restrict_members) &&
+                Objects.equals(can_promote_members, that.can_promote_members) &&
+                Objects.equals(can_change_info, that.can_change_info) &&
+                Objects.equals(can_invite_users, that.can_invite_users) &&
+                Objects.equals(can_pin_messages, that.can_pin_messages) &&
+                Objects.equals(is_member, that.is_member) &&
+                Objects.equals(can_send_messages, that.can_send_messages) &&
+                Objects.equals(can_send_media_messages, that.can_send_media_messages) &&
+                Objects.equals(can_send_polls, that.can_send_polls) &&
+                Objects.equals(can_send_other_messages, that.can_send_other_messages) &&
+                Objects.equals(can_add_web_page_previews, that.can_add_web_page_previews);
     }
 
     @Override
     public int hashCode() {
-        int result = user != null ? user.hashCode() : 0;
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (custom_title != null ? custom_title.hashCode() : 0);
-        result = 31 * result + (until_date != null ? until_date.hashCode() : 0);
-        result = 31 * result + (can_be_edited != null ? can_be_edited.hashCode() : 0);
-        result = 31 * result + (can_post_messages != null ? can_post_messages.hashCode() : 0);
-        result = 31 * result + (can_edit_messages != null ? can_edit_messages.hashCode() : 0);
-        result = 31 * result + (can_delete_messages != null ? can_delete_messages.hashCode() : 0);
-        result = 31 * result + (can_restrict_members != null ? can_restrict_members.hashCode() : 0);
-        result = 31 * result + (can_promote_members != null ? can_promote_members.hashCode() : 0);
-        result = 31 * result + (can_change_info != null ? can_change_info.hashCode() : 0);
-        result = 31 * result + (can_invite_users != null ? can_invite_users.hashCode() : 0);
-        result = 31 * result + (can_pin_messages != null ? can_pin_messages.hashCode() : 0);
-        result = 31 * result + (is_member != null ? is_member.hashCode() : 0);
-        result = 31 * result + (can_send_messages != null ? can_send_messages.hashCode() : 0);
-        result = 31 * result + (can_send_media_messages != null ? can_send_media_messages.hashCode() : 0);
-        result = 31 * result + (can_send_polls != null ? can_send_polls.hashCode() : 0);
-        result = 31 * result + (can_send_other_messages != null ? can_send_other_messages.hashCode() : 0);
-        result = 31 * result + (can_add_web_page_previews != null ? can_add_web_page_previews.hashCode() : 0);
-        return result;
+        return Objects.hash(user, status, custom_title, is_anonymous, until_date, can_be_edited, can_post_messages, can_edit_messages, can_delete_messages, can_restrict_members, can_promote_members, can_change_info, can_invite_users, can_pin_messages, is_member, can_send_messages, can_send_media_messages, can_send_polls, can_send_other_messages, can_add_web_page_previews);
     }
 
     @Override
@@ -179,6 +154,7 @@ public class ChatMember implements Serializable {
                 "user=" + user +
                 ", status=" + status +
                 ", custom_title='" + custom_title + '\'' +
+                ", is_anonymous=" + is_anonymous +
                 ", until_date=" + until_date +
                 ", can_be_edited=" + can_be_edited +
                 ", can_post_messages=" + can_post_messages +
