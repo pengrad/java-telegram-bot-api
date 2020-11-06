@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -14,6 +15,8 @@ public class Venue implements Serializable {
     private String address;
     private String foursquare_id;
     private String foursquare_type;
+    private String google_place_id;
+    private String google_place_type;
 
     public Location location() {
         return location;
@@ -35,28 +38,31 @@ public class Venue implements Serializable {
         return foursquare_type;
     }
 
+    public String googlePlaceId() {
+        return google_place_id;
+    }
+
+    public String googlePlaceType() {
+        return google_place_type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Venue venue = (Venue) o;
-
-        if (location != null ? !location.equals(venue.location) : venue.location != null) return false;
-        if (title != null ? !title.equals(venue.title) : venue.title != null) return false;
-        if (address != null ? !address.equals(venue.address) : venue.address != null) return false;
-        if (foursquare_id != null ? !foursquare_id.equals(venue.foursquare_id) : venue.foursquare_id != null) return false;
-        return foursquare_type != null ? foursquare_type.equals(venue.foursquare_type) : venue.foursquare_type == null;
+        return Objects.equals(location, venue.location) &&
+                Objects.equals(title, venue.title) &&
+                Objects.equals(address, venue.address) &&
+                Objects.equals(foursquare_id, venue.foursquare_id) &&
+                Objects.equals(foursquare_type, venue.foursquare_type) &&
+                Objects.equals(google_place_id, venue.google_place_id) &&
+                Objects.equals(google_place_type, venue.google_place_type);
     }
 
     @Override
     public int hashCode() {
-        int result = location != null ? location.hashCode() : 0;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (foursquare_id != null ? foursquare_id.hashCode() : 0);
-        result = 31 * result + (foursquare_type != null ? foursquare_type.hashCode() : 0);
-        return result;
+        return Objects.hash(location, title, address, foursquare_id, foursquare_type, google_place_id, google_place_type);
     }
 
     @Override
@@ -67,6 +73,8 @@ public class Venue implements Serializable {
                 ", address='" + address + '\'' +
                 ", foursquare_id='" + foursquare_id + '\'' +
                 ", foursquare_type='" + foursquare_type + '\'' +
+                ", google_place_id='" + google_place_id + '\'' +
+                ", google_place_type='" + google_place_type + '\'' +
                 '}';
     }
 }
