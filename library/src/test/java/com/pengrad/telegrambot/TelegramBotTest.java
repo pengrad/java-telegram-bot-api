@@ -304,6 +304,7 @@ public class TelegramBotTest {
     public void promoteChatMember() {
         BaseResponse response = bot.execute(
                 new PromoteChatMember(groupId, memberBot)
+                        .isAnonymous(false)
                         .canChangeInfo(false)
                         .canPostMessages(false)
                         .canEditMessages(false)
@@ -311,7 +312,7 @@ public class TelegramBotTest {
                         .canInviteUsers(false)
                         .canRestrictMembers(false)
                         .canPinMessages(false)
-                        .canPromoteMembers(false));
+                        .canPromoteMembers(true));
         assertTrue(response.isOk());
     }
 
