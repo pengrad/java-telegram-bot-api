@@ -22,6 +22,10 @@ abstract public class AbstractSendRequest<T extends AbstractSendRequest<T>> exte
         return add("reply_to_message_id", replyToMessageId);
     }
 
+    public T allowSendingWithoutReply(boolean allowSendingWithoutReply) {
+        return add("allow_sending_without_reply", allowSendingWithoutReply);
+    }
+
     public T replyMarkup(Keyboard replyMarkup) {
         return add("reply_markup", replyMarkup);
     }
