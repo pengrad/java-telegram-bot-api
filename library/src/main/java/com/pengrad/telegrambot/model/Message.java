@@ -16,6 +16,7 @@ public class Message implements Serializable {
 
     private Integer message_id;
     private User from;
+    private Chat sender_chat;
     private Integer date;
     private Chat chat;
     private User forward_from;
@@ -71,6 +72,10 @@ public class Message implements Serializable {
 
     public User from() {
         return from;
+    }
+
+    public Chat senderChat() {
+        return sender_chat;
     }
 
     public Integer date() {
@@ -272,6 +277,7 @@ public class Message implements Serializable {
         Message message = (Message) o;
         return Objects.equals(message_id, message.message_id) &&
                 Objects.equals(from, message.from) &&
+                Objects.equals(sender_chat, message.sender_chat) &&
                 Objects.equals(date, message.date) &&
                 Objects.equals(chat, message.chat) &&
                 Objects.equals(forward_from, message.forward_from) &&
@@ -332,6 +338,7 @@ public class Message implements Serializable {
         return "Message{" +
                 "message_id=" + message_id +
                 ", from=" + from +
+                ", sender_chat=" + sender_chat +
                 ", date=" + date +
                 ", chat=" + chat +
                 ", forward_from=" + forward_from +
