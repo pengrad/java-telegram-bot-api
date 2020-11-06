@@ -34,6 +34,10 @@ public class SendMediaGroup extends BaseRequest<SendMediaGroup, MessagesResponse
         return add("reply_to_message_id", replyToMessageId);
     }
 
+    public SendMediaGroup allowSendingWithoutReply(boolean allowSendingWithoutReply) {
+        return add("allow_sending_without_reply", allowSendingWithoutReply);
+    }
+
     @Override
     public boolean isMultipart() {
         return isMultipart;
