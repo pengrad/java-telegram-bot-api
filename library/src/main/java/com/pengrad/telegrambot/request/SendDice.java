@@ -21,4 +21,12 @@ public class SendDice extends AbstractSendRequest<SendDice> {
     public SendDice basketball() {
         return emoji("🏀");
     }
+
+    public SendDice football() {
+        return emoji("⚽");
+    }
+
+    public SendDice slotMachine() {
+        return emoji("🎰");
+    }
 }
