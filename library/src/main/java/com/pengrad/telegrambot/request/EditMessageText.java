@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.response.BaseResponse;
@@ -23,6 +24,10 @@ public class EditMessageText extends BaseRequest<EditMessageText, BaseResponse> 
 
     public EditMessageText parseMode(ParseMode parseMode) {
         return add("parse_mode", parseMode.name());
+    }
+
+    public EditMessageText entities(MessageEntity... entities) {
+        return add("entities", entities);
     }
 
     public EditMessageText disableWebPagePreview(boolean disableWebPagePreview) {

@@ -19,6 +19,10 @@ public class User implements Serializable {
     private Boolean can_read_all_group_messages;
     private Boolean supports_inline_queries;
 
+    public User(Integer id) {
+        this.id = id;
+    }
+
     public Integer id() {
         return id;
     }

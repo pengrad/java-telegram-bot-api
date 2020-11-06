@@ -1,6 +1,8 @@
 package com.pengrad.telegrambot.model.request;
 
 import com.pengrad.telegrambot.AttachName;
+import com.pengrad.telegrambot.model.MessageEntity;
+import com.pengrad.telegrambot.request.CopyMessage;
 
 import java.io.File;
 import java.io.Serializable;
@@ -22,6 +24,7 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
     private String thumb;
     private String caption;
     private String parse_mode;
+    private MessageEntity[] caption_entities;
 
     transient private Map<String, Object> attachments = new HashMap<>();
     transient private String filename;
@@ -65,6 +68,11 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
 
     public T parseMode(ParseMode parseMode) {
         this.parse_mode = parseMode.name();
+        return thisAsT;
+    }
+
+    public T captionEntities(MessageEntity... entities) {
+        this.caption_entities = entities;
         return thisAsT;
     }
 

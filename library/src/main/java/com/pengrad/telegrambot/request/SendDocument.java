@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.request.ParseMode;
 
 import java.io.File;
@@ -36,6 +37,10 @@ public class SendDocument extends AbstractMultipartRequest<SendDocument> {
 
     public SendDocument parseMode(ParseMode parseMode) {
         return add("parse_mode", parseMode.name());
+    }
+
+    public SendDocument captionEntities(MessageEntity... entities) {
+        return add("caption_entities", entities);
     }
 
     public SendDocument disableContentTypeDetection(boolean disableContentTypeDetection) {

@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.request.ParseMode;
 
 import java.io.File;
@@ -28,6 +29,10 @@ public class SendPhoto extends AbstractMultipartRequest<SendPhoto> {
 
     public SendPhoto parseMode(ParseMode parseMode) {
         return add("parse_mode", parseMode.name());
+    }
+
+    public SendPhoto captionEntities(MessageEntity... entities) {
+        return add("caption_entities", entities);
     }
 
     @Override

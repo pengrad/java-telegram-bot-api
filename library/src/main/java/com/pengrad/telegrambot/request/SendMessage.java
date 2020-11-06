@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.request.ParseMode;
 
 /**
@@ -15,6 +16,10 @@ public class SendMessage extends AbstractSendRequest<SendMessage> {
 
     public SendMessage parseMode(ParseMode parseMode) {
         return add("parse_mode", parseMode.name());
+    }
+
+    public SendMessage entities(MessageEntity... entities) {
+        return add("entities", entities);
     }
 
     public SendMessage disableWebPagePreview(boolean disableWebPagePreview) {
