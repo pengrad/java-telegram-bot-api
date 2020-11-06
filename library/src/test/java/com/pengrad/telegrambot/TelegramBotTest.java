@@ -69,20 +69,7 @@ import com.pengrad.telegrambot.passport.SecureData;
 import com.pengrad.telegrambot.passport.SecureValue;
 import com.pengrad.telegrambot.passport.SetPassportDataErrors;
 import com.pengrad.telegrambot.request.*;
-import com.pengrad.telegrambot.response.BaseResponse;
-import com.pengrad.telegrambot.response.GetChatAdministratorsResponse;
-import com.pengrad.telegrambot.response.GetChatMembersCountResponse;
-import com.pengrad.telegrambot.response.GetFileResponse;
-import com.pengrad.telegrambot.response.GetMeResponse;
-import com.pengrad.telegrambot.response.GetMyCommandsResponse;
-import com.pengrad.telegrambot.response.GetStickerSetResponse;
-import com.pengrad.telegrambot.response.GetUpdatesResponse;
-import com.pengrad.telegrambot.response.GetUserProfilePhotosResponse;
-import com.pengrad.telegrambot.response.GetWebhookInfoResponse;
-import com.pengrad.telegrambot.response.MessagesResponse;
-import com.pengrad.telegrambot.response.PollResponse;
-import com.pengrad.telegrambot.response.SendResponse;
-import com.pengrad.telegrambot.response.StringResponse;
+import com.pengrad.telegrambot.response.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -682,6 +669,19 @@ public class TelegramBotTest {
         assertEquals(MessageEntity.Type.text_mention, message.entities()[0].type());
         assertNotNull(message.entities()[0].user());
         assertNotNull(message.forwardSenderName());
+    }
+
+    @Test
+    public void copyMessage() {
+        MessageIdResponse response = bot.execute(new CopyMessage(chatId, chatId, forwardMessageId)
+                .caption("new **caption**")
+                .parseMode(ParseMode.MarkdownV2)
+                .captionEntities(new MessageEntity(MessageEntity.Type.bold, 0, 1))
+                .allowSendingWithoutReply(false)
+                .replyToMessageId(1)
+                .disableNotification(true)
+        );
+        assertTrue(response.messageId() > 0);
     }
 
     @Test

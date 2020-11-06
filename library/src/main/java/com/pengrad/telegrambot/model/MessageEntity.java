@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -20,6 +21,12 @@ public class MessageEntity implements Serializable {
     private String url;
     private User user;
     private String language;
+
+    public MessageEntity(Type type, Integer offset, Integer length) {
+        this.type = type;
+        this.offset = offset;
+        this.length = length;
+    }
 
     public Type type() {
         return type;
@@ -45,30 +52,37 @@ public class MessageEntity implements Serializable {
         return language;
     }
 
+    public MessageEntity url(String url) {
+        this.url = url;
+        return this;
+    }
+
+    public MessageEntity user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public MessageEntity language(String language) {
+        this.language = language;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         MessageEntity that = (MessageEntity) o;
-
-        if (type != that.type) return false;
-        if (offset != null ? !offset.equals(that.offset) : that.offset != null) return false;
-        if (length != null ? !length.equals(that.length) : that.length != null) return false;
-        if (url != null ? !url.equals(that.url) : that.url != null) return false;
-        if (user != null ? !user.equals(that.user) : that.user != null) return false;
-        return language != null ? language.equals(that.language) : that.language == null;
+        return type == that.type &&
+                Objects.equals(offset, that.offset) &&
+                Objects.equals(length, that.length) &&
+                Objects.equals(url, that.url) &&
+                Objects.equals(user, that.user) &&
+                Objects.equals(language, that.language);
     }
 
     @Override
     public int hashCode() {
-        int result = type != null ? type.hashCode() : 0;
-        result = 31 * result + (offset != null ? offset.hashCode() : 0);
-        result = 31 * result + (length != null ? length.hashCode() : 0);
-        result = 31 * result + (url != null ? url.hashCode() : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        result = 31 * result + (language != null ? language.hashCode() : 0);
-        return result;
+        return Objects.hash(type, offset, length, url, user, language);
     }
 
     @Override
