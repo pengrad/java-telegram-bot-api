@@ -638,6 +638,7 @@ public class TelegramBotTest {
         Message message = sendResponse.message();
         MessageTest.checkTextMessage(message);
         assertEquals(url, message.entities()[0].url());
+        assertEquals(channelId, message.senderChat().id());
     }
 
     @Test
