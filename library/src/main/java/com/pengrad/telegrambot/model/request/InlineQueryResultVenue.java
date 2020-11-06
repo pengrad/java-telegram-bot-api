@@ -16,6 +16,8 @@ public class InlineQueryResultVenue extends InlineQueryResult<InlineQueryResultV
 
     private String foursquare_id;
     private String foursquare_type;
+    private String google_place_id;
+    private String google_place_type;
     private String thumb_url;
     private Integer thumb_width;
     private Integer thumb_height;
@@ -35,6 +37,16 @@ public class InlineQueryResultVenue extends InlineQueryResult<InlineQueryResultV
 
     public InlineQueryResultVenue foursquareType(String foursquareType) {
         this.foursquare_type = foursquareType;
+        return this;
+    }
+
+    public InlineQueryResultVenue googlePlaceId(String googlePlaceId) {
+        this.google_place_id = googlePlaceId;
+        return this;
+    }
+
+    public InlineQueryResultVenue googlePlaceType(String googlePlaceType) {
+        this.google_place_type = googlePlaceType;
         return this;
     }
 

@@ -21,4 +21,12 @@ public class SendVenue extends AbstractSendRequest<SendVenue> {
     public SendVenue foursquareType(String foursquareType) {
         return add("foursquare_type", foursquareType);
     }
+
+    public SendVenue googlePlaceId(String googlePlaceId) {
+        return add("google_place_id", googlePlaceId);
+    }
+
+    public SendVenue googlePlaceType(String googlePlaceType) {
+        return add("google_place_type", googlePlaceType);
+    }
 }
