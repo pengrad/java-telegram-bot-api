@@ -1,9 +1,6 @@
 package com.pengrad.telegrambot;
 
-import com.pengrad.telegrambot.model.Animation;
-import com.pengrad.telegrambot.model.CallbackQuery;
-import com.pengrad.telegrambot.model.Message;
-import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.passport.Credentials;
@@ -55,6 +52,8 @@ public class ModelTest {
         classes.add(InlineKeyboardButton.class);
         customInstance.put(InlineKeyboardMarkup.class, InlineKeyboardMarkup::new);
         customInstance.put(InlineKeyboardButton.class, () -> new InlineKeyboardButton(""));
+        customInstance.put(MessageEntity.class, () -> new MessageEntity(MessageEntity.Type.bold, 1, 1));
+        customInstance.put(User.class, () -> new User(1));
     }
 
     @Test

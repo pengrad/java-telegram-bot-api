@@ -1187,9 +1187,9 @@ public class TelegramBotTest {
                 assertTrue(permissions.canSendPolls());
                 assertTrue(permissions.canSendOtherMessages());
                 assertTrue(permissions.canAddWebPagePreviews());
-                assertTrue(permissions.canChangeInfo());
+                assertFalse(permissions.canChangeInfo());
                 assertTrue(permissions.canInviteUsers());
-                assertTrue(permissions.canPinMessages());
+                assertFalse(permissions.canPinMessages());
             } else {
                 assertFalse(permissions.canSendMessages());
                 assertFalse(permissions.canSendMediaMessages());
