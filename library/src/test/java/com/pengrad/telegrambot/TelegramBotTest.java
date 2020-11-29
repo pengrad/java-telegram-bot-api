@@ -989,7 +989,14 @@ public class TelegramBotTest {
         assertTrue(webhookInfo.hasCustomCertificate());
         assertEquals(maxConnections, webhookInfo.maxConnections());
         assertArrayEquals(allowedUpdates, webhookInfo.allowedUpdates());
-        assertNotNull(webhookInfo.lastErrorDate());
+        Integer lastErrorDate = webhookInfo.lastErrorDate();
+        if (lastErrorDate != null) {
+            assertEquals(System.currentTimeMillis(), lastErrorDate * 1000L, 30_000L);
+        }
+        String lastErrorMessage = webhookInfo.lastErrorMessage();
+        if (lastErrorMessage != null) {
+            assertTrue(lastErrorMessage.contains("SSL"));
+        }
         assertNotNull(webhookInfo.lastErrorMessage());
         assertEquals(ipAddress, webhookInfo.ipAddress());
         assertEquals(0, webhookInfo.pendingUpdateCount().intValue());
