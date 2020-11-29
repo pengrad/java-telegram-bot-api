@@ -997,7 +997,6 @@ public class TelegramBotTest {
         if (lastErrorMessage != null) {
             assertTrue(lastErrorMessage.contains("SSL"));
         }
-        assertNotNull(webhookInfo.lastErrorMessage());
         assertEquals(ipAddress, webhookInfo.ipAddress());
         assertEquals(0, webhookInfo.pendingUpdateCount().intValue());
 
