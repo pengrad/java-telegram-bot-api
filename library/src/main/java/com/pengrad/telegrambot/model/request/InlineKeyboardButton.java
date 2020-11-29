@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model.request;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -17,6 +18,9 @@ public class InlineKeyboardButton implements Serializable {
     private String switch_inline_query_current_chat;
     private CallbackGame callback_game;
     private Boolean pay;
+
+    private InlineKeyboardButton() {
+    }
 
     //todo can use only one optional field, make different constructors or static methods
 
@@ -91,32 +95,20 @@ public class InlineKeyboardButton implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         InlineKeyboardButton that = (InlineKeyboardButton) o;
-
-        if (text != null ? !text.equals(that.text) : that.text != null) return false;
-        if (url != null ? !url.equals(that.url) : that.url != null) return false;
-        if (login_url != null ? !login_url.equals(that.login_url) : that.login_url != null) return false;
-        if (callback_data != null ? !callback_data.equals(that.callback_data) : that.callback_data != null) return false;
-        if (switch_inline_query != null ? !switch_inline_query.equals(that.switch_inline_query) : that.switch_inline_query != null)
-            return false;
-        if (switch_inline_query_current_chat != null ? !switch_inline_query_current_chat.equals(that.switch_inline_query_current_chat) : that.switch_inline_query_current_chat != null)
-            return false;
-        if (callback_game != null ? !callback_game.equals(that.callback_game) : that.callback_game != null) return false;
-        return pay != null ? pay.equals(that.pay) : that.pay == null;
+        return Objects.equals(text, that.text) &&
+                Objects.equals(url, that.url) &&
+                Objects.equals(login_url, that.login_url) &&
+                Objects.equals(callback_data, that.callback_data) &&
+                Objects.equals(switch_inline_query, that.switch_inline_query) &&
+                Objects.equals(switch_inline_query_current_chat, that.switch_inline_query_current_chat) &&
+                Objects.equals(callback_game, that.callback_game) &&
+                Objects.equals(pay, that.pay);
     }
 
     @Override
     public int hashCode() {
-        int result = text != null ? text.hashCode() : 0;
-        result = 31 * result + (url != null ? url.hashCode() : 0);
-        result = 31 * result + (login_url != null ? login_url.hashCode() : 0);
-        result = 31 * result + (callback_data != null ? callback_data.hashCode() : 0);
-        result = 31 * result + (switch_inline_query != null ? switch_inline_query.hashCode() : 0);
-        result = 31 * result + (switch_inline_query_current_chat != null ? switch_inline_query_current_chat.hashCode() : 0);
-        result = 31 * result + (callback_game != null ? callback_game.hashCode() : 0);
-        result = 31 * result + (pay != null ? pay.hashCode() : 0);
-        return result;
+        return Objects.hash(text, url, login_url, callback_data, switch_inline_query, switch_inline_query_current_chat, callback_game, pay);
     }
 
     @Override

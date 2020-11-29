@@ -22,6 +22,9 @@ public class MessageEntity implements Serializable {
     private User user;
     private String language;
 
+    private MessageEntity() {
+    }
+
     public MessageEntity(Type type, Integer offset, Integer length) {
         this.type = type;
         this.offset = offset;

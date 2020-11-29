@@ -50,10 +50,6 @@ public class ModelTest {
         // classes from model/request available in responses
         classes.add(InlineKeyboardMarkup.class);
         classes.add(InlineKeyboardButton.class);
-        customInstance.put(InlineKeyboardMarkup.class, InlineKeyboardMarkup::new);
-        customInstance.put(InlineKeyboardButton.class, () -> new InlineKeyboardButton(""));
-        customInstance.put(MessageEntity.class, () -> new MessageEntity(MessageEntity.Type.bold, 1, 1));
-        customInstance.put(User.class, () -> new User(1));
     }
 
     @Test
