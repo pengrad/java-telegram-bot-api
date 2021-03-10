@@ -17,6 +17,10 @@ public class PromoteChatMember extends BaseRequest<PromoteChatMember, BaseRespon
         return add("is_anonymous", isAnonymous);
     }
 
+    public PromoteChatMember canManageChat(boolean canManageChat) {
+        return add("can_manage_chat", canManageChat);
+    }
+
     public PromoteChatMember canChangeInfo(boolean canChangeInfo) {
         return add("can_change_info", canChangeInfo);
     }
@@ -31,6 +35,10 @@ public class PromoteChatMember extends BaseRequest<PromoteChatMember, BaseRespon
 
     public PromoteChatMember canDeleteMessages(boolean canDeleteMessages) {
         return add("can_delete_messages", canDeleteMessages);
+    }
+
+    public PromoteChatMember canManageVoiceChats(boolean canManageVoiceChats) {
+        return add("can_manage_voice_chats", canManageVoiceChats);
     }
 
     public PromoteChatMember canInviteUsers(boolean canInviteUsers) {
