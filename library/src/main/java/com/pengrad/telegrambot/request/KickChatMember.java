@@ -16,4 +16,8 @@ public class KickChatMember extends BaseRequest<KickChatMember, BaseResponse> {
     public KickChatMember untilDate(int untilDate) {
         return add("until_date", untilDate);
     }
+
+    public KickChatMember revokeMessages(boolean revokeMessages) {
+        return add("revoke_messages", revokeMessages);
+    }
 }
