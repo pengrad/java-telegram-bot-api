@@ -85,11 +85,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -1860,5 +1856,36 @@ public class TelegramBotTest {
         GetMyCommandsResponse commandsResponse = bot.execute(new GetMyCommands());
         assertTrue(commandsResponse.isOk());
         assertArrayEquals(commandsResponse.commands(), commands);
+    }
+
+    @Test
+    public void inviteLinks() {
+        int memberLimit = 2;
+        int expireDate = (int) (System.currentTimeMillis() / 1000) + 500;
+
+        ChatInviteLinkResponse response = bot.execute(new CreateChatInviteLink(groupId)
+                .expireDate(expireDate)
+                .memberLimit(memberLimit));
+        ChatInviteLink link = response.chatInviteLink();
+        assertEquals(expireDate, link.expireDate().intValue());
+        assertEquals(memberLimit, link.memberLimit().intValue());
+        assertFalse(link.isRevoked());
+        assertTrue(link.creator().isBot());
+
+        int editMemberLimit = 3;
+        int editExpireDate = (int) (System.currentTimeMillis() / 1000) + 1500;
+        response = bot.execute(new EditChatInviteLink(groupId, link.inviteLink())
+                .expireDate(editExpireDate)
+                .memberLimit(editMemberLimit));
+        link = response.chatInviteLink();
+        assertEquals(editExpireDate, link.expireDate().intValue());
+        assertEquals(editMemberLimit, link.memberLimit().intValue());
+        assertFalse(link.isRevoked());
+
+
+        response = bot.execute(new RevokeChatInviteLink(groupId, link.inviteLink()));
+        link = response.chatInviteLink();
+        assertTrue(link.isRevoked());
+        assertFalse(link.isPrimary());
     }
 }
