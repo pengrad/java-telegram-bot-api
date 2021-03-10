@@ -5,6 +5,7 @@ import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.passport.Credentials;
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.EqualsVerifierApi;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,14 +71,19 @@ public class ModelTest {
         f.set(update, 1);
 
         for (Class<?> c : classes) {
-            EqualsVerifier.forClass(c)
+            EqualsVerifierApi<?> verifierApi = EqualsVerifier.forClass(c)
                     .usingGetClass()
                     .withPrefabValues(Update.class, Update.class.getDeclaredConstructor().newInstance(), update)
                     .withPrefabValues(Message.class, Message.class.getDeclaredConstructor().newInstance(), message)
                     .withPrefabValues(CallbackQuery.class, CallbackQuery.class.getDeclaredConstructor().newInstance(), callbackQuery)
                     .suppress(Warning.STRICT_HASHCODE)
-                    .suppress(Warning.NONFINAL_FIELDS)
-                    .verify();
+                    .suppress(Warning.NONFINAL_FIELDS);
+
+            if (c == Message.class) {
+                verifierApi.withIgnoredFields("voice_chat_started");
+            }
+
+            verifierApi.verify();
         }
     }
 
