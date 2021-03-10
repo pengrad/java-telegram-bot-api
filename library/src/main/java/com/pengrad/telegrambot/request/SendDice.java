@@ -29,4 +29,8 @@ public class SendDice extends AbstractSendRequest<SendDice> {
     public SendDice slotMachine() {
         return emoji("🎰");
     }
+
+    public SendDice bowling() {
+        return emoji("🎳");
+    }
 }
