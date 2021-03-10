@@ -64,6 +64,9 @@ public class Message implements Serializable {
     private String connected_website;
     private PassportData passport_data;
     private ProximityAlertTriggered proximity_alert_triggered;
+    private VoiceChatStarted voice_chat_started;
+    private VoiceChatEnded voice_chat_ended;
+    private VoiceChatParticipantsInvited voice_chat_participants_invited;
     private InlineKeyboardMarkup reply_markup;
 
     public Integer messageId() {
@@ -266,6 +269,18 @@ public class Message implements Serializable {
         return proximity_alert_triggered;
     }
 
+    public VoiceChatStarted voiceChatStarted() {
+        return voice_chat_started;
+    }
+
+    public VoiceChatEnded voiceChatEnded() {
+        return voice_chat_ended;
+    }
+
+    public VoiceChatParticipantsInvited voiceChatParticipantsInvited() {
+        return voice_chat_participants_invited;
+    }
+
     public InlineKeyboardMarkup replyMarkup() {
         return reply_markup;
     }
@@ -325,6 +340,9 @@ public class Message implements Serializable {
                 Objects.equals(connected_website, message.connected_website) &&
                 Objects.equals(passport_data, message.passport_data) &&
                 Objects.equals(proximity_alert_triggered, message.proximity_alert_triggered) &&
+                Objects.equals(voice_chat_started, message.voice_chat_started) &&
+                Objects.equals(voice_chat_ended, message.voice_chat_ended) &&
+                Objects.equals(voice_chat_participants_invited, message.voice_chat_participants_invited) &&
                 Objects.equals(reply_markup, message.reply_markup);
     }
 
@@ -386,6 +404,9 @@ public class Message implements Serializable {
                 ", connected_website='" + connected_website + '\'' +
                 ", passport_data=" + passport_data +
                 ", proximity_alert_triggered=" + proximity_alert_triggered +
+                ", voice_chat_started=" + voice_chat_started +
+                ", voice_chat_ended=" + voice_chat_ended +
+                ", voice_chat_participants_invited=" + voice_chat_participants_invited +
                 ", reply_markup=" + reply_markup +
                 '}';
     }
