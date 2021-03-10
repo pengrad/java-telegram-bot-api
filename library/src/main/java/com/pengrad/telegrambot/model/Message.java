@@ -56,6 +56,7 @@ public class Message implements Serializable {
     private Boolean group_chat_created;
     private Boolean supergroup_chat_created;
     private Boolean channel_chat_created;
+    private MessageAutoDeleteTimerChanged message_auto_delete_timer_changed;
     private Long migrate_to_chat_id;
     private Long migrate_from_chat_id;
     private Message pinned_message;
@@ -237,6 +238,10 @@ public class Message implements Serializable {
         return channel_chat_created;
     }
 
+    public MessageAutoDeleteTimerChanged messageAutoDeleteTimerChanged() {
+        return message_auto_delete_timer_changed;
+    }
+
     public Long migrateToChatId() {
         return migrate_to_chat_id;
     }
@@ -332,6 +337,7 @@ public class Message implements Serializable {
                 Objects.equals(group_chat_created, message.group_chat_created) &&
                 Objects.equals(supergroup_chat_created, message.supergroup_chat_created) &&
                 Objects.equals(channel_chat_created, message.channel_chat_created) &&
+                Objects.equals(message_auto_delete_timer_changed, message.message_auto_delete_timer_changed) &&
                 Objects.equals(migrate_to_chat_id, message.migrate_to_chat_id) &&
                 Objects.equals(migrate_from_chat_id, message.migrate_from_chat_id) &&
                 Objects.equals(pinned_message, message.pinned_message) &&
@@ -396,6 +402,7 @@ public class Message implements Serializable {
                 ", group_chat_created=" + group_chat_created +
                 ", supergroup_chat_created=" + supergroup_chat_created +
                 ", channel_chat_created=" + channel_chat_created +
+                ", message_auto_delete_timer_changed=" + message_auto_delete_timer_changed +
                 ", migrate_to_chat_id=" + migrate_to_chat_id +
                 ", migrate_from_chat_id=" + migrate_from_chat_id +
                 ", pinned_message=" + pinned_message +
