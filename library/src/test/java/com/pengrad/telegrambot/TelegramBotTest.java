@@ -295,6 +295,8 @@ public class TelegramBotTest {
                         .canInviteUsers(false)
                         .canRestrictMembers(false)
                         .canPinMessages(false)
+                        .canManageChat(false)
+                        .canManageVoiceChats(false)
                         .canPromoteMembers(true));
         assertTrue(response.isOk());
     }
@@ -542,6 +544,8 @@ public class TelegramBotTest {
                 assertTrue(chatMember.canRestrictMembers());
                 assertTrue(chatMember.canPinMessages());
                 assertTrue(chatMember.canPromoteMembers());
+                assertTrue(chatMember.canManageVoiceChats());
+                assertTrue(chatMember.canManageChat());
             }
         }
     }

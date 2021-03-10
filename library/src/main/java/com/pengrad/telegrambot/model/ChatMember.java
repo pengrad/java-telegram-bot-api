@@ -21,9 +21,11 @@ public class ChatMember implements Serializable {
     private Boolean is_anonymous;
     private Integer until_date;
     private Boolean can_be_edited;
+    private Boolean can_manage_chat;
     private Boolean can_post_messages;
     private Boolean can_edit_messages;
     private Boolean can_delete_messages;
+    private Boolean can_manage_voice_chats;
     private Boolean can_restrict_members;
     private Boolean can_promote_members;
     private Boolean can_change_info;
@@ -60,6 +62,10 @@ public class ChatMember implements Serializable {
         return can_be_edited;
     }
 
+    public Boolean canManageChat() {
+        return can_manage_chat;
+    }
+
     public Boolean canPostMessages() {
         return can_post_messages;
     }
@@ -70,6 +76,10 @@ public class ChatMember implements Serializable {
 
     public Boolean canDeleteMessages() {
         return can_delete_messages;
+    }
+
+    public Boolean canManageVoiceChats() {
+        return can_manage_voice_chats;
     }
 
     public Boolean canRestrictMembers() {
@@ -127,9 +137,11 @@ public class ChatMember implements Serializable {
                 Objects.equals(is_anonymous, that.is_anonymous) &&
                 Objects.equals(until_date, that.until_date) &&
                 Objects.equals(can_be_edited, that.can_be_edited) &&
+                Objects.equals(can_manage_chat, that.can_manage_chat) &&
                 Objects.equals(can_post_messages, that.can_post_messages) &&
                 Objects.equals(can_edit_messages, that.can_edit_messages) &&
                 Objects.equals(can_delete_messages, that.can_delete_messages) &&
+                Objects.equals(can_manage_voice_chats, that.can_manage_voice_chats) &&
                 Objects.equals(can_restrict_members, that.can_restrict_members) &&
                 Objects.equals(can_promote_members, that.can_promote_members) &&
                 Objects.equals(can_change_info, that.can_change_info) &&
@@ -145,7 +157,7 @@ public class ChatMember implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, status, custom_title, is_anonymous, until_date, can_be_edited, can_post_messages, can_edit_messages, can_delete_messages, can_restrict_members, can_promote_members, can_change_info, can_invite_users, can_pin_messages, is_member, can_send_messages, can_send_media_messages, can_send_polls, can_send_other_messages, can_add_web_page_previews);
+        return Objects.hash(user, status, custom_title, is_anonymous, until_date, can_be_edited, can_manage_chat, can_post_messages, can_edit_messages, can_delete_messages, can_manage_voice_chats, can_restrict_members, can_promote_members, can_change_info, can_invite_users, can_pin_messages, is_member, can_send_messages, can_send_media_messages, can_send_polls, can_send_other_messages, can_add_web_page_previews);
     }
 
     @Override
@@ -157,9 +169,11 @@ public class ChatMember implements Serializable {
                 ", is_anonymous=" + is_anonymous +
                 ", until_date=" + until_date +
                 ", can_be_edited=" + can_be_edited +
+                ", can_manage_chat=" + can_manage_chat +
                 ", can_post_messages=" + can_post_messages +
                 ", can_edit_messages=" + can_edit_messages +
                 ", can_delete_messages=" + can_delete_messages +
+                ", can_manage_voice_chats=" + can_manage_voice_chats +
                 ", can_restrict_members=" + can_restrict_members +
                 ", can_promote_members=" + can_promote_members +
                 ", can_change_info=" + can_change_info +
