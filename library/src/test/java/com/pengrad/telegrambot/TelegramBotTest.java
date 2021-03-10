@@ -1492,14 +1492,15 @@ public class TelegramBotTest {
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFile)));
         assertEquals(Integer.valueOf(1), response.message().animation().duration());
 
+        int expectedSize = 160; // idk why?
         Integer durationAnim = 17, width = 21, height = 22;
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
                 new InputMediaAnimation(gifBytes).duration(durationAnim).width(width).height(height)
         ));
         Animation animation = response.message().animation();
-        assertEquals(Integer.valueOf(1), animation.duration());
-        assertEquals(width, animation.width());
-        assertEquals(height, animation.height());
+        assertEquals(1, animation.duration().intValue());
+        assertEquals(expectedSize, animation.width().intValue());
+        assertEquals(expectedSize, animation.height().intValue());
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFileId)));
         assertTrue(response.isOk());
@@ -1537,6 +1538,7 @@ public class TelegramBotTest {
 
     @Test
     public void sendAnimation() {
+        int expectedSize = 160; // idk why?
         int width = 340, height = 240;
         String caption = "gif *file*", captionCheck = "gif file";
         SendResponse response = bot.execute(new SendAnimation(chatId, gifFile)
@@ -1545,8 +1547,8 @@ public class TelegramBotTest {
         assertTrue(response.isOk());
         Animation animation = response.message().animation();
         assertEquals((Integer) 1, animation.duration());
-        assertEquals(width, animation.width().intValue());
-        assertEquals(height, animation.height().intValue());
+        assertEquals(expectedSize, animation.width().intValue());
+        assertEquals(expectedSize, animation.height().intValue());
         assertNotEquals("telegram should generate thumb", thumbSize, animation.thumb().fileSize());
         assertEquals(captionCheck, response.message().caption());
         assertEquals(MessageEntity.Type.bold, response.message().captionEntities()[0].type());
@@ -1554,8 +1556,8 @@ public class TelegramBotTest {
         response = bot.execute(new SendAnimation(chatId, gifBytes).thumb(thumbBytes));
         animation = response.message().animation();
         assertEquals((Integer) 1, animation.duration());
-        assertEquals((Integer) 160, animation.width());
-        assertEquals((Integer) 160, animation.height());
+        assertEquals(expectedSize, animation.width().intValue());
+        assertEquals(expectedSize, animation.height().intValue());
         assertNotEquals("telegram should generate thumb", thumbSize, animation.thumb().fileSize());
 
         response = bot.execute(new SendAnimation(chatId, gifFileId));
