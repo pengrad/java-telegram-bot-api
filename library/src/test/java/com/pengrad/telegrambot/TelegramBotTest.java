@@ -1882,7 +1882,6 @@ public class TelegramBotTest {
         assertEquals(editMemberLimit, link.memberLimit().intValue());
         assertFalse(link.isRevoked());
 
-
         response = bot.execute(new RevokeChatInviteLink(groupId, link.inviteLink()));
         link = response.chatInviteLink();
         assertTrue(link.isRevoked());
