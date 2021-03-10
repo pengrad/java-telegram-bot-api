@@ -6,8 +6,8 @@ targetCompatibility = 1.8
 
 dependencies {
     compile 'com.google.code.gson:gson:2.8.6'
-    compile 'com.squareup.okhttp3:okhttp:3.12.10'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.12.10'
+    compile 'com.squareup.okhttp3:okhttp:4.9.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:4.9.0'
 
     testCompile 'junit:junit:4.13.1'
     testCompile 'nl.jqno.equalsverifier:equalsverifier:3.1.13'
