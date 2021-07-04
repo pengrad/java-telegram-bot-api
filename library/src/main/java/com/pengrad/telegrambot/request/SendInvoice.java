@@ -54,4 +54,22 @@ public class SendInvoice extends AbstractSendRequest<SendInvoice> {
     public SendInvoice isFlexible(boolean isFlexible) {
         return add("is_flexible", isFlexible);
     }
+
+    /**
+     * 
+     * @param maxTipAmount The maximum accepted amount for tips in the smallest units of the currency
+     * @return
+     */
+    public SendInvoice maxTipAmount(int maxTipAmount) {
+        return add("max_tip_amount", maxTipAmount);
+    }
+
+    /**
+     * 
+     * @param suggestedTipAmounts An array of suggested amounts of tip in the smallest units of the currency. At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
+     * @return
+     */
+    public SendInvoice suggestedTipAmounts(Integer[] suggestedTipAmounts) {
+        return add("suggested_tip_amounts", suggestedTipAmounts);
+    }
 }
