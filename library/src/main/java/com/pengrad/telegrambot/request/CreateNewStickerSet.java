@@ -9,15 +9,15 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class CreateNewStickerSet extends AbstractUploadRequest<CreateNewStickerSet, BaseResponse> {
 
-    public static CreateNewStickerSet tgsSticker(Integer userId, String name, String title, String emojis, Object tgsSticker) {
+    public static CreateNewStickerSet tgsSticker(Long userId, String name, String title, String emojis, Object tgsSticker) {
         return new CreateNewStickerSet(userId, name, title, emojis, "tgs_sticker", tgsSticker);
     }
 
-    public CreateNewStickerSet(Integer userId, String name, String title, Object pngSticker, String emojis) {
+    public CreateNewStickerSet(Long userId, String name, String title, Object pngSticker, String emojis) {
         this(userId, name, title, emojis, "png_sticker", pngSticker);
     }
 
-    private CreateNewStickerSet(Integer userId, String name, String title, String emojis, String stickerParam, Object sticker) {
+    private CreateNewStickerSet(Long userId, String name, String title, String emojis, String stickerParam, Object sticker) {
         super(BaseResponse.class, stickerParam, sticker);
         add("user_id", userId);
         add("name", name);

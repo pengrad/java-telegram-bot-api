@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     private final static long serialVersionUID = 0L;
 
-    private Integer id;
+    private Long id;
     private Boolean is_bot;
     private String first_name;
     private String last_name;
@@ -22,11 +22,11 @@ public class User implements Serializable {
     private User() {
     }
 
-    public User(Integer id) {
+    public User(Long id) {
         this.id = id;
     }
 
-    public Integer id() {
+    public Long id() {
         return id;
     }
 

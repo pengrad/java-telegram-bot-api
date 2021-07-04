@@ -8,7 +8,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class PromoteChatMember extends BaseRequest<PromoteChatMember, BaseResponse> {
 
-    public PromoteChatMember(Object chatId, int userId) {
+    public PromoteChatMember(Object chatId, long userId) {
         super(BaseResponse.class);
         add("chat_id", chatId).add("user_id", userId);
     }

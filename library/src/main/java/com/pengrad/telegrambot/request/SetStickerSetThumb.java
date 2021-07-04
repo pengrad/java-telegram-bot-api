@@ -8,13 +8,13 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class SetStickerSetThumb extends AbstractUploadRequest<AddStickerToSet, BaseResponse> {
 
-    public SetStickerSetThumb(String name, Integer userId, Object thumb) {
+    public SetStickerSetThumb(String name, Long userId, Object thumb) {
         super(BaseResponse.class, "thumb", thumb);
         add("name", name);
         add("user_id", userId);
     }
 
-    public SetStickerSetThumb(String name, Integer userId) {
+    public SetStickerSetThumb(String name, Long userId) {
         super(BaseResponse.class, "name", name);
         add("user_id", userId);
     }

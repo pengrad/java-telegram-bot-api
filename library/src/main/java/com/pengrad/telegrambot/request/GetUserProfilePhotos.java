@@ -8,7 +8,7 @@ import com.pengrad.telegrambot.response.GetUserProfilePhotosResponse;
  */
 public class GetUserProfilePhotos extends BaseRequest<GetUserProfilePhotos, GetUserProfilePhotosResponse> {
 
-    public GetUserProfilePhotos(int userId) {
+    public GetUserProfilePhotos(long userId) {
         super(GetUserProfilePhotosResponse.class);
         add("user_id", userId);
     }

@@ -8,7 +8,7 @@ import com.pengrad.telegrambot.model.request.LabeledPrice;
  */
 public class SendInvoice extends AbstractSendRequest<SendInvoice> {
 
-    public SendInvoice(Integer chatId, String title, String description, String payload, String providerToken,
+    public SendInvoice(Long chatId, String title, String description, String payload, String providerToken,
                        String startParameter, String currency, LabeledPrice... prices) {
         super(chatId);
         add("title", title).add("description", description).add("payload", payload).add("provider_token", providerToken)

@@ -9,7 +9,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class SetPassportDataErrors extends BaseRequest<SetPassportDataErrors, BaseResponse> {
 
-    public SetPassportDataErrors(int userId, PassportElementError... errors) {
+    public SetPassportDataErrors(long userId, PassportElementError... errors) {
         super(BaseResponse.class);
         add("user_id", userId).add("errors", errors);
     }

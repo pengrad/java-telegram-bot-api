@@ -8,7 +8,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class SetChatAdministratorCustomTitle extends BaseRequest<SetChatAdministratorCustomTitle, BaseResponse> {
 
-    public SetChatAdministratorCustomTitle(Object chatId, int userId, String customTitle) {
+    public SetChatAdministratorCustomTitle(Object chatId, long userId, String customTitle) {
         super(BaseResponse.class);
         add("chat_id", chatId).add("user_id", userId).add("custom_title", customTitle);
     }

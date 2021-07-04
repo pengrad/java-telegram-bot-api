@@ -118,7 +118,7 @@ public class TelegramBotTest {
 
         String chat = getProp("CHAT_ID");
         String group = getProp("GROUP_ID");
-        chatId = Integer.parseInt(chat);
+        chatId = Long.parseLong(chat);
         groupId = Long.parseLong(group);
 
         privateKey = getProp("PRIVATE_KEY");
@@ -145,14 +145,14 @@ public class TelegramBotTest {
     }
 
     static TelegramBot bot = createTestBot();
-    static Integer chatId;
+    static Long chatId;
     static Long groupId;
     Integer forwardMessageId = 33263;
     Integer forwardMessageIdUser = 23714;
     String stickerId = "BQADAgAD4AAD9HsZAAGVRXVaYXiJVAI";
     String channelName = "@bottest";
     Long channelId = -1001002720332L;
-    Integer memberBot = 215003245;
+    Long memberBot = 215003245L;
     Long localGroup = -1001431704825L;
     static String privateKey;
     static String testPassportData;
