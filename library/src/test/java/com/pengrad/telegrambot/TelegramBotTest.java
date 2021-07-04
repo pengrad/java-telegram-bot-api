@@ -1130,8 +1130,8 @@ public class TelegramBotTest {
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_photo)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_video)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_video)).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_audio)).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_audio)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_voice)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_voice)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_document)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.find_location)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_video_note)).isOk());
