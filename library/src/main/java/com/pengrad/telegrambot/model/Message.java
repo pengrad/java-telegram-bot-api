@@ -68,6 +68,7 @@ public class Message implements Serializable {
     private VoiceChatStarted voice_chat_started;
     private VoiceChatEnded voice_chat_ended;
     private VoiceChatParticipantsInvited voice_chat_participants_invited;
+    private VoiceChatScheduled voice_chat_scheduled;
     private InlineKeyboardMarkup reply_markup;
 
     public Integer messageId() {
@@ -286,6 +287,10 @@ public class Message implements Serializable {
         return voice_chat_participants_invited;
     }
 
+    public VoiceChatScheduled voiceChatScheduled() {
+        return voice_chat_scheduled;
+    }
+
     public InlineKeyboardMarkup replyMarkup() {
         return reply_markup;
     }
@@ -349,6 +354,7 @@ public class Message implements Serializable {
                 Objects.equals(voice_chat_started, message.voice_chat_started) &&
                 Objects.equals(voice_chat_ended, message.voice_chat_ended) &&
                 Objects.equals(voice_chat_participants_invited, message.voice_chat_participants_invited) &&
+                Objects.equals(voice_chat_scheduled, message.voice_chat_scheduled) &&
                 Objects.equals(reply_markup, message.reply_markup);
     }
 
@@ -414,6 +420,7 @@ public class Message implements Serializable {
                 ", voice_chat_started=" + voice_chat_started +
                 ", voice_chat_ended=" + voice_chat_ended +
                 ", voice_chat_participants_invited=" + voice_chat_participants_invited +
+                ", voice_chat_scheduled=" + voice_chat_scheduled +
                 ", reply_markup=" + reply_markup +
                 '}';
     }
