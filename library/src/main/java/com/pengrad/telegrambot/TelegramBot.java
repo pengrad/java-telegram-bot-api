@@ -78,6 +78,10 @@ public class TelegramBot {
         updatesHandler.stop();
     }
 
+    public void shutdown() {
+        api.shutdown();
+    }
+
     public static final class Builder {
 
         static final String API_URL = "https://api.telegram.org/bot";
