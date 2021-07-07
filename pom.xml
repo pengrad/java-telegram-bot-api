@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.pengrad</groupId>
   <artifactId>java-telegram-bot-api</artifactId>
-  <version>5.1.0</version>
+  <version>5.2.0</version>
   <name>JavaTelegramBotApi</name>
   <description>Java API for Telegram Bot API</description>
   <url>https://github.com/pengrad/java-telegram-bot-api/</url>
