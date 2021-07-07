@@ -8,7 +8,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class UnbanChatMember extends BaseRequest<UnbanChatMember, BaseResponse> {
 
-    public UnbanChatMember(Object chatId, int userId) {
+    public UnbanChatMember(Object chatId, long userId) {
         super(BaseResponse.class);
         add("chat_id", chatId).add("user_id", userId);
     }

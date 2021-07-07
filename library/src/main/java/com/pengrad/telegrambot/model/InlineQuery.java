@@ -14,6 +14,7 @@ public class InlineQuery implements Serializable {
     private Location location;
     private String query;
     private String offset;
+    private String chat_type;
 
     public String id() {
         return id;
@@ -35,6 +36,10 @@ public class InlineQuery implements Serializable {
         return offset;
     }
 
+    public String chatType() {
+        return chat_type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,8 +51,9 @@ public class InlineQuery implements Serializable {
         if (from != null ? !from.equals(that.from) : that.from != null) return false;
         if (location != null ? !location.equals(that.location) : that.location != null) return false;
         if (query != null ? !query.equals(that.query) : that.query != null) return false;
-        return offset != null ? offset.equals(that.offset) : that.offset == null;
+        if (chat_type != null ? !chat_type.equals(that.chat_type) : that.chat_type != null) return false;
 
+        return offset != null ? offset.equals(that.offset) : that.offset == null;
     }
 
     @Override
@@ -63,6 +69,7 @@ public class InlineQuery implements Serializable {
                 ", location=" + location +
                 ", query='" + query + '\'' +
                 ", offset='" + offset + '\'' +
+                ", chat_type='" + chat_type + '\'' +
                 '}';
     }
 }

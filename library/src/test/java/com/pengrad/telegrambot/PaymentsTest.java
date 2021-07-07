@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 public class PaymentsTest {
 
     static TelegramBot bot = TelegramBotTest.bot;
-    static Integer chatId = TelegramBotTest.chatId;
+    static Long chatId = TelegramBotTest.chatId;
 
     String testShippingQuery = getProp("TEST_SHIP_QUERY");
     String testPreCheckoutQuery = getProp("TEST_PRECHECKOUT_QUERY");

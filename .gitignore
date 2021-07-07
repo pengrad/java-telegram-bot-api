@@ -1,5 +1,10 @@
 .idea
+.vs
+.settings
+library/bin/*
+
 *.iml
+*.class
 .gradle
 build
 out
@@ -8,3 +13,6 @@ target
 .DS_Store
 local.properties
 private.key
+.project
+library/.classpath
+sample/.classpath

@@ -12,7 +12,7 @@ public class Contact implements Serializable {
     private String phone_number;
     private String first_name;
     private String last_name;
-    private Integer user_id;
+    private Long user_id;
     private String vcard;
 
     public String phoneNumber() {
@@ -27,7 +27,7 @@ public class Contact implements Serializable {
         return last_name;
     }
 
-    public Integer userId() {
+    public Long userId() {
         return user_id;
     }
 

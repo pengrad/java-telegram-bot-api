@@ -8,7 +8,15 @@ import com.pengrad.telegrambot.model.request.LabeledPrice;
  */
 public class SendInvoice extends AbstractSendRequest<SendInvoice> {
 
-    public SendInvoice(Integer chatId, String title, String description, String payload, String providerToken,
+    public SendInvoice(Long chatId, String title, String description, String payload, String providerToken,
+                        String currency, LabeledPrice... prices) {
+        super(chatId);
+        add("title", title).add("description", description).add("payload", payload).add("provider_token", providerToken)
+                .add("currency", currency).add("prices", prices);
+    }
+
+    // Backward compatibility: API 5.2, parameter "start_parameter" became optional
+    public SendInvoice(Long chatId, String title, String description, String payload, String providerToken,
                        String startParameter, String currency, LabeledPrice... prices) {
         super(chatId);
         add("title", title).add("description", description).add("payload", payload).add("provider_token", providerToken)
@@ -53,5 +61,27 @@ public class SendInvoice extends AbstractSendRequest<SendInvoice> {
 
     public SendInvoice isFlexible(boolean isFlexible) {
         return add("is_flexible", isFlexible);
+    }
+
+    public SendInvoice startParameter(String startParameter) {
+        return add("start_parameter", startParameter);
+    }
+
+    /**
+     * 
+     * @param maxTipAmount The maximum accepted amount for tips in the smallest units of the currency
+     * @return
+     */
+    public SendInvoice maxTipAmount(int maxTipAmount) {
+        return add("max_tip_amount", maxTipAmount);
+    }
+
+    /**
+     * 
+     * @param suggestedTipAmounts An array of suggested amounts of tip in the smallest units of the currency. At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
+     * @return
+     */
+    public SendInvoice suggestedTipAmounts(Integer[] suggestedTipAmounts) {
+        return add("suggested_tip_amounts", suggestedTipAmounts);
     }
 }
