@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class VoiceChatScheduled implements Serializable {
 
@@ -15,13 +16,14 @@ public class VoiceChatScheduled implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-
-        return o != null && getClass() == o.getClass();
+        if (o == null || getClass() != o.getClass()) return false;
+        VoiceChatScheduled that = (VoiceChatScheduled) o;
+        return Objects.equals(start_date, that.start_date);
     }
 
     @Override
     public int hashCode() {
-        return 1;
+        return Objects.hash(start_date);
     }
 
     @Override
@@ -30,5 +32,4 @@ public class VoiceChatScheduled implements Serializable {
                 "start_date=" + start_date +
                 '}';
     }
-    
 }

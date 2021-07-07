@@ -378,7 +378,7 @@ public class TelegramBotTest {
         String inlineQueryId = inlineQuery.id();
         assertFalse(inlineQueryId.isEmpty());
         UserTest.checkUser(inlineQuery.from(), true);
-        assertEquals(Integer.valueOf(12345), inlineQuery.from().id());
+        assertEquals(Long.valueOf(12345), inlineQuery.from().id());
         assertEquals("if", inlineQuery.query());
         assertEquals("offset", inlineQuery.offset());
         assertNull(inlineQuery.location());
@@ -462,7 +462,7 @@ public class TelegramBotTest {
         assertNotNull(inlineResult);
         assertFalse(inlineResult.resultId().isEmpty());
         UserTest.checkUser(inlineResult.from(), true);
-        assertEquals(Integer.valueOf(12345), inlineResult.from().id());
+        assertEquals(Long.valueOf(12345), inlineResult.from().id());
         assertEquals("hi", inlineResult.query());
         assertEquals("1", inlineResult.resultId());
         assertNull(inlineResult.inlineMessageId());
@@ -1734,7 +1734,7 @@ public class TelegramBotTest {
         assertNotNull(pollAnswer);
         assertFalse(pollAnswer.pollId().isEmpty());
         UserTest.checkUser(pollAnswer.user(), true);
-        assertEquals(Integer.valueOf(12345), pollAnswer.user().id());
+        assertEquals(Long.valueOf(12345), pollAnswer.user().id());
         assertArrayEquals(new Integer[]{0, 2}, pollAnswer.optionIds());
     }
 
