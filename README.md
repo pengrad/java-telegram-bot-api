@@ -1,6 +1,6 @@
 # Java Telegram Bot API
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.pengrad/java-telegram-bot-api.svg)](https://search.maven.org/artifact/com.github.pengrad/java-telegram-bot-api)
-[![Build Status](https://travis-ci.org/pengrad/java-telegram-bot-api.svg?branch=master)](https://travis-ci.org/pengrad/java-telegram-bot-api)
+[![Build Status](https://travis-ci.com/pengrad/java-telegram-bot-api.svg?branch=master)](https://app.travis-ci.com/github/pengrad/java-telegram-bot-api)
 [![codecov](https://codecov.io/gh/pengrad/java-telegram-bot-api/branch/master/graph/badge.svg)](https://codecov.io/gh/pengrad/java-telegram-bot-api)
 
 Java library for interacting with [Telegram Bot API](https://core.telegram.org/bots/api)

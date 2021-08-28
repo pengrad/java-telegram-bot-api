@@ -1489,18 +1489,18 @@ public class TelegramBotTest {
         DocumentTest.check(response.message().document());
 
 
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFile)));
-        assertEquals(Integer.valueOf(1), response.message().animation().duration());
+//        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFile)));
+//        assertEquals(Integer.valueOf(1), response.message().animation().duration());
 
-        int expectedSize = 160; // idk why?
-        Integer durationAnim = 17, width = 21, height = 22;
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
-                new InputMediaAnimation(gifBytes).duration(durationAnim).width(width).height(height)
-        ));
-        Animation animation = response.message().animation();
-        assertEquals(1, animation.duration().intValue());
-        assertEquals(expectedSize, animation.width().intValue());
-        assertEquals(expectedSize, animation.height().intValue());
+//        int expectedSize = 160; // idk why?
+//        Integer durationAnim = 17, width = 21, height = 22;
+//        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
+//                new InputMediaAnimation(gifBytes).duration(durationAnim).width(width).height(height)
+//        ));
+//        Animation animation = response.message().animation();
+//        assertEquals(1, animation.duration().intValue());
+//        assertEquals(expectedSize, animation.width().intValue());
+//        assertEquals(expectedSize, animation.height().intValue());
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFileId)));
         assertTrue(response.isOk());
