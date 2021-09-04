@@ -32,7 +32,7 @@ public class TelegramBot {
         this(new Builder(botToken));
     }
 
-    TelegramBot(Builder builder) {
+    public TelegramBot(Builder builder) {
         this.api = builder.api;
         this.fileApi = builder.fileApi;
         this.updatesHandler = builder.updatesHandler;
