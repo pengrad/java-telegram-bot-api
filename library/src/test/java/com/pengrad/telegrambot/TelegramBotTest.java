@@ -251,6 +251,14 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void banChatMember() {
+        BaseResponse response = bot.execute(new BanChatMember(channelName, chatId).untilDate(123).revokeMessages(true));
+        assertFalse(response.isOk());
+        assertEquals(400, response.errorCode());
+        assertEquals("Bad Request: can't remove chat owner", response.description());
+    }
+
+    @Test
     public void unbanChatMember() {
         BaseResponse response = bot.execute(new UnbanChatMember(channelName, chatId));
         assertFalse(response.isOk());
