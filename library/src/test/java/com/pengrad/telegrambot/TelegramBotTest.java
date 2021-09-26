@@ -585,6 +585,12 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void getChatMemberCount() {
+        GetChatMemberCountResponse response = bot.execute(new GetChatMemberCount(chatId));
+        assertEquals(2, response.count());
+    }
+
+    @Test
     public void getUserProfilePhotos() {
         int offset = 1;
         GetUserProfilePhotosResponse response = bot.execute(new GetUserProfilePhotos(chatId).limit(100).offset(offset));
