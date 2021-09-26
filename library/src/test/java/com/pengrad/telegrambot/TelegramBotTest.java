@@ -19,6 +19,7 @@ import com.pengrad.telegrambot.checks.VoiceTest;
 import com.pengrad.telegrambot.checks.WebhookInfoTest;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.*;
+import com.pengrad.telegrambot.model.botcommandscope.BotCommandScopeAllChatAdministrators;
 import com.pengrad.telegrambot.model.request.ChatAction;
 import com.pengrad.telegrambot.model.request.ForceReply;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
@@ -1874,10 +1875,19 @@ public class TelegramBotTest {
                 new BotCommand("c2", "desc2"),
                 new BotCommand("c3", "desc3"),
         };
-        BaseResponse response = bot.execute(new SetMyCommands(commands));
+
+        SetMyCommands cmds = new SetMyCommands(commands);
+        cmds.languageCode("en");
+        cmds.scope(new BotCommandScopeAllChatAdministrators());
+
+        BaseResponse response = bot.execute(cmds);
         assertTrue(response.isOk());
 
-        GetMyCommandsResponse commandsResponse = bot.execute(new GetMyCommands());
+        GetMyCommands getCmds = new GetMyCommands();
+        getCmds.languageCode("en");
+        getCmds.scope(new BotCommandScopeAllChatAdministrators());
+
+        GetMyCommandsResponse commandsResponse = bot.execute(getCmds);
         assertTrue(commandsResponse.isOk());
         assertArrayEquals(commandsResponse.commands(), commands);
     }
