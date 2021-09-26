@@ -1893,6 +1893,24 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void deleteMyCommands() {
+        DeleteMyCommands cmds = new DeleteMyCommands();
+        cmds.languageCode("en");
+        cmds.scope(new BotCommandScopeAllChatAdministrators());
+
+        BaseResponse response = bot.execute(cmds);
+        assertTrue(response.isOk());
+
+        GetMyCommands getCmds = new GetMyCommands();
+        getCmds.languageCode("en");
+        getCmds.scope(new BotCommandScopeAllChatAdministrators());
+
+        GetMyCommandsResponse commandsResponse = bot.execute(getCmds);
+        assertTrue(commandsResponse.isOk());
+        assertArrayEquals(commandsResponse.commands(), new BotCommand[0]);
+    }
+
+    @Test
     public void inviteLinks() {
         int memberLimit = 2;
         int expireDate = (int) (System.currentTimeMillis() / 1000) + 500;
