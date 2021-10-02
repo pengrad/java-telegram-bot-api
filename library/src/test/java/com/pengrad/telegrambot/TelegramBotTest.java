@@ -593,7 +593,7 @@ public class TelegramBotTest {
 
     @Test
     public void getUserProfilePhotos() {
-        int offset = 1;
+        int offset = 0;
         GetUserProfilePhotosResponse response = bot.execute(new GetUserProfilePhotos(chatId).limit(100).offset(offset));
         UserProfilePhotos photos = response.photos();
         assertEquals(photos.totalCount() - offset, photos.photos().length);
@@ -609,7 +609,9 @@ public class TelegramBotTest {
 
     @Test
     public void sendMessage() {
-        SendResponse sendResponse = bot.execute(new SendMessage(chatId, "reply this message").replyMarkup(new ForceReply()));
+        SendResponse sendResponse = bot.execute(new SendMessage(chatId, "reply this message").replyMarkup(
+                new ForceReply().inputFieldPlaceholder("input-placeholder").selective(true)
+        ));
         MessageTest.checkTextMessage(sendResponse.message());
         assertNotNull(sendResponse.message().from());
 
@@ -629,6 +631,7 @@ public class TelegramBotTest {
                         new KeyboardButton("location").requestLocation(true))
                         .oneTimeKeyboard(true)
                         .resizeKeyboard(true)
+                        .inputFieldPlaceholder("input-placeholder")
                         .selective(true)));
         MessageTest.checkTextMessage(sendResponse.message());
 
@@ -859,8 +862,8 @@ public class TelegramBotTest {
         String caption = "caption <b>bold</b>", fileName = "my doc.zip";
         ParseMode parseMode = ParseMode.HTML;
         message = bot.execute(
-                new SendDocument(chatId, docFile).fileName(fileName).thumb(thumbFile).caption(caption).parseMode(parseMode)
-                        .disableContentTypeDetection(true))
+                        new SendDocument(chatId, docFile).fileName(fileName).thumb(thumbFile).caption(caption).parseMode(parseMode)
+                                .disableContentTypeDetection(true))
                 .message();
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
@@ -932,9 +935,9 @@ public class TelegramBotTest {
         String caption = "caption <b>bold</b>";
         int duration = 100;
         message = bot.execute(
-                new SendVideo(chatId, videoBytes).thumb(thumbBytes)
-                        .caption(caption).parseMode(ParseMode.HTML)
-                        .duration(duration).height(1).width(2).supportsStreaming(true))
+                        new SendVideo(chatId, videoBytes).thumb(thumbBytes)
+                                .caption(caption).parseMode(ParseMode.HTML)
+                                .duration(duration).height(1).width(2).supportsStreaming(true))
                 .message();
         MessageTest.checkMessage(message);
         assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());

@@ -10,7 +10,7 @@ public class ForceReply extends Keyboard implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private final boolean force_reply = true;
-    private String input_field_placeholder = "";
+    private String input_field_placeholder;
     private boolean selective = false;
 
     public ForceReply() {
@@ -21,12 +21,13 @@ public class ForceReply extends Keyboard implements Serializable {
         this.selective = selective;
     }
 
-    // API v5.3 - added field input_field_placeholder
-    public ForceReply(boolean selective, String input_field_placeholder) {
-        this.selective = selective;
-        this.input_field_placeholder = input_field_placeholder;
+    public ForceReply inputFieldPlaceholder(String inputFieldPlaceholder) {
+        this.input_field_placeholder = inputFieldPlaceholder;
+        return this;
     }
-    public ForceReply(String input_field_placeholder) {
-        this.input_field_placeholder = input_field_placeholder;
+
+    public ForceReply selective(boolean selective) {
+        this.selective = selective;
+        return this;
     }
 }
