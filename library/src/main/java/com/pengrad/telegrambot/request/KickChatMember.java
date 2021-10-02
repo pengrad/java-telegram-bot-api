@@ -5,7 +5,10 @@ import com.pengrad.telegrambot.response.BaseResponse;
 /**
  * stas
  * 5/2/16.
+ * 
+ * @deprecated from BOT API v5.3 you should use BanChatMember instead
  */
+@Deprecated
 public class KickChatMember extends BaseRequest<KickChatMember, BaseResponse> {
 
     public KickChatMember(Object chatId, long userId) {

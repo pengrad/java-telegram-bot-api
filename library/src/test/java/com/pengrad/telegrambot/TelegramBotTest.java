@@ -19,6 +19,7 @@ import com.pengrad.telegrambot.checks.VoiceTest;
 import com.pengrad.telegrambot.checks.WebhookInfoTest;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.*;
+import com.pengrad.telegrambot.model.botcommandscope.BotCommandScopeAllChatAdministrators;
 import com.pengrad.telegrambot.model.request.ChatAction;
 import com.pengrad.telegrambot.model.request.ForceReply;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
@@ -245,6 +246,14 @@ public class TelegramBotTest {
     @Test
     public void kickChatMember() {
         BaseResponse response = bot.execute(new KickChatMember(channelName, chatId).untilDate(123).revokeMessages(true));
+        assertFalse(response.isOk());
+        assertEquals(400, response.errorCode());
+        assertEquals("Bad Request: can't remove chat owner", response.description());
+    }
+
+    @Test
+    public void banChatMember() {
+        BaseResponse response = bot.execute(new BanChatMember(channelName, chatId).untilDate(123).revokeMessages(true));
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
         assertEquals("Bad Request: can't remove chat owner", response.description());
@@ -573,6 +582,12 @@ public class TelegramBotTest {
     @Test
     public void getChatMembersCount() {
         GetChatMembersCountResponse response = bot.execute(new GetChatMembersCount(chatId));
+        assertEquals(2, response.count());
+    }
+
+    @Test
+    public void getChatMemberCount() {
+        GetChatMemberCountResponse response = bot.execute(new GetChatMemberCount(chatId));
         assertEquals(2, response.count());
     }
 
@@ -1860,12 +1875,39 @@ public class TelegramBotTest {
                 new BotCommand("c2", "desc2"),
                 new BotCommand("c3", "desc3"),
         };
-        BaseResponse response = bot.execute(new SetMyCommands(commands));
+
+        SetMyCommands cmds = new SetMyCommands(commands);
+        cmds.languageCode("en");
+        cmds.scope(new BotCommandScopeAllChatAdministrators());
+
+        BaseResponse response = bot.execute(cmds);
         assertTrue(response.isOk());
 
-        GetMyCommandsResponse commandsResponse = bot.execute(new GetMyCommands());
+        GetMyCommands getCmds = new GetMyCommands();
+        getCmds.languageCode("en");
+        getCmds.scope(new BotCommandScopeAllChatAdministrators());
+
+        GetMyCommandsResponse commandsResponse = bot.execute(getCmds);
         assertTrue(commandsResponse.isOk());
         assertArrayEquals(commandsResponse.commands(), commands);
+    }
+
+    @Test
+    public void deleteMyCommands() {
+        DeleteMyCommands cmds = new DeleteMyCommands();
+        cmds.languageCode("en");
+        cmds.scope(new BotCommandScopeAllChatAdministrators());
+
+        BaseResponse response = bot.execute(cmds);
+        assertTrue(response.isOk());
+
+        GetMyCommands getCmds = new GetMyCommands();
+        getCmds.languageCode("en");
+        getCmds.scope(new BotCommandScopeAllChatAdministrators());
+
+        GetMyCommandsResponse commandsResponse = bot.execute(getCmds);
+        assertTrue(commandsResponse.isOk());
+        assertArrayEquals(commandsResponse.commands(), new BotCommand[0]);
     }
 
     @Test
