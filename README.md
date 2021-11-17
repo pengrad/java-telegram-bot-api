@@ -1,10 +1,10 @@
 # Java Telegram Bot API
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.pengrad/java-telegram-bot-api.svg)](https://search.maven.org/artifact/com.github.pengrad/java-telegram-bot-api)
-[![Build Status](https://travis-ci.org/pengrad/java-telegram-bot-api.svg?branch=master)](https://travis-ci.org/pengrad/java-telegram-bot-api)
+[![Build Status](https://travis-ci.com/pengrad/java-telegram-bot-api.svg?branch=master)](https://app.travis-ci.com/github/pengrad/java-telegram-bot-api)
 [![codecov](https://codecov.io/gh/pengrad/java-telegram-bot-api/branch/master/graph/badge.svg)](https://codecov.io/gh/pengrad/java-telegram-bot-api)
 
 Java library for interacting with [Telegram Bot API](https://core.telegram.org/bots/api)
-- Full support of all Bot API 5.1 methods
+- Full support of all Bot API 5.3 methods
 - Telegram [Passport](https://core.telegram.org/passport) and Decryption API
 - Bot [Payments](https://core.telegram.org/bots/payments)
 - [Gaming Platform](https://telegram.org/blog/games)
@@ -13,14 +13,14 @@ Java library for interacting with [Telegram Bot API](https://core.telegram.org/b
 
 Gradle:
 ```groovy
-implementation 'com.github.pengrad:java-telegram-bot-api:5.1.0'
+implementation 'com.github.pengrad:java-telegram-bot-api:5.3.0'
 ```
 Maven:
 ```xml
 <dependency>
   <groupId>com.github.pengrad</groupId>
   <artifactId>java-telegram-bot-api</artifactId>
-  <version>5.1.0</version>
+  <version>5.3.0</version>
 </dependency>
 ```
 [JAR with all dependencies on release page](https://github.com/pengrad/java-telegram-bot-api/releases)

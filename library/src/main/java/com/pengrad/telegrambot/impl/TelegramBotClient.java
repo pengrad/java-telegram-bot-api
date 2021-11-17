@@ -75,6 +75,10 @@ public class TelegramBotClient {
         }
     }
 
+    public void shutdown() {
+        client.dispatcher().executorService().shutdown();
+    }
+
     private OkHttpClient getOkHttpClient(BaseRequest<?, ?> request) {
         int timeoutMillis = request.getTimeoutSeconds() * 1000;
 

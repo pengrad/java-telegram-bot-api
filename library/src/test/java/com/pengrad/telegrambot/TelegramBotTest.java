@@ -19,6 +19,7 @@ import com.pengrad.telegrambot.checks.VoiceTest;
 import com.pengrad.telegrambot.checks.WebhookInfoTest;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.*;
+import com.pengrad.telegrambot.model.botcommandscope.BotCommandScopeAllChatAdministrators;
 import com.pengrad.telegrambot.model.request.ChatAction;
 import com.pengrad.telegrambot.model.request.ForceReply;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
@@ -251,6 +252,14 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void banChatMember() {
+        BaseResponse response = bot.execute(new BanChatMember(channelName, chatId).untilDate(123).revokeMessages(true));
+        assertFalse(response.isOk());
+        assertEquals(400, response.errorCode());
+        assertEquals("Bad Request: can't remove chat owner", response.description());
+    }
+
+    @Test
     public void unbanChatMember() {
         BaseResponse response = bot.execute(new UnbanChatMember(channelName, chatId));
         assertFalse(response.isOk());
@@ -378,7 +387,7 @@ public class TelegramBotTest {
         String inlineQueryId = inlineQuery.id();
         assertFalse(inlineQueryId.isEmpty());
         UserTest.checkUser(inlineQuery.from(), true);
-        assertEquals(Integer.valueOf(12345), inlineQuery.from().id());
+        assertEquals(Long.valueOf(12345), inlineQuery.from().id());
         assertEquals("if", inlineQuery.query());
         assertEquals("offset", inlineQuery.offset());
         assertNull(inlineQuery.location());
@@ -462,7 +471,7 @@ public class TelegramBotTest {
         assertNotNull(inlineResult);
         assertFalse(inlineResult.resultId().isEmpty());
         UserTest.checkUser(inlineResult.from(), true);
-        assertEquals(Integer.valueOf(12345), inlineResult.from().id());
+        assertEquals(Long.valueOf(12345), inlineResult.from().id());
         assertEquals("hi", inlineResult.query());
         assertEquals("1", inlineResult.resultId());
         assertNull(inlineResult.inlineMessageId());
@@ -577,8 +586,14 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void getChatMemberCount() {
+        GetChatMemberCountResponse response = bot.execute(new GetChatMemberCount(chatId));
+        assertEquals(2, response.count());
+    }
+
+    @Test
     public void getUserProfilePhotos() {
-        int offset = 1;
+        int offset = 0;
         GetUserProfilePhotosResponse response = bot.execute(new GetUserProfilePhotos(chatId).limit(100).offset(offset));
         UserProfilePhotos photos = response.photos();
         assertEquals(photos.totalCount() - offset, photos.photos().length);
@@ -594,7 +609,9 @@ public class TelegramBotTest {
 
     @Test
     public void sendMessage() {
-        SendResponse sendResponse = bot.execute(new SendMessage(chatId, "reply this message").replyMarkup(new ForceReply()));
+        SendResponse sendResponse = bot.execute(new SendMessage(chatId, "reply this message").replyMarkup(
+                new ForceReply().inputFieldPlaceholder("input-placeholder").selective(true)
+        ));
         MessageTest.checkTextMessage(sendResponse.message());
         assertNotNull(sendResponse.message().from());
 
@@ -614,6 +631,7 @@ public class TelegramBotTest {
                         new KeyboardButton("location").requestLocation(true))
                         .oneTimeKeyboard(true)
                         .resizeKeyboard(true)
+                        .inputFieldPlaceholder("input-placeholder")
                         .selective(true)));
         MessageTest.checkTextMessage(sendResponse.message());
 
@@ -844,8 +862,8 @@ public class TelegramBotTest {
         String caption = "caption <b>bold</b>", fileName = "my doc.zip";
         ParseMode parseMode = ParseMode.HTML;
         message = bot.execute(
-                new SendDocument(chatId, docFile).fileName(fileName).thumb(thumbFile).caption(caption).parseMode(parseMode)
-                        .disableContentTypeDetection(true))
+                        new SendDocument(chatId, docFile).fileName(fileName).thumb(thumbFile).caption(caption).parseMode(parseMode)
+                                .disableContentTypeDetection(true))
                 .message();
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
@@ -917,9 +935,9 @@ public class TelegramBotTest {
         String caption = "caption <b>bold</b>";
         int duration = 100;
         message = bot.execute(
-                new SendVideo(chatId, videoBytes).thumb(thumbBytes)
-                        .caption(caption).parseMode(ParseMode.HTML)
-                        .duration(duration).height(1).width(2).supportsStreaming(true))
+                        new SendVideo(chatId, videoBytes).thumb(thumbBytes)
+                                .caption(caption).parseMode(ParseMode.HTML)
+                                .duration(duration).height(1).width(2).supportsStreaming(true))
                 .message();
         MessageTest.checkMessage(message);
         assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
@@ -1130,8 +1148,8 @@ public class TelegramBotTest {
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_photo)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_video)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_video)).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_audio)).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_audio)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_voice)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_voice)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_document)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.find_location)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_video_note)).isOk());
@@ -1490,18 +1508,18 @@ public class TelegramBotTest {
         DocumentTest.check(response.message().document());
 
 
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFile)));
-        assertEquals(Integer.valueOf(1), response.message().animation().duration());
+//        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFile)));
+//        assertEquals(Integer.valueOf(1), response.message().animation().duration());
 
-        int expectedSize = 160; // idk why?
-        Integer durationAnim = 17, width = 21, height = 22;
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
-                new InputMediaAnimation(gifBytes).duration(durationAnim).width(width).height(height)
-        ));
-        Animation animation = response.message().animation();
-        assertEquals(1, animation.duration().intValue());
-        assertEquals(expectedSize, animation.width().intValue());
-        assertEquals(expectedSize, animation.height().intValue());
+//        int expectedSize = 160; // idk why?
+//        Integer durationAnim = 17, width = 21, height = 22;
+//        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
+//                new InputMediaAnimation(gifBytes).duration(durationAnim).width(width).height(height)
+//        ));
+//        Animation animation = response.message().animation();
+//        assertEquals(1, animation.duration().intValue());
+//        assertEquals(expectedSize, animation.width().intValue());
+//        assertEquals(expectedSize, animation.height().intValue());
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFileId)));
         assertTrue(response.isOk());
@@ -1735,7 +1753,7 @@ public class TelegramBotTest {
         assertNotNull(pollAnswer);
         assertFalse(pollAnswer.pollId().isEmpty());
         UserTest.checkUser(pollAnswer.user(), true);
-        assertEquals(Integer.valueOf(12345), pollAnswer.user().id());
+        assertEquals(Long.valueOf(12345), pollAnswer.user().id());
         assertArrayEquals(new Integer[]{0, 2}, pollAnswer.optionIds());
     }
 
@@ -1861,12 +1879,39 @@ public class TelegramBotTest {
                 new BotCommand("c2", "desc2"),
                 new BotCommand("c3", "desc3"),
         };
-        BaseResponse response = bot.execute(new SetMyCommands(commands));
+
+        SetMyCommands cmds = new SetMyCommands(commands);
+        cmds.languageCode("en");
+        cmds.scope(new BotCommandScopeAllChatAdministrators());
+
+        BaseResponse response = bot.execute(cmds);
         assertTrue(response.isOk());
 
-        GetMyCommandsResponse commandsResponse = bot.execute(new GetMyCommands());
+        GetMyCommands getCmds = new GetMyCommands();
+        getCmds.languageCode("en");
+        getCmds.scope(new BotCommandScopeAllChatAdministrators());
+
+        GetMyCommandsResponse commandsResponse = bot.execute(getCmds);
         assertTrue(commandsResponse.isOk());
         assertArrayEquals(commandsResponse.commands(), commands);
+    }
+
+    @Test
+    public void deleteMyCommands() {
+        DeleteMyCommands cmds = new DeleteMyCommands();
+        cmds.languageCode("en");
+        cmds.scope(new BotCommandScopeAllChatAdministrators());
+
+        BaseResponse response = bot.execute(cmds);
+        assertTrue(response.isOk());
+
+        GetMyCommands getCmds = new GetMyCommands();
+        getCmds.languageCode("en");
+        getCmds.scope(new BotCommandScopeAllChatAdministrators());
+
+        GetMyCommandsResponse commandsResponse = bot.execute(getCmds);
+        assertTrue(commandsResponse.isOk());
+        assertArrayEquals(commandsResponse.commands(), new BotCommand[0]);
     }
 
     @Test

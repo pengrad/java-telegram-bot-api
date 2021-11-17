@@ -52,7 +52,7 @@ public class PaymentsTest {
         String shippingQueryId = shippingQuery.id();
         assertFalse(shippingQueryId.isEmpty());
         UserTest.checkUser(shippingQuery.from(), true);
-        assertEquals(Integer.valueOf(12345), shippingQuery.from().id());
+        assertEquals(Long.valueOf(12345), shippingQuery.from().id());
         assertEquals("my_payload", shippingQuery.invoicePayload());
 
         ShippingAddress address = shippingQuery.shippingAddress();
@@ -99,7 +99,7 @@ public class PaymentsTest {
         String preCheckoutQueryId = preCheckoutQuery.id();
         assertEquals("112233", preCheckoutQueryId);
         UserTest.checkUser(preCheckoutQuery.from(), true);
-        assertEquals(Integer.valueOf(12345), preCheckoutQuery.from().id());
+        assertEquals(Long.valueOf(12345), preCheckoutQuery.from().id());
         assertEquals("USD", preCheckoutQuery.currency());
         assertEquals(Integer.valueOf(200), preCheckoutQuery.totalAmount());
         assertEquals("my_payload", preCheckoutQuery.invoicePayload());
@@ -141,7 +141,7 @@ public class PaymentsTest {
         assertEquals(Integer.valueOf(14442), message.messageId());
         UserTest.checkUser(message.from(), true);
         ChatTest.checkChat(message.chat());
-        assertEquals(Integer.valueOf(12345), message.from().id());
+        assertEquals(Long.valueOf(12345), message.from().id());
         assertEquals(Long.valueOf(12345), message.chat().id());
 
         assertNotNull(payment);

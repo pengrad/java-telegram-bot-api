@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,6 +69,7 @@ public class UpdatesHandler {
                 }
 
                 List<Update> updates = response.updates();
+                if (updates == null) updates = Collections.emptyList();
                 int lastConfirmedUpdate = listener.process(updates);
 
                 if (lastConfirmedUpdate != CONFIRMED_UPDATES_NONE) {

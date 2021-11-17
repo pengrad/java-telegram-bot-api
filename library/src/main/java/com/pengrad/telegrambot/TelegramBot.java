@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class TelegramBot {
 
+    private final String token;
     private final TelegramBotClient api;
     private final FileApi fileApi;
     private final UpdatesHandler updatesHandler;
@@ -33,6 +34,7 @@ public class TelegramBot {
     }
 
     TelegramBot(Builder builder) {
+        this.token = builder.botToken;
         this.api = builder.api;
         this.fileApi = builder.fileApi;
         this.updatesHandler = builder.updatesHandler;
@@ -44,6 +46,10 @@ public class TelegramBot {
 
     public <T extends BaseRequest<T, R>, R extends BaseResponse> void execute(T request, Callback<T, R> callback) {
         api.send(request, callback);
+    }
+
+    public String getToken() {
+        return token;
     }
 
     public String getFullFilePath(File file) {
@@ -76,6 +82,10 @@ public class TelegramBot {
 
     public void removeGetUpdatesListener() {
         updatesHandler.stop();
+    }
+
+    public void shutdown() {
+        api.shutdown();
     }
 
     public static final class Builder {

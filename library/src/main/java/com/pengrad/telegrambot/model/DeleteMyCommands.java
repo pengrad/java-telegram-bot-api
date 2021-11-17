@@ -1,16 +1,13 @@
-package com.pengrad.telegrambot.request;
+package com.pengrad.telegrambot.model;
 
 import com.pengrad.telegrambot.model.botcommandscope.BotCommandScope;
-import com.pengrad.telegrambot.response.GetMyCommandsResponse;
+import com.pengrad.telegrambot.request.BaseRequest;
+import com.pengrad.telegrambot.response.BaseResponse;
 
-/**
- * Stas Parshin
- * 31 March 2020
- */
-public class GetMyCommands extends BaseRequest<GetMyCommands, GetMyCommandsResponse> {
+public class DeleteMyCommands extends BaseRequest<DeleteMyCommands, BaseResponse> {
 
-    public GetMyCommands() {
-        super(GetMyCommandsResponse.class);
+    public DeleteMyCommands() {
+        super(BaseResponse.class);
     }
 
     /**
@@ -18,7 +15,7 @@ public class GetMyCommands extends BaseRequest<GetMyCommands, GetMyCommandsRespo
      * @param scope An object that extends the BotCommandScope class. For example: new BotCommandScopeAllPrivateChats()
      * @return
      */
-    public GetMyCommands scope(BotCommandScope scope) {
+    public DeleteMyCommands scope(BotCommandScope scope) {
         add("scope", scope);
         return this;
     }
@@ -28,7 +25,7 @@ public class GetMyCommands extends BaseRequest<GetMyCommands, GetMyCommandsRespo
      * @param languageCode A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
      * @return
      */
-    public GetMyCommands languageCode(String languageCode) {
+    public DeleteMyCommands languageCode(String languageCode) {
         add("language_code", languageCode);
         return this;
     }
