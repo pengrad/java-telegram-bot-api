@@ -5,6 +5,15 @@ package com.pengrad.telegrambot.model.request;
  * 10/21/15.
  */
 public enum ChatAction {
-    typing, upload_photo, record_video, upload_video, record_audio, upload_audio, upload_document, find_location,
-    record_video_note, upload_video_note
+    typing, 
+    upload_photo, 
+    record_video, 
+    upload_video, 
+    record_audio, 
+    upload_audio, 
+    upload_document, 
+    choose_sticker, 
+    find_location,
+    record_video_note, 
+    upload_video_note
 }
