@@ -1136,6 +1136,7 @@ public class TelegramBotTest {
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.find_location)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_video_note)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_video_note)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.choose_sticker)).isOk());
     }
 
     @Test
