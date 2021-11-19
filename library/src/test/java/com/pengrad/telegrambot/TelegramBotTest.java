@@ -1931,31 +1931,41 @@ public class TelegramBotTest {
         assertTrue(link.creator().isBot());
         assertEquals(name, link.name());
 
-        response = bot.execute(new CreateChatInviteLink(groupId)
-                .expireDate(expireDate)
-                .createsJoinRequest(true)
-                .name(name));
-        link = response.chatInviteLink();
-        assertEquals(expireDate, link.expireDate().intValue());
-        assertTrue(link.createsJoinReqeust());
-        assertEquals(0, link.pendingJoinRequestCount().intValue());
-        assertFalse(link.isRevoked());
-        assertTrue(link.creator().isBot());
-        assertEquals(name, link.name());
-
         int editMemberLimit = 3;
         int editExpireDate = (int) (System.currentTimeMillis() / 1000) + 1500;
+        String editName = name + "edit";
         response = bot.execute(new EditChatInviteLink(groupId, link.inviteLink())
                 .expireDate(editExpireDate)
-                .memberLimit(editMemberLimit));
+                .memberLimit(editMemberLimit)
+                .name(editName));
         link = response.chatInviteLink();
         assertEquals(editExpireDate, link.expireDate().intValue());
         assertEquals(editMemberLimit, link.memberLimit().intValue());
+        assertEquals(editName, link.name());
         assertFalse(link.isRevoked());
 
         response = bot.execute(new RevokeChatInviteLink(groupId, link.inviteLink()));
         link = response.chatInviteLink();
         assertTrue(link.isRevoked());
         assertFalse(link.isPrimary());
+
+        response = bot.execute(new CreateChatInviteLink(groupId).createsJoinRequest(true));
+        link = response.chatInviteLink();
+        assertTrue(link.createsJoinRequest());
+        assertNull(link.pendingJoinRequestCount());
+
+        response = bot.execute(new EditChatInviteLink(groupId, link.inviteLink()).createsJoinRequest(false));
+        assertFalse(response.chatInviteLink().createsJoinRequest());
+    }
+
+    @Test
+    public void chatJoinRequest() {
+        BaseResponse response = bot.execute(new ApproveChatJoinRequest(groupId, memberBot));
+        assertFalse(response.isOk());
+        assertEquals("Bad Request: USER_ALREADY_PARTICIPANT", response.description());
+
+        response = bot.execute(new DeclineChatJoinRequest(groupId, memberBot));
+        assertFalse(response.isOk());
+        assertEquals("Bad Request: USER_ALREADY_PARTICIPANT", response.description());
     }
 }

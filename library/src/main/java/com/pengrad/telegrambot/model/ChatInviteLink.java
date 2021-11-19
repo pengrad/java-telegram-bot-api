@@ -29,7 +29,7 @@ public class ChatInviteLink implements Serializable {
         return creator;
     }
 
-    public Boolean createsJoinReqeust() {
+    public Boolean createsJoinRequest() {
         return creates_join_request;
     }
 

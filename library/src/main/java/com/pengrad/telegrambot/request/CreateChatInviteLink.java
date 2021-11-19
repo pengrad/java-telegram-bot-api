@@ -16,7 +16,6 @@ public class CreateChatInviteLink extends BaseRequest<CreateChatInviteLink, Chat
     /**
      * 
      * @param name Invite link name; 0-32 characters
-     * @return
      */
     public CreateChatInviteLink name(String name) {
         return add("name", name);
@@ -33,7 +32,6 @@ public class CreateChatInviteLink extends BaseRequest<CreateChatInviteLink, Chat
     /**
      * 
      * @param createsJoinRequest True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified
-     * @return
      */
     public CreateChatInviteLink createsJoinRequest(Boolean createsJoinRequest) {
         return add("creates_join_request", createsJoinRequest);
