@@ -1154,6 +1154,7 @@ public class TelegramBotTest {
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.find_location)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_video_note)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_video_note)).isOk());
+        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.choose_sticker)).isOk());
     }
 
     @Test
@@ -1917,15 +1918,30 @@ public class TelegramBotTest {
     public void inviteLinks() {
         int memberLimit = 2;
         int expireDate = (int) (System.currentTimeMillis() / 1000) + 500;
+        String name = "TestName";
 
         ChatInviteLinkResponse response = bot.execute(new CreateChatInviteLink(groupId)
                 .expireDate(expireDate)
-                .memberLimit(memberLimit));
+                .memberLimit(memberLimit)
+                .name(name));
         ChatInviteLink link = response.chatInviteLink();
         assertEquals(expireDate, link.expireDate().intValue());
         assertEquals(memberLimit, link.memberLimit().intValue());
         assertFalse(link.isRevoked());
         assertTrue(link.creator().isBot());
+        assertEquals(name, link.name());
+
+        response = bot.execute(new CreateChatInviteLink(groupId)
+                .expireDate(expireDate)
+                .createsJoinRequest(true)
+                .name(name));
+        link = response.chatInviteLink();
+        assertEquals(expireDate, link.expireDate().intValue());
+        assertTrue(link.createsJoinReqeust());
+        assertEquals(0, link.pendingJoinRequestCount().intValue());
+        assertFalse(link.isRevoked());
+        assertTrue(link.creator().isBot());
+        assertEquals(name, link.name());
 
         int editMemberLimit = 3;
         int editExpireDate = (int) (System.currentTimeMillis() / 1000) + 1500;

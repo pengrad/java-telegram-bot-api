@@ -27,6 +27,7 @@ public class UpdateTest {
             if (update.preCheckoutQuery() != null) assertNotNull(update.preCheckoutQuery().id());
             if (update.poll() != null) assertNotNull(update.poll().id());
             if (update.pollAnswer() != null) assertNotNull((update.pollAnswer().pollId()));
+            if (update.chatJoinRequest() != null) assertNotNull(update.chatJoinRequest().chat().id());
         }
     }
 

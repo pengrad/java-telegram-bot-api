@@ -24,6 +24,7 @@ public class Update implements Serializable {
     private PollAnswer poll_answer;
     private ChatMemberUpdated my_chat_member;
     private ChatMemberUpdated chat_member;
+    private ChatJoinRequest chat_join_request;
 
     public Integer updateId() {
         return update_id;
@@ -81,6 +82,10 @@ public class Update implements Serializable {
         return chat_member;
     }
 
+    public ChatJoinRequest chatJoinRequest() {
+        return chat_join_request;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -99,7 +104,8 @@ public class Update implements Serializable {
                 Objects.equals(poll, update.poll) &&
                 Objects.equals(poll_answer, update.poll_answer) &&
                 Objects.equals(my_chat_member, update.my_chat_member) &&
-                Objects.equals(chat_member, update.chat_member);
+                Objects.equals(chat_member, update.chat_member) &&
+                Objects.equals(chat_join_request, update.chat_join_request);
     }
 
     @Override
@@ -124,6 +130,7 @@ public class Update implements Serializable {
                 ", poll_answer=" + poll_answer +
                 ", my_chat_member=" + my_chat_member +
                 ", chat_member=" + chat_member +
+                ", chat_join_request=" + chat_join_request +
                 '}';
     }
 }
