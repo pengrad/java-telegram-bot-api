@@ -514,7 +514,6 @@ public class TelegramBotTest {
         assertEquals(Integer.valueOf(10), chat.slowModeDelay());
         assertNotNull(new URL(chat.inviteLink()).toURI());
         if (chat.pinnedMessage() != null) MessageTest.checkMessage(chat.pinnedMessage());
-        assertNull(chat.allMembersAreAdministrators());
         assertNull(chat.stickerSetName());
         assertNull(chat.canSetStickerSet());
         assertEquals(channelId, chat.linkedChatId());

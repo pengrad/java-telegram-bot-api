@@ -19,18 +19,15 @@ public class Chat implements Serializable {
     private Long id;
     private Type type;
 
-    //Private
-    private String first_name;
-    private String last_name;
+    //Channel and Group
+    private String title;
 
     //Private and Channel
     private String username;
 
-    //Channel and Group
-    private String title;
-
-    // TODO delete this field
-    private Boolean all_members_are_administrators;
+    //Private
+    private String first_name;
+    private String last_name;
 
     private ChatPhoto photo;
     private String bio;
@@ -39,6 +36,7 @@ public class Chat implements Serializable {
     private Message pinned_message;
     private ChatPermissions permissions;
     private Integer slow_mode_delay;
+    private Integer message_auto_delete_time;
     private String sticker_set_name;
     private Boolean can_set_sticker_set;
     private Long linked_chat_id;
@@ -66,10 +64,6 @@ public class Chat implements Serializable {
 
     public String title() {
         return title;
-    }
-
-    public Boolean allMembersAreAdministrators() {
-        return all_members_are_administrators;
     }
 
     public ChatPhoto photo() {
@@ -100,6 +94,10 @@ public class Chat implements Serializable {
         return slow_mode_delay;
     }
 
+    public Integer messageAutoDeleteTime() {
+        return message_auto_delete_time;
+    } 
+
     public String stickerSetName() {
         return sticker_set_name;
     }
@@ -127,7 +125,6 @@ public class Chat implements Serializable {
                 Objects.equals(last_name, chat.last_name) &&
                 Objects.equals(username, chat.username) &&
                 Objects.equals(title, chat.title) &&
-                Objects.equals(all_members_are_administrators, chat.all_members_are_administrators) &&
                 Objects.equals(photo, chat.photo) &&
                 Objects.equals(bio, chat.bio) &&
                 Objects.equals(description, chat.description) &&
@@ -135,6 +132,7 @@ public class Chat implements Serializable {
                 Objects.equals(pinned_message, chat.pinned_message) &&
                 Objects.equals(permissions, chat.permissions) &&
                 Objects.equals(slow_mode_delay, chat.slow_mode_delay) &&
+                Objects.equals(message_auto_delete_time, chat.message_auto_delete_time) &&
                 Objects.equals(sticker_set_name, chat.sticker_set_name) &&
                 Objects.equals(can_set_sticker_set, chat.can_set_sticker_set) &&
                 Objects.equals(linked_chat_id, chat.linked_chat_id) &&
@@ -155,7 +153,6 @@ public class Chat implements Serializable {
                 ", last_name='" + last_name + '\'' +
                 ", username='" + username + '\'' +
                 ", title='" + title + '\'' +
-                ", all_members_are_administrators=" + all_members_are_administrators +
                 ", photo=" + photo +
                 ", bio='" + bio + '\'' +
                 ", description='" + description + '\'' +
@@ -163,6 +160,7 @@ public class Chat implements Serializable {
                 ", pinned_message=" + pinned_message +
                 ", permissions=" + permissions +
                 ", slow_mode_delay=" + slow_mode_delay +
+                ", message_auto_delete_time=" + message_auto_delete_time +
                 ", sticker_set_name='" + sticker_set_name + '\'' +
                 ", can_set_sticker_set=" + can_set_sticker_set +
                 ", linked_chat_id=" + linked_chat_id +
