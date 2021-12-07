@@ -25,6 +25,7 @@ public class Message implements Serializable {
     private String forward_signature;
     private String forward_sender_name;
     private Integer forward_date;
+    private Boolean is_automatic_forward;
     private Message reply_to_message;
     private User via_bot;
     private Integer edit_date;
@@ -114,6 +115,10 @@ public class Message implements Serializable {
 
     public Integer forwardDate() {
         return forward_date;
+    }
+
+    public Boolean isAutomaticForward() {
+        return is_automatic_forward;
     }
 
     public Message replyToMessage() {
@@ -316,6 +321,7 @@ public class Message implements Serializable {
                 Objects.equals(forward_signature, message.forward_signature) &&
                 Objects.equals(forward_sender_name, message.forward_sender_name) &&
                 Objects.equals(forward_date, message.forward_date) &&
+                Objects.equals(is_automatic_forward, message.is_automatic_forward) &&
                 Objects.equals(reply_to_message, message.reply_to_message) &&
                 Objects.equals(via_bot, message.via_bot) &&
                 Objects.equals(edit_date, message.edit_date) &&
@@ -383,6 +389,7 @@ public class Message implements Serializable {
                 ", forward_signature='" + forward_signature + '\'' +
                 ", forward_sender_name='" + forward_sender_name + '\'' +
                 ", forward_date=" + forward_date +
+                ", is_automatic_forward=" + is_automatic_forward +
                 ", reply_to_message=" + reply_to_message +
                 ", via_bot=" + via_bot +
                 ", edit_date=" + edit_date +
