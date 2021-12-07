@@ -38,6 +38,7 @@ public class Chat implements Serializable {
     private ChatPermissions permissions;
     private Integer slow_mode_delay;
     private Integer message_auto_delete_time;
+    private Boolean has_protected_content;
     private String sticker_set_name;
     private Boolean can_set_sticker_set;
     private Long linked_chat_id;
@@ -102,6 +103,10 @@ public class Chat implements Serializable {
     public Integer messageAutoDeleteTime() {
         return message_auto_delete_time;
     } 
+    
+    public Boolean hasProtectedContent() {
+        return has_protected_content;
+    }
 
     public String stickerSetName() {
         return sticker_set_name;
@@ -139,6 +144,7 @@ public class Chat implements Serializable {
                 Objects.equals(permissions, chat.permissions) &&
                 Objects.equals(slow_mode_delay, chat.slow_mode_delay) &&
                 Objects.equals(message_auto_delete_time, chat.message_auto_delete_time) &&
+                Objects.equals(has_protected_content, chat.has_protected_content) &&
                 Objects.equals(sticker_set_name, chat.sticker_set_name) &&
                 Objects.equals(can_set_sticker_set, chat.can_set_sticker_set) &&
                 Objects.equals(linked_chat_id, chat.linked_chat_id) &&
@@ -168,6 +174,7 @@ public class Chat implements Serializable {
                 ", permissions=" + permissions +
                 ", slow_mode_delay=" + slow_mode_delay +
                 ", message_auto_delete_time=" + message_auto_delete_time +
+                ", has_protected_content=" + has_protected_content +
                 ", sticker_set_name='" + sticker_set_name + '\'' +
                 ", can_set_sticker_set=" + can_set_sticker_set +
                 ", linked_chat_id=" + linked_chat_id +
