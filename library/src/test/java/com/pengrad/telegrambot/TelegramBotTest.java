@@ -1967,4 +1967,16 @@ public class TelegramBotTest {
         assertFalse(response.isOk());
         assertEquals("Bad Request: USER_ALREADY_PARTICIPANT", response.description());
     }
+
+    @Test
+    public void banChatSenderChat() {
+        BaseResponse response = bot.execute(new BanChatSenderChat(channelName, memberBot).untilDate(123));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void unbanChatSenderChat() {
+        BaseResponse response = bot.execute(new UnbanChatSenderChat(channelName, memberBot));
+        assertTrue(response.isOk());
+    }
 }

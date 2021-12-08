@@ -12,6 +12,7 @@ public class AttachNameTest {
 
     @Test
     public void next() {
+        AttachName.reset();
         assertEquals("attach1", AttachName.next());
         assertEquals("attach2", AttachName.next());
         assertEquals("attach3", AttachName.next());

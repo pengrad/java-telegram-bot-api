@@ -16,4 +16,8 @@ public class AttachName {
         return "attach" + counter.incrementAndGet();
     }
 
+    public static void reset() {
+        counter.set(0);
+    }
+
 }
