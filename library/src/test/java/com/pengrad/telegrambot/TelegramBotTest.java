@@ -1970,7 +1970,7 @@ public class TelegramBotTest {
 
     @Test
     public void banChatSenderChat() {
-        BaseResponse response = bot.execute(new BanChatSenderChat(channelName, memberBot).untilDate(123));
+        BaseResponse response = bot.execute(new BanChatSenderChat(channelName, memberBot));
         assertTrue(response.isOk());
     }
 

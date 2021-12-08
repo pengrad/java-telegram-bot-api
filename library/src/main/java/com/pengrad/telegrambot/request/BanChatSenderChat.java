@@ -12,8 +12,4 @@ public class BanChatSenderChat extends BaseRequest<BanChatSenderChat, BaseRespon
         super(BaseResponse.class);
         add("chat_id", chatId).add("sender_chat_id", sender_chat_id);
     }
-
-    public BanChatSenderChat untilDate(int untilDate) {
-        return add("until_date", untilDate);
-    }
 }
