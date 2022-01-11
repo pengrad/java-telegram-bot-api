@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/pengrad/java-telegram-bot-api/branch/master/graph/badge.svg)](https://codecov.io/gh/pengrad/java-telegram-bot-api)
 
 Java library for interacting with [Telegram Bot API](https://core.telegram.org/bots/api)
-- Full support of all Bot API 5.5 methods
+- Full support of all Bot API 5.6 methods
 - Telegram [Passport](https://core.telegram.org/passport) and Decryption API
 - Bot [Payments](https://core.telegram.org/bots/payments)
 - [Gaming Platform](https://telegram.org/blog/games)
@@ -13,14 +13,14 @@ Java library for interacting with [Telegram Bot API](https://core.telegram.org/b
 
 Gradle:
 ```groovy
-implementation 'com.github.pengrad:java-telegram-bot-api:5.5.0'
+implementation 'com.github.pengrad:java-telegram-bot-api:5.6.0'
 ```
 Maven:
 ```xml
 <dependency>
   <groupId>com.github.pengrad</groupId>
   <artifactId>java-telegram-bot-api</artifactId>
-  <version>5.5.0</version>
+  <version>5.6.0</version>
 </dependency>
 ```
 [JAR with all dependencies on release page](https://github.com/pengrad/java-telegram-bot-api/releases)
