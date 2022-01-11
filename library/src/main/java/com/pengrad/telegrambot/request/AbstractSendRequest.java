@@ -29,4 +29,8 @@ abstract public class AbstractSendRequest<T extends AbstractSendRequest<T>> exte
     public T replyMarkup(Keyboard replyMarkup) {
         return add("reply_markup", replyMarkup);
     }
+
+    public T protectContent(boolean protectContent) {
+        return add("protect_content", protectContent);
+    }
 }
