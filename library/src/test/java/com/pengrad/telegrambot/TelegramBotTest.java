@@ -16,7 +16,6 @@ import com.pengrad.telegrambot.checks.UserTest;
 import com.pengrad.telegrambot.checks.VideoNoteCheck;
 import com.pengrad.telegrambot.checks.VideoTest;
 import com.pengrad.telegrambot.checks.VoiceTest;
-import com.pengrad.telegrambot.checks.WebhookInfoTest;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.botcommandscope.BotCommandScopeAllChatAdministrators;
@@ -983,7 +982,10 @@ public class TelegramBotTest {
     @Test
     public void getWebhookInfo() {
         GetWebhookInfoResponse response = bot.execute(new GetWebhookInfo());
-        WebhookInfoTest.check(response.webhookInfo());
+        WebhookInfo webhookInfo = response.webhookInfo();
+        assertNotNull(webhookInfo.url());
+        assertFalse(webhookInfo.hasCustomCertificate());
+        assertTrue(webhookInfo.pendingUpdateCount() >= 0);
     }
 
     @Test
@@ -1016,8 +1018,7 @@ public class TelegramBotTest {
             assertTrue(lastErrorMessage.contains("SSL"));
         }
         assertEquals(ipAddress, webhookInfo.ipAddress());
-        assertEquals(0, webhookInfo.pendingUpdateCount().intValue());
-
+        assertTrue(webhookInfo.pendingUpdateCount() >= 0);
 
         response = bot.execute(new SetWebhook().url("https://google.com")
                 .certificate(Files.readAllBytes(new File(certificateFile).toPath())).allowedUpdates(""));
