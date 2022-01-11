@@ -625,6 +625,7 @@ public class TelegramBotTest {
         sendResponse = bot.execute(new SendMessage(chatId, "message with keyboard")
                 .parseMode(ParseMode.HTML)
                 .disableWebPagePreview(false)
+                .protectContent(true)
                 .replyMarkup(new ReplyKeyboardMarkup(
                         new KeyboardButton("contact").requestContact(true),
                         new KeyboardButton("location").requestLocation(true))
