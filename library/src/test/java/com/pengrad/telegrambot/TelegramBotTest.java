@@ -168,6 +168,7 @@ public class TelegramBotTest {
     static byte[] imageBytes;
     static File stickerFile = resourcePath.resolve("imageSticker.png").toFile();
     static File stickerFileAnim = resourcePath.resolve("sticker_anim.tgs").toFile();
+    static File stickerFileVid = resourcePath.resolve("sticker_vid.webm").toFile();
     static File audioFile = resourcePath.resolve("beep.mp3").toFile();
     static byte[] audioBytes;
     static File docFile = resourcePath.resolve("doc.txt").toFile();
@@ -1317,19 +1318,34 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void createNewStickerSet() {
+    public void createNewPngStickerSet() {
         BaseResponse response = bot.execute(
-                new CreateNewStickerSet(chatId, "test" + System.currentTimeMillis() + "_by_pengrad_test_bot",
-                        "test1", stickerFile, "\uD83D\uDE00")
+                CreateNewStickerSet.pngSticker(chatId, "test" + System.currentTimeMillis() + "_by_pengrad_test_bot",
+                        "test1", "\uD83D\uDE00", stickerFile)
                         .containsMasks(true)
                         .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f)));
         assertTrue(response.isOk());
     }
 
     @Test
+    public void createNewWebmStickerSetAndAddSticker() {
+        String setName = "test" + System.currentTimeMillis() + "_by_pengrad_test_bot";
+        BaseResponse response = bot.execute(
+                CreateNewStickerSet.webmSticker(chatId, setName,
+                        "test1", "\uD83D\uDE00", stickerFileVid)
+                        .containsMasks(true)
+                        .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f)));
+        assertTrue(response.isOk());
+
+        response = bot.execute(
+                AddStickerToSet.webmSticker(chatId, setName, "\uD83D\uDE15", stickerFileVid));
+        assertTrue(response.isOk());
+    }
+
+    @Test
     public void addStickerToSet() {
         BaseResponse response = bot.execute(
-                new AddStickerToSet(chatId, stickerSet, "BQADAgADuAAD7yupS4eB23UmZhGuAg", "\uD83D\uDE15")
+                AddStickerToSet.pngSticker(chatId, stickerSet, "\uD83D\uDE15", "BQADAgADuAAD7yupS4eB23UmZhGuAg")
                         .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f)));
         assertTrue(response.isOk());
     }
@@ -1357,7 +1373,7 @@ public class TelegramBotTest {
 
     @Test
     public void deleteStickerFromSet() {
-        BaseResponse response = bot.execute(new AddStickerToSet(chatId, stickerSet, stickerFile, "\uD83D\uDE15"));
+        BaseResponse response = bot.execute(AddStickerToSet.pngSticker(chatId, stickerSet, "\uD83D\uDE15", stickerFile));
         assertTrue(response.isOk());
 
         GetStickerSetResponse setResponse = bot.execute(new GetStickerSet(stickerSet));

@@ -14,6 +14,7 @@ public class Sticker implements Serializable {
     private Integer width;
     private Integer height;
     private Boolean is_animated;
+    private Boolean is_video;
     private PhotoSize thumb;
     private String emoji;
     private String set_name;
@@ -38,6 +39,10 @@ public class Sticker implements Serializable {
 
     public Boolean isAnimated() {
         return is_animated;
+    }
+
+    public Boolean isVideo() {
+        return is_video;
     }
 
     public PhotoSize thumb() {

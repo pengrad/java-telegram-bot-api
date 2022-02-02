@@ -13,6 +13,18 @@ public class CreateNewStickerSet extends AbstractUploadRequest<CreateNewStickerS
         return new CreateNewStickerSet(userId, name, title, emojis, "tgs_sticker", tgsSticker);
     }
 
+    public static CreateNewStickerSet pngSticker(Long userId, String name, String title, String emojis, Object pngSticker) {
+        return new CreateNewStickerSet(userId, name, title, emojis, "png_sticker", pngSticker);
+    }
+
+    public static CreateNewStickerSet webmSticker(Long userId, String name, String title, String emojis, Object webmSticker) {
+        return new CreateNewStickerSet(userId, name, title, emojis, "webm_sticker", webmSticker);
+    }
+
+    /**
+     * @deprecated Use static methods according to sticker set type - {@link #pngSticker(Long, String, String, String, Object) for png}, {@link #tgsSticker(Long, String, String, String, Object) for tgs} and {@link #webmSticker(Long, String, String, String, Object) for webm}
+     */
+    @Deprecated
     public CreateNewStickerSet(Long userId, String name, String title, Object pngSticker, String emojis) {
         this(userId, name, title, emojis, "png_sticker", pngSticker);
     }

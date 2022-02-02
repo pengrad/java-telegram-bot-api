@@ -13,6 +13,7 @@ public class StickerSet implements Serializable {
     private String name;
     private String title;
     private Boolean is_animated;
+    private Boolean is_video;
     private Boolean contains_masks;
     private Sticker[] stickers;
     private PhotoSize thumb;
@@ -39,6 +40,10 @@ public class StickerSet implements Serializable {
 
     public PhotoSize thumb() {
         return thumb;
+    }
+
+    public Boolean isVideo() {
+        return is_video;
     }
 
     @Override
