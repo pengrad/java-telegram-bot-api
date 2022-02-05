@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -50,29 +51,20 @@ public class StickerSet implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         StickerSet that = (StickerSet) o;
-
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (is_animated != null ? !is_animated.equals(that.is_animated) : that.is_animated != null) return false;
-        if (contains_masks != null ? !contains_masks.equals(that.contains_masks) : that.contains_masks != null)
-            return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        if (!Arrays.equals(stickers, that.stickers)) return false;
-        if (thumb != null ? !thumb.equals(that.thumb) : that.thumb != null) return false;
-
-        return true;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(is_animated, that.is_animated) &&
+                Objects.equals(is_video, that.is_video) &&
+                Objects.equals(contains_masks, that.contains_masks) &&
+                Arrays.equals(stickers, that.stickers) &&
+                Objects.equals(thumb, that.thumb);
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (is_animated != null ? is_animated.hashCode() : 0);
-        result = 31 * result + (contains_masks != null ? contains_masks.hashCode() : 0);
+        int result = Objects.hash(name, title, is_animated, is_video, contains_masks, thumb);
         result = 31 * result + Arrays.hashCode(stickers);
-        result = 31 * result + (thumb != null ? thumb.hashCode() : 0);
         return result;
     }
 
@@ -82,6 +74,7 @@ public class StickerSet implements Serializable {
                 "name='" + name + '\'' +
                 ", title='" + title + '\'' +
                 ", is_animated=" + is_animated +
+                ", is_video=" + is_video +
                 ", contains_masks=" + contains_masks +
                 ", stickers=" + Arrays.toString(stickers) +
                 ", thumb=" + thumb +
