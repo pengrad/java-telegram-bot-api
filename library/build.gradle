@@ -25,6 +25,10 @@ jacocoTestReport {
     }
 }
 
+javadoc {
+    options.encoding = 'UTF-8'
+}
+
 task fatJar(type: Jar) {
     baseName = rootProject.name + '-full'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
