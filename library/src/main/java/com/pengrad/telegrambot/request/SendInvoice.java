@@ -84,4 +84,7 @@ public class SendInvoice extends AbstractSendRequest<SendInvoice> {
     public SendInvoice suggestedTipAmounts(Integer[] suggestedTipAmounts) {
         return add("suggested_tip_amounts", suggestedTipAmounts);
     }
+
+    public SendInvoice sendEmailToProvider(boolean sendEmailToProvider) { return add("send_email_to_provider", sendEmailToProvider); }
+
 }
