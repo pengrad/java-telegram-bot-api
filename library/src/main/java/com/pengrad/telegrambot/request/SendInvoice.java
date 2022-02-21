@@ -87,4 +87,6 @@ public class SendInvoice extends AbstractSendRequest<SendInvoice> {
 
     public SendInvoice sendEmailToProvider(boolean sendEmailToProvider) { return add("send_email_to_provider", sendEmailToProvider); }
 
+    public SendInvoice sendPhoneNumberToProvider(boolean sendPhoneNumberToProvider) { return add("send_phone_number_to_provider", sendPhoneNumberToProvider); }
+
 }
