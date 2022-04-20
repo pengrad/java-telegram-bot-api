@@ -3,7 +3,7 @@ package com.pengrad.telegrambot.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class VoiceChatScheduled implements Serializable {
+public class VideoChatScheduled implements Serializable {
 
     private final static long serialVersionUID = 0L;
 
@@ -17,7 +17,7 @@ public class VoiceChatScheduled implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        VoiceChatScheduled that = (VoiceChatScheduled) o;
+        VideoChatScheduled that = (VideoChatScheduled) o;
         return Objects.equals(start_date, that.start_date);
     }
 
@@ -28,7 +28,7 @@ public class VoiceChatScheduled implements Serializable {
 
     @Override
     public String toString() {
-        return "VoiceChatScheduled{" +
+        return "VideoChatScheduled{" +
                 "start_date=" + start_date +
                 '}';
     }
