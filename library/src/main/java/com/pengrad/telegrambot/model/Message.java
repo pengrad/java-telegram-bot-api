@@ -72,6 +72,7 @@ public class Message implements Serializable {
     private VoiceChatParticipantsInvited voice_chat_participants_invited;
     private VoiceChatScheduled voice_chat_scheduled;
     private InlineKeyboardMarkup reply_markup;
+    private WebAppData web_app_data;
 
     public Integer messageId() {
         return message_id;
@@ -305,6 +306,10 @@ public class Message implements Serializable {
         return reply_markup;
     }
 
+    public WebAppData webAppData() {
+        return web_app_data;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -367,7 +372,8 @@ public class Message implements Serializable {
                 Objects.equals(voice_chat_ended, message.voice_chat_ended) &&
                 Objects.equals(voice_chat_participants_invited, message.voice_chat_participants_invited) &&
                 Objects.equals(voice_chat_scheduled, message.voice_chat_scheduled) &&
-                Objects.equals(reply_markup, message.reply_markup);
+                Objects.equals(reply_markup, message.reply_markup) &&
+                Objects.equals(web_app_data, message.web_app_data);
     }
 
     @Override
@@ -436,6 +442,7 @@ public class Message implements Serializable {
                 ", voice_chat_participants_invited=" + voice_chat_participants_invited +
                 ", voice_chat_scheduled=" + voice_chat_scheduled +
                 ", reply_markup=" + reply_markup +
+                ", web_app_data=" + web_app_data +
                 '}';
     }
 }
