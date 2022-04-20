@@ -17,6 +17,7 @@ public class WebhookInfo implements Serializable {
     private String ip_address;
     private Integer last_error_date;
     private String last_error_message;
+    private Integer last_synchronization_error_date;
     private Integer max_connections;
     private String[] allowed_updates;
 
@@ -44,6 +45,10 @@ public class WebhookInfo implements Serializable {
         return last_error_message;
     }
 
+    public Integer lastSynchronizationErrorDate() {
+        return last_synchronization_error_date;
+    }
+
     public Integer maxConnections() {
         return max_connections;
     }
@@ -63,13 +68,14 @@ public class WebhookInfo implements Serializable {
                 Objects.equals(ip_address, that.ip_address) &&
                 Objects.equals(last_error_date, that.last_error_date) &&
                 Objects.equals(last_error_message, that.last_error_message) &&
+                Objects.equals(last_synchronization_error_date, that.last_synchronization_error_date) &&
                 Objects.equals(max_connections, that.max_connections) &&
                 Arrays.equals(allowed_updates, that.allowed_updates);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(url, has_custom_certificate, pending_update_count, ip_address, last_error_date, last_error_message, max_connections);
+        int result = Objects.hash(url, has_custom_certificate, pending_update_count, ip_address, last_error_date, last_error_message, last_synchronization_error_date, max_connections);
         result = 31 * result + Arrays.hashCode(allowed_updates);
         return result;
     }
@@ -83,6 +89,7 @@ public class WebhookInfo implements Serializable {
                 ", ip_address='" + ip_address + '\'' +
                 ", last_error_date=" + last_error_date +
                 ", last_error_message='" + last_error_message + '\'' +
+                ", last_synchronization_error_date=" + last_synchronization_error_date +
                 ", max_connections=" + max_connections +
                 ", allowed_updates=" + Arrays.toString(allowed_updates) +
                 '}';
