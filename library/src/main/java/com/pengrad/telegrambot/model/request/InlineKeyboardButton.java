@@ -135,7 +135,7 @@ public class InlineKeyboardButton implements Serializable {
                 ", switch_inline_query_current_chat='" + switch_inline_query_current_chat + '\'' +
                 ", callback_game=" + callback_game +
                 ", pay=" + pay +
-                ", web_app_info=" + (web_app_info!=null?web_app_info.toString():null) +
+                ", web_app_info=" + web_app_info +
                 '}';
     }
 }
