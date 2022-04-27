@@ -38,7 +38,7 @@ public class PromoteChatMember extends BaseRequest<PromoteChatMember, BaseRespon
     }
 
     /**
-     * @Deprecated Use canManageVideoChats(boolean canManageVideoChats) instead
+     * @deprecated Use canManageVideoChats(boolean canManageVideoChats) instead
      */
     public PromoteChatMember canManageVoiceChats(boolean canManageVoiceChats) {
         return add("can_manage_video_chats", canManageVoiceChats);

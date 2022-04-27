@@ -79,7 +79,7 @@ public class ChatMember implements Serializable {
     }
 
     /**
-     *  @Deprecated Use canManageVideoChats() instead
+     *  @deprecated Use canManageVideoChats() instead
      */   
     public Boolean canManageVoiceChats() {
         return can_manage_video_chats;
