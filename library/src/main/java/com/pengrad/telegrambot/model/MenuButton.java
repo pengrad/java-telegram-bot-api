@@ -20,6 +20,10 @@ public class MenuButton implements Serializable {
     MenuButton() {
     }
 
+    public String type() {
+        return type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

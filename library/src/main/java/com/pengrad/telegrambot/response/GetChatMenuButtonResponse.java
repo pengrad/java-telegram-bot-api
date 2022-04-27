@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.response;
 
 import com.pengrad.telegrambot.model.MenuButton;
+import com.pengrad.telegrambot.model.MenuButtonWebApp;
 
 /**
  * Mirco Ianese

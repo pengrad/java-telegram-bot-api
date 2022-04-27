@@ -1321,7 +1321,7 @@ public class TelegramBotTest {
     public void createNewPngStickerSet() {
         BaseResponse response = bot.execute(
                 CreateNewStickerSet.pngSticker(chatId, "test" + System.currentTimeMillis() + "_by_pengrad_test_bot",
-                        "test1", "\uD83D\uDE00", stickerFile)
+                                "test1", "\uD83D\uDE00", stickerFile)
                         .containsMasks(true)
                         .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f)));
         assertTrue(response.isOk());
@@ -1332,7 +1332,7 @@ public class TelegramBotTest {
         String setName = "test" + System.currentTimeMillis() + "_by_pengrad_test_bot";
         BaseResponse response = bot.execute(
                 CreateNewStickerSet.webmSticker(chatId, setName,
-                        "test1", "\uD83D\uDE00", stickerFileVid)
+                                "test1", "\uD83D\uDE00", stickerFileVid)
                         .containsMasks(true)
                         .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f)));
         assertTrue(response.isOk());
@@ -1996,5 +1996,32 @@ public class TelegramBotTest {
     public void unbanChatSenderChat() {
         BaseResponse response = bot.execute(new UnbanChatSenderChat(channelName, memberBot));
         assertTrue(response.isOk());
+    }
+
+    @Test
+    public void setChatMenuButton() {
+        BaseResponse response = bot.execute(new SetChatMenuButton().chatId(chatId)
+                .menuButton(new MenuButtonWebApp("webapp", new WebAppInfo("https://core.telegram.org"))));
+        assertTrue(response.isOk());
+
+        response = bot.execute(new SetChatMenuButton().chatId(chatId)
+                .menuButton(new MenuButtonCommands()));
+        assertTrue(response.isOk());
+
+        response = bot.execute(new SetChatMenuButton().chatId(chatId)
+                .menuButton(new MenuButtonDefault()));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void getChatMenuButton() {
+        MenuButton menu = new MenuButtonCommands();
+        BaseResponse set = bot.execute(new SetChatMenuButton().chatId(chatId)
+                .menuButton(menu));
+        assertTrue(set.isOk());
+
+        GetChatMenuButtonResponse response = bot.execute(new GetChatMenuButton().chatId(chatId));
+        assertTrue(response.isOk());
+        assertEquals(menu.type(), response.result().type());
     }
 }
