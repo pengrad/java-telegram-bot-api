@@ -836,6 +836,17 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void sendSpoilerMessage() {
+        SendResponse response = bot.execute(new SendMessage(chatId, "ok this is spoiler ha-ha-ha")
+                .entities(new MessageEntity(MessageEntity.Type.spoiler, 19, 8)));
+
+        MessageEntity entity = response.message().entities()[0];
+        assertEquals(MessageEntity.Type.spoiler, entity.type());
+        assertEquals((Integer) 19, entity.offset());
+        assertEquals((Integer) 8, entity.length());
+    }
+
+    @Test
     public void preMessageEntity() {
         String cap = "```java\n" +
                 "String s = new String();\n" +
