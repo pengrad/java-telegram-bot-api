@@ -67,11 +67,12 @@ public class Message implements Serializable {
     private String connected_website;
     private PassportData passport_data;
     private ProximityAlertTriggered proximity_alert_triggered;
-    private VoiceChatStarted voice_chat_started;
-    private VoiceChatEnded voice_chat_ended;
-    private VoiceChatParticipantsInvited voice_chat_participants_invited;
-    private VoiceChatScheduled voice_chat_scheduled;
+    private VideoChatStarted video_chat_started;
+    private VideoChatEnded video_chat_ended;
+    private VideoChatParticipantsInvited video_chat_participants_invited;
+    private VideoChatScheduled video_chat_scheduled;
     private InlineKeyboardMarkup reply_markup;
+    private WebAppData web_app_data;
 
     public Integer messageId() {
         return message_id;
@@ -285,24 +286,28 @@ public class Message implements Serializable {
         return proximity_alert_triggered;
     }
 
-    public VoiceChatStarted voiceChatStarted() {
-        return voice_chat_started;
+    public VideoChatStarted videoChatStarted() {
+        return video_chat_started;
     }
 
-    public VoiceChatEnded voiceChatEnded() {
-        return voice_chat_ended;
+    public VideoChatEnded videoChatEnded() {
+        return video_chat_ended;
     }
 
-    public VoiceChatParticipantsInvited voiceChatParticipantsInvited() {
-        return voice_chat_participants_invited;
+    public VideoChatParticipantsInvited videoChatParticipantsInvited() {
+        return video_chat_participants_invited;
     }
 
-    public VoiceChatScheduled voiceChatScheduled() {
-        return voice_chat_scheduled;
+    public VideoChatScheduled videoChatScheduled() {
+        return video_chat_scheduled;
     }
 
     public InlineKeyboardMarkup replyMarkup() {
         return reply_markup;
+    }
+
+    public WebAppData webAppData() {
+        return web_app_data;
     }
 
     @Override
@@ -363,11 +368,12 @@ public class Message implements Serializable {
                 Objects.equals(connected_website, message.connected_website) &&
                 Objects.equals(passport_data, message.passport_data) &&
                 Objects.equals(proximity_alert_triggered, message.proximity_alert_triggered) &&
-                Objects.equals(voice_chat_started, message.voice_chat_started) &&
-                Objects.equals(voice_chat_ended, message.voice_chat_ended) &&
-                Objects.equals(voice_chat_participants_invited, message.voice_chat_participants_invited) &&
-                Objects.equals(voice_chat_scheduled, message.voice_chat_scheduled) &&
-                Objects.equals(reply_markup, message.reply_markup);
+                Objects.equals(video_chat_started, message.video_chat_started) &&
+                Objects.equals(video_chat_ended, message.video_chat_ended) &&
+                Objects.equals(video_chat_participants_invited, message.video_chat_participants_invited) &&
+                Objects.equals(video_chat_scheduled, message.video_chat_scheduled) &&
+                Objects.equals(reply_markup, message.reply_markup) &&
+                Objects.equals(web_app_data, message.web_app_data);
     }
 
     @Override
@@ -431,11 +437,12 @@ public class Message implements Serializable {
                 ", connected_website='" + connected_website + '\'' +
                 ", passport_data=" + passport_data +
                 ", proximity_alert_triggered=" + proximity_alert_triggered +
-                ", voice_chat_started=" + voice_chat_started +
-                ", voice_chat_ended=" + voice_chat_ended +
-                ", voice_chat_participants_invited=" + voice_chat_participants_invited +
-                ", voice_chat_scheduled=" + voice_chat_scheduled +
+                ", video_chat_started=" + video_chat_started +
+                ", video_chat_ended=" + video_chat_ended +
+                ", video_chat_participants_invited=" + video_chat_participants_invited +
+                ", video_chat_scheduled=" + video_chat_scheduled +
                 ", reply_markup=" + reply_markup +
+                ", web_app_data=" + web_app_data +
                 '}';
     }
 }

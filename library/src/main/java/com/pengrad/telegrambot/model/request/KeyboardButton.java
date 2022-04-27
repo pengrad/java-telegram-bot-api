@@ -2,6 +2,8 @@ package com.pengrad.telegrambot.model.request;
 
 import java.io.Serializable;
 
+import com.pengrad.telegrambot.model.WebAppInfo;
+
 /**
  * Stas Parshin
  * 06 May 2016
@@ -13,6 +15,7 @@ public class KeyboardButton implements Serializable {
     private boolean request_contact;
     private boolean request_location;
     private KeyboardButtonPollType request_poll;
+    private WebAppInfo web_app_info;
 
     public KeyboardButton(String text) {
         this.text = text;
@@ -30,6 +33,11 @@ public class KeyboardButton implements Serializable {
 
     public KeyboardButton requestPoll(KeyboardButtonPollType poll) {
         this.request_poll = poll;
+        return this;
+    }
+
+    public KeyboardButton webAppInfo(WebAppInfo webAppInfo) {
+        this.web_app_info = webAppInfo;
         return this;
     }
 }

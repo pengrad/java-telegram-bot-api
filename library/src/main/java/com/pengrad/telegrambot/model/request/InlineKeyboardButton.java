@@ -3,6 +3,8 @@ package com.pengrad.telegrambot.model.request;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.pengrad.telegrambot.model.WebAppInfo;
+
 /**
  * Stas Parshin
  * 06 May 2016
@@ -18,6 +20,7 @@ public class InlineKeyboardButton implements Serializable {
     private String switch_inline_query_current_chat;
     private CallbackGame callback_game;
     private Boolean pay;
+    private WebAppInfo web_app_info;
 
     private InlineKeyboardButton() {
     }
@@ -63,6 +66,11 @@ public class InlineKeyboardButton implements Serializable {
         return this;
     }
 
+    public InlineKeyboardButton webAppInfo(WebAppInfo webAppInfo) {
+        this.web_app_info = webAppInfo;
+        return this;
+    } 
+
     public String text() {
         return text;
     }
@@ -91,6 +99,10 @@ public class InlineKeyboardButton implements Serializable {
         return pay != null ? pay : false;
     }
 
+    public WebAppInfo webAppInfo() {
+        return web_app_info;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -103,12 +115,13 @@ public class InlineKeyboardButton implements Serializable {
                 Objects.equals(switch_inline_query, that.switch_inline_query) &&
                 Objects.equals(switch_inline_query_current_chat, that.switch_inline_query_current_chat) &&
                 Objects.equals(callback_game, that.callback_game) &&
-                Objects.equals(pay, that.pay);
+                Objects.equals(pay, that.pay) &&
+                Objects.equals(web_app_info, that.web_app_info);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(text, url, login_url, callback_data, switch_inline_query, switch_inline_query_current_chat, callback_game, pay);
+        return Objects.hash(text, url, login_url, callback_data, switch_inline_query, switch_inline_query_current_chat, callback_game, pay, web_app_info);
     }
 
     @Override
@@ -122,6 +135,7 @@ public class InlineKeyboardButton implements Serializable {
                 ", switch_inline_query_current_chat='" + switch_inline_query_current_chat + '\'' +
                 ", callback_game=" + callback_game +
                 ", pay=" + pay +
+                ", web_app_info=" + web_app_info +
                 '}';
     }
 }
