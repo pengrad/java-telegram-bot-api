@@ -1983,7 +1983,7 @@ public class TelegramBotTest {
 
         response = bot.execute(new DeclineChatJoinRequest(groupId, memberBot));
         assertFalse(response.isOk());
-        assertEquals("Bad Request: USER_ALREADY_PARTICIPANT", response.description());
+        assertEquals("Bad Request: HIDE_REQUESTER_MISSING", response.description());
     }
 
     @Test

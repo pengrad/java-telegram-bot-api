@@ -80,7 +80,7 @@ public class ModelTest {
                     .suppress(Warning.NONFINAL_FIELDS);
 
             if (c == Message.class) {
-                verifierApi.withIgnoredFields("voice_chat_started");
+                verifierApi.withIgnoredFields("video_chat_started");
             }
 
             verifierApi.verify();

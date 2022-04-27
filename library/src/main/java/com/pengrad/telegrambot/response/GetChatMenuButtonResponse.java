@@ -8,9 +8,9 @@ import com.pengrad.telegrambot.model.MenuButton;
  */
 public class GetChatMenuButtonResponse extends BaseResponse {
     
-    private MenuButton<?> result;
+    private MenuButton result;
 
-    public MenuButton<?> result() {
+    public MenuButton result() {
         return result;
     }
     

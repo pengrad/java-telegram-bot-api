@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Mirco Ianese
  * 20 Apr 2022
  */
-public class MenuButtonDefault extends MenuButton<MenuButtonDefault> implements Serializable {
+public class MenuButtonDefault extends MenuButton implements Serializable {
  
     private final static long serialVersionUID = 0L;
 

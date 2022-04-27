@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Mirco Ianese
@@ -28,10 +29,8 @@ public class SentWebAppMessage implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        SentWebAppMessage sentWebAppMessage = (SentWebAppMessage) o;
-
-        return sentWebAppMessage != null ? inline_message_id.equals(sentWebAppMessage.inline_message_id) : sentWebAppMessage.inline_message_id == null;
+        SentWebAppMessage that = (SentWebAppMessage) o;
+        return Objects.equals(inline_message_id, that.inline_message_id);
     }
 
     @Override

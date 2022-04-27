@@ -10,7 +10,7 @@ import java.util.Objects;
 public class ChatAdministratorRights implements Serializable {
 
     private final static long serialVersionUID = 0L;
-    
+
     private Boolean is_anonymous;
     private Boolean can_manage_chat;
     private Boolean can_delete_messages;
@@ -73,18 +73,7 @@ public class ChatAdministratorRights implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChatAdministratorRights that = (ChatAdministratorRights) o;
-        return is_anonymous == that.is_anonymous &&
-                can_manage_chat == that.can_manage_chat &&
-                can_delete_messages == that.can_delete_messages &&
-                can_manage_video_chats == that.can_manage_video_chats &&
-                can_restrict_members == that.can_restrict_members &&
-                can_promote_members == that.can_promote_members &&
-                can_change_info == that.can_change_info &&
-                can_invite_users == that.can_invite_users &&
-                can_post_messages == that.can_post_messages &&
-                can_edit_messages == that.can_edit_messages &&
-                can_pin_messages == that.can_pin_messages;
-                
+        return Objects.equals(is_anonymous, that.is_anonymous) && Objects.equals(can_manage_chat, that.can_manage_chat) && Objects.equals(can_delete_messages, that.can_delete_messages) && Objects.equals(can_manage_video_chats, that.can_manage_video_chats) && Objects.equals(can_restrict_members, that.can_restrict_members) && Objects.equals(can_promote_members, that.can_promote_members) && Objects.equals(can_change_info, that.can_change_info) && Objects.equals(can_invite_users, that.can_invite_users) && Objects.equals(can_post_messages, that.can_post_messages) && Objects.equals(can_edit_messages, that.can_edit_messages) && Objects.equals(can_pin_messages, that.can_pin_messages);
     }
 
     @Override

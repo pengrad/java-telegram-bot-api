@@ -17,7 +17,7 @@ public class SetChatMenuButton extends BaseRequest<SetChatMenuButton, BaseRespon
         return add("chat_id", chatId);
     }
 
-    public SetChatMenuButton menuButton(MenuButton<?> menuButton) {
+    public SetChatMenuButton menuButton(MenuButton menuButton) {
         return add("menu_button", menuButton);
     }
 

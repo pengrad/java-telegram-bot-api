@@ -16,6 +16,8 @@ public class WebAppInfo implements Serializable {
         this.url = url;
     }
 
+    WebAppInfo() {}
+
     public String url() {
         return url;
     }
@@ -41,5 +43,5 @@ public class WebAppInfo implements Serializable {
                 "url='" + url + '\'' +
                 '}';
     }
-    
+
 }
