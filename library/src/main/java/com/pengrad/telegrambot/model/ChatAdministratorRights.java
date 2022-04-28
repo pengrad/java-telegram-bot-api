@@ -82,7 +82,7 @@ public class ChatAdministratorRights implements Serializable {
         return this;
     }
 
-    public ChatAdministratorRights canRestringMembers(boolean canRestrictMembers) {
+    public ChatAdministratorRights canRestrictMembers(boolean canRestrictMembers) {
         this.can_restrict_members = canRestrictMembers;
         return this;
     }
