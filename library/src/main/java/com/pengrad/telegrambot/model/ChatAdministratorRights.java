@@ -67,6 +67,55 @@ public class ChatAdministratorRights implements Serializable {
         return can_pin_messages;
     }
 
+    public ChatAdministratorRights canManageChat(boolean canManageChat) {
+        this.can_manage_chat = canManageChat;
+        return this;
+    }
+    
+    public ChatAdministratorRights canDeleteMessages(boolean canDeleteMessages) {
+        this.can_delete_messages = canDeleteMessages;
+        return this;
+    }
+
+    public ChatAdministratorRights canManageVideoChats(boolean canManageVideoChats) {
+        this.can_manage_video_chats = canManageVideoChats;
+        return this;
+    }
+
+    public ChatAdministratorRights canRestringMembers(boolean canRestrictMembers) {
+        this.can_restrict_members = canRestrictMembers;
+        return this;
+    }
+
+    public ChatAdministratorRights canPromoteMembers(boolean canPromoteMembers) {
+        this.can_promote_members = canPromoteMembers;
+        return this;
+    }
+
+    public ChatAdministratorRights canChangeInfo(boolean canChangeInfo) {
+        this.can_change_info = canChangeInfo;
+        return this;
+    }
+
+    public ChatAdministratorRights canInviteUsers(boolean canInviteUsers) {
+        this.can_invite_users = canInviteUsers;
+        return this;
+    }
+
+    public ChatAdministratorRights canPostMessages(boolean canPostMessages) {
+        this.can_post_messages = canPostMessages;
+        return this;
+    }
+
+    public ChatAdministratorRights canEditMessages(boolean canEditMessages) {
+        this.can_edit_messages = canEditMessages;
+        return this;
+    }
+
+    public ChatAdministratorRights canPinMessages(boolean canPinMessages) {
+        this.can_pin_messages = canPinMessages;
+        return this;
+    }
 
     @Override
     public boolean equals(Object o) {
