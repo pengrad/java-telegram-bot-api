@@ -2039,4 +2039,29 @@ public class TelegramBotTest {
         assertTrue(response.isOk());
         assertEquals(menu.type(), response.result().type());
     }
+
+    @Test
+    public void sendWebAppInfo() {
+        String text = "gh_app";
+        String url = "https://github.com/";
+        SendResponse response = bot.execute(new SendMessage(chatId, "message with webApp")
+                .replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton(text).webApp(new WebAppInfo(url))))
+        );
+        assertTrue(response.isOk());
+
+        InlineKeyboardMarkup markup = response.message().replyMarkup();
+        assertNotNull(markup);
+        assertEquals(1, markup.inlineKeyboard().length);
+        assertEquals(1, markup.inlineKeyboard()[0].length);
+
+        InlineKeyboardButton button = markup.inlineKeyboard()[0][0];
+        assertEquals(text, button.text());
+        assertNotNull(button.webApp());
+        assertEquals(url, button.webApp().url());
+
+        response = bot.execute(new SendMessage(chatId, "message with webApp")
+                .replyMarkup(new ReplyKeyboardMarkup(new KeyboardButton(text).webAppInfo(new WebAppInfo(url))))
+        );
+        assertTrue(response.isOk());
+    }
 }

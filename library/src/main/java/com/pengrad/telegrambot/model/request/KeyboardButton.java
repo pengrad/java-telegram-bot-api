@@ -15,7 +15,7 @@ public class KeyboardButton implements Serializable {
     private boolean request_contact;
     private boolean request_location;
     private KeyboardButtonPollType request_poll;
-    private WebAppInfo web_app_info;
+    private WebAppInfo web_app;
 
     public KeyboardButton(String text) {
         this.text = text;
@@ -36,8 +36,8 @@ public class KeyboardButton implements Serializable {
         return this;
     }
 
-    public KeyboardButton webAppInfo(WebAppInfo webAppInfo) {
-        this.web_app_info = webAppInfo;
+    public KeyboardButton webAppInfo(WebAppInfo webApp) {
+        this.web_app = webApp;
         return this;
     }
 }

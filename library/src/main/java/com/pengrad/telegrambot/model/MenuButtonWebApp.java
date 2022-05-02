@@ -40,7 +40,7 @@ public class MenuButtonWebApp extends MenuButton implements Serializable {
     public String toString() {
         return "MenuButtonWebApp{" +
                 "text='" + text + '\'' +
-                ", web_app_info=" + web_app +
+                ", web_app=" + web_app +
                 '}';
     }
 }

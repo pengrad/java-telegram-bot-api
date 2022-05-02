@@ -20,7 +20,7 @@ public class InlineKeyboardButton implements Serializable {
     private String switch_inline_query_current_chat;
     private CallbackGame callback_game;
     private Boolean pay;
-    private WebAppInfo web_app_info;
+    private WebAppInfo web_app;
 
     private InlineKeyboardButton() {
     }
@@ -66,8 +66,8 @@ public class InlineKeyboardButton implements Serializable {
         return this;
     }
 
-    public InlineKeyboardButton webAppInfo(WebAppInfo webAppInfo) {
-        this.web_app_info = webAppInfo;
+    public InlineKeyboardButton webApp(WebAppInfo webApp) {
+        this.web_app = webApp;
         return this;
     } 
 
@@ -99,8 +99,8 @@ public class InlineKeyboardButton implements Serializable {
         return pay != null ? pay : false;
     }
 
-    public WebAppInfo webAppInfo() {
-        return web_app_info;
+    public WebAppInfo webApp() {
+        return web_app;
     }
 
     @Override
@@ -116,12 +116,12 @@ public class InlineKeyboardButton implements Serializable {
                 Objects.equals(switch_inline_query_current_chat, that.switch_inline_query_current_chat) &&
                 Objects.equals(callback_game, that.callback_game) &&
                 Objects.equals(pay, that.pay) &&
-                Objects.equals(web_app_info, that.web_app_info);
+                Objects.equals(web_app, that.web_app);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(text, url, login_url, callback_data, switch_inline_query, switch_inline_query_current_chat, callback_game, pay, web_app_info);
+        return Objects.hash(text, url, login_url, callback_data, switch_inline_query, switch_inline_query_current_chat, callback_game, pay, web_app);
     }
 
     @Override
@@ -135,7 +135,7 @@ public class InlineKeyboardButton implements Serializable {
                 ", switch_inline_query_current_chat='" + switch_inline_query_current_chat + '\'' +
                 ", callback_game=" + callback_game +
                 ", pay=" + pay +
-                ", web_app_info=" + web_app_info +
+                ", web_app=" + web_app +
                 '}';
     }
 }
