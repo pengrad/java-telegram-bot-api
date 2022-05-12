@@ -1,4 +1,5 @@
 # Java Telegram Bot API
+
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.pengrad/java-telegram-bot-api.svg)](https://search.maven.org/artifact/com.github.pengrad/java-telegram-bot-api)
 [![Build Status](https://travis-ci.com/pengrad/java-telegram-bot-api.svg?branch=master)](https://app.travis-ci.com/github/pengrad/java-telegram-bot-api)
 [![codecov](https://codecov.io/gh/pengrad/java-telegram-bot-api/branch/master/graph/badge.svg)](https://codecov.io/gh/pengrad/java-telegram-bot-api)
@@ -26,6 +27,7 @@ Maven:
 [JAR with all dependencies on release page](https://github.com/pengrad/java-telegram-bot-api/releases)
 
 ## Usage
+
 ```java
 // Create your bot passing the token received from @BotFather
 TelegramBot bot = new TelegramBot("BOT_TOKEN");
@@ -43,6 +45,7 @@ SendResponse response = bot.execute(new SendMessage(chatId, "Hello!"));
 ```
 
 ## Documentation
+
 - [Creating your bot](#creating-your-bot)
 - [Making requests](#making-requests)
 - [Getting updates](#getting-updates)
@@ -60,8 +63,10 @@ SendResponse response = bot.execute(new SendMessage(chatId, "Hello!"));
 ```java
 TelegramBot bot = new TelegramBot("BOT_TOKEN");
 ```
+
 Network operations based on [OkHttp](https://github.com/square/okhttp) library.  
 You can build bot with custom OkHttpClient, for specific timeouts or interceptors.
+
 ```java
 TelegramBot bot = new TelegramBot.Builder("BOT_TOKEN").okHttpClient(client).build();
 ```
@@ -94,7 +99,7 @@ String response = request.toWebhookResponse();
 
 ### Getting updates
 
-You can use **getUpdates** request, parse incoming **Webhook** request, or set listener to receive updates.  
+You can use **getUpdates** request, parse incoming **Webhook** request, or set listener to receive updates.
 Update object just copies Telegram's response.
 
 ```java
@@ -116,7 +121,7 @@ GetUpdates getUpdates = new GetUpdates().limit(100).offset(0).timeout(0);
 ```
 
 The getUpdates method returns the earliest 100 unconfirmed updates. To confirm an update, use the offset parameter when calling getUpdates like this:
-`offset = updateId of last processed update + 1`  
+`offset = updateId of last processed update + 1`
 All updates with updateId less than offset will be marked as confirmed on the server and will no longer be returned.
 
 Executing
@@ -181,7 +186,7 @@ Message message = update.message();
 
 #### Updates Listener
 
-You can set listener to receiving incoming updates as if using Webhook.  
+You can set a listener to receive incoming updates as if using Webhook.
 This will trigger executing getUpdates requests in a loop.
 
 ```java
@@ -199,7 +204,7 @@ bot.setUpdatesListener(new UpdatesListener() {
 Listener should return id of the last processed (confirmed) update.  
 To confirm all updates return `UpdatesListener.CONFIRMED_UPDATES_ALL`, this should be enough in most cases.  
 To not confirm any updates return `UpdatesListener.CONFIRMED_UPDATES_NONE`, these updates will be redelivered.  
-To set specific update as last confirmed just return required updateId.
+To set a specific update as last confirmed, just return the required updateId.
 
 To stop receiving updates
 ```java
@@ -214,7 +219,7 @@ Type's fields are methods in lowerCamelCase.
 Types used in responses **(Update, Message, User, Document...)** are in `com.pengrad.telegrambot.model` package. 
 
 Types used in requests **(Keyboard, InlineQueryResult, ParseMode, InputMessageContent...)** are in `com.pengrad.telegrambot.model.request` package.  
-When creating request's type required params should be passed in constructor, optional params can be added in chains.
+When creating a request's type, required params should be passed in the constructor, optional params can be added in chains.
 
 #### Keyboards
 
@@ -256,6 +261,7 @@ InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
 ```
 
 #### Chat Action
+
 ```java
 ChatAction action = ChatAction.typing;
 ChatAction action = ChatAction.upload_photo;
@@ -264,13 +270,14 @@ ChatAction action = ChatAction.find_location;
 
 ### Available methods
 
-All request methods have the same names as original ones.  
-Required params should be passed in constructor.  
+All request methods have the same names as original ones.
+Required params should be passed in the constructor.
 Optional params can be added in chains.
 
 #### Send message 
 
 All send requests **(SendMessage, SendPhoto, SendLocation...)** return **SendResponse** object that contains **Message**.
+
 ```java
 SendMessage request = new SendMessage(chatId, "text")
         .parseMode(ParseMode.HTML)
@@ -299,12 +306,14 @@ bot.execute(request, new Callback<SendMessage, SendResponse>() {
 ```
 
 #### Formatting options
+
 ```java
 ParseMode parseMode = ParseMode.Markdown;
 ParseMode parseMode = ParseMode.HTML;
 ```
 
 #### Get file
+
 ```java
 GetFile request = new GetFile("fileId")
 GetFileResponse getFileResponse = bot.execute(request);
@@ -314,7 +323,9 @@ file.fileId();
 file.filePath();  // relative path
 file.fileSize();
 ```
-To get downloading link as `https://api.telegram.org/file/bot<token>/<file_path>`
+
+To get downloading link as `https://api.telegram.org/file/<BOT_TOKEN>/<FILE_PATH>`
+
 ```java
 String fullPath = bot.getFullFilePath(file);  // com.pengrad.telegrambot.model.File
 ```
@@ -330,7 +341,7 @@ class BaseResponse {
 }
 ```
 
-GetMe request returns GetMeResponse  
+GetMe request returns GetMeResponse
 ```java
 class GetMeResponse {
   User user();
@@ -339,14 +350,14 @@ class GetMeResponse {
 
 GetChatAdministrators
 ```java
-class GetChatAdministratorsResponse  { 
+class GetChatAdministratorsResponse  {
   List<ChatMember> administrators() 
 }
 ```
 
 GetChatMembersCount
 ```java
-class GetChatMembersCountResponse  { 
+class GetChatMembersCountResponse  {
   int count() 
 }
 ```
@@ -360,7 +371,7 @@ class GetChatMemberResponse  {
 
 GetChat
 ```java
-class GetChatResponse  { 
+class GetChatResponse  {
   Chat chat() 
 }
 ```
@@ -388,7 +399,7 @@ EditMessageText editMessageText = new EditMessageText(chatId, messageId, "new te
         .disableWebPagePreview(true)
         .replyMarkup(new ReplyKeyboardRemove());
         
-BaseResponse response = bot.execute(editMessageText);        
+BaseResponse response = bot.execute(editMessageText);
 ```
 
 Inline message
@@ -447,6 +458,7 @@ InlineQuery inlineQuery = update.inlineQuery();
 ```
 
 #### Inline query result
+
 ```java
 InlineQueryResult r1 = new InlineQueryResultPhoto("id", "photoUrl", "thumbUrl");
 InlineQueryResult r2 = new InlineQueryResultArticle("id", "title", "message text").thumbUrl("url");
@@ -459,6 +471,7 @@ InlineQueryResult r5 = new InlineQueryResultVideo(
 ```
 
 #### Answer inline query
+
 ```java
 BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQuery.id(), r1, r2, r3, r4, r5));
 
@@ -520,19 +533,25 @@ BaseResponse response = bot.execute(answerPreCheckoutQuery);
 
 When the user confirms your request by pressing the ‘Authorize’ button, the Bot API sends an Update with the field passport_data to the bot that contains encrypted Telegram Passport data. [Telegram Passport Manual](https://core.telegram.org/passport#receiving-information)
 
-#### Receiving information 
+#### Receiving information
+
 You can get encrypted Passport data from Update (via UpdatesListener or Webhook)
+
 ```java
 PassportData passportData = update.message().passportData();
 ```
-PassportData contains array of `EncryptedPassportElement` and `EncryptedCredentials`.  
+
+PassportData contains an array of `EncryptedPassportElement` and `EncryptedCredentials`.
 You need to decrypt `Credentials` using private key (public key you uploaded to `@BotFather`)
+
 ```java
 String privateKey = "...";
 EncryptedCredentials encryptedCredentials = passportData.credentials();
 Credentials credentials = encryptedCredentials.decrypt(privateKey);
 ```
+
 These `Credentials` can be used to decrypt encrypted data in `EncryptedPassportElement`.
+
 ```java
 EncryptedPassportElement[] encryptedPassportElements = passportData.data();
 for (EncryptedPassportElement element : encryptedPassportElements) {
@@ -547,9 +566,11 @@ for (EncryptedPassportElement element : encryptedPassportElements) {
     }
 }
 ```
-`EncryptedPassportElement` also contains array of `PassportFile` (file uploaded to Telegram Passport).  
+
+`EncryptedPassportElement` also contains an array of `PassportFile` (file uploaded to Telegram Passport).
 You need to download them 1 by 1 and decrypt content.  
 This library supports downloading and decryption, returns decrypted byte[]
+
 ```java
 EncryptedPassportElement element = ...
 
@@ -575,6 +596,7 @@ for (PassportFile file : files) {
 ```
 
 #### Set Passport data errors
+
 ``` java
 SetPassportDataErrors setPassportDataErrors = new SetPassportDataErrors(chatId,
         new PassportElementErrorDataField("personal_details", "first_name", "dataHash",
