@@ -99,7 +99,7 @@ String response = request.toWebhookResponse();
 
 ### Getting updates
 
-You can use **getUpdates** request, parse incoming **Webhook** request, or set listener to receive updates.
+You can use **getUpdates** request, parse incoming **Webhook** request, or set listener to receive updates.  
 Update object just copies Telegram's response.
 
 ```java
@@ -121,7 +121,7 @@ GetUpdates getUpdates = new GetUpdates().limit(100).offset(0).timeout(0);
 ```
 
 The getUpdates method returns the earliest 100 unconfirmed updates. To confirm an update, use the offset parameter when calling getUpdates like this:
-`offset = updateId of last processed update + 1`
+`offset = updateId of last processed update + 1`  
 All updates with updateId less than offset will be marked as confirmed on the server and will no longer be returned.
 
 Executing
@@ -186,7 +186,7 @@ Message message = update.message();
 
 #### Updates Listener
 
-You can set a listener to receive incoming updates as if using Webhook.
+You can set a listener to receive incoming updates as if using Webhook.  
 This will trigger executing getUpdates requests in a loop.
 
 ```java
@@ -270,8 +270,8 @@ ChatAction action = ChatAction.find_location;
 
 ### Available methods
 
-All request methods have the same names as original ones.
-Required params should be passed in the constructor.
+All request methods have the same names as original ones.  
+Required params should be passed in the constructor.  
 Optional params can be added in chains.
 
 #### Send message 
@@ -323,9 +323,7 @@ file.fileId();
 file.filePath();  // relative path
 file.fileSize();
 ```
-
 To get downloading link as `https://api.telegram.org/file/<BOT_TOKEN>/<FILE_PATH>`
-
 ```java
 String fullPath = bot.getFullFilePath(file);  // com.pengrad.telegrambot.model.File
 ```
@@ -341,7 +339,7 @@ class BaseResponse {
 }
 ```
 
-GetMe request returns GetMeResponse
+GetMe request returns GetMeResponse  
 ```java
 class GetMeResponse {
   User user();
@@ -350,29 +348,29 @@ class GetMeResponse {
 
 GetChatAdministrators
 ```java
-class GetChatAdministratorsResponse  {
-  List<ChatMember> administrators() 
+class GetChatAdministratorsResponse {
+  List<ChatMember> administrators()
 }
 ```
 
 GetChatMembersCount
 ```java
-class GetChatMembersCountResponse  {
+class GetChatMembersCountResponse {
   int count() 
 }
 ```
 
 GetChatMember
 ```java
-class GetChatMemberResponse  {
-  ChatMember chatMember() 
+class GetChatMemberResponse {
+  ChatMember chatMember()
 }
 ```
 
 GetChat
 ```java
-class GetChatResponse  {
-  Chat chat() 
+class GetChatResponse {
+  Chat chat()
 }
 ```
 
@@ -531,7 +529,7 @@ BaseResponse response = bot.execute(answerPreCheckoutQuery);
 
 ### Telegram Passport
 
-When the user confirms your request by pressing the ‘Authorize’ button, the Bot API sends an Update with the field passport_data to the bot that contains encrypted Telegram Passport data. [Telegram Passport Manual](https://core.telegram.org/passport#receiving-information)
+When the user confirms your request by pressing the ‘Authorize’ button, the Bot API sends an Update with the field `passport_data` to the bot that contains encrypted Telegram Passport data. [Telegram Passport Manual](https://core.telegram.org/passport#receiving-information)
 
 #### Receiving information
 
@@ -541,7 +539,7 @@ You can get encrypted Passport data from Update (via UpdatesListener or Webhook)
 PassportData passportData = update.message().passportData();
 ```
 
-PassportData contains an array of `EncryptedPassportElement` and `EncryptedCredentials`.
+PassportData contains anarray of `EncryptedPassportElement` and `EncryptedCredentials`.  
 You need to decrypt `Credentials` using private key (public key you uploaded to `@BotFather`)
 
 ```java
@@ -567,7 +565,7 @@ for (EncryptedPassportElement element : encryptedPassportElements) {
 }
 ```
 
-`EncryptedPassportElement` also contains an array of `PassportFile` (file uploaded to Telegram Passport).
+`EncryptedPassportElement` also contains an array of `PassportFile` (file uploaded to Telegram Passport).  
 You need to download them 1 by 1 and decrypt content.  
 This library supports downloading and decryption, returns decrypted byte[]
 
