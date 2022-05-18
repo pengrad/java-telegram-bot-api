@@ -100,10 +100,11 @@ public class TelegramBot {
         private OkHttpClient okHttpClient;
         private String apiUrl;
         private String fileApiUrl;
+        private boolean useTestServer = false;
 
         public Builder(String botToken) {
             this.botToken = botToken;
-            api = new TelegramBotClient(client(null), gson(), apiUrl(API_URL, botToken));
+            api = new TelegramBotClient(client(null), gson(), apiUrl(API_URL, botToken, useTestServer));
             fileApi = new FileApi(botToken);
             updatesHandler = new UpdatesHandler(100);
         }
@@ -133,10 +134,15 @@ public class TelegramBot {
             return this;
         }
 
+        public Builder useTestServer(boolean useTestServer) {
+            this.useTestServer = useTestServer;
+            return this;
+        }
+
         public TelegramBot build() {
             if (okHttpClient != null || apiUrl != null) {
                 OkHttpClient client = okHttpClient != null ? okHttpClient : client(null);
-                String baseUrl = apiUrl(apiUrl != null ? apiUrl : API_URL, botToken);
+                String baseUrl = apiUrl(apiUrl != null ? apiUrl : API_URL, botToken, useTestServer);
                 api = new TelegramBotClient(client, gson(), baseUrl);
             }
             if (fileApiUrl != null) {
@@ -162,8 +168,8 @@ public class TelegramBot {
             return new Gson();
         }
 
-        private static String apiUrl(String apiUrl, String botToken) {
-            return apiUrl + botToken + "/";
+        private static String apiUrl(String apiUrl, String botToken, boolean useTestServer) {
+            return apiUrl + botToken + (useTestServer ? "/test/" : "/");
         }
     }
 }
