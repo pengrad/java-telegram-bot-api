@@ -11,7 +11,7 @@ public class File implements Serializable {
 
     private String file_id;
     private String file_unique_id;
-    private Integer file_size;
+    private Long file_size;
     private String file_path;
 
     public String fileId() {
@@ -22,7 +22,7 @@ public class File implements Serializable {
         return file_unique_id;
     }
 
-    public Integer fileSize() {
+    public Long fileSize() {
         return file_size;
     }
 

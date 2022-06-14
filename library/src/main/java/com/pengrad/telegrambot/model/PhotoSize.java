@@ -13,7 +13,7 @@ public class PhotoSize implements Serializable {
     private String file_unique_id;
     private Integer width;
     private Integer height;
-    private Integer file_size;
+    private Long file_size;
 
     public String fileId() {
         return file_id;
@@ -31,7 +31,7 @@ public class PhotoSize implements Serializable {
         return height;
     }
 
-    public Integer fileSize() {
+    public Long fileSize() {
         return file_size;
     }
 
