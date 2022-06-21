@@ -46,6 +46,11 @@ public class SetWebhook extends BaseRequest<SetWebhook, BaseResponse> {
         return add("drop_pending_updates", dropPendingUpdates);
     }
 
+    public SetWebhook secretToken(String secretToken) {
+        return add("secret_token", secretToken);
+    }
+
+
     @Override
     public boolean isMultipart() {
         return isMultipart;
