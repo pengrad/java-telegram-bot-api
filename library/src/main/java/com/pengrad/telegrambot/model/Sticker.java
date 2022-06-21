@@ -19,6 +19,7 @@ public class Sticker implements Serializable {
     private PhotoSize thumb;
     private String emoji;
     private String set_name;
+    private File premium_animation;
     private MaskPosition mask_position;
     private Integer file_size;
 
@@ -58,6 +59,10 @@ public class Sticker implements Serializable {
         return set_name;
     }
 
+    public File premiumAnimation() {
+        return premium_animation;
+    }
+
     public MaskPosition maskPosition() {
         return mask_position;
     }
@@ -80,6 +85,7 @@ public class Sticker implements Serializable {
                 Objects.equals(thumb, sticker.thumb) &&
                 Objects.equals(emoji, sticker.emoji) &&
                 Objects.equals(set_name, sticker.set_name) &&
+                Objects.equals(premium_animation, sticker.premium_animation) &&
                 Objects.equals(mask_position, sticker.mask_position) &&
                 Objects.equals(file_size, sticker.file_size);
     }
@@ -101,6 +107,7 @@ public class Sticker implements Serializable {
                 ", thumb=" + thumb +
                 ", emoji='" + emoji + '\'' +
                 ", set_name='" + set_name + '\'' +
+                ", premium_animation=" + premium_animation +
                 ", mask_position=" + mask_position +
                 ", file_size=" + file_size +
                 '}';
