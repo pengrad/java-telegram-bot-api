@@ -191,7 +191,7 @@ public class TelegramBotTest {
     //    static String imageUrl = "https://telegram.org/img/t_logo.png";
     static File thumbFile = resourcePath.resolve("thumb.jpg").toFile();
     static byte[] thumbBytes;
-    static Integer thumbSize = 3718;
+    static Long thumbSize = 3718L;
     static File gifFile = resourcePath.resolve("anim3.gif").toFile();
     static byte[] gifBytes;
 
@@ -1555,22 +1555,22 @@ public class TelegramBotTest {
         assertEquals(Integer.valueOf(3), response.message().animation().duration());
         assertNotEquals(gifFileId, response.message().animation().fileId());
         assertNotNull(response.message().document());
-        assertEquals((Integer) 57527, response.message().document().fileSize());
+        assertEquals(Long.valueOf(57527), response.message().document().fileSize());
         assertEquals("video/mp4", response.message().document().mimeType());
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioFileId)));
-        assertEquals((Integer) 10286, response.message().audio().fileSize());
+        assertEquals(Long.valueOf(10286), response.message().audio().fileSize());
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioFile)));
-        assertEquals((Integer) 10286, response.message().audio().fileSize());
+        assertEquals(Long.valueOf(10286), response.message().audio().fileSize());
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioBytes)));
-        assertEquals((Integer) 10286, response.message().audio().fileSize());
+        assertEquals(Long.valueOf(10286), response.message().audio().fileSize());
         Integer duration = 34;
         String performer = "some performer", title = "just a title", fileName = "beep.mp3";
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
                 new InputMediaAudio(audioFile).duration(duration).performer(performer).title(title)
         ));
         Audio audio = response.message().audio();
-        assertEquals((Integer) 10286, audio.fileSize());
+        assertEquals(Long.valueOf(10286), audio.fileSize());
         assertEquals(duration, audio.duration());
         assertEquals(performer, audio.performer());
         assertEquals(title, audio.title());
@@ -1670,7 +1670,7 @@ public class TelegramBotTest {
             }
 
             if (encElement.type() == EncryptedPassportElement.Type.passport) {
-                assertEquals(Integer.valueOf(260608), encElement.frontSide().fileSize());
+                assertEquals(Long.valueOf(260608), encElement.frontSide().fileSize());
                 assertEquals(Integer.valueOf(1535386777), encElement.frontSide().fileDate());
 
                 List<PassportFile> files = new ArrayList<>();

@@ -13,7 +13,7 @@ public class Voice implements Serializable {
     private String file_unique_id;
     private Integer duration;
     private String mime_type;
-    private Integer file_size;
+    private Long file_size;
 
     public String fileId() {
         return file_id;
@@ -31,7 +31,7 @@ public class Voice implements Serializable {
         return mime_type;
     }
 
-    public Integer fileSize() {
+    public Long fileSize() {
         return file_size;
     }
 

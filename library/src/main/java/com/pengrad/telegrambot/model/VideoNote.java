@@ -14,7 +14,7 @@ public class VideoNote implements Serializable {
     private Integer length;
     private Integer duration;
     private PhotoSize thumb;
-    private Integer file_size;
+    private Long file_size;
 
     public String fileId() {
         return file_id;
@@ -36,7 +36,7 @@ public class VideoNote implements Serializable {
         return thumb;
     }
 
-    public Integer fileSize() {
+    public Long fileSize() {
         return file_size;
     }
 

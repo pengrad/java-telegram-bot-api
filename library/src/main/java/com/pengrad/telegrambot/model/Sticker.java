@@ -20,7 +20,7 @@ public class Sticker implements Serializable {
     private String emoji;
     private String set_name;
     private MaskPosition mask_position;
-    private Integer file_size;
+    private Long file_size;
 
     public String fileId() {
         return file_id;
@@ -62,7 +62,7 @@ public class Sticker implements Serializable {
         return mask_position;
     }
 
-    public Integer fileSize() {
+    public Long fileSize() {
         return file_size;
     }
 

@@ -17,7 +17,7 @@ public class Animation implements Serializable {
     private PhotoSize thumb;
     private String file_name;
     private String mime_type;
-    private Integer file_size;
+    private Long file_size;
 
     public String fileId() {
         return file_id;
@@ -51,7 +51,7 @@ public class Animation implements Serializable {
         return mime_type;
     }
 
-    public Integer fileSize() {
+    public Long fileSize() {
         return file_size;
     }
 

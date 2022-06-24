@@ -17,7 +17,7 @@ public class Audio implements Serializable {
     private String title;
     private String file_name;
     private String mime_type;
-    private Integer file_size;
+    private Long file_size;
     private PhotoSize thumb;
 
     public String fileId() {
@@ -48,7 +48,7 @@ public class Audio implements Serializable {
         return mime_type;
     }
 
-    public Integer fileSize() {
+    public Long fileSize() {
         return file_size;
     }
 
