@@ -10,7 +10,7 @@ import com.pengrad.telegrambot.response.StringResponse;
 public class CreateInvoiceLink extends BaseRequest<CreateInvoiceLink, StringResponse> {
 
     public CreateInvoiceLink(String title, String description, String payload, String providerToken,
-                        String currency, LabeledPrice... prices) {
+                             String currency, LabeledPrice... prices) {
         super(StringResponse.class);
         add("title", title).add("description", description).add("payload", payload)
                 .add("provider_token", providerToken).add("currency", currency).add("prices", prices);
@@ -18,18 +18,14 @@ public class CreateInvoiceLink extends BaseRequest<CreateInvoiceLink, StringResp
 
 
     /**
-     * 
      * @param maxTipAmount The maximum accepted amount for tips in the smallest units of the currency
-     * @return
      */
     public CreateInvoiceLink maxTipAmount(int maxTipAmount) {
         return add("max_tip_amount", maxTipAmount);
     }
 
     /**
-     * 
      * @param suggestedTipAmounts An array of suggested amounts of tip in the smallest units of the currency. At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
-     * @return
      */
     public CreateInvoiceLink suggestedTipAmounts(Integer[] suggestedTipAmounts) {
         return add("suggested_tip_amounts", suggestedTipAmounts);
@@ -71,12 +67,12 @@ public class CreateInvoiceLink extends BaseRequest<CreateInvoiceLink, StringResp
         return add("need_shipping_address", needShippingAddress);
     }
 
-    public CreateInvoiceLink sendEmailToProvider(boolean sendEmailToProvider) { 
-        return add("send_email_to_provider", sendEmailToProvider); 
+    public CreateInvoiceLink sendEmailToProvider(boolean sendEmailToProvider) {
+        return add("send_email_to_provider", sendEmailToProvider);
     }
 
-    public CreateInvoiceLink sendPhoneNumberToProvider(boolean sendPhoneNumberToProvider) { 
-        return add("send_phone_number_to_provider", sendPhoneNumberToProvider); 
+    public CreateInvoiceLink sendPhoneNumberToProvider(boolean sendPhoneNumberToProvider) {
+        return add("send_phone_number_to_provider", sendPhoneNumberToProvider);
     }
 
     public CreateInvoiceLink isFlexible(boolean isFlexible) {

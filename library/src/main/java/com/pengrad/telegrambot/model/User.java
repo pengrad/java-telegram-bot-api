@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * stas
@@ -53,11 +54,11 @@ public class User implements Serializable {
     }
 
     public Boolean isPremium() {
-        return is_premium;
+        return is_premium != null && is_premium;
     }
 
     public Boolean addedToAttachmentMenu() {
-        return added_to_attachment_menu;
+        return added_to_attachment_menu != null && added_to_attachment_menu;
     }
 
     public Boolean canJoinGroups() {
@@ -76,25 +77,8 @@ public class User implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         User user = (User) o;
-
-        if (id != null ? !id.equals(user.id) : user.id != null) return false;
-        if (is_bot != null ? !is_bot.equals(user.is_bot) : user.is_bot != null) return false;
-        if (first_name != null ? !first_name.equals(user.first_name) : user.first_name != null) return false;
-        if (last_name != null ? !last_name.equals(user.last_name) : user.last_name != null) return false;
-        if (username != null ? !username.equals(user.username) : user.username != null) return false;
-        if (is_premium != null ? !is_premium.equals(user.is_premium) : user.is_premium != null)
-            return false;
-        if (added_to_attachment_menu != null ? !added_to_attachment_menu.equals(user.added_to_attachment_menu) : user.added_to_attachment_menu != null)
-            return false;
-        if (language_code != null ? !language_code.equals(user.language_code) : user.language_code != null)
-            return false;
-        if (can_join_groups != null ? !can_join_groups.equals(user.can_join_groups) : user.can_join_groups != null)
-            return false;
-        if (can_read_all_group_messages != null ? !can_read_all_group_messages.equals(user.can_read_all_group_messages) : user.can_read_all_group_messages != null)
-            return false;
-        return supports_inline_queries != null ? supports_inline_queries.equals(user.supports_inline_queries) : user.supports_inline_queries == null;
+        return Objects.equals(id, user.id) && Objects.equals(is_bot, user.is_bot) && Objects.equals(first_name, user.first_name) && Objects.equals(last_name, user.last_name) && Objects.equals(username, user.username) && Objects.equals(language_code, user.language_code) && Objects.equals(is_premium, user.is_premium) && Objects.equals(added_to_attachment_menu, user.added_to_attachment_menu) && Objects.equals(can_join_groups, user.can_join_groups) && Objects.equals(can_read_all_group_messages, user.can_read_all_group_messages) && Objects.equals(supports_inline_queries, user.supports_inline_queries);
     }
 
     @Override

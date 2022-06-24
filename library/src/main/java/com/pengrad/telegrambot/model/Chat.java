@@ -79,15 +79,15 @@ public class Chat implements Serializable {
     }
 
     public Boolean hasPrivateForwards() {
-        return has_private_forwards;
+        return has_private_forwards != null && has_private_forwards;
     }
 
     public Boolean joinToSendMessages() {
-        return join_to_send_messages;
+        return join_to_send_messages != null && join_to_send_messages;
     }
 
     public Boolean joinByRequest() {
-        return join_by_request;
+        return join_by_request != null && join_by_request;
     }
 
     public String description() {
@@ -112,10 +112,10 @@ public class Chat implements Serializable {
 
     public Integer messageAutoDeleteTime() {
         return message_auto_delete_time;
-    } 
-    
+    }
+
     public Boolean hasProtectedContent() {
-        return has_protected_content;
+        return has_protected_content != null && has_protected_content;
     }
 
     public String stickerSetName() {
@@ -123,7 +123,7 @@ public class Chat implements Serializable {
     }
 
     public Boolean canSetStickerSet() {
-        return can_set_sticker_set;
+        return can_set_sticker_set != null && can_set_sticker_set;
     }
 
     public Long linkedChatId() {

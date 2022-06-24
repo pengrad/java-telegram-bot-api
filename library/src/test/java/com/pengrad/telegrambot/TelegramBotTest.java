@@ -215,6 +215,8 @@ public class TelegramBotTest {
         assertFalse(user.canJoinGroups()); // can be changed via BotFather
         assertTrue(user.canReadAllGroupMessages());
         assertTrue(user.supportsInlineQueries());
+        assertFalse(user.isPremium());
+        assertFalse(user.addedToAttachmentMenu());
     }
 
     @Test
@@ -512,13 +514,17 @@ public class TelegramBotTest {
         assertNotNull(new URL(chat.inviteLink()).toURI());
         if (chat.pinnedMessage() != null) MessageTest.checkMessage(chat.pinnedMessage());
         assertNull(chat.stickerSetName());
-        assertNull(chat.canSetStickerSet());
+        assertFalse(chat.canSetStickerSet());
         assertEquals(channelId, chat.linkedChatId());
+        assertFalse(chat.joinByRequest());
+        assertFalse(chat.hasProtectedContent());
+        assertNull(chat.messageAutoDeleteTime());
 
         chat = bot.execute(new GetChat(chatId)).chat();
         assertNotNull(chat.firstName());
         assertNotNull(chat.lastName());
         assertEquals("yo", chat.bio());
+        assertTrue(chat.hasPrivateForwards());
 
         chat = bot.execute(new GetChat(localGroup)).chat();
         ChatLocation location = chat.location();
@@ -526,6 +532,7 @@ public class TelegramBotTest {
         assertEquals(60.94062f, location.location().latitude(), 0f);
         assertEquals(76.58071f, location.location().longitude(), 0f);
         assertTrue(location.address().endsWith("Russia"));
+        assertTrue(chat.joinToSendMessages());
     }
 
     @Test
@@ -1009,6 +1016,7 @@ public class TelegramBotTest {
                 .ipAddress(ipAddress)
                 .maxConnections(100)
                 .allowedUpdates(allowedUpdates)
+                .secretToken("secret-token")
                 .dropPendingUpdates(true)
         );
         assertTrue(response.isOk());
