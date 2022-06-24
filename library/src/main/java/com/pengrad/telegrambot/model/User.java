@@ -15,6 +15,8 @@ public class User implements Serializable {
     private String last_name;
     private String username;
     private String language_code;
+    private Boolean is_premium;
+    private Boolean added_to_attachment_menu;
     private Boolean can_join_groups;
     private Boolean can_read_all_group_messages;
     private Boolean supports_inline_queries;
@@ -50,6 +52,14 @@ public class User implements Serializable {
         return language_code;
     }
 
+    public Boolean isPremium() {
+        return is_premium;
+    }
+
+    public Boolean addedToAttachmentMenu() {
+        return added_to_attachment_menu;
+    }
+
     public Boolean canJoinGroups() {
         return can_join_groups;
     }
@@ -74,6 +84,10 @@ public class User implements Serializable {
         if (first_name != null ? !first_name.equals(user.first_name) : user.first_name != null) return false;
         if (last_name != null ? !last_name.equals(user.last_name) : user.last_name != null) return false;
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
+        if (is_premium != null ? !is_premium.equals(user.is_premium) : user.is_premium != null)
+            return false;
+        if (added_to_attachment_menu != null ? !added_to_attachment_menu.equals(user.added_to_attachment_menu) : user.added_to_attachment_menu != null)
+            return false;
         if (language_code != null ? !language_code.equals(user.language_code) : user.language_code != null)
             return false;
         if (can_join_groups != null ? !can_join_groups.equals(user.can_join_groups) : user.can_join_groups != null)
@@ -97,6 +111,8 @@ public class User implements Serializable {
                 ", last_name='" + last_name + '\'' +
                 ", username='" + username + '\'' +
                 ", language_code='" + language_code + '\'' +
+                ", is_premium='" + is_premium + '\'' +
+                ", added_to_attachment_menu='" + added_to_attachment_menu + '\'' +
                 ", can_join_groups=" + can_join_groups +
                 ", can_read_all_group_messages=" + can_read_all_group_messages +
                 ", supports_inline_queries=" + supports_inline_queries +

@@ -32,6 +32,8 @@ public class Chat implements Serializable {
     private ChatPhoto photo;
     private String bio;
     private Boolean has_private_forwards;
+    private Boolean join_to_send_messages;
+    private Boolean join_by_request;
     private String description;
     private String invite_link;
     private Message pinned_message;
@@ -78,6 +80,14 @@ public class Chat implements Serializable {
 
     public Boolean hasPrivateForwards() {
         return has_private_forwards;
+    }
+
+    public Boolean joinToSendMessages() {
+        return join_to_send_messages;
+    }
+
+    public Boolean joinByRequest() {
+        return join_by_request;
     }
 
     public String description() {
@@ -138,6 +148,8 @@ public class Chat implements Serializable {
                 Objects.equals(photo, chat.photo) &&
                 Objects.equals(bio, chat.bio) &&
                 Objects.equals(has_private_forwards, chat.has_private_forwards) &&
+                Objects.equals(join_to_send_messages, chat.join_to_send_messages) &&
+                Objects.equals(join_by_request, chat.join_by_request) &&
                 Objects.equals(description, chat.description) &&
                 Objects.equals(invite_link, chat.invite_link) &&
                 Objects.equals(pinned_message, chat.pinned_message) &&
@@ -168,6 +180,8 @@ public class Chat implements Serializable {
                 ", photo=" + photo +
                 ", bio='" + bio + '\'' +
                 ", has_private_forwards=" + has_private_forwards +
+                ", join_to_send_messages=" + join_to_send_messages +
+                ", join_by_request=" + join_by_request +
                 ", description='" + description + '\'' +
                 ", invite_link='" + invite_link + '\'' +
                 ", pinned_message=" + pinned_message +
