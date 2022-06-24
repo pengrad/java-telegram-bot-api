@@ -77,7 +77,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -112,7 +111,7 @@ public class TelegramBotTest {
 
     static {
         try {
-            props.load(new FileInputStream("local.properties"));
+            props.load(Files.newInputStream(Paths.get("local.properties")));
         } catch (Exception ignored) {
         }
 
@@ -160,8 +159,6 @@ public class TelegramBotTest {
     static String testInlineQuery;
     static String testChosenInlineResult;
     static String testPollAnswer;
-//    static String testShippingQuery;
-//    static String testPreCheckoutQuery;
 
     static Path resourcePath = Paths.get("src/test/resources");
     static File imageFile = resourcePath.resolve("image.jpg").toFile();
@@ -1410,7 +1407,7 @@ public class TelegramBotTest {
         PhotoSizeTest.checkPhotos(thumb);
         assertEquals(Integer.valueOf(100), thumb.width());
         assertEquals(Integer.valueOf(100), thumb.height());
-        assertEquals(Integer.valueOf(8244), thumb.fileSize());
+        assertEquals(Long.valueOf(8244), thumb.fileSize());
 
         // clear thumb by not sending it
         response = bot.execute(new SetStickerSetThumb(stickerSetAnim, chatId));
@@ -1523,12 +1520,12 @@ public class TelegramBotTest {
                         .thumb(thumbFile)
                         .disableContentTypeDetection(true)
         ));
-        assertEquals((Integer) 14, response.message().document().fileSize());
+        assertEquals((Long) 14L, response.message().document().fileSize());
         assertEquals(thumbSize, response.message().document().thumb().fileSize());
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
                 new InputMediaDocument(docBytes).thumb(thumbBytes)));
-        assertEquals((Integer) 14, response.message().document().fileSize());
+        assertEquals((Long) 14L, response.message().document().fileSize());
         assertEquals(thumbSize, response.message().document().thumb().fileSize());
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaDocument(docFileId)));
@@ -1536,18 +1533,18 @@ public class TelegramBotTest {
         DocumentTest.check(response.message().document());
 
 
-//        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFile)));
-//        assertEquals(Integer.valueOf(1), response.message().animation().duration());
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFile)));
+        assertEquals(Integer.valueOf(1), response.message().animation().duration());
 
-//        int expectedSize = 160; // idk why?
-//        Integer durationAnim = 17, width = 21, height = 22;
-//        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
-//                new InputMediaAnimation(gifBytes).duration(durationAnim).width(width).height(height)
-//        ));
-//        Animation animation = response.message().animation();
-//        assertEquals(1, animation.duration().intValue());
-//        assertEquals(expectedSize, animation.width().intValue());
-//        assertEquals(expectedSize, animation.height().intValue());
+        int expectedSize = 160; // idk why?
+        Integer durationAnim = 17, width = 21, height = 22;
+        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
+                new InputMediaAnimation(gifBytes).duration(durationAnim).width(width).height(height)
+        ));
+        Animation animation = response.message().animation();
+        assertEquals(1, animation.duration().intValue());
+        assertEquals(expectedSize, animation.width().intValue());
+        assertEquals(expectedSize, animation.height().intValue());
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFileId)));
         assertTrue(response.isOk());
@@ -1831,7 +1828,7 @@ public class TelegramBotTest {
     @Test
     public void loginButton() {
         String text = "login";
-        String url = "http://pengrad.herokuapp.com/hello";
+        String url = "https://pengrad.herokuapp.com/hello";
         SendResponse response = bot.execute(
                 new SendMessage(chatId, "Login button").replyMarkup(new InlineKeyboardMarkup(
                         new InlineKeyboardButton(text).loginUrl(new LoginUrl(url)
