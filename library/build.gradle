@@ -14,11 +14,6 @@ dependencies {
     testCompile 'org.reflections:reflections:0.9.12'
 }
 
-compileJava.options.encoding = 'UTF-8'
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
 jacoco {
     toolVersion = "0.8.5"
 }
