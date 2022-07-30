@@ -64,7 +64,7 @@ public class PaymentsTest {
                 .isFlexible(true)
         );
         assertTrue(response.isOk());
-        assertTrue(response.result().contains("invoice"));
+        assertTrue(response.result().contains("t.me"));
     }
 
     @Test
