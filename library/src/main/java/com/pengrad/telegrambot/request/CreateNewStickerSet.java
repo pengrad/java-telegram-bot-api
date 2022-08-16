@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.request;
 
 import com.pengrad.telegrambot.model.MaskPosition;
+import com.pengrad.telegrambot.model.Sticker.Type;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -43,5 +44,14 @@ public class CreateNewStickerSet extends AbstractUploadRequest<CreateNewStickerS
 
     public CreateNewStickerSet maskPosition(MaskPosition maskPosition) {
         return add("mask_position", maskPosition).containsMasks(true);
+    }
+
+    /**
+     * Type of stickers in the set.
+     * @param stickerType pass “regular” or “mask”. "custom_emoji" is defaulted to "regular".
+     * @return a CreateNewStickerSet object
+     */
+    public CreateNewStickerSet stickerType(Type stickerType) {
+        return add("sticker_type", stickerType.name());
     }
 }
