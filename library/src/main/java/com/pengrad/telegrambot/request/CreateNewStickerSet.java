@@ -38,6 +38,10 @@ public class CreateNewStickerSet extends AbstractUploadRequest<CreateNewStickerS
         add("emojis", emojis);
     }
 
+    /**
+     * @deprecated Use stickerType(Type.mask) instead
+     */
+    @Deprecated
     public CreateNewStickerSet containsMasks(boolean containsMasks) {
         return add("contains_masks", containsMasks);
     }
