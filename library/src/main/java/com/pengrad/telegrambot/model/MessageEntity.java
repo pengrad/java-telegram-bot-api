@@ -12,7 +12,7 @@ public class MessageEntity implements Serializable {
 
     public enum Type {
         mention, hashtag, cashtag, bot_command, url, email, phone_number, bold, italic, code, pre, text_link,
-        text_mention, underline, strikethrough, spoiler
+        text_mention, underline, strikethrough, spoiler, custom_emoji
     }
 
     private Type type;
@@ -21,6 +21,7 @@ public class MessageEntity implements Serializable {
     private String url;
     private User user;
     private String language;
+    private String custom_emoji_id;
 
     private MessageEntity() {
     }
@@ -55,6 +56,10 @@ public class MessageEntity implements Serializable {
         return language;
     }
 
+    public String customEmojiId() {
+        return custom_emoji_id;
+    }
+
     public MessageEntity url(String url) {
         this.url = url;
         return this;
@@ -70,6 +75,11 @@ public class MessageEntity implements Serializable {
         return this;
     }
 
+    public MessageEntity customEmojiId(String custom_emoji_id) {
+        this.custom_emoji_id = custom_emoji_id;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,12 +90,13 @@ public class MessageEntity implements Serializable {
                 Objects.equals(length, that.length) &&
                 Objects.equals(url, that.url) &&
                 Objects.equals(user, that.user) &&
-                Objects.equals(language, that.language);
+                Objects.equals(language, that.language) &&
+                Objects.equals(custom_emoji_id, that.custom_emoji_id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, offset, length, url, user, language);
+        return Objects.hash(type, offset, length, url, user, language, custom_emoji_id);
     }
 
     @Override
@@ -97,6 +108,7 @@ public class MessageEntity implements Serializable {
                 ", url='" + url + '\'' +
                 ", user=" + user +
                 ", language='" + language + '\'' +
+                ", custom_emoji_id='" + custom_emoji_id + '\'' +
                 '}';
     }
 }
