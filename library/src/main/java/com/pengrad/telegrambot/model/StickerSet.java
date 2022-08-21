@@ -68,6 +68,7 @@ public class StickerSet implements Serializable {
                 Objects.equals(sticker_type, that.sticker_type) &&
                 Objects.equals(is_animated, that.is_animated) &&
                 Objects.equals(is_video, that.is_video) &&
+                Objects.equals(contains_masks, that.contains_masks) &&
                 Arrays.equals(stickers, that.stickers) &&
                 Objects.equals(thumb, that.thumb);
     }
@@ -87,6 +88,7 @@ public class StickerSet implements Serializable {
                 ", sticker_type='" + sticker_type + '\'' +
                 ", is_animated=" + is_animated +
                 ", is_video=" + is_video +
+                ", contains_masks=" + contains_masks +
                 ", stickers=" + Arrays.toString(stickers) +
                 ", thumb=" + thumb +
                 '}';

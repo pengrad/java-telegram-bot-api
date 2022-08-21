@@ -1313,6 +1313,7 @@ public class TelegramBotTest {
             StickerTest.check(sticker, true, true);
         }
         assertTrue(stickerSet.containsMasks());
+        assertEquals(stickerSet.stickerType(), Sticker.Type.mask);
         assertEquals(TelegramBotTest.stickerSet, stickerSet.name());
         assertEquals("test1", stickerSet.title());
         assertFalse(stickerSet.isAnimated());
@@ -1338,7 +1339,7 @@ public class TelegramBotTest {
         BaseResponse response = bot.execute(
                 CreateNewStickerSet.pngSticker(chatId, "test" + System.currentTimeMillis() + "_by_pengrad_test_bot",
                                 "test1", "\uD83D\uDE00", stickerFile)
-                        .containsMasks(true)
+                        .stickerType(Sticker.Type.mask)
                         .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f)));
         assertTrue(response.isOk());
     }
@@ -1349,7 +1350,7 @@ public class TelegramBotTest {
         BaseResponse response = bot.execute(
                 CreateNewStickerSet.webmSticker(chatId, setName,
                                 "test1", "\uD83D\uDE00", stickerFileVid)
-                        .containsMasks(true)
+                        .stickerType(Sticker.Type.mask)
                         .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f)));
         assertTrue(response.isOk());
 
