@@ -60,6 +60,10 @@ public class PromoteChatMember extends BaseRequest<PromoteChatMember, BaseRespon
         return add("can_pin_messages", canPinMessages);
     }
 
+    public PromoteChatMember canManageTopics(boolean canManageTopics) {
+        return add("can_manage_topics", canManageTopics);
+    }
+
     public PromoteChatMember canPromoteMembers(boolean canPromoteMembers) {
         return add("can_promote_members", canPromoteMembers);
     }

@@ -26,6 +26,10 @@ public class SendMediaGroup extends BaseRequest<SendMediaGroup, MessagesResponse
         }
     }
 
+    public SendMediaGroup messageThreadId(Integer messageThreadId) {
+        return add("message_thread_id", messageThreadId);
+    }
+
     public SendMediaGroup disableNotification(boolean disableNotification) {
         return add("disable_notification", disableNotification);
     }
