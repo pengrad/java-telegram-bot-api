@@ -305,6 +305,8 @@ public class TelegramBotTest {
                         .canPinMessages(false)
                         .canManageChat(false)
                         .canManageVoiceChats(false)
+                        .canManageVideoChats(false)
+                        .canManageTopics(false)
                         .canPromoteMembers(true));
         assertTrue(response.isOk());
     }
@@ -522,7 +524,7 @@ public class TelegramBotTest {
 
         chat = bot.execute(new GetChat(chatId)).chat();
         assertNotNull(chat.firstName());
-        assertNotNull(chat.lastName());
+        assertNull(chat.lastName());
         assertEquals("yo", chat.bio());
         assertTrue(chat.hasPrivateForwards());
 
@@ -580,6 +582,7 @@ public class TelegramBotTest {
         assertFalse(chatMember.canSendMediaMessages());
         assertFalse(chatMember.canSendOtherMessages());
         assertFalse(chatMember.canAddWebPagePreviews());
+        assertTrue(chatMember.canManageTopics());
     }
 
     @Test
@@ -691,7 +694,7 @@ public class TelegramBotTest {
         assertEquals(Chat.Type.channel, chat.type());
         assertNull(message.forwardSenderName());
 
-        message = bot.execute(new ForwardMessage(chatId, groupId, 352)).message();
+        message = bot.execute(new ForwardMessage(chatId, groupId, 352).messageThreadId(0)).message();
         assertEquals(MessageEntity.Type.text_mention, message.entities()[0].type());
         assertNotNull(message.entities()[0].user());
         assertNotNull(message.forwardSenderName());
@@ -700,6 +703,7 @@ public class TelegramBotTest {
     @Test
     public void copyMessage() {
         MessageIdResponse response = bot.execute(new CopyMessage(chatId, chatId, forwardMessageId)
+                .messageThreadId(0)
                 .caption("new **caption**")
                 .parseMode(ParseMode.MarkdownV2)
                 .captionEntities(new MessageEntity(MessageEntity.Type.bold, 0, 1))
@@ -1209,7 +1213,7 @@ public class TelegramBotTest {
 
     @Test
     public void setChatPermissions() {
-        for (boolean bool : new boolean[]{true, false}) {
+        for (boolean bool : new boolean[]{false, true}) {
             ChatPermissions setPerms = new ChatPermissions();
             setPerms.canSendMessages(bool);
             setPerms.canSendMediaMessages(bool);
@@ -1219,6 +1223,7 @@ public class TelegramBotTest {
             setPerms.canChangeInfo(bool);
             setPerms.canInviteUsers(bool);
             setPerms.canPinMessages(bool);
+            setPerms.canManageTopics(bool);
             BaseResponse response = bot.execute(new SetChatPermissions(groupId, setPerms));
             assertTrue(response.isOk());
 
@@ -1233,6 +1238,7 @@ public class TelegramBotTest {
                 assertFalse(permissions.canChangeInfo());
                 assertTrue(permissions.canInviteUsers());
                 assertFalse(permissions.canPinMessages());
+                assertFalse(permissions.canManageTopics());
             } else {
                 assertFalse(permissions.canSendMessages());
                 assertFalse(permissions.canSendMediaMessages());
@@ -1242,6 +1248,7 @@ public class TelegramBotTest {
                 assertFalse(permissions.canChangeInfo());
                 assertFalse(permissions.canInviteUsers());
                 assertFalse(permissions.canPinMessages());
+                assertFalse(permissions.canManageTopics());
             }
         }
     }
@@ -1492,7 +1499,7 @@ public class TelegramBotTest {
                 new InputMediaVideo(videoFile),
                 new InputMediaVideo(videoBytes).caption("my video <b>bold</b>").parseMode(ParseMode.HTML)
                         .duration(10).width(11).height(12).supportsStreaming(true)
-        ));
+        ).messageThreadId(0));
         assertTrue(response.isOk());
         assertEquals(6, response.messages().length);
 
@@ -1768,7 +1775,7 @@ public class TelegramBotTest {
     public void stopPoll() {
         String question = "Question ?";
         String[] answers = {"Answer 1", "Answer 2"};
-        SendResponse sendResponse = bot.execute(new SendPoll(groupId, question, answers));
+        SendResponse sendResponse = bot.execute(new SendPoll(groupId, question, answers).messageThreadId(0));
         Integer messageId = sendResponse.message().messageId();
 
         PollResponse response = bot.execute(new StopPoll(groupId, messageId));

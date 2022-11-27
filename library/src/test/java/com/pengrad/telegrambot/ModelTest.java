@@ -81,6 +81,8 @@ public class ModelTest {
 
             if (c == Message.class) {
                 verifierApi.withIgnoredFields("video_chat_started");
+                verifierApi.withIgnoredFields("forum_topic_closed");
+                verifierApi.withIgnoredFields("forum_topic_reopened");
             }
 
             verifierApi.verify();

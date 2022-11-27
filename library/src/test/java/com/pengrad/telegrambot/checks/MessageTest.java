@@ -2,8 +2,7 @@ package com.pengrad.telegrambot.checks;
 
 import com.pengrad.telegrambot.model.Message;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * stas
@@ -33,5 +32,7 @@ public class MessageTest {
         assertNull(message.pinnedMessage());
         assertNull(message.successfulPayment());
         assertNull(message.connectedWebsite());
+        assertNull(message.messageThreadId());
+        assertFalse(message.isTopicMessage());
     }
 }
