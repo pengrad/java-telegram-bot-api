@@ -15,6 +15,7 @@ public class Message implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private Integer message_id;
+    private Integer message_thread_id;
     private User from;
     private Chat sender_chat;
     private Integer date;
@@ -25,6 +26,7 @@ public class Message implements Serializable {
     private String forward_signature;
     private String forward_sender_name;
     private Integer forward_date;
+    private Boolean is_topic_message;
     private Boolean is_automatic_forward;
     private Message reply_to_message;
     private User via_bot;
@@ -67,6 +69,9 @@ public class Message implements Serializable {
     private String connected_website;
     private PassportData passport_data;
     private ProximityAlertTriggered proximity_alert_triggered;
+    private ForumTopicCreated forum_topic_created;
+    private ForumTopicClosed forum_topic_closed;
+    private ForumTopicReopened forum_topic_reopened;
     private VideoChatStarted video_chat_started;
     private VideoChatEnded video_chat_ended;
     private VideoChatParticipantsInvited video_chat_participants_invited;
@@ -76,6 +81,10 @@ public class Message implements Serializable {
 
     public Integer messageId() {
         return message_id;
+    }
+
+    public Integer messageThreadId() {
+        return message_thread_id;
     }
 
     public User from() {
@@ -112,6 +121,10 @@ public class Message implements Serializable {
 
     public String forwardSenderName() {
         return forward_sender_name;
+    }
+
+    public Boolean isTopicMessage() {
+        return is_topic_message != null && is_topic_message;
     }
 
     public Integer forwardDate() {
@@ -286,6 +299,18 @@ public class Message implements Serializable {
         return proximity_alert_triggered;
     }
 
+    public ForumTopicCreated forumTopicCreated() {
+        return forum_topic_created;
+    }
+
+    public ForumTopicClosed forumTopicClosed() {
+        return forum_topic_closed;
+    }
+
+    public ForumTopicReopened forumTopicReopened() {
+        return forum_topic_reopened;
+    }
+
     public VideoChatStarted videoChatStarted() {
         return video_chat_started;
     }
@@ -316,6 +341,7 @@ public class Message implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
         return Objects.equals(message_id, message.message_id) &&
+                Objects.equals(message_thread_id , message.message_thread_id ) &&
                 Objects.equals(from, message.from) &&
                 Objects.equals(sender_chat, message.sender_chat) &&
                 Objects.equals(date, message.date) &&
@@ -326,6 +352,7 @@ public class Message implements Serializable {
                 Objects.equals(forward_signature, message.forward_signature) &&
                 Objects.equals(forward_sender_name, message.forward_sender_name) &&
                 Objects.equals(forward_date, message.forward_date) &&
+                Objects.equals(is_topic_message, message.is_topic_message) &&
                 Objects.equals(is_automatic_forward, message.is_automatic_forward) &&
                 Objects.equals(reply_to_message, message.reply_to_message) &&
                 Objects.equals(via_bot, message.via_bot) &&
@@ -368,6 +395,9 @@ public class Message implements Serializable {
                 Objects.equals(connected_website, message.connected_website) &&
                 Objects.equals(passport_data, message.passport_data) &&
                 Objects.equals(proximity_alert_triggered, message.proximity_alert_triggered) &&
+                Objects.equals(forum_topic_created, message.forum_topic_created) &&
+                Objects.equals(forum_topic_closed, message.forum_topic_closed) &&
+                Objects.equals(forum_topic_reopened, message.forum_topic_reopened) &&
                 Objects.equals(video_chat_started, message.video_chat_started) &&
                 Objects.equals(video_chat_ended, message.video_chat_ended) &&
                 Objects.equals(video_chat_participants_invited, message.video_chat_participants_invited) &&
@@ -385,6 +415,7 @@ public class Message implements Serializable {
     public String toString() {
         return "Message{" +
                 "message_id=" + message_id +
+                ", message_thread_id=" + message_thread_id +
                 ", from=" + from +
                 ", sender_chat=" + sender_chat +
                 ", date=" + date +
@@ -395,6 +426,7 @@ public class Message implements Serializable {
                 ", forward_signature='" + forward_signature + '\'' +
                 ", forward_sender_name='" + forward_sender_name + '\'' +
                 ", forward_date=" + forward_date +
+                ", is_topic_message=" + is_topic_message +
                 ", is_automatic_forward=" + is_automatic_forward +
                 ", reply_to_message=" + reply_to_message +
                 ", via_bot=" + via_bot +
@@ -437,6 +469,9 @@ public class Message implements Serializable {
                 ", connected_website='" + connected_website + '\'' +
                 ", passport_data=" + passport_data +
                 ", proximity_alert_triggered=" + proximity_alert_triggered +
+                ", forum_topic_created=" + forum_topic_created +
+                ", forum_topic_closed=" + forum_topic_closed +
+                ", forum_topic_reopened=" + forum_topic_reopened +
                 ", video_chat_started=" + video_chat_started +
                 ", video_chat_ended=" + video_chat_ended +
                 ", video_chat_participants_invited=" + video_chat_participants_invited +

@@ -14,6 +14,10 @@ abstract public class AbstractSendRequest<T extends AbstractSendRequest<T>> exte
         add("chat_id", chatId);
     }
 
+    public T messageThreadId(Integer messageThreadId) {
+        return add("message_thread_id", messageThreadId);
+    }
+
     public T disableNotification(boolean disableNotification) {
         return add("disable_notification", disableNotification);
     }

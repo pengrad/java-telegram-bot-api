@@ -16,6 +16,10 @@ public class CopyMessage extends BaseRequest<CopyMessage, MessageIdResponse> {
         add("chat_id", chatId).add("from_chat_id", fromChatId).add("message_id", messageId);
     }
 
+    public CopyMessage messageThreadId(Integer messageThreadId) {
+        return add("message_thread_id", messageThreadId);
+    }
+
     public CopyMessage caption(String caption) {
         return add("caption", caption);
     }

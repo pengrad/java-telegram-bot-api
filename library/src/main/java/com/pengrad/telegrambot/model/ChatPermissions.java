@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -17,6 +18,7 @@ public class ChatPermissions implements Serializable {
     private Boolean can_change_info;
     private Boolean can_invite_users;
     private Boolean can_pin_messages;
+    private Boolean can_manage_topics;
 
     public Boolean canSendMessages() {
         return can_send_messages;
@@ -48,6 +50,10 @@ public class ChatPermissions implements Serializable {
 
     public Boolean canPinMessages() {
         return can_pin_messages;
+    }
+
+    public Boolean canManageTopics() {
+        return can_manage_topics;
     }
 
     public ChatPermissions canSendMessages(boolean canSendMessages) {
@@ -90,6 +96,11 @@ public class ChatPermissions implements Serializable {
         return this;
     }
 
+    public ChatPermissions canManageTopics(boolean canManageTopics) {
+        this.can_manage_topics = canManageTopics;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -97,33 +108,28 @@ public class ChatPermissions implements Serializable {
 
         ChatPermissions that = (ChatPermissions) o;
 
-        if (can_send_messages != null ? !can_send_messages.equals(that.can_send_messages) : that.can_send_messages != null)
-            return false;
-        if (can_send_media_messages != null ? !can_send_media_messages.equals(that.can_send_media_messages) : that.can_send_media_messages != null)
-            return false;
-        if (can_send_polls != null ? !can_send_polls.equals(that.can_send_polls) : that.can_send_polls != null) return false;
-        if (can_send_other_messages != null ? !can_send_other_messages.equals(that.can_send_other_messages) : that.can_send_other_messages != null)
-            return false;
-        if (can_add_web_page_previews != null ? !can_add_web_page_previews.equals(that.can_add_web_page_previews) : that.can_add_web_page_previews != null)
-            return false;
-        if (can_change_info != null ? !can_change_info.equals(that.can_change_info) : that.can_change_info != null)
-            return false;
-        if (can_invite_users != null ? !can_invite_users.equals(that.can_invite_users) : that.can_invite_users != null)
-            return false;
-        return can_pin_messages != null ? can_pin_messages.equals(that.can_pin_messages) : that.can_pin_messages == null;
+        return Objects.equals(can_send_messages, that.can_send_messages) &&
+                Objects.equals(can_send_media_messages, that.can_send_media_messages) &&
+                Objects.equals(can_send_polls, that.can_send_polls) &&
+                Objects.equals(can_send_other_messages, that.can_send_other_messages) &&
+                Objects.equals(can_add_web_page_previews, that.can_add_web_page_previews) &&
+                Objects.equals(can_change_info, that.can_change_info) &&
+                Objects.equals(can_invite_users, that.can_invite_users) &&
+                Objects.equals(can_pin_messages, that.can_pin_messages) &&
+                Objects.equals(can_manage_topics, that.can_manage_topics);
     }
 
     @Override
     public int hashCode() {
-        int result = can_send_messages != null ? can_send_messages.hashCode() : 0;
-        result = 31 * result + (can_send_media_messages != null ? can_send_media_messages.hashCode() : 0);
-        result = 31 * result + (can_send_polls != null ? can_send_polls.hashCode() : 0);
-        result = 31 * result + (can_send_other_messages != null ? can_send_other_messages.hashCode() : 0);
-        result = 31 * result + (can_add_web_page_previews != null ? can_add_web_page_previews.hashCode() : 0);
-        result = 31 * result + (can_change_info != null ? can_change_info.hashCode() : 0);
-        result = 31 * result + (can_invite_users != null ? can_invite_users.hashCode() : 0);
-        result = 31 * result + (can_pin_messages != null ? can_pin_messages.hashCode() : 0);
-        return result;
+        return Objects.hash(can_send_messages,
+                can_send_media_messages,
+                can_send_polls,
+                can_send_other_messages,
+                can_add_web_page_previews,
+                can_change_info,
+                can_invite_users,
+                can_pin_messages,
+                can_manage_topics);
     }
 
     @Override
@@ -137,6 +143,7 @@ public class ChatPermissions implements Serializable {
                 ", can_change_info=" + can_change_info +
                 ", can_invite_users=" + can_invite_users +
                 ", can_pin_messages=" + can_pin_messages +
+                ", can_manage_topics=" + can_manage_topics +
                 '}';
     }
 }

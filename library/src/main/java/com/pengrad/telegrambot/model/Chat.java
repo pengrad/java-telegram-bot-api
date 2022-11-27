@@ -3,6 +3,7 @@ package com.pengrad.telegrambot.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -29,7 +30,10 @@ public class Chat implements Serializable {
     private String first_name;
     private String last_name;
 
+    private Boolean is_forum;
     private ChatPhoto photo;
+    private String[] active_usernames;
+    private String emoji_status_custom_emoji_id;
     private String bio;
     private Boolean has_private_forwards;
     private Boolean has_restricted_voice_and_video_messages;
@@ -67,12 +71,24 @@ public class Chat implements Serializable {
         return username;
     }
 
+    public Boolean isForum() {
+        return is_forum != null && is_forum;
+    }
+
     public String title() {
         return title;
     }
 
     public ChatPhoto photo() {
         return photo;
+    }
+
+    public String[] getActiveUsernames() {
+        return active_usernames;
+    }
+
+    public String getEmojiStatusCustomEmojiId() {
+        return emoji_status_custom_emoji_id;
     }
 
     public String bio() {
@@ -148,9 +164,12 @@ public class Chat implements Serializable {
                 type == chat.type &&
                 Objects.equals(first_name, chat.first_name) &&
                 Objects.equals(last_name, chat.last_name) &&
+                Objects.equals(is_forum, chat.is_forum) &&
                 Objects.equals(username, chat.username) &&
                 Objects.equals(title, chat.title) &&
                 Objects.equals(photo, chat.photo) &&
+                Arrays.equals(active_usernames, chat.active_usernames) &&
+                Objects.equals(emoji_status_custom_emoji_id, chat.emoji_status_custom_emoji_id) &&
                 Objects.equals(bio, chat.bio) &&
                 Objects.equals(has_private_forwards, chat.has_private_forwards) &&
                 Objects.equals(has_restricted_voice_and_video_messages, chat.has_restricted_voice_and_video_messages) &&
@@ -181,9 +200,12 @@ public class Chat implements Serializable {
                 ", type=" + type +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
+                ", is_forum=" + is_forum +
                 ", username='" + username + '\'' +
                 ", title='" + title + '\'' +
                 ", photo=" + photo +
+                ", active_usernames=" + Arrays.toString(active_usernames) +
+                ", emoji_status_custom_emoji_id='" + emoji_status_custom_emoji_id + '\'' +
                 ", bio='" + bio + '\'' +
                 ", has_private_forwards=" + has_private_forwards +
                 ", has_restricted_voice_and_video_messages=" + has_restricted_voice_and_video_messages +

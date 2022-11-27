@@ -31,6 +31,7 @@ public class ChatMember implements Serializable {
     private Boolean can_change_info;
     private Boolean can_invite_users;
     private Boolean can_pin_messages;
+    private Boolean can_manage_topics;
     private Boolean is_member;
     private Boolean can_send_messages;
     private Boolean can_send_media_messages;
@@ -109,6 +110,10 @@ public class ChatMember implements Serializable {
         return can_pin_messages;
     }
 
+    public Boolean canManageTopics() {
+        return can_manage_topics;
+    }
+
     public Boolean isMember() {
         return is_member;
     }
@@ -154,6 +159,7 @@ public class ChatMember implements Serializable {
                 Objects.equals(can_change_info, that.can_change_info) &&
                 Objects.equals(can_invite_users, that.can_invite_users) &&
                 Objects.equals(can_pin_messages, that.can_pin_messages) &&
+                Objects.equals(can_manage_topics, that.can_manage_topics) &&
                 Objects.equals(is_member, that.is_member) &&
                 Objects.equals(can_send_messages, that.can_send_messages) &&
                 Objects.equals(can_send_media_messages, that.can_send_media_messages) &&
@@ -164,7 +170,29 @@ public class ChatMember implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, status, custom_title, is_anonymous, until_date, can_be_edited, can_manage_chat, can_post_messages, can_edit_messages, can_delete_messages, can_manage_video_chats, can_restrict_members, can_promote_members, can_change_info, can_invite_users, can_pin_messages, is_member, can_send_messages, can_send_media_messages, can_send_polls, can_send_other_messages, can_add_web_page_previews);
+        return Objects.hash(user,
+                status,
+                custom_title,
+                is_anonymous,
+                until_date,
+                can_be_edited,
+                can_manage_chat,
+                can_post_messages,
+                can_edit_messages,
+                can_delete_messages,
+                can_manage_video_chats,
+                can_restrict_members,
+                can_promote_members,
+                can_change_info,
+                can_invite_users,
+                can_pin_messages,
+                can_manage_topics,
+                is_member,
+                can_send_messages,
+                can_send_media_messages,
+                can_send_polls,
+                can_send_other_messages,
+                can_add_web_page_previews);
     }
 
     @Override
@@ -186,6 +214,7 @@ public class ChatMember implements Serializable {
                 ", can_change_info=" + can_change_info +
                 ", can_invite_users=" + can_invite_users +
                 ", can_pin_messages=" + can_pin_messages +
+                ", can_manage_topics=" + can_manage_topics +
                 ", is_member=" + is_member +
                 ", can_send_messages=" + can_send_messages +
                 ", can_send_media_messages=" + can_send_media_messages +
