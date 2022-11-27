@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.request;
 
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
+import com.pengrad.telegrambot.model.request.InputFile;
 import com.pengrad.telegrambot.model.request.InputMedia;
 import com.pengrad.telegrambot.response.BaseResponse;
 import com.pengrad.telegrambot.response.SendResponse;
@@ -34,6 +35,10 @@ public class EditMessageMedia extends BaseRequest<EditMessageMedia, BaseResponse
         Map<String, Object> attachments = media.getAttachments();
         if (attachments != null && attachments.size() > 0) {
             addAll(attachments);
+            isMultipart = true;
+        }
+        if (media.inputFile() != null) {
+            add(media.getInputFileId(), media.inputFile());
             isMultipart = true;
         }
     }

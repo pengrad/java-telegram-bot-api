@@ -37,7 +37,7 @@ public class InputMediaDocument extends InputMedia<InputMediaDocument> implement
     }
 
     @Override
-    public String getContentType() {
+    public String getDefaultContentType() {
         return ContentTypes.DOC_MIME_TYPE;
     }
 }

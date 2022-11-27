@@ -168,7 +168,7 @@ public class TelegramBotTest {
     static File stickerFileVid = resourcePath.resolve("sticker_vid.webm").toFile();
     static File audioFile = resourcePath.resolve("beep.mp3").toFile();
     static byte[] audioBytes;
-    static File docFile = resourcePath.resolve("doc.txt").toFile();
+    static File docFile = resourcePath.resolve("dummy.pdf").toFile();
     static byte[] docBytes;
     static File videoFile = resourcePath.resolve("tabs.mp4").toFile();
     static byte[] videoBytes;
@@ -873,12 +873,15 @@ public class TelegramBotTest {
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
 
-        message = bot.execute(new SendDocument(chatId, docBytes).thumb(thumbBytes)).message();
+        message = bot.execute(
+                        new SendDocument(chatId, docBytes).thumb(thumbBytes)
+                                .fileName("test.pdf").contentType("application/pdf"))
+                .message();
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
         assertEquals(thumbSize, message.document().thumb().fileSize());
 
-        String caption = "caption <b>bold</b>", fileName = "my doc.zip";
+        String caption = "caption <b>bold</b>", fileName = "my doc.pdf";
         ParseMode parseMode = ParseMode.HTML;
         message = bot.execute(
                         new SendDocument(chatId, docFile).fileName(fileName).thumb(thumbFile).caption(caption).parseMode(parseMode)
@@ -1527,6 +1530,19 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void sendMediaGroupDocuments() {
+        MessagesResponse response = bot.execute(new SendMediaGroup(chatId,
+                new InputMediaDocument(docFile),
+                new InputMediaDocument(docBytes).fileName("test.pdf")
+        ));
+        assertTrue(response.isOk());
+        assertEquals(2, response.messages().length);
+        assertNotNull(response.messages()[0].mediaGroupId());
+        System.out.println(response.messages()[0].document());
+        System.out.println(response.messages()[1].document());
+    }
+
+    @Test
     public void editMessageMedia() {
         int messageId = 13541;
         SendResponse response;
@@ -1536,12 +1552,12 @@ public class TelegramBotTest {
                         .thumb(thumbFile)
                         .disableContentTypeDetection(true)
         ));
-        assertEquals((Long) 14L, response.message().document().fileSize());
+        assertEquals((Long) 13264L, response.message().document().fileSize());
         assertEquals(thumbSize, response.message().document().thumb().fileSize());
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
                 new InputMediaDocument(docBytes).thumb(thumbBytes)));
-        assertEquals((Long) 14L, response.message().document().fileSize());
+        assertEquals((Long) 13264L, response.message().document().fileSize());
         assertEquals(thumbSize, response.message().document().thumb().fileSize());
 
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaDocument(docFileId)));

@@ -2,7 +2,6 @@ package com.pengrad.telegrambot.model.request;
 
 import com.pengrad.telegrambot.AttachName;
 import com.pengrad.telegrambot.model.MessageEntity;
-import com.pengrad.telegrambot.request.CopyMessage;
 
 import java.io.File;
 import java.io.Serializable;
@@ -27,7 +26,10 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
     private MessageEntity[] caption_entities;
 
     transient private Map<String, Object> attachments = new HashMap<>();
-    transient private String filename;
+    transient private InputFile inputFile;
+    transient private String inputFileAttachId;
+    transient private String fileName;
+    transient private String contentType;
 
     InputMedia(String type, Object media) {
         this.type = type;
@@ -36,15 +38,28 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
         } else {
             String attachName = AttachName.next();
             this.media = "attach://" + attachName;
-            attachments.put(attachName, media);
+            inputFileAttachId = attachName;
             if (media instanceof File) {
-                filename = ((File) media).getName();
+                fileName = ((File) media).getName();
+                inputFile = new InputFile((File) media, getFileName(), getContentType());
+            } else if (media instanceof byte[]) {
+                inputFile = new InputFile((byte[]) media, getFileName(), getContentType());
+            } else {
+                attachments.put(attachName, media);
             }
         }
     }
 
     public Map<String, Object> getAttachments() {
         return attachments;
+    }
+
+    public InputFile inputFile() {
+        return inputFile;
+    }
+
+    public String getInputFileId() {
+        return inputFileAttachId;
     }
 
     public T thumb(File thumb) {
@@ -76,11 +91,31 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
         return thisAsT;
     }
 
+    public T fileName(String fileName) {
+        if (inputFile != null) {
+            inputFile.setFileName(fileName);
+        }
+        this.fileName = fileName;
+        return thisAsT;
+    }
+
+    public T contentType(String contentType) {
+        if (inputFile != null) {
+            inputFile.setContentType(contentType);
+        }
+        this.contentType = contentType;
+        return thisAsT;
+    }
+
     public String getFileName() {
-        return filename != null ? filename : getDefaultFileName();
+        return (fileName != null && !fileName.isEmpty()) ? fileName : getDefaultFileName();
+    }
+
+    public String getContentType() {
+        return (contentType != null && !contentType.isEmpty()) ? contentType : getDefaultContentType();
     }
 
     abstract protected String getDefaultFileName();
 
-    abstract public String getContentType();
+    abstract protected String getDefaultContentType();
 }

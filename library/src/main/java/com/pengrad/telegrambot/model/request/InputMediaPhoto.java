@@ -30,7 +30,7 @@ public class InputMediaPhoto extends InputMedia<InputMediaPhoto> implements Seri
     }
 
     @Override
-    public String getContentType() {
+    public String getDefaultContentType() {
         return ContentTypes.PHOTO_MIME_TYPE;
     }
 }

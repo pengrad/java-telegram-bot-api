@@ -42,7 +42,7 @@ public class SendVideoNote extends AbstractMultipartRequest<SendVideoNote> {
     }
 
     @Override
-    public String getContentType() {
+    public String getDefaultContentType() {
         return ContentTypes.VIDEO_MIME_TYPE;
     }
 

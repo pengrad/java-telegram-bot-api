@@ -47,7 +47,7 @@ public class InputMediaAnimation extends InputMedia<InputMediaAnimation> impleme
     }
 
     @Override
-    public String getContentType() {
+    public String getDefaultContentType() {
         return ContentTypes.GIF_MIME_TYPE;
     }
 }

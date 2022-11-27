@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.impl;
 
 import com.google.gson.Gson;
 import com.pengrad.telegrambot.Callback;
+import com.pengrad.telegrambot.model.request.InputFile;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.response.BaseResponse;
 import okhttp3.Call;
@@ -106,9 +107,19 @@ public class TelegramBotClient {
                 String name = parameter.getKey();
                 Object value = parameter.getValue();
                 if (value instanceof byte[]) {
-                    builder.addFormDataPart(name, request.getFileName(), RequestBody.create(contentType, (byte[]) value));
+                    builder.addFormDataPart(name, request.getFileName(), RequestBody.create((byte[]) value, contentType));
                 } else if (value instanceof File) {
-                    builder.addFormDataPart(name, request.getFileName(), RequestBody.create(contentType, (File) value));
+                    builder.addFormDataPart(name, request.getFileName(), RequestBody.create((File) value, contentType));
+                } else if (value instanceof InputFile) {
+                    InputFile inputFile = (InputFile) value;
+                    contentType = MediaType.parse(inputFile.getContentType());
+                    RequestBody body;
+                    if (inputFile.getFile() != null) {
+                        body = RequestBody.create(inputFile.getFile(), contentType);
+                    } else {
+                        body = RequestBody.create(inputFile.getBytes(), contentType);
+                    }
+                    builder.addFormDataPart(name, ((InputFile) value).getFileName(), body);
                 } else {
                     builder.addFormDataPart(name, toParamValue(value));
                 }

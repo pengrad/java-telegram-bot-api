@@ -46,7 +46,7 @@ public class SendPhoto extends AbstractMultipartRequest<SendPhoto> {
     }
 
     @Override
-    public String getContentType() {
+    public String getDefaultContentType() {
         return ContentTypes.PHOTO_MIME_TYPE;
     }
 }

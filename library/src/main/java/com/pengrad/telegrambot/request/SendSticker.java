@@ -31,7 +31,7 @@ public class SendSticker extends AbstractMultipartRequest<SendSticker> {
     }
 
     @Override
-    public String getContentType() {
+    public String getDefaultContentType() {
         return ContentTypes.PHOTO_MIME_TYPE;
     }
 

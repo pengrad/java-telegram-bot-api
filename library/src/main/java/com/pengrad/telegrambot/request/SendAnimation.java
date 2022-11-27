@@ -66,7 +66,7 @@ public class SendAnimation extends AbstractMultipartRequest<SendAnimation> {
     }
 
     @Override
-    public String getContentType() {
+    public String getDefaultContentType() {
         return ContentTypes.GIF_MIME_TYPE;
     }
 }

@@ -23,6 +23,10 @@ public class SendMediaGroup extends BaseRequest<SendMediaGroup, MessagesResponse
                 addAll(attachments);
                 isMultipart = true;
             }
+            if (m.inputFile() != null) {
+                add(m.getInputFileId(), m.inputFile());
+                isMultipart = true;
+            }
         }
     }
 

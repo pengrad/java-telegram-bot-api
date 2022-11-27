@@ -66,7 +66,7 @@ public class SendAudio extends AbstractMultipartRequest<SendAudio> {
     }
 
     @Override
-    public String getContentType() {
+    public String getDefaultContentType() {
         return ContentTypes.AUDIO_MIME_TYPE;
     }
 }

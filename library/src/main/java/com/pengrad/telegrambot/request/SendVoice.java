@@ -50,7 +50,7 @@ public class SendVoice extends AbstractMultipartRequest<SendVoice> {
     }
 
     @Override
-    public String getContentType() {
+    public String getDefaultContentType() {
         return ContentTypes.VOICE_MIME_TYPE;
     }
 }

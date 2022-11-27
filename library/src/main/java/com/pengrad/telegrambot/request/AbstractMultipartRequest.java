@@ -10,6 +10,7 @@ abstract public class AbstractMultipartRequest<T extends AbstractMultipartReques
 
     private boolean isMultipart;
     private String fileName;
+    private String contentType;
 
     public AbstractMultipartRequest(Object chatId, Object file) {
         super(chatId);
@@ -28,6 +29,11 @@ abstract public class AbstractMultipartRequest<T extends AbstractMultipartReques
 
     public T fileName(String fileName) {
         this.fileName = fileName;
+        return thisAsT;
+    }
+
+    public T contentType(String contentType) {
+        this.contentType = contentType;
         return thisAsT;
     }
 
@@ -51,9 +57,13 @@ abstract public class AbstractMultipartRequest<T extends AbstractMultipartReques
     }
 
     @Override
-    abstract public String getContentType();
+    public String getContentType() {
+        return (contentType != null && !contentType.isEmpty()) ? contentType : getDefaultContentType();
+    }
 
     abstract protected String getDefaultFileName();
+
+    abstract protected String getDefaultContentType();
 
     abstract protected String getFileParamName();
 }

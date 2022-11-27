@@ -53,7 +53,7 @@ public class InputMediaVideo extends InputMedia<InputMediaVideo> implements Seri
     }
 
     @Override
-    public String getContentType() {
+    public String getDefaultContentType() {
         return ContentTypes.VIDEO_MIME_TYPE;
     }
 }

@@ -70,7 +70,7 @@ public class SendVideo extends AbstractMultipartRequest<SendVideo> {
     }
 
     @Override
-    public String getContentType() {
+    public String getDefaultContentType() {
         return ContentTypes.VIDEO_MIME_TYPE;
     }
 }
