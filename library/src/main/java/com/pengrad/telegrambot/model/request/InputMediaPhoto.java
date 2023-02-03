@@ -12,6 +12,8 @@ import java.io.Serializable;
 public class InputMediaPhoto extends InputMedia<InputMediaPhoto> implements Serializable {
     private final static long serialVersionUID = 1L;
 
+    private Boolean has_spoiler;
+
     public InputMediaPhoto(String media) {
         super("photo", media);
     }
@@ -22,6 +24,11 @@ public class InputMediaPhoto extends InputMedia<InputMediaPhoto> implements Seri
 
     public InputMediaPhoto(byte[] media) {
         super("photo", media);
+    }
+
+    public InputMediaPhoto hasSpoiler(boolean has_spoiler) {
+        this.has_spoiler = has_spoiler;
+        return this;
     }
 
     @Override

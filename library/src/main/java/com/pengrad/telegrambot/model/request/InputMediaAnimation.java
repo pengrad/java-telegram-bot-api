@@ -13,6 +13,7 @@ public class InputMediaAnimation extends InputMedia<InputMediaAnimation> impleme
     private final static long serialVersionUID = 0L;
 
     private Integer width, height, duration;
+    private Boolean has_spoiler;
 
     public InputMediaAnimation(String media) {
         super("animation", media);
@@ -38,6 +39,11 @@ public class InputMediaAnimation extends InputMedia<InputMediaAnimation> impleme
 
     public InputMediaAnimation duration(Integer duration) {
         this.duration = duration;
+        return this;
+    }
+
+    public InputMediaAnimation hasSpoiler(boolean has_spoiler) {
+        this.has_spoiler = has_spoiler;
         return this;
     }
 
