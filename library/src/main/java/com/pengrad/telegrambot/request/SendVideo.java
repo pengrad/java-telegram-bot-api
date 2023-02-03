@@ -59,6 +59,10 @@ public class SendVideo extends AbstractMultipartRequest<SendVideo> {
         return add("supports_streaming", supportsStreaming);
     }
 
+    public SendVideo hasSpoiler(boolean has_spoiler) {
+        return add("has_spoiler", has_spoiler);
+    }
+
     @Override
     protected String getFileParamName() {
         return "video";

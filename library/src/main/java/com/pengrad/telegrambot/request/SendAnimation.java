@@ -55,6 +55,10 @@ public class SendAnimation extends AbstractMultipartRequest<SendAnimation> {
         return add("caption_entities", entities);
     }
 
+    public SendAnimation hasSpoiler(boolean has_spoiler) {
+        return add("has_spoiler", has_spoiler);
+    }
+
     @Override
     protected String getFileParamName() {
         return "animation";
