@@ -71,8 +71,13 @@ public class Message implements Serializable {
     private PassportData passport_data;
     private ProximityAlertTriggered proximity_alert_triggered;
     private ForumTopicCreated forum_topic_created;
+    private ForumTopicEdited forum_topic_edited;
     private ForumTopicClosed forum_topic_closed;
     private ForumTopicReopened forum_topic_reopened;
+    private GeneralForumTopicHidden general_forum_topic_hidden;
+    private GeneralForumTopicUnhidden general_forum_topic_unhidden;
+    private WriteAccessAllowed write_access_allowed;
+
     private VideoChatStarted video_chat_started;
     private VideoChatEnded video_chat_ended;
     private VideoChatParticipantsInvited video_chat_participants_invited;
@@ -309,12 +314,28 @@ public class Message implements Serializable {
         return forum_topic_created;
     }
 
+    public ForumTopicEdited forumTopicEdited() {
+        return forum_topic_edited;
+    }
+
     public ForumTopicClosed forumTopicClosed() {
         return forum_topic_closed;
     }
 
     public ForumTopicReopened forumTopicReopened() {
         return forum_topic_reopened;
+    }
+
+    public GeneralForumTopicHidden generalForumTopicHidden() {
+        return general_forum_topic_hidden;
+    }
+
+    public GeneralForumTopicUnhidden generalForumTopicUnhidden() {
+        return general_forum_topic_unhidden;
+    }
+
+    public WriteAccessAllowed writeAccessAllowed() {
+        return write_access_allowed;
     }
 
     public VideoChatStarted videoChatStarted() {
@@ -403,8 +424,12 @@ public class Message implements Serializable {
                 Objects.equals(passport_data, message.passport_data) &&
                 Objects.equals(proximity_alert_triggered, message.proximity_alert_triggered) &&
                 Objects.equals(forum_topic_created, message.forum_topic_created) &&
+                Objects.equals(forum_topic_edited, message.forum_topic_edited) &&
                 Objects.equals(forum_topic_closed, message.forum_topic_closed) &&
                 Objects.equals(forum_topic_reopened, message.forum_topic_reopened) &&
+                Objects.equals(general_forum_topic_hidden, message.general_forum_topic_hidden) &&
+                Objects.equals(general_forum_topic_unhidden, message.general_forum_topic_unhidden) &&
+                Objects.equals(write_access_allowed, message.write_access_allowed) &&
                 Objects.equals(video_chat_started, message.video_chat_started) &&
                 Objects.equals(video_chat_ended, message.video_chat_ended) &&
                 Objects.equals(video_chat_participants_invited, message.video_chat_participants_invited) &&
@@ -478,8 +503,12 @@ public class Message implements Serializable {
                 ", passport_data=" + passport_data +
                 ", proximity_alert_triggered=" + proximity_alert_triggered +
                 ", forum_topic_created=" + forum_topic_created +
+                ", forum_topic_edited=" + forum_topic_edited +
                 ", forum_topic_closed=" + forum_topic_closed +
                 ", forum_topic_reopened=" + forum_topic_reopened +
+                ", general_forum_topic_hidden=" + general_forum_topic_hidden +
+                ", general_forum_topic_unhidden=" + general_forum_topic_unhidden +
+                ", write_access_allowed=" + write_access_allowed +
                 ", video_chat_started=" + video_chat_started +
                 ", video_chat_ended=" + video_chat_ended +
                 ", video_chat_participants_invited=" + video_chat_participants_invited +
