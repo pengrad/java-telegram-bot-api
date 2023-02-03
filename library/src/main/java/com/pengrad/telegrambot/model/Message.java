@@ -32,6 +32,7 @@ public class Message implements Serializable {
     private User via_bot;
     private Integer edit_date;
     private Boolean has_protected_content;
+    private Boolean has_media_spoiler;
     private String media_group_id;
     private String author_signature;
     private String text;
@@ -150,6 +151,11 @@ public class Message implements Serializable {
     public Boolean hasProtectedContent() {
         return has_protected_content;
     }
+
+    public Boolean hasMediaSpoiler() {
+        return has_media_spoiler;
+    }
+
 
     public String mediaGroupId() {
         return media_group_id;
@@ -358,6 +364,7 @@ public class Message implements Serializable {
                 Objects.equals(via_bot, message.via_bot) &&
                 Objects.equals(edit_date, message.edit_date) &&
                 Objects.equals(has_protected_content, message.has_protected_content) &&
+                Objects.equals(has_media_spoiler, message.has_media_spoiler) &&
                 Objects.equals(media_group_id, message.media_group_id) &&
                 Objects.equals(author_signature, message.author_signature) &&
                 Objects.equals(text, message.text) &&
@@ -432,6 +439,7 @@ public class Message implements Serializable {
                 ", via_bot=" + via_bot +
                 ", edit_date=" + edit_date +
                 ", has_protected_content=" + has_protected_content+
+                ", has_media_spoiler=" + has_media_spoiler+
                 ", media_group_id='" + media_group_id + '\'' +
                 ", author_signature='" + author_signature + '\'' +
                 ", text='" + text + '\'' +
