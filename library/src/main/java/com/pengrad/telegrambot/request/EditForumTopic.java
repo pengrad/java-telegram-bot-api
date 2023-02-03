@@ -4,7 +4,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
 
 public class EditForumTopic extends BaseRequest<EditForumTopic, BaseResponse> {
 
-    public EditForumTopic(Integer chatId,
+    public EditForumTopic(Long chatId,
                           Integer messageThreadId) {
         super(BaseResponse.class);
         add("chat_id", chatId);
@@ -18,7 +18,7 @@ public class EditForumTopic extends BaseRequest<EditForumTopic, BaseResponse> {
         add("message_thread_id", messageThreadId);
     }
 
-    public EditForumTopic(Integer chatId,
+    public EditForumTopic(Long chatId,
                           Integer messageThreadId,
                           String name,
                           String iconCustomEmojiId) {
