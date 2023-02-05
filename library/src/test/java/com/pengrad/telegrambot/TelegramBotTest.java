@@ -272,22 +272,19 @@ public class TelegramBotTest {
 
     @Test
     public void restrictChatMember() {
-        // old way of restrict
-        BaseResponse response = bot.execute(
-                new RestrictChatMember(groupId, memberBot)
-                        .untilDate(100)
-                        .canSendMessages(false)
-                        .canSendMediaMessages(false)
-                        .canSendOtherMessages(false)
-                        .canAddWebPagePreviews(false));
-        assertTrue(response.isOk());
-
         ChatPermissions permissions = new ChatPermissions()
                 .canChangeInfo(true)
                 .canInviteUsers(true)
                 .canPinMessages(true)
+                .canSendAudios(true)
+                .canSendDocuments(true)
+                .canSendPhotos(true)
+                .canSendVideos(true)
+                .canSendVideoNotes(true)
+                .canSendVoiceNotes(true)
                 .canSendPolls(true); // implies can_send_messages
-        response = bot.execute(new RestrictChatMember(groupId, memberBot, permissions));
+        
+        BaseResponse response = bot.execute(new RestrictChatMember(groupId, memberBot, permissions));
         assertTrue(response.isOk());
     }
 
@@ -579,7 +576,12 @@ public class TelegramBotTest {
         assertTrue(chatMember.canPinMessages());
         assertTrue(chatMember.canSendPolls());
         assertTrue(chatMember.canSendMessages());
-        assertFalse(chatMember.canSendMediaMessages());
+        assertTrue(chatMember.canSendAudios());
+        assertTrue(chatMember.canSendDocuments());
+        assertTrue(chatMember.canSendPhotos());
+        assertTrue(chatMember.canSendVideos());
+        assertTrue(chatMember.canSendVideoNotes());
+        assertTrue(chatMember.canSendVoiceNotes());
         assertFalse(chatMember.canSendOtherMessages());
         assertFalse(chatMember.canAddWebPagePreviews());
         assertTrue(chatMember.canManageTopics());
@@ -1219,7 +1221,12 @@ public class TelegramBotTest {
         for (boolean bool : new boolean[]{false, true}) {
             ChatPermissions setPerms = new ChatPermissions();
             setPerms.canSendMessages(bool);
-            setPerms.canSendMediaMessages(bool);
+            setPerms.canSendAudios(bool);
+            setPerms.canSendDocuments(bool);
+            setPerms.canSendPhotos(bool);
+            setPerms.canSendVideos(bool);
+            setPerms.canSendVideoNotes(bool);
+            setPerms.canSendVoiceNotes(bool);
             setPerms.canSendPolls(bool);
             setPerms.canSendOtherMessages(bool);
             setPerms.canAddWebPagePreviews(bool);
@@ -1234,7 +1241,12 @@ public class TelegramBotTest {
             ChatPermissions permissions = chat.permissions();
             if (bool) {
                 assertTrue(permissions.canSendMessages());
-                assertTrue(permissions.canSendMediaMessages());
+                assertTrue(permissions.canSendAudios());
+                assertTrue(permissions.canSendDocuments());
+                assertTrue(permissions.canSendPhotos());
+                assertTrue(permissions.canSendVideos());
+                assertTrue(permissions.canSendVideoNotes());
+                assertTrue(permissions.canSendVoiceNotes());
                 assertTrue(permissions.canSendPolls());
                 assertTrue(permissions.canSendOtherMessages());
                 assertTrue(permissions.canAddWebPagePreviews());
@@ -1244,7 +1256,12 @@ public class TelegramBotTest {
                 assertFalse(permissions.canManageTopics());
             } else {
                 assertFalse(permissions.canSendMessages());
-                assertFalse(permissions.canSendMediaMessages());
+                assertFalse(permissions.canSendAudios());
+                assertFalse(permissions.canSendDocuments());
+                assertFalse(permissions.canSendPhotos());
+                assertFalse(permissions.canSendVideos());
+                assertFalse(permissions.canSendVideoNotes());
+                assertFalse(permissions.canSendVoiceNotes());
                 assertFalse(permissions.canSendPolls());
                 assertFalse(permissions.canSendOtherMessages());
                 assertFalse(permissions.canAddWebPagePreviews());
