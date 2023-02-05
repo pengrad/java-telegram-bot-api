@@ -67,6 +67,8 @@ public class Message implements Serializable {
     private Message pinned_message;
     private Invoice invoice;
     private SuccessfulPayment successful_payment;
+    private UserShared user_shared;
+    private ChatShared chat_shared;
     private String connected_website;
     private PassportData passport_data;
     private ProximityAlertTriggered proximity_alert_triggered;
@@ -298,6 +300,14 @@ public class Message implements Serializable {
         return successful_payment;
     }
 
+    public UserShared userShared() {
+        return user_shared;
+    }
+
+    public ChatShared chatShared() {
+        return chat_shared;
+    }
+
     public String connectedWebsite() {
         return connected_website;
     }
@@ -420,6 +430,8 @@ public class Message implements Serializable {
                 Objects.equals(pinned_message, message.pinned_message) &&
                 Objects.equals(invoice, message.invoice) &&
                 Objects.equals(successful_payment, message.successful_payment) &&
+                Objects.equals(user_shared, message.user_shared) &&
+                Objects.equals(chat_shared, message.chat_shared) &&
                 Objects.equals(connected_website, message.connected_website) &&
                 Objects.equals(passport_data, message.passport_data) &&
                 Objects.equals(proximity_alert_triggered, message.proximity_alert_triggered) &&
@@ -499,6 +511,8 @@ public class Message implements Serializable {
                 ", pinned_message=" + pinned_message +
                 ", invoice=" + invoice +
                 ", successful_payment=" + successful_payment +
+                ", user_shared=" + user_shared +
+                ", chat_shared=" + chat_shared +
                 ", connected_website='" + connected_website + '\'' +
                 ", passport_data=" + passport_data +
                 ", proximity_alert_triggered=" + proximity_alert_triggered +
