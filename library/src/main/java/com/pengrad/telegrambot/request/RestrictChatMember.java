@@ -38,4 +38,8 @@ public class RestrictChatMember extends BaseRequest<RestrictChatMember, BaseResp
     public RestrictChatMember canAddWebPagePreviews(boolean canAddWebPagePreviews) {
         return add("can_add_web_page_previews", canAddWebPagePreviews);
     }
+
+    public RestrictChatMember useIndependentChatPermissions(boolean useIndependentChatPermissions) {
+        return add("use_independent_chat_permissions", useIndependentChatPermissions);
+    }
 }

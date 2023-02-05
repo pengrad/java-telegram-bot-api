@@ -13,4 +13,8 @@ public class SetChatPermissions extends BaseRequest<SetChatPermissions, BaseResp
         super(BaseResponse.class);
         add("chat_id", chatId).add("permissions", permissions);
     }
+
+    public SetChatPermissions useIndependentChatPermissions(boolean useIndependentChatPermissions) {
+        return add("use_independent_chat_permissions", useIndependentChatPermissions);
+    }
 }
