@@ -1,4 +1,4 @@
-name: Java CI with Gradle
+name: Gradle Test + Codecov
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  GradleTestCodecov:
 
     runs-on: ubuntu-latest
 
@@ -23,9 +23,24 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: 'gradle'
-    - name: Gradle Check
+
+    - name: Gradle Test
       run: ./gradlew clean check
+      env:
+        CHAT_ID: ${{ secrets.CHAT_ID }}
+        GROUP_ID: ${{ secrets.GROUP_ID }}
+        TEST_TOKEN: ${{ secrets.TEST_TOKEN }}
+        TEST_PASSPORT_DATA: ${{ secrets.TEST_PASSPORT_DATA }}
+        TEST_CALLBACK_QUERY: ${{ secrets.TEST_CALLBACK_QUERY }}
+        TEST_INLINE_QUERY: ${{ secrets.TEST_INLINE_QUERY }}
+        TEST_CHOSEN_INLINE_RESULT: ${{ secrets.TEST_CHOSEN_INLINE_RESULT }}
+        TEST_POLL_ANSWER: ${{ secrets.TEST_POLL_ANSWER }}
+        TEST_SHIP_QUERY: ${{ secrets.TEST_SHIP_QUERY }}
+        TEST_PRECHECKOUT_QUERY: ${{ secrets.TEST_PRECHECKOUT_QUERY }}
+        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
     - name: Gradle Jacoco
       run: ./gradlew jacocoTestReport
+
     - name: Call Codecov
       run: bash <(curl -s https://codecov.io/bash)
