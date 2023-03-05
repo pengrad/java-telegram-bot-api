@@ -1,0 +1,30 @@
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ "master" ]
+#   pull_request:
+#     branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: 'gradle'
+    - name: Gradle Check
+      run: ./gradlew clean check
+    - name: Gradle Jacoco
+      run: ./gradlew jacocoTestReport
+    - name: Call Codecov
+      run: bash <(curl -s https://codecov.io/bash)
