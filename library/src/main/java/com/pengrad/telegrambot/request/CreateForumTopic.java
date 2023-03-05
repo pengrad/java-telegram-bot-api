@@ -10,7 +10,7 @@ public class CreateForumTopic extends BaseRequest<CreateForumTopic, CreateForumT
         add("name", name);
     }
 
-    public CreateForumTopic(Integer chatId, String name) {
+    public CreateForumTopic(Long chatId, String name) {
         super(CreateForumTopicResponse.class);
         add("chat_id", chatId);
         add("name", name);

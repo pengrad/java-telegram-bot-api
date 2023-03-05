@@ -32,6 +32,7 @@ public class Message implements Serializable {
     private User via_bot;
     private Integer edit_date;
     private Boolean has_protected_content;
+    private Boolean has_media_spoiler;
     private String media_group_id;
     private String author_signature;
     private String text;
@@ -66,12 +67,19 @@ public class Message implements Serializable {
     private Message pinned_message;
     private Invoice invoice;
     private SuccessfulPayment successful_payment;
+    private UserShared user_shared;
+    private ChatShared chat_shared;
     private String connected_website;
     private PassportData passport_data;
     private ProximityAlertTriggered proximity_alert_triggered;
     private ForumTopicCreated forum_topic_created;
+    private ForumTopicEdited forum_topic_edited;
     private ForumTopicClosed forum_topic_closed;
     private ForumTopicReopened forum_topic_reopened;
+    private GeneralForumTopicHidden general_forum_topic_hidden;
+    private GeneralForumTopicUnhidden general_forum_topic_unhidden;
+    private WriteAccessAllowed write_access_allowed;
+
     private VideoChatStarted video_chat_started;
     private VideoChatEnded video_chat_ended;
     private VideoChatParticipantsInvited video_chat_participants_invited;
@@ -150,6 +158,11 @@ public class Message implements Serializable {
     public Boolean hasProtectedContent() {
         return has_protected_content;
     }
+
+    public Boolean hasMediaSpoiler() {
+        return has_media_spoiler;
+    }
+
 
     public String mediaGroupId() {
         return media_group_id;
@@ -287,6 +300,14 @@ public class Message implements Serializable {
         return successful_payment;
     }
 
+    public UserShared userShared() {
+        return user_shared;
+    }
+
+    public ChatShared chatShared() {
+        return chat_shared;
+    }
+
     public String connectedWebsite() {
         return connected_website;
     }
@@ -303,12 +324,28 @@ public class Message implements Serializable {
         return forum_topic_created;
     }
 
+    public ForumTopicEdited forumTopicEdited() {
+        return forum_topic_edited;
+    }
+
     public ForumTopicClosed forumTopicClosed() {
         return forum_topic_closed;
     }
 
     public ForumTopicReopened forumTopicReopened() {
         return forum_topic_reopened;
+    }
+
+    public GeneralForumTopicHidden generalForumTopicHidden() {
+        return general_forum_topic_hidden;
+    }
+
+    public GeneralForumTopicUnhidden generalForumTopicUnhidden() {
+        return general_forum_topic_unhidden;
+    }
+
+    public WriteAccessAllowed writeAccessAllowed() {
+        return write_access_allowed;
     }
 
     public VideoChatStarted videoChatStarted() {
@@ -358,6 +395,7 @@ public class Message implements Serializable {
                 Objects.equals(via_bot, message.via_bot) &&
                 Objects.equals(edit_date, message.edit_date) &&
                 Objects.equals(has_protected_content, message.has_protected_content) &&
+                Objects.equals(has_media_spoiler, message.has_media_spoiler) &&
                 Objects.equals(media_group_id, message.media_group_id) &&
                 Objects.equals(author_signature, message.author_signature) &&
                 Objects.equals(text, message.text) &&
@@ -392,12 +430,18 @@ public class Message implements Serializable {
                 Objects.equals(pinned_message, message.pinned_message) &&
                 Objects.equals(invoice, message.invoice) &&
                 Objects.equals(successful_payment, message.successful_payment) &&
+                Objects.equals(user_shared, message.user_shared) &&
+                Objects.equals(chat_shared, message.chat_shared) &&
                 Objects.equals(connected_website, message.connected_website) &&
                 Objects.equals(passport_data, message.passport_data) &&
                 Objects.equals(proximity_alert_triggered, message.proximity_alert_triggered) &&
                 Objects.equals(forum_topic_created, message.forum_topic_created) &&
+                Objects.equals(forum_topic_edited, message.forum_topic_edited) &&
                 Objects.equals(forum_topic_closed, message.forum_topic_closed) &&
                 Objects.equals(forum_topic_reopened, message.forum_topic_reopened) &&
+                Objects.equals(general_forum_topic_hidden, message.general_forum_topic_hidden) &&
+                Objects.equals(general_forum_topic_unhidden, message.general_forum_topic_unhidden) &&
+                Objects.equals(write_access_allowed, message.write_access_allowed) &&
                 Objects.equals(video_chat_started, message.video_chat_started) &&
                 Objects.equals(video_chat_ended, message.video_chat_ended) &&
                 Objects.equals(video_chat_participants_invited, message.video_chat_participants_invited) &&
@@ -432,6 +476,7 @@ public class Message implements Serializable {
                 ", via_bot=" + via_bot +
                 ", edit_date=" + edit_date +
                 ", has_protected_content=" + has_protected_content+
+                ", has_media_spoiler=" + has_media_spoiler+
                 ", media_group_id='" + media_group_id + '\'' +
                 ", author_signature='" + author_signature + '\'' +
                 ", text='" + text + '\'' +
@@ -466,12 +511,18 @@ public class Message implements Serializable {
                 ", pinned_message=" + pinned_message +
                 ", invoice=" + invoice +
                 ", successful_payment=" + successful_payment +
+                ", user_shared=" + user_shared +
+                ", chat_shared=" + chat_shared +
                 ", connected_website='" + connected_website + '\'' +
                 ", passport_data=" + passport_data +
                 ", proximity_alert_triggered=" + proximity_alert_triggered +
                 ", forum_topic_created=" + forum_topic_created +
+                ", forum_topic_edited=" + forum_topic_edited +
                 ", forum_topic_closed=" + forum_topic_closed +
                 ", forum_topic_reopened=" + forum_topic_reopened +
+                ", general_forum_topic_hidden=" + general_forum_topic_hidden +
+                ", general_forum_topic_unhidden=" + general_forum_topic_unhidden +
+                ", write_access_allowed=" + write_access_allowed +
                 ", video_chat_started=" + video_chat_started +
                 ", video_chat_ended=" + video_chat_ended +
                 ", video_chat_participants_invited=" + video_chat_participants_invited +

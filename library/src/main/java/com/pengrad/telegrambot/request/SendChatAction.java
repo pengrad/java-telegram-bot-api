@@ -18,4 +18,9 @@ public class SendChatAction extends BaseRequest<SendChatAction, BaseResponse> {
         super(BaseResponse.class);
         add("chat_id", chatId).add("action", action.name());
     }
+
+    public SendChatAction messageThreadId(int message_thread_id) {
+        add("message_thread_id", message_thread_id);
+        return this;
+    }
 }

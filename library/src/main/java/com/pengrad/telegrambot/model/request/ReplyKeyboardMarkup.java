@@ -17,24 +17,26 @@ public class ReplyKeyboardMarkup extends Keyboard implements Serializable {
     private boolean one_time_keyboard;
     private String input_field_placeholder;
     private boolean selective;
+    private boolean is_persistent;
 
-    public ReplyKeyboardMarkup(String[][] keyboard, boolean resize_keyboard, boolean one_time_keyboard, String input_field_placeholder, boolean selective) {
+    public ReplyKeyboardMarkup(String[][] keyboard, boolean resize_keyboard, boolean one_time_keyboard, String input_field_placeholder, boolean selective, boolean is_persistent) {
         this.keyboard = new ArrayList<>();
         this.resize_keyboard = resize_keyboard;
         this.one_time_keyboard = one_time_keyboard;
         this.input_field_placeholder = input_field_placeholder;
         this.selective = selective;
+        this.is_persistent = is_persistent;
         for (String[] line : keyboard) {
             addRow(line);
         }
     }
 
-    public ReplyKeyboardMarkup(String[][] keyboard, boolean resize_keyboard, boolean one_time_keyboard, boolean selective) {
-        this(keyboard, resize_keyboard, one_time_keyboard, null, selective);
+    public ReplyKeyboardMarkup(String[][] keyboard, boolean resize_keyboard, boolean one_time_keyboard, boolean selective, boolean is_persistent) {
+        this(keyboard, resize_keyboard, one_time_keyboard, null, selective, is_persistent);
     }
 
     public ReplyKeyboardMarkup(String[]... keyboard) {
-        this(keyboard, false, false, false);
+        this(keyboard, false, false, false, false);
     }
 
     public ReplyKeyboardMarkup(KeyboardButton[]... keyboard) {
@@ -83,6 +85,11 @@ public class ReplyKeyboardMarkup extends Keyboard implements Serializable {
 
     public ReplyKeyboardMarkup selective(boolean selective) {
         this.selective = selective;
+        return this;
+    }
+
+    public ReplyKeyboardMarkup isPersistent(boolean is_persistent) {
+        this.is_persistent = is_persistent;
         return this;
     }
 }

@@ -11,7 +11,14 @@ public class ChatPermissions implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private Boolean can_send_messages;
-    private Boolean can_send_media_messages;
+
+    private Boolean can_send_audios;
+    private Boolean can_send_documents;
+    private Boolean can_send_photos;
+    private Boolean can_send_videos;
+    private Boolean can_send_video_notes;
+    private Boolean can_send_voice_notes;
+
     private Boolean can_send_polls;
     private Boolean can_send_other_messages;
     private Boolean can_add_web_page_previews;
@@ -24,8 +31,28 @@ public class ChatPermissions implements Serializable {
         return can_send_messages;
     }
 
-    public Boolean canSendMediaMessages() {
-        return can_send_media_messages;
+    public Boolean canSendAudios() {
+        return can_send_audios;
+    }
+
+    public Boolean canSendDocuments() {
+        return can_send_documents;
+    }
+
+    public Boolean canSendPhotos() {
+        return can_send_photos;
+    }
+
+    public Boolean canSendVideos() {
+        return can_send_videos;
+    }
+
+    public Boolean canSendVideoNotes() {
+        return can_send_video_notes;
+    }
+
+    public Boolean canSendVoiceNotes() {
+        return can_send_voice_notes;
     }
 
     public Boolean canSendPolls() {
@@ -61,8 +88,33 @@ public class ChatPermissions implements Serializable {
         return this;
     }
 
-    public ChatPermissions canSendMediaMessages(boolean canSendMediaMessages) {
-        can_send_media_messages = canSendMediaMessages;
+    public ChatPermissions canSendAudios(boolean canSendAudios) {
+        this.can_send_audios = canSendAudios;
+        return this;
+    }
+
+    public ChatPermissions canSendDocuments(boolean canSendDocuments) {
+        this.can_send_documents = canSendDocuments;
+        return this;
+    }
+
+    public ChatPermissions canSendPhotos(boolean canSendPhotos) {
+        this.can_send_photos = canSendPhotos;
+        return this;
+    }
+
+    public ChatPermissions canSendVideos(boolean canSendVideos) {
+        this.can_send_videos = canSendVideos;
+        return this;
+    }
+
+    public ChatPermissions canSendVideoNotes(boolean canSendVideoNotes) {
+        this.can_send_video_notes = canSendVideoNotes;
+        return this;
+    }
+
+    public ChatPermissions canSendVoiceNotes(boolean canSendVoiceNotes) {
+        this.can_send_voice_notes = canSendVoiceNotes;
         return this;
     }
 
@@ -109,7 +161,12 @@ public class ChatPermissions implements Serializable {
         ChatPermissions that = (ChatPermissions) o;
 
         return Objects.equals(can_send_messages, that.can_send_messages) &&
-                Objects.equals(can_send_media_messages, that.can_send_media_messages) &&
+                Objects.equals(can_send_audios, that.can_send_audios) &&
+                Objects.equals(can_send_documents, that.can_send_documents) &&
+                Objects.equals(can_send_photos, that.can_send_photos) &&
+                Objects.equals(can_send_videos, that.can_send_videos) &&
+                Objects.equals(can_send_video_notes, that.can_send_video_notes) &&
+                Objects.equals(can_send_voice_notes, that.can_send_voice_notes) &&
                 Objects.equals(can_send_polls, that.can_send_polls) &&
                 Objects.equals(can_send_other_messages, that.can_send_other_messages) &&
                 Objects.equals(can_add_web_page_previews, that.can_add_web_page_previews) &&
@@ -122,7 +179,12 @@ public class ChatPermissions implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(can_send_messages,
-                can_send_media_messages,
+                can_send_audios,
+                can_send_documents,
+                can_send_photos,
+                can_send_videos,
+                can_send_video_notes,
+                can_send_voice_notes,
                 can_send_polls,
                 can_send_other_messages,
                 can_add_web_page_previews,
@@ -136,7 +198,12 @@ public class ChatPermissions implements Serializable {
     public String toString() {
         return "ChatPermissions{" +
                 "can_send_messages=" + can_send_messages +
-                ", can_send_media_messages=" + can_send_media_messages +
+                ", can_send_audios=" + can_send_audios +
+                ", can_send_documents=" + can_send_documents +
+                ", can_send_photos=" + can_send_photos +
+                ", can_send_videos=" + can_send_videos +
+                ", can_send_video_notes=" + can_send_video_notes +
+                ", can_send_voice_notes=" + can_send_voice_notes +
                 ", can_send_polls=" + can_send_polls +
                 ", can_send_other_messages=" + can_send_other_messages +
                 ", can_add_web_page_previews=" + can_add_web_page_previews +

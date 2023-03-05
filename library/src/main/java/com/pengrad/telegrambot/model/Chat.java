@@ -37,6 +37,8 @@ public class Chat implements Serializable {
     private String bio;
     private Boolean has_private_forwards;
     private Boolean has_restricted_voice_and_video_messages;
+    private Boolean has_hidden_members;
+    private Boolean has_aggressive_anti_spam_enabled;
     private Boolean join_to_send_messages;
     private Boolean join_by_request;
     private String description;
@@ -101,6 +103,14 @@ public class Chat implements Serializable {
 
     public Boolean hasRestrictedVoiceAndVideoMessages() {
         return has_restricted_voice_and_video_messages != null && has_restricted_voice_and_video_messages;
+    }
+
+    public Boolean hasHiddenMembers() {
+        return has_hidden_members != null && has_hidden_members;
+    }
+
+    public Boolean hasAggressiveAntiSpamEnabled() {
+        return has_aggressive_anti_spam_enabled != null && has_aggressive_anti_spam_enabled;
     }
 
     public Boolean joinToSendMessages() {
@@ -173,6 +183,8 @@ public class Chat implements Serializable {
                 Objects.equals(bio, chat.bio) &&
                 Objects.equals(has_private_forwards, chat.has_private_forwards) &&
                 Objects.equals(has_restricted_voice_and_video_messages, chat.has_restricted_voice_and_video_messages) &&
+                Objects.equals(has_hidden_members, chat.has_hidden_members) &&
+                Objects.equals(has_aggressive_anti_spam_enabled, chat.has_aggressive_anti_spam_enabled) &&
                 Objects.equals(join_to_send_messages, chat.join_to_send_messages) &&
                 Objects.equals(join_by_request, chat.join_by_request) &&
                 Objects.equals(description, chat.description) &&
@@ -209,6 +221,8 @@ public class Chat implements Serializable {
                 ", bio='" + bio + '\'' +
                 ", has_private_forwards=" + has_private_forwards +
                 ", has_restricted_voice_and_video_messages=" + has_restricted_voice_and_video_messages +
+                ", has_hidden_members=" + has_hidden_members +
+                ", has_aggressive_anti_spam_enabled=" + has_aggressive_anti_spam_enabled +
                 ", join_to_send_messages=" + join_to_send_messages +
                 ", join_by_request=" + join_by_request +
                 ", description='" + description + '\'' +

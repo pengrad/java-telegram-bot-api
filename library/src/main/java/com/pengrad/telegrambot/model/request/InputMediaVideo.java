@@ -14,6 +14,7 @@ public class InputMediaVideo extends InputMedia<InputMediaVideo> implements Seri
 
     private Integer width, height, duration;
     private Boolean supports_streaming;
+    private Boolean has_spoiler;
 
     public InputMediaVideo(String media) {
         super("video", media);
@@ -44,6 +45,11 @@ public class InputMediaVideo extends InputMedia<InputMediaVideo> implements Seri
 
     public InputMediaVideo supportsStreaming(boolean supportsStreaming) {
         this.supports_streaming = supportsStreaming;
+        return this;
+    }
+
+    public InputMediaVideo hasSpoiler(boolean has_spoiler) {
+        this.has_spoiler = has_spoiler;
         return this;
     }
 
