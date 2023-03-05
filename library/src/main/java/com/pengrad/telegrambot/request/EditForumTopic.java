@@ -4,24 +4,33 @@ import com.pengrad.telegrambot.response.BaseResponse;
 
 public class EditForumTopic extends BaseRequest<EditForumTopic, BaseResponse> {
 
-    public EditForumTopic(Long chatId,
-                          Integer messageThreadId) {
+    /**
+     * @deprecated use constructor with Long for future compatibility
+     */
+    @Deprecated
+    public EditForumTopic(Integer chatId, Integer messageThreadId) {
         super(BaseResponse.class);
         add("chat_id", chatId);
         add("message_thread_id", messageThreadId);
     }
 
-    public EditForumTopic(String chatId,
-                          Integer messageThreadId) {
+    public EditForumTopic(Long chatId, Integer messageThreadId) {
         super(BaseResponse.class);
         add("chat_id", chatId);
         add("message_thread_id", messageThreadId);
     }
 
-    public EditForumTopic(Long chatId,
-                          Integer messageThreadId,
-                          String name,
-                          String iconCustomEmojiId) {
+    public EditForumTopic(String chatId, Integer messageThreadId) {
+        super(BaseResponse.class);
+        add("chat_id", chatId);
+        add("message_thread_id", messageThreadId);
+    }
+
+    /**
+     * @deprecated use constructor with Long for future compatibility
+     */
+    @Deprecated
+    public EditForumTopic(Integer chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {
         super(BaseResponse.class);
         add("chat_id", chatId);
         add("message_thread_id", messageThreadId);
@@ -29,10 +38,15 @@ public class EditForumTopic extends BaseRequest<EditForumTopic, BaseResponse> {
         add("icon_custom_emoji_id", iconCustomEmojiId);
     }
 
-    public EditForumTopic(String chatId,
-                          Integer messageThreadId,
-                          String name,
-                          String iconCustomEmojiId) {
+    public EditForumTopic(Long chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {
+        super(BaseResponse.class);
+        add("chat_id", chatId);
+        add("message_thread_id", messageThreadId);
+        add("name", name);
+        add("icon_custom_emoji_id", iconCustomEmojiId);
+    }
+
+    public EditForumTopic(String chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {
         super(BaseResponse.class);
         add("chat_id", chatId);
         add("message_thread_id", messageThreadId);
