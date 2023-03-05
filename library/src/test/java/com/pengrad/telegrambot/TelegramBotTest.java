@@ -283,7 +283,7 @@ public class TelegramBotTest {
                 .canSendVideoNotes(true)
                 .canSendVoiceNotes(true)
                 .canSendPolls(true); // implies can_send_messages
-        
+
         BaseResponse response = bot.execute(new RestrictChatMember(groupId, memberBot, permissions));
         assertTrue(response.isOk());
     }
@@ -1338,6 +1338,12 @@ public class TelegramBotTest {
         StickerSet stickerSet = response.stickerSet();
         for (Sticker sticker : response.stickerSet().stickers()) {
             StickerTest.check(sticker, true, true);
+        }
+        // clean up stickers, max 120 allowed
+        if (stickerSet.stickers().length > 50) {
+            for (int i = stickerSet.stickers().length - 1; i > stickerSet.stickers().length - 10; i--) {
+                bot.execute(new DeleteStickerFromSet(stickerSet.stickers()[i].fileId()));
+            }
         }
         assertTrue(stickerSet.containsMasks());
         assertEquals(stickerSet.stickerType(), Sticker.Type.mask);
