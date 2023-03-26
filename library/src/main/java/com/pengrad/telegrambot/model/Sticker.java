@@ -3,6 +3,8 @@ package com.pengrad.telegrambot.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * stas
  * 8/5/15.
@@ -11,6 +13,10 @@ public class Sticker implements Serializable {
 
     public enum Type {
         regular, mask, custom_emoji
+    }
+
+    public enum Format {
+        @SerializedName("static") Static, animated, video
     }
 
     private final static long serialVersionUID = 0L;
