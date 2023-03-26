@@ -10,20 +10,22 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult<InlineQueryResu
     private final static long serialVersionUID = 0L;
 
     private String mpeg4_url;
-    private String thumb_url;
+
+    private String thumbnail_url;
+    private String thumbnail_mime_type;
 
     private Integer mpeg4_width;
     private Integer mpeg4_height;
     private Integer mpeg4_duration;
-    private String thumb_mime_type;
+
     private String title;
     private String caption;
     private String parse_mode;
 
-    public InlineQueryResultMpeg4Gif(String id, String mpeg4Url, String thumbUrl) {
+    public InlineQueryResultMpeg4Gif(String id, String mpeg4Url, String thumbnailUrl) {
         super("mpeg4_gif", id);
         this.mpeg4_url = mpeg4Url;
-        this.thumb_url = thumbUrl;
+        this.thumbnail_url = thumbnailUrl;
     }
 
     public InlineQueryResultMpeg4Gif mpeg4Width(Integer mpeg4Width) {
@@ -41,8 +43,17 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult<InlineQueryResu
         return this;
     }
 
+    /**
+     * @deprecated Use thumbnailMimeType instead
+     */
+    @Deprecated 
     public InlineQueryResultMpeg4Gif thumbMimeType(String thumbMimeType) {
-        this.thumb_mime_type = thumbMimeType;
+        this.thumbnail_mime_type = thumbMimeType;
+        return this;
+    }
+
+    public InlineQueryResultMpeg4Gif thumbnailMimeType(String thumbnailMimeType) {
+        this.thumbnail_mime_type = thumbnailMimeType;
         return this;
     }
 

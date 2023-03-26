@@ -10,20 +10,22 @@ public class InlineQueryResultGif extends InlineQueryResult<InlineQueryResultGif
     private final static long serialVersionUID = 0L;
 
     private String gif_url;
-    private String thumb_url;
+
+    private String thumbnail_url;
+    private String thumbnail_mime_type;
 
     private Integer gif_width;
     private Integer gif_height;
     private Integer gif_duration;
-    private String thumb_mime_type;
+
     private String title;
     private String caption;
     private String parse_mode;
 
-    public InlineQueryResultGif(String id, String gifUrl, String thumbUrl) {
+    public InlineQueryResultGif(String id, String gifUrl, String thumbnailUrl) {
         super("gif", id);
         this.gif_url = gifUrl;
-        this.thumb_url = thumbUrl;
+        this.thumbnail_url = thumbnailUrl;
     }
 
     public InlineQueryResultGif gifWidth(Integer gifWidth) {
@@ -41,8 +43,17 @@ public class InlineQueryResultGif extends InlineQueryResult<InlineQueryResultGif
         return this;
     }
 
+    /**
+     * @deprecated Use thumbnailMimeType instead
+     */
+    @Deprecated 
     public InlineQueryResultGif thumbMimeType(String thumbMimeType) {
-        this.thumb_mime_type = thumbMimeType;
+        this.thumbnail_mime_type = thumbMimeType;
+        return this;
+    }
+
+    public InlineQueryResultGif thumbnailMimeType(String thumbnailMimeType) {
+        this.thumbnail_mime_type = thumbnailMimeType;
         return this;
     }
 
