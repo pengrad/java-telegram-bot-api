@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.request;
 
 import com.pengrad.telegrambot.model.MaskPosition;
+import com.pengrad.telegrambot.model.request.InputSticker;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -9,14 +10,26 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class AddStickerToSet extends AbstractUploadRequest<AddStickerToSet, BaseResponse> {
 
+    /**
+     * @deprecated Use constructor with the InputSticker type (since API v6.6)
+     */
+    @Deprecated
     public static AddStickerToSet tgsSticker(Long userId, String name, String emojis, Object tgsSticker) {
         return new AddStickerToSet(userId, name, emojis, "tgs_sticker", tgsSticker);
     }
 
+    /**
+     * @deprecated Use constructor with the InputSticker type (since API v6.6)
+     */
+    @Deprecated
     public static AddStickerToSet pngSticker(Long userId, String name, String emojis, Object pngSticker) {
         return new AddStickerToSet(userId, name, emojis, "png_sticker", pngSticker);
     }
 
+    /**
+     * @deprecated Use constructor with the InputSticker type (since API v6.6)
+     */
+    @Deprecated
     public static AddStickerToSet webmSticker(Long userId, String name, String emojis, Object webmSticker) {
         return new AddStickerToSet(userId, name, emojis, "webm_sticker", webmSticker);
     }
@@ -29,11 +42,20 @@ public class AddStickerToSet extends AbstractUploadRequest<AddStickerToSet, Base
         this(userId, name, emojis, "png_sticker", pngSticker);
     }
 
+    /**
+     * @deprecated Use constructor with the InputSticker type (since API v6.6)
+     */
+    @Deprecated
     private AddStickerToSet(Long userId, String name, String emojis, String stickerParam, Object sticker) {
         super(BaseResponse.class, stickerParam, sticker);
         add("user_id", userId);
         add("name", name);
         add("emojis", emojis);
+    }
+
+    public AddStickerToSet(Long userId, String name, InputSticker sticker) {
+        super(BaseResponse.class, "sticker", sticker);
+        add("name", name);
     }
 
     public AddStickerToSet maskPosition(MaskPosition maskPosition) {
