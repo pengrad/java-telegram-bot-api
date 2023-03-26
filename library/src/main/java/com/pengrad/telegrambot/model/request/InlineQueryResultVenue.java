@@ -18,9 +18,10 @@ public class InlineQueryResultVenue extends InlineQueryResult<InlineQueryResultV
     private String foursquare_type;
     private String google_place_id;
     private String google_place_type;
-    private String thumb_url;
-    private Integer thumb_width;
-    private Integer thumb_height;
+
+    private String thumbnail_url;
+    private Integer thumbnail_width;
+    private Integer thumbnail_height;
 
     public InlineQueryResultVenue(String id, float latitude, float longitude, String title, String address) {
         super("venue", id);
@@ -50,18 +51,46 @@ public class InlineQueryResultVenue extends InlineQueryResult<InlineQueryResultV
         return this;
     }
 
+    /**
+     * @deprecated Use thumbnailUrl instead
+     */
+    @Deprecated
     public InlineQueryResultVenue thumbUrl(String thumbUrl) {
-        this.thumb_url = thumbUrl;
+        this.thumbnail_url = thumbUrl;
         return this;
     }
 
+    /**
+     * @deprecated Use thumbnailWidth instead
+     */
+    @Deprecated
     public InlineQueryResultVenue thumbWidth(Integer thumbWidth) {
-        this.thumb_width = thumbWidth;
+        this.thumbnail_width = thumbWidth;
         return this;
     }
 
+    /**
+     * @deprecated Use thumbnailHeight instead
+     */
+    @Deprecated    
     public InlineQueryResultVenue thumbHeight(Integer thumbHeight) {
-        this.thumb_height = thumbHeight;
+        this.thumbnail_height = thumbHeight;
+        return this;
+    }
+
+
+    public InlineQueryResultVenue thumbnailUrl(String thumbnailUrl) {
+        this.thumbnail_url = thumbnailUrl;
+        return this;
+    }
+
+    public InlineQueryResultVenue thumbnailWidth(Integer thumbnailWidth) {
+        this.thumbnail_width = thumbnailWidth;
+        return this;
+    }
+
+    public InlineQueryResultVenue thumbnailHeight(Integer thumbnailHeight) {
+        this.thumbnail_height = thumbnailHeight;
         return this;
     }
 }
