@@ -8,6 +8,10 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class SetStickerSetThumb extends AbstractUploadRequest<AddStickerToSet, BaseResponse> {
 
+    /**
+     * @deprecated Use SetStickerSetThumbnail instead (since API v6.6)
+     */
+    @Deprecated
     public SetStickerSetThumb(String name, Long userId, Object thumb) {
         super(BaseResponse.class, "thumb", thumb);
         add("name", name);
