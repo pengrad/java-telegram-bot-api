@@ -28,6 +28,7 @@ public class Sticker implements Serializable {
     private File premium_animation;
     private MaskPosition mask_position;
     private String custom_emoji_id;
+    private Boolean needs_repainting;
     private Long file_size;
 
     public String fileId() {
@@ -82,6 +83,10 @@ public class Sticker implements Serializable {
         return custom_emoji_id;
     }
 
+    public Boolean needsRepainting() {
+        return needs_repainting;
+    }
+
     public Long fileSize() {
         return file_size;
     }
@@ -104,6 +109,7 @@ public class Sticker implements Serializable {
                 Objects.equals(premium_animation, sticker.premium_animation) &&
                 Objects.equals(mask_position, sticker.mask_position) &&
                 Objects.equals(custom_emoji_id, sticker.custom_emoji_id) &&
+                Objects.equals(needs_repainting, sticker.needs_repainting) &&
                 Objects.equals(file_size, sticker.file_size);
     }
 
@@ -128,6 +134,7 @@ public class Sticker implements Serializable {
                 ", premium_animation=" + premium_animation +
                 ", mask_position=" + mask_position +
                 ", custom_emoji_id=" + custom_emoji_id +
+                ", needs_repainting=" + needs_repainting +
                 ", file_size=" + file_size +
                 '}';
     }
