@@ -13,7 +13,8 @@ public class VideoNote implements Serializable {
     private String file_unique_id;
     private Integer length;
     private Integer duration;
-    private PhotoSize thumb;
+    private PhotoSize thumbnail;
+  
     private Long file_size;
 
     public String fileId() {
@@ -32,8 +33,16 @@ public class VideoNote implements Serializable {
         return duration;
     }
 
+    public PhotoSize thumbnail() {
+        return thumbnail;
+    }
+
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public PhotoSize thumb() {
-        return thumb;
+        return thumbnail;
     }
 
     public Long fileSize() {
@@ -52,7 +61,7 @@ public class VideoNote implements Serializable {
             return false;
         if (length != null ? !length.equals(videoNote.length) : videoNote.length != null) return false;
         if (duration != null ? !duration.equals(videoNote.duration) : videoNote.duration != null) return false;
-        if (thumb != null ? !thumb.equals(videoNote.thumb) : videoNote.thumb != null) return false;
+        if (thumbnail != null ? !thumbnail.equals(videoNote.thumbnail) : videoNote.thumbnail != null) return false;
         return file_size != null ? file_size.equals(videoNote.file_size) : videoNote.file_size == null;
     }
 
@@ -68,7 +77,7 @@ public class VideoNote implements Serializable {
                 ", file_unique_id='" + file_unique_id + '\'' +
                 ", length=" + length +
                 ", duration=" + duration +
-                ", thumb=" + thumb +
+                ", thumbnail=" + thumbnail +
                 ", file_size=" + file_size +
                 '}';
     }

@@ -35,12 +35,28 @@ public class SendAnimation extends AbstractMultipartRequest<SendAnimation> {
         return add("height", height);
     }
 
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public SendAnimation thumb(byte[] thumb) {
-        return super.thumb(thumb);
+        return super.thumbnail(thumb);
     }
 
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public SendAnimation thumb(File thumb) {
-        return super.thumb(thumb);
+        return super.thumbnail(thumb);
+    }
+
+    public SendAnimation thumbnail(byte[] thumbnail) {
+        return super.thumbnail(thumbnail);
+    }
+
+    public SendAnimation thumbnail(File thumbnail) {
+        return super.thumbnail(thumbnail);
     }
 
     public SendAnimation caption(String caption) {

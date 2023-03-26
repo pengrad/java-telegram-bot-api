@@ -31,6 +31,14 @@ public class SendSticker extends AbstractMultipartRequest<SendSticker> {
         return this;
     }
 
+    public SendSticker thumbnail(byte[] thumbnail) {
+        return super.thumbnail(thumbnail);
+    }
+
+    public SendSticker thumbnail(File thumbnail) {
+        return super.thumbnail(thumbnail);
+    }
+
     @Override
     protected String getFileParamName() {
         return "sticker";

@@ -28,7 +28,8 @@ public class Sticker implements Serializable {
     private Integer height;
     private Boolean is_animated;
     private Boolean is_video;
-    private PhotoSize thumb;
+    private PhotoSize thumbnail;
+  
     private String emoji;
     private String set_name;
     private File premium_animation;
@@ -65,8 +66,16 @@ public class Sticker implements Serializable {
         return is_video;
     }
 
+    public PhotoSize thumbnail() {
+        return thumbnail;
+    }
+
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public PhotoSize thumb() {
-        return thumb;
+        return thumbnail;
     }
 
     public String emoji() {
@@ -109,7 +118,7 @@ public class Sticker implements Serializable {
                 Objects.equals(height, sticker.height) &&
                 Objects.equals(is_animated, sticker.is_animated) &&
                 Objects.equals(is_video, sticker.is_video) &&
-                Objects.equals(thumb, sticker.thumb) &&
+                Objects.equals(thumbnail, sticker.thumbnail) &&
                 Objects.equals(emoji, sticker.emoji) &&
                 Objects.equals(set_name, sticker.set_name) &&
                 Objects.equals(premium_animation, sticker.premium_animation) &&
@@ -134,7 +143,7 @@ public class Sticker implements Serializable {
                 ", height=" + height +
                 ", is_animated=" + is_animated +
                 ", is_video=" + is_video +
-                ", thumb=" + thumb +
+                ", thumbnail=" + thumbnail +
                 ", emoji='" + emoji + '\'' +
                 ", set_name='" + set_name + '\'' +
                 ", premium_animation=" + premium_animation +

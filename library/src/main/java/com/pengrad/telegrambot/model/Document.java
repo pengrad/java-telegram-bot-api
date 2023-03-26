@@ -11,7 +11,8 @@ public class Document implements Serializable {
 
     private String file_id;
     private String file_unique_id;
-    private PhotoSize thumb;
+    private PhotoSize thumbnail;
+  
     private String file_name;
     private String mime_type;
     private Long file_size;
@@ -24,8 +25,16 @@ public class Document implements Serializable {
         return file_unique_id;
     }
 
+    public PhotoSize thumbnail() {
+        return thumbnail;
+    }
+
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public PhotoSize thumb() {
-        return thumb;
+        return thumbnail;
     }
 
     public String fileName() {
@@ -50,7 +59,7 @@ public class Document implements Serializable {
         if (file_id != null ? !file_id.equals(document.file_id) : document.file_id != null) return false;
         if (file_unique_id != null ? !file_unique_id.equals(document.file_unique_id) : document.file_unique_id != null)
             return false;
-        if (thumb != null ? !thumb.equals(document.thumb) : document.thumb != null) return false;
+        if (thumbnail != null ? !thumbnail.equals(document.thumbnail) : document.thumbnail != null) return false;
         if (file_name != null ? !file_name.equals(document.file_name) : document.file_name != null) return false;
         if (mime_type != null ? !mime_type.equals(document.mime_type) : document.mime_type != null) return false;
         return file_size != null ? file_size.equals(document.file_size) : document.file_size == null;
@@ -66,7 +75,7 @@ public class Document implements Serializable {
         return "Document{" +
                 "file_id='" + file_id + '\'' +
                 ", file_unique_id='" + file_unique_id + '\'' +
-                ", thumb=" + thumb +
+                ", thumbnail=" + thumbnail +
                 ", file_name='" + file_name + '\'' +
                 ", mime_type='" + mime_type + '\'' +
                 ", file_size=" + file_size +

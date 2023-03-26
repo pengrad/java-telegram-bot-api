@@ -35,12 +35,28 @@ public class SendVideo extends AbstractMultipartRequest<SendVideo> {
         return add("height", height);
     }
 
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public SendVideo thumb(byte[] thumb) {
-        return super.thumb(thumb);
+        return super.thumbnail(thumb);
     }
 
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public SendVideo thumb(File thumb) {
-        return super.thumb(thumb);
+        return super.thumbnail(thumb);
+    }
+
+    public SendVideo thumbnail(byte[] thumbnail) {
+        return super.thumbnail(thumbnail);
+    }
+
+    public SendVideo thumbnail(File thumbnail) {
+        return super.thumbnail(thumbnail);
     }
 
     public SendVideo caption(String caption) {

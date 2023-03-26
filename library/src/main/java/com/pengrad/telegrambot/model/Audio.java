@@ -18,7 +18,8 @@ public class Audio implements Serializable {
     private String file_name;
     private String mime_type;
     private Long file_size;
-    private PhotoSize thumb;
+    private PhotoSize thumbnail;
+
 
     public String fileId() {
         return file_id;
@@ -52,8 +53,16 @@ public class Audio implements Serializable {
         return file_size;
     }
 
+    public PhotoSize thumbnail() {
+        return thumbnail;
+    }
+
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public PhotoSize thumb() {
-        return thumb;
+        return thumbnail;
     }
 
     @Override
@@ -69,7 +78,7 @@ public class Audio implements Serializable {
                 Objects.equals(file_name, audio.file_name) &&
                 Objects.equals(mime_type, audio.mime_type) &&
                 Objects.equals(file_size, audio.file_size) &&
-                Objects.equals(thumb, audio.thumb);
+                Objects.equals(thumbnail, audio.thumbnail);
     }
 
     @Override
@@ -88,7 +97,7 @@ public class Audio implements Serializable {
                 ", file_name='" + file_name + '\'' +
                 ", mime_type='" + mime_type + '\'' +
                 ", file_size=" + file_size +
-                ", thumb=" + thumb +
+                ", thumb=" + thumbnail +
                 '}';
     }
 }

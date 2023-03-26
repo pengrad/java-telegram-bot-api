@@ -15,7 +15,8 @@ public class Video implements Serializable {
     private Integer width;
     private Integer height;
     private Integer duration;
-    private PhotoSize thumb;
+    private PhotoSize thumbnail;
+  
     private String file_name;
     private String mime_type;
     private Long file_size;
@@ -40,8 +41,16 @@ public class Video implements Serializable {
         return duration;
     }
 
+    public PhotoSize thumbnail() {
+        return thumbnail;
+    }
+
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public PhotoSize thumb() {
-        return thumb;
+        return thumbnail;
     }
 
     public String fileName() {
@@ -66,7 +75,7 @@ public class Video implements Serializable {
                 Objects.equals(width, video.width) &&
                 Objects.equals(height, video.height) &&
                 Objects.equals(duration, video.duration) &&
-                Objects.equals(thumb, video.thumb) &&
+                Objects.equals(thumbnail, video.thumbnail) &&
                 Objects.equals(file_name, video.file_name) &&
                 Objects.equals(mime_type, video.mime_type) &&
                 Objects.equals(file_size, video.file_size);
@@ -85,7 +94,7 @@ public class Video implements Serializable {
                 ", width=" + width +
                 ", height=" + height +
                 ", duration=" + duration +
-                ", thumb=" + thumb +
+                ", thumbnail=" + thumbnail +
                 ", file_name='" + file_name + '\'' +
                 ", mime_type='" + mime_type + '\'' +
                 ", file_size=" + file_size +
