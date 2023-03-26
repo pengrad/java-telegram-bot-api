@@ -58,4 +58,13 @@ public class CreateNewStickerSet extends AbstractUploadRequest<CreateNewStickerS
     public CreateNewStickerSet stickerType(Type stickerType) {
         return add("sticker_type", stickerType.name());
     }
+
+    /**
+     * 
+     * @param stickerType Pass True if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only.
+     * @return a CreateNewStickerSet object
+     */
+    public CreateNewStickerSet needsRepainting(boolean needsRepainting) {
+        return add("needs_repainting", needsRepainting);
+    }
 }
