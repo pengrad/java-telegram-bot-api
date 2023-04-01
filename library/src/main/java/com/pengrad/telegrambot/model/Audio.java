@@ -97,7 +97,7 @@ public class Audio implements Serializable {
                 ", file_name='" + file_name + '\'' +
                 ", mime_type='" + mime_type + '\'' +
                 ", file_size=" + file_size +
-                ", thumb=" + thumbnail +
+                ", thumbnail=" + thumbnail +
                 '}';
     }
 }
