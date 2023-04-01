@@ -14,7 +14,7 @@ public class Animation implements Serializable {
     private Integer width;
     private Integer height;
     private Integer duration;
-    private PhotoSize thumb;
+    private PhotoSize thumbnail;  
     private String file_name;
     private String mime_type;
     private Long file_size;
@@ -39,8 +39,16 @@ public class Animation implements Serializable {
         return duration;
     }
 
+    public PhotoSize thumbnail() {
+        return thumbnail;
+    }
+
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public PhotoSize thumb() {
-        return thumb;
+        return thumbnail;
     }
 
     public String fileName() {
@@ -68,7 +76,7 @@ public class Animation implements Serializable {
         if (width != null ? !width.equals(animation.width) : animation.width != null) return false;
         if (height != null ? !height.equals(animation.height) : animation.height != null) return false;
         if (duration != null ? !duration.equals(animation.duration) : animation.duration != null) return false;
-        if (thumb != null ? !thumb.equals(animation.thumb) : animation.thumb != null) return false;
+        if (thumbnail != null ? !thumbnail.equals(animation.thumbnail) : animation.thumbnail != null) return false;
         if (file_name != null ? !file_name.equals(animation.file_name) : animation.file_name != null) return false;
         if (mime_type != null ? !mime_type.equals(animation.mime_type) : animation.mime_type != null) return false;
         return file_size != null ? file_size.equals(animation.file_size) : animation.file_size == null;
@@ -87,7 +95,7 @@ public class Animation implements Serializable {
                 ", width=" + width +
                 ", height=" + height +
                 ", duration=" + duration +
-                ", thumb=" + thumb +
+                ", thumbnail=" + thumbnail +
                 ", file_name='" + file_name + '\'' +
                 ", mime_type='" + mime_type + '\'' +
                 ", file_size=" + file_size +

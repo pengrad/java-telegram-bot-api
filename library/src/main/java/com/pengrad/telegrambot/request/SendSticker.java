@@ -20,6 +20,25 @@ public class SendSticker extends AbstractMultipartRequest<SendSticker> {
         super(chatId, sticker);
     }
 
+
+    /**
+     * 
+     * @param emoji Emoji associated with the sticker; only for just uploaded stickers
+     * @return
+     */
+    public SendSticker emoji(String emoji) {
+        add("emoji", emoji);
+        return this;
+    }
+
+    public SendSticker thumbnail(byte[] thumbnail) {
+        return super.thumbnail(thumbnail);
+    }
+
+    public SendSticker thumbnail(File thumbnail) {
+        return super.thumbnail(thumbnail);
+    }
+
     @Override
     protected String getFileParamName() {
         return "sticker";

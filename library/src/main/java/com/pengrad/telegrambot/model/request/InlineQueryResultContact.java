@@ -14,9 +14,10 @@ public class InlineQueryResultContact extends InlineQueryResult<InlineQueryResul
 
     private String last_name;
     private String vcard;
-    private String thumb_url;
-    private Integer thumb_width;
-    private Integer thumb_height;
+
+    private String thumbnail_url;
+    private Integer thumbnail_width;
+    private Integer thumbnail_height;
 
     public InlineQueryResultContact(String id, String phoneNumber, String firstName) {
         super("contact", id);
@@ -34,18 +35,46 @@ public class InlineQueryResultContact extends InlineQueryResult<InlineQueryResul
         return this;
     }
 
+    /**
+     * @deprecated Use thumbnailUrl instead
+     */
+    @Deprecated
     public InlineQueryResultContact thumbUrl(String thumbUrl) {
-        this.thumb_url = thumbUrl;
+        this.thumbnail_url = thumbUrl;
         return this;
     }
 
+    /**
+     * @deprecated Use thumbnailWidth instead
+     */
+    @Deprecated
     public InlineQueryResultContact thumbWidth(Integer thumbWidth) {
-        this.thumb_width = thumbWidth;
+        this.thumbnail_width = thumbWidth;
         return this;
     }
 
+    /**
+     * @deprecated Use thumbnailHeight instead
+     */
+    @Deprecated    
     public InlineQueryResultContact thumbHeight(Integer thumbHeight) {
-        this.thumb_height = thumbHeight;
+        this.thumbnail_height = thumbHeight;
+        return this;
+    }
+
+
+    public InlineQueryResultContact thumbnailUrl(String thumbnailUrl) {
+        this.thumbnail_url = thumbnailUrl;
+        return this;
+    }
+
+    public InlineQueryResultContact thumbnailWidth(Integer thumbnailWidth) {
+        this.thumbnail_width = thumbnailWidth;
+        return this;
+    }
+
+    public InlineQueryResultContact thumbnailHeight(Integer thumbnailHeight) {
+        this.thumbnail_height = thumbnailHeight;
         return this;
     }
 }

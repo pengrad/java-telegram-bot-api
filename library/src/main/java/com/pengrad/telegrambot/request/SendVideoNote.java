@@ -28,12 +28,28 @@ public class SendVideoNote extends AbstractMultipartRequest<SendVideoNote> {
         return add("length", length);
     }
 
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public SendVideoNote thumb(byte[] thumb) {
-        return super.thumb(thumb);
+        return super.thumbnail(thumb);
     }
 
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public SendVideoNote thumb(File thumb) {
-        return super.thumb(thumb);
+        return super.thumbnail(thumb);
+    }
+
+    public SendVideoNote thumbnail(byte[] thumbnail) {
+        return super.thumbnail(thumbnail);
+    }
+
+    public SendVideoNote thumbnail(File thumbnail) {
+        return super.thumbnail(thumbnail);
     }
 
     @Override

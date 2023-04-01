@@ -14,9 +14,10 @@ public class InlineQueryResultArticle extends InlineQueryResult<InlineQueryResul
     private String url;
     private Boolean hide_url;
     private String description;
-    private String thumb_url;
-    private Integer thumb_width;
-    private Integer thumb_height;
+
+    private String thumbnail_url;
+    private Integer thumbnail_width;
+    private Integer thumbnail_height;
 
     public InlineQueryResultArticle(String id, String title, String messageText) {
         this(id, title, new InputTextMessageContent(messageText));
@@ -43,18 +44,46 @@ public class InlineQueryResultArticle extends InlineQueryResult<InlineQueryResul
         return this;
     }
 
+    /**
+     * @deprecated Use thumbnailUrl instead
+     */
+    @Deprecated
     public InlineQueryResultArticle thumbUrl(String thumbUrl) {
-        this.thumb_url = thumbUrl;
+        this.thumbnail_url = thumbUrl;
         return this;
     }
 
+    /**
+     * @deprecated Use thumbnailWidth instead
+     */
+    @Deprecated
     public InlineQueryResultArticle thumbWidth(Integer thumbWidth) {
-        this.thumb_width = thumbWidth;
+        this.thumbnail_width = thumbWidth;
         return this;
     }
 
+    /**
+     * @deprecated Use thumbnailHeight instead
+     */
+    @Deprecated    
     public InlineQueryResultArticle thumbHeight(Integer thumbHeight) {
-        this.thumb_height = thumbHeight;
+        this.thumbnail_height = thumbHeight;
+        return this;
+    }
+
+
+    public InlineQueryResultArticle thumbnailUrl(String thumbnailUrl) {
+        this.thumbnail_url = thumbnailUrl;
+        return this;
+    }
+
+    public InlineQueryResultArticle thumbnailWidth(Integer thumbnailWidth) {
+        this.thumbnail_width = thumbnailWidth;
+        return this;
+    }
+
+    public InlineQueryResultArticle thumbnailHeight(Integer thumbnailHeight) {
+        this.thumbnail_height = thumbnailHeight;
         return this;
     }
 }

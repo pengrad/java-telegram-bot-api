@@ -37,9 +37,9 @@ abstract public class AbstractMultipartRequest<T extends AbstractMultipartReques
         return thisAsT;
     }
 
-    protected T thumb(Object thumb) {
+    protected T thumbnail(Object thumbnail) {
         isMultipart = true;
-        return add("thumb", thumb);
+        return add("thumbnail", thumbnail);
     }
 
     @Override

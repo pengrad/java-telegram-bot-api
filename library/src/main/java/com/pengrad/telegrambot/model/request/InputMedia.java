@@ -20,7 +20,8 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
 
     private final String type;
     private final String media;
-    private String thumb;
+    private String thumbnail;
+  
     private String caption;
     private String parse_mode;
     private MessageEntity[] caption_entities;
@@ -62,17 +63,39 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
         return inputFileAttachId;
     }
 
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public T thumb(File thumb) {
         String attachName = AttachName.next();
         attachments.put(attachName, thumb);
-        this.thumb = "attach://" + attachName;
+        this.thumbnail = "attach://" + attachName;
         return thisAsT;
     }
 
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public T thumb(byte[] thumb) {
         String attachName = AttachName.next();
         attachments.put(attachName, thumb);
-        this.thumb = "attach://" + attachName;
+        this.thumbnail = "attach://" + attachName;
+        return thisAsT;
+    }
+
+    public T thumbnail(File thumbnail) {
+        String attachName = AttachName.next();
+        attachments.put(attachName, thumbnail);
+        this.thumbnail = "attach://" + attachName;
+        return thisAsT;
+    }
+
+    public T thumbnail(byte[] thumbnail) {
+        String attachName = AttachName.next();
+        attachments.put(attachName, thumbnail);
+        this.thumbnail = "attach://" + attachName;
         return thisAsT;
     }
 

@@ -10,7 +10,7 @@ public class InlineQueryResultPhoto extends InlineQueryResult<InlineQueryResultP
     private final static long serialVersionUID = 0L;
 
     private String photo_url;
-    private String thumb_url;
+    private String thumbnail_url;
 
     private Integer photo_width;
     private Integer photo_height;
@@ -19,10 +19,10 @@ public class InlineQueryResultPhoto extends InlineQueryResult<InlineQueryResultP
     private String caption;
     private String parse_mode;
 
-    public InlineQueryResultPhoto(String id, String photoUrl, String thumbUrl) {
+    public InlineQueryResultPhoto(String id, String photoUrl, String thumbnailUrl) {
         super("photo", id);
         this.photo_url = photoUrl;
-        this.thumb_url = thumbUrl;
+        this.thumbnail_url = thumbnailUrl;
     }
 
     public InlineQueryResultPhoto photoWidth(Integer photoWidth) {

@@ -20,7 +20,8 @@ public class StickerSet implements Serializable {
     private Boolean is_video;
     private Boolean contains_masks;
     private Sticker[] stickers;
-    private PhotoSize thumb;
+    private PhotoSize thumbnail;
+  
 
     public String name() {
         return name;
@@ -50,8 +51,16 @@ public class StickerSet implements Serializable {
         return stickers;
     }
 
+    public PhotoSize thumbnail() {
+        return thumbnail;
+    }
+
+    /**
+     * @deprecated Use thumbnail instead
+     */
+    @Deprecated 
     public PhotoSize thumb() {
-        return thumb;
+        return thumbnail;
     }
 
     public Boolean isVideo() {
@@ -70,12 +79,12 @@ public class StickerSet implements Serializable {
                 Objects.equals(is_video, that.is_video) &&
                 Objects.equals(contains_masks, that.contains_masks) &&
                 Arrays.equals(stickers, that.stickers) &&
-                Objects.equals(thumb, that.thumb);
+                Objects.equals(thumbnail, that.thumbnail);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(name, title, sticker_type, is_animated, is_video, thumb);
+        int result = Objects.hash(name, title, sticker_type, is_animated, is_video, thumbnail);
         result = 31 * result + Arrays.hashCode(stickers);
         return result;
     }
@@ -90,7 +99,7 @@ public class StickerSet implements Serializable {
                 ", is_video=" + is_video +
                 ", contains_masks=" + contains_masks +
                 ", stickers=" + Arrays.toString(stickers) +
-                ", thumb=" + thumb +
+                ", thumbnail=" + thumbnail +
                 '}';
     }
 }

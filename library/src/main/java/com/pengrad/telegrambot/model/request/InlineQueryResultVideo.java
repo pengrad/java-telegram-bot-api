@@ -14,7 +14,7 @@ public class InlineQueryResultVideo extends InlineQueryResult<InlineQueryResultV
 
     private String video_url;
     private String mime_type;
-    private String thumb_url;
+    private String thumbnail_url;
     private String title;
 
     private String caption;
@@ -28,11 +28,11 @@ public class InlineQueryResultVideo extends InlineQueryResult<InlineQueryResultV
         this(id, videoUrl, mimeType, new InputTextMessageContent(messageText), thumbUrl, title);
     }
 
-    public InlineQueryResultVideo(String id, String videoUrl, String mimeType, InputMessageContent inputMessageContent, String thumbUrl, String title) {
+    public InlineQueryResultVideo(String id, String videoUrl, String mimeType, InputMessageContent inputMessageContent, String thumbnailUrl, String title) {
         super("video", id);
         this.video_url = videoUrl;
         this.mime_type = mimeType;
-        this.thumb_url = thumbUrl;
+        this.thumbnail_url = thumbnailUrl;
         this.title = title;
         inputMessageContent(inputMessageContent);
     }
