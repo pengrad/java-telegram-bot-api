@@ -10,7 +10,7 @@ public class SetMyShortDescription extends BaseRequest<SetMyDescription, BaseRes
     
     /**
      * 
-     * @param description New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short description for the given language.
+     * @param shortDescription New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short description for the given language.
      * @return
      */
     public SetMyShortDescription description(String shortDescription) {
@@ -20,7 +20,7 @@ public class SetMyShortDescription extends BaseRequest<SetMyDescription, BaseRes
 
     /**
      * 
-     * @param description A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
+     * @param languageCode A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
      * @return
      */
     public SetMyShortDescription languageCode(String languageCode) {

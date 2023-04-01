@@ -20,7 +20,7 @@ public class SetMyDescription extends BaseRequest<SetMyDescription, BaseResponse
 
     /**
      * 
-     * @param description A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
+     * @param languageCode A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
      * @return
      */
     public SetMyDescription languageCode(String languageCode) {
