@@ -19,46 +19,7 @@ import com.pengrad.telegrambot.checks.VoiceTest;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.botcommandscope.BotCommandScopeAllChatAdministrators;
-import com.pengrad.telegrambot.model.request.ChatAction;
-import com.pengrad.telegrambot.model.request.ForceReply;
-import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
-import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
-import com.pengrad.telegrambot.model.request.InlineQueryResult;
-import com.pengrad.telegrambot.model.request.InlineQueryResultArticle;
-import com.pengrad.telegrambot.model.request.InlineQueryResultAudio;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedAudio;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedDocument;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedGif;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedMpeg4Gif;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedPhoto;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedSticker;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedVideo;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedVoice;
-import com.pengrad.telegrambot.model.request.InlineQueryResultContact;
-import com.pengrad.telegrambot.model.request.InlineQueryResultDocument;
-import com.pengrad.telegrambot.model.request.InlineQueryResultGame;
-import com.pengrad.telegrambot.model.request.InlineQueryResultGif;
-import com.pengrad.telegrambot.model.request.InlineQueryResultLocation;
-import com.pengrad.telegrambot.model.request.InlineQueryResultMpeg4Gif;
-import com.pengrad.telegrambot.model.request.InlineQueryResultPhoto;
-import com.pengrad.telegrambot.model.request.InlineQueryResultVenue;
-import com.pengrad.telegrambot.model.request.InlineQueryResultVideo;
-import com.pengrad.telegrambot.model.request.InlineQueryResultVoice;
-import com.pengrad.telegrambot.model.request.InputContactMessageContent;
-import com.pengrad.telegrambot.model.request.InputLocationMessageContent;
-import com.pengrad.telegrambot.model.request.InputMediaAnimation;
-import com.pengrad.telegrambot.model.request.InputMediaAudio;
-import com.pengrad.telegrambot.model.request.InputMediaDocument;
-import com.pengrad.telegrambot.model.request.InputMediaPhoto;
-import com.pengrad.telegrambot.model.request.InputMediaVideo;
-import com.pengrad.telegrambot.model.request.InputTextMessageContent;
-import com.pengrad.telegrambot.model.request.InputVenueMessageContent;
-import com.pengrad.telegrambot.model.request.KeyboardButton;
-import com.pengrad.telegrambot.model.request.KeyboardButtonPollType;
-import com.pengrad.telegrambot.model.request.LoginUrl;
-import com.pengrad.telegrambot.model.request.ParseMode;
-import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
-import com.pengrad.telegrambot.model.request.ReplyKeyboardRemove;
+import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.passport.Credentials;
 import com.pengrad.telegrambot.passport.EncryptedPassportElement;
 import com.pengrad.telegrambot.passport.PassportData;
@@ -1409,6 +1370,16 @@ public class TelegramBotTest {
 
         response = bot.execute(
                 AddStickerToSet.tgsSticker(chatId, setName, "\uD83D\uDE15", stickerFileAnim));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void createNewStickerSet() {
+        String setName = "test" + System.currentTimeMillis() + "_by_pengrad_test_bot";
+
+        BaseResponse response = bot.execute(
+                new CreateNewStickerSet(chatId, setName, "test1", new InputSticker[]{new InputSticker(stickerFile, new String[]{"\uD83D\uDE15"})})
+        );
         assertTrue(response.isOk());
     }
 
