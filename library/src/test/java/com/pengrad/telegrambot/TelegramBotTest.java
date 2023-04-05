@@ -1342,11 +1342,16 @@ public class TelegramBotTest {
 
     @Test
     public void createNewPngStickerSet() {
+        String name = "test" + System.currentTimeMillis() + "_by_pengrad_test_bot";
         BaseResponse response = bot.execute(
-                CreateNewStickerSet.pngSticker(chatId, "test" + System.currentTimeMillis() + "_by_pengrad_test_bot",
-                                "test1", "\uD83D\uDE00", stickerFile)
+                CreateNewStickerSet.pngSticker(chatId, name, "test1", "\uD83D\uDE00", stickerFile)
                         .stickerType(Sticker.Type.mask)
                         .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f)));
+        assertTrue(response.isOk());
+
+        response = bot.execute(new AddStickerToSet(chatId, name,
+                new InputSticker(stickerFile, new String[]{"\uD83D\uDE00"}))
+                .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f)));
         assertTrue(response.isOk());
     }
 
@@ -1442,6 +1447,9 @@ public class TelegramBotTest {
         BaseResponse response = bot.execute(new SetStickerSetThumb(stickerSetAnim, chatId, thumbFile));
         assertTrue(response.isOk());
 
+        response = bot.execute(new SetStickerSetThumbnail(stickerSetAnim, chatId, thumbFile));
+        assertTrue(response.isOk());
+
         StickerSet set = bot.execute(new GetStickerSet(stickerSetAnim)).stickerSet();
         assertTrue(set.isAnimated());
         PhotoSize thumb = set.thumb();
@@ -1452,6 +1460,9 @@ public class TelegramBotTest {
 
         // clear thumb by not sending it
         response = bot.execute(new SetStickerSetThumb(stickerSetAnim, chatId));
+        assertTrue(response.isOk());
+
+        response = bot.execute(new SetStickerSetThumbnail(stickerSetAnim, chatId));
         assertTrue(response.isOk());
     }
 
