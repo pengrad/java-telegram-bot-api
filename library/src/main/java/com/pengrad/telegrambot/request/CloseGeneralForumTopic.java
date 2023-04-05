@@ -5,8 +5,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
 public class CloseGeneralForumTopic extends BaseRequest<CloseGeneralForumTopic, BaseResponse> {
 
     public CloseGeneralForumTopic(Long chatId) {
-        super(BaseResponse.class);
-        add("chat_id", chatId);
+        this(chatId.toString());
     }
 
     public CloseGeneralForumTopic(String chatId) {

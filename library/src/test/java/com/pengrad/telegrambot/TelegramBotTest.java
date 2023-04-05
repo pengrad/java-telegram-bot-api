@@ -114,6 +114,8 @@ public class TelegramBotTest {
     Long channelId = -1001002720332L;
     Long memberBot = 215003245L;
     Long localGroup = -1001431704825L;
+    Long forum = -1001833520519L;
+    Integer forumEditThread = 3;
     static String privateKey;
     static String testPassportData;
     static String testCallbackQuery;
@@ -183,7 +185,7 @@ public class TelegramBotTest {
     @Test
     public void getUpdates() {
         GetUpdates getUpdates = new GetUpdates()
-                .offset(874205003)
+                .offset(874227176)
                 .allowedUpdates("")
                 .timeout(0)
                 .limit(100);
@@ -2144,5 +2146,68 @@ public class TelegramBotTest {
         assertNull(rights.canEditMessages()); // channels only
         assertFalse(rights.canPinMessages());
         assertFalse(rights.canManageTopics());
+    }
+
+    @Test
+    public void getForumTopicIconStickers() {
+        List<Sticker> stickers = bot.execute(new GetForumTopicIconStickers()).stickers();
+        assertFalse(stickers.isEmpty());
+    }
+
+    @Test
+    public void createForumTopic() {
+        Integer color = 7322096;
+        String emoji = "5434144690511290129";
+        CreateForumTopicResponse createResponse = bot.execute(
+                new CreateForumTopic(forum, "test_topic").iconColor(color).iconCustomEmojiId(emoji)
+        );
+        assertTrue(createResponse.isOk());
+        ForumTopic topic = createResponse.forumTopic();
+        assertNotNull(topic);
+        assertEquals(color, topic.iconColor());
+        assertEquals(emoji, topic.iconCustomEmojiId());
+
+        String name = "test_topic_edit";
+        BaseResponse response = bot.execute(
+                new EditForumTopic(forum, topic.messageThreadId()).name(name).iconCustomEmojiId("")
+        );
+        assertTrue(response.isOk());
+
+        response = bot.execute(new CloseForumTopic(forum, topic.messageThreadId()));
+        assertTrue(response.isOk());
+
+        response = bot.execute(new ReopenForumTopic(forum, topic.messageThreadId()));
+        assertTrue(response.isOk());
+
+        response = bot.execute(new DeleteForumTopic(forum, topic.messageThreadId()));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void unpinAllForumTopicMessages() {
+        String name = "edit_thread-" + System.currentTimeMillis();
+        BaseResponse response = bot.execute(new EditForumTopic(forum, forumEditThread, name, ""));
+        assertTrue(response.isOk());
+        response = bot.execute(new UnpinAllForumTopicMessages(forum, forumEditThread));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void editGeneralForumTopic() {
+        String name = "General " + System.currentTimeMillis();
+        BaseResponse response = bot.execute(new EditGeneralForumTopic(forum, name));
+        assertTrue(response.isOk());
+
+        response = bot.execute(new CloseGeneralForumTopic(forum));
+        assertTrue(response.isOk());
+
+        response = bot.execute(new HideGeneralForumTopic(forum));
+        assertTrue(response.isOk());
+
+        response = bot.execute(new UnhideGeneralForumTopic(forum));
+        assertTrue(response.isOk());
+
+        response = bot.execute(new ReopenGeneralForumTopic(forum));
+        assertTrue(response.isOk());
     }
 }

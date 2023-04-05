@@ -9,15 +9,11 @@ public class EditForumTopic extends BaseRequest<EditForumTopic, BaseResponse> {
      */
     @Deprecated
     public EditForumTopic(Integer chatId, Integer messageThreadId) {
-        super(BaseResponse.class);
-        add("chat_id", chatId);
-        add("message_thread_id", messageThreadId);
+        this(chatId.toString(), messageThreadId);
     }
 
     public EditForumTopic(Long chatId, Integer messageThreadId) {
-        super(BaseResponse.class);
-        add("chat_id", chatId);
-        add("message_thread_id", messageThreadId);
+        this(chatId.toString(), messageThreadId);
     }
 
     public EditForumTopic(String chatId, Integer messageThreadId) {
@@ -31,19 +27,11 @@ public class EditForumTopic extends BaseRequest<EditForumTopic, BaseResponse> {
      */
     @Deprecated
     public EditForumTopic(Integer chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {
-        super(BaseResponse.class);
-        add("chat_id", chatId);
-        add("message_thread_id", messageThreadId);
-        add("name", name);
-        add("icon_custom_emoji_id", iconCustomEmojiId);
+        this(chatId.toString(), messageThreadId, name, iconCustomEmojiId);
     }
 
     public EditForumTopic(Long chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {
-        super(BaseResponse.class);
-        add("chat_id", chatId);
-        add("message_thread_id", messageThreadId);
-        add("name", name);
-        add("icon_custom_emoji_id", iconCustomEmojiId);
+        this(chatId.toString(), messageThreadId, name, iconCustomEmojiId);
     }
 
     public EditForumTopic(String chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {

@@ -9,15 +9,11 @@ public class ReopenForumTopic extends BaseRequest<ReopenForumTopic, BaseResponse
      */
     @Deprecated
     public ReopenForumTopic(Integer chatId, Integer messageThreadId) {
-        super(BaseResponse.class);
-        add("chat_id", chatId);
-        add("message_thread_id", messageThreadId);
+        this(chatId.toString(), messageThreadId);
     }
 
     public ReopenForumTopic(Long chatId, Integer messageThreadId) {
-        super(BaseResponse.class);
-        add("chat_id", chatId);
-        add("message_thread_id", messageThreadId);
+        this(chatId.toString(), messageThreadId);
     }
 
     public ReopenForumTopic(String chatId, Integer messageThreadId) {

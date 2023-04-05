@@ -9,15 +9,11 @@ public class CloseForumTopic extends BaseRequest<CloseForumTopic, BaseResponse> 
      */
     @Deprecated
     public CloseForumTopic(Integer chatId, Integer messageThreadId) {
-        super(BaseResponse.class);
-        add("chat_id", chatId);
-        add("message_thread_id", messageThreadId);
+        this(chatId.toString(), messageThreadId);
     }
 
     public CloseForumTopic(Long chatId, Integer messageThreadId) {
-        super(BaseResponse.class);
-        add("chat_id", chatId);
-        add("message_thread_id", messageThreadId);
+        this(chatId.toString(), messageThreadId);
     }
 
     public CloseForumTopic(String chatId, Integer messageThreadId) {

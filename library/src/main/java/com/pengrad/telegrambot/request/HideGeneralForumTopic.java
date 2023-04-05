@@ -5,8 +5,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
 public class HideGeneralForumTopic extends BaseRequest<HideGeneralForumTopic, BaseResponse> {
 
     public HideGeneralForumTopic(Long chatId) {
-        super(BaseResponse.class);
-        add("chat_id", chatId);
+        this(chatId.toString());
     }
 
     public HideGeneralForumTopic(String chatId) {

@@ -9,15 +9,11 @@ public class CreateForumTopic extends BaseRequest<CreateForumTopic, CreateForumT
      */
     @Deprecated
     public CreateForumTopic(Integer chatId, String name) {
-        super(CreateForumTopicResponse.class);
-        add("chat_id", chatId);
-        add("name", name);
+        this(chatId.toString(), name);
     }
 
     public CreateForumTopic(Long chatId, String name) {
-        super(CreateForumTopicResponse.class);
-        add("chat_id", chatId);
-        add("name", name);
+        this(chatId.toString(), name);
     }
 
     public CreateForumTopic(String chatId, String name) {
