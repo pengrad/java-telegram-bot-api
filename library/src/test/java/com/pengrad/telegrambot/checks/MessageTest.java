@@ -34,5 +34,23 @@ public class MessageTest {
         assertNull(message.connectedWebsite());
         assertNull(message.messageThreadId());
         assertFalse(message.isTopicMessage());
+        assertNull(message.isAutomaticForward());
+        assertNull(message.hasMediaSpoiler());
+        assertNull(message.messageAutoDeleteTimerChanged());
+        assertNull(message.userShared());
+        assertNull(message.chatShared());
+        assertNull(message.proximityAlertTriggered());
+        assertNull(message.forumTopicCreated());
+        assertNull(message.forumTopicEdited());
+        assertNull(message.forumTopicClosed());
+        assertNull(message.forumTopicReopened());
+        assertNull(message.generalForumTopicHidden());
+        assertNull(message.generalForumTopicUnhidden());
+        assertNull(message.writeAccessAllowed());
+        assertNull(message.videoChatStarted());
+        assertNull(message.videoChatEnded());
+        assertNull(message.videoChatParticipantsInvited());
+        assertNull(message.videoChatScheduled());
+        assertNull(message.webAppData());
     }
 }

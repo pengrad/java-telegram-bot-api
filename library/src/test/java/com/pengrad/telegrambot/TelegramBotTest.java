@@ -479,6 +479,12 @@ public class TelegramBotTest {
         assertFalse(chat.joinByRequest());
         assertFalse(chat.hasProtectedContent());
         assertNull(chat.messageAutoDeleteTime());
+        assertFalse(chat.isForum());
+        assertFalse(chat.hasRestrictedVoiceAndVideoMessages());
+        assertFalse(chat.hasHiddenMembers());
+        assertFalse(chat.hasAggressiveAntiSpamEnabled());
+        assertNull(chat.getActiveUsernames());
+        assertNull(chat.getEmojiStatusCustomEmojiId());
 
         chat = bot.execute(new GetChat(chatId)).chat();
         assertNotNull(chat.firstName());
@@ -603,6 +609,7 @@ public class TelegramBotTest {
                         .resizeKeyboard(true)
                         .inputFieldPlaceholder("input-placeholder")
                         .selective(true)));
+        assertTrue(sendResponse.message().hasProtectedContent());
         MessageTest.checkTextMessage(sendResponse.message());
 
         sendResponse = bot.execute(new SendMessage(chatId, "simple buttons")
@@ -2105,5 +2112,37 @@ public class TelegramBotTest {
                 .replyMarkup(new ReplyKeyboardMarkup(new KeyboardButton(text).webAppInfo(new WebAppInfo(url))))
         );
         assertTrue(response.isOk());
+    }
+
+    @Test
+    public void getMyDefaultAdministratorRights() {
+        bot.execute(new SetMyDefaultAdministratorRights()
+                .forChannels(false)
+                .rights(new ChatAdministratorRights()
+                        .canManageChat(false)
+                        .canDeleteMessages(false)
+                        .canManageVideoChats(false)
+                        .canRestrictMembers(false)
+                        .canPromoteMembers(false)
+                        .canChangeInfo(false)
+                        .canInviteUsers(false)
+                        .canPostMessages(false)
+                        .canEditMessages(false)
+                        .canPinMessages(false)
+                        .canManageTopics(false)
+                ));
+        ChatAdministratorRights rights = bot.execute(new GetMyDefaultAdministratorRights().forChannels(false)).result();
+        assertFalse(rights.isAnonymous());
+        assertFalse(rights.canManageChat());
+        assertFalse(rights.canDeleteMessages());
+        assertFalse(rights.canManageVideoChats());
+        assertFalse(rights.canRestrictMembers());
+        assertFalse(rights.canPromoteMembers());
+        assertFalse(rights.canChangeInfo());
+        assertFalse(rights.canInviteUsers());
+        assertNull(rights.canPostMessages()); // channels only
+        assertNull(rights.canEditMessages()); // channels only
+        assertFalse(rights.canPinMessages());
+        assertFalse(rights.canManageTopics());
     }
 }
