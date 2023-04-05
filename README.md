@@ -13,14 +13,14 @@ Java library for interacting with [Telegram Bot API](https://core.telegram.org/b
 
 Gradle:
 ```groovy
-implementation 'com.github.pengrad:java-telegram-bot-api:6.6.0'
+implementation 'com.github.pengrad:java-telegram-bot-api:6.6.1'
 ```
 Maven:
 ```xml
 <dependency>
   <groupId>com.github.pengrad</groupId>
   <artifactId>java-telegram-bot-api</artifactId>
-  <version>6.6.0</version>
+  <version>6.6.1</version>
 </dependency>
 ```
 [JAR with all dependencies on release page](https://github.com/pengrad/java-telegram-bot-api/releases)
