@@ -96,7 +96,7 @@ public class CreateNewStickerSet extends BaseRequest<CreateNewStickerSet, BaseRe
     /**
      * Type of stickers in the set.
      *
-     * @param stickerType pass “regular” or “mask”. "custom_emoji" is defaulted to "regular".
+     * @param stickerType Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular sticker set is created.
      * @return a CreateNewStickerSet object
      */
     public CreateNewStickerSet stickerType(Type stickerType) {

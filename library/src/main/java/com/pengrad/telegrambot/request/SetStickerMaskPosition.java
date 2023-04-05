@@ -20,7 +20,7 @@ public class SetStickerMaskPosition extends BaseRequest<SetStickerMaskPosition, 
      * @param maskPosition Where the mask should be placed on faces. Omit the parameter to remove the mask position.
      * @return
      */
-    public SetStickerMaskPosition keywords(MaskPosition maskPosition) {
+    public SetStickerMaskPosition maskPosition(MaskPosition maskPosition) {
         add("mask_position", maskPosition);
         return this;
     }

@@ -1414,6 +1414,24 @@ public class TelegramBotTest {
         assertNull(stickers[0].needsRepainting());
         assertNull(stickers[0].premiumAnimation());
         assertNull(stickers[0].customEmojiId());
+
+        response = bot.execute(new SetStickerSetTitle(setName, "new title"));
+        assertTrue(response.isOk());
+
+        String stickerId = stickers[0].fileId();
+        response = bot.execute(new SetStickerEmojiList(stickerId, new String[]{"\uD83D\uDE00"}));
+        assertTrue(response.isOk());
+
+        response = bot.execute(new SetStickerKeywords(stickerId).keywords(new String[]{"ok"}));
+        assertTrue(response.isOk());
+
+        response = bot.execute(new SetStickerMaskPosition(stickerId)
+                .maskPosition(new MaskPosition(MaskPosition.Point.mouth, 0f, 0f, 0f)));
+        assertFalse(response.isOk());
+        assertEquals("Bad Request: STICKER_MASK_COORDS_NOT_SUPPORTED", response.description());
+
+        response = bot.execute(new DeleteStickerSet(setName));
+        assertTrue(response.isOk());
     }
 
     @Test
@@ -1463,6 +1481,28 @@ public class TelegramBotTest {
         assertTrue(response.isOk());
 
         response = bot.execute(new SetStickerSetThumbnail(stickerSetAnim, chatId));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void getCustomEmojiStickers() {
+        GetCustomEmojiStickersResponse response = bot.execute(new GetCustomEmojiStickers("5434144690511290129"));
+        assertTrue(response.isOk());
+        assertEquals(1, response.result().length);
+    }
+
+    @Test
+    public void setCustomEmojiStickerSetThumbnail() {
+        String setName = "custom_emoji_sticker_set_by_pengrad_test_bot";
+        BaseResponse response = bot.execute(
+                new CreateNewStickerSet(chatId, setName, "title",
+                        new InputSticker[]{new InputSticker(stickerFileAnim, new String[]{"\uD83D\uDE15"})},
+                        Sticker.Format.animated
+                ).stickerType(Sticker.Type.custom_emoji)
+        );
+        assertTrue(response.isOk());
+
+        response = bot.execute(new SetCustomEmojiStickerSetThumbnail(setName).customEmojiId("123"));
         assertTrue(response.isOk());
     }
 
@@ -1522,7 +1562,7 @@ public class TelegramBotTest {
         User user = new User(memberBot);
         String language = "ru";
         MessagesResponse response = bot.execute(new SendMediaGroup(chatId,
-                new InputMediaPhoto(photoFileId),
+                new InputMediaPhoto(photoFileId).thumbnail(thumbFile),
                 new InputMediaPhoto(imageFile).caption("some caption bold")
                         .captionEntities(
                                 new MessageEntity(MessageEntity.Type.bold, 0, 4),
@@ -1530,12 +1570,12 @@ public class TelegramBotTest {
                                 new MessageEntity(MessageEntity.Type.text_mention, 6, 1).user(user),
                                 new MessageEntity(MessageEntity.Type.pre, 7, 1).language(language)
                         ),
-                new InputMediaPhoto(imageBytes),
+                new InputMediaPhoto(imageBytes).thumbnail(thumbBytes),
                 new InputMediaVideo(videoFileId),
                 new InputMediaVideo(videoFile),
                 new InputMediaVideo(videoBytes).caption("my video <b>bold</b>").parseMode(ParseMode.HTML)
                         .duration(10).width(11).height(12).supportsStreaming(true)
-        ).messageThreadId(0));
+        ).messageThreadId(0).disableNotification(false).allowSendingWithoutReply(false).replyToMessageId(1));
         assertTrue(response.isOk());
         assertEquals(6, response.messages().length);
 
@@ -1584,7 +1624,7 @@ public class TelegramBotTest {
                 new InputMediaDocument(docFile)
                         .thumb(thumbFile)
                         .disableContentTypeDetection(true)
-        ));
+        ).replyMarkup(new InlineKeyboardMarkup()));
         assertEquals((Long) 13264L, response.message().document().fileSize());
         assertEquals(thumbSize, response.message().document().thumb().fileSize());
 
