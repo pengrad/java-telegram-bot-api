@@ -1,7 +1,6 @@
 package com.pengrad.telegrambot.request;
 
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
-import com.pengrad.telegrambot.model.request.InputFile;
 import com.pengrad.telegrambot.model.request.InputMedia;
 import com.pengrad.telegrambot.response.BaseResponse;
 import com.pengrad.telegrambot.response.SendResponse;

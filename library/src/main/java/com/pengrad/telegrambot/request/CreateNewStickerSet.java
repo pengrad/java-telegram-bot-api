@@ -10,7 +10,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
  * Stas Parshin
  * 23 July 2017
  */
-public class CreateNewStickerSet extends AbstractUploadRequest<CreateNewStickerSet, BaseResponse> {
+public class CreateNewStickerSet extends BaseRequest<CreateNewStickerSet, BaseResponse> {
 
     /**
      * @deprecated Use constructor with the InputSticker type (since API v6.6)
@@ -49,18 +49,31 @@ public class CreateNewStickerSet extends AbstractUploadRequest<CreateNewStickerS
      */
     @Deprecated
     private CreateNewStickerSet(Long userId, String name, String title, String emojis, String stickerParam, Object sticker) {
-        super(BaseResponse.class, stickerParam, sticker);
+        super(BaseResponse.class);
+        add(stickerParam, sticker);
         add("user_id", userId);
         add("name", name);
         add("title", title);
         add("emojis", emojis);
     }
 
-    public CreateNewStickerSet(Long userId, String name, String title, InputSticker[] stickers) {
-        super(BaseResponse.class, "stickers", stickers);
+    public CreateNewStickerSet(Long userId, String name, String title, InputSticker[] stickers, Format stickerFormat) {
+        super(BaseResponse.class);
         add("user_id", userId);
         add("name", name);
         add("title", title);
+        add("stickers", stickers);
+        add("sticker_format", stickerFormat.name().toLowerCase());
+        for (InputSticker sticker : stickers) {
+            if (sticker.getAttachment() != null) {
+                add(sticker.getAttachName(), sticker.getAttachment());
+            }
+        }
+    }
+
+    @Override
+    public boolean isMultipart() {
+        return true;
     }
 
     /**
@@ -79,18 +92,10 @@ public class CreateNewStickerSet extends AbstractUploadRequest<CreateNewStickerS
         return add("mask_position", maskPosition);
     }
 
-    /**
-     * Format of stickers in the set.
-     * @param stickerFormat must be one of “static”, “animated”, “video”.
-     * @return a CreateNewStickerSet object
-     */
-    public CreateNewStickerSet stickerFormat(Format stickerFormat) {
-        return add("sticker_format", stickerFormat.name());
-    }
-
 
     /**
      * Type of stickers in the set.
+     *
      * @param stickerType pass “regular” or “mask”. "custom_emoji" is defaulted to "regular".
      * @return a CreateNewStickerSet object
      */
@@ -99,7 +104,6 @@ public class CreateNewStickerSet extends AbstractUploadRequest<CreateNewStickerS
     }
 
     /**
-     * 
      * @param needsRepainting Pass True if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only.
      * @return a CreateNewStickerSet object
      */

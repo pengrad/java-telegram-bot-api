@@ -1,7 +1,6 @@
 package com.pengrad.telegrambot.request;
 
 import com.pengrad.telegrambot.model.Sticker.Format;
-import com.pengrad.telegrambot.model.request.InputFile;
 import com.pengrad.telegrambot.response.GetFileResponse;
 
 /**
@@ -22,10 +21,10 @@ public class UploadStickerFile extends AbstractUploadRequest<UploadStickerFile, 
     /**
      * @param stickerFormat must be one of “static”, “animated”, “video”.
      */
-    public UploadStickerFile(Long userId, InputFile sticker, Format stickerFormat) {
+    public UploadStickerFile(Long userId, Object sticker, Format stickerFormat) {
         super(GetFileResponse.class, "sticker", sticker);
         add("user_id", userId);
-        add("sticker_format", stickerFormat.name());
+        add("sticker_format", stickerFormat.name().toLowerCase());
     }
 
 

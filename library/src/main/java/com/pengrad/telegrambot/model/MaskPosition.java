@@ -17,7 +17,7 @@ public class MaskPosition implements Serializable {
     private Float x_shift, y_shift;
     private Float scale;
 
-    public MaskPosition() {
+    MaskPosition() {
     }
 
     public MaskPosition(Point point, Float x_shift, Float y_shift, Float scale) {

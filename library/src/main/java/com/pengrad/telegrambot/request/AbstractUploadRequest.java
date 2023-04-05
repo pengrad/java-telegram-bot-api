@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.model.request.InputSticker;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 import java.io.File;
@@ -21,10 +20,8 @@ abstract public class AbstractUploadRequest<T extends BaseRequest<T, R>, R exten
             isMultipart = true;
         } else if (data instanceof byte[]) {
             isMultipart = true;
-        } else if (data instanceof InputSticker) {
-            isMultipart = true;
         } else {
-            throw new IllegalArgumentException("Sending data should be String, File, InputSticker or byte[]");
+            throw new IllegalArgumentException("Sending data should be String, File or byte[]");
         }
         add(paramName, data);
     }

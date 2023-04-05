@@ -19,46 +19,7 @@ import com.pengrad.telegrambot.checks.VoiceTest;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.botcommandscope.BotCommandScopeAllChatAdministrators;
-import com.pengrad.telegrambot.model.request.ChatAction;
-import com.pengrad.telegrambot.model.request.ForceReply;
-import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
-import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
-import com.pengrad.telegrambot.model.request.InlineQueryResult;
-import com.pengrad.telegrambot.model.request.InlineQueryResultArticle;
-import com.pengrad.telegrambot.model.request.InlineQueryResultAudio;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedAudio;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedDocument;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedGif;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedMpeg4Gif;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedPhoto;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedSticker;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedVideo;
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedVoice;
-import com.pengrad.telegrambot.model.request.InlineQueryResultContact;
-import com.pengrad.telegrambot.model.request.InlineQueryResultDocument;
-import com.pengrad.telegrambot.model.request.InlineQueryResultGame;
-import com.pengrad.telegrambot.model.request.InlineQueryResultGif;
-import com.pengrad.telegrambot.model.request.InlineQueryResultLocation;
-import com.pengrad.telegrambot.model.request.InlineQueryResultMpeg4Gif;
-import com.pengrad.telegrambot.model.request.InlineQueryResultPhoto;
-import com.pengrad.telegrambot.model.request.InlineQueryResultVenue;
-import com.pengrad.telegrambot.model.request.InlineQueryResultVideo;
-import com.pengrad.telegrambot.model.request.InlineQueryResultVoice;
-import com.pengrad.telegrambot.model.request.InputContactMessageContent;
-import com.pengrad.telegrambot.model.request.InputLocationMessageContent;
-import com.pengrad.telegrambot.model.request.InputMediaAnimation;
-import com.pengrad.telegrambot.model.request.InputMediaAudio;
-import com.pengrad.telegrambot.model.request.InputMediaDocument;
-import com.pengrad.telegrambot.model.request.InputMediaPhoto;
-import com.pengrad.telegrambot.model.request.InputMediaVideo;
-import com.pengrad.telegrambot.model.request.InputTextMessageContent;
-import com.pengrad.telegrambot.model.request.InputVenueMessageContent;
-import com.pengrad.telegrambot.model.request.KeyboardButton;
-import com.pengrad.telegrambot.model.request.KeyboardButtonPollType;
-import com.pengrad.telegrambot.model.request.LoginUrl;
-import com.pengrad.telegrambot.model.request.ParseMode;
-import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
-import com.pengrad.telegrambot.model.request.ReplyKeyboardRemove;
+import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.passport.Credentials;
 import com.pengrad.telegrambot.passport.EncryptedPassportElement;
 import com.pengrad.telegrambot.passport.PassportData;
@@ -1365,6 +1326,9 @@ public class TelegramBotTest {
         byte[] bytes = Files.readAllBytes(stickerFile.toPath());
         GetFileResponse response = bot.execute(new UploadStickerFile(chatId, bytes));
         FileTest.check(response.file(), false);
+
+        response = bot.execute(new UploadStickerFile(chatId, bytes, Sticker.Format.Static));
+        FileTest.check(response.file(), false);
     }
 
     @Test
@@ -1410,6 +1374,32 @@ public class TelegramBotTest {
         response = bot.execute(
                 AddStickerToSet.tgsSticker(chatId, setName, "\uD83D\uDE15", stickerFileAnim));
         assertTrue(response.isOk());
+    }
+
+    @Test
+    public void createNewStickerSet() {
+        String setName = "testNEW" + System.currentTimeMillis() + "_by_pengrad_test_bot";
+        String title = "test112312312";
+        BaseResponse response = bot.execute(
+                new CreateNewStickerSet(chatId, setName, title, new InputSticker[]{
+                        new InputSticker(stickerFile, new String[]{"\uD83D\uDE00"})
+                                .keywords(new String[]{"yes", "no"})
+                                .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 10f, 20f, 1f))
+                }, Sticker.Format.Static)
+                        .needsRepainting(false));
+        assertTrue(response.isOk());
+
+        StickerSet set = bot.execute(new GetStickerSet(setName)).stickerSet();
+        assertEquals(setName, set.name());
+        assertEquals(title, set.title());
+        assertFalse(set.isVideo());
+        Sticker[] stickers = set.stickers();
+        assertEquals(1, stickers.length);
+        assertEquals("\uD83D\uDE00", stickers[0].emoji());
+        assertFalse(stickers[0].isVideo());
+        assertNull(stickers[0].needsRepainting());
+        assertNull(stickers[0].premiumAnimation());
+        assertNull(stickers[0].customEmojiId());
     }
 
     @Test
