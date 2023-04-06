@@ -2284,4 +2284,12 @@ public class TelegramBotTest {
         assertNotNull(desc);
         assertEquals("short_desc", desc.shortDescription());
     }
+
+    @Test
+    public void answerWebAppQuery() {
+        SentWebAppMessageResponse response = bot.execute(new AnswerWebAppQuery("123", new InlineQueryResultArticle("1", "title", "text")));
+        assertFalse(response.isOk());
+        assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
+        assertNull(response.sentWebAppMessage());
+    }
 }

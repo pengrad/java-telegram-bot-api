@@ -1,22 +1,23 @@
 package com.pengrad.telegrambot.response;
 
+import com.pengrad.telegrambot.model.SentWebAppMessage;
+
 /**
  * Mirco Ianese
  * 20 Apr 2022
  */
 public class SentWebAppMessageResponse extends BaseResponse {
-   
-    private String inline_message_id;
 
-    public String inlineMessageId() {
-        return inline_message_id;
+    private SentWebAppMessage result;
+
+    public SentWebAppMessage sentWebAppMessage() {
+        return result;
     }
 
     @Override
     public String toString() {
         return "SentWebAppMessageResponse{" +
-                "inline_message_id=" + inline_message_id +
+                "result=" + result +
                 '}';
     }
-
 }
