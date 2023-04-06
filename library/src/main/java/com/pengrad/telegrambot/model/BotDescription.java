@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -11,11 +12,8 @@ public class BotDescription implements Serializable {
 
     private String description;
 
-    public BotDescription(String description) {
-        this.description = description;
+    BotDescription() {
     }
-
-    BotDescription() {}
 
     public String description() {
         return description;
@@ -28,7 +26,7 @@ public class BotDescription implements Serializable {
 
         BotDescription that = (BotDescription) o;
 
-        return description != null ? description.equals(that.description) : that.description == null;
+        return Objects.equals(description, that.description);
     }
 
     @Override

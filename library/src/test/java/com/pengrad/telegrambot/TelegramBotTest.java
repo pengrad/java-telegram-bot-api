@@ -1,34 +1,11 @@
 package com.pengrad.telegrambot;
 
-import com.pengrad.telegrambot.checks.AnimationCheck;
-import com.pengrad.telegrambot.checks.AudioTest;
-import com.pengrad.telegrambot.checks.ChatMemberTest;
-import com.pengrad.telegrambot.checks.ChatTest;
-import com.pengrad.telegrambot.checks.DocumentTest;
-import com.pengrad.telegrambot.checks.FileTest;
-import com.pengrad.telegrambot.checks.GameHighScoreTest;
-import com.pengrad.telegrambot.checks.GameTest;
-import com.pengrad.telegrambot.checks.MessageTest;
-import com.pengrad.telegrambot.checks.PhotoSizeTest;
-import com.pengrad.telegrambot.checks.StickerTest;
-import com.pengrad.telegrambot.checks.UpdateTest;
-import com.pengrad.telegrambot.checks.UserTest;
-import com.pengrad.telegrambot.checks.VideoNoteCheck;
-import com.pengrad.telegrambot.checks.VideoTest;
-import com.pengrad.telegrambot.checks.VoiceTest;
+import com.pengrad.telegrambot.checks.*;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.botcommandscope.BotCommandScopeAllChatAdministrators;
 import com.pengrad.telegrambot.model.request.*;
-import com.pengrad.telegrambot.passport.Credentials;
-import com.pengrad.telegrambot.passport.EncryptedPassportElement;
-import com.pengrad.telegrambot.passport.PassportData;
-import com.pengrad.telegrambot.passport.PassportElementErrorDataField;
-import com.pengrad.telegrambot.passport.PassportFile;
-import com.pengrad.telegrambot.passport.PersonalDetails;
-import com.pengrad.telegrambot.passport.SecureData;
-import com.pengrad.telegrambot.passport.SecureValue;
-import com.pengrad.telegrambot.passport.SetPassportDataErrors;
+import com.pengrad.telegrambot.passport.*;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
 import okhttp3.OkHttpClient;
@@ -50,13 +27,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import static com.pengrad.telegrambot.request.ContentTypes.VIDEO_MIME_TYPE;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * stas
@@ -1493,7 +1464,7 @@ public class TelegramBotTest {
 
     @Test
     public void setCustomEmojiStickerSetThumbnail() {
-        String setName = "custom_emoji_sticker_set_by_pengrad_test_bot";
+        String setName = "custom_emoji_set_by_pengrad_test_bot";
         BaseResponse response = bot.execute(
                 new CreateNewStickerSet(chatId, setName, "title",
                         new InputSticker[]{new InputSticker(stickerFileAnim, new String[]{"\uD83D\uDE15"})},
@@ -1503,6 +1474,9 @@ public class TelegramBotTest {
         assertTrue(response.isOk());
 
         response = bot.execute(new SetCustomEmojiStickerSetThumbnail(setName).customEmojiId("123"));
+        assertTrue(response.isOk());
+
+        response = bot.execute(new DeleteStickerSet(setName));
         assertTrue(response.isOk());
     }
 
@@ -2027,6 +2001,8 @@ public class TelegramBotTest {
 
         GetMyCommandsResponse commandsResponse = bot.execute(getCmds);
         assertTrue(commandsResponse.isOk());
+        assertEquals(commands[0].command(), commandsResponse.commands()[0].command());
+        assertEquals(commands[0].description(), commandsResponse.commands()[0].description());
         assertArrayEquals(commandsResponse.commands(), commands);
     }
 
@@ -2260,5 +2236,29 @@ public class TelegramBotTest {
 
         response = bot.execute(new ReopenGeneralForumTopic(forum));
         assertTrue(response.isOk());
+    }
+
+    @Test
+    public void setMyDescription() {
+        BaseResponse response = bot.execute(new SetMyDescription().description("desc").languageCode("en"));
+        assertTrue(response.isOk());
+
+        GetMyDescriptionResponse descResponse = bot.execute(new GetMyDescription().languageCode("en"));
+        assertTrue(descResponse.isOk());
+        BotDescription desc = descResponse.botDescription();
+        assertNotNull(desc);
+        assertEquals("desc", desc.description());
+    }
+
+    @Test
+    public void setMyShortDescription() {
+        BaseResponse response = bot.execute(new SetMyShortDescription().description("short_desc").languageCode("en"));
+        assertTrue(response.isOk());
+
+        GetMyShortDescriptionResponse descResponse = bot.execute(new GetMyShortDescription().languageCode("en"));
+        assertTrue(descResponse.isOk());
+        BotShortDescription desc = descResponse.botShortDescription();
+        assertNotNull(desc);
+        assertEquals("short_desc", desc.shortDescription());
     }
 }
