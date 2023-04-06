@@ -338,13 +338,24 @@ public class TelegramBotTest {
                         new InputTextMessageContent("message")
                                 .entities(new MessageEntity(MessageEntity.Type.bold, 0, 2))
                                 .disableWebPagePreview(false).parseMode(ParseMode.HTML))
-                        .url(someUrl).hideUrl(true).description("desc").thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
+                        .url(someUrl).hideUrl(true).description("desc")
+                        .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultArticle("2", "title",
                         new InputContactMessageContent("123123123", "na,e").lastName("lastName").vcard("qr vcard")),
                 new InlineQueryResultArticle("3", "title", new InputLocationMessageContent(50f, 50f)
                         .livePeriod(60).heading(100).horizontalAccuracy(10f).proximityAlertRadius(500)),
                 new InlineQueryResultArticle("4", "title",
-                        new InputVenueMessageContent(50f, 50f, "title", "address").foursquareId("sqrId").foursquareType("frType")),
+                        new InputVenueMessageContent(50f, 50f, "title", "address")
+                                .googlePlaceId("ggId").googlePlaceType("gType")
+                                .foursquareId("sqrId").foursquareType("frType")),
+                new InlineQueryResultArticle("4b", "title",
+                        new InputInvoiceMessageContent("title", "desc", "payload", "token", "USD",
+                                new LabeledPrice[]{new LabeledPrice("delivery", 100)})
+                                .maxTipAmount(0).suggestedTipAmount(new Integer[]{0}).providerData("provider_data")
+                                .photoUrl(someUrl).photoSize(100).photoWidth(100).photoHeight(100)
+                                .needName(false).needPhoneNumber(false).needEmail(false).needShippingAddress(false)
+                                .sendPhoneNumberToProvider(false).sendEmailToProvider(false)
+                                .isFlexible(false)),
                 new InlineQueryResultArticle("5", "title", "message"),
                 new InlineQueryResultAudio("6", someUrl, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML).performer("perf").audioDuration(100),
                 new InlineQueryResultContact("7", "123123123", "name").lastName("lastName").vcard("tt vcard")
@@ -365,8 +376,11 @@ public class TelegramBotTest {
                         .description("desc").caption("cap <b>bold</b>").parseMode(ParseMode.HTML),
                 new InlineQueryResultPhoto("131", someUrl, someUrl).photoWidth(100).photoHeight(100).title("title")
                         .description("desc").caption("bold").captionEntities(new MessageEntity(MessageEntity.Type.bold, 0, 2)),
-                new InlineQueryResultVenue("14", 54f, 55f, "title", "address").foursquareId("frsqrId").foursquareType("frType")
-                        .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
+                new InlineQueryResultVenue("14", 54f, 55f, "title", "address")
+                        .foursquareId("frsqrId").foursquareType("frType")
+                        .googlePlaceId("ggId").googlePlaceType("gType")
+                        .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100)
+                        .thumbnailUrl(someUrl).thumbnailHeight(100).thumbnailWidth(100),
                 new InlineQueryResultVideo("15", someUrl, VIDEO_MIME_TYPE, "text", someUrl, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML)
                         .videoWidth(100).videoHeight(100).videoDuration(100).description("desc"),
                 new InlineQueryResultVoice("16", someUrl, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML).voiceDuration(100),
@@ -577,10 +591,19 @@ public class TelegramBotTest {
                 .protectContent(true)
                 .replyMarkup(new ReplyKeyboardMarkup(
                         new KeyboardButton("contact").requestContact(true),
-                        new KeyboardButton("location").requestLocation(true))
+                        new KeyboardButton("location").requestLocation(true),
+                        new KeyboardButton("user").requestUser(
+                                new KeyboardButtonRequestUser(123).userIsBot(false).userIsPremium(false)),
+                        new KeyboardButton("chat").requestChat(
+                                new KeyboardButtonRequestChat(321, false)
+                                        .chatIsForum(false).chatHasUsername(false).chatIsCreated(true)
+                                        .userAdministratorRights(new ChatAdministratorRights().canChangeInfo(true))
+                                        .botAdministratorRights(new ChatAdministratorRights().canChangeInfo(true))
+                                        .botIsMember(true)))
                         .oneTimeKeyboard(true)
                         .resizeKeyboard(true)
                         .inputFieldPlaceholder("input-placeholder")
+                        .isPersistent(false)
                         .selective(true)));
         assertTrue(sendResponse.message().hasProtectedContent());
         MessageTest.checkTextMessage(sendResponse.message());
@@ -1321,7 +1344,7 @@ public class TelegramBotTest {
         assertTrue(response.isOk());
 
         response = bot.execute(new AddStickerToSet(chatId, name,
-                new InputSticker(stickerFile, new String[]{"\uD83D\uDE00"}))
+                new InputSticker(stickerId, new String[]{"\uD83D\uDE00"}))
                 .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f)));
         assertTrue(response.isOk());
     }
@@ -1544,8 +1567,8 @@ public class TelegramBotTest {
                                 new MessageEntity(MessageEntity.Type.text_mention, 6, 1).user(user),
                                 new MessageEntity(MessageEntity.Type.pre, 7, 1).language(language)
                         ),
-                new InputMediaPhoto(imageBytes).thumbnail(thumbBytes),
-                new InputMediaVideo(videoFileId),
+                new InputMediaPhoto(imageBytes).thumbnail(thumbBytes).hasSpoiler(true),
+                new InputMediaVideo(videoFileId).hasSpoiler(true),
                 new InputMediaVideo(videoFile),
                 new InputMediaVideo(videoBytes).caption("my video <b>bold</b>").parseMode(ParseMode.HTML)
                         .duration(10).width(11).height(12).supportsStreaming(true)
@@ -1580,7 +1603,7 @@ public class TelegramBotTest {
     public void sendMediaGroupDocuments() {
         MessagesResponse response = bot.execute(new SendMediaGroup(chatId,
                 new InputMediaDocument(docFile),
-                new InputMediaDocument(docBytes).fileName("test.pdf")
+                new InputMediaDocument(docBytes).fileName("test.pdf").contentType("application/pdf")
         ));
         assertTrue(response.isOk());
         assertEquals(2, response.messages().length);
@@ -1618,7 +1641,7 @@ public class TelegramBotTest {
         int expectedSize = 160; // idk why?
         Integer durationAnim = 17, width = 21, height = 22;
         response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
-                new InputMediaAnimation(gifBytes).duration(durationAnim).width(width).height(height)
+                new InputMediaAnimation(gifBytes).duration(durationAnim).width(width).height(height).hasSpoiler(true)
         ));
         Animation animation = response.message().animation();
         assertEquals(1, animation.duration().intValue());

@@ -21,7 +21,7 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
     private final String type;
     private final String media;
     private String thumbnail;
-  
+
     private String caption;
     private String parse_mode;
     private MessageEntity[] caption_entities;
@@ -45,8 +45,6 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
                 inputFile = new InputFile((File) media, getFileName(), getContentType());
             } else if (media instanceof byte[]) {
                 inputFile = new InputFile((byte[]) media, getFileName(), getContentType());
-            } else {
-                attachments.put(attachName, media);
             }
         }
     }
@@ -66,7 +64,7 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
     /**
      * @deprecated Use thumbnail instead
      */
-    @Deprecated 
+    @Deprecated
     public T thumb(File thumb) {
         String attachName = AttachName.next();
         attachments.put(attachName, thumb);
@@ -77,7 +75,7 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
     /**
      * @deprecated Use thumbnail instead
      */
-    @Deprecated 
+    @Deprecated
     public T thumb(byte[] thumb) {
         String attachName = AttachName.next();
         attachments.put(attachName, thumb);

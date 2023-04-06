@@ -49,8 +49,7 @@ public class InlineQueryResultArticle extends InlineQueryResult<InlineQueryResul
      */
     @Deprecated
     public InlineQueryResultArticle thumbUrl(String thumbUrl) {
-        this.thumbnail_url = thumbUrl;
-        return this;
+        return thumbnailUrl(thumbUrl);
     }
 
     /**
@@ -58,8 +57,7 @@ public class InlineQueryResultArticle extends InlineQueryResult<InlineQueryResul
      */
     @Deprecated
     public InlineQueryResultArticle thumbWidth(Integer thumbWidth) {
-        this.thumbnail_width = thumbWidth;
-        return this;
+        return thumbnailWidth(thumbWidth);
     }
 
     /**
@@ -67,8 +65,7 @@ public class InlineQueryResultArticle extends InlineQueryResult<InlineQueryResul
      */
     @Deprecated    
     public InlineQueryResultArticle thumbHeight(Integer thumbHeight) {
-        this.thumbnail_height = thumbHeight;
-        return this;
+        return thumbnailHeight(thumbHeight);
     }
 
 

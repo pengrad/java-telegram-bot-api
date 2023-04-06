@@ -48,8 +48,7 @@ public class InlineQueryResultGif extends InlineQueryResult<InlineQueryResultGif
      */
     @Deprecated 
     public InlineQueryResultGif thumbMimeType(String thumbMimeType) {
-        this.thumbnail_mime_type = thumbMimeType;
-        return this;
+        return thumbnailMimeType(thumbMimeType);
     }
 
     public InlineQueryResultGif thumbnailMimeType(String thumbnailMimeType) {

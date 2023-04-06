@@ -2,7 +2,7 @@ package com.pengrad.telegrambot.model.request;
 
 import java.io.Serializable;
 
-public class KeyboardButtonRequestUser implements Serializable  {
+public class KeyboardButtonRequestUser implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private Integer request_id;
@@ -21,10 +21,6 @@ public class KeyboardButtonRequestUser implements Serializable  {
     public KeyboardButtonRequestUser userIsPremium(Boolean userIsPremium) {
         this.user_is_premium = userIsPremium;
         return this;
-    }
-
-    public Integer requestId() {
-        return request_id;
     }
 
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.pengrad.telegrambot.model.ChatAdministratorRights;
 
-public class KeyboardButtonRequestChat implements Serializable  {
+public class KeyboardButtonRequestChat implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private Integer request_id;
@@ -16,7 +16,6 @@ public class KeyboardButtonRequestChat implements Serializable  {
     private ChatAdministratorRights user_administrator_rights;
     private ChatAdministratorRights bot_administrator_rights;
     private Boolean bot_is_member;
-    
 
     public KeyboardButtonRequestChat(Integer requestId, Boolean chatIsChannel) {
         this.request_id = requestId;
@@ -51,14 +50,6 @@ public class KeyboardButtonRequestChat implements Serializable  {
     public KeyboardButtonRequestChat botIsMember(Boolean botIsMember) {
         this.bot_is_member = botIsMember;
         return this;
-    }
-    
-    public Integer requestId() {
-        return request_id;
-    }
-
-    public Boolean chatIsChannel() {
-        return chat_is_channel;
     }
 
 }
