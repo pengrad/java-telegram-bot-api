@@ -1364,9 +1364,17 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void addStickerToSet() {
+    public void deprecated_addStickerToSet() {
         BaseResponse response = bot.execute(
                 AddStickerToSet.pngSticker(chatId, stickerSet, "\uD83D\uDE15", "BQADAgADuAAD7yupS4eB23UmZhGuAg")
+                        .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f)));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void addStickerToSet() {
+        BaseResponse response = bot.execute(
+                new AddStickerToSet(chatId, stickerSet, new InputSticker("BQADAgADuAAD7yupS4eB23UmZhGuAg", new String[]{"\uD83D\uDE15"}))
                         .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f)));
         assertTrue(response.isOk());
     }

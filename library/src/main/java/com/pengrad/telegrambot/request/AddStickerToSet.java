@@ -8,7 +8,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
  * Stas Parshin
  * 23 July 2017
  */
-public class AddStickerToSet extends AbstractUploadRequest<AddStickerToSet, BaseResponse> {
+public class AddStickerToSet extends BaseRequest<AddStickerToSet, BaseResponse> {
 
     /**
      * @deprecated Use constructor with the InputSticker type (since API v6.6)
@@ -47,15 +47,21 @@ public class AddStickerToSet extends AbstractUploadRequest<AddStickerToSet, Base
      */
     @Deprecated
     private AddStickerToSet(Long userId, String name, String emojis, String stickerParam, Object sticker) {
-        super(BaseResponse.class, stickerParam, sticker);
+        super(BaseResponse.class);
+        add(stickerParam, sticker);
         add("user_id", userId);
         add("name", name);
         add("emojis", emojis);
     }
 
     public AddStickerToSet(Long userId, String name, InputSticker sticker) {
-        super(BaseResponse.class, "sticker", sticker);
+        super(BaseResponse.class);
         add("name", name);
+        add("user_id", userId);
+        add("sticker", sticker);
+        if (sticker.getAttachment() != null) {
+            add(sticker.getAttachName(), sticker.getAttachment());
+        }
     }
 
     public AddStickerToSet maskPosition(MaskPosition maskPosition) {
