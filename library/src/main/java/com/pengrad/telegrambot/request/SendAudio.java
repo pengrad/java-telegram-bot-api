@@ -52,7 +52,7 @@ public class SendAudio extends AbstractMultipartRequest<SendAudio> {
      */
     @Deprecated 
     public SendAudio thumb(byte[] thumb) {
-        return super.thumbnail(thumb);
+        return thumbnail(thumb);
     }
 
     /**
@@ -60,7 +60,7 @@ public class SendAudio extends AbstractMultipartRequest<SendAudio> {
      */
     @Deprecated 
     public SendAudio thumb(File thumb) {
-        return super.thumbnail(thumb);
+        return thumbnail(thumb);
     }
 
     public SendAudio thumbnail(byte[] thumbnail) {

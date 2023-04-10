@@ -33,7 +33,7 @@ public class SendVideoNote extends AbstractMultipartRequest<SendVideoNote> {
      */
     @Deprecated 
     public SendVideoNote thumb(byte[] thumb) {
-        return super.thumbnail(thumb);
+        return thumbnail(thumb);
     }
 
     /**
@@ -41,7 +41,7 @@ public class SendVideoNote extends AbstractMultipartRequest<SendVideoNote> {
      */
     @Deprecated 
     public SendVideoNote thumb(File thumb) {
-        return super.thumbnail(thumb);
+        return thumbnail(thumb);
     }
 
     public SendVideoNote thumbnail(byte[] thumbnail) {

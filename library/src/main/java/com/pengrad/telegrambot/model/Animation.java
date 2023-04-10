@@ -48,7 +48,7 @@ public class Animation implements Serializable {
      */
     @Deprecated 
     public PhotoSize thumb() {
-        return thumbnail;
+        return thumbnail();
     }
 
     public String fileName() {

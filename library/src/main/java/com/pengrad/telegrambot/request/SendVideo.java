@@ -38,17 +38,17 @@ public class SendVideo extends AbstractMultipartRequest<SendVideo> {
     /**
      * @deprecated Use thumbnail instead
      */
-    @Deprecated 
+    @Deprecated
     public SendVideo thumb(byte[] thumb) {
-        return super.thumbnail(thumb);
+        return thumbnail(thumb);
     }
 
     /**
      * @deprecated Use thumbnail instead
      */
-    @Deprecated 
+    @Deprecated
     public SendVideo thumb(File thumb) {
-        return super.thumbnail(thumb);
+        return thumbnail(thumb);
     }
 
     public SendVideo thumbnail(byte[] thumbnail) {

@@ -21,7 +21,7 @@ public class StickerSet implements Serializable {
     private Boolean contains_masks;
     private Sticker[] stickers;
     private PhotoSize thumbnail;
-  
+
 
     public String name() {
         return name;
@@ -39,9 +39,9 @@ public class StickerSet implements Serializable {
         return is_animated;
     }
 
-    /** 
-     *  @deprecated Use type() and check if it equals to Type.mask
-     */   
+    /**
+     * @deprecated Use type() and check if it equals to Type.mask
+     */
     @Deprecated
     public Boolean containsMasks() {
         return contains_masks;
@@ -58,9 +58,9 @@ public class StickerSet implements Serializable {
     /**
      * @deprecated Use thumbnail instead
      */
-    @Deprecated 
+    @Deprecated
     public PhotoSize thumb() {
-        return thumbnail;
+        return thumbnail();
     }
 
     public Boolean isVideo() {

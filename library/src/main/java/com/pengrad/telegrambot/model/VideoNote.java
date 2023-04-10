@@ -42,7 +42,7 @@ public class VideoNote implements Serializable {
      */
     @Deprecated 
     public PhotoSize thumb() {
-        return thumbnail;
+        return thumbnail();
     }
 
     public Long fileSize() {

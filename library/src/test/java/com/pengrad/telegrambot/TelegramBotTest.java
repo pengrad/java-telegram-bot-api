@@ -218,7 +218,11 @@ public class TelegramBotTest {
                 .canSendVoiceNotes(true)
                 .canSendPolls(true); // implies can_send_messages
 
-        BaseResponse response = bot.execute(new RestrictChatMember(groupId, memberBot, permissions));
+        BaseResponse response = bot.execute(
+                new RestrictChatMember(groupId, memberBot, permissions)
+                        .untilDate((int) (System.currentTimeMillis() / 1000) + 5)
+                        .useIndependentChatPermissions(false)
+        );
         assertTrue(response.isOk());
     }
 
@@ -682,9 +686,15 @@ public class TelegramBotTest {
 
     @Test
     public void sendAudio() {
-        Message message = bot.execute(new SendAudio(chatId, audioFileId)).message();
+        Message message = bot.execute(new SendAudio(chatId, audioFileId)
+                .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7))
+        ).message();
         MessageTest.checkMessage(message);
         AudioTest.checkAudio(message.audio(), false);
+        MessageEntity captionEntity = message.captionEntities()[0];
+        assertEquals(MessageEntity.Type.italic, captionEntity.type());
+        assertEquals((Integer) 0, captionEntity.offset());
+        assertEquals((Integer) 7, captionEntity.length());
 
         message = bot.execute(new SendAudio(chatId, audioFile).thumb(thumbFile)).message();
         MessageTest.checkMessage(message);
@@ -707,7 +717,7 @@ public class TelegramBotTest {
         assertEquals(title, audio.title());
         assertEquals(thumbSize, audio.thumb().fileSize());
 
-        MessageEntity captionEntity = message.captionEntities()[0];
+        captionEntity = message.captionEntities()[0];
         assertEquals(MessageEntity.Type.url, captionEntity.type());
         assertEquals((Integer) 0, captionEntity.offset());
         assertEquals((Integer) 12, captionEntity.length());
@@ -840,12 +850,16 @@ public class TelegramBotTest {
         DocumentTest.check(message.document());
 
         message = bot.execute(
-                        new SendDocument(chatId, docBytes).thumb(thumbBytes)
-                                .fileName("test.pdf").contentType("application/pdf"))
+                        new SendDocument(chatId, docBytes).thumb(thumbBytes).contentType("application/pdf")
+                                .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7)))
                 .message();
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
         assertEquals(thumbSize, message.document().thumb().fileSize());
+        MessageEntity captionEntity = message.captionEntities()[0];
+        assertEquals(MessageEntity.Type.italic, captionEntity.type());
+        assertEquals((Integer) 0, captionEntity.offset());
+        assertEquals((Integer) 7, captionEntity.length());
 
         String caption = "caption <b>bold</b>", fileName = "my doc.pdf";
         ParseMode parseMode = ParseMode.HTML;
@@ -859,7 +873,7 @@ public class TelegramBotTest {
         assertEquals(fileName, message.document().fileName());
         assertEquals(thumbSize, message.document().thumb().fileSize());
 
-        MessageEntity captionEntity = message.captionEntities()[0];
+        captionEntity = message.captionEntities()[0];
         assertEquals(MessageEntity.Type.bold, captionEntity.type());
         assertEquals((Integer) 8, captionEntity.offset());
         assertEquals((Integer) 4, captionEntity.length());
@@ -871,9 +885,14 @@ public class TelegramBotTest {
         MessageTest.checkMessage(message);
         PhotoSizeTest.checkPhotos(false, message.photo());
 
-        message = bot.execute(new SendPhoto(chatId, imageFile)).message();
+        message = bot.execute(new SendPhoto(chatId, imageFile).hasSpoiler(true)
+                .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7))).message();
         MessageTest.checkMessage(message);
         PhotoSizeTest.checkPhotos(message.photo());
+        MessageEntity captionEntity = message.captionEntities()[0];
+        assertEquals(MessageEntity.Type.italic, captionEntity.type());
+        assertEquals((Integer) 0, captionEntity.offset());
+        assertEquals((Integer) 7, captionEntity.length());
 
         String caption = "caption <b>bold</b>";
         message = bot.execute(new SendPhoto(channelName, imageBytes).caption(caption).parseMode(ParseMode.HTML)).message();
@@ -881,7 +900,7 @@ public class TelegramBotTest {
         assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
         PhotoSizeTest.checkPhotos(message.photo());
 
-        MessageEntity captionEntity = message.captionEntities()[0];
+        captionEntity = message.captionEntities()[0];
         assertEquals(MessageEntity.Type.bold, captionEntity.type());
         assertEquals((Integer) 8, captionEntity.offset());
         assertEquals((Integer) 4, captionEntity.length());
@@ -889,36 +908,41 @@ public class TelegramBotTest {
 
     @Test
     public void sendSticker() {
-        Message message = bot.execute(new SendSticker(chatId, stickerFileAnim)).message();
+        Message message = bot.execute(new SendSticker(chatId, stickerFileAnim).emoji("\uD83D\uDE00")).message();
         MessageTest.checkMessage(message);
         StickerTest.check(message.sticker(), false, true);
         assertTrue(message.sticker().isAnimated());
+        assertEquals("\uD83D\uDE00", message.sticker().emoji());
+        assertEquals(Sticker.Type.regular, message.sticker().type());
 
-        message = bot.execute(new SendSticker(chatId, stickerId)).message();
+        message = bot.execute(new SendSticker(chatId, stickerId).thumbnail(thumbFile)).message();
         MessageTest.checkMessage(message);
         StickerTest.check(message.sticker(), true, false);
         assertFalse(message.sticker().isAnimated());
 
-        message = bot.execute(new SendSticker(chatId, imageFile)).message();
-        MessageTest.checkMessage(message);
-        StickerTest.check(message.sticker(), false, true);
-
-        message = bot.execute(new SendSticker(chatId, imageBytes)).message();
+        message = bot.execute(new SendSticker(chatId, imageBytes).thumbnail(thumbBytes)).message();
         MessageTest.checkMessage(message);
         StickerTest.check(message.sticker(), false, true);
     }
 
     @Test
     public void sendVideo() {
-        Message message = bot.execute(new SendVideo(chatId, videoFileId)).message();
+        Message message = bot.execute(new SendVideo(chatId, videoFileId).hasSpoiler(true)).message();
         MessageTest.checkMessage(message);
         VideoTest.check(message.video(), false);
 
-        message = bot.execute(new SendVideo(chatId, videoFile).thumb(thumbFile)).message();
+        message = bot.execute(new SendVideo(chatId, videoFile)
+                .thumb(thumbFile)
+                .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7))
+        ).message();
         MessageTest.checkMessage(message);
         VideoTest.check(message.video());
         assertNotEquals("telegram should generate thumb", thumbSize, message.video().thumb().fileSize());
         assertEquals("tabs.mp4", message.video().fileName());
+        MessageEntity captionEntity = message.captionEntities()[0];
+        assertEquals(MessageEntity.Type.italic, captionEntity.type());
+        assertEquals((Integer) 0, captionEntity.offset());
+        assertEquals((Integer) 7, captionEntity.length());
 
         String caption = "caption <b>bold</b>";
         int duration = 100;
@@ -927,6 +951,7 @@ public class TelegramBotTest {
                                 .caption(caption).parseMode(ParseMode.HTML)
                                 .duration(duration).height(1).width(2).supportsStreaming(true))
                 .message();
+        System.out.println(message);
         MessageTest.checkMessage(message);
         assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
 
@@ -938,7 +963,7 @@ public class TelegramBotTest {
         assertEquals("video/mp4", video.mimeType());
         assertNotEquals("telegram should generate thumb", thumbSize, video.thumb().fileSize());
 
-        MessageEntity captionEntity = message.captionEntities()[0];
+        captionEntity = message.captionEntities()[0];
         assertEquals(MessageEntity.Type.bold, captionEntity.type());
         assertEquals((Integer) 8, captionEntity.offset());
         assertEquals((Integer) 4, captionEntity.length());
@@ -1103,8 +1128,7 @@ public class TelegramBotTest {
         float lat = 21.999998f, lng = 105.2f;
         String title = "title", address = "addr", frsqrId = "asdfasdf", frsqrType = "frType";
         Venue venue = bot.execute(new SendVenue(chatId, lat, lng, title, address)
-                .foursquareId(frsqrId)
-                .foursquareType(frsqrType)
+                .foursquareId(frsqrId).foursquareType(frsqrType)
         ).message().venue();
         assertEquals(lat, venue.location().latitude(), 0f);
         assertEquals(lng, venue.location().longitude(), 0f);
@@ -1112,6 +1136,13 @@ public class TelegramBotTest {
         assertEquals(title, venue.title());
         assertEquals(frsqrId, venue.foursquareId());
         assertEquals(frsqrType, venue.foursquareType());
+
+        String ggId = "ggId", ggType = "library";
+        venue = bot.execute(new SendVenue(chatId, lat, lng, title, address)
+                .googlePlaceId(ggId).googlePlaceType(ggType)
+        ).message().venue();
+        assertEquals(ggId, venue.googlePlaceId());
+        assertEquals(ggType, venue.googlePlaceType());
     }
 
     @Test
@@ -1146,6 +1177,7 @@ public class TelegramBotTest {
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_video_note)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_video_note)).isOk());
         assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.choose_sticker)).isOk());
+        assertTrue(bot.execute(new SendChatAction(forum, ChatAction.choose_sticker).messageThreadId(forumEditThread)).isOk());
     }
 
     @Test
@@ -1198,7 +1230,8 @@ public class TelegramBotTest {
             setPerms.canInviteUsers(bool);
             setPerms.canPinMessages(bool);
             setPerms.canManageTopics(bool);
-            BaseResponse response = bot.execute(new SetChatPermissions(groupId, setPerms));
+            BaseResponse response = bot.execute(new SetChatPermissions(groupId, setPerms)
+                    .useIndependentChatPermissions(false));
             assertTrue(response.isOk());
 
             Chat chat = bot.execute(new GetChat(groupId)).chat();
@@ -1394,6 +1427,7 @@ public class TelegramBotTest {
                                 .keywords(new String[]{"yes", "no"})
                                 .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 10f, 20f, 1f))
                 }, Sticker.Format.Static)
+                        .containsMasks(false)
                         .needsRepainting(false));
         assertTrue(response.isOk());
 
@@ -1689,7 +1723,7 @@ public class TelegramBotTest {
         String caption = "gif *file*", captionCheck = "gif file";
         SendResponse response = bot.execute(new SendAnimation(chatId, gifFile)
                 .duration(222).width(width).height(height).thumb(thumbFile)
-                .caption(caption).parseMode(ParseMode.Markdown));
+                .caption(caption).parseMode(ParseMode.Markdown).hasSpoiler(true));
         assertTrue(response.isOk());
         Animation animation = response.message().animation();
         assertEquals((Integer) 1, animation.duration());
@@ -1699,12 +1733,17 @@ public class TelegramBotTest {
         assertEquals(captionCheck, response.message().caption());
         assertEquals(MessageEntity.Type.bold, response.message().captionEntities()[0].type());
 
-        response = bot.execute(new SendAnimation(chatId, gifBytes).thumb(thumbBytes));
+        response = bot.execute(new SendAnimation(chatId, gifBytes).thumb(thumbBytes)
+                .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7)));
         animation = response.message().animation();
         assertEquals((Integer) 1, animation.duration());
         assertEquals(expectedSize, animation.width().intValue());
         assertEquals(expectedSize, animation.height().intValue());
         assertNotEquals("telegram should generate thumb", thumbSize, animation.thumb().fileSize());
+        MessageEntity captionEntity = response.message().captionEntities()[0];
+        assertEquals(MessageEntity.Type.italic, captionEntity.type());
+        assertEquals((Integer) 0, captionEntity.offset());
+        assertEquals((Integer) 7, captionEntity.length());
 
         response = bot.execute(new SendAnimation(chatId, gifFileId));
         animation = response.message().animation();

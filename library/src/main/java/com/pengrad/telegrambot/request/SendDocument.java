@@ -28,7 +28,7 @@ public class SendDocument extends AbstractMultipartRequest<SendDocument> {
      */
     @Deprecated 
     public SendDocument thumb(byte[] thumb) {
-        return super.thumbnail(thumb);
+        return thumbnail(thumb);
     }
 
     /**
@@ -36,7 +36,7 @@ public class SendDocument extends AbstractMultipartRequest<SendDocument> {
      */
     @Deprecated 
     public SendDocument thumb(File thumb) {
-        return super.thumbnail(thumb);
+        return thumbnail(thumb);
     }
 
     public SendDocument thumbnail(byte[] thumbnail) {

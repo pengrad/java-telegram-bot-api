@@ -40,7 +40,7 @@ public class SendAnimation extends AbstractMultipartRequest<SendAnimation> {
      */
     @Deprecated 
     public SendAnimation thumb(byte[] thumb) {
-        return super.thumbnail(thumb);
+        return thumbnail(thumb);
     }
 
     /**
@@ -48,7 +48,7 @@ public class SendAnimation extends AbstractMultipartRequest<SendAnimation> {
      */
     @Deprecated 
     public SendAnimation thumb(File thumb) {
-        return super.thumbnail(thumb);
+        return thumbnail(thumb);
     }
 
     public SendAnimation thumbnail(byte[] thumbnail) {
