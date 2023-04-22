@@ -36,26 +36,4 @@ public class SwitchInlineQueryChosenChat implements Serializable {
         this.allow_channel_chats = allowChannelChats;
         return this;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(query,
-        allow_user_chats,
-        allow_bot_chats,
-        allow_group_chats,
-        allow_channel_chats
-        );
-    }
-
-    @Override
-    public String toString() {
-        return "SwitchInlineQueryChosenChat{" +
-                "query='" + query + '\'' +
-                ", allow_user_chats=" + allow_user_chats +
-                ", allow_bot_chats=" + allow_bot_chats +
-                ", allow_group_chats=" + allow_group_chats +
-                ", allow_channel_chats='" + allow_channel_chats + '\'' +
-                '}';
-    }
-    
 }

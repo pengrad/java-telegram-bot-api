@@ -85,7 +85,6 @@ public class ModelTest {
                 verifierApi.withIgnoredFields("forum_topic_reopened");
                 verifierApi.withIgnoredFields("general_forum_topic_hidden");
                 verifierApi.withIgnoredFields("general_forum_topic_unhidden");
-                verifierApi.withIgnoredFields("write_access_allowed");
             }
 
             verifierApi.verify();

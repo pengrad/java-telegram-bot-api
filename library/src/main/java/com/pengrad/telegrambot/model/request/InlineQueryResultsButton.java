@@ -35,20 +35,4 @@ public class InlineQueryResultsButton implements Serializable {
         return start_parameter;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(text,
-                web_app,
-                start_parameter);
-    }
-
-    @Override
-    public String toString() {
-        return "InlineQueryResultsButton{" +
-                "text='" + text + '\'' +
-                ", web_app=" + web_app +
-                ", start_parameter='" + start_parameter + '\'' +
-                '}';
-    }
-
 }
