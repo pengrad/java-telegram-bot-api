@@ -18,6 +18,7 @@ public class InlineKeyboardButton implements Serializable {
     private String callback_data;
     private String switch_inline_query;
     private String switch_inline_query_current_chat;
+    private SwitchInlineQueryChosenChat switch_inline_query_chosen_chat;
     private CallbackGame callback_game;
     private Boolean pay;
     private WebAppInfo web_app;
@@ -56,6 +57,11 @@ public class InlineKeyboardButton implements Serializable {
         return this;
     }
 
+    public InlineKeyboardButton switchInlineQueryChosenChat(SwitchInlineQueryChosenChat switchInlineQueryChosenChat) {
+        switch_inline_query_chosen_chat = switchInlineQueryChosenChat;
+        return this;
+    }
+
     public InlineKeyboardButton callbackGame(String callbackGame) {
         callback_game = new CallbackGame();
         return this;
@@ -91,6 +97,10 @@ public class InlineKeyboardButton implements Serializable {
         return switch_inline_query_current_chat;
     }
 
+    public SwitchInlineQueryChosenChat switchInlineQueryChosenChat() {
+        return switch_inline_query_chosen_chat;
+    }
+
     public CallbackGame callbackGame() {
         return callback_game;
     }
@@ -114,6 +124,7 @@ public class InlineKeyboardButton implements Serializable {
                 Objects.equals(callback_data, that.callback_data) &&
                 Objects.equals(switch_inline_query, that.switch_inline_query) &&
                 Objects.equals(switch_inline_query_current_chat, that.switch_inline_query_current_chat) &&
+                Objects.equals(switch_inline_query_chosen_chat, that.switch_inline_query_chosen_chat) &&
                 Objects.equals(callback_game, that.callback_game) &&
                 Objects.equals(pay, that.pay) &&
                 Objects.equals(web_app, that.web_app);
@@ -121,7 +132,7 @@ public class InlineKeyboardButton implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(text, url, login_url, callback_data, switch_inline_query, switch_inline_query_current_chat, callback_game, pay, web_app);
+        return Objects.hash(text, url, login_url, callback_data, switch_inline_query, switch_inline_query_current_chat, switch_inline_query_chosen_chat, callback_game, pay, web_app);
     }
 
     @Override
@@ -133,6 +144,7 @@ public class InlineKeyboardButton implements Serializable {
                 ", callback_data='" + callback_data + '\'' +
                 ", switch_inline_query='" + switch_inline_query + '\'' +
                 ", switch_inline_query_current_chat='" + switch_inline_query_current_chat + '\'' +
+                ", switch_inline_query_chosen_chat='" + switch_inline_query_chosen_chat + '\'' +
                 ", callback_game=" + callback_game +
                 ", pay=" + pay +
                 ", web_app=" + web_app +
