@@ -9,11 +9,11 @@ public class ChatShared implements Serializable {
     private Integer request_id;
     private Long chat_id;
 
-    private Integer requestId() {
+    public Integer requestId() {
         return request_id;
     }
 
-    private Long chatId() {
+    public Long chatId() {
         return chat_id;
     }
 

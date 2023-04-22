@@ -9,11 +9,11 @@ public class UserShared implements Serializable {
     private Integer request_id;
     private Long user_id;
 
-    private Integer requestId() {
+    public Integer requestId() {
         return request_id;
     }
 
-    private Long userId() {
+    public Long userId() {
         return user_id;
     }
 
