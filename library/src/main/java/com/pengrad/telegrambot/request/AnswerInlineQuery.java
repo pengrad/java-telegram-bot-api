@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.request;
 
 import com.pengrad.telegrambot.model.request.InlineQueryResult;
+import com.pengrad.telegrambot.model.request.InlineQueryResultsButton;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -26,10 +27,22 @@ public class AnswerInlineQuery extends BaseRequest<AnswerInlineQuery, BaseRespon
         return add("next_offset", nextOffset);
     }
 
+    public AnswerInlineQuery button(InlineQueryResultsButton button) {
+        return add ("button", button);
+    }
+
+    /**
+     * @deprecated Replaced by {@link #button(InlineQueryResultsButton)}
+     */
+    @Deprecated
     public AnswerInlineQuery switchPmText(String switchPmText) {
         return add("switch_pm_text", switchPmText);
     }
 
+    /**
+     * @deprecated Replaced by {@link #button(InlineQueryResultsButton)}
+     */
+    @Deprecated
     public AnswerInlineQuery switchPmParameter(String switchPmParameter) {
         return add("switch_pm_parameter", switchPmParameter);
     }
