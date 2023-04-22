@@ -2325,6 +2325,16 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void setMyName() {
+        BaseResponse response = bot.execute(new SetMyName().name("name").languageCode("en"));
+        assertTrue(response.isOk());
+
+        GetMyNameResponse nameResponse = bot.execute(new GetMyName().languageCode("en"));
+        assertTrue(nameResponse.isOk());
+        assertEquals("name", nameResponse.botName().name());
+    }
+
+    @Test
     public void answerWebAppQuery() {
         SentWebAppMessageResponse response = bot.execute(new AnswerWebAppQuery("123", new InlineQueryResultArticle("1", "title", "text")));
         assertFalse(response.isOk());
