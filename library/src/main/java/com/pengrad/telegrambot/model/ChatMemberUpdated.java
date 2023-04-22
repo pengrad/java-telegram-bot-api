@@ -16,6 +16,7 @@ public class ChatMemberUpdated implements Serializable {
     private ChatMember old_chat_member;
     private ChatMember new_chat_member;
     private ChatInviteLink invite_link;
+    private Boolean via_chat_folder_invite_link;
 
     public Chat chat() {
         return chat;
@@ -41,6 +42,10 @@ public class ChatMemberUpdated implements Serializable {
         return invite_link;
     }
 
+    public Boolean viaChatFolderInviteLink() {
+        return via_chat_folder_invite_link;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,12 +56,13 @@ public class ChatMemberUpdated implements Serializable {
                 Objects.equals(date, that.date) &&
                 Objects.equals(old_chat_member, that.old_chat_member) &&
                 Objects.equals(new_chat_member, that.new_chat_member) &&
-                Objects.equals(invite_link, that.invite_link);
+                Objects.equals(invite_link, that.invite_link) &&
+                Objects.equals(via_chat_folder_invite_link, that.via_chat_folder_invite_link);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(chat, from, date, old_chat_member, new_chat_member, invite_link);
+        return Objects.hash(chat, from, date, old_chat_member, new_chat_member, invite_link, via_chat_folder_invite_link);
     }
 
     @Override
@@ -68,6 +74,7 @@ public class ChatMemberUpdated implements Serializable {
                 ", old_chat_member=" + old_chat_member +
                 ", new_chat_member=" + new_chat_member +
                 ", invite_link=" + invite_link +
+                ", via_chat_folder_invite_link=" + via_chat_folder_invite_link +
                 '}';
     }
 }
