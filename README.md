@@ -36,6 +36,16 @@ bot.setUpdatesListener(updates -> {
     // ... process updates
     // return id of last processed update or confirm them all
     return UpdatesListener.CONFIRMED_UPDATES_ALL;
+// Create Exception Handler
+}, e -> {
+    if (e.response() != null) {
+        // got bad response from telegram
+        e.response().errorCode();
+        e.response().description();
+    } else {
+        // probably network error
+        e.printStackTrace();
+    }
 });
 
 // Send messages
@@ -196,6 +206,20 @@ bot.setUpdatesListener(new UpdatesListener() {
         // process updates
 
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
+    }
+// Create Exception Handler
+}, new ExceptionHandler() {
+    @override
+    public void onException(TelegramException e)
+    {
+        if (e.response() != null) {
+            // got bad response from telegram
+            e.response().errorCode();
+            e.response().description();
+        } else {
+            // probably network error
+            e            .printStackTrace();
+        }
     }
 });
 ```

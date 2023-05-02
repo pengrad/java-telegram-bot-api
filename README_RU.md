@@ -32,9 +32,21 @@ TelegramBot bot = new TelegramBot("BOT_TOKEN");
 
 // Подписка на обновления
 bot.setUpdatesListener(updates -> {
-    // ... process updates
+
+    // Обработка обновлений
+    
     // return id of last processed update or confirm them all
     return UpdatesListener.CONFIRMED_UPDATES_ALL;
+// Создание Обработчика ошибок
+}, e -> {
+    if (e.response() != null) {
+        // Ошибка из Телеграма
+        e.response().errorCode();
+        e.response().description();
+    } else {
+        // Как видно проблема сети
+        e.printStackTrace();
+    }
 });
 
 // Отправка сообщений
@@ -197,6 +209,20 @@ bot.setUpdatesListener(new UpdatesListener() {
         // обработка обновлений
 
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
+    }
+// Создание Обработчика ошибок
+}, new ExceptionHandler() {
+    @override
+    public void onException(TelegramException e)
+    {
+        if (e.response() != null) {
+            // Ошибка из Телеграма
+            e.response().errorCode();
+            e.response().description();
+        } else {
+            // Как видно проблема сети
+            e            .printStackTrace();
+        }
     }
 });
 ```
