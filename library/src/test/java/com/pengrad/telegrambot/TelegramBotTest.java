@@ -142,7 +142,7 @@ public class TelegramBotTest {
 
     @Test
     public void getMe() {
-        GetMeResponse response = bot.execute(new GetMe());
+        GetMeResponse response = bot.getMe().execute();
         User user = response.user();
         UserTest.checkUser(user);
         assertTrue(user.isBot());
@@ -155,19 +155,19 @@ public class TelegramBotTest {
 
     @Test
     public void getUpdates() {
-        GetUpdates getUpdates = new GetUpdates()
+        GetUpdates getUpdates = bot.getUpdates()
                 .offset(874227176)
                 .allowedUpdates("")
                 .timeout(0)
                 .limit(100);
         assertEquals(100, getUpdates.getLimit());
-        GetUpdatesResponse response = bot.execute(getUpdates);
+        GetUpdatesResponse response = getUpdates.execute();
         UpdateTest.check(response.updates());
     }
 
     @Test
     public void getFile() throws IOException {
-        GetFileResponse response = bot.execute(new GetFile(withSpaceFileId));
+        GetFileResponse response = bot.getFile(withSpaceFileId).execute();
         FileTest.check(response.file());
         String path = bot.getFullFilePath(response.file());
 
@@ -178,7 +178,7 @@ public class TelegramBotTest {
 
     @Test
     public void kickChatMember() {
-        BaseResponse response = bot.execute(new KickChatMember(channelName, chatId).untilDate(123).revokeMessages(true));
+        BaseResponse response = bot.kickChatMember(channelName, chatId).untilDate(123).revokeMessages(true).execute();
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
         assertEquals("Bad Request: can't remove chat owner", response.description());
@@ -186,7 +186,7 @@ public class TelegramBotTest {
 
     @Test
     public void banChatMember() {
-        BaseResponse response = bot.execute(new BanChatMember(channelName, chatId).untilDate(123).revokeMessages(true));
+        BaseResponse response = bot.banChatMember(channelName, chatId).untilDate(123).revokeMessages(true).execute();
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
         assertEquals("Bad Request: can't remove chat owner", response.description());
@@ -194,13 +194,13 @@ public class TelegramBotTest {
 
     @Test
     public void unbanChatMember() {
-        BaseResponse response = bot.execute(new UnbanChatMember(channelName, chatId));
+        BaseResponse response = bot.unbanChatMember(channelName, chatId).execute();
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
         assertEquals("Bad Request: can't remove chat owner", response.description());
 
         // returns true for non-banned member with onlyIfBanned(true)
-        response = bot.execute(new UnbanChatMember(channelName, chatId).onlyIfBanned(true));
+        response = bot.unbanChatMember(channelName, chatId).onlyIfBanned(true).execute();
         assertTrue(response.isOk());
     }
 
@@ -218,18 +218,16 @@ public class TelegramBotTest {
                 .canSendVoiceNotes(true)
                 .canSendPolls(true); // implies can_send_messages
 
-        BaseResponse response = bot.execute(
-                new RestrictChatMember(groupId, memberBot, permissions)
+        BaseResponse response = bot.restrictChatMember(groupId, memberBot, permissions)
                         .untilDate((int) (System.currentTimeMillis() / 1000) + 5)
                         .useIndependentChatPermissions(false)
-        );
+                        .execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void promoteChatMember() {
-        BaseResponse response = bot.execute(
-                new PromoteChatMember(groupId, memberBot)
+        BaseResponse response = bot.promoteChatMember(groupId, memberBot)
                         .isAnonymous(false)
                         .canChangeInfo(false)
                         .canPostMessages(false)
@@ -242,7 +240,8 @@ public class TelegramBotTest {
                         .canManageVoiceChats(false)
                         .canManageVideoChats(false)
                         .canManageTopics(false)
-                        .canPromoteMembers(true));
+                        .canPromoteMembers(true)
+                        .execute();
         assertTrue(response.isOk());
     }
 
@@ -250,17 +249,18 @@ public class TelegramBotTest {
     public void editMessageText() {
         String text = "Update " + System.currentTimeMillis();
 
-        BaseResponse response = bot.execute(new EditMessageText(chatId, 925, text)
+        BaseResponse response = bot.editMessageText(chatId, 925, text)
                 .parseMode(ParseMode.Markdown)
                 .disableWebPagePreview(true)
-                .replyMarkup(new InlineKeyboardMarkup()));
+                .replyMarkup(new InlineKeyboardMarkup())
+                .execute();
         assertTrue(response.isOk());
         assertNotNull(((SendResponse) response).message().editDate());
 
-        response = bot.execute(new EditMessageText(channelName, 306, text));
+        response = bot.editMessageText(channelName, 306, text).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new EditMessageText("AgAAAN3wAQCj_Q4DjX4ok5VEUZU", text));
+        response = bot.editMessageText("AgAAAN3wAQCj_Q4DjX4ok5VEUZU", text).execute();
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: MESSAGE_ID_INVALID", response.description());
@@ -271,10 +271,11 @@ public class TelegramBotTest {
     public void editMessageCaption() {
         String text = "Update " + System.currentTimeMillis() + " <b>bold</b>";
 
-        SendResponse sendResponse = (SendResponse) bot.execute(new EditMessageCaption(chatId, 8124)
+        SendResponse sendResponse = (SendResponse) bot.editMessageCaption(chatId, 8124)
                 .caption(text)
                 .parseMode(ParseMode.HTML)
-                .replyMarkup(new InlineKeyboardMarkup()));
+                .replyMarkup(new InlineKeyboardMarkup())
+                .execute();
         assertTrue(sendResponse.isOk());
 
         Message message = sendResponse.message();
@@ -285,10 +286,10 @@ public class TelegramBotTest {
         assertEquals((Integer) 21, captionEntity.offset());
         assertEquals((Integer) 4, captionEntity.length());
 
-        BaseResponse response = bot.execute(new EditMessageCaption(channelName, 511).caption(text));
+        BaseResponse response = bot.editMessageCaption(channelName, 511).caption(text).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new EditMessageCaption("AgAAAPrwAQCj_Q4D2s-51_8jsuU").caption(text));
+        response = bot.editMessageCaption("AgAAAPrwAQCj_Q4D2s-51_8jsuU").caption(text).execute();
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: MESSAGE_ID_INVALID", response.description());
@@ -302,13 +303,13 @@ public class TelegramBotTest {
         InlineKeyboardMarkup keyboard = new InlineKeyboardMarkup(new InlineKeyboardButton(text).url("https://google.com"));
         InlineKeyboardMarkup gameKeyboard = new InlineKeyboardMarkup(new InlineKeyboardButton(text).callbackGame("test game"));
 
-        BaseResponse response = bot.execute(new EditMessageReplyMarkup(chatId, 8124).replyMarkup(keyboard));
+        BaseResponse response = bot.editMessageReplyMarkup(chatId, 8124).replyMarkup(keyboard).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new EditMessageReplyMarkup(channelName, 511).replyMarkup(keyboard));
+        response = bot.editMessageReplyMarkup(channelName, 511).replyMarkup(keyboard).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new EditMessageReplyMarkup("AgAAAPrwAQCj_Q4D2s-51_8jsuU").replyMarkup(gameKeyboard));
+        response = bot.editMessageReplyMarkup("AgAAAPrwAQCj_Q4D2s-51_8jsuU").replyMarkup(gameKeyboard).execute();
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: MESSAGE_ID_INVALID", response.description());
@@ -398,13 +399,13 @@ public class TelegramBotTest {
                 new InlineQueryResultCachedVoice("25", voiceFileId, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML),
         };
 
-        BaseResponse response = bot.execute(new AnswerInlineQuery(inlineQueryId, results)
+        BaseResponse response = bot.answerInlineQuery(inlineQueryId, results)
                 .cacheTime(100)
                 .isPersonal(true)
                 .nextOffset("offset")
                 .switchPmText("go pm")
                 .switchPmParameter("my_pm_parameter")
-        );
+                .execute();
 
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
@@ -443,11 +444,11 @@ public class TelegramBotTest {
         assertNull(callbackQuery.inlineMessageId());
         assertNull(callbackQuery.data());
 
-        BaseResponse response = bot.execute(new AnswerCallbackQuery(callbackQuery.id())
+        BaseResponse response = bot.answerCallbackQuery(callbackQuery.id())
                 .text("answer callback")
                 .url("telegram.me/pengrad_test_bot?game=pengrad_test_game")
                 .showAlert(false)
-                .cacheTime(1));
+                .cacheTime(1).execute();
 
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
@@ -456,7 +457,7 @@ public class TelegramBotTest {
 
     @Test
     public void getChat() throws MalformedURLException, URISyntaxException {
-        Chat chat = bot.execute(new GetChat(groupId)).chat();
+        Chat chat = bot.getChat(groupId).execute().chat();
         ChatTest.checkChat(chat, true);
         assertEquals(Chat.Type.supergroup, chat.type());
         assertTrue(chat.title().contains("Test Bot Group"));
@@ -477,13 +478,13 @@ public class TelegramBotTest {
         assertNull(chat.getActiveUsernames());
         assertNull(chat.getEmojiStatusCustomEmojiId());
 
-        chat = bot.execute(new GetChat(chatId)).chat();
+        chat = bot.getChat(chatId).execute().chat();
         assertNotNull(chat.firstName());
         assertNull(chat.lastName());
         assertEquals("yo", chat.bio());
         assertTrue(chat.hasPrivateForwards());
 
-        chat = bot.execute(new GetChat(localGroup)).chat();
+        chat = bot.getChat(localGroup).execute().chat();
         ChatLocation location = chat.location();
         assertNotNull(location);
         assertEquals(60.94062f, location.location().latitude(), 0f);
@@ -494,7 +495,7 @@ public class TelegramBotTest {
 
     @Test
     public void leaveChat() {
-        BaseResponse response = bot.execute(new LeaveChat(chatId));
+        BaseResponse response = bot.leaveChat(chatId).execute();
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
         assertEquals("Bad Request: chat member status can't be changed in private chats", response.description());
@@ -502,7 +503,7 @@ public class TelegramBotTest {
 
     @Test
     public void getChatAdministrators() {
-        GetChatAdministratorsResponse response = bot.execute(new GetChatAdministrators(groupId));
+        GetChatAdministratorsResponse response = bot.getChatAdministrators(groupId).execute();
         for (ChatMember chatMember : response.administrators()) {
             ChatMemberTest.check(chatMember);
             if (chatMember.user().firstName().equals("Test Bot")) {
@@ -522,7 +523,7 @@ public class TelegramBotTest {
     @Test
     public void getChatMember() {
         restrictChatMember();
-        ChatMember chatMember = bot.execute(new GetChatMember(groupId, memberBot)).chatMember();
+        ChatMember chatMember = bot.getChatMember(groupId, memberBot).execute().chatMember();
         ChatMemberTest.check(chatMember);
         assertEquals(ChatMember.Status.restricted, chatMember.status());
         assertEquals(Integer.valueOf(0), chatMember.untilDate());
@@ -547,20 +548,20 @@ public class TelegramBotTest {
 
     @Test
     public void getChatMembersCount() {
-        GetChatMembersCountResponse response = bot.execute(new GetChatMembersCount(chatId));
+        GetChatMembersCountResponse response = bot.getChatMembersCount(chatId).execute();
         assertEquals(2, response.count());
     }
 
     @Test
     public void getChatMemberCount() {
-        GetChatMemberCountResponse response = bot.execute(new GetChatMemberCount(chatId));
+        GetChatMemberCountResponse response = bot.getChatMemberCount(chatId).execute();
         assertEquals(2, response.count());
     }
 
     @Test
     public void getUserProfilePhotos() {
         int offset = 0;
-        GetUserProfilePhotosResponse response = bot.execute(new GetUserProfilePhotos(chatId).limit(100).offset(offset));
+        GetUserProfilePhotosResponse response = bot.getUserProfilePhotos(chatId).limit(100).offset(offset).execute();
         UserProfilePhotos photos = response.photos();
         assertEquals(photos.totalCount() - offset, photos.photos().length);
         for (PhotoSize[] photo : photos.photos()) {
@@ -568,28 +569,28 @@ public class TelegramBotTest {
         }
 
         if (photos.totalCount() > 1) {
-            photos = bot.execute(new GetUserProfilePhotos(chatId).limit(1)).photos();
+            photos = bot.getUserProfilePhotos(chatId).limit(1).execute().photos();
             assertEquals(1, photos.photos().length);
         }
     }
 
     @Test
     public void sendMessage() {
-        SendResponse sendResponse = bot.execute(new SendMessage(chatId, "reply this message").replyMarkup(
-                new ForceReply().inputFieldPlaceholder("input-placeholder").selective(true)
-        ));
+        SendResponse sendResponse = bot.sendMessage(chatId, "reply this message")
+                .replyMarkup(new ForceReply().inputFieldPlaceholder("input-placeholder").selective(true))
+                .execute();
         MessageTest.checkTextMessage(sendResponse.message());
         assertNotNull(sendResponse.message().from());
 
-        sendResponse = bot.execute(new SendMessage(chatId, "remove keyboard")
+        sendResponse = bot.sendMessage(chatId, "remove keyboard")
                 .replyMarkup(new ReplyKeyboardRemove())
                 .disableNotification(true)
                 .replyToMessageId(8087)
-        );
+                .execute();
         MessageTest.checkTextMessage(sendResponse.message());
         assertNotNull(sendResponse.message().replyToMessage());
 
-        sendResponse = bot.execute(new SendMessage(chatId, "message with keyboard")
+        sendResponse = bot.sendMessage(chatId, "message with keyboard")
                 .parseMode(ParseMode.HTML)
                 .disableWebPagePreview(false)
                 .protectContent(true)
@@ -608,20 +609,22 @@ public class TelegramBotTest {
                         .resizeKeyboard(true)
                         .inputFieldPlaceholder("input-placeholder")
                         .isPersistent(false)
-                        .selective(true)));
+                        .selective(true))
+                .execute();
         assertTrue(sendResponse.message().hasProtectedContent());
         MessageTest.checkTextMessage(sendResponse.message());
 
-        sendResponse = bot.execute(new SendMessage(chatId, "simple buttons")
-                .replyMarkup(new ReplyKeyboardMarkup("ok", "cancel")));
+        sendResponse = bot.sendMessage(chatId, "simple buttons")
+                .replyMarkup(new ReplyKeyboardMarkup("ok", "cancel"))
+                .execute();
         MessageTest.checkTextMessage(sendResponse.message());
     }
 
     @Test
     public void sendMessageToChannel() {
         String url = "https://google.com/";
-        SendMessage request = new SendMessage(channelName, "channel message [GG](" + url + ")").parseMode(ParseMode.Markdown);
-        SendResponse sendResponse = bot.execute(request);
+        SendMessage request = bot.sendMessage(channelName, "channel message [GG](" + url + ")").parseMode(ParseMode.Markdown);
+        SendResponse sendResponse = request.execute();
         Message message = sendResponse.message();
         MessageTest.checkTextMessage(message);
         assertEquals(url, message.entities()[0].url());
@@ -630,15 +633,15 @@ public class TelegramBotTest {
 
     @Test
     public void sendMessageToChannelId() {
-        SendMessage request = new SendMessage(channelId, "channel by id message");
-        SendResponse sendResponse = bot.execute(request);
+        SendMessage request = bot.sendMessage(channelId, "channel by id message");
+        SendResponse sendResponse = request.execute();
         Message message = sendResponse.message();
         MessageTest.checkTextMessage(message);
     }
 
     @Test
     public void forwardMessage() {
-        SendResponse response = bot.execute(new ForwardMessage(chatId, chatId, forwardMessageId).disableNotification(true));
+        SendResponse response = bot.forwardMessage(chatId, chatId, forwardMessageId).disableNotification(true).execute();
         Message message = response.message();
         MessageTest.checkMessage(message);
         assertNotNull(message.forwardDate());
@@ -649,13 +652,13 @@ public class TelegramBotTest {
         assertEquals("gif", viaBot.username());
 
         // message from user with open account
-        message = bot.execute(new ForwardMessage(chatId, chatId, forwardMessageIdUser)).message();
+        message = bot.forwardMessage(chatId, chatId, forwardMessageIdUser).execute().message();
         MessageTest.checkMessage(message);
         assertNotNull(message.forwardDate());
         assertNull(message.forwardSenderName());
         assertNotNull(message.forwardFrom());
 
-        message = bot.execute(new ForwardMessage(channelName, channelName, 651)).message();
+        message = bot.forwardMessage(channelName, channelName, 651).execute().message();
         assertNotNull(message.authorSignature());
         assertNotNull(message.forwardSignature());
         assertEquals(Integer.valueOf(651), message.forwardFromMessageId());
@@ -664,7 +667,7 @@ public class TelegramBotTest {
         assertEquals(Chat.Type.channel, chat.type());
         assertNull(message.forwardSenderName());
 
-        message = bot.execute(new ForwardMessage(chatId, groupId, 352).messageThreadId(0)).message();
+        message = bot.forwardMessage(chatId, groupId, 352).messageThreadId(0).execute().message();
         assertEquals(MessageEntity.Type.text_mention, message.entities()[0].type());
         assertNotNull(message.entities()[0].user());
         assertNotNull(message.forwardSenderName());
@@ -672,7 +675,7 @@ public class TelegramBotTest {
 
     @Test
     public void copyMessage() {
-        MessageIdResponse response = bot.execute(new CopyMessage(chatId, chatId, forwardMessageId)
+        MessageIdResponse response = bot.copyMessage(chatId, chatId, forwardMessageId)
                 .messageThreadId(0)
                 .caption("new **caption**")
                 .parseMode(ParseMode.MarkdownV2)
@@ -680,15 +683,15 @@ public class TelegramBotTest {
                 .allowSendingWithoutReply(false)
                 .replyToMessageId(1)
                 .disableNotification(true)
-        );
+                .execute();
         assertTrue(response.messageId() > 0);
     }
 
     @Test
     public void sendAudio() {
-        Message message = bot.execute(new SendAudio(chatId, audioFileId)
+        Message message = bot.sendAudio(chatId, audioFileId)
                 .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7))
-        ).message();
+                .execute().message();
         MessageTest.checkMessage(message);
         AudioTest.checkAudio(message.audio(), false);
         MessageEntity captionEntity = message.captionEntities()[0];
@@ -696,7 +699,7 @@ public class TelegramBotTest {
         assertEquals((Integer) 0, captionEntity.offset());
         assertEquals((Integer) 7, captionEntity.length());
 
-        message = bot.execute(new SendAudio(chatId, audioFile).thumb(thumbFile)).message();
+        message = bot.sendAudio(chatId, audioFile).thumb(thumbFile).execute().message();
         MessageTest.checkMessage(message);
         AudioTest.checkAudio(message.audio());
         assertEquals(thumbSize, message.audio().thumb().fileSize());
@@ -704,9 +707,9 @@ public class TelegramBotTest {
         String cap = "http://ya.ru  <b>bold</b> #audio @pengrad_test_bot", title = "title", performer = "performer";
         ParseMode parseMode = ParseMode.HTML;
         int duration = 100;
-        SendAudio sendAudio = new SendAudio(chatId, audioBytes).thumb(thumbBytes).duration(duration)
+        SendAudio sendAudio = bot.sendAudio(chatId, audioBytes).thumb(thumbBytes).duration(duration)
                 .caption(cap).parseMode(parseMode).performer(performer).title(title);
-        message = bot.execute(sendAudio).message();
+        message = sendAudio.execute().message();
         MessageTest.checkMessage(message);
 
         Audio audio = message.audio();
@@ -735,8 +738,8 @@ public class TelegramBotTest {
         String cap = "<u>under1</u> <ins>under2</ins> <s>strike1</s> <strike>strike2</strike> <del>strike3</del>";
         cap += " <u><del>nested-tag</del></u>";
         ParseMode parseMode = ParseMode.HTML;
-        SendAudio sendAudio = new SendAudio(chatId, audioFileId).caption(cap).parseMode(parseMode);
-        Message message = bot.execute(sendAudio).message();
+        SendAudio sendAudio = bot.sendAudio(chatId, audioFileId).caption(cap).parseMode(parseMode);
+        Message message = sendAudio.execute().message();
         MessageTest.checkMessage(message);
 
         String htmlCaption = cap
@@ -789,8 +792,8 @@ public class TelegramBotTest {
     public void underlineStrikethroughMarkdown() {
         String cap = "__under1__ ~strike1~ __~nested~__";
         ParseMode parseMode = ParseMode.MarkdownV2;
-        SendAudio sendAudio = new SendAudio(chatId, audioFileId).caption(cap).parseMode(parseMode);
-        Message message = bot.execute(sendAudio).message();
+        SendAudio sendAudio = bot.sendAudio(chatId, audioFileId).caption(cap).parseMode(parseMode);
+        Message message = sendAudio.execute().message();
         MessageTest.checkMessage(message);
 
         String htmlCaption = cap.replace("__", "").replace("~", "");
@@ -821,8 +824,8 @@ public class TelegramBotTest {
 
     @Test
     public void sendSpoilerMessage() {
-        SendResponse response = bot.execute(new SendMessage(chatId, "ok this is spoiler ha-ha-ha")
-                .entities(new MessageEntity(MessageEntity.Type.spoiler, 19, 8)));
+        SendResponse response = bot.sendMessage(chatId, "ok this is spoiler ha-ha-ha")
+                .entities(new MessageEntity(MessageEntity.Type.spoiler, 19, 8)).execute();
 
         MessageEntity entity = response.message().entities()[0];
         assertEquals(MessageEntity.Type.spoiler, entity.type());
@@ -836,8 +839,8 @@ public class TelegramBotTest {
                 "String s = new String();\n" +
                 "```";
         ParseMode parseMode = ParseMode.MarkdownV2;
-        SendAudio sendAudio = new SendAudio(chatId, audioFileId).caption(cap).parseMode(parseMode);
-        Message message = bot.execute(sendAudio).message();
+        SendAudio sendAudio = bot.sendAudio(chatId, audioFileId).caption(cap).parseMode(parseMode);
+        Message message = sendAudio.execute().message();
         MessageTest.checkMessage(message);
         assertEquals(1, message.captionEntities().length);
         assertEquals("java", message.captionEntities()[0].language());
@@ -845,14 +848,13 @@ public class TelegramBotTest {
 
     @Test
     public void sendDocument() {
-        Message message = bot.execute(new SendDocument(chatId, docFileId)).message();
+        Message message = bot.sendDocument(chatId, docFileId).execute().message();
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
 
-        message = bot.execute(
-                        new SendDocument(chatId, docBytes).thumb(thumbBytes).contentType("application/pdf")
-                                .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7)))
-                .message();
+        message = bot.sendDocument(chatId, docBytes).thumb(thumbBytes).contentType("application/pdf")
+                                .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7))
+                .execute().message();
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
         assertEquals(thumbSize, message.document().thumb().fileSize());
@@ -863,10 +865,8 @@ public class TelegramBotTest {
 
         String caption = "caption <b>bold</b>", fileName = "my doc.pdf";
         ParseMode parseMode = ParseMode.HTML;
-        message = bot.execute(
-                        new SendDocument(chatId, docFile).fileName(fileName).thumb(thumbFile).caption(caption).parseMode(parseMode)
-                                .disableContentTypeDetection(true))
-                .message();
+        message = bot.sendDocument(chatId, docFile).fileName(fileName).thumb(thumbFile).caption(caption).parseMode(parseMode)
+                                .disableContentTypeDetection(true).execute().message();
         MessageTest.checkMessage(message);
         DocumentTest.check(message.document());
         assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
@@ -881,12 +881,13 @@ public class TelegramBotTest {
 
     @Test
     public void sendPhoto() {
-        Message message = bot.execute(new SendPhoto(chatId, photoFileId)).message();
+        Message message = bot.sendPhoto(chatId, photoFileId).execute().message();
         MessageTest.checkMessage(message);
         PhotoSizeTest.checkPhotos(false, message.photo());
 
-        message = bot.execute(new SendPhoto(chatId, imageFile).hasSpoiler(true)
-                .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7))).message();
+        message = bot.sendPhoto(chatId, imageFile).hasSpoiler(true)
+                .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7))
+                .execute().message();
         MessageTest.checkMessage(message);
         PhotoSizeTest.checkPhotos(message.photo());
         MessageEntity captionEntity = message.captionEntities()[0];
@@ -895,7 +896,7 @@ public class TelegramBotTest {
         assertEquals((Integer) 7, captionEntity.length());
 
         String caption = "caption <b>bold</b>";
-        message = bot.execute(new SendPhoto(channelName, imageBytes).caption(caption).parseMode(ParseMode.HTML)).message();
+        message = bot.sendPhoto(channelName, imageBytes).caption(caption).parseMode(ParseMode.HTML).execute().message();
         MessageTest.checkMessage(message);
         assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
         PhotoSizeTest.checkPhotos(message.photo());
@@ -908,33 +909,33 @@ public class TelegramBotTest {
 
     @Test
     public void sendSticker() {
-        Message message = bot.execute(new SendSticker(chatId, stickerFileAnim).emoji("\uD83D\uDE00")).message();
+        Message message = bot.sendSticker(chatId, stickerFileAnim).emoji("\uD83D\uDE00").execute().message();
         MessageTest.checkMessage(message);
         StickerTest.check(message.sticker(), false, true);
         assertTrue(message.sticker().isAnimated());
         assertEquals("\uD83D\uDE00", message.sticker().emoji());
         assertEquals(Sticker.Type.regular, message.sticker().type());
 
-        message = bot.execute(new SendSticker(chatId, stickerId).thumbnail(thumbFile)).message();
+        message = bot.sendSticker(chatId, stickerId).thumbnail(thumbFile).execute().message();
         MessageTest.checkMessage(message);
         StickerTest.check(message.sticker(), true, false);
         assertFalse(message.sticker().isAnimated());
 
-        message = bot.execute(new SendSticker(chatId, imageBytes).thumbnail(thumbBytes)).message();
+        message = bot.sendSticker(chatId, imageBytes).thumbnail(thumbBytes).execute().message();
         MessageTest.checkMessage(message);
         StickerTest.check(message.sticker(), false, true);
     }
 
     @Test
     public void sendVideo() {
-        Message message = bot.execute(new SendVideo(chatId, videoFileId).hasSpoiler(true)).message();
+        Message message = bot.sendVideo(chatId, videoFileId).hasSpoiler(true).execute().message();
         MessageTest.checkMessage(message);
         VideoTest.check(message.video(), false);
 
-        message = bot.execute(new SendVideo(chatId, videoFile)
+        message = bot.sendVideo(chatId, videoFile)
                 .thumb(thumbFile)
                 .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7))
-        ).message();
+                .execute().message();
         MessageTest.checkMessage(message);
         VideoTest.check(message.video());
         assertNotEquals("telegram should generate thumb", thumbSize, message.video().thumb().fileSize());
@@ -946,10 +947,10 @@ public class TelegramBotTest {
 
         String caption = "caption <b>bold</b>";
         int duration = 100;
-        message = bot.execute(
-                        new SendVideo(chatId, videoBytes).thumb(thumbBytes)
+        message = bot.sendVideo(chatId, videoBytes).thumb(thumbBytes)
                                 .caption(caption).parseMode(ParseMode.HTML)
-                                .duration(duration).height(1).width(2).supportsStreaming(true))
+                                .duration(duration).height(1).width(2).supportsStreaming(true)
+                .execute()
                 .message();
         System.out.println(message);
         MessageTest.checkMessage(message);
@@ -971,17 +972,18 @@ public class TelegramBotTest {
 
     @Test
     public void sendVoice() {
-        Message message = bot.execute(new SendVoice(chatId, voiceFileId)).message();
+        Message message = bot.sendVoice(chatId, voiceFileId).execute().message();
         MessageTest.checkMessage(message);
         VoiceTest.check(message.voice(), false);
 
-        message = bot.execute(new SendVoice(chatId, audioFile)).message();
+        message = bot.sendVoice(chatId, audioFile).execute().message();
         MessageTest.checkMessage(message);
         VoiceTest.check(message.voice());
 
         String caption = "caption <b>bold</b>";
         int duration = 100;
-        message = bot.execute(new SendVoice(chatId, audioBytes).caption(caption).parseMode(ParseMode.HTML).duration(duration)).message();
+        message = bot.sendVoice(chatId, audioBytes).caption(caption).parseMode(ParseMode.HTML).duration(duration)
+                .execute().message();
         MessageTest.checkMessage(message);
         assertEquals(caption.replace("<b>", "").replace("</b>", ""), message.caption());
         VoiceTest.check(message.voice());
@@ -995,7 +997,7 @@ public class TelegramBotTest {
 
     @Test
     public void getWebhookInfo() {
-        GetWebhookInfoResponse response = bot.execute(new GetWebhookInfo());
+        GetWebhookInfoResponse response = bot.getWebhookInfo().execute();
         WebhookInfo webhookInfo = response.webhookInfo();
         assertNotNull(webhookInfo.url());
         assertFalse(webhookInfo.hasCustomCertificate());
@@ -1008,7 +1010,7 @@ public class TelegramBotTest {
         Integer maxConnections = 100;
         String[] allowedUpdates = {"message", "callback_query"};
         String ipAddress = "1.1.1.1";
-        BaseResponse response = bot.execute(new SetWebhook()
+        BaseResponse response = bot.setWebhook()
                 .url(url)
                 .certificate(new File(certificateFile))
                 .ipAddress(ipAddress)
@@ -1016,10 +1018,10 @@ public class TelegramBotTest {
                 .allowedUpdates(allowedUpdates)
                 .secretToken("secret-token")
                 .dropPendingUpdates(true)
-        );
+                .execute();
         assertTrue(response.isOk());
 
-        WebhookInfo webhookInfo = bot.execute(new GetWebhookInfo()).webhookInfo();
+        WebhookInfo webhookInfo = bot.getWebhookInfo().execute().webhookInfo();
         assertEquals(url, webhookInfo.url());
         assertTrue(webhookInfo.hasCustomCertificate());
         assertEquals(maxConnections, webhookInfo.maxConnections());
@@ -1035,17 +1037,17 @@ public class TelegramBotTest {
         assertEquals(ipAddress, webhookInfo.ipAddress());
         assertTrue(webhookInfo.pendingUpdateCount() >= 0);
 
-        response = bot.execute(new SetWebhook().url("https://google.com")
-                .certificate(Files.readAllBytes(new File(certificateFile).toPath())).allowedUpdates(""));
+        response = bot.setWebhook().url("https://google.com")
+                .certificate(Files.readAllBytes(new File(certificateFile).toPath())).allowedUpdates("").execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new SetWebhook());
+        response = bot.setWebhook().execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void deleteWebhook() {
-        BaseResponse response = bot.execute(new DeleteWebhook().dropPendingUpdates(true));
+        BaseResponse response = bot.deleteWebhook().dropPendingUpdates(true).execute();
         assertTrue(response.isOk());
     }
 
@@ -1065,7 +1067,7 @@ public class TelegramBotTest {
         InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(inlineKeyboard);
 
         String desc = "pengrad_test_game";
-        Message message = bot.execute(new SendGame(chatId, desc).replyMarkup(keyboardMarkup)).message();
+        Message message = bot.sendGame(chatId, desc).replyMarkup(keyboardMarkup).execute().message();
         MessageTest.checkMessage(message);
         Game game = message.game();
         GameTest.check(game);
@@ -1088,20 +1090,21 @@ public class TelegramBotTest {
     @Test
     public void setGameScore() {
         int res = (int) (System.currentTimeMillis() / 1000);
-        BaseResponse response = bot.execute(new SetGameScore(chatId, res, "AgAAAPrwAQCj_Q4D2s-51_8jsuU"));
+        BaseResponse response = bot.setGameScore(chatId, res, "AgAAAPrwAQCj_Q4D2s-51_8jsuU").execute();
         assertTrue(response.isOk());
 
-        SendResponse sendResponse = (SendResponse) bot.execute(
-                new SetGameScore(chatId, res + 1, chatId, 8162).force(true).disableEditMessage(true));
+        SendResponse sendResponse = (SendResponse) bot.setGameScore(chatId, res + 1, chatId, 8162)
+                .force(true).disableEditMessage(true).execute();
         GameTest.check(sendResponse.message().game());
     }
 
     @Test
     public void getGameHighScores() {
-        GameHighScore[] scores = bot.execute(new GetGameHighScores(chatId, "AgAAAPrwAQCj_Q4D2s-51_8jsuU")).result();
+        GameHighScore[] scores = bot.getGameHighScores(chatId, "AgAAAPrwAQCj_Q4D2s-51_8jsuU")
+                .execute().result();
         GameHighScoreTest.check(scores);
 
-        scores = bot.execute(new GetGameHighScores(chatId, chatId, 8162)).result();
+        scores = bot.getGameHighScores(chatId, chatId, 8162).execute().result();
         GameHighScoreTest.check(scores);
     }
 
@@ -1109,12 +1112,12 @@ public class TelegramBotTest {
     public void sendLocation() {
         float lat = 21.999998f, lng = 105.2f, horizontalAccuracy = 1.9f;
         int livePeriod = 60, heading = 120, proximityAlertRadius = 50000;
-        Location location = bot.execute(new SendLocation(chatId, lat, lng)
+        Location location = bot.sendLocation(chatId, lat, lng)
                 .horizontalAccuracy(horizontalAccuracy)
                 .livePeriod(livePeriod)
                 .heading(heading)
                 .proximityAlertRadius(proximityAlertRadius)
-        ).message().location();
+                .execute().message().location();
         assertEquals(lat, location.latitude(), 0.00001f);
         assertEquals(lng, location.longitude(), 0.00001f);
         assertEquals(horizontalAccuracy, location.horizontalAccuracy(), 0.11f);
@@ -1127,9 +1130,9 @@ public class TelegramBotTest {
     public void sendVenue() {
         float lat = 21.999998f, lng = 105.2f;
         String title = "title", address = "addr", frsqrId = "asdfasdf", frsqrType = "frType";
-        Venue venue = bot.execute(new SendVenue(chatId, lat, lng, title, address)
+        Venue venue = bot.sendVenue(chatId, lat, lng, title, address)
                 .foursquareId(frsqrId).foursquareType(frsqrType)
-        ).message().venue();
+                .execute().message().venue();
         assertEquals(lat, venue.location().latitude(), 0f);
         assertEquals(lng, venue.location().longitude(), 0f);
         assertEquals(address, venue.address());
@@ -1138,9 +1141,9 @@ public class TelegramBotTest {
         assertEquals(frsqrType, venue.foursquareType());
 
         String ggId = "ggId", ggType = "library";
-        venue = bot.execute(new SendVenue(chatId, lat, lng, title, address)
+        venue = bot.sendVenue(chatId, lat, lng, title, address)
                 .googlePlaceId(ggId).googlePlaceType(ggType)
-        ).message().venue();
+                .execute().message().venue();
         assertEquals(ggId, venue.googlePlaceId());
         assertEquals(ggType, venue.googlePlaceType());
     }
@@ -1148,7 +1151,8 @@ public class TelegramBotTest {
     @Test
     public void sendContact() {
         String phone = "000111", name = "first", lastName = "last", vcard = "ok vcard";
-        Contact contact = bot.execute(new SendContact(chatId, phone, name).lastName(lastName).vcard(vcard)).message().contact();
+        Contact contact = bot.sendContact(chatId, phone, name).lastName(lastName).vcard(vcard)
+                .execute().message().contact();
         assertEquals(phone, contact.phoneNumber());
         assertEquals(name, contact.firstName());
         assertEquals(lastName, contact.lastName());
@@ -1158,55 +1162,55 @@ public class TelegramBotTest {
 
     @Test
     public void deleteMessage() {
-        Message message = bot.execute(new SendMessage(chatId, "message for delete")).message();
-        BaseResponse response = bot.execute(new DeleteMessage(chatId, message.messageId()));
+        Message message = bot.sendMessage(chatId, "message for delete").execute().message();
+        BaseResponse response = bot.deleteMessage(chatId, message.messageId()).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void sendChatAction() {
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.typing.name())).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.typing)).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_photo)).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_video)).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_video)).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_voice)).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_voice)).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_document)).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.find_location)).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.record_video_note)).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.upload_video_note)).isOk());
-        assertTrue(bot.execute(new SendChatAction(chatId, ChatAction.choose_sticker)).isOk());
-        assertTrue(bot.execute(new SendChatAction(forum, ChatAction.choose_sticker).messageThreadId(forumEditThread)).isOk());
+        assertTrue(bot.sendChatAction(chatId, ChatAction.typing.name()).execute().isOk());
+        assertTrue(bot.sendChatAction(chatId, ChatAction.typing).execute().isOk());
+        assertTrue(bot.sendChatAction(chatId, ChatAction.upload_photo).execute().isOk());
+        assertTrue(bot.sendChatAction(chatId, ChatAction.record_video).execute().isOk());
+        assertTrue(bot.sendChatAction(chatId, ChatAction.upload_video).execute().isOk());
+        assertTrue(bot.sendChatAction(chatId, ChatAction.record_voice).execute().isOk());
+        assertTrue(bot.sendChatAction(chatId, ChatAction.upload_voice).execute().isOk());
+        assertTrue(bot.sendChatAction(chatId, ChatAction.upload_document).execute().isOk());
+        assertTrue(bot.sendChatAction(chatId, ChatAction.find_location).execute().isOk());
+        assertTrue(bot.sendChatAction(chatId, ChatAction.record_video_note).execute().isOk());
+        assertTrue(bot.sendChatAction(chatId, ChatAction.upload_video_note).execute().isOk());
+        assertTrue(bot.sendChatAction(chatId, ChatAction.choose_sticker).execute().isOk());
+        assertTrue(bot.sendChatAction(forum, ChatAction.choose_sticker).messageThreadId(forumEditThread).execute().isOk());
     }
 
     @Test
     public void sendVideoNote() {
-        SendResponse response = bot.execute(new SendVideoNote(chatId, "DQADAgADmQADYgwpSbum1JrxPsbmAg"));
+        SendResponse response = bot.sendVideoNote(chatId, "DQADAgADmQADYgwpSbum1JrxPsbmAg").execute();
         VideoNoteCheck.check(response.message().videoNote());
     }
 
     @Test
     public void sendVideoNoteFile() {
-        SendResponse response = bot.execute(new SendVideoNote(chatId, videoNoteFile).thumb(thumbFile).length(20).duration(30));
+        SendResponse response = bot.sendVideoNote(chatId, videoNoteFile).thumb(thumbFile).length(20).duration(30).execute();
         VideoNoteCheck.check(response.message().videoNote(), true);
         assertNotEquals("telegram should generate thumb", thumbSize, response.message().videoNote().thumb().fileSize());
 
-        response = bot.execute(new SendVideoNote(chatId, videoNoteBytes).thumb(thumbBytes));
+        response = bot.sendVideoNote(chatId, videoNoteBytes).thumb(thumbBytes).execute();
         VideoNoteCheck.check(response.message().videoNote(), true);
         assertNotEquals("telegram should generate thumb", thumbSize, response.message().videoNote().thumb().fileSize());
     }
 
     @Test
     public void setChatAdministratorCustomTitle() {
-        BaseResponse response = bot.execute(new PromoteChatMember(groupId, memberBot).canPromoteMembers(true));
+        BaseResponse response = bot.promoteChatMember(groupId, memberBot).canPromoteMembers(true).execute();
         assertTrue(response.isOk());
 
         String customTitle = "aqi " + new Random().nextInt(999999);
-        response = bot.execute(new SetChatAdministratorCustomTitle(groupId, memberBot, customTitle));
+        response = bot.setChatAdministratorCustomTitle(groupId, memberBot, customTitle).execute();
         assertTrue(response.isOk());
 
-        ChatMember member = bot.execute(new GetChatMember(groupId, memberBot)).chatMember();
+        ChatMember member = bot.getChatMember(groupId, memberBot).execute().chatMember();
         ChatMemberTest.check(member);
         assertEquals(customTitle, member.customTitle());
         assertFalse(member.isAnonymous());
@@ -1230,11 +1234,11 @@ public class TelegramBotTest {
             setPerms.canInviteUsers(bool);
             setPerms.canPinMessages(bool);
             setPerms.canManageTopics(bool);
-            BaseResponse response = bot.execute(new SetChatPermissions(groupId, setPerms)
-                    .useIndependentChatPermissions(false));
+            BaseResponse response = bot.setChatPermissions(groupId, setPerms)
+                    .useIndependentChatPermissions(false).execute();
             assertTrue(response.isOk());
 
-            Chat chat = bot.execute(new GetChat(groupId)).chat();
+            Chat chat = bot.getChat(groupId).execute().chat();
             ChatPermissions permissions = chat.permissions();
             if (bool) {
                 assertTrue(permissions.canSendMessages());
@@ -1272,24 +1276,24 @@ public class TelegramBotTest {
 
     @Test
     public void exportChatInviteLink() {
-        StringResponse response = bot.execute(new ExportChatInviteLink(groupId));
+        StringResponse response = bot.exportChatInviteLink(groupId).execute();
         assertTrue(response.isOk());
         assertNotNull(response.result());
     }
 
     @Test
     public void setChatPhoto() throws IOException {
-        BaseResponse response = bot.execute(new SetChatPhoto(groupId, imageFile));
+        BaseResponse response = bot.setChatPhoto(groupId, imageFile).execute();
         assertTrue(response.isOk());
 
         byte[] bytes = Files.readAllBytes(imageFile.toPath());
-        response = bot.execute(new SetChatPhoto(groupId, bytes));
+        response = bot.setChatPhoto(groupId, bytes).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void deleteChatPhoto() {
-        BaseResponse response = bot.execute(new DeleteChatPhoto(groupId));
+        BaseResponse response = bot.deleteChatPhoto(groupId).execute();
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: CHAT_NOT_MODIFIED", response.description());
@@ -1298,19 +1302,19 @@ public class TelegramBotTest {
 
     @Test
     public void setChatTitle() {
-        BaseResponse response = bot.execute(new SetChatTitle(groupId, "Test Bot Group " + System.currentTimeMillis()));
+        BaseResponse response = bot.setChatTitle(groupId, "Test Bot Group " + System.currentTimeMillis()).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void setChatDescription() {
-        BaseResponse response = bot.execute(new SetChatDescription(groupId, "New desc " + System.currentTimeMillis()));
+        BaseResponse response = bot.setChatDescription(groupId, "New desc " + System.currentTimeMillis()).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void pinChatMessage() {
-        BaseResponse response = bot.execute(new PinChatMessage(groupId, 18).disableNotification(false));
+        BaseResponse response = bot.pinChatMessage(groupId, 18).disableNotification(false).execute();
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: CHAT_NOT_MODIFIED", response.description());
@@ -1319,19 +1323,19 @@ public class TelegramBotTest {
 
     @Test
     public void unpinChatMessage() {
-        BaseResponse response = bot.execute(new UnpinChatMessage(groupId).messageId(3600));
+        BaseResponse response = bot.unpinChatMessage(groupId).messageId(3600).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void unpinAllChatMessages() {
-        BaseResponse response = bot.execute(new UnpinAllChatMessages(groupId));
+        BaseResponse response = bot.unpinAllChatMessages(groupId).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void getStickerSet() {
-        GetStickerSetResponse response = bot.execute(new GetStickerSet(stickerSet));
+        GetStickerSetResponse response = bot.getStickerSet(stickerSet).execute();
         StickerSet stickerSet = response.stickerSet();
         for (Sticker sticker : response.stickerSet().stickers()) {
             StickerTest.check(sticker, true, true);
@@ -1339,7 +1343,7 @@ public class TelegramBotTest {
         // clean up stickers, max 120 allowed
         if (stickerSet.stickers().length > 50) {
             for (int i = stickerSet.stickers().length - 1; i > stickerSet.stickers().length - 10; i--) {
-                bot.execute(new DeleteStickerFromSet(stickerSet.stickers()[i].fileId()));
+                bot.deleteStickerFromSet(stickerSet.stickers()[i].fileId()).execute();
             }
         }
         assertTrue(stickerSet.containsMasks());
@@ -1360,60 +1364,56 @@ public class TelegramBotTest {
     @Test
     public void uploadStickerFile() throws IOException {
         byte[] bytes = Files.readAllBytes(stickerFile.toPath());
-        GetFileResponse response = bot.execute(new UploadStickerFile(chatId, bytes));
+        GetFileResponse response = bot.uploadStickerFile(chatId, bytes).execute();
         FileTest.check(response.file(), false);
 
-        response = bot.execute(new UploadStickerFile(chatId, bytes, Sticker.Format.Static));
+        response = bot.uploadStickerFile(chatId, bytes, Sticker.Format.Static).execute();
         FileTest.check(response.file(), false);
     }
 
     @Test
     public void createNewPngStickerSet() {
         String name = "test" + System.currentTimeMillis() + "_by_pengrad_test_bot";
-        BaseResponse response = bot.execute(
-                CreateNewStickerSet.pngSticker(chatId, name, "test1", "\uD83D\uDE00", stickerFile)
+        BaseResponse response = bot.createNewStaticStickerSet(chatId, name, "test1", "\uD83D\uDE00", stickerFile)
                         .stickerType(Sticker.Type.mask)
-                        .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f)));
+                        .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f))
+                        .execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new AddStickerToSet(chatId, name,
+        response = bot.addStickerToSet(chatId, name,
                 new InputSticker(stickerId, new String[]{"\uD83D\uDE00"}))
-                .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f)));
+                .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f)).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void createNewWebmStickerSetAndAddSticker() {
         String setName = "test" + System.currentTimeMillis() + "_by_pengrad_test_bot";
-        BaseResponse response = bot.execute(
-                CreateNewStickerSet.webmSticker(chatId, setName,
+        BaseResponse response = bot.createNewVideoStickerSet(chatId, setName,
                                 "test1", "\uD83D\uDE00", stickerFileVid)
                         .stickerType(Sticker.Type.mask)
-                        .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f)));
+                        .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f))
+                        .execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(
-                AddStickerToSet.webmSticker(chatId, setName, "\uD83D\uDE15", stickerFileVid));
+        response = bot.addVideoStickerToSet(chatId, setName, "\uD83D\uDE15", stickerFileVid).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void addStickerToSet() {
-        BaseResponse response = bot.execute(
-                AddStickerToSet.pngSticker(chatId, stickerSet, "\uD83D\uDE15", "BQADAgADuAAD7yupS4eB23UmZhGuAg")
-                        .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f)));
+        BaseResponse response = bot.addStaticStickerToSet(chatId, stickerSet, "\uD83D\uDE15", "BQADAgADuAAD7yupS4eB23UmZhGuAg")
+                        .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f)).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void createSetAndAddStickerTgs() {
         String setName = "test" + System.currentTimeMillis() + "_by_pengrad_test_bot";
-        BaseResponse response = bot.execute(
-                CreateNewStickerSet.tgsSticker(chatId, setName, "test1", "\uD83D\uDE00", stickerFileAnim));
+        BaseResponse response = bot.createNewAnimatedStickerSet(chatId, setName, "test1", "\uD83D\uDE00", stickerFileAnim).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(
-                AddStickerToSet.tgsSticker(chatId, setName, "\uD83D\uDE15", stickerFileAnim));
+        response = bot.addAnimatedStickerToSet(chatId, setName, "\uD83D\uDE15", stickerFileAnim).execute();
         assertTrue(response.isOk());
     }
 
@@ -1421,17 +1421,17 @@ public class TelegramBotTest {
     public void createNewStickerSet() {
         String setName = "testNEW" + System.currentTimeMillis() + "_by_pengrad_test_bot";
         String title = "test112312312";
-        BaseResponse response = bot.execute(
-                new CreateNewStickerSet(chatId, setName, title, new InputSticker[]{
+        BaseResponse response = bot.createNewStickerSet(chatId, setName, title, new InputSticker[]{
                         new InputSticker(stickerFile, new String[]{"\uD83D\uDE00"})
                                 .keywords(new String[]{"yes", "no"})
                                 .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 10f, 20f, 1f))
                 }, Sticker.Format.Static)
-                        .containsMasks(false)
-                        .needsRepainting(false));
+                .containsMasks(false)
+                .needsRepainting(false)
+                .execute();
         assertTrue(response.isOk());
 
-        StickerSet set = bot.execute(new GetStickerSet(setName)).stickerSet();
+        StickerSet set = bot.getStickerSet(setName).execute().stickerSet();
         assertEquals(setName, set.name());
         assertEquals(title, set.title());
         assertFalse(set.isVideo());
@@ -1443,44 +1443,44 @@ public class TelegramBotTest {
         assertNull(stickers[0].premiumAnimation());
         assertNull(stickers[0].customEmojiId());
 
-        response = bot.execute(new SetStickerSetTitle(setName, "new title"));
+        response = bot.setStickerSetTitle(setName, "new title").execute();
         assertTrue(response.isOk());
 
         String stickerId = stickers[0].fileId();
-        response = bot.execute(new SetStickerEmojiList(stickerId, new String[]{"\uD83D\uDE00"}));
+        response = bot.setStickerEmojiList(stickerId, new String[]{"\uD83D\uDE00"}).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new SetStickerKeywords(stickerId).keywords(new String[]{"ok"}));
+        response = bot.setStickerKeywords(stickerId).keywords(new String[]{"ok"}).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new SetStickerMaskPosition(stickerId)
-                .maskPosition(new MaskPosition(MaskPosition.Point.mouth, 0f, 0f, 0f)));
+        response = bot.setStickerMaskPosition(stickerId)
+                .maskPosition(new MaskPosition(MaskPosition.Point.mouth, 0f, 0f, 0f)).execute();
         assertFalse(response.isOk());
         assertEquals("Bad Request: STICKER_MASK_COORDS_NOT_SUPPORTED", response.description());
 
-        response = bot.execute(new DeleteStickerSet(setName));
+        response = bot.deleteStickerSet(setName).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void setStickerPositionInSet() {
-        GetStickerSetResponse setResponse = bot.execute(new GetStickerSet(stickerSet));
+        GetStickerSetResponse setResponse = bot.getStickerSet(stickerSet).execute();
         Sticker sticker = setResponse.stickerSet().stickers()[0];
 
-        BaseResponse response = bot.execute(new SetStickerPositionInSet(sticker.fileId(), 0));
+        BaseResponse response = bot.setStickerPositionInSet(sticker.fileId(), 0).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void deleteStickerFromSet() {
-        BaseResponse response = bot.execute(AddStickerToSet.pngSticker(chatId, stickerSet, "\uD83D\uDE15", stickerFile));
+        BaseResponse response = bot.addStaticStickerToSet(chatId, stickerSet, "\uD83D\uDE15", stickerFile).execute();
         assertTrue(response.isOk());
 
-        GetStickerSetResponse setResponse = bot.execute(new GetStickerSet(stickerSet));
+        GetStickerSetResponse setResponse = bot.getStickerSet(stickerSet).execute();
         int size = setResponse.stickerSet().stickers().length;
         Sticker sticker = setResponse.stickerSet().stickers()[size - 1];
 
-        response = bot.execute(new DeleteStickerFromSet(sticker.fileId()));
+        response = bot.deleteStickerFromSet(sticker.fileId()).execute();
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: STICKERSET_NOT_MODIFIED", response.description());
@@ -1490,13 +1490,13 @@ public class TelegramBotTest {
     @Test
     public void setStickerSetThumb() {
         String thumbFile = "CAACAgIAAxkBAAJ0ll6DO4bNCynpfZmS6g-YcGY2zrP5AAIBAAPANk8TGC5zMKs_LVEYBA";
-        BaseResponse response = bot.execute(new SetStickerSetThumb(stickerSetAnim, chatId, thumbFile));
+        BaseResponse response = bot.setStickerSetThumb(stickerSetAnim, chatId, thumbFile).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new SetStickerSetThumbnail(stickerSetAnim, chatId, thumbFile));
+        response = bot.setStickerSetThumbnail(stickerSetAnim, chatId, thumbFile).execute();
         assertTrue(response.isOk());
 
-        StickerSet set = bot.execute(new GetStickerSet(stickerSetAnim)).stickerSet();
+        StickerSet set = bot.getStickerSet(stickerSetAnim).execute().stickerSet();
         assertTrue(set.isAnimated());
         PhotoSize thumb = set.thumb();
         PhotoSizeTest.checkPhotos(thumb);
@@ -1505,16 +1505,16 @@ public class TelegramBotTest {
         assertEquals(Long.valueOf(8244), thumb.fileSize());
 
         // clear thumb by not sending it
-        response = bot.execute(new SetStickerSetThumb(stickerSetAnim, chatId));
+        response = bot.setStickerSetThumb(stickerSetAnim, chatId).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new SetStickerSetThumbnail(stickerSetAnim, chatId));
+        response = bot.setStickerSetThumbnail(stickerSetAnim, chatId).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void getCustomEmojiStickers() {
-        GetCustomEmojiStickersResponse response = bot.execute(new GetCustomEmojiStickers("5434144690511290129"));
+        GetCustomEmojiStickersResponse response = bot.getCustomEmojiStickers("5434144690511290129").execute();
         assertTrue(response.isOk());
         assertEquals(1, response.result().length);
     }
@@ -1522,50 +1522,47 @@ public class TelegramBotTest {
     @Test
     public void setCustomEmojiStickerSetThumbnail() {
         String setName = "custom_emoji_set_by_pengrad_test_bot";
-        BaseResponse response = bot.execute(
-                new CreateNewStickerSet(chatId, setName, "title",
+        BaseResponse response = bot.createNewStickerSet(chatId, setName, "title",
                         new InputSticker[]{new InputSticker(stickerFileAnim, new String[]{"\uD83D\uDE15"})},
-                        Sticker.Format.animated
-                ).stickerType(Sticker.Type.custom_emoji)
-        );
+                        Sticker.Format.animated).stickerType(Sticker.Type.custom_emoji)
+                .execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new SetCustomEmojiStickerSetThumbnail(setName).customEmojiId("123"));
+        response = bot.setCustomEmojiStickerSetThumbnail(setName).customEmojiId("123").execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new DeleteStickerSet(setName));
+        response = bot.deleteStickerSet(setName).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void editMessageLiveLocation() {
-        BaseResponse response = bot.execute(new EditMessageLiveLocation(chatId, 10009, 21, 105)
-                .replyMarkup(new InlineKeyboardMarkup()));
+        BaseResponse response = bot.editMessageLiveLocation(chatId, 10009, 21, 105)
+                .replyMarkup(new InlineKeyboardMarkup()).execute();
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: message can't be edited", response.description());
         }
 
         String buttonText = "btn_" + System.currentTimeMillis();
-        response = bot.execute(
-                new EditMessageLiveLocation("AgAAAPrwAQCj_Q4D2s-51_8jsuU", 21, 102)
+        response = bot.editMessageLiveLocation("AgAAAPrwAQCj_Q4D2s-51_8jsuU", 21, 102)
                         .horizontalAccuracy(1f)
                         .heading(10)
                         .proximityAlertRadius(100)
                         .replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton(buttonText).callbackGame(buttonText)))
-        );
+                        .execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void stopMessageLiveLocation() {
-        BaseResponse response = bot.execute(new StopMessageLiveLocation(chatId, 10009));
+        BaseResponse response = bot.stopMessageLiveLocation(chatId, 10009).execute();
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: message can't be edited", response.description());
         }
 
-        response = bot.execute(new StopMessageLiveLocation("AgAAAPrwAQCj_Q4D2s-51_8jsuU"));
+        response = bot.stopMessageLiveLocation("AgAAAPrwAQCj_Q4D2s-51_8jsuU").execute();
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
             assertEquals("Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message",
@@ -1575,14 +1572,14 @@ public class TelegramBotTest {
 
     @Test
     public void setChatStickerSet() {
-        BaseResponse response = bot.execute(new SetChatStickerSet(groupId, "PengradTest"));
+        BaseResponse response = bot.setChatStickerSet(groupId, "PengradTest").execute();
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
     }
 
     @Test
     public void deleteChatStickerSet() {
-        BaseResponse response = bot.execute(new DeleteChatStickerSet(groupId));
+        BaseResponse response = bot.deleteChatStickerSet(groupId).execute();
         assertFalse(response.isOk());
         assertEquals(400, response.errorCode());
     }
@@ -1592,7 +1589,7 @@ public class TelegramBotTest {
         String url = "https://google.com/";
         User user = new User(memberBot);
         String language = "ru";
-        MessagesResponse response = bot.execute(new SendMediaGroup(chatId,
+        MessagesResponse response = bot.sendMediaGroup(chatId,
                 new InputMediaPhoto(photoFileId).thumbnail(thumbFile),
                 new InputMediaPhoto(imageFile).caption("some caption bold")
                         .captionEntities(
@@ -1605,8 +1602,9 @@ public class TelegramBotTest {
                 new InputMediaVideo(videoFileId).hasSpoiler(true),
                 new InputMediaVideo(videoFile),
                 new InputMediaVideo(videoBytes).caption("my video <b>bold</b>").parseMode(ParseMode.HTML)
-                        .duration(10).width(11).height(12).supportsStreaming(true)
-        ).messageThreadId(0).disableNotification(false).allowSendingWithoutReply(false).replyToMessageId(1));
+                        .duration(10).width(11).height(12).supportsStreaming(true))
+                .messageThreadId(0).disableNotification(false).allowSendingWithoutReply(false).replyToMessageId(1)
+                .execute();
         assertTrue(response.isOk());
         assertEquals(6, response.messages().length);
 
@@ -1635,10 +1633,10 @@ public class TelegramBotTest {
 
     @Test
     public void sendMediaGroupDocuments() {
-        MessagesResponse response = bot.execute(new SendMediaGroup(chatId,
+        MessagesResponse response = bot.sendMediaGroup(chatId,
                 new InputMediaDocument(docFile),
                 new InputMediaDocument(docBytes).fileName("test.pdf").contentType("application/pdf")
-        ));
+        ).execute();
         assertTrue(response.isOk());
         assertEquals(2, response.messages().length);
         assertNotNull(response.messages()[0].mediaGroupId());
@@ -1651,38 +1649,38 @@ public class TelegramBotTest {
         int messageId = 13541;
         SendResponse response;
 
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
+        response = (SendResponse) bot.editMessageMedia(chatId, messageId,
                 new InputMediaDocument(docFile)
                         .thumb(thumbFile)
                         .disableContentTypeDetection(true)
-        ).replyMarkup(new InlineKeyboardMarkup()));
+        ).replyMarkup(new InlineKeyboardMarkup()).execute();
         assertEquals((Long) 13264L, response.message().document().fileSize());
         assertEquals(thumbSize, response.message().document().thumb().fileSize());
 
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
-                new InputMediaDocument(docBytes).thumb(thumbBytes)));
+        response = (SendResponse) bot.editMessageMedia(chatId, messageId,
+                new InputMediaDocument(docBytes).thumb(thumbBytes)).execute();
         assertEquals((Long) 13264L, response.message().document().fileSize());
         assertEquals(thumbSize, response.message().document().thumb().fileSize());
 
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaDocument(docFileId)));
+        response = (SendResponse) bot.editMessageMedia(chatId, messageId, new InputMediaDocument(docFileId)).execute();
         MessageTest.checkMessage(response.message());
         DocumentTest.check(response.message().document());
 
 
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFile)));
+        response = (SendResponse) bot.editMessageMedia(chatId, messageId, new InputMediaAnimation(gifFile)).execute();
         assertEquals(Integer.valueOf(1), response.message().animation().duration());
 
         int expectedSize = 160; // idk why?
         Integer durationAnim = 17, width = 21, height = 22;
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
-                new InputMediaAnimation(gifBytes).duration(durationAnim).width(width).height(height).hasSpoiler(true)
-        ));
+        response = (SendResponse) bot.editMessageMedia(chatId, messageId,
+                new InputMediaAnimation(gifBytes).duration(durationAnim).width(width).height(height).hasSpoiler(true))
+                .execute();
         Animation animation = response.message().animation();
         assertEquals(1, animation.duration().intValue());
         assertEquals(expectedSize, animation.width().intValue());
         assertEquals(expectedSize, animation.height().intValue());
 
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAnimation(gifFileId)));
+        response = (SendResponse) bot.editMessageMedia(chatId, messageId, new InputMediaAnimation(gifFileId)).execute();
         assertTrue(response.isOk());
         AnimationCheck.check(response.message().animation());
         assertEquals(Integer.valueOf(3), response.message().animation().duration());
@@ -1691,17 +1689,17 @@ public class TelegramBotTest {
         assertEquals(Long.valueOf(57527), response.message().document().fileSize());
         assertEquals("video/mp4", response.message().document().mimeType());
 
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioFileId)));
+        response = (SendResponse) bot.editMessageMedia(chatId, messageId, new InputMediaAudio(audioFileId)).execute();
         assertEquals(Long.valueOf(10286), response.message().audio().fileSize());
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioFile)));
+        response = (SendResponse) bot.editMessageMedia(chatId, messageId, new InputMediaAudio(audioFile)).execute();
         assertEquals(Long.valueOf(10286), response.message().audio().fileSize());
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaAudio(audioBytes)));
+        response = (SendResponse) bot.editMessageMedia(chatId, messageId, new InputMediaAudio(audioBytes)).execute();
         assertEquals(Long.valueOf(10286), response.message().audio().fileSize());
         Integer duration = 34;
         String performer = "some performer", title = "just a title", fileName = "beep.mp3";
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId,
-                new InputMediaAudio(audioFile).duration(duration).performer(performer).title(title)
-        ));
+        response = (SendResponse) bot.editMessageMedia(chatId, messageId,
+                new InputMediaAudio(audioFile).duration(duration).performer(performer).title(title))
+                .execute();
         Audio audio = response.message().audio();
         assertEquals(Long.valueOf(10286), audio.fileSize());
         assertEquals(duration, audio.duration());
@@ -1710,9 +1708,9 @@ public class TelegramBotTest {
         assertEquals(fileName, audio.fileName());
 
         // send multipart InputMediaPhoto, InputMediaVideo to cover getFileName and getContentType
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaPhoto(photoFileId).thumb(thumbFile)));
+        response = (SendResponse) bot.editMessageMedia(chatId, messageId, new InputMediaPhoto(photoFileId).thumb(thumbFile)).execute();
         assertNotNull(response.message().photo());
-        response = (SendResponse) bot.execute(new EditMessageMedia(chatId, messageId, new InputMediaVideo(videoFileId).thumb(thumbFile)));
+        response = (SendResponse) bot.editMessageMedia(chatId, messageId, new InputMediaVideo(videoFileId).thumb(thumbFile)).execute();
         assertNotNull(response.message().video());
     }
 
@@ -1721,9 +1719,10 @@ public class TelegramBotTest {
         int expectedSize = 160; // idk why?
         int width = 340, height = 240;
         String caption = "gif *file*", captionCheck = "gif file";
-        SendResponse response = bot.execute(new SendAnimation(chatId, gifFile)
+        SendResponse response = bot.sendAnimation(chatId, gifFile)
                 .duration(222).width(width).height(height).thumb(thumbFile)
-                .caption(caption).parseMode(ParseMode.Markdown).hasSpoiler(true));
+                .caption(caption).parseMode(ParseMode.Markdown).hasSpoiler(true)
+                .execute();
         assertTrue(response.isOk());
         Animation animation = response.message().animation();
         assertEquals((Integer) 1, animation.duration());
@@ -1733,8 +1732,9 @@ public class TelegramBotTest {
         assertEquals(captionCheck, response.message().caption());
         assertEquals(MessageEntity.Type.bold, response.message().captionEntities()[0].type());
 
-        response = bot.execute(new SendAnimation(chatId, gifBytes).thumb(thumbBytes)
-                .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7)));
+        response = bot.sendAnimation(chatId, gifBytes).thumb(thumbBytes)
+                .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7))
+                .execute();
         animation = response.message().animation();
         assertEquals((Integer) 1, animation.duration());
         assertEquals(expectedSize, animation.width().intValue());
@@ -1745,7 +1745,7 @@ public class TelegramBotTest {
         assertEquals((Integer) 0, captionEntity.offset());
         assertEquals((Integer) 7, captionEntity.length());
 
-        response = bot.execute(new SendAnimation(chatId, gifFileId));
+        response = bot.sendAnimation(chatId, gifFileId).execute();
         animation = response.message().animation();
         assertEquals((Integer) 3, animation.duration());
         assertEquals((Integer) 128, animation.width());
@@ -1754,11 +1754,11 @@ public class TelegramBotTest {
 
     @Test
     public void setPassportDataErrors() {
-        BaseResponse response = bot.execute(new SetPassportDataErrors(chatId,
+        BaseResponse response = bot.setPassportDataErrors(chatId,
                 new PassportElementErrorDataField("personal_details", "first_name",
                         "TueU2/SswOD5wgQ6uXQ62mJrr0Jdf30r/QQ/jyETHFM=",
-                        "error in page 1")
-        ));
+                        "error in page 1"))
+                .execute();
         System.out.println(response);
         assertTrue(response.isOk());
     }
@@ -1835,8 +1835,7 @@ public class TelegramBotTest {
     public void sendPoll() {
         String question = "Question ?";
         String[] answers = {"Answer 1", "Answer 2"};
-        SendResponse sendResponse = bot.execute(
-                new SendPoll(groupId, question, answers)
+        SendResponse sendResponse = bot.sendPoll(groupId, question, answers)
                         .isAnonymous(false)
                         .type(Poll.Type.quiz)
                         .allowsMultipleAnswers(false)
@@ -1845,7 +1844,7 @@ public class TelegramBotTest {
                         .explanation("Some __explanation__ of poll")
                         .explanationParseMode(ParseMode.MarkdownV2)
                         .openPeriod(500)
-        );
+                        .execute();
         Poll poll = sendResponse.message().poll();
         if (poll == null) {
             // sometimes response is success but poll is empty
@@ -1876,8 +1875,7 @@ public class TelegramBotTest {
         String question = "Question ?";
         String[] answers = {"Answer 1", "Answer 2"};
         long closeDate = System.currentTimeMillis() / 1000 + 500;
-        SendResponse sendResponse = bot.execute(
-                new SendPoll(chatId, question, answers)
+        SendResponse sendResponse = bot.sendPoll(chatId, question, answers)
                         .type("regular")
                         .allowsMultipleAnswers(true)
                         .replyMarkup(new ReplyKeyboardMarkup(
@@ -1885,7 +1883,7 @@ public class TelegramBotTest {
                                 new KeyboardButton("quiz").requestPoll(new KeyboardButtonPollType(Poll.Type.quiz)),
                                 new KeyboardButton("regular").requestPoll(new KeyboardButtonPollType("regular"))))
                         .closeDate(closeDate)
-        );
+                        .execute();
         Poll poll = sendResponse.message().poll();
         assertEquals(question, poll.question());
         assertEquals(answers.length, poll.options().length);
@@ -1900,10 +1898,10 @@ public class TelegramBotTest {
     public void stopPoll() {
         String question = "Question ?";
         String[] answers = {"Answer 1", "Answer 2"};
-        SendResponse sendResponse = bot.execute(new SendPoll(groupId, question, answers).messageThreadId(0));
+        SendResponse sendResponse = bot.sendPoll(groupId, question, answers).messageThreadId(0).execute();
         Integer messageId = sendResponse.message().messageId();
 
-        PollResponse response = bot.execute(new StopPoll(groupId, messageId));
+        PollResponse response = bot.stopPoll(groupId, messageId).execute();
         Poll poll = response.poll();
         assertTrue(poll.isClosed());
         assertEquals(question, poll.question());
@@ -1930,7 +1928,7 @@ public class TelegramBotTest {
     @Test
     public void testAsyncCallback() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
-        bot.execute(new GetMe(), new Callback<GetMe, GetMeResponse>() {
+        bot.getMe().execute(new Callback<GetMe, GetMeResponse>() {
             @Override
             public void onResponse(GetMe request, GetMeResponse response) {
                 latch.countDown();
@@ -1948,7 +1946,7 @@ public class TelegramBotTest {
     public void botClientError() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
         TelegramBotClient botClient = new TelegramBotClient(new OkHttpClient(), null, TelegramBot.Builder.API_URL);
-        botClient.send(new GetMe(), new Callback<GetMe, GetMeResponse>() {
+        botClient.send(new GetMe(botClient), new Callback<GetMe, GetMeResponse>() {
             @Override
             public void onResponse(GetMe request, GetMeResponse response) {
             }
@@ -1963,19 +1961,19 @@ public class TelegramBotTest {
 
     @Test
     public void toWebhookResponse() {
-        assertEquals("{\"method\":\"getMe\"}", new GetMe().toWebhookResponse());
+        assertEquals("{\"method\":\"getMe\"}", bot.getMe().toWebhookResponse());
     }
 
     @Test
     public void loginButton() {
         String text = "login";
         String url = "https://pengrad.herokuapp.com/hello";
-        SendResponse response = bot.execute(
-                new SendMessage(chatId, "Login button").replyMarkup(new InlineKeyboardMarkup(
+        SendResponse response = bot.sendMessage(chatId, "Login button").replyMarkup(new InlineKeyboardMarkup(
                         new InlineKeyboardButton(text).loginUrl(new LoginUrl(url)
                                 .forwardText("forwarded login")
                                 .botUsername("pengrad_test_bot")
-                                .requestWriteAccess(true)))));
+                                .requestWriteAccess(true))))
+                .execute();
         assertTrue(response.isOk());
         InlineKeyboardButton button = response.message().replyMarkup().inlineKeyboard()[0][0];
         assertEquals(text, button.text());
@@ -1985,9 +1983,8 @@ public class TelegramBotTest {
     @Test
     public void multipartNonAscii() {
         String caption = "хорошо";
-        Message message = bot.execute(
-                new SendPhoto(chatId, imageFile).fileName("файл.txt").caption(caption)
-        ).message();
+        Message message = bot.sendPhoto(chatId, imageFile).fileName("файл.txt").caption(caption)
+                .execute().message();
         assertEquals(caption, message.caption());
         MessageTest.checkMessage(message);
         PhotoSizeTest.checkPhotos(message.photo());
@@ -2005,37 +2002,37 @@ public class TelegramBotTest {
 
     @Test
     public void sendDice() {
-        SendResponse response = bot.execute(new SendDice(chatId));
+        SendResponse response = bot.sendDice(chatId).execute();
         Dice dice = response.message().dice();
         assertNotNull(dice);
         assertTrue(dice.value() >= 1 && dice.value() <= 6);
         assertEquals("🎲", dice.emoji());
 
-        response = bot.execute(new SendDice(chatId).darts());
+        response = bot.sendDice(chatId).darts().execute();
         dice = response.message().dice();
         assertNotNull(dice);
         assertTrue(dice.value() >= 1 && dice.value() <= 6);
         assertEquals("🎯", dice.emoji());
 
-        response = bot.execute(new SendDice(chatId).basketball());
+        response = bot.sendDice(chatId).basketball().execute();
         dice = response.message().dice();
         assertNotNull(dice);
         assertTrue(dice.value() >= 1 && dice.value() <= 5);
         assertEquals("🏀", dice.emoji());
 
-        response = bot.execute(new SendDice(chatId).football());
+        response = bot.sendDice(chatId).football().execute();
         dice = response.message().dice();
         assertNotNull(dice);
         assertTrue(dice.value() >= 1 && dice.value() <= 5);
         assertEquals("⚽", dice.emoji());
 
-        response = bot.execute(new SendDice(chatId).slotMachine());
+        response = bot.sendDice(chatId).slotMachine().execute();
         dice = response.message().dice();
         assertNotNull(dice);
         assertTrue(dice.value() >= 1 && dice.value() <= 64);
         assertEquals("🎰", dice.emoji());
 
-        response = bot.execute(new SendDice(chatId).bowling());
+        response = bot.sendDice(chatId).bowling().execute();
         dice = response.message().dice();
         assertNotNull(dice);
         assertTrue(dice.value() >= 1 && dice.value() <= 6);
@@ -2050,18 +2047,18 @@ public class TelegramBotTest {
                 new BotCommand("c3", "desc3"),
         };
 
-        SetMyCommands cmds = new SetMyCommands(commands);
+        SetMyCommands cmds = bot.setMyCommands(commands);
         cmds.languageCode("en");
         cmds.scope(new BotCommandScopeAllChatAdministrators());
 
-        BaseResponse response = bot.execute(cmds);
+        BaseResponse response = cmds.execute();
         assertTrue(response.isOk());
 
-        GetMyCommands getCmds = new GetMyCommands();
+        GetMyCommands getCmds = bot.getMyCommands();
         getCmds.languageCode("en");
         getCmds.scope(new BotCommandScopeAllChatAdministrators());
 
-        GetMyCommandsResponse commandsResponse = bot.execute(getCmds);
+        GetMyCommandsResponse commandsResponse = getCmds.execute();
         assertTrue(commandsResponse.isOk());
         assertEquals(commands[0].command(), commandsResponse.commands()[0].command());
         assertEquals(commands[0].description(), commandsResponse.commands()[0].description());
@@ -2070,18 +2067,18 @@ public class TelegramBotTest {
 
     @Test
     public void deleteMyCommands() {
-        DeleteMyCommands cmds = new DeleteMyCommands();
+        DeleteMyCommands cmds = bot.deleteMyCommands();
         cmds.languageCode("en");
         cmds.scope(new BotCommandScopeAllChatAdministrators());
 
-        BaseResponse response = bot.execute(cmds);
+        BaseResponse response = cmds.execute();
         assertTrue(response.isOk());
 
-        GetMyCommands getCmds = new GetMyCommands();
+        GetMyCommands getCmds = bot.getMyCommands();
         getCmds.languageCode("en");
         getCmds.scope(new BotCommandScopeAllChatAdministrators());
 
-        GetMyCommandsResponse commandsResponse = bot.execute(getCmds);
+        GetMyCommandsResponse commandsResponse = getCmds.execute();
         assertTrue(commandsResponse.isOk());
         assertArrayEquals(commandsResponse.commands(), new BotCommand[0]);
     }
@@ -2092,10 +2089,11 @@ public class TelegramBotTest {
         int expireDate = (int) (System.currentTimeMillis() / 1000) + 500;
         String name = "TestName";
 
-        ChatInviteLinkResponse response = bot.execute(new CreateChatInviteLink(groupId)
+        ChatInviteLinkResponse response = bot.createChatInviteLink(groupId)
                 .expireDate(expireDate)
                 .memberLimit(memberLimit)
-                .name(name));
+                .name(name)
+                .execute();
         ChatInviteLink link = response.chatInviteLink();
         assertEquals(expireDate, link.expireDate().intValue());
         assertEquals(memberLimit, link.memberLimit().intValue());
@@ -2106,76 +2104,81 @@ public class TelegramBotTest {
         int editMemberLimit = 3;
         int editExpireDate = (int) (System.currentTimeMillis() / 1000) + 1500;
         String editName = name + "edit";
-        response = bot.execute(new EditChatInviteLink(groupId, link.inviteLink())
+        response = bot.editChatInviteLink(groupId, link.inviteLink())
                 .expireDate(editExpireDate)
                 .memberLimit(editMemberLimit)
-                .name(editName));
+                .name(editName)
+                .execute();
         link = response.chatInviteLink();
         assertEquals(editExpireDate, link.expireDate().intValue());
         assertEquals(editMemberLimit, link.memberLimit().intValue());
         assertEquals(editName, link.name());
         assertFalse(link.isRevoked());
 
-        response = bot.execute(new RevokeChatInviteLink(groupId, link.inviteLink()));
+        response = bot.revokeChatInviteLink(groupId, link.inviteLink()).execute();
         link = response.chatInviteLink();
         assertTrue(link.isRevoked());
         assertFalse(link.isPrimary());
 
-        response = bot.execute(new CreateChatInviteLink(groupId).createsJoinRequest(true));
+        response = bot.createChatInviteLink(groupId).createsJoinRequest(true).execute();
         link = response.chatInviteLink();
         assertTrue(link.createsJoinRequest());
         assertNull(link.pendingJoinRequestCount());
 
-        response = bot.execute(new EditChatInviteLink(groupId, link.inviteLink()).createsJoinRequest(false));
+        response = bot.editChatInviteLink(groupId, link.inviteLink()).createsJoinRequest(false).execute();
         assertFalse(response.chatInviteLink().createsJoinRequest());
     }
 
     @Test
     public void chatJoinRequest() {
-        BaseResponse response = bot.execute(new ApproveChatJoinRequest(groupId, memberBot));
+        BaseResponse response = bot.approveChatJoinRequest(groupId, memberBot).execute();
         assertFalse(response.isOk());
         assertEquals("Bad Request: USER_ALREADY_PARTICIPANT", response.description());
 
-        response = bot.execute(new DeclineChatJoinRequest(groupId, memberBot));
+        response = bot.declineChatJoinRequest(groupId, memberBot).execute();
         assertFalse(response.isOk());
         assertEquals("Bad Request: HIDE_REQUESTER_MISSING", response.description());
     }
 
     @Test
     public void banChatSenderChat() {
-        BaseResponse response = bot.execute(new BanChatSenderChat(channelName, memberBot));
+        BaseResponse response = bot.banChatSenderChat(channelName, memberBot).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void unbanChatSenderChat() {
-        BaseResponse response = bot.execute(new UnbanChatSenderChat(channelName, memberBot));
+        BaseResponse response = bot.unbanChatSenderChat(channelName, memberBot).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void setChatMenuButton() {
-        BaseResponse response = bot.execute(new SetChatMenuButton().chatId(chatId)
-                .menuButton(new MenuButtonWebApp("webapp", new WebAppInfo("https://core.telegram.org"))));
+        BaseResponse response = bot.setChatMenuButton().chatId(chatId)
+                .menuButton(new MenuButtonWebApp("webapp", new WebAppInfo("https://core.telegram.org")))
+                .execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new SetChatMenuButton().chatId(chatId)
-                .menuButton(new MenuButtonCommands()));
+        response = bot.setChatMenuButton().chatId(chatId)
+                .menuButton(new MenuButtonCommands())
+                .execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new SetChatMenuButton().chatId(chatId)
-                .menuButton(new MenuButtonDefault()));
+        response = bot.setChatMenuButton().chatId(chatId)
+                .menuButton(new MenuButtonDefault())
+                .execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void getChatMenuButton() {
         MenuButton menu = new MenuButtonCommands();
-        BaseResponse set = bot.execute(new SetChatMenuButton().chatId(chatId)
-                .menuButton(menu));
+        BaseResponse set = bot.setChatMenuButton().chatId(chatId)
+                .menuButton(menu)
+                .execute();
         assertTrue(set.isOk());
 
-        GetChatMenuButtonResponse response = bot.execute(new GetChatMenuButton().chatId(chatId));
+        GetChatMenuButtonResponse response = bot.getChatMenuButton().chatId(chatId).execute();
         assertTrue(response.isOk());
         assertEquals(menu.type(), response.result().type());
     }
@@ -2184,9 +2187,9 @@ public class TelegramBotTest {
     public void sendWebAppInfo() {
         String text = "gh_app";
         String url = "https://github.com/";
-        SendResponse response = bot.execute(new SendMessage(chatId, "message with webApp")
+        SendResponse response = bot.sendMessage(chatId, "message with webApp")
                 .replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton(text).webApp(new WebAppInfo(url))))
-        );
+                .execute();
         assertTrue(response.isOk());
 
         InlineKeyboardMarkup markup = response.message().replyMarkup();
@@ -2199,15 +2202,15 @@ public class TelegramBotTest {
         assertNotNull(button.webApp());
         assertEquals(url, button.webApp().url());
 
-        response = bot.execute(new SendMessage(chatId, "message with webApp")
+        response = bot.sendMessage(chatId, "message with webApp")
                 .replyMarkup(new ReplyKeyboardMarkup(new KeyboardButton(text).webAppInfo(new WebAppInfo(url))))
-        );
+                .execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void getMyDefaultAdministratorRights() {
-        bot.execute(new SetMyDefaultAdministratorRights()
+        bot.setMyDefaultAdministratorRights()
                 .forChannels(false)
                 .rights(new ChatAdministratorRights()
                         .canManageChat(false)
@@ -2221,8 +2224,8 @@ public class TelegramBotTest {
                         .canEditMessages(false)
                         .canPinMessages(false)
                         .canManageTopics(false)
-                ));
-        ChatAdministratorRights rights = bot.execute(new GetMyDefaultAdministratorRights().forChannels(false)).result();
+                ).execute();
+        ChatAdministratorRights rights = bot.getMyDefaultAdministratorRights().forChannels(false).execute().result();
         assertFalse(rights.isAnonymous());
         assertFalse(rights.canManageChat());
         assertFalse(rights.canDeleteMessages());
@@ -2239,7 +2242,7 @@ public class TelegramBotTest {
 
     @Test
     public void getForumTopicIconStickers() {
-        List<Sticker> stickers = bot.execute(new GetForumTopicIconStickers()).stickers();
+        List<Sticker> stickers = bot.getForumTopicIconStickers().execute().stickers();
         assertFalse(stickers.isEmpty());
     }
 
@@ -2247,9 +2250,9 @@ public class TelegramBotTest {
     public void createForumTopic() {
         Integer color = 7322096;
         String emoji = "5434144690511290129";
-        CreateForumTopicResponse createResponse = bot.execute(
-                new CreateForumTopic(forum, "test_topic").iconColor(color).iconCustomEmojiId(emoji)
-        );
+        CreateForumTopicResponse createResponse = bot.createForumTopic(forum, "test_topic")
+                .iconColor(color).iconCustomEmojiId(emoji)
+                .execute();
         assertTrue(createResponse.isOk());
         ForumTopic topic = createResponse.forumTopic();
         assertNotNull(topic);
@@ -2257,55 +2260,55 @@ public class TelegramBotTest {
         assertEquals(emoji, topic.iconCustomEmojiId());
 
         String name = "test_topic_edit";
-        BaseResponse response = bot.execute(
-                new EditForumTopic(forum, topic.messageThreadId()).name(name).iconCustomEmojiId("")
-        );
+        BaseResponse response = bot.editForumTopic(forum, topic.messageThreadId())
+                .name(name).iconCustomEmojiId("")
+                .execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new CloseForumTopic(forum, topic.messageThreadId()));
+        response = bot.closeForumTopic(forum, topic.messageThreadId()).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new ReopenForumTopic(forum, topic.messageThreadId()));
+        response = bot.reopenForumTopic(forum, topic.messageThreadId()).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new DeleteForumTopic(forum, topic.messageThreadId()));
+        response = bot.deleteForumTopic(forum, topic.messageThreadId()).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void unpinAllForumTopicMessages() {
         String name = "edit_thread-" + System.currentTimeMillis();
-        BaseResponse response = bot.execute(new EditForumTopic(forum, forumEditThread, name, ""));
+        BaseResponse response = bot.editForumTopic(forum, forumEditThread, name, "").execute();
         assertTrue(response.isOk());
-        response = bot.execute(new UnpinAllForumTopicMessages(forum, forumEditThread));
+        response = bot.unpinAllForumTopicMessages(forum, forumEditThread).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void editGeneralForumTopic() {
         String name = "General " + System.currentTimeMillis();
-        BaseResponse response = bot.execute(new EditGeneralForumTopic(forum, name));
+        BaseResponse response = bot.editGeneralForumTopic(forum, name).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new CloseGeneralForumTopic(forum));
+        response = bot.closeGeneralForumTopic(forum).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new HideGeneralForumTopic(forum));
+        response = bot.hideGeneralForumTopic(forum).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new UnhideGeneralForumTopic(forum));
+        response = bot.unhideGeneralForumTopic(forum).execute();
         assertTrue(response.isOk());
 
-        response = bot.execute(new ReopenGeneralForumTopic(forum));
+        response = bot.reopenGeneralForumTopic(forum).execute();
         assertTrue(response.isOk());
     }
 
     @Test
     public void setMyDescription() {
-        BaseResponse response = bot.execute(new SetMyDescription().description("desc").languageCode("en"));
+        BaseResponse response = bot.setMyDescription().description("desc").languageCode("en").execute();
         assertTrue(response.isOk());
 
-        GetMyDescriptionResponse descResponse = bot.execute(new GetMyDescription().languageCode("en"));
+        GetMyDescriptionResponse descResponse = bot.getMyDescription().languageCode("en").execute();
         assertTrue(descResponse.isOk());
         BotDescription desc = descResponse.botDescription();
         assertNotNull(desc);
@@ -2314,10 +2317,10 @@ public class TelegramBotTest {
 
     @Test
     public void setMyShortDescription() {
-        BaseResponse response = bot.execute(new SetMyShortDescription().description("short_desc").languageCode("en"));
+        BaseResponse response = bot.setMyShortDescription().description("short_desc").languageCode("en").execute();
         assertTrue(response.isOk());
 
-        GetMyShortDescriptionResponse descResponse = bot.execute(new GetMyShortDescription().languageCode("en"));
+        GetMyShortDescriptionResponse descResponse = bot.getMyShortDescription().languageCode("en").execute();
         assertTrue(descResponse.isOk());
         BotShortDescription desc = descResponse.botShortDescription();
         assertNotNull(desc);
@@ -2326,17 +2329,17 @@ public class TelegramBotTest {
 
     @Test
     public void setMyName() {
-        BaseResponse response = bot.execute(new SetMyName().name("name").languageCode("en"));
+        BaseResponse response = bot.setMyName().name("name").languageCode("en").execute();
         assertTrue(response.isOk());
 
-        GetMyNameResponse nameResponse = bot.execute(new GetMyName().languageCode("en"));
+        GetMyNameResponse nameResponse = bot.getMyName().languageCode("en").execute();
         assertTrue(nameResponse.isOk());
         assertEquals("name", nameResponse.botName().name());
     }
 
     @Test
     public void answerWebAppQuery() {
-        SentWebAppMessageResponse response = bot.execute(new AnswerWebAppQuery("123", new InlineQueryResultArticle("1", "title", "text")));
+        SentWebAppMessageResponse response = bot.answerWebAppQuery("123", new InlineQueryResultArticle("1", "title", "text")).execute();
         assertFalse(response.isOk());
         assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
         assertNull(response.sentWebAppMessage());

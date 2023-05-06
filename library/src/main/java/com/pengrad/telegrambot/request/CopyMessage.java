@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.model.request.ParseMode;
@@ -11,8 +12,8 @@ import com.pengrad.telegrambot.response.MessageIdResponse;
  */
 public class CopyMessage extends BaseRequest<CopyMessage, MessageIdResponse> {
 
-    public CopyMessage(Object chatId, Object fromChatId, int messageId) {
-        super(MessageIdResponse.class);
+    public CopyMessage(TelegramBotClient api, Object chatId, Object fromChatId, int messageId) {
+        super(api, MessageIdResponse.class);
         add("chat_id", chatId).add("from_chat_id", fromChatId).add("message_id", messageId);
     }
 

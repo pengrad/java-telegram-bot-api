@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.request.ParseMode;
 
@@ -11,16 +12,16 @@ import java.io.File;
  */
 public class SendVideo extends AbstractMultipartRequest<SendVideo> {
 
-    public SendVideo(Object chatId, String video) {
-        super(chatId, video);
+    public SendVideo(TelegramBotClient api, Object chatId, String video) {
+        super(api, chatId, video);
     }
 
-    public SendVideo(Object chatId, File video) {
-        super(chatId, video);
+    public SendVideo(TelegramBotClient api, Object chatId, File video) {
+        super(api, chatId, video);
     }
 
-    public SendVideo(Object chatId, byte[] video) {
-        super(chatId, video);
+    public SendVideo(TelegramBotClient api, Object chatId, byte[] video) {
+        super(api, chatId, video);
     }
 
     public SendVideo duration(int duration) {

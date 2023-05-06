@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -8,8 +9,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class UnbanChatSenderChat extends BaseRequest<UnbanChatSenderChat, BaseResponse> {
 
-    public UnbanChatSenderChat(Object chatId, long sender_chat_id) {
-        super(BaseResponse.class);
+    public UnbanChatSenderChat(TelegramBotClient api, Object chatId, long sender_chat_id) {
+        super(api, BaseResponse.class);
         add("chat_id", chatId).add("sender_chat_id", sender_chat_id);
     }
 

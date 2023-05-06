@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.request.InputMedia;
 import com.pengrad.telegrambot.response.MessagesResponse;
 
@@ -13,8 +14,8 @@ public class SendMediaGroup extends BaseRequest<SendMediaGroup, MessagesResponse
 
     private boolean isMultipart = false;
 
-    public SendMediaGroup(Object chatId, InputMedia<?>... media) {
-        super(MessagesResponse.class);
+    public SendMediaGroup(TelegramBotClient api, Object chatId, InputMedia<?>... media) {
+        super(api, MessagesResponse.class);
         add("chat_id", chatId).add("media", media);
 
         for (InputMedia<?> m : media) {

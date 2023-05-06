@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.GetUserProfilePhotosResponse;
 
 /**
@@ -8,8 +9,8 @@ import com.pengrad.telegrambot.response.GetUserProfilePhotosResponse;
  */
 public class GetUserProfilePhotos extends BaseRequest<GetUserProfilePhotos, GetUserProfilePhotosResponse> {
 
-    public GetUserProfilePhotos(long userId) {
-        super(GetUserProfilePhotosResponse.class);
+    public GetUserProfilePhotos(TelegramBotClient api, long userId) {
+        super(api, GetUserProfilePhotosResponse.class);
         add("user_id", userId);
     }
 

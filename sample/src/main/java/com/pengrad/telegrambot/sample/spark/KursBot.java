@@ -66,7 +66,7 @@ public class KursBot implements Route {
             default:
                 message = getAllKurs();
         }
-        bot.execute(new SendMessage(chatId, message).replyMarkup(new ReplyKeyboardMarkup(new String[]{BUTTON_CB}, new String[]{BUTTON_EXCHANGE})));
+        bot.sendMessage(chatId, message).replyMarkup(new ReplyKeyboardMarkup(new String[]{BUTTON_CB}, new String[]{BUTTON_EXCHANGE})).execute();
         return "ok";
     }
 

@@ -1,13 +1,15 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
+
 /**
  * stas
  * 5/1/16.
  */
 public class SendContact extends AbstractSendRequest<SendContact> {
 
-    public SendContact(Object chatId, String phoneNumber, String firstName) {
-        super(chatId);
+    public SendContact(TelegramBotClient api, Object chatId, String phoneNumber, String firstName) {
+        super(api, chatId);
         add("phone_number", phoneNumber);
         add("first_name", firstName);
     }

@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -8,7 +9,7 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class LogOut extends BaseRequest<LogOut, BaseResponse> {
 
-    public LogOut() {
-        super(BaseResponse.class);
+    public LogOut(TelegramBotClient api) {
+        super(api, BaseResponse.class);
     }
 }

@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.GetMyDefaultAdministratorRightsResponse;
 
 /**
@@ -8,8 +9,8 @@ import com.pengrad.telegrambot.response.GetMyDefaultAdministratorRightsResponse;
  */
 public class GetMyDefaultAdministratorRights extends BaseRequest<GetMyDefaultAdministratorRights, GetMyDefaultAdministratorRightsResponse> {
     
-    public GetMyDefaultAdministratorRights() {
-        super(GetMyDefaultAdministratorRightsResponse.class);
+    public GetMyDefaultAdministratorRights(TelegramBotClient api) {
+        super(api, GetMyDefaultAdministratorRightsResponse.class);
     }
 
     public GetMyDefaultAdministratorRights forChannels(boolean forChannels) {

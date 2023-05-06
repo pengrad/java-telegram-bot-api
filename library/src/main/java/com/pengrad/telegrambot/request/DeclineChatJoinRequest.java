@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -13,8 +14,8 @@ public class DeclineChatJoinRequest extends BaseRequest<DeclineChatJoinRequest, 
      * @param chatId Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param userId Unique identifier of the target user
      */
-    public DeclineChatJoinRequest(Object chatId, Long userId) {
-        super(BaseResponse.class);
+    public DeclineChatJoinRequest(TelegramBotClient api, Object chatId, Long userId) {
+        super(api, BaseResponse.class);
         add("chat_id", chatId);
         add("user_id", userId);
     }

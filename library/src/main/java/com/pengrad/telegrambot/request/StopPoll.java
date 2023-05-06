@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.response.PollResponse;
 
@@ -9,8 +10,8 @@ import com.pengrad.telegrambot.response.PollResponse;
  */
 public class StopPoll extends BaseRequest<StopPoll, PollResponse> {
 
-    public StopPoll(Object chatId, int messageId) {
-        super(PollResponse.class);
+    public StopPoll(TelegramBotClient api, Object chatId, int messageId) {
+        super(api, PollResponse.class);
         add("chat_id", chatId).add("message_id", messageId);
     }
 

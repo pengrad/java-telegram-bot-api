@@ -42,7 +42,7 @@ public class EncryptedPassportElement implements Serializable {
     }
 
     public byte[] decryptFile(PassportFile passportFile, FileCredentials fileCredentials, TelegramBot bot) throws Exception {
-        File file = bot.execute(new GetFile(passportFile.fileId())).file();
+        File file = bot.getFile(passportFile.fileId()).execute().file();
         byte[] fileData = bot.getFileContent(file);
         return decryptFile(fileData, fileCredentials);
     }

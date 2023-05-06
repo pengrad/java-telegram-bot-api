@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -8,8 +9,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class LeaveChat extends BaseRequest<LeaveChat, BaseResponse> {
 
-    public LeaveChat(Object chatId) {
-        super(BaseResponse.class);
+    public LeaveChat(TelegramBotClient api, Object chatId) {
+        super(api, BaseResponse.class);
         add("chat_id", chatId);
     }
 }

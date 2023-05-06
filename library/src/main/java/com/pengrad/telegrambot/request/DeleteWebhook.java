@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -8,8 +9,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class DeleteWebhook extends BaseRequest<DeleteWebhook, BaseResponse> {
 
-    public DeleteWebhook() {
-        super(BaseResponse.class);
+    public DeleteWebhook(TelegramBotClient api) {
+        super(api, BaseResponse.class);
     }
 
     public DeleteWebhook dropPendingUpdates(boolean dropPendingUpdates) {

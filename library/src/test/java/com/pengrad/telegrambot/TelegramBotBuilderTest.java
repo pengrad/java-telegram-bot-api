@@ -42,7 +42,7 @@ public class TelegramBotBuilderTest {
             latch.countDown();
         };
         try {
-            bot.execute(new GetMe());
+            bot.getMe().execute();
         } catch (Exception ignored) {}
 
         assertTrue(latch.await(5, TimeUnit.SECONDS));

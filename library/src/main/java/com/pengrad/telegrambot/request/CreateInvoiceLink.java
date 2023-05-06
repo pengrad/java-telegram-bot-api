@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.request.LabeledPrice;
 import com.pengrad.telegrambot.response.StringResponse;
 
@@ -9,9 +10,9 @@ import com.pengrad.telegrambot.response.StringResponse;
  */
 public class CreateInvoiceLink extends BaseRequest<CreateInvoiceLink, StringResponse> {
 
-    public CreateInvoiceLink(String title, String description, String payload, String providerToken,
-                             String currency, LabeledPrice... prices) {
-        super(StringResponse.class);
+    public CreateInvoiceLink(TelegramBotClient api, String title, String description, String payload, String providerToken,
+							 String currency, LabeledPrice... prices) {
+        super(api, StringResponse.class);
         add("title", title).add("description", description).add("payload", payload)
                 .add("provider_token", providerToken).add("currency", currency).add("prices", prices);
     }

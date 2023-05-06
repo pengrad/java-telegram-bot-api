@@ -1,13 +1,13 @@
-package com.pengrad.telegrambot.model;
+package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.botcommandscope.BotCommandScope;
-import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 public class DeleteMyCommands extends BaseRequest<DeleteMyCommands, BaseResponse> {
 
-    public DeleteMyCommands() {
-        super(BaseResponse.class);
+    public DeleteMyCommands(TelegramBotClient api) {
+        super(api, BaseResponse.class);
     }
 
     /**

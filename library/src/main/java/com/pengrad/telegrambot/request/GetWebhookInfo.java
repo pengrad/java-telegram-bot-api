@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.GetWebhookInfoResponse;
 
 /**
@@ -8,8 +9,8 @@ import com.pengrad.telegrambot.response.GetWebhookInfoResponse;
  */
 public class GetWebhookInfo extends BaseRequest<GetWebhookInfo, GetWebhookInfoResponse> {
 
-    public GetWebhookInfo() {
-        super(GetWebhookInfoResponse.class);
+    public GetWebhookInfo(TelegramBotClient api) {
+        super(api, GetWebhookInfoResponse.class);
     }
 
 }

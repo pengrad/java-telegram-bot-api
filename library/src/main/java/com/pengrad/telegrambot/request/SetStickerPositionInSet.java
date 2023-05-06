@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -8,8 +9,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class SetStickerPositionInSet extends BaseRequest<SetStickerPositionInSet, BaseResponse> {
 
-    public SetStickerPositionInSet(String sticker, int position) {
-        super(BaseResponse.class);
+    public SetStickerPositionInSet(TelegramBotClient api, String sticker, int position) {
+        super(api, BaseResponse.class);
         add("sticker", sticker).add("position", position);
     }
 }

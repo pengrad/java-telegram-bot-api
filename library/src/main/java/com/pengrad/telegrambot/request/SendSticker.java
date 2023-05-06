@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
+
 import java.io.File;
 
 /**
@@ -8,16 +10,16 @@ import java.io.File;
  */
 public class SendSticker extends AbstractMultipartRequest<SendSticker> {
 
-    public SendSticker(Object chatId, String sticker) {
-        super(chatId, sticker);
+    public SendSticker(TelegramBotClient api, Object chatId, String sticker) {
+        super(api, chatId, sticker);
     }
 
-    public SendSticker(Object chatId, File sticker) {
-        super(chatId, sticker);
+    public SendSticker(TelegramBotClient api, Object chatId, File sticker) {
+        super(api, chatId, sticker);
     }
 
-    public SendSticker(Object chatId, byte[] sticker) {
-        super(chatId, sticker);
+    public SendSticker(TelegramBotClient api, Object chatId, byte[] sticker) {
+        super(api, chatId, sticker);
     }
 
 

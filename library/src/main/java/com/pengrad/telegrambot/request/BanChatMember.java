@@ -1,11 +1,12 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 public class BanChatMember extends BaseRequest<BanChatMember, BaseResponse> {
 
-    public BanChatMember(Object chatId, long userId) {
-        super(BaseResponse.class);
+    public BanChatMember(TelegramBotClient api, Object chatId, long userId) {
+        super(api, BaseResponse.class);
         add("chat_id", chatId).add("user_id", userId);
     }
 

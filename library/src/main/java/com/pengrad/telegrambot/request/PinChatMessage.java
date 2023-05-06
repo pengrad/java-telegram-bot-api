@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -8,8 +9,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class PinChatMessage extends BaseRequest<PinChatMessage, BaseResponse> {
 
-    public PinChatMessage(Object chatId, int messageId) {
-        super(BaseResponse.class);
+    public PinChatMessage(TelegramBotClient api, Object chatId, int messageId) {
+        super(api, BaseResponse.class);
         add("chat_id", chatId).add("message_id", messageId);
     }
 

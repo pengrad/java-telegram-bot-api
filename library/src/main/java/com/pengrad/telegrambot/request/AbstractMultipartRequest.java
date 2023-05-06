@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
+
 import java.io.File;
 
 /**
@@ -12,8 +14,8 @@ abstract public class AbstractMultipartRequest<T extends AbstractMultipartReques
     private String fileName;
     private String contentType;
 
-    public AbstractMultipartRequest(Object chatId, Object file) {
-        super(chatId);
+    public AbstractMultipartRequest(TelegramBotClient api, Object chatId, Object file) {
+        super(api, chatId);
         if (file instanceof String) {
             isMultipart = false;
         } else if (file instanceof File) {

@@ -25,7 +25,7 @@ public class PaymentsTest {
 
     @Test
     public void sendInvoice() {
-        SendResponse response = bot.execute(new SendInvoice(chatId, "title", "desc", "my_payload",
+        SendResponse response = bot.sendInvoice(chatId, "title", "desc", "my_payload",
                 "284685063:TEST:NThlNWQ3NDk0ZDQ5", "my_start_param", "USD", new LabeledPrice("label", 200))
                 .providerData("{\"foo\" : \"bar\"}")
                 .photoUrl("https://telegram.org/img/t_logo.png").photoSize(100).photoHeight(100).photoWidth(100)
@@ -39,7 +39,7 @@ public class PaymentsTest {
                 .replyMarkup(new InlineKeyboardMarkup(
                         new InlineKeyboardButton("just pay").pay(),
                         new InlineKeyboardButton("google it").url("www.google.com")))
-        );
+                .execute();
         Invoice invoice = response.message().invoice();
         InvoiceCheck.check(response.message().invoice());
         assertEquals("USD", invoice.currency());
@@ -53,7 +53,7 @@ public class PaymentsTest {
 
     @Test
     public void createInvoiceLink() {
-        StringResponse response = bot.execute(new CreateInvoiceLink("title", "desc", "my_payload",
+        StringResponse response = bot.createInvoiceLink("title", "desc", "my_payload",
                 "284685063:TEST:NThlNWQ3NDk0ZDQ5", "USD", new LabeledPrice("label", 200))
                 .maxTipAmount(100)
                 .suggestedTipAmounts(new Integer[]{1, 2, 5})
@@ -62,7 +62,7 @@ public class PaymentsTest {
                 .needPhoneNumber(true).needShippingAddress(true).needEmail(true).needName(true)
                 .sendEmailToProvider(true).sendPhoneNumberToProvider(true)
                 .isFlexible(true)
-        );
+                .execute();
         assertTrue(response.isOk());
         assertTrue(response.result().contains("t.me"));
     }
@@ -80,10 +80,10 @@ public class PaymentsTest {
         ShippingAddress address = shippingQuery.shippingAddress();
         checkTestShippingAddress(address);
 
-        BaseResponse response = bot.execute(new AnswerShippingQuery(shippingQueryId,
+        BaseResponse response = bot.answerShippingQuery(shippingQueryId,
                 new ShippingOption("1", "VNPT", new LabeledPrice("delivery", 100), new LabeledPrice("tips", 50)),
-                new ShippingOption("2", "FREE", new LabeledPrice("free delivery", 0))
-        ));
+                new ShippingOption("2", "FREE", new LabeledPrice("free delivery", 0)))
+                .execute();
 
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
@@ -96,7 +96,7 @@ public class PaymentsTest {
         ShippingQuery shippingQuery = BotUtils.parseUpdate(testShippingQuery).shippingQuery();
         String shippingQueryId = shippingQuery.id();
 
-        BaseResponse response = bot.execute(new AnswerShippingQuery(shippingQueryId, "cant delivery so far"));
+        BaseResponse response = bot.answerShippingQuery(shippingQueryId, "cant delivery so far").execute();
 
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
@@ -133,7 +133,7 @@ public class PaymentsTest {
         assertEquals("aaa@aaa.com", orderInfo.email());
         checkTestShippingAddress(orderInfo.shippingAddress());
 
-        BaseResponse response = bot.execute(new AnswerPreCheckoutQuery(preCheckoutQueryId));
+        BaseResponse response = bot.answerPreCheckoutQuery(preCheckoutQueryId).execute();
 
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
@@ -146,7 +146,7 @@ public class PaymentsTest {
         PreCheckoutQuery preCheckoutQuery = BotUtils.parseUpdate(testPreCheckoutQuery).preCheckoutQuery();
         String preCheckoutQueryId = preCheckoutQuery.id();
 
-        BaseResponse response = bot.execute(new AnswerPreCheckoutQuery(preCheckoutQueryId, "cant sell to you"));
+        BaseResponse response = bot.answerPreCheckoutQuery(preCheckoutQueryId, "cant sell to you").execute();
 
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());

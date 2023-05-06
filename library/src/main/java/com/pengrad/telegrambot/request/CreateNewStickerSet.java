@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.MaskPosition;
 import com.pengrad.telegrambot.model.Sticker.Format;
 import com.pengrad.telegrambot.model.Sticker.Type;
@@ -16,40 +17,40 @@ public class CreateNewStickerSet extends BaseRequest<CreateNewStickerSet, BaseRe
      * @deprecated Use constructor with the InputSticker type (since API v6.6)
      */
     @Deprecated
-    public static CreateNewStickerSet tgsSticker(Long userId, String name, String title, String emojis, Object tgsSticker) {
-        return new CreateNewStickerSet(userId, name, title, emojis, "tgs_sticker", tgsSticker);
+    public static CreateNewStickerSet tgsSticker(TelegramBotClient api, Long userId, String name, String title, String emojis, Object tgsSticker) {
+        return new CreateNewStickerSet(api, userId, name, title, emojis, "tgs_sticker", tgsSticker);
     }
 
     /**
      * @deprecated Use constructor with the InputSticker type (since API v6.6)
      */
     @Deprecated
-    public static CreateNewStickerSet pngSticker(Long userId, String name, String title, String emojis, Object pngSticker) {
-        return new CreateNewStickerSet(userId, name, title, emojis, "png_sticker", pngSticker);
+    public static CreateNewStickerSet pngSticker(TelegramBotClient api, Long userId, String name, String title, String emojis, Object pngSticker) {
+        return new CreateNewStickerSet(api, userId, name, title, emojis, "png_sticker", pngSticker);
     }
 
     /**
      * @deprecated Use constructor with the InputSticker type (since API v6.6)
      */
     @Deprecated
-    public static CreateNewStickerSet webmSticker(Long userId, String name, String title, String emojis, Object webmSticker) {
-        return new CreateNewStickerSet(userId, name, title, emojis, "webm_sticker", webmSticker);
+    public static CreateNewStickerSet webmSticker(TelegramBotClient api, Long userId, String name, String title, String emojis, Object webmSticker) {
+        return new CreateNewStickerSet(api, userId, name, title, emojis, "webm_sticker", webmSticker);
     }
 
     /**
-     * @deprecated Use static methods according to sticker set type - {@link #pngSticker(Long, String, String, String, Object) for png}, {@link #tgsSticker(Long, String, String, String, Object) for tgs} and {@link #webmSticker(Long, String, String, String, Object) for webm}
+     * @deprecated Use static methods according to sticker set type - {@link #pngSticker(TelegramBotClient, Long, String, String, String, Object) for png}, {@link #tgsSticker(TelegramBotClient, Long, String, String, String, Object) for tgs} and {@link #webmSticker(TelegramBotClient, Long, String, String, String, Object) for webm}
      */
     @Deprecated
-    public CreateNewStickerSet(Long userId, String name, String title, Object pngSticker, String emojis) {
-        this(userId, name, title, emojis, "png_sticker", pngSticker);
+    public CreateNewStickerSet(TelegramBotClient api, Long userId, String name, String title, Object pngSticker, String emojis) {
+        this(api, userId, name, title, emojis, "png_sticker", pngSticker);
     }
 
     /**
      * @deprecated Use constructor with the InputSticker type (since API v6.6)
      */
     @Deprecated
-    private CreateNewStickerSet(Long userId, String name, String title, String emojis, String stickerParam, Object sticker) {
-        super(BaseResponse.class);
+    private CreateNewStickerSet(TelegramBotClient api, Long userId, String name, String title, String emojis, String stickerParam, Object sticker) {
+        super(api, BaseResponse.class);
         add(stickerParam, sticker);
         add("user_id", userId);
         add("name", name);
@@ -57,8 +58,8 @@ public class CreateNewStickerSet extends BaseRequest<CreateNewStickerSet, BaseRe
         add("emojis", emojis);
     }
 
-    public CreateNewStickerSet(Long userId, String name, String title, InputSticker[] stickers, Format stickerFormat) {
-        super(BaseResponse.class);
+    public CreateNewStickerSet(TelegramBotClient api, Long userId, String name, String title, InputSticker[] stickers, Format stickerFormat) {
+        super(api, BaseResponse.class);
         add("user_id", userId);
         add("name", name);
         add("title", title);

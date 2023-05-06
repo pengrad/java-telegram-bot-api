@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
+
 import java.io.File;
 
 /**
@@ -8,16 +10,16 @@ import java.io.File;
  */
 public class SendVideoNote extends AbstractMultipartRequest<SendVideoNote> {
 
-    public SendVideoNote(Object chatId, String videoNote) {
-        super(chatId, videoNote);
+    public SendVideoNote(TelegramBotClient api, Object chatId, String videoNote) {
+        super(api, chatId, videoNote);
     }
 
-    public SendVideoNote(Object chatId, File videoNote) {
-        super(chatId, videoNote);
+    public SendVideoNote(TelegramBotClient api, Object chatId, File videoNote) {
+        super(api, chatId, videoNote);
     }
 
-    public SendVideoNote(Object chatId, byte[] videoNote) {
-        super(chatId, videoNote);
+    public SendVideoNote(TelegramBotClient api, Object chatId, byte[] videoNote) {
+        super(api, chatId, videoNote);
     }
 
     public SendVideoNote duration(int duration) {

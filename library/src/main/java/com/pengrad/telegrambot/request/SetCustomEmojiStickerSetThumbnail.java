@@ -1,12 +1,13 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 
 public class SetCustomEmojiStickerSetThumbnail extends BaseRequest<SetCustomEmojiStickerSetThumbnail, BaseResponse> {
 
-    public SetCustomEmojiStickerSetThumbnail(String name) {
-        super(BaseResponse.class);
+    public SetCustomEmojiStickerSetThumbnail(TelegramBotClient api, String name) {
+        super(api, BaseResponse.class);
         add("name", name);
     }
 

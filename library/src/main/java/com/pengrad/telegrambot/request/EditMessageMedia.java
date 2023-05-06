@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.InputMedia;
 import com.pengrad.telegrambot.response.BaseResponse;
@@ -16,14 +17,14 @@ public class EditMessageMedia extends BaseRequest<EditMessageMedia, BaseResponse
     private boolean isMultipart;
     private InputMedia<?> media;
 
-    public EditMessageMedia(Object chatId, int messageId, InputMedia<?> media) {
-        super(SendResponse.class);
+    public EditMessageMedia(TelegramBotClient api, Object chatId, int messageId, InputMedia<?> media) {
+        super(api, SendResponse.class);
         add("chat_id", chatId).add("message_id", messageId);
         addMedia(media);
     }
 
-    public EditMessageMedia(String inlineMessageId, InputMedia<?> media) {
-        super(BaseResponse.class);
+    public EditMessageMedia(TelegramBotClient api, String inlineMessageId, InputMedia<?> media) {
+        super(api, BaseResponse.class);
         add("inline_message_id", inlineMessageId);
         addMedia(media);
     }

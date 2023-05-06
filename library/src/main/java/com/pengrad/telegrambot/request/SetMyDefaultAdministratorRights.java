@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.ChatAdministratorRights;
 import com.pengrad.telegrambot.response.BaseResponse;
 
@@ -9,8 +10,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class SetMyDefaultAdministratorRights extends BaseRequest<SetMyDefaultAdministratorRights, BaseResponse> {
  
-    public SetMyDefaultAdministratorRights() {
-        super(BaseResponse.class);
+    public SetMyDefaultAdministratorRights(TelegramBotClient api) {
+        super(api, BaseResponse.class);
     }
 
     public SetMyDefaultAdministratorRights rights(ChatAdministratorRights chatAdministratorRights) {

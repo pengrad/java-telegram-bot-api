@@ -1,10 +1,14 @@
 package com.pengrad.telegrambot.request;
 
 import com.pengrad.telegrambot.BotUtils;
+import com.pengrad.telegrambot.Callback;
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 /**
  * stas
@@ -14,11 +18,12 @@ abstract public class BaseRequest<T extends BaseRequest<T, R>, R extends BaseRes
 
     @SuppressWarnings("unchecked")
     protected final T thisAsT = (T) this;
-
+    TelegramBotClient api;
     private final Class<? extends R> responseClass;
     private final Map<String, Object> parameters;
 
-    public BaseRequest(Class<? extends R> responseClass) {
+    public BaseRequest(TelegramBotClient api, Class<? extends R> responseClass) {
+        this.api = api;
         this.responseClass = responseClass;
         this.parameters = new LinkedHashMap<>();
     }
@@ -66,5 +71,28 @@ abstract public class BaseRequest<T extends BaseRequest<T, R>, R extends BaseRes
         Map<String, Object> fullMap = new LinkedHashMap<>(parameters);
         fullMap.put("method", getMethod());
         return BotUtils.toJson(fullMap);
+    }
+
+    public R execute() {
+        return api.send(this);
+    }
+
+    public void execute(Callback<T, R> callback) {
+        api.send(this.thisAsT, callback);
+    }
+
+    public void execute(BiConsumer<T, R> onResponse, BiConsumer<T, IOException> onFailure) {
+        Callback<T, R> callback = new Callback<T, R>() {
+            @Override
+            public void onResponse(T request, R response) {
+                onResponse.accept(request, response);
+            }
+
+            @Override
+            public void onFailure(T request, IOException e) {
+                onFailure.accept(request ,e);
+            }
+        };
+        this.execute(callback);
     }
 }

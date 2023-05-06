@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 import java.io.File;
@@ -12,8 +13,8 @@ public class SetWebhook extends BaseRequest<SetWebhook, BaseResponse> {
 
     private boolean isMultipart = false;
 
-    public SetWebhook() {
-        super(BaseResponse.class);
+    public SetWebhook(TelegramBotClient api) {
+        super(api, BaseResponse.class);
     }
 
     public SetWebhook url(String url) {

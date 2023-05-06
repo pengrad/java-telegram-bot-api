@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.ChatPermissions;
 import com.pengrad.telegrambot.response.BaseResponse;
 
@@ -9,8 +10,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class SetChatPermissions extends BaseRequest<SetChatPermissions, BaseResponse> {
 
-    public SetChatPermissions(Object chatId, ChatPermissions permissions) {
-        super(BaseResponse.class);
+    public SetChatPermissions(TelegramBotClient api, Object chatId, ChatPermissions permissions) {
+        super(api, BaseResponse.class);
         add("chat_id", chatId).add("permissions", permissions);
     }
 

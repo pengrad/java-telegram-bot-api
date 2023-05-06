@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.botcommandscope.BotCommandScope;
 import com.pengrad.telegrambot.response.GetMyCommandsResponse;
 
@@ -9,8 +10,8 @@ import com.pengrad.telegrambot.response.GetMyCommandsResponse;
  */
 public class GetMyCommands extends BaseRequest<GetMyCommands, GetMyCommandsResponse> {
 
-    public GetMyCommands() {
-        super(GetMyCommandsResponse.class);
+    public GetMyCommands(TelegramBotClient api) {
+        super(api, GetMyCommandsResponse.class);
     }
 
     /**
