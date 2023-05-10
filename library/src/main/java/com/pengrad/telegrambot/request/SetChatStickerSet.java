@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -8,8 +9,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class SetChatStickerSet extends BaseRequest<SetChatStickerSet, BaseResponse> {
 
-    public SetChatStickerSet(Object chatId, String stickerSetName) {
-        super(BaseResponse.class);
+    public SetChatStickerSet(TelegramBotClient api, Object chatId, String stickerSetName) {
+        super(api, BaseResponse.class);
         add("chat_id", chatId).add("sticker_set_name", stickerSetName);
     }
 }

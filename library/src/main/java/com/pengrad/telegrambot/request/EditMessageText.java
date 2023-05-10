@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.ParseMode;
@@ -12,13 +13,13 @@ import com.pengrad.telegrambot.response.SendResponse;
  */
 public class EditMessageText extends BaseRequest<EditMessageText, BaseResponse> {
 
-    public EditMessageText(Object chatId, int messageId, String text) {
-        super(SendResponse.class);
+    public EditMessageText(TelegramBotClient api, Object chatId, int messageId, String text) {
+        super(api, SendResponse.class);
         add("chat_id", chatId).add("message_id", messageId).add("text", text);
     }
 
-    public EditMessageText(String inlineMessageId, String text) {
-        super(BaseResponse.class);
+    public EditMessageText(TelegramBotClient api, String inlineMessageId, String text) {
+        super(api, BaseResponse.class);
         add("inline_message_id", inlineMessageId).add("text", text);
     }
 

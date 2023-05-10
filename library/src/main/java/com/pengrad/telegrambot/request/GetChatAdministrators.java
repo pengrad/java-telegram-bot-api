@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.GetChatAdministratorsResponse;
 
 /**
@@ -8,8 +9,8 @@ import com.pengrad.telegrambot.response.GetChatAdministratorsResponse;
  */
 public class GetChatAdministrators extends BaseRequest<GetChatAdministrators, GetChatAdministratorsResponse> {
 
-    public GetChatAdministrators(Object chatId) {
-        super(GetChatAdministratorsResponse.class);
+    public GetChatAdministrators(TelegramBotClient api, Object chatId) {
+        super(api, GetChatAdministratorsResponse.class);
         add("chat_id", chatId);
     }
 }

@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.CreateForumTopicResponse;
 
 public class CreateForumTopic extends BaseRequest<CreateForumTopic, CreateForumTopicResponse> {
@@ -8,16 +9,16 @@ public class CreateForumTopic extends BaseRequest<CreateForumTopic, CreateForumT
      * @deprecated use constructor with Long for future compatibility
      */
     @Deprecated
-    public CreateForumTopic(Integer chatId, String name) {
-        this(chatId.toString(), name);
+    public CreateForumTopic(TelegramBotClient api, Integer chatId, String name) {
+        this(api, chatId.toString(), name);
     }
 
-    public CreateForumTopic(Long chatId, String name) {
-        this(chatId.toString(), name);
+    public CreateForumTopic(TelegramBotClient api, Long chatId, String name) {
+        this(api, chatId.toString(), name);
     }
 
-    public CreateForumTopic(String chatId, String name) {
-        super(CreateForumTopicResponse.class);
+    public CreateForumTopic(TelegramBotClient api, String chatId, String name) {
+        super(api, CreateForumTopicResponse.class);
         add("chat_id", chatId);
         add("name", name);
     }

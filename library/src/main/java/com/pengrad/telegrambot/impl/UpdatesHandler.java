@@ -46,7 +46,7 @@ public class UpdatesHandler {
     private void getUpdates(GetUpdates request) {
         if (bot == null || listener == null) return;
 
-        bot.execute(request, new Callback<GetUpdates, GetUpdatesResponse>() {
+        request.execute(new Callback<GetUpdates, GetUpdatesResponse>() {
             @Override
             public void onResponse(GetUpdates request, GetUpdatesResponse response) {
                 if (listener == null) return;

@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 
@@ -9,8 +10,8 @@ public class SetStickerKeywords extends BaseRequest<SetStickerKeywords, BaseResp
      * 
      * @param sticker File identifier of the sticker
      */
-    public SetStickerKeywords(String sticker) {
-        super(BaseResponse.class);
+    public SetStickerKeywords(TelegramBotClient api, String sticker) {
+        super(api, BaseResponse.class);
         add("sticker", sticker);
     }
 

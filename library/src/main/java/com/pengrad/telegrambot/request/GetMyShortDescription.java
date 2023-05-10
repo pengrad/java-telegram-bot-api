@@ -1,11 +1,12 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.GetMyShortDescriptionResponse;
 
 public class GetMyShortDescription extends BaseRequest<GetMyShortDescription, GetMyShortDescriptionResponse> {
 
-    public GetMyShortDescription() {
-        super(GetMyShortDescriptionResponse.class);
+    public GetMyShortDescription(TelegramBotClient api) {
+        super(api, GetMyShortDescriptionResponse.class);
     }
 
     /**

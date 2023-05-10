@@ -24,7 +24,7 @@ public class Main {
         post("/" + botHandler.getToken(), botHandler);
 
         String appSite = System.getenv("OPENSHIFT_APP_DNS");
-        botHandler.getBot().execute(new SetWebhook().url(appSite + "/" + botHandler.getToken()));
+        botHandler.getBot().setWebhook().url(appSite + "/" + botHandler.getToken()).execute();
     }
 
     private static class Test implements Route {

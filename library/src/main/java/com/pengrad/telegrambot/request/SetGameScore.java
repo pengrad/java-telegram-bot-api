@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 import com.pengrad.telegrambot.response.SendResponse;
 
@@ -9,13 +10,13 @@ import com.pengrad.telegrambot.response.SendResponse;
  */
 public class SetGameScore extends BaseRequest<SetGameScore, BaseResponse> {
 
-    public SetGameScore(long userId, int score, Object chatId, int messageId) {
-        super(SendResponse.class);
+    public SetGameScore(TelegramBotClient api, long userId, int score, Object chatId, int messageId) {
+        super(api, SendResponse.class);
         add("user_id", userId).add("score", score).add("chat_id", chatId).add("message_id", messageId);
     }
 
-    public SetGameScore(long userId, int score, String inlineMessageId) {
-        super(BaseResponse.class);
+    public SetGameScore(TelegramBotClient api, long userId, int score, String inlineMessageId) {
+        super(api, BaseResponse.class);
         add("user_id", userId).add("score", score).add("inline_message_id", inlineMessageId);
     }
 

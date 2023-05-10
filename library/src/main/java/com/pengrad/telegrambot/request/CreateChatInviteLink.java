@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.ChatInviteLinkResponse;
 
 /**
@@ -8,8 +9,8 @@ import com.pengrad.telegrambot.response.ChatInviteLinkResponse;
  */
 public class CreateChatInviteLink extends BaseRequest<CreateChatInviteLink, ChatInviteLinkResponse> {
 
-    public CreateChatInviteLink(Object chatId) {
-        super(ChatInviteLinkResponse.class);
+    public CreateChatInviteLink(TelegramBotClient api, Object chatId) {
+        super(api, ChatInviteLinkResponse.class);
         add("chat_id", chatId);
     }
 

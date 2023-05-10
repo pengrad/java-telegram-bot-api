@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -8,8 +9,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class AnswerCallbackQuery extends BaseRequest<AnswerCallbackQuery, BaseResponse> {
 
-    public AnswerCallbackQuery(String callbackQueryId) {
-        super(BaseResponse.class);
+    public AnswerCallbackQuery(TelegramBotClient api, String callbackQueryId) {
+        super(api, BaseResponse.class);
         add("callback_query_id", callbackQueryId);
     }
 

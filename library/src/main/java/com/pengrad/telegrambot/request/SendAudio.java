@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.request.ParseMode;
 
@@ -11,16 +12,16 @@ import java.io.File;
  */
 public class SendAudio extends AbstractMultipartRequest<SendAudio> {
 
-    public SendAudio(Object chatId, String audio) {
-        super(chatId, audio);
+    public SendAudio(TelegramBotClient api, Object chatId, String audio) {
+        super(api, chatId, audio);
     }
 
-    public SendAudio(Object chatId, File audio) {
-        super(chatId, audio);
+    public SendAudio(TelegramBotClient api, Object chatId, File audio) {
+        super(api, chatId, audio);
     }
 
-    public SendAudio(Object chatId, byte[] audio) {
-        super(chatId, audio);
+    public SendAudio(TelegramBotClient api, Object chatId, byte[] audio) {
+        super(api, chatId, audio);
     }
 
     public SendAudio caption(String caption) {

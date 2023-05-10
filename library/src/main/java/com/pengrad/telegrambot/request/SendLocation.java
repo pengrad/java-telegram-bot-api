@@ -1,13 +1,15 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
+
 /**
  * stas
  * 5/1/16.
  */
 public class SendLocation extends AbstractSendRequest<SendLocation> {
 
-    public SendLocation(Object chatId, float latitude, float longitude) {
-        super(chatId);
+    public SendLocation(TelegramBotClient api, Object chatId, float latitude, float longitude) {
+        super(api, chatId);
         add("latitude", latitude);
         add("longitude", longitude);
     }

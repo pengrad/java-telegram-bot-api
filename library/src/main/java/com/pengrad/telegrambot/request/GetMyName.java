@@ -1,11 +1,12 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.GetMyNameResponse;
 
 public class GetMyName extends BaseRequest<GetMyName, GetMyNameResponse> {
 
-    public GetMyName() {
-        super(GetMyNameResponse.class);
+    public GetMyName(TelegramBotClient api) {
+        super(api, GetMyNameResponse.class);
     }
 
     /**

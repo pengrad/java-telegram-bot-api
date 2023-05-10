@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.request.ParseMode;
 
@@ -11,16 +12,16 @@ import java.io.File;
  */
 public class SendAnimation extends AbstractMultipartRequest<SendAnimation> {
 
-    public SendAnimation(Object chatId, String animation) {
-        super(chatId, animation);
+    public SendAnimation(TelegramBotClient api, Object chatId, String animation) {
+        super(api, chatId, animation);
     }
 
-    public SendAnimation(Object chatId, File animation) {
-        super(chatId, animation);
+    public SendAnimation(TelegramBotClient api, Object chatId, File animation) {
+        super(api, chatId, animation);
     }
 
-    public SendAnimation(Object chatId, byte[] animation) {
-        super(chatId, animation);
+    public SendAnimation(TelegramBotClient api, Object chatId, byte[] animation) {
+        super(api, chatId, animation);
     }
 
     public SendAnimation duration(int duration) {

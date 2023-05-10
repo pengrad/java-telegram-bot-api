@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 import java.io.File;
@@ -12,8 +13,8 @@ abstract public class AbstractUploadRequest<T extends BaseRequest<T, R>, R exten
 
     private final boolean isMultipart;
 
-    public AbstractUploadRequest(Class<? extends R> responseClass, String paramName, Object data) {
-        super(responseClass);
+    public AbstractUploadRequest(TelegramBotClient api, Class<? extends R> responseClass, String paramName, Object data) {
+        super(api, responseClass);
         if (data instanceof String) {
             isMultipart = false;
         } else if (data instanceof File) {

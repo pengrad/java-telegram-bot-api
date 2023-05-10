@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.GetChatMembersCountResponse;
 
 /**
@@ -12,8 +13,8 @@ import com.pengrad.telegrambot.response.GetChatMembersCountResponse;
 @Deprecated
 public class GetChatMembersCount extends BaseRequest<GetChatMembersCount, GetChatMembersCountResponse> {
 
-    public GetChatMembersCount(Object chatId) {
-        super(GetChatMembersCountResponse.class);
+    public GetChatMembersCount(TelegramBotClient api, Object chatId) {
+        super(api, GetChatMembersCountResponse.class);
         add("chat_id", chatId);
     }
 }

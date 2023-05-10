@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.request.LabeledPrice;
 
 /**
@@ -8,17 +9,17 @@ import com.pengrad.telegrambot.model.request.LabeledPrice;
  */
 public class SendInvoice extends AbstractSendRequest<SendInvoice> {
 
-    public SendInvoice(Long chatId, String title, String description, String payload, String providerToken,
+    public SendInvoice(TelegramBotClient api, Long chatId, String title, String description, String payload, String providerToken,
                         String currency, LabeledPrice... prices) {
-        super(chatId);
+        super(api, chatId);
         add("title", title).add("description", description).add("payload", payload).add("provider_token", providerToken)
                 .add("currency", currency).add("prices", prices);
     }
 
     // Backward compatibility: API 5.2, parameter "start_parameter" became optional
-    public SendInvoice(Long chatId, String title, String description, String payload, String providerToken,
-                       String startParameter, String currency, LabeledPrice... prices) {
-        this(chatId, title, description, payload, providerToken, currency, prices);
+    public SendInvoice(TelegramBotClient api, Long chatId, String title, String description, String payload, String providerToken,
+					   String startParameter, String currency, LabeledPrice... prices) {
+        this(api, chatId, title, description, payload, providerToken, currency, prices);
         add("start_parameter", startParameter);
     }
 

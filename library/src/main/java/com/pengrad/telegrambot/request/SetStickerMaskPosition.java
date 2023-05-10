@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.MaskPosition;
 import com.pengrad.telegrambot.response.BaseResponse;
 
@@ -10,8 +11,8 @@ public class SetStickerMaskPosition extends BaseRequest<SetStickerMaskPosition, 
      * 
      * @param sticker File identifier of the sticker
      */
-    public SetStickerMaskPosition(String sticker) {
-        super(BaseResponse.class);
+    public SetStickerMaskPosition(TelegramBotClient api, String sticker) {
+        super(api, BaseResponse.class);
         add("sticker", sticker);
     }
 

@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.request.InlineQueryResult;
 import com.pengrad.telegrambot.model.request.InlineQueryResultsButton;
 import com.pengrad.telegrambot.response.BaseResponse;
@@ -10,8 +11,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class AnswerInlineQuery extends BaseRequest<AnswerInlineQuery, BaseResponse> {
 
-    public AnswerInlineQuery(String inlineQueryId, InlineQueryResult<?>... results) {
-        super(BaseResponse.class);
+    public AnswerInlineQuery(TelegramBotClient api, String inlineQueryId, InlineQueryResult<?>... results) {
+        super(api, BaseResponse.class);
         add("inline_query_id", inlineQueryId).add("results", results);
     }
 

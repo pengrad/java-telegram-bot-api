@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.GetStickerSetResponse;
 
 /**
@@ -8,8 +9,8 @@ import com.pengrad.telegrambot.response.GetStickerSetResponse;
  */
 public class GetStickerSet extends BaseRequest<GetStickerSet, GetStickerSetResponse> {
 
-    public GetStickerSet(String name) {
-        super(GetStickerSetResponse.class);
+    public GetStickerSet(TelegramBotClient api, String name) {
+        super(api, GetStickerSetResponse.class);
         add("name", name);
     }
 }

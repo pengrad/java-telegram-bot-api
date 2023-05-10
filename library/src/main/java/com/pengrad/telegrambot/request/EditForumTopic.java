@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 public class EditForumTopic extends BaseRequest<EditForumTopic, BaseResponse> {
@@ -8,16 +9,16 @@ public class EditForumTopic extends BaseRequest<EditForumTopic, BaseResponse> {
      * @deprecated use constructor with Long for future compatibility
      */
     @Deprecated
-    public EditForumTopic(Integer chatId, Integer messageThreadId) {
-        this(chatId.toString(), messageThreadId);
+    public EditForumTopic(TelegramBotClient api, Integer chatId, Integer messageThreadId) {
+        this(api, chatId.toString(), messageThreadId);
     }
 
-    public EditForumTopic(Long chatId, Integer messageThreadId) {
-        this(chatId.toString(), messageThreadId);
+    public EditForumTopic(TelegramBotClient api, Long chatId, Integer messageThreadId) {
+        this(api, chatId.toString(), messageThreadId);
     }
 
-    public EditForumTopic(String chatId, Integer messageThreadId) {
-        super(BaseResponse.class);
+    public EditForumTopic(TelegramBotClient api, String chatId, Integer messageThreadId) {
+        super(api, BaseResponse.class);
         add("chat_id", chatId);
         add("message_thread_id", messageThreadId);
     }
@@ -26,16 +27,16 @@ public class EditForumTopic extends BaseRequest<EditForumTopic, BaseResponse> {
      * @deprecated use constructor with Long for future compatibility
      */
     @Deprecated
-    public EditForumTopic(Integer chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {
-        this(chatId.toString(), messageThreadId, name, iconCustomEmojiId);
+    public EditForumTopic(TelegramBotClient api, Integer chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {
+        this(api, chatId.toString(), messageThreadId, name, iconCustomEmojiId);
     }
 
-    public EditForumTopic(Long chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {
-        this(chatId.toString(), messageThreadId, name, iconCustomEmojiId);
+    public EditForumTopic(TelegramBotClient api, Long chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {
+        this(api, chatId.toString(), messageThreadId, name, iconCustomEmojiId);
     }
 
-    public EditForumTopic(String chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {
-        super(BaseResponse.class);
+    public EditForumTopic(TelegramBotClient api, String chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {
+        super(api, BaseResponse.class);
         add("chat_id", chatId);
         add("message_thread_id", messageThreadId);
         add("name", name);

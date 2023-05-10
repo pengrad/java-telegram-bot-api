@@ -1,11 +1,12 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 public class SetMyName extends BaseRequest<SetMyName, BaseResponse> {
 
-    public SetMyName() {
-        super(BaseResponse.class);
+    public SetMyName(TelegramBotClient api) {
+        super(api, BaseResponse.class);
     }
     
     /**

@@ -42,7 +42,7 @@ public class AqivnBot extends BotHandler {
 
     @Override
     void onWebhookUpdate(Update update) {
-        bot.execute(new SendMessage(update.message().chat().id(), getAqi()).replyMarkup(simpleKeyboard()));
+        bot.sendMessage(update.message().chat().id(), getAqi()).replyMarkup(simpleKeyboard()).execute();
     }
 
     private String getAqi() {
@@ -95,7 +95,7 @@ public class AqivnBot extends BotHandler {
                 .map(bot::documentToAqiString)
                 .subscribe(str -> {
                     System.out.println(str);
-                    bot.bot.execute(new SendMessage(51314083, str));
+                    bot.bot.sendMessage(51314083, str).execute();
                 });
 
 

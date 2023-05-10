@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.Poll;
 import com.pengrad.telegrambot.model.request.ParseMode;
@@ -10,8 +11,8 @@ import com.pengrad.telegrambot.model.request.ParseMode;
  */
 public class SendPoll extends AbstractSendRequest<SendPoll> {
 
-    public SendPoll(Object chatId, String question, String... options) {
-        super(chatId);
+    public SendPoll(TelegramBotClient api, Object chatId, String question, String... options) {
+        super(api, chatId);
         add("question", question);
         add("options", options);
     }

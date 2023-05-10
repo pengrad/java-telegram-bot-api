@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**
@@ -8,14 +9,14 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class SetStickerSetThumbnail extends AbstractUploadRequest<AddStickerToSet, BaseResponse> {
 
-    public SetStickerSetThumbnail(String name, Long userId, Object thumbnail) {
-        super(BaseResponse.class, "thumbnail", thumbnail);
+    public SetStickerSetThumbnail(TelegramBotClient api, String name, Long userId, Object thumbnail) {
+        super(api, BaseResponse.class, "thumbnail", thumbnail);
         add("name", name);
         add("user_id", userId);
     }
 
-    public SetStickerSetThumbnail(String name, Long userId) {
-        super(BaseResponse.class, "name", name);
+    public SetStickerSetThumbnail(TelegramBotClient api, String name, Long userId) {
+        super(api, BaseResponse.class, "name", name);
         add("user_id", userId);
     }
 }
