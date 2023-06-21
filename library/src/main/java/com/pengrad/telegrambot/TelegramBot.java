@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * Stas Parshin
  * 16 October 2015
  */
-public class TelegramBot {
+public class TelegramBot implements Bot {
 
     private final String token;
     private final TelegramBotClient api;
@@ -40,22 +40,27 @@ public class TelegramBot {
         this.updatesHandler = builder.updatesHandler;
     }
 
+    @Override
     public <T extends BaseRequest<T, R>, R extends BaseResponse> R execute(BaseRequest<T, R> request) {
         return api.send(request);
     }
 
+    @Override
     public <T extends BaseRequest<T, R>, R extends BaseResponse> void execute(T request, Callback<T, R> callback) {
         api.send(request, callback);
     }
 
+    @Override
     public String getToken() {
         return token;
     }
 
+    @Override
     public String getFullFilePath(File file) {
         return fileApi.getFullFilePath(file.filePath());
     }
 
+    @Override
     public byte[] getFileContent(File file) throws IOException {
         String fileUrl = getFullFilePath(file);
         URLConnection connection = new URL(fileUrl).openConnection();
@@ -64,26 +69,32 @@ public class TelegramBot {
         }
     }
 
+    @Override
     public void setUpdatesListener(UpdatesListener listener) {
         setUpdatesListener(listener, new GetUpdates());
     }
 
+    @Override
     public void setUpdatesListener(UpdatesListener listener, GetUpdates request) {
         setUpdatesListener(listener, null, request);
     }
 
+    @Override
     public void setUpdatesListener(UpdatesListener listener, ExceptionHandler exceptionHandler) {
         setUpdatesListener(listener, exceptionHandler, new GetUpdates());
     }
 
+    @Override
     public void setUpdatesListener(UpdatesListener listener, ExceptionHandler exceptionHandler, GetUpdates request) {
         updatesHandler.start(this, listener, exceptionHandler, request);
     }
 
+    @Override
     public void removeGetUpdatesListener() {
         updatesHandler.stop();
     }
 
+    @Override
     public void shutdown() {
         api.shutdown();
     }
