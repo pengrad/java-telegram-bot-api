@@ -86,11 +86,27 @@ public class Chat implements Serializable {
         return photo;
     }
 
+    /**
+     * @deprecated Use activeUsernames() instead
+     */
+    @Deprecated 
     public String[] getActiveUsernames() {
         return active_usernames;
     }
 
+    public String[] activeUsernames() {
+        return active_usernames;
+    }
+
+    /**
+     * @deprecated Use emojiStatusCustomEmojiId() instead
+     */
+    @Deprecated 
     public String getEmojiStatusCustomEmojiId() {
+        return emoji_status_custom_emoji_id;
+    }
+
+    public String emojiStatusCustomEmojiId() {
         return emoji_status_custom_emoji_id;
     }
 
