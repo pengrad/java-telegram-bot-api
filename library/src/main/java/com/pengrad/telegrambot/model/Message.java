@@ -67,6 +67,7 @@ public class Message implements Serializable {
     private Message pinned_message;
     private Invoice invoice;
     private SuccessfulPayment successful_payment;
+    private Story story;
     private UserShared user_shared;
     private ChatShared chat_shared;
     private String connected_website;
@@ -300,6 +301,10 @@ public class Message implements Serializable {
         return successful_payment;
     }
 
+    public Story story() {
+        return story;
+    }
+
     public UserShared userShared() {
         return user_shared;
     }
@@ -430,6 +435,7 @@ public class Message implements Serializable {
                 Objects.equals(pinned_message, message.pinned_message) &&
                 Objects.equals(invoice, message.invoice) &&
                 Objects.equals(successful_payment, message.successful_payment) &&
+                Objects.equals(story, message.story) &&
                 Objects.equals(user_shared, message.user_shared) &&
                 Objects.equals(chat_shared, message.chat_shared) &&
                 Objects.equals(connected_website, message.connected_website) &&
@@ -511,6 +517,7 @@ public class Message implements Serializable {
                 ", pinned_message=" + pinned_message +
                 ", invoice=" + invoice +
                 ", successful_payment=" + successful_payment +
+                ", story=" + story +
                 ", user_shared=" + user_shared +
                 ", chat_shared=" + chat_shared +
                 ", connected_website='" + connected_website + '\'' +
