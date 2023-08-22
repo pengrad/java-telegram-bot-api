@@ -34,6 +34,7 @@ public class Chat implements Serializable {
     private ChatPhoto photo;
     private String[] active_usernames;
     private String emoji_status_custom_emoji_id;
+    private Integer emoji_status_expiration_date;
     private String bio;
     private Boolean has_private_forwards;
     private Boolean has_restricted_voice_and_video_messages;
@@ -91,6 +92,10 @@ public class Chat implements Serializable {
 
     public String getEmojiStatusCustomEmojiId() {
         return emoji_status_custom_emoji_id;
+    }
+
+    public Integer emojiStatusExpirationDate() {
+        return emoji_status_expiration_date;
     }
 
     public String bio() {
@@ -180,6 +185,7 @@ public class Chat implements Serializable {
                 Objects.equals(photo, chat.photo) &&
                 Arrays.equals(active_usernames, chat.active_usernames) &&
                 Objects.equals(emoji_status_custom_emoji_id, chat.emoji_status_custom_emoji_id) &&
+                Objects.equals(emoji_status_expiration_date, chat.emoji_status_expiration_date) &&
                 Objects.equals(bio, chat.bio) &&
                 Objects.equals(has_private_forwards, chat.has_private_forwards) &&
                 Objects.equals(has_restricted_voice_and_video_messages, chat.has_restricted_voice_and_video_messages) &&
@@ -218,6 +224,7 @@ public class Chat implements Serializable {
                 ", photo=" + photo +
                 ", active_usernames=" + Arrays.toString(active_usernames) +
                 ", emoji_status_custom_emoji_id='" + emoji_status_custom_emoji_id + '\'' +
+                ", emoji_status_expiration_date='" + emoji_status_expiration_date + '\'' +
                 ", bio='" + bio + '\'' +
                 ", has_private_forwards=" + has_private_forwards +
                 ", has_restricted_voice_and_video_messages=" + has_restricted_voice_and_video_messages +
