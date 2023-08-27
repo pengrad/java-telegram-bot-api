@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -35,32 +36,22 @@ public class PollAnswer implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         PollAnswer that = (PollAnswer) o;
-
-        if (poll_id != null ? !poll_id.equals(that.poll_id) : that.poll_id != null) return false;
-        if (voter_chat != null ? !voter_chat.equals(that.voter_chat) : that.voter_chat != null) return false;
-        if (user != null ? !user.equals(that.user) : that.user != null) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(option_ids, that.option_ids);
+        return Objects.equals(poll_id, that.poll_id) &&
+                Objects.equals(voter_chat, that.voter_chat) &&
+                Objects.equals(user, that.user) &&
+                Arrays.equals(option_ids, that.option_ids);
     }
 
     @Override
     public int hashCode() {
-        int result = poll_id != null ? poll_id.hashCode() : 0;
-        result = 31 * result + (voter_chat != null ? voter_chat.hashCode() : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
+        int result = Objects.hash(poll_id, voter_chat, user);
         result = 31 * result + Arrays.hashCode(option_ids);
         return result;
     }
 
     @Override
     public String toString() {
-        return "PollAnswer{" +
-                "poll_id='" + poll_id + '\'' +
-                ", voter_chat=" + voter_chat +
-                ", user=" + user +
-                ", option_ids=" + Arrays.toString(option_ids) +
-                '}';
+        return "PollAnswer{" + "poll_id='" + poll_id + '\'' + ", voter_chat=" + voter_chat + ", user=" + user + ", option_ids=" + Arrays.toString(option_ids) + '}';
     }
 }

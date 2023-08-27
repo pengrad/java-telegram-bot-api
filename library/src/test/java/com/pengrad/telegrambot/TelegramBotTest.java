@@ -476,6 +476,8 @@ public class TelegramBotTest {
         assertFalse(chat.hasAggressiveAntiSpamEnabled());
         assertNull(chat.getActiveUsernames());
         assertNull(chat.getEmojiStatusCustomEmojiId());
+        assertNull(chat.emojiStatusCustomEmojiId());
+        assertNull(chat.emojiStatusExpirationDate());
 
         chat = bot.execute(new GetChat(chatId)).chat();
         assertNotNull(chat.firstName());
@@ -945,7 +947,7 @@ public class TelegramBotTest {
         assertEquals((Integer) 7, captionEntity.length());
 
         String caption = "caption <b>bold</b>";
-        int duration = 100;
+        int duration = 6;
         message = bot.execute(
                         new SendVideo(chatId, videoBytes).thumb(thumbBytes)
                                 .caption(caption).parseMode(ParseMode.HTML)
@@ -1922,6 +1924,7 @@ public class TelegramBotTest {
 
         assertNotNull(pollAnswer);
         assertFalse(pollAnswer.pollId().isEmpty());
+        assertNull(pollAnswer.voterChat());
         UserTest.checkUser(pollAnswer.user(), true);
         assertEquals(Long.valueOf(12345), pollAnswer.user().id());
         assertArrayEquals(new Integer[]{0, 2}, pollAnswer.optionIds());
@@ -2278,6 +2281,12 @@ public class TelegramBotTest {
         BaseResponse response = bot.execute(new EditForumTopic(forum, forumEditThread, name, ""));
         assertTrue(response.isOk());
         response = bot.execute(new UnpinAllForumTopicMessages(forum, forumEditThread));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void unpinAllGeneralForumTopicMessages() {
+        BaseResponse response = bot.execute(new UnpinAllGeneralForumTopicMessages(forum));
         assertTrue(response.isOk());
     }
 
