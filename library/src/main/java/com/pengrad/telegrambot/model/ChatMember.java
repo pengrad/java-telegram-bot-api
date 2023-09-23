@@ -31,6 +31,9 @@ public class ChatMember implements Serializable {
     private Boolean can_change_info;
     private Boolean can_invite_users;
     private Boolean can_pin_messages;
+    private Boolean can_post_stories;
+    private Boolean can_edit_stories;
+    private Boolean can_delete_stories;
     private Boolean can_manage_topics;
     private Boolean is_member;
     private Boolean can_send_messages;
@@ -117,6 +120,18 @@ public class ChatMember implements Serializable {
         return can_pin_messages;
     }
 
+    public Boolean canPostStories() {
+        return can_post_stories;
+    }
+
+    public Boolean canEditStories() {
+        return can_edit_stories;
+    }
+
+    public Boolean canDeleteStories() {
+        return can_delete_stories;
+    }
+
     public Boolean canManageTopics() {
         return can_manage_topics;
     }
@@ -186,6 +201,9 @@ public class ChatMember implements Serializable {
                 Objects.equals(can_change_info, that.can_change_info) &&
                 Objects.equals(can_invite_users, that.can_invite_users) &&
                 Objects.equals(can_pin_messages, that.can_pin_messages) &&
+                Objects.equals(can_post_stories, that.can_post_stories) &&
+                Objects.equals(can_edit_stories, that.can_edit_stories) &&
+                Objects.equals(can_delete_stories, that.can_delete_stories) &&
                 Objects.equals(can_manage_topics, that.can_manage_topics) &&
                 Objects.equals(is_member, that.is_member) &&
                 Objects.equals(can_send_messages, that.can_send_messages) &&
@@ -218,6 +236,9 @@ public class ChatMember implements Serializable {
                 can_change_info,
                 can_invite_users,
                 can_pin_messages,
+                can_post_stories,
+                can_edit_stories,
+                can_delete_stories,
                 can_manage_topics,
                 is_member,
                 can_send_messages,
@@ -251,6 +272,9 @@ public class ChatMember implements Serializable {
                 ", can_change_info=" + can_change_info +
                 ", can_invite_users=" + can_invite_users +
                 ", can_pin_messages=" + can_pin_messages +
+                ", can_post_stories=" + can_post_stories +
+                ", can_edit_stories=" + can_edit_stories +
+                ", can_delete_stories=" + can_delete_stories +
                 ", can_manage_topics=" + can_manage_topics +
                 ", is_member=" + is_member +
                 ", can_send_messages=" + can_send_messages +

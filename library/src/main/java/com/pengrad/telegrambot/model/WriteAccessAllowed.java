@@ -6,10 +6,20 @@ import java.util.Objects;
 public class WriteAccessAllowed implements Serializable {
     private final static long serialVersionUID = 0L;
 
+    private Boolean from_request;
     private String web_app_name;
+    private Boolean from_attachment_menu;
+
+    public Boolean fromRequest() {
+        return from_request;
+    }
 
     public String webAppName() {
         return web_app_name;
+    }
+
+    public Boolean fromAttachmentMenu() {
+        return from_attachment_menu;
     }
 
     @Override
@@ -17,16 +27,24 @@ public class WriteAccessAllowed implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WriteAccessAllowed that = (WriteAccessAllowed) o;
-        return Objects.equals(web_app_name, that.web_app_name);
+        return Objects.equals(from_request, that.from_request) &&
+                Objects.equals(web_app_name, that.web_app_name) &&
+                Objects.equals(from_attachment_menu, that.from_attachment_menu);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(web_app_name);
+        return Objects.hash(from_request,
+            web_app_name,
+            from_attachment_menu);
     }
 
     @Override
     public String toString() {
-        return "WriteAccessAllowed{" + "web_app_name='" + web_app_name + '\'' + '}';
+        return "WriteAccessAllowed{" + 
+                "from_request=" + from_request + 
+                ", web_app_name='" + web_app_name + '\'' + 
+                ", from_attachment_menu=" + from_attachment_menu + 
+                '}';
     }
 }
