@@ -28,59 +28,59 @@ public class ChatPermissions implements Serializable {
     private Boolean can_manage_topics;
 
     public Boolean canSendMessages() {
-        return can_send_messages;
+        return can_send_messages != null && can_send_messages;
     }
 
     public Boolean canSendAudios() {
-        return can_send_audios;
+        return can_send_audios != null && can_send_audios;
     }
 
     public Boolean canSendDocuments() {
-        return can_send_documents;
+        return can_send_documents != null && can_send_documents;
     }
 
     public Boolean canSendPhotos() {
-        return can_send_photos;
+        return can_send_photos != null && can_send_photos;
     }
 
     public Boolean canSendVideos() {
-        return can_send_videos;
+        return can_send_videos != null && can_send_videos;
     }
 
     public Boolean canSendVideoNotes() {
-        return can_send_video_notes;
+        return can_send_video_notes != null && can_send_video_notes;
     }
 
     public Boolean canSendVoiceNotes() {
-        return can_send_voice_notes;
+        return can_send_voice_notes != null && can_send_voice_notes;
     }
 
     public Boolean canSendPolls() {
-        return can_send_polls;
+        return can_send_polls != null && can_send_polls;
     }
 
     public Boolean canSendOtherMessages() {
-        return can_send_other_messages;
+        return can_send_other_messages != null && can_send_other_messages;
     }
 
     public Boolean canAddWebPagePreviews() {
-        return can_add_web_page_previews;
+        return can_add_web_page_previews != null && can_add_web_page_previews;
     }
 
     public Boolean canChangeInfo() {
-        return can_change_info;
+        return can_change_info != null && can_change_info;
     }
 
     public Boolean canInviteUsers() {
-        return can_invite_users;
+        return can_invite_users != null && can_invite_users;
     }
 
     public Boolean canPinMessages() {
-        return can_pin_messages;
+        return can_pin_messages != null && can_pin_messages;
     }
 
     public Boolean canManageTopics() {
-        return can_manage_topics;
+        return can_manage_topics != null && can_manage_topics;
     }
 
     public ChatPermissions canSendMessages(boolean canSendMessages) {

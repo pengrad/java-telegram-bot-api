@@ -11,7 +11,7 @@ public class WriteAccessAllowed implements Serializable {
     private Boolean from_attachment_menu;
 
     public Boolean fromRequest() {
-        return from_request;
+        return from_request != null && from_request;
     }
 
     public String webAppName() {
@@ -19,7 +19,7 @@ public class WriteAccessAllowed implements Serializable {
     }
 
     public Boolean fromAttachmentMenu() {
-        return from_attachment_menu;
+        return from_attachment_menu != null && from_attachment_menu;
     }
 
     @Override
@@ -35,16 +35,16 @@ public class WriteAccessAllowed implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(from_request,
-            web_app_name,
-            from_attachment_menu);
+                web_app_name,
+                from_attachment_menu);
     }
 
     @Override
     public String toString() {
-        return "WriteAccessAllowed{" + 
-                "from_request=" + from_request + 
-                ", web_app_name='" + web_app_name + '\'' + 
-                ", from_attachment_menu=" + from_attachment_menu + 
+        return "WriteAccessAllowed{" +
+                "from_request=" + from_request +
+                ", web_app_name='" + web_app_name + '\'' +
+                ", from_attachment_menu=" + from_attachment_menu +
                 '}';
     }
 }

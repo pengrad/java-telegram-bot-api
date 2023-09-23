@@ -28,63 +28,63 @@ public class ChatAdministratorRights implements Serializable {
     private Boolean can_manage_topics;
 
     public Boolean isAnonymous() {
-        return is_anonymous;
+        return is_anonymous != null && is_anonymous;
     }
 
     public Boolean canManageChat() {
-        return can_manage_chat;
+        return can_manage_chat != null && can_manage_chat;
     }
 
     public Boolean canDeleteMessages() {
-        return can_delete_messages;
+        return can_delete_messages != null && can_delete_messages;
     }
 
     public Boolean canManageVideoChats() {
-        return can_manage_video_chats;
+        return can_manage_video_chats != null && can_manage_video_chats;
     }
 
     public Boolean canRestrictMembers() {
-        return can_restrict_members;
+        return can_restrict_members != null && can_restrict_members;
     }
 
     public Boolean canPromoteMembers() {
-        return can_promote_members;
+        return can_promote_members != null && can_promote_members;
     }
 
     public Boolean canChangeInfo() {
-        return can_change_info;
+        return can_change_info != null && can_change_info;
     }
 
     public Boolean canInviteUsers() {
-        return can_invite_users;
+        return can_invite_users != null && can_invite_users;
     }
 
     public Boolean canPostMessages() {
-        return can_post_messages;
+        return can_post_messages != null && can_post_messages;
     }
 
     public Boolean canEditMessages() {
-        return can_edit_messages;
+        return can_edit_messages != null && can_edit_messages;
     }
 
     public Boolean canPinMessages() {
-        return can_pin_messages;
+        return can_pin_messages != null && can_pin_messages;
     }
 
     public Boolean canPostStories() {
-        return can_post_stories;
+        return can_post_stories != null && can_post_stories;
     }
 
     public Boolean canEditStories() {
-        return can_edit_stories;
+        return can_edit_stories != null && can_edit_stories;
     }
 
     public Boolean canDeleteStories() {
-        return can_delete_stories;
+        return can_delete_stories != null && can_delete_stories;
     }
 
     public Boolean canManageTopics() {
-        return can_manage_topics;
+        return can_manage_topics != null && can_manage_topics;
     }
 
     public ChatAdministratorRights canManageChat(boolean canManageChat) {

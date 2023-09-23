@@ -62,15 +62,15 @@ public class User implements Serializable {
     }
 
     public Boolean canJoinGroups() {
-        return can_join_groups;
+        return can_join_groups != null && can_join_groups;
     }
 
     public Boolean canReadAllGroupMessages() {
-        return can_read_all_group_messages;
+        return can_read_all_group_messages != null && can_read_all_group_messages;
     }
 
     public Boolean supportsInlineQueries() {
-        return supports_inline_queries;
+        return supports_inline_queries != null && supports_inline_queries;
     }
 
     @Override

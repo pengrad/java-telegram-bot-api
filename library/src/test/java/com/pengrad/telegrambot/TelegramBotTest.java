@@ -242,6 +242,9 @@ public class TelegramBotTest {
                         .canManageVoiceChats(false)
                         .canManageVideoChats(false)
                         .canManageTopics(false)
+                        .canPostStories(false)
+                        .canEditStories(false)
+                        .canDeleteStories(false)
                         .canPromoteMembers(true));
         assertTrue(response.isOk());
     }
@@ -516,7 +519,13 @@ public class TelegramBotTest {
                 assertTrue(chatMember.canPinMessages());
                 assertTrue(chatMember.canPromoteMembers());
                 assertTrue(chatMember.canManageVoiceChats());
+                assertTrue(chatMember.canManageVideoChats());
                 assertTrue(chatMember.canManageChat());
+                assertTrue(chatMember.canManageChat());
+                assertTrue(chatMember.canManageChat());
+                assertFalse(chatMember.canPostStories());
+                assertFalse(chatMember.canEditStories());
+                assertFalse(chatMember.canDeleteStories());
             }
         }
     }
@@ -528,8 +537,8 @@ public class TelegramBotTest {
         ChatMemberTest.check(chatMember);
         assertEquals(ChatMember.Status.restricted, chatMember.status());
         assertEquals(Integer.valueOf(0), chatMember.untilDate());
-        assertNull(chatMember.canPostMessages());
-        assertNull(chatMember.canEditMessages());
+        assertFalse(chatMember.canPostMessages());
+        assertFalse(chatMember.canEditMessages());
         assertTrue(chatMember.isMember());
         assertTrue(chatMember.canChangeInfo());
         assertTrue(chatMember.canInviteUsers());
@@ -2224,6 +2233,9 @@ public class TelegramBotTest {
                         .canEditMessages(false)
                         .canPinMessages(false)
                         .canManageTopics(false)
+                        .canPostStories(false)
+                        .canEditStories(false)
+                        .canDeleteStories(false)
                 ));
         ChatAdministratorRights rights = bot.execute(new GetMyDefaultAdministratorRights().forChannels(false)).result();
         assertFalse(rights.isAnonymous());
@@ -2234,10 +2246,13 @@ public class TelegramBotTest {
         assertFalse(rights.canPromoteMembers());
         assertFalse(rights.canChangeInfo());
         assertFalse(rights.canInviteUsers());
-        assertNull(rights.canPostMessages()); // channels only
-        assertNull(rights.canEditMessages()); // channels only
+        assertFalse(rights.canPostMessages()); // channels only
+        assertFalse(rights.canEditMessages()); // channels only
         assertFalse(rights.canPinMessages());
         assertFalse(rights.canManageTopics());
+        assertFalse(rights.canPostStories());
+        assertFalse(rights.canEditStories());
+        assertFalse(rights.canDeleteStories());
     }
 
     @Test
