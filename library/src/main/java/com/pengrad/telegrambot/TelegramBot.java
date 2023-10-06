@@ -44,8 +44,8 @@ public class TelegramBot {
         return api.send(request);
     }
 
-    public <T extends BaseRequest<T, R>, R extends BaseResponse> void execute(T request, Callback<T, R> callback) {
-        api.send(request, callback);
+    public <T extends BaseRequest<T, R>, R extends BaseResponse> Cancellable execute(T request, Callback<T, R> callback) {
+        return api.send(request, callback);
     }
 
     public String getToken() {
@@ -77,6 +77,7 @@ public class TelegramBot {
     }
 
     public void setUpdatesListener(UpdatesListener listener, ExceptionHandler exceptionHandler, GetUpdates request) {
+        updatesHandler.stop();
         updatesHandler.start(this, listener, exceptionHandler, request);
     }
 

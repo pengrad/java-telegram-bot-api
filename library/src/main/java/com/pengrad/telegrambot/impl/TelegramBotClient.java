@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.impl;
 
 import com.google.gson.Gson;
 import com.pengrad.telegrambot.Callback;
+import com.pengrad.telegrambot.Cancellable;
 import com.pengrad.telegrambot.model.request.InputFile;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.response.BaseResponse;
@@ -37,9 +38,11 @@ public class TelegramBotClient {
         this.clientWithTimeout = client;
     }
 
-    public <T extends BaseRequest<T, R>, R extends BaseResponse> void send(final T request, final Callback<T, R> callback) {
+    public <T extends BaseRequest<T, R>, R extends BaseResponse> Cancellable send(final T request, final Callback<T, R> callback) {
         OkHttpClient client = getOkHttpClient(request);
-        client.newCall(createRequest(request)).enqueue(new okhttp3.Callback() {
+
+        Call call = client.newCall(createRequest(request));
+        call.enqueue(new okhttp3.Callback() {
             @Override
             public void onResponse(Call call, Response response) {
                 R result = null;
@@ -64,6 +67,8 @@ public class TelegramBotClient {
                 callback.onFailure(request, e);
             }
         });
+
+        return call::cancel;
     }
 
     public <T extends BaseRequest<T, R>, R extends BaseResponse> R send(final BaseRequest<T, R> request) {

@@ -485,7 +485,7 @@ public class TelegramBotTest {
         chat = bot.execute(new GetChat(chatId)).chat();
         assertNotNull(chat.firstName());
         assertNull(chat.lastName());
-        assertEquals("yo", chat.bio());
+        assertNull(chat.bio());
         assertTrue(chat.hasPrivateForwards());
 
         chat = bot.execute(new GetChat(localGroup)).chat();

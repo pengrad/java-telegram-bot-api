@@ -2,9 +2,11 @@ package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.model.*;
 
+import com.pengrad.telegrambot.request.GetUpdates;
 import org.junit.*;
 
-import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.*;
 import java.util.*;
 import java.util.concurrent.*;
@@ -26,7 +28,7 @@ public class UpdatesListenerTest {
         String token;
         try {
             Properties properties = new Properties();
-            properties.load(new FileInputStream("local.properties"));
+            properties.load(Files.newInputStream(Paths.get("local.properties")));
             token = properties.getProperty("TEST_TOKEN");
         } catch (Exception e) {
             token = System.getenv("TEST_TOKEN");
@@ -39,6 +41,34 @@ public class UpdatesListenerTest {
     @Before
     public void initBot() {
         bot = new TelegramBot.Builder(token()).debug().build();
+    }
+
+    @Test
+    public void setAndRemoveListener() throws InterruptedException {
+        // Two simultaneous getUpdates requests throw error
+        // 409 Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+        CountDownLatch latch = new CountDownLatch(1);
+        AtomicReference<Exception> exception = new AtomicReference<>();
+        UpdatesListener listener = updates -> UpdatesListener.CONFIRMED_UPDATES_NONE;
+        ExceptionHandler exceptionHandler = e -> {
+            System.out.println("Exception in handler: " + e.getMessage());
+            exception.set(e);
+            latch.countDown();
+        };
+        bot.setUpdatesListener(listener, exceptionHandler);
+        // trigger another getUpdates and cancel first one
+        bot.setUpdatesListener(listener, exceptionHandler);
+        // cancel second one
+        bot.removeGetUpdatesListener();
+
+        UpdatesListener listener2 = updates -> {
+            latch.countDown();
+            return UpdatesListener.CONFIRMED_UPDATES_ALL;
+        };
+        bot.setUpdatesListener(listener2, exceptionHandler, new GetUpdates().offset(-1).allowedUpdates());
+        latch.await(3, TimeUnit.SECONDS);
+        bot.removeGetUpdatesListener();
+        assertNull(exception.get());
     }
 
     @Test
@@ -55,8 +85,8 @@ public class UpdatesListenerTest {
                                         .message("")
                                         .build();
                                 response = response.newBuilder().body(ResponseBody
-                                        .create(MediaType.parse("application/json"),
-                                                "{\"ok\":true,\"result\":[{\"update_id\":" + i.getAndIncrement() + "}]}"
+                                        .create("{\"ok\":true,\"result\":[{\"update_id\":" + i.getAndIncrement() + "}]}",
+                                                MediaType.parse("application/json")
                                         )).build();
                                 return response;
                             })

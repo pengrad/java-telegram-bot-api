@@ -23,6 +23,7 @@ public class UpdatesHandler {
     private TelegramBot bot;
     private UpdatesListener listener;
     private ExceptionHandler exceptionHandler;
+    private Cancellable pendingRequest;
 
     private final long sleepTimeout;
 
@@ -41,12 +42,16 @@ public class UpdatesHandler {
         bot = null;
         listener = null;
         exceptionHandler = null;
+        if (pendingRequest != null) {
+            pendingRequest.cancel();
+            pendingRequest = null;
+        }
     }
 
     private void getUpdates(GetUpdates request) {
         if (bot == null || listener == null) return;
 
-        bot.execute(request, new Callback<GetUpdates, GetUpdatesResponse>() {
+        pendingRequest = bot.execute(request, new Callback<GetUpdates, GetUpdatesResponse>() {
             @Override
             public void onResponse(GetUpdates request, GetUpdatesResponse response) {
                 if (listener == null) return;
@@ -83,6 +88,10 @@ public class UpdatesHandler {
 
             @Override
             public void onFailure(GetUpdates request, IOException e) {
+                // TODO: better way to identify canceled request
+                if (e.getMessage().equals("Canceled")) {
+                    return;
+                }
                 if (exceptionHandler != null) {
                     exceptionHandler.onException(new TelegramException(e));
                 } else {
