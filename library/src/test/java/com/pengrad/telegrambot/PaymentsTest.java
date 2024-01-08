@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
 
+import com.pengrad.telegrambot.utility.BotUtils;
 import org.junit.*;
 
 import static com.pengrad.telegrambot.TelegramBotTest.getProp;

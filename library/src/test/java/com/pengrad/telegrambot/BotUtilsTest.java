@@ -2,6 +2,7 @@ package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.response.SendResponse;
+import com.pengrad.telegrambot.utility.BotUtils;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;

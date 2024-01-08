@@ -1,6 +1,6 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.BotUtils;
+import com.pengrad.telegrambot.utility.BotUtils;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 import java.util.LinkedHashMap;

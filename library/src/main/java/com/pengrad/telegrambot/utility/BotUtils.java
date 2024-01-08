@@ -1,4 +1,4 @@
-package com.pengrad.telegrambot;
+package com.pengrad.telegrambot.utility;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
