@@ -166,7 +166,7 @@ public class TelegramBot {
         }
 
         private static Gson gson() {
-            return new Gson();
+            return BotUtils.GSON;
         }
 
         private static String apiUrl(String apiUrl, String botToken, boolean useTestServer) {

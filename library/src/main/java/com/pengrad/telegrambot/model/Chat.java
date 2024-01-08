@@ -1,6 +1,8 @@
 package com.pengrad.telegrambot.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.pengrad.telegrambot.model.reaction.ReactionType;
+
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -33,6 +35,7 @@ public class Chat implements Serializable {
     private Boolean is_forum;
     private ChatPhoto photo;
     private String[] active_usernames;
+    private ReactionType[] available_reactions;
     private String emoji_status_custom_emoji_id;
     private Integer emoji_status_expiration_date;
     private String bio;
@@ -89,7 +92,7 @@ public class Chat implements Serializable {
     /**
      * @deprecated Use activeUsernames() instead
      */
-    @Deprecated 
+    @Deprecated
     public String[] getActiveUsernames() {
         return active_usernames;
     }
@@ -98,10 +101,14 @@ public class Chat implements Serializable {
         return active_usernames;
     }
 
+    @Deprecated
+    public ReactionType[] availableReactions() {
+        return available_reactions;
+    }
+
     /**
      * @deprecated Use emojiStatusCustomEmojiId() instead
      */
-    @Deprecated 
     public String getEmojiStatusCustomEmojiId() {
         return emoji_status_custom_emoji_id;
     }
@@ -200,6 +207,7 @@ public class Chat implements Serializable {
                 Objects.equals(title, chat.title) &&
                 Objects.equals(photo, chat.photo) &&
                 Arrays.equals(active_usernames, chat.active_usernames) &&
+                Arrays.equals(available_reactions, chat.available_reactions) &&
                 Objects.equals(emoji_status_custom_emoji_id, chat.emoji_status_custom_emoji_id) &&
                 Objects.equals(emoji_status_expiration_date, chat.emoji_status_expiration_date) &&
                 Objects.equals(bio, chat.bio) &&
@@ -239,6 +247,7 @@ public class Chat implements Serializable {
                 ", title='" + title + '\'' +
                 ", photo=" + photo +
                 ", active_usernames=" + Arrays.toString(active_usernames) +
+                ", available_reactions=" + Arrays.toString(available_reactions) +
                 ", emoji_status_custom_emoji_id='" + emoji_status_custom_emoji_id + '\'' +
                 ", emoji_status_expiration_date='" + emoji_status_expiration_date + '\'' +
                 ", bio='" + bio + '\'' +

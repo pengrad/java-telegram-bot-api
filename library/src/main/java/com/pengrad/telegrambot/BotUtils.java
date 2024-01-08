@@ -1,7 +1,10 @@
 package com.pengrad.telegrambot;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.reaction.ReactionType;
+import com.pengrad.telegrambot.utility.gson.ReactionTypeAdapter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -16,14 +19,16 @@ public class BotUtils {
 
     private BotUtils() {}
 
-    private static final Gson gson = new Gson();
+    public static final Gson GSON = new GsonBuilder()
+        .registerTypeAdapter(ReactionType.class, new ReactionTypeAdapter())
+        .create();
 
     public static Update parseUpdate(String update) {
-        return gson.fromJson(update, Update.class);
+        return GSON.fromJson(update, Update.class);
     }
 
     public static Update parseUpdate(Reader reader) {
-        return gson.fromJson(reader, Update.class);
+        return GSON.fromJson(reader, Update.class);
     }
 
     static byte[] getBytesFromInputStream(InputStream is) throws IOException {
@@ -36,10 +41,10 @@ public class BotUtils {
     }
 
     public static <R> R fromJson(String jsonString, Class<R> resClass) {
-        return gson.fromJson(jsonString,resClass);
+        return GSON.fromJson(jsonString,resClass);
     }
 
     public static String toJson(Object obj) {
-        return gson.toJson(obj);
+        return GSON.toJson(obj);
     }
 }
