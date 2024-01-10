@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.request;
 
 import com.pengrad.telegrambot.model.MessageEntity;
+import com.pengrad.telegrambot.model.ReplyParameters;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.response.MessageIdResponse;
@@ -36,10 +37,20 @@ public class CopyMessage extends BaseRequest<CopyMessage, MessageIdResponse> {
         return add("disable_notification", disableNotification);
     }
 
+    public CopyMessage replyParameters(ReplyParameters replyParameters) {
+        return add("reply_parameters", replyParameters);
+    }
+
+    /*
+        @deprecated Use replyParameters instead
+     */
     public CopyMessage allowSendingWithoutReply(boolean allowSendingWithoutReply) {
         return add("allow_sending_without_reply", allowSendingWithoutReply);
     }
 
+    /*
+        @deprecated Use replyParameters instead
+    */
     public CopyMessage replyToMessageId(int replyToMessageId) {
         return add("reply_to_message_id", replyToMessageId);
     }

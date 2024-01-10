@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.model.ReplyParameters;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.response.SendResponse;
 
@@ -22,10 +23,20 @@ abstract public class AbstractSendRequest<T extends AbstractSendRequest<T>> exte
         return add("disable_notification", disableNotification);
     }
 
+    public T replyParameters(ReplyParameters replyParameters) {
+        return add("reply_parameters", replyParameters);
+    }
+
+    /*
+     @deprecated Use replyParameters instead
+    */
     public T replyToMessageId(int replyToMessageId) {
         return add("reply_to_message_id", replyToMessageId);
     }
 
+    /*
+        @deprecated Use replyParameters instead
+    */
     public T allowSendingWithoutReply(boolean allowSendingWithoutReply) {
         return add("allow_sending_without_reply", allowSendingWithoutReply);
     }
@@ -37,4 +48,5 @@ abstract public class AbstractSendRequest<T extends AbstractSendRequest<T>> exte
     public T protectContent(boolean protectContent) {
         return add("protect_content", protectContent);
     }
+
 }

@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.model.ReplyParameters;
 import com.pengrad.telegrambot.model.request.InputMedia;
 import com.pengrad.telegrambot.response.MessagesResponse;
 
@@ -38,10 +39,20 @@ public class SendMediaGroup extends BaseRequest<SendMediaGroup, MessagesResponse
         return add("disable_notification", disableNotification);
     }
 
+    public SendMediaGroup replyParameters(ReplyParameters replyParameters) {
+        return add("reply_parameters", replyParameters);
+    }
+
+    /*
+     @deprecated Use replyParameters instead
+    */
     public SendMediaGroup replyToMessageId(int replyToMessageId) {
         return add("reply_to_message_id", replyToMessageId);
     }
 
+    /*
+     @deprecated Use replyParameters instead
+    */
     public SendMediaGroup allowSendingWithoutReply(boolean allowSendingWithoutReply) {
         return add("allow_sending_without_reply", allowSendingWithoutReply);
     }
