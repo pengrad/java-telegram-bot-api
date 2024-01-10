@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.model;
 
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.passport.PassportData;
+import jdk.javadoc.internal.doclets.toolkit.util.Extern;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -29,6 +30,7 @@ public class Message implements Serializable {
     private Boolean is_topic_message;
     private Boolean is_automatic_forward;
     private Message reply_to_message;
+    private ExternalReplyInfo external_reply;
     private User via_bot;
     private Integer edit_date;
     private Boolean has_protected_content;
@@ -146,6 +148,9 @@ public class Message implements Serializable {
 
     public Message replyToMessage() {
         return reply_to_message;
+    }
+    public ExternalReplyInfo externalReply() {
+        return external_reply;
     }
 
     public User viaBot() {
@@ -397,6 +402,7 @@ public class Message implements Serializable {
                 Objects.equals(is_topic_message, message.is_topic_message) &&
                 Objects.equals(is_automatic_forward, message.is_automatic_forward) &&
                 Objects.equals(reply_to_message, message.reply_to_message) &&
+                Objects.equals(external_reply, message.external_reply) &&
                 Objects.equals(via_bot, message.via_bot) &&
                 Objects.equals(edit_date, message.edit_date) &&
                 Objects.equals(has_protected_content, message.has_protected_content) &&
@@ -479,6 +485,7 @@ public class Message implements Serializable {
                 ", is_topic_message=" + is_topic_message +
                 ", is_automatic_forward=" + is_automatic_forward +
                 ", reply_to_message=" + reply_to_message +
+                ", external_reply=" + external_reply +
                 ", via_bot=" + via_bot +
                 ", edit_date=" + edit_date +
                 ", has_protected_content=" + has_protected_content+
