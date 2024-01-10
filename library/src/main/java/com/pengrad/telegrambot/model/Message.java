@@ -31,6 +31,7 @@ public class Message implements Serializable {
     private Boolean is_automatic_forward;
     private Message reply_to_message;
     private ExternalReplyInfo external_reply;
+    private TextQuote quote;
     private User via_bot;
     private Integer edit_date;
     private Boolean has_protected_content;
@@ -151,6 +152,9 @@ public class Message implements Serializable {
     }
     public ExternalReplyInfo externalReply() {
         return external_reply;
+    }
+    public TextQuote quote() {
+        return quote;
     }
 
     public User viaBot() {
@@ -403,6 +407,7 @@ public class Message implements Serializable {
                 Objects.equals(is_automatic_forward, message.is_automatic_forward) &&
                 Objects.equals(reply_to_message, message.reply_to_message) &&
                 Objects.equals(external_reply, message.external_reply) &&
+                Objects.equals(quote, message.quote) &&
                 Objects.equals(via_bot, message.via_bot) &&
                 Objects.equals(edit_date, message.edit_date) &&
                 Objects.equals(has_protected_content, message.has_protected_content) &&
@@ -486,6 +491,7 @@ public class Message implements Serializable {
                 ", is_automatic_forward=" + is_automatic_forward +
                 ", reply_to_message=" + reply_to_message +
                 ", external_reply=" + external_reply +
+                ", quote=" + quote +
                 ", via_bot=" + via_bot +
                 ", edit_date=" + edit_date +
                 ", has_protected_content=" + has_protected_content+
