@@ -41,6 +41,7 @@ public class Message implements Serializable {
     private String text;
     private MessageEntity[] entities;
     private MessageEntity[] caption_entities;
+    private LinkPreviewOptions link_preview_options;
     private Audio audio;
     private Document document;
     private Animation animation;
@@ -194,6 +195,9 @@ public class Message implements Serializable {
         return caption_entities;
     }
 
+    public LinkPreviewOptions linkPreviewOptions() {
+        return link_preview_options;
+    }
     public Audio audio() {
         return audio;
     }
@@ -417,6 +421,7 @@ public class Message implements Serializable {
                 Objects.equals(text, message.text) &&
                 Arrays.equals(entities, message.entities) &&
                 Arrays.equals(caption_entities, message.caption_entities) &&
+                Objects.equals(link_preview_options, message.link_preview_options) &&
                 Objects.equals(audio, message.audio) &&
                 Objects.equals(document, message.document) &&
                 Objects.equals(animation, message.animation) &&
@@ -501,6 +506,7 @@ public class Message implements Serializable {
                 ", text='" + text + '\'' +
                 ", entities=" + Arrays.toString(entities) +
                 ", caption_entities=" + Arrays.toString(caption_entities) +
+                ", link_preview_options=" + link_preview_options +
                 ", audio=" + audio +
                 ", document=" + document +
                 ", animation=" + animation +
