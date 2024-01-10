@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.model.LinkPreviewOptions;
 import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.ParseMode;
@@ -30,6 +31,13 @@ public class EditMessageText extends BaseRequest<EditMessageText, BaseResponse> 
         return add("entities", entities);
     }
 
+    public EditMessageText linkPreviewOptions(LinkPreviewOptions linkPreviewOptions) {
+        return add("link_preview_options", linkPreviewOptions);
+    }
+
+    /*
+    @deprecated Use linkPreviewOptions instead
+    */
     public EditMessageText disableWebPagePreview(boolean disableWebPagePreview) {
         return add("disable_web_page_preview", disableWebPagePreview);
     }
