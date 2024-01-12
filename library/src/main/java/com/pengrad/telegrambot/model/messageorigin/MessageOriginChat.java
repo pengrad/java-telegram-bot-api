@@ -5,7 +5,9 @@ import com.pengrad.telegrambot.model.Chat;
 import java.util.Objects;
 
 public class MessageOriginChat extends MessageOrigin {
-    
+
+    public static final String MESSAGE_ORIGIN_TYPE = "chat";
+
     private Chat sender_chat;
     private String author_signature;
 

@@ -5,7 +5,9 @@ import com.pengrad.telegrambot.model.User;
 import java.util.Objects;
 
 public class MessageOriginUser extends MessageOrigin {
-    
+
+    public static final String MESSAGE_ORIGIN_TYPE = "user";
+
     private User sender_user;
 
     public User senderUser() {

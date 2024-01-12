@@ -3,7 +3,9 @@ package com.pengrad.telegrambot.model.messageorigin;
 import java.util.Objects;
 
 public class MessageOriginHiddenUser extends MessageOrigin {
-    
+
+    public static final String MESSAGE_ORIGIN_TYPE = "hidden_user";
+
     private String sender_user_name;
 
     public String senderUserName() {
