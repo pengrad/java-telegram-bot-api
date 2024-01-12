@@ -2,6 +2,10 @@ package com.pengrad.telegrambot.model.request;
 
 import java.io.Serializable;
 
+/**
+ * @deprecated Use KeyboardButtonRequestUsers instead
+ */
+@Deprecated
 public class KeyboardButtonRequestUser implements Serializable {
     private final static long serialVersionUID = 0L;
 
