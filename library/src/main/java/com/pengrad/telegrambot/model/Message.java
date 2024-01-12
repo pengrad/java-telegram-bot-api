@@ -72,7 +72,8 @@ public class Message implements Serializable {
     private Invoice invoice;
     private SuccessfulPayment successful_payment;
     private Story story;
-    private UserShared user_shared;
+    private UserShared user_shared; //@deprectated
+    private UsersShared users_shared;
     private ChatShared chat_shared;
     private String connected_website;
     private PassportData passport_data;
@@ -318,8 +319,16 @@ public class Message implements Serializable {
         return story;
     }
 
+    /**
+     * @deprecated Use usersShared instead
+     */
+    @Deprecated
     public UserShared userShared() {
         return user_shared;
+    }
+
+    public UsersShared usersShared() {
+        return users_shared;
     }
 
     public ChatShared chatShared() {
@@ -452,7 +461,7 @@ public class Message implements Serializable {
                 Objects.equals(invoice, message.invoice) &&
                 Objects.equals(successful_payment, message.successful_payment) &&
                 Objects.equals(story, message.story) &&
-                Objects.equals(user_shared, message.user_shared) &&
+                Objects.equals(users_shared, message.users_shared) &&
                 Objects.equals(chat_shared, message.chat_shared) &&
                 Objects.equals(connected_website, message.connected_website) &&
                 Objects.equals(passport_data, message.passport_data) &&
@@ -537,7 +546,7 @@ public class Message implements Serializable {
                 ", invoice=" + invoice +
                 ", successful_payment=" + successful_payment +
                 ", story=" + story +
-                ", user_shared=" + user_shared +
+                ", users_shared=" + users_shared +
                 ", chat_shared=" + chat_shared +
                 ", connected_website='" + connected_website + '\'' +
                 ", passport_data=" + passport_data +
