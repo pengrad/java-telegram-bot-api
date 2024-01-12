@@ -33,10 +33,6 @@ public class CopyMessage extends BaseRequest<CopyMessage, MessageIdResponse> {
         return add("caption_entities", entities);
     }
 
-    public CopyMessage disableNotification(boolean disableNotification) {
-        return add("disable_notification", disableNotification);
-    }
-
     public CopyMessage replyParameters(ReplyParameters replyParameters) {
         return add("reply_parameters", replyParameters);
     }
@@ -57,6 +53,13 @@ public class CopyMessage extends BaseRequest<CopyMessage, MessageIdResponse> {
 
     public CopyMessage replyMarkup(Keyboard replyMarkup) {
         return add("reply_markup", replyMarkup);
+    }
+
+    public CopyMessage disableNotification(boolean disableNotification) {
+        return add("disable_notification", disableNotification);
+    }
+    public CopyMessage protectContent(boolean protectContent) {
+        return add("protect_content", protectContent);
     }
 
 }
