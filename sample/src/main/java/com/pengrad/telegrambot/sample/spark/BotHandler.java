@@ -1,6 +1,6 @@
 package com.pengrad.telegrambot.sample.spark;
 
-import com.pengrad.telegrambot.BotUtils;
+import com.pengrad.telegrambot.utility.BotUtils;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
