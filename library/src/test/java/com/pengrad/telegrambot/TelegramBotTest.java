@@ -8,6 +8,7 @@ import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.passport.*;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;
+import com.pengrad.telegrambot.utility.BotUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
