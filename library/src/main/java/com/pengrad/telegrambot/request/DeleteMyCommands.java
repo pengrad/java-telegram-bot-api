@@ -1,7 +1,6 @@
 package com.pengrad.telegrambot.request;
 
 import com.pengrad.telegrambot.model.botcommandscope.BotCommandScope;
-import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 public class DeleteMyCommands extends BaseRequest<DeleteMyCommands, BaseResponse> {
