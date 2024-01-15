@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.chat.Chat;
+import com.pengrad.telegrambot.model.chat.ChatShared;
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.*;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
@@ -348,6 +350,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
      */
     @Deprecated
     public Message pinnedMessage() {
+        if (pinned_message instanceof Message) {
+            return (Message)pinned_message;
+        }
+
         Message result = new Message();
         result.setChat(pinned_message.chat());
         result.setMessageId(pinned_message.messageId());

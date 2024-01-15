@@ -36,6 +36,10 @@ public class CallbackQuery implements Serializable {
      */
     @Deprecated
     public Message message() {
+        if (message instanceof Message) {
+            return (Message)message;
+        }
+
         Message result = new Message();
         result.setChat(message.chat());
         result.setMessageId(message.messageId());
