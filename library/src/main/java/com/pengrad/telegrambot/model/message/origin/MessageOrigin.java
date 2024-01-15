@@ -1,4 +1,4 @@
-package com.pengrad.telegrambot.model.messageorigin;
+package com.pengrad.telegrambot.model.message.origin;
 
 import java.io.Serializable;
 import java.util.Objects;

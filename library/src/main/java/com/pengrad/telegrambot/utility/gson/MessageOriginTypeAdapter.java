@@ -1,7 +1,7 @@
 package com.pengrad.telegrambot.utility.gson;
 
 import com.google.gson.*;
-import com.pengrad.telegrambot.model.messageorigin.*;
+import com.pengrad.telegrambot.model.message.origin.*;
 
 import java.lang.reflect.Type;
 

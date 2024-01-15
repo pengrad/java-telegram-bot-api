@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
-import com.pengrad.telegrambot.model.messageorigin.*;
+import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
+import com.pengrad.telegrambot.model.message.origin.*;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.passport.PassportData;
 
@@ -12,15 +13,12 @@ import java.util.Objects;
  * stas
  * 8/4/15.
  */
-public class Message implements Serializable {
+public class Message extends MaybeInaccessibleMessage implements Serializable {
     private final static long serialVersionUID = 0L;
 
-    private Integer message_id;
     private Integer message_thread_id;
     private User from;
     private Chat sender_chat;
-    private Integer date;
-    private Chat chat;
     private MessageOrigin forward_origin;
     private Boolean is_topic_message;
     private Boolean is_automatic_forward;
@@ -63,7 +61,7 @@ public class Message implements Serializable {
     private MessageAutoDeleteTimerChanged message_auto_delete_timer_changed;
     private Long migrate_to_chat_id;
     private Long migrate_from_chat_id;
-    private Message pinned_message;
+    private MaybeInaccessibleMessage pinned_message;
     private Invoice invoice;
     private SuccessfulPayment successful_payment;
     private Story story;
@@ -88,10 +86,6 @@ public class Message implements Serializable {
     private InlineKeyboardMarkup reply_markup;
     private WebAppData web_app_data;
 
-    public Integer messageId() {
-        return message_id;
-    }
-
     public Integer messageThreadId() {
         return message_thread_id;
     }
@@ -102,14 +96,6 @@ public class Message implements Serializable {
 
     public Chat senderChat() {
         return sender_chat;
-    }
-
-    public Integer date() {
-        return date;
-    }
-
-    public Chat chat() {
-        return chat;
     }
 
     private MessageOrigin forwardOrigin() {
@@ -353,8 +339,21 @@ public class Message implements Serializable {
         return migrate_from_chat_id;
     }
 
-    public Message pinnedMessage() {
+    public MaybeInaccessibleMessage maybeInaccessiblePinnedMessage() {
         return pinned_message;
+    }
+
+    /**
+     * @deprecated Use Message#maybeInaccessiblePinnedMessage instead
+     */
+    @Deprecated
+    public Message pinnedMessage() {
+        Message result = new Message();
+        result.setChat(pinned_message.chat());
+        result.setMessageId(pinned_message.messageId());
+        result.setDate(pinned_message.date());
+
+        return result;
     }
 
     public Invoice invoice() {
@@ -447,6 +446,27 @@ public class Message implements Serializable {
 
     public WebAppData webAppData() {
         return web_app_data;
+    }
+
+    /**
+     * Only for backwards-compatibility with MaybeInaccessibleMessage
+     */
+    void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
+    /**
+     * Only for backwards-compatibility with MaybeInaccessibleMessage
+     */
+    void setMessageId(Integer messageId) {
+        this.message_id = messageId;
+    }
+
+    /**
+     * Only for backwards-compatibility with MaybeInaccessibleMessage
+     */
+    void setDate(Integer date) {
+        this.date = date;
     }
 
     @Override

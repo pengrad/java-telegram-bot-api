@@ -1,4 +1,4 @@
-package com.pengrad.telegrambot.model.messageorigin;
+package com.pengrad.telegrambot.model.message.origin;
 
 import com.pengrad.telegrambot.model.Chat;
 
