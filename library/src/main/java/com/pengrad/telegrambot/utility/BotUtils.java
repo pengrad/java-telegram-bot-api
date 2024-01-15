@@ -40,7 +40,7 @@ public class BotUtils {
         return GSON.fromJson(reader, Update.class);
     }
 
-    static byte[] getBytesFromInputStream(InputStream is) throws IOException {
+    public static byte[] getBytesFromInputStream(InputStream is) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         byte[] buffer = new byte[0xFFFF];
         for (int len = is.read(buffer); len != -1; len = is.read(buffer)) {

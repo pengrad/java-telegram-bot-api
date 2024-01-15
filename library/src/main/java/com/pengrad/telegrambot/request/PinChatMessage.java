@@ -13,4 +13,8 @@ public class PinChatMessage extends BaseRequest<PinChatMessage, BaseResponse> {
         add("chat_id", chatId).add("message_id", messageId);
     }
 
+    public PinChatMessage disableNotification(boolean disableNotification) {
+        return add("disable_notification", disableNotification);
+    }
+
 }
