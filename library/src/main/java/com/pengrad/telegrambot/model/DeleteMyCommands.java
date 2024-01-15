@@ -4,6 +4,10 @@ import com.pengrad.telegrambot.model.botcommandscope.BotCommandScope;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.response.BaseResponse;
 
+/**
+ * @deprecated Use com.pengrad.telegrambot.request.DeleteMyCommands instead
+ */
+@Deprecated
 public class DeleteMyCommands extends BaseRequest<DeleteMyCommands, BaseResponse> {
 
     public DeleteMyCommands() {
