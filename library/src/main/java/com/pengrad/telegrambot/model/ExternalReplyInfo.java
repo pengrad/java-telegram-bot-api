@@ -1,9 +1,8 @@
 package com.pengrad.telegrambot.model;
 
 import com.pengrad.telegrambot.model.giveaway.Giveaway;
-import com.pengrad.telegrambot.model.giveaway.GiveawayCompleted;
 import com.pengrad.telegrambot.model.giveaway.GiveawayWinners;
-import com.pengrad.telegrambot.model.messageorigin.MessageOrigin;
+import com.pengrad.telegrambot.model.message.origin.MessageOrigin;
 
 import java.io.Serializable;
 import java.util.Objects;

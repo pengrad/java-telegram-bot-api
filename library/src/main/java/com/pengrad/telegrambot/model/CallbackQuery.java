@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
+
 import java.io.Serializable;
 
 /**
@@ -11,7 +13,7 @@ public class CallbackQuery implements Serializable {
 
     private String id;
     private User from;
-    private Message message;
+    private MaybeInaccessibleMessage message;
     private String inline_message_id;
     private String chat_instance;
     private String data;
@@ -25,8 +27,21 @@ public class CallbackQuery implements Serializable {
         return from;
     }
 
-    public Message message() {
+    private MaybeInaccessibleMessage maybeInaccessibleMessage() {
         return message;
+    }
+
+    /**
+     * @deprecated Use CallbackQuery#maybeInaccessibleMessage instead
+     */
+    @Deprecated
+    public Message message() {
+        Message result = new Message();
+        result.setChat(message.chat());
+        result.setMessageId(message.messageId());
+        result.setDate(message.date());
+
+        return result;
     }
 
     public String inlineMessageId() {

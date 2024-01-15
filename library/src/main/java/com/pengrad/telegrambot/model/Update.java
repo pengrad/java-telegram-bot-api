@@ -1,5 +1,8 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.chatboost.ChatBoostRemoved;
+import com.pengrad.telegrambot.model.chatboost.ChatBoostUpdated;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -27,6 +30,8 @@ public class Update implements Serializable {
     private ChatJoinRequest chat_join_request;
     private MessageReactionUpdated message_reaction;
     private MessageReactionCountUpdated message_reaction_count;
+    private ChatBoostUpdated chat_boost;
+    private ChatBoostRemoved removed_chat_boost;
 
     public Integer updateId() {
         return update_id;
@@ -96,6 +101,14 @@ public class Update implements Serializable {
         return message_reaction_count;
     }
 
+    public ChatBoostUpdated chatBoost() {
+        return chat_boost;
+    }
+
+    public ChatBoostRemoved removedChatBoost() {
+        return removed_chat_boost;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -117,7 +130,9 @@ public class Update implements Serializable {
                 Objects.equals(chat_member, update.chat_member) &&
                 Objects.equals(chat_join_request, update.chat_join_request) &&
                 Objects.equals(message_reaction, update.message_reaction) &&
-                Objects.equals(message_reaction_count, update.message_reaction_count);
+                Objects.equals(message_reaction_count, update.message_reaction_count) &&
+                Objects.equals(chat_boost, update.chat_boost) &&
+                Objects.equals(removed_chat_boost, update.removed_chat_boost);
     }
 
     @Override
@@ -145,6 +160,8 @@ public class Update implements Serializable {
                 ", chat_join_request=" + chat_join_request +
                 ", message_reaction=" + message_reaction +
                 ", message_reaction_count=" + message_reaction_count +
+                ", chat_boost=" + chat_boost +
+                ", removed_chat_boost=" + removed_chat_boost +
                 '}';
     }
 }

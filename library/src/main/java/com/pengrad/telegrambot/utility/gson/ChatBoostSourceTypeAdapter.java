@@ -1,17 +1,17 @@
 package com.pengrad.telegrambot.utility.gson;
 
 import com.google.gson.*;
-import com.pengrad.telegrambot.model.chatboost.ChatBoostSourceGiftCode;
-import com.pengrad.telegrambot.model.chatboost.ChatBoostSourceGiveaway;
-import com.pengrad.telegrambot.model.chatboost.ChatBoostSourcePremium;
-import com.pengrad.telegrambot.model.messageorigin.*;
+import com.pengrad.telegrambot.model.chatboost.source.ChatBoostSource;
+import com.pengrad.telegrambot.model.chatboost.source.ChatBoostSourceGiftCode;
+import com.pengrad.telegrambot.model.chatboost.source.ChatBoostSourceGiveaway;
+import com.pengrad.telegrambot.model.chatboost.source.ChatBoostSourcePremium;
 
 import java.lang.reflect.Type;
 
-public class ChatBoostTypeAdapter implements JsonDeserializer<MessageOrigin> {
+public class ChatBoostSourceTypeAdapter implements JsonDeserializer<ChatBoostSource> {
 
     @Override
-    public MessageOrigin deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
+    public ChatBoostSource deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject object = element.getAsJsonObject();
         String discriminator = object.getAsJsonPrimitive("source").getAsString();
 

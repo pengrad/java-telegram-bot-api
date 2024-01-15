@@ -1,7 +1,5 @@
 package com.pengrad.telegrambot.model;
 
-import com.pengrad.telegrambot.model.messageorigin.MessageOriginChat;
-
 import java.io.Serializable;
 import java.util.Objects;
 
