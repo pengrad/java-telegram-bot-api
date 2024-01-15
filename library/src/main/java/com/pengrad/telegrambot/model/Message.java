@@ -1,5 +1,9 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.giveaway.Giveaway;
+import com.pengrad.telegrambot.model.giveaway.GiveawayCompleted;
+import com.pengrad.telegrambot.model.giveaway.GiveawayCreated;
+import com.pengrad.telegrambot.model.giveaway.GiveawayWinners;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.passport.PassportData;
 
@@ -79,6 +83,10 @@ public class Message implements Serializable {
     private ForumTopicReopened forum_topic_reopened;
     private GeneralForumTopicHidden general_forum_topic_hidden;
     private GeneralForumTopicUnhidden general_forum_topic_unhidden;
+    private GiveawayCreated giveaway_created;
+    private Giveaway giveaway;
+    private GiveawayWinners giveaway_winners;
+    private GiveawayCompleted giveaway_completed;
     private WriteAccessAllowed write_access_allowed;
 
     private VideoChatStarted video_chat_started;
@@ -447,6 +455,10 @@ public class Message implements Serializable {
                 Objects.equals(forum_topic_reopened, message.forum_topic_reopened) &&
                 Objects.equals(general_forum_topic_hidden, message.general_forum_topic_hidden) &&
                 Objects.equals(general_forum_topic_unhidden, message.general_forum_topic_unhidden) &&
+                Objects.equals(giveaway_created, message.giveaway_created) &&
+                Objects.equals(giveaway, message.giveaway) &&
+                Objects.equals(giveaway_winners, message.giveaway_winners) &&
+                Objects.equals(giveaway_completed, message.giveaway_completed) &&
                 Objects.equals(write_access_allowed, message.write_access_allowed) &&
                 Objects.equals(video_chat_started, message.video_chat_started) &&
                 Objects.equals(video_chat_ended, message.video_chat_ended) &&
@@ -529,6 +541,10 @@ public class Message implements Serializable {
                 ", forum_topic_reopened=" + forum_topic_reopened +
                 ", general_forum_topic_hidden=" + general_forum_topic_hidden +
                 ", general_forum_topic_unhidden=" + general_forum_topic_unhidden +
+                ", giveaway_created=" + giveaway_created +
+                ", giveaway=" + giveaway +
+                ", giveaway_winners=" + giveaway_winners +
+                ", giveaway_completed=" + giveaway_completed +
                 ", write_access_allowed=" + write_access_allowed +
                 ", video_chat_started=" + video_chat_started +
                 ", video_chat_ended=" + video_chat_ended +
