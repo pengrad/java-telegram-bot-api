@@ -1,6 +1,6 @@
 package com.pengrad.telegrambot.response;
 
-import com.pengrad.telegrambot.model.Chat;
+import com.pengrad.telegrambot.model.chat.Chat;
 
 /**
  * Stas Parshin

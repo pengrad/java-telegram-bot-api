@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.model.*;
+import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.passport.Credentials;

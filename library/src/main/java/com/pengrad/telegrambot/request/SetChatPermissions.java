@@ -1,6 +1,6 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.model.ChatPermissions;
+import com.pengrad.telegrambot.model.chat.ChatPermissions;
 import com.pengrad.telegrambot.response.BaseResponse;
 
 /**

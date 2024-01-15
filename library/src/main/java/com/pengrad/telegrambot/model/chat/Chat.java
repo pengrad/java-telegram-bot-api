@@ -1,6 +1,7 @@
-package com.pengrad.telegrambot.model;
+package com.pengrad.telegrambot.model.chat;
 
 import com.google.gson.annotations.SerializedName;
+import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.reaction.ReactionType;
 
 

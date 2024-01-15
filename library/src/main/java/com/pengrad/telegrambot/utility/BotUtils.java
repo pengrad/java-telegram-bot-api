@@ -3,7 +3,7 @@ package com.pengrad.telegrambot.utility;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.model.chatboost.source.ChatBoostSource;
+import com.pengrad.telegrambot.model.chat.boost.source.ChatBoostSource;
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.MessageOrigin;
 import com.pengrad.telegrambot.model.reaction.ReactionType;

@@ -1,6 +1,6 @@
 package com.pengrad.telegrambot.response;
 
-import com.pengrad.telegrambot.model.chatboost.ChatBoost;
+import com.pengrad.telegrambot.model.chat.boost.ChatBoost;
 
 import java.util.Arrays;
 

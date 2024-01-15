@@ -1,6 +1,6 @@
-package com.pengrad.telegrambot.model.chatboost;
+package com.pengrad.telegrambot.model.chat.boost;
 
-import com.pengrad.telegrambot.model.Chat;
+import com.pengrad.telegrambot.model.chat.Chat;
 
 import java.util.Objects;
 

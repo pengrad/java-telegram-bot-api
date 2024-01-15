@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.chat.Chat;
 import com.pengrad.telegrambot.model.giveaway.Giveaway;
 import com.pengrad.telegrambot.model.giveaway.GiveawayWinners;
 import com.pengrad.telegrambot.model.message.origin.MessageOrigin;

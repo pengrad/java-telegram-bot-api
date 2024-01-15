@@ -1,6 +1,6 @@
 package com.pengrad.telegrambot.model.giveaway;
 
-import com.pengrad.telegrambot.model.Chat;
+import com.pengrad.telegrambot.model.chat.Chat;
 import com.pengrad.telegrambot.model.User;
 
 import java.io.Serializable;

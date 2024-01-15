@@ -1,7 +1,9 @@
 package com.pengrad.telegrambot.model;
 
-import com.pengrad.telegrambot.model.chatboost.ChatBoostRemoved;
-import com.pengrad.telegrambot.model.chatboost.ChatBoostUpdated;
+import com.pengrad.telegrambot.model.chat.ChatJoinRequest;
+import com.pengrad.telegrambot.model.chat.ChatMemberUpdated;
+import com.pengrad.telegrambot.model.chat.boost.ChatBoostRemoved;
+import com.pengrad.telegrambot.model.chat.boost.ChatBoostUpdated;
 
 import java.io.Serializable;
 import java.util.Objects;
