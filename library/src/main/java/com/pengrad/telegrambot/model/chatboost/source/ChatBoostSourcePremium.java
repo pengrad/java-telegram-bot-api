@@ -1,6 +1,4 @@
-package com.pengrad.telegrambot.model.chatboost;
-
-import com.pengrad.telegrambot.model.User;
+package com.pengrad.telegrambot.model.chatboost.source;
 
 import java.io.Serializable;
 import java.util.Objects;

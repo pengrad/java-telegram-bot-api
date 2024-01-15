@@ -1,9 +1,9 @@
 package com.pengrad.telegrambot.utility.gson;
 
 import com.google.gson.*;
-import com.pengrad.telegrambot.model.chatboost.ChatBoostSourceGiftCode;
-import com.pengrad.telegrambot.model.chatboost.ChatBoostSourceGiveaway;
-import com.pengrad.telegrambot.model.chatboost.ChatBoostSourcePremium;
+import com.pengrad.telegrambot.model.chatboost.source.ChatBoostSourceGiftCode;
+import com.pengrad.telegrambot.model.chatboost.source.ChatBoostSourceGiveaway;
+import com.pengrad.telegrambot.model.chatboost.source.ChatBoostSourcePremium;
 import com.pengrad.telegrambot.model.messageorigin.*;
 
 import java.lang.reflect.Type;
