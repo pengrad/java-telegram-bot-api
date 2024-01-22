@@ -2,7 +2,7 @@ package com.pengrad.telegrambot.model.request;
 
 import java.io.Serializable;
 
-import com.pengrad.telegrambot.model.chat.ChatAdministratorRights;
+import com.pengrad.telegrambot.model.ChatAdministratorRights;
 
 public class KeyboardButtonRequestChat implements Serializable {
     private final static long serialVersionUID = 0L;

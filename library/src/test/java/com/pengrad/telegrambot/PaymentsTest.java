@@ -2,7 +2,6 @@ package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.checks.*;
 import com.pengrad.telegrambot.model.*;
-import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.request.*;
 import com.pengrad.telegrambot.response.*;

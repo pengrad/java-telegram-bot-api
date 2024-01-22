@@ -1,6 +1,6 @@
 package com.pengrad.telegrambot.checks;
 
-import com.pengrad.telegrambot.model.chat.ChatPhoto;
+import com.pengrad.telegrambot.model.ChatPhoto;
 
 import static org.junit.Assert.assertNotNull;
 

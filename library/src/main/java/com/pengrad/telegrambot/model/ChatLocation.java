@@ -1,6 +1,4 @@
-package com.pengrad.telegrambot.model.chat;
-
-import com.pengrad.telegrambot.model.Location;
+package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
 import java.util.Objects;

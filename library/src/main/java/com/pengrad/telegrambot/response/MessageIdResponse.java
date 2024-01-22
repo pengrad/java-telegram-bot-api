@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.response;
 
+import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.MessageId;
 
 /**

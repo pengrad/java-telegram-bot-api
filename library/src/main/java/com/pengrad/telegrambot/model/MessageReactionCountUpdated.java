@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.model;
 
-import com.pengrad.telegrambot.model.chat.Chat;
 import com.pengrad.telegrambot.model.reaction.ReactionCount;
 
 import java.util.Arrays;

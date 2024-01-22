@@ -1,6 +1,6 @@
 package com.pengrad.telegrambot.response;
 
-import com.pengrad.telegrambot.model.chat.ChatAdministratorRights;
+import com.pengrad.telegrambot.model.ChatAdministratorRights;
 
 /**
  * Mirco Ianese

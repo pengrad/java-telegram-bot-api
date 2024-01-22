@@ -1,4 +1,4 @@
-package com.pengrad.telegrambot.model.chat.boost.source;
+package com.pengrad.telegrambot.model.chatboost.source;
 
 import java.io.Serializable;
 import java.util.Objects;

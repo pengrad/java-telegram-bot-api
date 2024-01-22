@@ -1,4 +1,4 @@
-package com.pengrad.telegrambot.model.chat;
+package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
 import java.util.Objects;
