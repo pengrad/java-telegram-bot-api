@@ -20,6 +20,6 @@ public class ReactionTypeAdapter implements JsonDeserializer<ReactionType> {
             return context.deserialize(object, ReactionTypeCustomEmoji.class);
         }
 
-        throw new JsonParseException("Unknown ReactionType type: " + discriminator);
+        return context.deserialize(object, ReactionType.class);
     }
 }

@@ -20,4 +20,8 @@ public class ForwardMessage extends BaseRequest<ForwardMessage, SendResponse> {
     public ForwardMessage disableNotification(boolean disableNotification) {
         return add("disable_notification", disableNotification);
     }
+    public ForwardMessage protectContent(boolean protectContent) {
+        return add("protect_content", protectContent);
+    }
+
 }

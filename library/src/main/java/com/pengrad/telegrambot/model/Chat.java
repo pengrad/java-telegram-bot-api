@@ -36,6 +36,10 @@ public class Chat implements Serializable {
     private ChatPhoto photo;
     private String[] active_usernames;
     private ReactionType[] available_reactions;
+    private Integer accent_color_id;
+    private String background_custom_emoji_id;
+    private Integer profile_accent_color_id;
+    private String profile_background_custom_emoji_id;
     private String emoji_status_custom_emoji_id;
     private Integer emoji_status_expiration_date;
     private String bio;
@@ -52,6 +56,7 @@ public class Chat implements Serializable {
     private Integer slow_mode_delay;
     private Integer message_auto_delete_time;
     private Boolean has_protected_content;
+    private Boolean has_visible_history;
     private String sticker_set_name;
     private Boolean can_set_sticker_set;
     private Long linked_chat_id;
@@ -104,6 +109,22 @@ public class Chat implements Serializable {
     @Deprecated
     public ReactionType[] availableReactions() {
         return available_reactions;
+    }
+
+    public Integer accentColorId() {
+        return accent_color_id;
+    }
+
+    public String backgroundCustomEmojiId() {
+        return background_custom_emoji_id;
+    }
+
+    public Integer profileAccentColorId() {
+        return profile_accent_color_id;
+    }
+
+    public String profileBackgroundCustomEmojiId() {
+        return profile_background_custom_emoji_id;
     }
 
     /**
@@ -177,6 +198,10 @@ public class Chat implements Serializable {
         return has_protected_content != null && has_protected_content;
     }
 
+    public Boolean hasVisibleHistory() {
+        return has_visible_history != null && has_visible_history;
+    }
+
     public String stickerSetName() {
         return sticker_set_name;
     }
@@ -208,6 +233,10 @@ public class Chat implements Serializable {
                 Objects.equals(photo, chat.photo) &&
                 Arrays.equals(active_usernames, chat.active_usernames) &&
                 Arrays.equals(available_reactions, chat.available_reactions) &&
+                Objects.equals(accent_color_id, chat.accent_color_id) &&
+                Objects.equals(background_custom_emoji_id, chat.background_custom_emoji_id) &&
+                Objects.equals(profile_accent_color_id, chat.profile_accent_color_id) &&
+                Objects.equals(profile_background_custom_emoji_id, chat.profile_background_custom_emoji_id) &&
                 Objects.equals(emoji_status_custom_emoji_id, chat.emoji_status_custom_emoji_id) &&
                 Objects.equals(emoji_status_expiration_date, chat.emoji_status_expiration_date) &&
                 Objects.equals(bio, chat.bio) &&
@@ -224,6 +253,7 @@ public class Chat implements Serializable {
                 Objects.equals(slow_mode_delay, chat.slow_mode_delay) &&
                 Objects.equals(message_auto_delete_time, chat.message_auto_delete_time) &&
                 Objects.equals(has_protected_content, chat.has_protected_content) &&
+                Objects.equals(has_visible_history, chat.has_visible_history) &&
                 Objects.equals(sticker_set_name, chat.sticker_set_name) &&
                 Objects.equals(can_set_sticker_set, chat.can_set_sticker_set) &&
                 Objects.equals(linked_chat_id, chat.linked_chat_id) &&
@@ -248,6 +278,10 @@ public class Chat implements Serializable {
                 ", photo=" + photo +
                 ", active_usernames=" + Arrays.toString(active_usernames) +
                 ", available_reactions=" + Arrays.toString(available_reactions) +
+                ", accent_color_id=" + accent_color_id +
+                ", background_custom_emoji_id='" + background_custom_emoji_id + '\'' +
+                ", profile_accent_color_id=" + profile_accent_color_id +
+                ", profile_background_custom_emoji_id='" + profile_background_custom_emoji_id + '\'' +
                 ", emoji_status_custom_emoji_id='" + emoji_status_custom_emoji_id + '\'' +
                 ", emoji_status_expiration_date='" + emoji_status_expiration_date + '\'' +
                 ", bio='" + bio + '\'' +
@@ -264,6 +298,7 @@ public class Chat implements Serializable {
                 ", slow_mode_delay=" + slow_mode_delay +
                 ", message_auto_delete_time=" + message_auto_delete_time +
                 ", has_protected_content=" + has_protected_content +
+                ", has_visible_history=" + has_visible_history +
                 ", sticker_set_name='" + sticker_set_name + '\'' +
                 ", can_set_sticker_set=" + can_set_sticker_set +
                 ", linked_chat_id=" + linked_chat_id +

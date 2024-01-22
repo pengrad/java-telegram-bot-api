@@ -3,7 +3,13 @@ package com.pengrad.telegrambot.utility;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.chatboost.source.ChatBoostSource;
+import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
+import com.pengrad.telegrambot.model.message.origin.MessageOrigin;
 import com.pengrad.telegrambot.model.reaction.ReactionType;
+import com.pengrad.telegrambot.utility.gson.ChatBoostSourceTypeAdapter;
+import com.pengrad.telegrambot.utility.gson.MaybeInaccessibleMessageTypeAdapter;
+import com.pengrad.telegrambot.utility.gson.MessageOriginTypeAdapter;
 import com.pengrad.telegrambot.utility.gson.ReactionTypeAdapter;
 
 import java.io.ByteArrayOutputStream;
@@ -20,8 +26,11 @@ public class BotUtils {
     private BotUtils() {}
 
     public static final Gson GSON = new GsonBuilder()
-        .registerTypeAdapter(ReactionType.class, new ReactionTypeAdapter())
-        .create();
+            .registerTypeAdapter(ReactionType.class, new ReactionTypeAdapter())
+            .registerTypeAdapter(MessageOrigin.class, new MessageOriginTypeAdapter())
+            .registerTypeAdapter(ChatBoostSource.class, new ChatBoostSourceTypeAdapter())
+        .registerTypeAdapter(MaybeInaccessibleMessage.class, new MaybeInaccessibleMessageTypeAdapter())
+            .create();
 
     public static Update parseUpdate(String update) {
         return GSON.fromJson(update, Update.class);

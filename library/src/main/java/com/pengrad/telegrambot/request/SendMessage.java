@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request;
 
+import com.pengrad.telegrambot.model.LinkPreviewOptions;
 import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.request.ParseMode;
 
@@ -22,6 +23,13 @@ public class SendMessage extends AbstractSendRequest<SendMessage> {
         return add("entities", entities);
     }
 
+    public SendMessage linkPreviewOptions(LinkPreviewOptions linkPreviewOptions) {
+        return add("link_preview_options", linkPreviewOptions);
+    }
+
+    /*
+    @deprecated Use linkPreviewOptions instead
+    */
     public SendMessage disableWebPagePreview(boolean disableWebPagePreview) {
         return add("disable_web_page_preview", disableWebPagePreview);
     }

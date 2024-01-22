@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
+import com.pengrad.telegrambot.model.message.origin.*;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.passport.PassportData;
 
@@ -11,24 +13,18 @@ import java.util.Objects;
  * stas
  * 8/4/15.
  */
-public class Message implements Serializable {
+public class Message extends MaybeInaccessibleMessage implements Serializable {
     private final static long serialVersionUID = 0L;
 
-    private Integer message_id;
     private Integer message_thread_id;
     private User from;
     private Chat sender_chat;
-    private Integer date;
-    private Chat chat;
-    private User forward_from;
-    private Chat forward_from_chat;
-    private Integer forward_from_message_id;
-    private String forward_signature;
-    private String forward_sender_name;
-    private Integer forward_date;
+    private MessageOrigin forward_origin;
     private Boolean is_topic_message;
     private Boolean is_automatic_forward;
     private Message reply_to_message;
+    private ExternalReplyInfo external_reply;
+    private TextQuote quote;
     private User via_bot;
     private Integer edit_date;
     private Boolean has_protected_content;
@@ -38,6 +34,7 @@ public class Message implements Serializable {
     private String text;
     private MessageEntity[] entities;
     private MessageEntity[] caption_entities;
+    private LinkPreviewOptions link_preview_options;
     private Audio audio;
     private Document document;
     private Animation animation;
@@ -64,11 +61,12 @@ public class Message implements Serializable {
     private MessageAutoDeleteTimerChanged message_auto_delete_timer_changed;
     private Long migrate_to_chat_id;
     private Long migrate_from_chat_id;
-    private Message pinned_message;
+    private MaybeInaccessibleMessage pinned_message;
     private Invoice invoice;
     private SuccessfulPayment successful_payment;
     private Story story;
-    private UserShared user_shared;
+    private UserShared user_shared; //@deprectated
+    private UsersShared users_shared;
     private ChatShared chat_shared;
     private String connected_website;
     private PassportData passport_data;
@@ -88,10 +86,6 @@ public class Message implements Serializable {
     private InlineKeyboardMarkup reply_markup;
     private WebAppData web_app_data;
 
-    public Integer messageId() {
-        return message_id;
-    }
-
     public Integer messageThreadId() {
         return message_thread_id;
     }
@@ -104,40 +98,87 @@ public class Message implements Serializable {
         return sender_chat;
     }
 
-    public Integer date() {
-        return date;
+    private MessageOrigin forwardOrigin() {
+        return forward_origin;
     }
 
-    public Chat chat() {
-        return chat;
-    }
-
+    /**
+     * @deprecated Use Message#forwardOrigin instead
+     */
+    @Deprecated
     public User forwardFrom() {
-        return forward_from;
+        if (forward_origin instanceof MessageOriginUser) {
+            return ((MessageOriginUser) forward_origin).senderUser();
+        }
+        return null;
     }
 
+    /**
+     * @deprecated Use Message#forwardOrigin instead
+     */
+    @Deprecated
     public Chat forwardFromChat() {
-        return forward_from_chat;
+        if (forward_origin instanceof MessageOriginChat) {
+            return ((MessageOriginChat) forward_origin).senderChat();
+        }
+
+        if (forward_origin instanceof MessageOriginChannel) {
+            return ((MessageOriginChannel) forward_origin).chat();
+        }
+
+        return null;
     }
 
+    /**
+     * @deprecated Use Message#forwardOrigin instead
+     */
+    @Deprecated
     public Integer forwardFromMessageId() {
-        return forward_from_message_id;
+        if (forward_origin instanceof MessageOriginChannel) {
+            return ((MessageOriginChannel) forward_origin).messageId();
+        }
+
+        return null;
     }
 
+    /**
+     * @deprecated Use Message#forwardOrigin instead
+     */
+    @Deprecated
     public String forwardSignature() {
-        return forward_signature;
+        if (forward_origin instanceof MessageOriginChat) {
+            return ((MessageOriginChat) forward_origin).authorSignature();
+        }
+
+        if (forward_origin instanceof MessageOriginChannel) {
+            return ((MessageOriginChannel) forward_origin).authorSignature();
+        }
+
+        return null;
     }
 
+    /**
+     * @deprecated Use Message#forwardOrigin instead
+     */
+    @Deprecated
     public String forwardSenderName() {
-        return forward_sender_name;
+        if (forward_origin instanceof MessageOriginHiddenUser) {
+            return ((MessageOriginHiddenUser) forward_origin).senderUserName();
+        }
+
+        return null;
+    }
+
+    /**
+     * @deprecated Use Message#forwardOrigin instead
+     */
+    @Deprecated
+    public Integer forwardDate() {
+        return forward_origin.date();
     }
 
     public Boolean isTopicMessage() {
         return is_topic_message != null && is_topic_message;
-    }
-
-    public Integer forwardDate() {
-        return forward_date;
     }
 
     public Boolean isAutomaticForward() {
@@ -146,6 +187,12 @@ public class Message implements Serializable {
 
     public Message replyToMessage() {
         return reply_to_message;
+    }
+    public ExternalReplyInfo externalReply() {
+        return external_reply;
+    }
+    public TextQuote quote() {
+        return quote;
     }
 
     public User viaBot() {
@@ -185,6 +232,9 @@ public class Message implements Serializable {
         return caption_entities;
     }
 
+    public LinkPreviewOptions linkPreviewOptions() {
+        return link_preview_options;
+    }
     public Audio audio() {
         return audio;
     }
@@ -289,7 +339,7 @@ public class Message implements Serializable {
         return migrate_from_chat_id;
     }
 
-    public Message pinnedMessage() {
+    public MaybeInaccessibleMessage pinnedMessage() {
         return pinned_message;
     }
 
@@ -305,8 +355,16 @@ public class Message implements Serializable {
         return story;
     }
 
+    /**
+     * @deprecated Use usersShared instead
+     */
+    @Deprecated
     public UserShared userShared() {
         return user_shared;
+    }
+
+    public UsersShared usersShared() {
+        return users_shared;
     }
 
     public ChatShared chatShared() {
@@ -377,6 +435,27 @@ public class Message implements Serializable {
         return web_app_data;
     }
 
+    /**
+     * Only for backwards-compatibility with MaybeInaccessibleMessage
+     */
+    void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
+    /**
+     * Only for backwards-compatibility with MaybeInaccessibleMessage
+     */
+    void setMessageId(Integer messageId) {
+        this.message_id = messageId;
+    }
+
+    /**
+     * Only for backwards-compatibility with MaybeInaccessibleMessage
+     */
+    void setDate(Integer date) {
+        this.date = date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -388,15 +467,12 @@ public class Message implements Serializable {
                 Objects.equals(sender_chat, message.sender_chat) &&
                 Objects.equals(date, message.date) &&
                 Objects.equals(chat, message.chat) &&
-                Objects.equals(forward_from, message.forward_from) &&
-                Objects.equals(forward_from_chat, message.forward_from_chat) &&
-                Objects.equals(forward_from_message_id, message.forward_from_message_id) &&
-                Objects.equals(forward_signature, message.forward_signature) &&
-                Objects.equals(forward_sender_name, message.forward_sender_name) &&
-                Objects.equals(forward_date, message.forward_date) &&
+                Objects.equals(forward_origin, message.forward_origin) &&
                 Objects.equals(is_topic_message, message.is_topic_message) &&
                 Objects.equals(is_automatic_forward, message.is_automatic_forward) &&
                 Objects.equals(reply_to_message, message.reply_to_message) &&
+                Objects.equals(external_reply, message.external_reply) &&
+                Objects.equals(quote, message.quote) &&
                 Objects.equals(via_bot, message.via_bot) &&
                 Objects.equals(edit_date, message.edit_date) &&
                 Objects.equals(has_protected_content, message.has_protected_content) &&
@@ -406,6 +482,7 @@ public class Message implements Serializable {
                 Objects.equals(text, message.text) &&
                 Arrays.equals(entities, message.entities) &&
                 Arrays.equals(caption_entities, message.caption_entities) &&
+                Objects.equals(link_preview_options, message.link_preview_options) &&
                 Objects.equals(audio, message.audio) &&
                 Objects.equals(document, message.document) &&
                 Objects.equals(animation, message.animation) &&
@@ -437,6 +514,7 @@ public class Message implements Serializable {
                 Objects.equals(successful_payment, message.successful_payment) &&
                 Objects.equals(story, message.story) &&
                 Objects.equals(user_shared, message.user_shared) &&
+                Objects.equals(users_shared, message.users_shared) &&
                 Objects.equals(chat_shared, message.chat_shared) &&
                 Objects.equals(connected_website, message.connected_website) &&
                 Objects.equals(passport_data, message.passport_data) &&
@@ -470,15 +548,12 @@ public class Message implements Serializable {
                 ", sender_chat=" + sender_chat +
                 ", date=" + date +
                 ", chat=" + chat +
-                ", forward_from=" + forward_from +
-                ", forward_from_chat=" + forward_from_chat +
-                ", forward_from_message_id=" + forward_from_message_id +
-                ", forward_signature='" + forward_signature + '\'' +
-                ", forward_sender_name='" + forward_sender_name + '\'' +
-                ", forward_date=" + forward_date +
+                ", forward_origin=" + forward_origin +
                 ", is_topic_message=" + is_topic_message +
                 ", is_automatic_forward=" + is_automatic_forward +
                 ", reply_to_message=" + reply_to_message +
+                ", external_reply=" + external_reply +
+                ", quote=" + quote +
                 ", via_bot=" + via_bot +
                 ", edit_date=" + edit_date +
                 ", has_protected_content=" + has_protected_content+
@@ -488,6 +563,7 @@ public class Message implements Serializable {
                 ", text='" + text + '\'' +
                 ", entities=" + Arrays.toString(entities) +
                 ", caption_entities=" + Arrays.toString(caption_entities) +
+                ", link_preview_options=" + link_preview_options +
                 ", audio=" + audio +
                 ", document=" + document +
                 ", animation=" + animation +
@@ -519,6 +595,7 @@ public class Message implements Serializable {
                 ", successful_payment=" + successful_payment +
                 ", story=" + story +
                 ", user_shared=" + user_shared +
+                ", users_shared=" + users_shared +
                 ", chat_shared=" + chat_shared +
                 ", connected_website='" + connected_website + '\'' +
                 ", passport_data=" + passport_data +

@@ -1,6 +1,8 @@
 package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.model.*;
+import com.pengrad.telegrambot.model.Message;
+import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.passport.Credentials;
@@ -61,7 +63,7 @@ public class ModelTest {
         f.set(callbackQuery, "2");
 
         Message message = Message.class.getDeclaredConstructor().newInstance();
-        f = Message.class.getDeclaredField("message_id");
+        f = MaybeInaccessibleMessage.class.getDeclaredField("message_id");
         f.setAccessible(true);
         f.set(message, 11);
 
@@ -85,6 +87,9 @@ public class ModelTest {
                 verifierApi.withIgnoredFields("forum_topic_reopened");
                 verifierApi.withIgnoredFields("general_forum_topic_hidden");
                 verifierApi.withIgnoredFields("general_forum_topic_unhidden");
+                verifierApi.withIgnoredFields("story");
+            }
+            if (c == ExternalReplyInfo.class) {
                 verifierApi.withIgnoredFields("story");
             }
 
