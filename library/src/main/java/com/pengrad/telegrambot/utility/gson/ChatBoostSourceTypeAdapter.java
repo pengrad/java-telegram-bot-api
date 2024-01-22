@@ -23,6 +23,6 @@ public class ChatBoostSourceTypeAdapter implements JsonDeserializer<ChatBoostSou
             return context.deserialize(object, ChatBoostSourcePremium.class);
         }
 
-        throw new JsonParseException("Unknown ChatBoost type: " + discriminator);
+        return context.deserialize(object, ChatBoostSource.class);
     }
 }

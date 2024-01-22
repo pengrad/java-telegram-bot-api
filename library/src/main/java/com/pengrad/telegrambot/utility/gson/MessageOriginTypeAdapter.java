@@ -22,6 +22,6 @@ public class MessageOriginTypeAdapter implements JsonDeserializer<MessageOrigin>
             return context.deserialize(object, MessageOriginUser.class);
         }
 
-        throw new JsonParseException("Unknown MessageOrigin type: " + discriminator);
+        return context.deserialize(object, MessageOrigin.class);
     }
 }
