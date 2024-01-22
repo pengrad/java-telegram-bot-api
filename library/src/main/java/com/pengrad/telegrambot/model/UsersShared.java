@@ -13,24 +13,24 @@ public class UsersShared implements Serializable {
     public Integer requestId() {
         return request_id;
     }
+
     public Integer[] userIds() {
         return user_ids;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         UsersShared that = (UsersShared) o;
-
-        return Objects.equals(request_id, that.request_id) &&
-                Arrays.equals(user_ids, that.user_ids);
+        return Objects.equals(request_id, that.request_id) && Arrays.equals(user_ids, that.user_ids);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(request_id,
-                user_ids);
+        int result = Objects.hash(request_id);
+        result = 31 * result + Arrays.hashCode(user_ids);
+        return result;
     }
 
     @Override

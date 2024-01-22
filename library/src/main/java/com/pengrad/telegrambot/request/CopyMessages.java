@@ -1,10 +1,5 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.model.MessageEntity;
-import com.pengrad.telegrambot.model.ReplyParameters;
-import com.pengrad.telegrambot.model.request.Keyboard;
-import com.pengrad.telegrambot.model.request.ParseMode;
-import com.pengrad.telegrambot.response.MessageIdResponse;
 import com.pengrad.telegrambot.response.MessageIdsResponse;
 
 

@@ -1,7 +1,6 @@
-package com.pengrad.telegrambot.model;
+package com.pengrad.telegrambot.model.request;
 
-import com.pengrad.telegrambot.model.request.InlineQueryResultCachedVideo;
-import com.pengrad.telegrambot.model.request.ParseMode;
+import com.pengrad.telegrambot.model.MessageEntity;
 
 import java.io.Serializable;
 

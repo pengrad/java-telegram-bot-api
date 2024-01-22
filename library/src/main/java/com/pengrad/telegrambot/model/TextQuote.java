@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class TextQuote implements Serializable {
@@ -33,26 +34,24 @@ public class TextQuote implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TextQuote that = (TextQuote) o;
-        return Objects.equals(text, that.text) &&
-                Objects.equals(entities, that.entities) &&
-                Objects.equals(position, that.position) &&
-                Objects.equals(is_manual, that.is_manual);
+        TextQuote textQuote = (TextQuote) o;
+        return Objects.equals(text, textQuote.text) && Arrays.equals(entities, textQuote.entities) && Objects.equals(position, textQuote.position) && Objects.equals(is_manual, textQuote.is_manual);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(text, entities, position, is_manual);
+        int result = Objects.hash(text, position, is_manual);
+        result = 31 * result + Arrays.hashCode(entities);
+        return result;
     }
 
     @Override
     public String toString() {
         return "TextQuote{" +
-                "text='" + text + "'," +
-                "entities='" + entities + "'," +
-                "position='" + position + "'," +
-                "is_manual='" + is_manual + "'" +
+                "text='" + text + '\'' +
+                ", entities=" + Arrays.toString(entities) +
+                ", position=" + position +
+                ", is_manual=" + is_manual +
                 '}';
     }
-
 }

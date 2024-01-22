@@ -1,7 +1,5 @@
 package com.pengrad.telegrambot.model;
 
-import com.pengrad.telegrambot.model.chat.Chat;
-import com.pengrad.telegrambot.model.chat.ChatShared;
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.*;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
@@ -341,25 +339,8 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return migrate_from_chat_id;
     }
 
-    public MaybeInaccessibleMessage maybeInaccessiblePinnedMessage() {
+    public MaybeInaccessibleMessage pinnedMessage() {
         return pinned_message;
-    }
-
-    /**
-     * @deprecated Use Message#maybeInaccessiblePinnedMessage instead
-     */
-    @Deprecated
-    public Message pinnedMessage() {
-        if (pinned_message instanceof Message) {
-            return (Message)pinned_message;
-        }
-
-        Message result = new Message();
-        result.setChat(pinned_message.chat());
-        result.setMessageId(pinned_message.messageId());
-        result.setDate(pinned_message.date());
-
-        return result;
     }
 
     public Invoice invoice() {
@@ -532,6 +513,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(invoice, message.invoice) &&
                 Objects.equals(successful_payment, message.successful_payment) &&
                 Objects.equals(story, message.story) &&
+                Objects.equals(user_shared, message.user_shared) &&
                 Objects.equals(users_shared, message.users_shared) &&
                 Objects.equals(chat_shared, message.chat_shared) &&
                 Objects.equals(connected_website, message.connected_website) &&
@@ -612,6 +594,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", invoice=" + invoice +
                 ", successful_payment=" + successful_payment +
                 ", story=" + story +
+                ", user_shared=" + user_shared +
                 ", users_shared=" + users_shared +
                 ", chat_shared=" + chat_shared +
                 ", connected_website='" + connected_website + '\'' +

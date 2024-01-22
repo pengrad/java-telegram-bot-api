@@ -1,6 +1,6 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.model.ReplyParameters;
+import com.pengrad.telegrambot.model.request.ReplyParameters;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.response.SendResponse;
 
