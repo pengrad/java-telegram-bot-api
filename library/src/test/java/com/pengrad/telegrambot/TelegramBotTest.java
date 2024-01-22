@@ -70,13 +70,14 @@ public class TelegramBotTest {
                 .connectTimeout(75, TimeUnit.SECONDS)
                 .writeTimeout(75, TimeUnit.SECONDS)
                 .readTimeout(75, TimeUnit.SECONDS)
-                .addInterceptor(new RetryInterceptor(1000));
+                .addInterceptor(retry);
         if (localBuild) {
             okHttpBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
         }
         return new TelegramBot.Builder(token).okHttpClient(okHttpBuilder.build()).build();
     }
 
+    static RetryInterceptor retry = new RetryInterceptor(1000);
     static TelegramBot bot = createTestBot();
     static Long chatId;
     static Long groupId;
@@ -2352,8 +2353,13 @@ public class TelegramBotTest {
 
     @Test
     public void setMyName() {
+        retry.setEnabled(false);
         BaseResponse response = bot.execute(new SetMyName().name("name").languageCode("en"));
-        assertTrue(response.isOk());
+        if (!response.isOk()) {
+            assertEquals(429, response.errorCode());
+            assertTrue(response.description().startsWith("Too Many Requests: retry after"));
+        }
+        retry.setEnabled(true);
 
         GetMyNameResponse nameResponse = bot.execute(new GetMyName().languageCode("en"));
         assertTrue(nameResponse.isOk());

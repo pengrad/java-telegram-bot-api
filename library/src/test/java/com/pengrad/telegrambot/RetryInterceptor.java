@@ -16,6 +16,7 @@ public class RetryInterceptor implements Interceptor {
 
     private final int defaultSleepMillis;
     private final Gson gson = new Gson();
+    private boolean enabled = true;
 
     public RetryInterceptor() {
         this(1000);
@@ -25,8 +26,13 @@ public class RetryInterceptor implements Interceptor {
         this.defaultSleepMillis = defaultSleepMillis;
     }
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public Response intercept(Chain chain) throws IOException {
+        if (!enabled) return chain.proceed(chain.request());
         Request request = chain.request();
         Exception exception = null;
         int retries = 3;
