@@ -35,6 +35,28 @@ javadoc {
     options.encoding = 'UTF-8'
 }
 
+test {
+    if (project.hasProperty('excludeTests')) {
+        exclude project.property('excludeTests')
+    }
+}
+
+tasks.withType(Test).configureEach {
+    testLogging {
+        events "started", "passed", "skipped", "failed"
+    }
+}
+
+
+tasks.register('prTest', Test) {
+    // TODO move "functional" tests into specific dir and exclude it
+    exclude '**/Base64Test.class'
+    exclude '**/CheckTelegramAuthTest.class'
+    exclude '**/PaymentsTest.class'
+    exclude '**/TelegramBotTest.class'
+    exclude '**/UpdatesListenerTest.class'
+}
+
 task fatJar(type: Jar) {
     baseName = rootProject.name + '-full'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
