@@ -14,27 +14,50 @@ public class LinkPreviewOptions implements Serializable {
     private Boolean prefer_large_media;
     private Boolean show_above_text;
 
-
     public Boolean isDisabled() {
         return is_disabled;
+    }
+
+    public LinkPreviewOptions isDisabled(boolean isDisabled) {
+        this.is_disabled = isDisabled;
+        return this;
     }
 
     public String url() {
         return url;
     }
 
+    public LinkPreviewOptions url(String url) {
+        this.url = url;
+        return this;
+    }
+
     public Boolean preferSmallMedia() {
         return prefer_small_media;
+    }
+
+    public LinkPreviewOptions preferSmallMedia(Boolean preferSmallMedia) {
+        this.prefer_small_media = preferSmallMedia;
+        return this;
     }
 
     public Boolean preferLargeMedia() {
         return prefer_large_media;
     }
 
+    public LinkPreviewOptions preferLargeMedia(Boolean preferLargeMedia) {
+        this.prefer_large_media = preferLargeMedia;
+        return this;
+    }
+
     public Boolean showAboveText() {
         return show_above_text;
     }
 
+    public LinkPreviewOptions showAboveText(Boolean showAboveText) {
+        this.show_above_text = showAboveText;
+        return this;
+    }
 
     @Override
     public boolean equals(Object o) {
