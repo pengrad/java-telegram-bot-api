@@ -98,7 +98,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return sender_chat;
     }
 
-    private MessageOrigin forwardOrigin() {
+    public MessageOrigin forwardOrigin() {
         return forward_origin;
     }
 
