@@ -54,11 +54,13 @@ public class Chat implements Serializable {
     private Message pinned_message;
     private ChatPermissions permissions;
     private Integer slow_mode_delay;
+    private Integer unrestrict_boost_count;
     private Integer message_auto_delete_time;
     private Boolean has_protected_content;
     private Boolean has_visible_history;
     private String sticker_set_name;
     private Boolean can_set_sticker_set;
+    private String custom_emoji_sticker_set_name;
     private Long linked_chat_id;
     private ChatLocation location;
 
@@ -190,6 +192,10 @@ public class Chat implements Serializable {
         return slow_mode_delay;
     }
 
+    public Integer unrestrictBoostCount() {
+        return unrestrict_boost_count;
+    }
+
     public Integer messageAutoDeleteTime() {
         return message_auto_delete_time;
     }
@@ -208,6 +214,10 @@ public class Chat implements Serializable {
 
     public Boolean canSetStickerSet() {
         return can_set_sticker_set != null && can_set_sticker_set;
+    }
+
+    public String customEmojiStickerSetName() {
+        return custom_emoji_sticker_set_name;
     }
 
     public Long linkedChatId() {
@@ -251,11 +261,13 @@ public class Chat implements Serializable {
                 Objects.equals(pinned_message, chat.pinned_message) &&
                 Objects.equals(permissions, chat.permissions) &&
                 Objects.equals(slow_mode_delay, chat.slow_mode_delay) &&
+                Objects.equals(unrestrict_boost_count, chat.unrestrict_boost_count) &&
                 Objects.equals(message_auto_delete_time, chat.message_auto_delete_time) &&
                 Objects.equals(has_protected_content, chat.has_protected_content) &&
                 Objects.equals(has_visible_history, chat.has_visible_history) &&
                 Objects.equals(sticker_set_name, chat.sticker_set_name) &&
                 Objects.equals(can_set_sticker_set, chat.can_set_sticker_set) &&
+                Objects.equals(custom_emoji_sticker_set_name, chat.custom_emoji_sticker_set_name) &&
                 Objects.equals(linked_chat_id, chat.linked_chat_id) &&
                 Objects.equals(location, chat.location);
     }
@@ -296,11 +308,13 @@ public class Chat implements Serializable {
                 ", pinned_message=" + pinned_message +
                 ", permissions=" + permissions +
                 ", slow_mode_delay=" + slow_mode_delay +
+                ", unrestrict_boost_count=" + unrestrict_boost_count +
                 ", message_auto_delete_time=" + message_auto_delete_time +
                 ", has_protected_content=" + has_protected_content +
                 ", has_visible_history=" + has_visible_history +
                 ", sticker_set_name='" + sticker_set_name + '\'' +
                 ", can_set_sticker_set=" + can_set_sticker_set +
+                ", custom_emoji_sticker_set_name=" + custom_emoji_sticker_set_name +
                 ", linked_chat_id=" + linked_chat_id +
                 ", location=" + location +
                 '}';

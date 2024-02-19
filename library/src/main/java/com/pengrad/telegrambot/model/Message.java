@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.chatboost.ChatBoostAdded;
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.*;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
@@ -19,12 +20,14 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private Integer message_thread_id;
     private User from;
     private Chat sender_chat;
+    private Integer sender_boost_count;
     private MessageOrigin forward_origin;
     private Boolean is_topic_message;
     private Boolean is_automatic_forward;
     private Message reply_to_message;
     private ExternalReplyInfo external_reply;
     private TextQuote quote;
+    private Story reply_to_story;
     private User via_bot;
     private Integer edit_date;
     private Boolean has_protected_content;
@@ -71,6 +74,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private String connected_website;
     private PassportData passport_data;
     private ProximityAlertTriggered proximity_alert_triggered;
+    private ChatBoostAdded boost_added;
     private ForumTopicCreated forum_topic_created;
     private ForumTopicEdited forum_topic_edited;
     private ForumTopicClosed forum_topic_closed;
@@ -96,6 +100,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public Chat senderChat() {
         return sender_chat;
+    }
+
+    public Integer senderBoostCount() {
+        return sender_boost_count;
     }
 
     public MessageOrigin forwardOrigin() {
@@ -193,6 +201,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     }
     public TextQuote quote() {
         return quote;
+    }
+
+    public Story replyToStory() {
+        return reply_to_story;
     }
 
     public User viaBot() {
@@ -383,6 +395,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return proximity_alert_triggered;
     }
 
+    public ChatBoostAdded boostAdded() {
+        return boost_added;
+    }
+
     public ForumTopicCreated forumTopicCreated() {
         return forum_topic_created;
     }
@@ -465,6 +481,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(message_thread_id , message.message_thread_id ) &&
                 Objects.equals(from, message.from) &&
                 Objects.equals(sender_chat, message.sender_chat) &&
+                Objects.equals(sender_boost_count, message.sender_boost_count) &&
                 Objects.equals(date, message.date) &&
                 Objects.equals(chat, message.chat) &&
                 Objects.equals(forward_origin, message.forward_origin) &&
@@ -473,6 +490,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(reply_to_message, message.reply_to_message) &&
                 Objects.equals(external_reply, message.external_reply) &&
                 Objects.equals(quote, message.quote) &&
+                Objects.equals(reply_to_story, message.reply_to_story) &&
                 Objects.equals(via_bot, message.via_bot) &&
                 Objects.equals(edit_date, message.edit_date) &&
                 Objects.equals(has_protected_content, message.has_protected_content) &&
@@ -519,6 +537,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(connected_website, message.connected_website) &&
                 Objects.equals(passport_data, message.passport_data) &&
                 Objects.equals(proximity_alert_triggered, message.proximity_alert_triggered) &&
+                Objects.equals(boost_added, message.boost_added) &&
                 Objects.equals(forum_topic_created, message.forum_topic_created) &&
                 Objects.equals(forum_topic_edited, message.forum_topic_edited) &&
                 Objects.equals(forum_topic_closed, message.forum_topic_closed) &&
@@ -546,6 +565,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", message_thread_id=" + message_thread_id +
                 ", from=" + from +
                 ", sender_chat=" + sender_chat +
+                ", sender_boost_count=" + sender_boost_count +
                 ", date=" + date +
                 ", chat=" + chat +
                 ", forward_origin=" + forward_origin +
@@ -554,6 +574,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", reply_to_message=" + reply_to_message +
                 ", external_reply=" + external_reply +
                 ", quote=" + quote +
+                ", reply_to_story=" + reply_to_story +
                 ", via_bot=" + via_bot +
                 ", edit_date=" + edit_date +
                 ", has_protected_content=" + has_protected_content+
@@ -600,6 +621,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", connected_website='" + connected_website + '\'' +
                 ", passport_data=" + passport_data +
                 ", proximity_alert_triggered=" + proximity_alert_triggered +
+                ", boost_added=" + boost_added +
                 ", forum_topic_created=" + forum_topic_created +
                 ", forum_topic_edited=" + forum_topic_edited +
                 ", forum_topic_closed=" + forum_topic_closed +

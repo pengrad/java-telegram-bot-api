@@ -27,6 +27,10 @@ public class ChatPermissions implements Serializable {
     private Boolean can_pin_messages;
     private Boolean can_manage_topics;
 
+    private Boolean can_post_stories;
+    private Boolean can_edit_stories;
+    private Boolean can_delete_stories;
+
     public Boolean canSendMessages() {
         return can_send_messages != null && can_send_messages;
     }
@@ -81,6 +85,18 @@ public class ChatPermissions implements Serializable {
 
     public Boolean canManageTopics() {
         return can_manage_topics != null && can_manage_topics;
+    }
+
+    public Boolean canPostStories() {
+        return can_post_stories != null && can_post_stories;
+    }
+
+    public Boolean canEditStories() {
+        return can_edit_stories != null && can_edit_stories;
+    }
+
+    public Boolean canDeleteStories() {
+        return can_delete_stories != null && can_delete_stories;
     }
 
     public ChatPermissions canSendMessages(boolean canSendMessages) {
@@ -153,6 +169,21 @@ public class ChatPermissions implements Serializable {
         return this;
     }
 
+    public ChatPermissions canPostStories(Boolean canPostStories) {
+        this.can_post_stories = canPostStories;
+        return this;
+    }
+
+    public ChatPermissions canEditStories(Boolean canEditStories) {
+        this.can_edit_stories = canEditStories;
+        return this;
+    }
+
+    public ChatPermissions canDeleteStories(Boolean canDeleteStories) {
+        this.can_delete_stories = canDeleteStories;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -173,7 +204,10 @@ public class ChatPermissions implements Serializable {
                 Objects.equals(can_change_info, that.can_change_info) &&
                 Objects.equals(can_invite_users, that.can_invite_users) &&
                 Objects.equals(can_pin_messages, that.can_pin_messages) &&
-                Objects.equals(can_manage_topics, that.can_manage_topics);
+                Objects.equals(can_manage_topics, that.can_manage_topics) &&
+                Objects.equals(can_post_stories, that.can_post_stories) &&
+                Objects.equals(can_edit_stories, that.can_edit_stories) &&
+                Objects.equals(can_delete_stories, that.can_delete_stories);
     }
 
     @Override
@@ -191,7 +225,10 @@ public class ChatPermissions implements Serializable {
                 can_change_info,
                 can_invite_users,
                 can_pin_messages,
-                can_manage_topics);
+                can_manage_topics,
+                can_post_stories,
+                can_edit_stories,
+                can_delete_stories);
     }
 
     @Override
@@ -211,6 +248,9 @@ public class ChatPermissions implements Serializable {
                 ", can_invite_users=" + can_invite_users +
                 ", can_pin_messages=" + can_pin_messages +
                 ", can_manage_topics=" + can_manage_topics +
+                ", can_post_stories=" + can_post_stories +
+                ", can_edit_stories=" + can_edit_stories +
+                ", can_delete_stories=" + can_delete_stories +
                 '}';
     }
 }
