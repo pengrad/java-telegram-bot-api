@@ -526,9 +526,9 @@ public class TelegramBotTest {
                 assertTrue(chatMember.canManageChat());
                 assertTrue(chatMember.canManageChat());
                 assertTrue(chatMember.canManageChat());
-                assertFalse(chatMember.canPostStories());
-                assertFalse(chatMember.canEditStories());
-                assertFalse(chatMember.canDeleteStories());
+                assertTrue(chatMember.canPostStories());
+                assertTrue(chatMember.canEditStories());
+                assertTrue(chatMember.canDeleteStories());
             }
         }
     }
