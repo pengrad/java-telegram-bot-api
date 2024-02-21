@@ -1,5 +1,23 @@
+plugins {
+    id "io.github.gradle-nexus.publish-plugin" version "1.3.0"
+    id "maven-publish"
+    id "signing"
+}
+
+group = GROUP
+version = VERSION_NAME
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            username = project.findProperty("SONATYPE_NEXUS_USERNAME")
+            password = project.findProperty("SONATYPE_NEXUS_PASSWORD")
+        }
+    }
+}
+
 subprojects {
     repositories {
-        jcenter()
+        mavenCentral()
     }
 }

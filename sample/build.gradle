@@ -8,13 +8,12 @@ compileJava {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    compile project(':library')
-
-    compile 'com.sparkjava:spark-core:2.2'
-    compile 'org.jsoup:jsoup:1.8.3'
-    compile 'io.reactivex:rxjava:1.0.16'
+    implementation project(':library')
+    implementation 'com.sparkjava:spark-core:2.2'
+    implementation 'org.jsoup:jsoup:1.8.3'
+    implementation 'io.reactivex:rxjava:1.0.16'
 }

@@ -1,0 +1,56 @@
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+
+            pom {
+                groupId = GROUP
+                artifactId = POM_ARTIFACT_ID
+                version = VERSION_NAME
+
+                name = POM_NAME
+                description = POM_DESCRIPTION
+                url = POM_URL
+                licenses {
+                    license {
+                        name = POM_LICENCE_NAME
+                        url = POM_LICENCE_URL
+                        distribution = POM_LICENCE_DIST
+                    }
+                }
+                developers {
+                    developer {
+                        id = POM_DEVELOPER_ID
+                        name = POM_DEVELOPER_NAME
+                    }
+                }
+                scm {
+                    url = POM_SCM_URL
+                    connection = POM_SCM_CONNECTION
+                    developerConnection = POM_SCM_DEV_CONNECTION
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url = layout.buildDirectory.dir('staging-deploy')
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.maven
+}
+
+def generateMavenPom = tasks.register("generateMavenPom", GenerateMavenPom) {
+    destination = file("../pom.xml")
+    pom = publishing.publications.maven.pom
+}
+
+tasks.compileJava.dependsOn generateMavenPom

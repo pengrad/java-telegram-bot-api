@@ -1,17 +1,19 @@
-apply plugin: 'java'
+plugins {
+    id "java-library"
+}
 apply plugin: 'jacoco'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile 'com.google.code.gson:gson:2.10.1'
-    compile 'com.squareup.okhttp3:okhttp:4.12.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+    api 'com.google.code.gson:gson:2.10.1'
+    api 'com.squareup.okhttp3:okhttp:4.12.0'
+    api 'com.squareup.okhttp3:logging-interceptor:4.12.0'
 
-    testCompile 'junit:junit:4.13.1'
-    testCompile 'nl.jqno.equalsverifier:equalsverifier:3.1.13'
-    testCompile 'org.reflections:reflections:0.9.12'
+    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.1.13'
+    testImplementation 'org.reflections:reflections:0.9.12'
 }
 
 jar {
@@ -47,7 +49,6 @@ tasks.withType(Test).configureEach {
     }
 }
 
-
 tasks.register('prTest', Test) {
     // TODO move "functional" tests into specific dir and exclude it
     exclude '**/Base64Test.class'
@@ -57,10 +58,4 @@ tasks.register('prTest', Test) {
     exclude '**/UpdatesListenerTest.class'
 }
 
-task fatJar(type: Jar) {
-    baseName = rootProject.name + '-full'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+apply from: rootProject.file('gradle/gradle-publish-plugin.gradle')
