@@ -27,7 +27,7 @@ public class CallbackQuery implements Serializable {
         return from;
     }
 
-    private MaybeInaccessibleMessage maybeInaccessibleMessage() {
+    public MaybeInaccessibleMessage maybeInaccessibleMessage() {
         return message;
     }
 
