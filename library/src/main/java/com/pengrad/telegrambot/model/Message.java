@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.business.BusinessConnection;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostAdded;
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.*;
@@ -21,6 +22,8 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private User from;
     private Chat sender_chat;
     private Integer sender_boost_count;
+    private User sender_business_bot;
+    private BusinessConnection business_connection;
     private MessageOrigin forward_origin;
     private Boolean is_topic_message;
     private Boolean is_automatic_forward;
@@ -104,6 +107,14 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public Integer senderBoostCount() {
         return sender_boost_count;
+    }
+
+    public User senderBusinessBot() {
+        return sender_business_bot;
+    }
+
+    public BusinessConnection businessConnection() {
+        return business_connection;
     }
 
     public MessageOrigin forwardOrigin() {
@@ -483,6 +494,8 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(sender_chat, message.sender_chat) &&
                 Objects.equals(sender_boost_count, message.sender_boost_count) &&
                 Objects.equals(date, message.date) &&
+                Objects.equals(sender_business_bot, message.sender_business_bot) &&
+                Objects.equals(business_connection, message.business_connection) &&
                 Objects.equals(chat, message.chat) &&
                 Objects.equals(forward_origin, message.forward_origin) &&
                 Objects.equals(is_topic_message, message.is_topic_message) &&
@@ -567,6 +580,8 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", sender_chat=" + sender_chat +
                 ", sender_boost_count=" + sender_boost_count +
                 ", date=" + date +
+                ", sender_business_bot=" + sender_business_bot +
+                ", business_connection=" + business_connection +
                 ", chat=" + chat +
                 ", forward_origin=" + forward_origin +
                 ", is_topic_message=" + is_topic_message +

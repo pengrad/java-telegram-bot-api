@@ -31,6 +31,10 @@ public class SendMediaGroup extends BaseRequest<SendMediaGroup, MessagesResponse
         }
     }
 
+    public SendMediaGroup businessConnectionId(String businessConnectionId) {
+        return add("business_connection_id", businessConnectionId);
+    }
+
     public SendMediaGroup messageThreadId(Integer messageThreadId) {
         return add("message_thread_id", messageThreadId);
     }
