@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.business.BusinessConnection;
+import com.pengrad.telegrambot.model.business.BusinessMessageDeleted;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostRemoved;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostUpdated;
 
@@ -18,6 +20,10 @@ public class Update implements Serializable {
     private Message edited_message;
     private Message channel_post;
     private Message edited_channel_post;
+    private BusinessConnection business_connection;
+    private Message business_message;
+    private Message edited_business_message;
+    private BusinessMessageDeleted deleted_business_messages;
     private InlineQuery inline_query;
     private ChosenInlineResult chosen_inline_result;
     private CallbackQuery callback_query;
@@ -51,6 +57,22 @@ public class Update implements Serializable {
 
     public Message editedChannelPost() {
         return edited_channel_post;
+    }
+
+    public BusinessConnection businessConnection() {
+        return business_connection;
+    }
+
+    public Message businessMessage() {
+        return business_message;
+    }
+
+    public Message editedBusinessMessage() {
+        return edited_business_message;
+    }
+
+    public BusinessMessageDeleted deletedBusinessMessages() {
+        return deleted_business_messages;
     }
 
     public InlineQuery inlineQuery() {
@@ -119,6 +141,10 @@ public class Update implements Serializable {
                 Objects.equals(edited_message, update.edited_message) &&
                 Objects.equals(channel_post, update.channel_post) &&
                 Objects.equals(edited_channel_post, update.edited_channel_post) &&
+                Objects.equals(business_connection, update.business_connection) &&
+                Objects.equals(business_message, update.business_message) &&
+                Objects.equals(edited_business_message, update.edited_business_message) &&
+                Objects.equals(deleted_business_messages, update.deleted_business_messages) &&
                 Objects.equals(inline_query, update.inline_query) &&
                 Objects.equals(chosen_inline_result, update.chosen_inline_result) &&
                 Objects.equals(callback_query, update.callback_query) &&
@@ -148,6 +174,10 @@ public class Update implements Serializable {
                 ", edited_message=" + edited_message +
                 ", channel_post=" + channel_post +
                 ", edited_channel_post=" + edited_channel_post +
+                ", business_connection=" + business_connection +
+                ", business_message=" + business_message +
+                ", edited_business_message=" + edited_business_message +
+                ", deleted_business_messages=" + deleted_business_messages +
                 ", inline_query=" + inline_query +
                 ", chosen_inline_result=" + chosen_inline_result +
                 ", callback_query=" + callback_query +
