@@ -1,6 +1,9 @@
 package com.pengrad.telegrambot.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.pengrad.telegrambot.model.business.BusinessIntro;
+import com.pengrad.telegrambot.model.business.BusinessLocation;
+import com.pengrad.telegrambot.model.business.BusinessOpeningHours;
 import com.pengrad.telegrambot.model.reaction.ReactionType;
 
 
@@ -35,6 +38,11 @@ public class Chat implements Serializable {
     private Boolean is_forum;
     private ChatPhoto photo;
     private String[] active_usernames;
+    private Birthdate birthdate;
+    private BusinessIntro business_intro;
+    private BusinessLocation business_location;
+    private BusinessOpeningHours business_opening_hours;
+    private Chat personal_chat;
     private ReactionType[] available_reactions;
     private Integer accent_color_id;
     private String background_custom_emoji_id;
@@ -108,7 +116,26 @@ public class Chat implements Serializable {
         return active_usernames;
     }
 
-    @Deprecated
+    public Birthdate birthdate() {
+        return birthdate;
+    }
+
+    public BusinessIntro businessIntro() {
+        return business_intro;
+    }
+
+    public BusinessLocation businessLocation() {
+        return business_location;
+    }
+
+    public BusinessOpeningHours businessOpeningHours() {
+        return business_opening_hours;
+    }
+
+    public Chat personalChat() {
+        return personal_chat;
+    }
+
     public ReactionType[] availableReactions() {
         return available_reactions;
     }
@@ -132,6 +159,7 @@ public class Chat implements Serializable {
     /**
      * @deprecated Use emojiStatusCustomEmojiId() instead
      */
+    @Deprecated
     public String getEmojiStatusCustomEmojiId() {
         return emoji_status_custom_emoji_id;
     }
@@ -242,6 +270,11 @@ public class Chat implements Serializable {
                 Objects.equals(title, chat.title) &&
                 Objects.equals(photo, chat.photo) &&
                 Arrays.equals(active_usernames, chat.active_usernames) &&
+                Objects.equals(birthdate, chat.birthdate) &&
+                Objects.equals(business_intro, chat.business_intro) &&
+                Objects.equals(business_location, chat.business_location) &&
+                Objects.equals(business_opening_hours, chat.business_opening_hours) &&
+                Objects.equals(personal_chat, chat.personal_chat) &&
                 Arrays.equals(available_reactions, chat.available_reactions) &&
                 Objects.equals(accent_color_id, chat.accent_color_id) &&
                 Objects.equals(background_custom_emoji_id, chat.background_custom_emoji_id) &&
@@ -289,6 +322,11 @@ public class Chat implements Serializable {
                 ", title='" + title + '\'' +
                 ", photo=" + photo +
                 ", active_usernames=" + Arrays.toString(active_usernames) +
+                ", birthdate=" + birthdate +
+                ", business_intro=" + business_intro +
+                ", business_location=" + business_location +
+                ", business_opening_hours=" + business_opening_hours +
+                ", personal_chat=" + personal_chat +
                 ", available_reactions=" + Arrays.toString(available_reactions) +
                 ", accent_color_id=" + accent_color_id +
                 ", background_custom_emoji_id='" + background_custom_emoji_id + '\'' +
