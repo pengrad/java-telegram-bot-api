@@ -57,6 +57,23 @@ public class CreateNewStickerSet extends BaseRequest<CreateNewStickerSet, BaseRe
         add("emojis", emojis);
     }
 
+    public CreateNewStickerSet(Long userId, String name, String title, InputSticker[] stickers) {
+        super(BaseResponse.class);
+        add("user_id", userId);
+        add("name", name);
+        add("title", title);
+        add("stickers", stickers);
+        for (InputSticker sticker : stickers) {
+            if (sticker.getAttachment() != null) {
+                add(sticker.getAttachName(), sticker.getAttachment());
+            }
+        }
+    }
+
+    /**
+     * @deprecated StickerSets can contain both animated and non-animated stickers since Bot API 7.2 so Sticker Format argument was removed
+     */
+    @Deprecated
     public CreateNewStickerSet(Long userId, String name, String title, InputSticker[] stickers, Format stickerFormat) {
         super(BaseResponse.class);
         add("user_id", userId);

@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.business.BusinessConnection;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostAdded;
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.*;
@@ -21,6 +22,8 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private User from;
     private Chat sender_chat;
     private Integer sender_boost_count;
+    private User sender_business_bot;
+    private BusinessConnection business_connection;
     private MessageOrigin forward_origin;
     private Boolean is_topic_message;
     private Boolean is_automatic_forward;
@@ -31,6 +34,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private User via_bot;
     private Integer edit_date;
     private Boolean has_protected_content;
+    private Boolean is_from_offline;
     private Boolean has_media_spoiler;
     private String media_group_id;
     private String author_signature;
@@ -104,6 +108,14 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public Integer senderBoostCount() {
         return sender_boost_count;
+    }
+
+    public User senderBusinessBot() {
+        return sender_business_bot;
+    }
+
+    public BusinessConnection businessConnection() {
+        return business_connection;
     }
 
     public MessageOrigin forwardOrigin() {
@@ -216,11 +228,15 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     }
 
     public Boolean hasProtectedContent() {
-        return has_protected_content;
+        return has_protected_content != null && has_protected_content;
+    }
+
+    public Boolean isFromOffline() {
+        return is_from_offline != null && is_from_offline;
     }
 
     public Boolean hasMediaSpoiler() {
-        return has_media_spoiler;
+        return has_media_spoiler != null && has_media_spoiler;
     }
 
 
@@ -483,6 +499,8 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(sender_chat, message.sender_chat) &&
                 Objects.equals(sender_boost_count, message.sender_boost_count) &&
                 Objects.equals(date, message.date) &&
+                Objects.equals(sender_business_bot, message.sender_business_bot) &&
+                Objects.equals(business_connection, message.business_connection) &&
                 Objects.equals(chat, message.chat) &&
                 Objects.equals(forward_origin, message.forward_origin) &&
                 Objects.equals(is_topic_message, message.is_topic_message) &&
@@ -494,6 +512,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(via_bot, message.via_bot) &&
                 Objects.equals(edit_date, message.edit_date) &&
                 Objects.equals(has_protected_content, message.has_protected_content) &&
+                Objects.equals(is_from_offline, message.is_from_offline) &&
                 Objects.equals(has_media_spoiler, message.has_media_spoiler) &&
                 Objects.equals(media_group_id, message.media_group_id) &&
                 Objects.equals(author_signature, message.author_signature) &&
@@ -567,6 +586,8 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", sender_chat=" + sender_chat +
                 ", sender_boost_count=" + sender_boost_count +
                 ", date=" + date +
+                ", sender_business_bot=" + sender_business_bot +
+                ", business_connection=" + business_connection +
                 ", chat=" + chat +
                 ", forward_origin=" + forward_origin +
                 ", is_topic_message=" + is_topic_message +
@@ -578,6 +599,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", via_bot=" + via_bot +
                 ", edit_date=" + edit_date +
                 ", has_protected_content=" + has_protected_content+
+                ", is_from_offline=" + is_from_offline +
                 ", has_media_spoiler=" + has_media_spoiler+
                 ", media_group_id='" + media_group_id + '\'' +
                 ", author_signature='" + author_signature + '\'' +

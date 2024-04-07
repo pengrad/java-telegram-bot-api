@@ -23,4 +23,8 @@ public class SendChatAction extends BaseRequest<SendChatAction, BaseResponse> {
         add("message_thread_id", message_thread_id);
         return this;
     }
+
+    public SendChatAction businessConnectionId(String businessConnectionId) {
+        return add("business_connection_id", businessConnectionId);
+    }
 }

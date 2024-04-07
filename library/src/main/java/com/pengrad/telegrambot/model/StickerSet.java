@@ -35,6 +35,10 @@ public class StickerSet implements Serializable {
         return sticker_type;
     }
 
+    /**
+     * @deprecated StickerSets can contain both animated and non-animated stickers since Bot API 7.2
+     */
+    @Deprecated
     public Boolean isAnimated() {
         return is_animated;
     }
@@ -63,6 +67,10 @@ public class StickerSet implements Serializable {
         return thumbnail();
     }
 
+    /**
+     * @deprecated StickerSets can contain both animated and non-animated stickers since Bot API 7.2
+     */
+    @Deprecated
     public Boolean isVideo() {
         return is_video;
     }
