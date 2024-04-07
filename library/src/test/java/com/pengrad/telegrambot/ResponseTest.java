@@ -9,6 +9,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
@@ -31,9 +33,10 @@ public class ResponseTest {
     @Test
     public void testToString() throws IllegalAccessException, InstantiationException, InvocationTargetException {
         for (Class<? extends BaseResponse> c : classes) {
-            Constructor<?> constructor = c.getDeclaredConstructors()[0];
-            constructor.setAccessible(true);
-            String toString = constructor.newInstance().toString();
+            Optional<Constructor<?>> constructor = Arrays.stream(c.getDeclaredConstructors()).filter(dc -> dc.getParameterCount() == 0).findFirst();
+            assertTrue("No default constructor in " + c.getSimpleName(), constructor.isPresent());
+            constructor.get().setAccessible(true);
+            String toString = constructor.get().newInstance().toString();
             for (Field f : c.getDeclaredFields()) {
                 if (Modifier.isStatic(f.getModifiers())) {
                     continue;
