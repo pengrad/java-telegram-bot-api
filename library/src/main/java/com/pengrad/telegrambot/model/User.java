@@ -81,20 +81,9 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id)
-            && Objects.equals(is_bot, user.is_bot)
-            && Objects.equals(first_name, user.first_name)
-            && Objects.equals(last_name, user.last_name)
-            && Objects.equals(username, user.username)
-            && Objects.equals(language_code, user.language_code)
-            && Objects.equals(is_premium, user.is_premium)
-            && Objects.equals(added_to_attachment_menu, user.added_to_attachment_menu)
-            && Objects.equals(can_join_groups, user.can_join_groups)
-            && Objects.equals(can_read_all_group_messages, user.can_read_all_group_messages)
-            && Objects.equals(supports_inline_queries, user.supports_inline_queries)
-            && Objects.equals(can_connect_to_business, user.can_connect_to_business);
+        return Objects.equals(id, user.id) && Objects.equals(is_bot, user.is_bot) && Objects.equals(first_name, user.first_name) && Objects.equals(last_name, user.last_name) && Objects.equals(username, user.username) && Objects.equals(language_code, user.language_code) && Objects.equals(is_premium, user.is_premium) && Objects.equals(added_to_attachment_menu, user.added_to_attachment_menu) && Objects.equals(can_join_groups, user.can_join_groups) && Objects.equals(can_read_all_group_messages, user.can_read_all_group_messages) && Objects.equals(supports_inline_queries, user.supports_inline_queries) && Objects.equals(can_connect_to_business, user.can_connect_to_business);
     }
 
     @Override

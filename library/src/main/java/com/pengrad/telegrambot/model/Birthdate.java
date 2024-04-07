@@ -26,11 +26,9 @@ public class Birthdate implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Birthdate)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Birthdate birthdate = (Birthdate) o;
-        return Objects.equals(day, birthdate.day)
-            && Objects.equals(month, birthdate.month)
-            && Objects.equals(year, birthdate.year);
+        return Objects.equals(day, birthdate.day) && Objects.equals(month, birthdate.month) && Objects.equals(year, birthdate.year);
     }
 
     @Override
@@ -41,9 +39,9 @@ public class Birthdate implements Serializable {
     @Override
     public String toString() {
         return "Birthday{" +
-            "day=" + day +
-            ", month=" + month +
-            ", year=" + year +
-            '}';
+                "day=" + day +
+                ", month=" + month +
+                ", year=" + year +
+                '}';
     }
 }

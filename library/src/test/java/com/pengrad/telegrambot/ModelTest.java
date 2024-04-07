@@ -72,12 +72,18 @@ public class ModelTest {
         f.setAccessible(true);
         f.set(update, 1);
 
+        Chat chat = new Chat();
+        f = Chat.class.getDeclaredField("id");
+        f.setAccessible(true);
+        f.set(chat, 1L);
+
         for (Class<?> c : classes) {
             EqualsVerifierApi<?> verifierApi = EqualsVerifier.forClass(c)
                     .usingGetClass()
                     .withPrefabValues(Update.class, Update.class.getDeclaredConstructor().newInstance(), update)
                     .withPrefabValues(Message.class, Message.class.getDeclaredConstructor().newInstance(), message)
                     .withPrefabValues(CallbackQuery.class, CallbackQuery.class.getDeclaredConstructor().newInstance(), callbackQuery)
+                    .withPrefabValues(Chat.class, new Chat(), chat)
                     .suppress(Warning.STRICT_HASHCODE)
                     .suppress(Warning.NONFINAL_FIELDS);
 

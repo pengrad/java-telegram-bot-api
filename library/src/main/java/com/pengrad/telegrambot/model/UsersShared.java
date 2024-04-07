@@ -32,11 +32,9 @@ public class UsersShared implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UsersShared)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         UsersShared that = (UsersShared) o;
-        return Objects.equals(request_id, that.request_id)
-            && Arrays.equals(user_ids, that.user_ids)
-            && Arrays.equals(users, that.users);
+        return Objects.equals(request_id, that.request_id) && Arrays.equals(user_ids, that.user_ids) && Arrays.equals(users, that.users);
     }
 
     @Override
@@ -50,9 +48,9 @@ public class UsersShared implements Serializable {
     @Override
     public String toString() {
         return "UsersShared{" +
-            "request_id=" + request_id +
-            ", user_ids=" + Arrays.toString(user_ids) +
-            ", users=" + Arrays.toString(users) +
-            '}';
+                "request_id=" + request_id +
+                ", user_ids=" + Arrays.toString(user_ids) +
+                ", users=" + Arrays.toString(users) +
+                '}';
     }
 }
