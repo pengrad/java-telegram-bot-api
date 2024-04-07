@@ -16,8 +16,6 @@ public class StickerSet implements Serializable {
     private String name;
     private String title;
     private Type sticker_type;
-    private Boolean is_animated;
-    private Boolean is_video;
     private Boolean contains_masks;
     private Sticker[] stickers;
     private PhotoSize thumbnail;
@@ -40,7 +38,7 @@ public class StickerSet implements Serializable {
      */
     @Deprecated
     public Boolean isAnimated() {
-        return is_animated;
+        return false;
     }
 
     /**
@@ -72,7 +70,7 @@ public class StickerSet implements Serializable {
      */
     @Deprecated
     public Boolean isVideo() {
-        return is_video;
+        return false;
     }
 
     @Override
@@ -80,19 +78,12 @@ public class StickerSet implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StickerSet that = (StickerSet) o;
-        return Objects.equals(name, that.name) &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(sticker_type, that.sticker_type) &&
-                Objects.equals(is_animated, that.is_animated) &&
-                Objects.equals(is_video, that.is_video) &&
-                Objects.equals(contains_masks, that.contains_masks) &&
-                Arrays.equals(stickers, that.stickers) &&
-                Objects.equals(thumbnail, that.thumbnail);
+        return Objects.equals(name, that.name) && Objects.equals(title, that.title) && sticker_type == that.sticker_type && Objects.equals(contains_masks, that.contains_masks) && Arrays.equals(stickers, that.stickers) && Objects.equals(thumbnail, that.thumbnail);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(name, title, sticker_type, is_animated, is_video, thumbnail);
+        int result = Objects.hash(name, title, sticker_type, contains_masks, thumbnail);
         result = 31 * result + Arrays.hashCode(stickers);
         return result;
     }
@@ -102,9 +93,7 @@ public class StickerSet implements Serializable {
         return "StickerSet{" +
                 "name='" + name + '\'' +
                 ", title='" + title + '\'' +
-                ", sticker_type='" + sticker_type + '\'' +
-                ", is_animated=" + is_animated +
-                ", is_video=" + is_video +
+                ", sticker_type=" + sticker_type +
                 ", contains_masks=" + contains_masks +
                 ", stickers=" + Arrays.toString(stickers) +
                 ", thumbnail=" + thumbnail +

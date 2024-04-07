@@ -10,15 +10,6 @@ import com.pengrad.telegrambot.response.GetFileResponse;
 public class UploadStickerFile extends AbstractUploadRequest<UploadStickerFile, GetFileResponse> {
 
     /**
-     * @deprecated Use constructor with the InputFile type (since API v6.6)
-     */
-    @Deprecated
-    public UploadStickerFile(Long userId, Object pngSticker) {
-        super(GetFileResponse.class, "png_sticker", pngSticker);
-        add("user_id", userId);
-    }
-
-    /**
      * @param stickerFormat must be one of “static”, “animated”, “video”.
      */
     public UploadStickerFile(Long userId, Object sticker, Format stickerFormat) {

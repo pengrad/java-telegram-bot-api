@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.model.request;
 
-import com.google.gson.annotations.SerializedName;
 import com.pengrad.telegrambot.AttachName;
 import com.pengrad.telegrambot.model.MaskPosition;
 import com.pengrad.telegrambot.model.Sticker;
@@ -21,7 +20,8 @@ public class InputSticker implements Serializable {
     transient private String attachName;
     transient private Object attach;
 
-    public InputSticker(Object sticker, String[] emojiList) {
+    public InputSticker(Object sticker, Sticker.Format format, String[] emojiList) {
+        this.format = format;
         this.emoji_list = emojiList;
         if (sticker instanceof String) {
             this.sticker = (String) sticker;

@@ -12,51 +12,6 @@ import com.pengrad.telegrambot.response.BaseResponse;
  */
 public class CreateNewStickerSet extends BaseRequest<CreateNewStickerSet, BaseResponse> {
 
-    /**
-     * @deprecated Use constructor with the InputSticker type (since API v6.6)
-     */
-    @Deprecated
-    public static CreateNewStickerSet tgsSticker(Long userId, String name, String title, String emojis, Object tgsSticker) {
-        return new CreateNewStickerSet(userId, name, title, emojis, "tgs_sticker", tgsSticker);
-    }
-
-    /**
-     * @deprecated Use constructor with the InputSticker type (since API v6.6)
-     */
-    @Deprecated
-    public static CreateNewStickerSet pngSticker(Long userId, String name, String title, String emojis, Object pngSticker) {
-        return new CreateNewStickerSet(userId, name, title, emojis, "png_sticker", pngSticker);
-    }
-
-    /**
-     * @deprecated Use constructor with the InputSticker type (since API v6.6)
-     */
-    @Deprecated
-    public static CreateNewStickerSet webmSticker(Long userId, String name, String title, String emojis, Object webmSticker) {
-        return new CreateNewStickerSet(userId, name, title, emojis, "webm_sticker", webmSticker);
-    }
-
-    /**
-     * @deprecated Use static methods according to sticker set type - {@link #pngSticker(Long, String, String, String, Object) for png}, {@link #tgsSticker(Long, String, String, String, Object) for tgs} and {@link #webmSticker(Long, String, String, String, Object) for webm}
-     */
-    @Deprecated
-    public CreateNewStickerSet(Long userId, String name, String title, Object pngSticker, String emojis) {
-        this(userId, name, title, emojis, "png_sticker", pngSticker);
-    }
-
-    /**
-     * @deprecated Use constructor with the InputSticker type (since API v6.6)
-     */
-    @Deprecated
-    private CreateNewStickerSet(Long userId, String name, String title, String emojis, String stickerParam, Object sticker) {
-        super(BaseResponse.class);
-        add(stickerParam, sticker);
-        add("user_id", userId);
-        add("name", name);
-        add("title", title);
-        add("emojis", emojis);
-    }
-
     public CreateNewStickerSet(Long userId, String name, String title, InputSticker[] stickers) {
         super(BaseResponse.class);
         add("user_id", userId);
@@ -75,38 +30,12 @@ public class CreateNewStickerSet extends BaseRequest<CreateNewStickerSet, BaseRe
      */
     @Deprecated
     public CreateNewStickerSet(Long userId, String name, String title, InputSticker[] stickers, Format stickerFormat) {
-        super(BaseResponse.class);
-        add("user_id", userId);
-        add("name", name);
-        add("title", title);
-        add("stickers", stickers);
-        add("sticker_format", stickerFormat.name().toLowerCase());
-        for (InputSticker sticker : stickers) {
-            if (sticker.getAttachment() != null) {
-                add(sticker.getAttachName(), sticker.getAttachment());
-            }
-        }
+        this(userId, name, title, stickers);
     }
 
     @Override
     public boolean isMultipart() {
         return true;
-    }
-
-    /**
-     * @deprecated Use stickerType(Type.mask) instead
-     */
-    @Deprecated
-    public CreateNewStickerSet containsMasks(boolean containsMasks) {
-        return add("contains_masks", containsMasks);
-    }
-
-    /**
-     * @deprecated Invalid when the new constructor with InputSticker type is used (since API v6.6)
-     */
-    @Deprecated
-    public CreateNewStickerSet maskPosition(MaskPosition maskPosition) {
-        return add("mask_position", maskPosition);
     }
 
 

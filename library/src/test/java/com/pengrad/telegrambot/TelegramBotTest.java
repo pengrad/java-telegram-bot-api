@@ -1374,7 +1374,7 @@ public class TelegramBotTest {
     @Test
     public void uploadStickerFile() throws IOException {
         byte[] bytes = Files.readAllBytes(stickerFile.toPath());
-        GetFileResponse response = bot.execute(new UploadStickerFile(chatId, bytes));
+        GetFileResponse response = bot.execute(new UploadStickerFile(chatId, bytes, Sticker.Format.Static));
         FileTest.check(response.file(), false);
 
         response = bot.execute(new UploadStickerFile(chatId, bytes, Sticker.Format.Static));
@@ -1382,52 +1382,48 @@ public class TelegramBotTest {
     }
 
     @Test
-    public void createNewPngStickerSet() {
+    public void createNewPngStickerSetAndAddSticker() {
         String name = "test" + System.currentTimeMillis() + "_by_pengrad_test_bot";
+        String[] emojis = new String[]{"\uD83D\uDE00"};
+        InputSticker[] stickers = new InputSticker[]{new InputSticker(stickerFile, Sticker.Format.Static, emojis)};
         BaseResponse response = bot.execute(
-                CreateNewStickerSet.pngSticker(chatId, name, "test1", "\uD83D\uDE00", stickerFile)
-                        .stickerType(Sticker.Type.mask)
-                        .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f)));
+                new CreateNewStickerSet(chatId, name, "test1", stickers)
+                        .stickerType(Sticker.Type.mask));
         assertTrue(response.isOk());
 
         response = bot.execute(new AddStickerToSet(chatId, name,
-                new InputSticker(stickerId, new String[]{"\uD83D\uDE00"}))
-                .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f)));
+                new InputSticker(stickerId, Sticker.Format.Static, emojis)
+                        .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f))));
         assertTrue(response.isOk());
     }
 
     @Test
     public void createNewWebmStickerSetAndAddSticker() {
         String setName = "test" + System.currentTimeMillis() + "_by_pengrad_test_bot";
+        String[] emojis = new String[]{"\uD83D\uDE00"};
+        InputSticker[] stickers = new InputSticker[]{new InputSticker(stickerFileVid, Sticker.Format.video, emojis)};
         BaseResponse response = bot.execute(
-                CreateNewStickerSet.webmSticker(chatId, setName,
-                                "test1", "\uD83D\uDE00", stickerFileVid)
-                        .stickerType(Sticker.Type.mask)
-                        .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 0f, 0f, 1f)));
-        assertTrue(response.isOk());
-
-        response = bot.execute(
-                AddStickerToSet.webmSticker(chatId, setName, "\uD83D\uDE15", stickerFileVid));
+                new CreateNewStickerSet(chatId, setName, "test1", stickers)
+                        .stickerType(Sticker.Type.regular)
+        );
         assertTrue(response.isOk());
     }
 
     @Test
     public void addStickerToSet() {
         BaseResponse response = bot.execute(
-                AddStickerToSet.pngSticker(chatId, stickerSet, "\uD83D\uDE15", "BQADAgADuAAD7yupS4eB23UmZhGuAg")
-                        .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f)));
+                new AddStickerToSet(chatId, stickerSet,
+                        new InputSticker("BQADAgADuAAD7yupS4eB23UmZhGuAg", Sticker.Format.Static, new String[]{"\uD83D\uDE15"})
+                                .maskPosition(new MaskPosition("eyes", 0f, 0f, 1f))));
         assertTrue(response.isOk());
     }
 
     @Test
     public void createSetAndAddStickerTgs() {
         String setName = "test" + System.currentTimeMillis() + "_by_pengrad_test_bot";
+        InputSticker[] stickers = new InputSticker[]{new InputSticker(stickerFileAnim, Sticker.Format.animated, new String[]{"\uD83D\uDE00"})};
         BaseResponse response = bot.execute(
-                CreateNewStickerSet.tgsSticker(chatId, setName, "test1", "\uD83D\uDE00", stickerFileAnim));
-        assertTrue(response.isOk());
-
-        response = bot.execute(
-                AddStickerToSet.tgsSticker(chatId, setName, "\uD83D\uDE15", stickerFileAnim));
+                new CreateNewStickerSet(chatId, setName, "test1", stickers));
         assertTrue(response.isOk());
     }
 
@@ -1437,11 +1433,10 @@ public class TelegramBotTest {
         String title = "test112312312";
         BaseResponse response = bot.execute(
                 new CreateNewStickerSet(chatId, setName, title, new InputSticker[]{
-                        new InputSticker(stickerFile, new String[]{"\uD83D\uDE00"})
+                        new InputSticker(stickerFile, Sticker.Format.Static, new String[]{"\uD83D\uDE00"})
                                 .keywords(new String[]{"yes", "no"})
                                 .maskPosition(new MaskPosition(MaskPosition.Point.forehead, 10f, 20f, 1f))
                 }, Sticker.Format.Static)
-                        .containsMasks(false)
                         .needsRepainting(false));
         assertTrue(response.isOk());
 
@@ -1487,7 +1482,8 @@ public class TelegramBotTest {
 
     @Test
     public void deleteStickerFromSet() {
-        BaseResponse response = bot.execute(AddStickerToSet.pngSticker(chatId, stickerSet, "\uD83D\uDE15", stickerFile));
+        InputSticker inputSticker = new InputSticker("BQADAgADuAAD7yupS4eB23UmZhGuAg", Sticker.Format.Static, new String[]{"\uD83D\uDE15"});
+        BaseResponse response = bot.execute(new AddStickerToSet(chatId, stickerSet, inputSticker));
         assertTrue(response.isOk());
 
         GetStickerSetResponse setResponse = bot.execute(new GetStickerSet(stickerSet));
@@ -1511,7 +1507,7 @@ public class TelegramBotTest {
         assertTrue(response.isOk());
 
         StickerSet set = bot.execute(new GetStickerSet(stickerSetAnim)).stickerSet();
-        assertTrue(set.isAnimated());
+        assertFalse(set.isAnimated());
         PhotoSize thumb = set.thumb();
         PhotoSizeTest.checkPhotos(thumb);
         assertEquals(Integer.valueOf(100), thumb.width());
@@ -1538,7 +1534,7 @@ public class TelegramBotTest {
         String setName = "custom_emoji_set_by_pengrad_test_bot";
         BaseResponse response = bot.execute(
                 new CreateNewStickerSet(chatId, setName, "title",
-                        new InputSticker[]{new InputSticker(stickerFileAnim, new String[]{"\uD83D\uDE15"})},
+                        new InputSticker[]{new InputSticker(stickerFileAnim, Sticker.Format.animated, new String[]{"\uD83D\uDE15"})},
                         Sticker.Format.animated
                 ).stickerType(Sticker.Type.custom_emoji)
         );

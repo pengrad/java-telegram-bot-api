@@ -35,7 +35,7 @@ public class MessageTest {
         assertNull(message.messageThreadId());
         assertFalse(message.isTopicMessage());
         assertNull(message.isAutomaticForward());
-        assertNull(message.hasMediaSpoiler());
+        assertFalse(message.hasMediaSpoiler());
         assertNull(message.messageAutoDeleteTimerChanged());
         assertNull(message.chatShared());
         assertNull(message.proximityAlertTriggered());
