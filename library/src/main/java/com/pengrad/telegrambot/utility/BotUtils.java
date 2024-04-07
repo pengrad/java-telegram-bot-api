@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.utility;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pengrad.telegrambot.model.Update;
@@ -29,7 +30,8 @@ public class BotUtils {
             .registerTypeAdapter(ReactionType.class, new ReactionTypeAdapter())
             .registerTypeAdapter(MessageOrigin.class, new MessageOriginTypeAdapter())
             .registerTypeAdapter(ChatBoostSource.class, new ChatBoostSourceTypeAdapter())
-        .registerTypeAdapter(MaybeInaccessibleMessage.class, new MaybeInaccessibleMessageTypeAdapter())
+            .registerTypeAdapter(MaybeInaccessibleMessage.class, new MaybeInaccessibleMessageTypeAdapter())
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create();
 
     public static Update parseUpdate(String update) {

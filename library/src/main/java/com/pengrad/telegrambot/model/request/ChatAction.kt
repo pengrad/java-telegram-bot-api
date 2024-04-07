@@ -1,10 +1,11 @@
-package com.pengrad.telegrambot.model.request;
+package com.pengrad.telegrambot.model.request
 
 /**
  * stas
  * 10/21/15.
  */
-public enum ChatAction {
+@Suppress("EnumEntryName")
+enum class ChatAction {
     typing,
     upload_photo,
     record_video,
