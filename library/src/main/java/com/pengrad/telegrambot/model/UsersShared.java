@@ -10,7 +10,7 @@ public class UsersShared implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private Integer request_id;
-    private Integer[] user_ids;
+    private Long[] user_ids;
     private SharedUser[] users;
 
     public Integer requestId() {
@@ -25,7 +25,7 @@ public class UsersShared implements Serializable {
      * @deprecated Use {@link UsersShared#users()} instead
      */
     @Deprecated
-    public Integer[] userIds() {
+    public Long[] userIds() {
         return user_ids;
     }
 

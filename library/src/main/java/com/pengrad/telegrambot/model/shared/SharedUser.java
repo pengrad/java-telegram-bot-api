@@ -10,13 +10,13 @@ public class SharedUser implements Serializable {
 
     private final static long serialVersionUID = 0L;
 
-    private Integer user_id;
+    private Long user_id;
     private String first_name;
     private String last_name;
     private String username;
     private PhotoSize[] photo;
 
-    public Integer userId() {
+    public Long userId() {
         return user_id;
     }
 
