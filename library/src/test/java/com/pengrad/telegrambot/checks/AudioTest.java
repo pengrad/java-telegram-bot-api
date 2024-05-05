@@ -22,6 +22,6 @@ public class AudioTest {
         assertNotNull(audio.mimeType());
         assertNotNull(audio.fileSize());
         assertNotNull(audio.performer());
-        if (thumb) assertNotNull(audio.thumb());
+        if (thumb) assertNotNull(audio.thumbnail());
     }
 }

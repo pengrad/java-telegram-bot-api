@@ -20,4 +20,4 @@ jobs:
         cache: 'gradle'
 
     - name: Gradle PR Test
-      run: ./gradlew clean prTest
+      run: ./gradlew clean check -PprTest

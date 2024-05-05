@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.request;
 
 import com.pengrad.telegrambot.utility.BotUtils;
 import com.pengrad.telegrambot.response.BaseResponse;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -23,11 +24,13 @@ abstract public class BaseRequest<T extends BaseRequest<T, R>, R extends BaseRes
         this.parameters = new LinkedHashMap<>();
     }
 
+    @NotNull
     protected T add(String name, Object val) {
         parameters.put(name, val);
         return thisAsT;
     }
 
+    @NotNull
     protected T addAll(Map<String, Object> values) {
         parameters.putAll(values);
         return thisAsT;

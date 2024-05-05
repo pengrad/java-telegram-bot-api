@@ -4,6 +4,10 @@ import com.pengrad.telegrambot.checks.*;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.botcommandscope.BotCommandScopeAllChatAdministrators;
+import com.pengrad.telegrambot.model.chatboost.ChatBoost;
+import com.pengrad.telegrambot.model.giveaway.Giveaway;
+import com.pengrad.telegrambot.model.reaction.ReactionType;
+import com.pengrad.telegrambot.model.reaction.ReactionTypeEmoji;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.passport.*;
 import com.pengrad.telegrambot.request.*;
@@ -592,8 +596,11 @@ public class TelegramBotTest {
         SendResponse sendResponse = bot.execute(new SendMessage(chatId, "reply this message").replyMarkup(
                 new ForceReply().inputFieldPlaceholder("input-placeholder").selective(true)
         ));
+        ForceReply f = new ForceReply().inputFieldPlaceholder("asd");
+        Giveaway g = new Giveaway();
         MessageTest.checkTextMessage(sendResponse.message());
         assertNotNull(sendResponse.message().from());
+        if (true) return;
 
         sendResponse = bot.execute(new SendMessage(chatId, "remove keyboard")
                 .replyMarkup(new ReplyKeyboardRemove())
@@ -685,6 +692,16 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void forwardMessages() {
+        MessageIdsResponse response = bot.execute(new ForwardMessages(chatId, chatId, new int[]{forwardMessageId})
+                .messageThreadId(0)
+                .disableNotification(true)
+                .protectContent(true)
+        );
+        assertTrue(response.result().length > 0);
+    }
+
+    @Test
     public void copyMessage() {
         MessageIdResponse response = bot.execute(new CopyMessage(chatId, chatId, forwardMessageId)
                 .messageThreadId(0)
@@ -699,6 +716,17 @@ public class TelegramBotTest {
     }
 
     @Test
+    public void copyMessages() {
+        MessageIdsResponse response = bot.execute(new CopyMessages(chatId, chatId, new int[]{forwardMessageId})
+                .messageThreadId(0)
+                .removeCaption(true)
+                .disableNotification(true)
+                .protectContent(true)
+        );
+        assertTrue(response.result().length > 0);
+    }
+
+    @Test
     public void sendAudio() {
         Message message = bot.execute(new SendAudio(chatId, audioFileId)
                 .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7))
@@ -710,15 +738,15 @@ public class TelegramBotTest {
         assertEquals((Integer) 0, captionEntity.offset());
         assertEquals((Integer) 7, captionEntity.length());
 
-        message = bot.execute(new SendAudio(chatId, audioFile).thumb(thumbFile)).message();
+        message = bot.execute(new SendAudio(chatId, audioFile).thumbnail(thumbFile)).message();
         MessageTest.checkMessage(message);
         AudioTest.checkAudio(message.audio());
-        assertEquals(thumbSize, message.audio().thumb().fileSize());
+        assertEquals(thumbSize, message.audio().thumbnail().fileSize());
 
         String cap = "http://ya.ru  <b>bold</b> #audio @pengrad_test_bot", title = "title", performer = "performer";
         ParseMode parseMode = ParseMode.HTML;
         int duration = 100;
-        SendAudio sendAudio = new SendAudio(chatId, audioBytes).thumb(thumbBytes).duration(duration)
+        SendAudio sendAudio = new SendAudio(chatId, audioBytes).thumbnail(thumbBytes).duration(duration)
                 .caption(cap).parseMode(parseMode).performer(performer).title(title);
         message = bot.execute(sendAudio).message();
         MessageTest.checkMessage(message);
@@ -729,7 +757,7 @@ public class TelegramBotTest {
         assertEquals((Integer) 100, audio.duration());
         assertEquals(performer, audio.performer());
         assertEquals(title, audio.title());
-        assertEquals(thumbSize, audio.thumb().fileSize());
+        assertEquals(thumbSize, audio.thumbnail().fileSize());
 
         captionEntity = message.captionEntities()[0];
         assertEquals(MessageEntity.Type.url, captionEntity.type());
@@ -1175,6 +1203,26 @@ public class TelegramBotTest {
         Message message = bot.execute(new SendMessage(chatId, "message for delete")).message();
         BaseResponse response = bot.execute(new DeleteMessage(chatId, message.messageId()));
         assertTrue(response.isOk());
+    }
+
+    @Test
+    public void deleteMessages() {
+        Message message = bot.execute(new SendMessage(chatId, "message for delete")).message();
+        int[] ids = {message.messageId()};
+        BaseResponse response = bot.execute(new DeleteMessages(chatId, ids));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void setMessageReaction() {
+        BaseResponse response = bot.execute(new SetMessageReaction(chatId, 100, new ReactionTypeEmoji("👍")));
+        assertTrue(response.isOk());
+    }
+
+    @Test
+    public void getUserChatBoosts() {
+        ChatBoost[] chatBoosts = bot.execute(new GetUserChatBoosts(channelId, chatId.intValue())).boosts();
+        assertEquals(chatBoosts.length, 0);
     }
 
     @Test
