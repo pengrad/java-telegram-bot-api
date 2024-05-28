@@ -16,6 +16,7 @@ public class Poll implements Serializable {
 
     private String id;
     private String question;
+    private MessageEntity[] question_entities;
     private PollOption[] options;
     private Integer total_voter_count;
     private Boolean is_closed;
@@ -34,6 +35,10 @@ public class Poll implements Serializable {
 
     public String question() {
         return question;
+    }
+    
+    public MessageEntity[] questionEntities() {
+        return question_entities;
     }
 
     public PollOption[] options() {
@@ -89,7 +94,7 @@ public class Poll implements Serializable {
 
         if (id != null ? !id.equals(poll.id) : poll.id != null) return false;
         if (question != null ? !question.equals(poll.question) : poll.question != null) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(question_entities, poll.question_entities)) return false;
         if (!Arrays.equals(options, poll.options)) return false;
         if (total_voter_count != null ? !total_voter_count.equals(poll.total_voter_count) : poll.total_voter_count != null)
             return false;
@@ -101,7 +106,6 @@ public class Poll implements Serializable {
         if (correct_option_id != null ? !correct_option_id.equals(poll.correct_option_id) : poll.correct_option_id != null)
             return false;
         if (explanation != null ? !explanation.equals(poll.explanation) : poll.explanation != null) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(explanation_entities, poll.explanation_entities)) return false;
         if (open_period != null ? !open_period.equals(poll.open_period) : poll.open_period != null) return false;
         return close_date != null ? close_date.equals(poll.close_date) : poll.close_date == null;
@@ -118,6 +122,7 @@ public class Poll implements Serializable {
                 "id='" + id + '\'' +
                 ", question='" + question + '\'' +
                 ", options=" + Arrays.toString(options) +
+                ", question_entities=" + Arrays.toString(question_entities) +
                 ", total_voter_count=" + total_voter_count +
                 ", is_closed=" + is_closed +
                 ", is_anonymous=" + is_anonymous +
