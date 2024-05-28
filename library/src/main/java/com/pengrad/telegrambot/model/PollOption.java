@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Stas Parshin
