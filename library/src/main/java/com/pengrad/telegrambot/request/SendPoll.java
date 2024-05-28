@@ -48,6 +48,14 @@ public class SendPoll extends AbstractSendRequest<SendPoll> {
         return add("explanation_entities", entities);
     }
 
+    public SendPoll questionParseMode(String questionParseMode) {
+        return add("question_parse_mode", questionParseMode);
+    }
+
+    public SendPoll questionEntities(MessageEntity... entities) {
+        return add("question_entities", entities);
+    }
+    
     public SendPoll openPeriod(int openPeriod) {
         return add("open_period", openPeriod);
     }
