@@ -42,6 +42,7 @@ public class ChatFullInfo implements Serializable {
     private Chat personal_chat;
     private ReactionType[] available_reactions;
     private Integer accent_color_id;
+    private Integer max_reaction_count;
     private String background_custom_emoji_id;
     private Integer profile_accent_color_id;
     private String profile_background_custom_emoji_id;
@@ -139,6 +140,10 @@ public class ChatFullInfo implements Serializable {
 
     public Integer accentColorId() {
         return accent_color_id;
+    }
+
+    public Integer maxReactionCount() {
+        return max_reaction_count;
     }
 
     public String backgroundCustomEmojiId() {
@@ -274,6 +279,7 @@ public class ChatFullInfo implements Serializable {
                 Objects.equals(personal_chat, chat.personal_chat) &&
                 Arrays.equals(available_reactions, chat.available_reactions) &&
                 Objects.equals(accent_color_id, chat.accent_color_id) &&
+                Objects.equals(max_reaction_count, chat.max_reaction_count) &&
                 Objects.equals(background_custom_emoji_id, chat.background_custom_emoji_id) &&
                 Objects.equals(profile_accent_color_id, chat.profile_accent_color_id) &&
                 Objects.equals(profile_background_custom_emoji_id, chat.profile_background_custom_emoji_id) &&
@@ -326,6 +332,7 @@ public class ChatFullInfo implements Serializable {
                 ", personal_chat=" + personal_chat +
                 ", available_reactions=" + Arrays.toString(available_reactions) +
                 ", accent_color_id=" + accent_color_id +
+                ", max_reaction_count=" + max_reaction_count +
                 ", background_custom_emoji_id='" + background_custom_emoji_id + '\'' +
                 ", profile_accent_color_id=" + profile_accent_color_id +
                 ", profile_background_custom_emoji_id='" + profile_background_custom_emoji_id + '\'' +
