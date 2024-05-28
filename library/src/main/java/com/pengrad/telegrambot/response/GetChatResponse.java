@@ -1,6 +1,6 @@
 package com.pengrad.telegrambot.response;
 
-import com.pengrad.telegrambot.model.Chat;
+import com.pengrad.telegrambot.model.ChatFullInfo;
 
 /**
  * Stas Parshin
@@ -8,9 +8,9 @@ import com.pengrad.telegrambot.model.Chat;
  */
 public class GetChatResponse extends BaseResponse {
 
-    private Chat result;
+    private ChatFullInfo result;
 
-    public Chat chat() {
+    public ChatFullInfo chat() {
         return result;
     }
 
