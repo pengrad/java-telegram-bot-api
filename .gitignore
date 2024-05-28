@@ -16,3 +16,4 @@ private.key
 .project
 library/.classpath
 sample/.classpath
+.vscode/settings.json
