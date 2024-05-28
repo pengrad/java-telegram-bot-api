@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import com.pengrad.telegrambot.model.business.BusinessConnection;
+import com.pengrad.telegrambot.model.chatbackground.ChatBackground;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostAdded;
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.*;
@@ -79,6 +80,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private PassportData passport_data;
     private ProximityAlertTriggered proximity_alert_triggered;
     private ChatBoostAdded boost_added;
+    private ChatBackground chat_background_set;
     private ForumTopicCreated forum_topic_created;
     private ForumTopicEdited forum_topic_edited;
     private ForumTopicClosed forum_topic_closed;
@@ -415,6 +417,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return boost_added;
     }
 
+    public ChatBackground chatBackgroundSet() {
+        return chat_background_set;
+    }
+
     public ForumTopicCreated forumTopicCreated() {
         return forum_topic_created;
     }
@@ -557,6 +563,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(passport_data, message.passport_data) &&
                 Objects.equals(proximity_alert_triggered, message.proximity_alert_triggered) &&
                 Objects.equals(boost_added, message.boost_added) &&
+                Objects.equals(chat_background_set, message.chat_background_set) &&
                 Objects.equals(forum_topic_created, message.forum_topic_created) &&
                 Objects.equals(forum_topic_edited, message.forum_topic_edited) &&
                 Objects.equals(forum_topic_closed, message.forum_topic_closed) &&
@@ -644,6 +651,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", passport_data=" + passport_data +
                 ", proximity_alert_triggered=" + proximity_alert_triggered +
                 ", boost_added=" + boost_added +
+                ", chat_background_set=" + chat_background_set +
                 ", forum_topic_created=" + forum_topic_created +
                 ", forum_topic_edited=" + forum_topic_edited +
                 ", forum_topic_closed=" + forum_topic_closed +
