@@ -42,6 +42,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private String text;
     private MessageEntity[] entities;
     private MessageEntity[] caption_entities;
+    private Boolean show_caption_above_media;
     private LinkPreviewOptions link_preview_options;
     private String effect_id;
     private Audio audio;
@@ -261,6 +262,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public MessageEntity[] captionEntities() {
         return caption_entities;
+    }
+
+    public Boolean showCaptionAboveMedia() {
+        return show_caption_above_media;
     }
 
     public LinkPreviewOptions linkPreviewOptions() {
@@ -531,6 +536,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(text, message.text) &&
                 Arrays.equals(entities, message.entities) &&
                 Arrays.equals(caption_entities, message.caption_entities) &&
+                Objects.equals(show_caption_above_media, message.show_caption_above_media) &&
                 Objects.equals(link_preview_options, message.link_preview_options) &&
                 Objects.equals(effect_id, message.effect_id) &&
                 Objects.equals(audio, message.audio) &&
@@ -620,6 +626,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", text='" + text + '\'' +
                 ", entities=" + Arrays.toString(entities) +
                 ", caption_entities=" + Arrays.toString(caption_entities) +
+                ", show_caption_above_media=" + show_caption_above_media +
                 ", link_preview_options=" + link_preview_options +
                 ", effect_id=" + effect_id +
                 ", audio=" + audio +
