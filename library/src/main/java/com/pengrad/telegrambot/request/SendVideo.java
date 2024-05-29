@@ -79,6 +79,10 @@ public class SendVideo extends AbstractMultipartRequest<SendVideo> {
         return add("has_spoiler", has_spoiler);
     }
 
+    public SendVideo showCaptionAboveMedia(Boolean showCaptionAboveMedia) {
+        return add("show_caption_above_media", showCaptionAboveMedia);
+    }
+
     @Override
     protected String getFileParamName() {
         return "video";

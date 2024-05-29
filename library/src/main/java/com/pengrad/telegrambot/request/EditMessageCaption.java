@@ -38,4 +38,8 @@ public class EditMessageCaption extends BaseRequest<EditMessageCaption, BaseResp
         return add("reply_markup", replyMarkup);
     }
 
+    public EditMessageCaption showCaptionAboveMedia(Boolean showCaptionAboveMedia) {
+        return add("show_caption_above_media", showCaptionAboveMedia);
+    }
+
 }
