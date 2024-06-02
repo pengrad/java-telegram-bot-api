@@ -6,7 +6,6 @@ import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.botcommandscope.BotCommandScopeAllChatAdministrators;
 import com.pengrad.telegrambot.model.chatboost.ChatBoost;
 import com.pengrad.telegrambot.model.giveaway.Giveaway;
-import com.pengrad.telegrambot.model.reaction.ReactionType;
 import com.pengrad.telegrambot.model.reaction.ReactionTypeEmoji;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.passport.*;
@@ -468,7 +467,7 @@ public class TelegramBotTest {
     public void getChat() throws MalformedURLException, URISyntaxException {
         ChatFullInfo chat = bot.execute(new GetChat(groupId)).chat();
         ChatTest.checkFullInfoChat(chat, true);
-        assertEquals(Chat.Type.supergroup, chat.type());
+        assertEquals(ChatFullInfo.Type.supergroup, chat.type());
         assertTrue(chat.title().contains("Test Bot Group"));
         assertTrue(chat.description().contains("New desc"));
         assertEquals(Integer.valueOf(10), chat.slowModeDelay());
