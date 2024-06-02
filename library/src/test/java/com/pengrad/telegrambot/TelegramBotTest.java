@@ -466,8 +466,8 @@ public class TelegramBotTest {
 
     @Test
     public void getChat() throws MalformedURLException, URISyntaxException {
-        Chat chat = bot.execute(new GetChat(groupId)).chat();
-        ChatTest.checkChat(chat, true);
+        ChatFullInfo chat = bot.execute(new GetChat(groupId)).chat();
+        ChatTest.checkFullInfoChat(chat, true);
         assertEquals(Chat.Type.supergroup, chat.type());
         assertTrue(chat.title().contains("Test Bot Group"));
         assertTrue(chat.description().contains("New desc"));
@@ -1296,7 +1296,7 @@ public class TelegramBotTest {
                     .useIndependentChatPermissions(false));
             assertTrue(response.isOk());
 
-            Chat chat = bot.execute(new GetChat(groupId)).chat();
+            ChatFullInfo chat = bot.execute(new GetChat(groupId)).chat();
             ChatPermissions permissions = chat.permissions();
             if (bool) {
                 assertTrue(permissions.canSendMessages());

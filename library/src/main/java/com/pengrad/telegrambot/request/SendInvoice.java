@@ -8,6 +8,18 @@ import com.pengrad.telegrambot.model.request.LabeledPrice;
  */
 public class SendInvoice extends AbstractSendRequest<SendInvoice> {
 
+
+    public SendInvoice(Long chatId, String title, String description, String payload, String currency, LabeledPrice... prices) {
+        super(chatId);
+        add("title", title).add("description", description).add("payload", payload)
+                .add("currency", currency).add("prices", prices);
+    }
+
+    /**
+     * Backward compatibility: API 7.4, parameter "provider_token" became optional
+     * @deprecated Use constrcutor without 'provider_token' and 'start_parameter' instead
+     */
+    @Deprecated 
     public SendInvoice(Long chatId, String title, String description, String payload, String providerToken,
                         String currency, LabeledPrice... prices) {
         super(chatId);
@@ -15,7 +27,12 @@ public class SendInvoice extends AbstractSendRequest<SendInvoice> {
                 .add("currency", currency).add("prices", prices);
     }
 
-    // Backward compatibility: API 5.2, parameter "start_parameter" became optional
+    
+    /**
+     * Backward compatibility: API 5.2, parameter "start_parameter" became optional
+     * @deprecated Use constrcutor without 'start_parameter' instead
+     */
+    @Deprecated 
     public SendInvoice(Long chatId, String title, String description, String payload, String providerToken,
                        String startParameter, String currency, LabeledPrice... prices) {
         this(chatId, title, description, payload, providerToken, currency, prices);
@@ -64,6 +81,10 @@ public class SendInvoice extends AbstractSendRequest<SendInvoice> {
 
     public SendInvoice startParameter(String startParameter) {
         return add("start_parameter", startParameter);
+    }
+
+    public SendInvoice providerToken(String providerToken) {
+        return add("provider_token", providerToken);
     }
 
     /**

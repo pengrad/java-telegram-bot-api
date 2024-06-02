@@ -21,6 +21,7 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
     private final String type;
     private final String media;
     private String thumbnail;
+    private Boolean show_caption_above_media;
 
     private String caption;
     private String parse_mode;
@@ -69,6 +70,11 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
         String attachName = AttachName.next();
         attachments.put(attachName, thumb);
         this.thumbnail = "attach://" + attachName;
+        return thisAsT;
+    }
+
+    public T showCaptionAboveMedia(Boolean showCaptionAboveMedia) {
+        this.show_caption_above_media = showCaptionAboveMedia;
         return thisAsT;
     }
 

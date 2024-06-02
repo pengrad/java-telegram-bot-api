@@ -19,6 +19,7 @@ public abstract class InlineQueryResult<T extends InlineQueryResult<T>> implemen
     private MessageEntity[] caption_entities;
     private InputMessageContent input_message_content;
     private InlineKeyboardMarkup reply_markup;
+    private Boolean show_caption_above_media;
 
     public InlineQueryResult(String type, String id) {
         this.type = type;
@@ -39,4 +40,10 @@ public abstract class InlineQueryResult<T extends InlineQueryResult<T>> implemen
         this.reply_markup = replyMarkup;
         return thisAsT;
     }
+
+    public T showCaptionAboveMedia(Boolean showCaptionAboveMedia) {
+        this.show_caption_above_media = showCaptionAboveMedia;
+        return thisAsT;
+    }
+
 }

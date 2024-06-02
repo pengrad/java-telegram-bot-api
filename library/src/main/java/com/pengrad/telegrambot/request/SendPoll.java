@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.request;
 
 import com.pengrad.telegrambot.model.MessageEntity;
 import com.pengrad.telegrambot.model.Poll;
+import com.pengrad.telegrambot.model.request.InputPollOption;
 import com.pengrad.telegrambot.model.request.ParseMode;
 
 /**
@@ -10,6 +11,16 @@ import com.pengrad.telegrambot.model.request.ParseMode;
  */
 public class SendPoll extends AbstractSendRequest<SendPoll> {
 
+    public SendPoll(Object chatId, String question, InputPollOption... options) {
+        super(chatId);
+        add("question", question);
+        add("options", options);
+    }
+    
+    /**
+     * @deprecated Use constructor with InputPollOption parameters instead
+     */
+    @Deprecated 
     public SendPoll(Object chatId, String question, String... options) {
         super(chatId);
         add("question", question);
@@ -48,6 +59,14 @@ public class SendPoll extends AbstractSendRequest<SendPoll> {
         return add("explanation_entities", entities);
     }
 
+    public SendPoll questionParseMode(String questionParseMode) {
+        return add("question_parse_mode", questionParseMode);
+    }
+
+    public SendPoll questionEntities(MessageEntity... entities) {
+        return add("question_entities", entities);
+    }
+    
     public SendPoll openPeriod(int openPeriod) {
         return add("open_period", openPeriod);
     }

@@ -35,6 +35,18 @@ public class InputInvoiceMessageContent extends InputMessageContent implements S
     private boolean is_flexible;
 
 
+    public InputInvoiceMessageContent(String title, String description, String payload, String currency, LabeledPrice[] prices) {
+        this.title = title;
+        this.description = description;
+        this.payload = payload;
+        this.currency = currency;
+        this.prices = prices;
+    }
+
+    /**
+     * Backward compatibility: API 7.4, parameter "provider_token" became optional
+     * @deprecated Use constrcutor without 'provider_token' instead
+     */
     public InputInvoiceMessageContent(String title, String description, String payload, String providerToken, String currency, LabeledPrice[] prices) {
         this.title = title;
         this.description = description;
@@ -42,6 +54,11 @@ public class InputInvoiceMessageContent extends InputMessageContent implements S
         this.provider_token = providerToken;
         this.currency = currency;
         this.prices = prices;
+    }
+
+    public InputInvoiceMessageContent providerToken(String providerToken) {
+        this.provider_token = providerToken;
+        return this;
     }
 
     public InputInvoiceMessageContent maxTipAmount(Integer maxTipAmount) {

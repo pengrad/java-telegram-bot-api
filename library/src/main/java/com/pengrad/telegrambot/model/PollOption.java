@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Stas Parshin
@@ -11,6 +12,7 @@ public class PollOption implements Serializable {
 
     private String text;
     private Integer voter_count;
+    private MessageEntity[] text_entities;
 
     public String text() {
         return text;
@@ -20,12 +22,18 @@ public class PollOption implements Serializable {
         return voter_count;
     }
 
+    public MessageEntity[] textEntities() {
+        return text_entities;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         PollOption that = (PollOption) o;
+
+        if (!Arrays.equals(text_entities, that.text_entities)) return false;
 
         if (text != null ? !text.equals(that.text) : that.text != null) return false;
         return voter_count != null ? voter_count.equals(that.voter_count) : that.voter_count == null;
@@ -43,6 +51,7 @@ public class PollOption implements Serializable {
         return "PollOption{" +
                 "text='" + text + '\'' +
                 ", voter_count=" + voter_count +
+                ", text_entities=" + Arrays.toString(text_entities) +
                 '}';
     }
 }

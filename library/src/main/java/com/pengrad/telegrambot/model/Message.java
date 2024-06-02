@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import com.pengrad.telegrambot.model.business.BusinessConnection;
+import com.pengrad.telegrambot.model.chatbackground.ChatBackground;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostAdded;
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.*;
@@ -41,7 +42,9 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private String text;
     private MessageEntity[] entities;
     private MessageEntity[] caption_entities;
+    private Boolean show_caption_above_media;
     private LinkPreviewOptions link_preview_options;
+    private String effect_id;
     private Audio audio;
     private Document document;
     private Animation animation;
@@ -79,6 +82,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private PassportData passport_data;
     private ProximityAlertTriggered proximity_alert_triggered;
     private ChatBoostAdded boost_added;
+    private ChatBackground chat_background_set;
     private ForumTopicCreated forum_topic_created;
     private ForumTopicEdited forum_topic_edited;
     private ForumTopicClosed forum_topic_closed;
@@ -260,9 +264,18 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return caption_entities;
     }
 
+    public Boolean showCaptionAboveMedia() {
+        return show_caption_above_media;
+    }
+
     public LinkPreviewOptions linkPreviewOptions() {
         return link_preview_options;
     }
+
+    public String effectId() {
+        return effect_id;
+    }
+
     public Audio audio() {
         return audio;
     }
@@ -415,6 +428,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return boost_added;
     }
 
+    public ChatBackground chatBackgroundSet() {
+        return chat_background_set;
+    }
+
     public ForumTopicCreated forumTopicCreated() {
         return forum_topic_created;
     }
@@ -519,7 +536,9 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(text, message.text) &&
                 Arrays.equals(entities, message.entities) &&
                 Arrays.equals(caption_entities, message.caption_entities) &&
+                Objects.equals(show_caption_above_media, message.show_caption_above_media) &&
                 Objects.equals(link_preview_options, message.link_preview_options) &&
+                Objects.equals(effect_id, message.effect_id) &&
                 Objects.equals(audio, message.audio) &&
                 Objects.equals(document, message.document) &&
                 Objects.equals(animation, message.animation) &&
@@ -557,6 +576,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(passport_data, message.passport_data) &&
                 Objects.equals(proximity_alert_triggered, message.proximity_alert_triggered) &&
                 Objects.equals(boost_added, message.boost_added) &&
+                Objects.equals(chat_background_set, message.chat_background_set) &&
                 Objects.equals(forum_topic_created, message.forum_topic_created) &&
                 Objects.equals(forum_topic_edited, message.forum_topic_edited) &&
                 Objects.equals(forum_topic_closed, message.forum_topic_closed) &&
@@ -606,7 +626,9 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", text='" + text + '\'' +
                 ", entities=" + Arrays.toString(entities) +
                 ", caption_entities=" + Arrays.toString(caption_entities) +
+                ", show_caption_above_media=" + show_caption_above_media +
                 ", link_preview_options=" + link_preview_options +
+                ", effect_id=" + effect_id +
                 ", audio=" + audio +
                 ", document=" + document +
                 ", animation=" + animation +
@@ -644,6 +666,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", passport_data=" + passport_data +
                 ", proximity_alert_triggered=" + proximity_alert_triggered +
                 ", boost_added=" + boost_added +
+                ", chat_background_set=" + chat_background_set +
                 ", forum_topic_created=" + forum_topic_created +
                 ", forum_topic_edited=" + forum_topic_edited +
                 ", forum_topic_closed=" + forum_topic_closed +

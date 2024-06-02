@@ -4,10 +4,14 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.chatbackground.BackgroundFill;
+import com.pengrad.telegrambot.model.chatbackground.BackgroundType;
 import com.pengrad.telegrambot.model.chatboost.source.ChatBoostSource;
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.MessageOrigin;
 import com.pengrad.telegrambot.model.reaction.ReactionType;
+import com.pengrad.telegrambot.utility.gson.BackgroundFillAdapter;
+import com.pengrad.telegrambot.utility.gson.BackgroundTypeAdapter;
 import com.pengrad.telegrambot.utility.gson.ChatBoostSourceTypeAdapter;
 import com.pengrad.telegrambot.utility.gson.MaybeInaccessibleMessageTypeAdapter;
 import com.pengrad.telegrambot.utility.gson.MessageOriginTypeAdapter;
@@ -31,6 +35,8 @@ public class BotUtils {
             .registerTypeAdapter(MessageOrigin.class, new MessageOriginTypeAdapter())
             .registerTypeAdapter(ChatBoostSource.class, new ChatBoostSourceTypeAdapter())
             .registerTypeAdapter(MaybeInaccessibleMessage.class, new MaybeInaccessibleMessageTypeAdapter())
+            .registerTypeAdapter(BackgroundType.class, new BackgroundTypeAdapter())
+            .registerTypeAdapter(BackgroundFill.class, new BackgroundFillAdapter())
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create();
 

@@ -9,6 +9,17 @@ import com.pengrad.telegrambot.response.StringResponse;
  */
 public class CreateInvoiceLink extends BaseRequest<CreateInvoiceLink, StringResponse> {
 
+    public CreateInvoiceLink(String title, String description, String payload, String currency, LabeledPrice... prices) {
+        super(StringResponse.class);
+        add("title", title).add("description", description).add("payload", payload)
+            .add("currency", currency).add("prices", prices);
+    }
+
+
+    /**
+     * Backward compatibility: API 7.4, parameter "provider_token" became optional
+     * @deprecated Use constrcutor without 'provider_token' instead
+     */
     public CreateInvoiceLink(String title, String description, String payload, String providerToken,
                              String currency, LabeledPrice... prices) {
         super(StringResponse.class);
@@ -16,6 +27,9 @@ public class CreateInvoiceLink extends BaseRequest<CreateInvoiceLink, StringResp
                 .add("provider_token", providerToken).add("currency", currency).add("prices", prices);
     }
 
+    public CreateInvoiceLink providerToken(String providerToken) {
+        return add("provider_token", providerToken);
+    }
 
     /**
      * @param maxTipAmount The maximum accepted amount for tips in the smallest units of the currency

@@ -15,6 +15,10 @@ abstract public class AbstractSendRequest<T extends AbstractSendRequest<T>> exte
         add("chat_id", chatId);
     }
 
+    public T messageEffectId(String messageEffectId) {
+        return add("message_effect_id", messageEffectId);
+    }
+
     public T businessConnectionId(String businessConnectionId) {
         return add("business_connection_id", businessConnectionId);
     }
