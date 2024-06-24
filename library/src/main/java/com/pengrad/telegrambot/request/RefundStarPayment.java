@@ -7,7 +7,7 @@ public class RefundStarPayment extends BaseRequest<RefundStarPayment, BaseRespon
 
     public RefundStarPayment(Long userId, String telegramPaymentChargeId) {
         super(BaseResponse.class);
-        add("user_id", telegramPaymentChargeId).add("telegram_payment_charge_id", telegramPaymentChargeId);
+        add("user_id", userId).add("telegram_payment_charge_id", telegramPaymentChargeId);
     }
 
 }
