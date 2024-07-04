@@ -11,6 +11,9 @@ public class MessageOriginChat extends MessageOrigin {
     private Chat sender_chat;
     private String author_signature;
 
+    public MessageOriginChat() {
+        super(MESSAGE_ORIGIN_TYPE);
+    }
     public Chat senderChat() {
         return sender_chat;
     }
