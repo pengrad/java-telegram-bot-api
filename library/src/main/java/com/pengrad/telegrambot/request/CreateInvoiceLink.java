@@ -20,6 +20,7 @@ public class CreateInvoiceLink extends BaseRequest<CreateInvoiceLink, StringResp
      * Backward compatibility: API 7.4, parameter "provider_token" became optional
      * @deprecated Use constrcutor without 'provider_token' instead
      */
+    @Deprecated
     public CreateInvoiceLink(String title, String description, String payload, String providerToken,
                              String currency, LabeledPrice... prices) {
         super(StringResponse.class);
