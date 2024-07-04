@@ -40,5 +40,8 @@ public class EditMessageLiveLocation extends BaseRequest<EditMessageLiveLocation
         return add("live_period", livePeriod);
     }
 
+    public EditMessageLiveLocation businessConnectionId(String businessConnectionId) {
+        return add("business_connection_id", businessConnectionId);
+    }
 
 }

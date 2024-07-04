@@ -23,4 +23,8 @@ public class StopMessageLiveLocation extends BaseRequest<StopMessageLiveLocation
     public StopMessageLiveLocation replyMarkup(InlineKeyboardMarkup replyMarkup) {
         return add("reply_markup", replyMarkup);
     }
+
+    public StopMessageLiveLocation businessConnectionId(String businessConnectionId) {
+        return add("business_connection_id", businessConnectionId);
+    }
 }
