@@ -9,6 +9,7 @@ import com.pengrad.telegrambot.model.chatbackground.BackgroundType;
 import com.pengrad.telegrambot.model.chatboost.source.ChatBoostSource;
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.MessageOrigin;
+import com.pengrad.telegrambot.model.paidmedia.PaidMedia;
 import com.pengrad.telegrambot.model.reaction.ReactionType;
 import com.pengrad.telegrambot.model.stars.partner.TransactionPartner;
 import com.pengrad.telegrambot.model.stars.withdrawal.RevenueWithdrawalState;
@@ -36,6 +37,7 @@ public class BotUtils {
             .registerTypeAdapter(BackgroundFill.class, new BackgroundFillAdapter())
             .registerTypeAdapter(RevenueWithdrawalState.class, new RevenueWithdrawalStateTypeAdapter())
             .registerTypeAdapter(TransactionPartner.class, new TransactionPartnerTypeAdapter())
+            .registerTypeAdapter(PaidMedia.class, new PaidMediaTypeAdapter())
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create();
 
