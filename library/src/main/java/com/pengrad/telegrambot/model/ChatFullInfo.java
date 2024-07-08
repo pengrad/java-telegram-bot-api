@@ -59,6 +59,7 @@ public class ChatFullInfo implements Serializable {
     private String invite_link;
     private Message pinned_message;
     private ChatPermissions permissions;
+    private Boolean can_send_paid_media;
     private Integer slow_mode_delay;
     private Integer unrestrict_boost_count;
     private Integer message_auto_delete_time;
@@ -217,6 +218,9 @@ public class ChatFullInfo implements Serializable {
     public ChatPermissions permissions() {
         return permissions;
     }
+    public Boolean canSendPaidMedia() {
+        return can_send_paid_media;
+    }
 
     public Integer slowModeDelay() {
         return slow_mode_delay;
@@ -296,6 +300,7 @@ public class ChatFullInfo implements Serializable {
                 Objects.equals(invite_link, chat.invite_link) &&
                 Objects.equals(pinned_message, chat.pinned_message) &&
                 Objects.equals(permissions, chat.permissions) &&
+                Objects.equals(can_send_paid_media, chat.can_send_paid_media) &&
                 Objects.equals(slow_mode_delay, chat.slow_mode_delay) &&
                 Objects.equals(unrestrict_boost_count, chat.unrestrict_boost_count) &&
                 Objects.equals(message_auto_delete_time, chat.message_auto_delete_time) &&
@@ -349,6 +354,7 @@ public class ChatFullInfo implements Serializable {
                 ", invite_link='" + invite_link + '\'' +
                 ", pinned_message=" + pinned_message +
                 ", permissions=" + permissions +
+                ", can_send_paid_media=" + can_send_paid_media +
                 ", slow_mode_delay=" + slow_mode_delay +
                 ", unrestrict_boost_count=" + unrestrict_boost_count +
                 ", message_auto_delete_time=" + message_auto_delete_time +

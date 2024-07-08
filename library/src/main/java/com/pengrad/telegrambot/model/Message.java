@@ -5,6 +5,8 @@ import com.pengrad.telegrambot.model.chatbackground.ChatBackground;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostAdded;
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.*;
+import com.pengrad.telegrambot.model.paidmedia.PaidMedia;
+import com.pengrad.telegrambot.model.paidmedia.PaidMediaInfo;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.passport.PassportData;
 
@@ -46,6 +48,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private LinkPreviewOptions link_preview_options;
     private String effect_id;
     private Audio audio;
+    private PaidMediaInfo paid_media;
     private Document document;
     private Animation animation;
     private Game game;
@@ -278,6 +281,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public Audio audio() {
         return audio;
+    }
+
+    public PaidMediaInfo paidMedia() {
+        return paid_media;
     }
 
     public Document document() {
@@ -540,6 +547,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(link_preview_options, message.link_preview_options) &&
                 Objects.equals(effect_id, message.effect_id) &&
                 Objects.equals(audio, message.audio) &&
+                Objects.equals(paid_media, message.paid_media) &&
                 Objects.equals(document, message.document) &&
                 Objects.equals(animation, message.animation) &&
                 Objects.equals(game, message.game) &&
@@ -630,6 +638,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", link_preview_options=" + link_preview_options +
                 ", effect_id=" + effect_id +
                 ", audio=" + audio +
+                ", paid_media=" + paid_media +
                 ", document=" + document +
                 ", animation=" + animation +
                 ", game=" + game +
