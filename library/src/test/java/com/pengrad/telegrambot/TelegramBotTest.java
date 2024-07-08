@@ -1220,7 +1220,7 @@ public class TelegramBotTest {
 
     @Test
     public void getUserChatBoosts() {
-        ChatBoost[] chatBoosts = bot.execute(new GetUserChatBoosts(channelId, chatId.longValue())).boosts();
+        ChatBoost[] chatBoosts = bot.execute(new GetUserChatBoosts(channelId, chatId)).boosts();
         assertEquals(chatBoosts.length, 0);
     }
 
@@ -1578,7 +1578,7 @@ public class TelegramBotTest {
 
     @Test
     public void setCustomEmojiStickerSetThumbnail() {
-        String setName = "custom_emoji_set_by_pengrad_test_bot";
+        String setName = "custom_emoji_set_" + System.currentTimeMillis() + "_by_pengrad_test_bot";
         BaseResponse response = bot.execute(
                 new CreateNewStickerSet(chatId, setName, "title",
                         new InputSticker[]{new InputSticker(stickerFileAnim, Sticker.Format.animated, new String[]{"\uD83D\uDE15"})},
