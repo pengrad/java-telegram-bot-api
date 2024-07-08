@@ -77,6 +77,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private MaybeInaccessibleMessage pinned_message;
     private Invoice invoice;
     private SuccessfulPayment successful_payment;
+    private RefundedPayment refunded_payment;
     private Story story;
     private UserShared user_shared; //@deprectated
     private UsersShared users_shared;
@@ -399,6 +400,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return successful_payment;
     }
 
+    public RefundedPayment refundedPayment() {
+        return refunded_payment;
+    }
+
     public Story story() {
         return story;
     }
@@ -576,6 +581,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(pinned_message, message.pinned_message) &&
                 Objects.equals(invoice, message.invoice) &&
                 Objects.equals(successful_payment, message.successful_payment) &&
+                Objects.equals(refunded_payment, message.refunded_payment) &&
                 Objects.equals(story, message.story) &&
                 Objects.equals(user_shared, message.user_shared) &&
                 Objects.equals(users_shared, message.users_shared) &&
@@ -667,6 +673,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", pinned_message=" + pinned_message +
                 ", invoice=" + invoice +
                 ", successful_payment=" + successful_payment +
+                ", refunded_payment=" + refunded_payment +
                 ", story=" + story +
                 ", user_shared=" + user_shared +
                 ", users_shared=" + users_shared +
