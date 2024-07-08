@@ -10,6 +10,9 @@ public class MessageOriginUser extends MessageOrigin {
 
     private User sender_user;
 
+    public MessageOriginUser() {
+        super(MESSAGE_ORIGIN_TYPE);
+    }
     public User senderUser() {
         return sender_user;
     }

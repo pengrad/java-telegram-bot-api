@@ -8,6 +8,10 @@ public class MessageOriginHiddenUser extends MessageOrigin {
 
     private String sender_user_name;
 
+    public MessageOriginHiddenUser() {
+        super(MESSAGE_ORIGIN_TYPE);
+    }
+
     public String senderUserName() {
         return sender_user_name;
     }

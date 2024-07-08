@@ -13,6 +13,10 @@ public class MessageOriginChannel extends MessageOrigin {
 
     private String author_signature;
 
+    public MessageOriginChannel() {
+        super(MESSAGE_ORIGIN_TYPE);
+    }
+
     public Chat chat() {
         return chat;
     }

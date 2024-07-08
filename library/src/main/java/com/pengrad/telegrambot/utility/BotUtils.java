@@ -10,12 +10,9 @@ import com.pengrad.telegrambot.model.chatboost.source.ChatBoostSource;
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.MessageOrigin;
 import com.pengrad.telegrambot.model.reaction.ReactionType;
-import com.pengrad.telegrambot.utility.gson.BackgroundFillAdapter;
-import com.pengrad.telegrambot.utility.gson.BackgroundTypeAdapter;
-import com.pengrad.telegrambot.utility.gson.ChatBoostSourceTypeAdapter;
-import com.pengrad.telegrambot.utility.gson.MaybeInaccessibleMessageTypeAdapter;
-import com.pengrad.telegrambot.utility.gson.MessageOriginTypeAdapter;
-import com.pengrad.telegrambot.utility.gson.ReactionTypeAdapter;
+import com.pengrad.telegrambot.model.stars.partner.TransactionPartner;
+import com.pengrad.telegrambot.model.stars.withdrawal.RevenueWithdrawalState;
+import com.pengrad.telegrambot.utility.gson.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,6 +34,8 @@ public class BotUtils {
             .registerTypeAdapter(MaybeInaccessibleMessage.class, new MaybeInaccessibleMessageTypeAdapter())
             .registerTypeAdapter(BackgroundType.class, new BackgroundTypeAdapter())
             .registerTypeAdapter(BackgroundFill.class, new BackgroundFillAdapter())
+            .registerTypeAdapter(RevenueWithdrawalState.class, new RevenueWithdrawalStateTypeAdapter())
+            .registerTypeAdapter(TransactionPartner.class, new TransactionPartnerTypeAdapter())
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create();
 

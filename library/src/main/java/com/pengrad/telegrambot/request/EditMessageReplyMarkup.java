@@ -24,4 +24,8 @@ public class EditMessageReplyMarkup extends BaseRequest<EditMessageReplyMarkup, 
         return add("reply_markup", replyMarkup);
     }
 
+    public EditMessageReplyMarkup businessConnectionId(String businessConnectionId) {
+        return add("business_connection_id", businessConnectionId);
+    }
+
 }

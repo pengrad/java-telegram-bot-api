@@ -9,6 +9,10 @@ public class MessageOrigin implements Serializable  {
     protected String type;
     protected Integer date;
 
+    public MessageOrigin(String type) {
+        this.type = type;
+    }
+
     public String type() {
         return type;
     }

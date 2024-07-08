@@ -1220,7 +1220,7 @@ public class TelegramBotTest {
 
     @Test
     public void getUserChatBoosts() {
-        ChatBoost[] chatBoosts = bot.execute(new GetUserChatBoosts(channelId, chatId.intValue())).boosts();
+        ChatBoost[] chatBoosts = bot.execute(new GetUserChatBoosts(channelId, chatId.longValue())).boosts();
         assertEquals(chatBoosts.length, 0);
     }
 

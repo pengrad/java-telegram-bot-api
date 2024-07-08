@@ -47,6 +47,7 @@ public class InputInvoiceMessageContent extends InputMessageContent implements S
      * Backward compatibility: API 7.4, parameter "provider_token" became optional
      * @deprecated Use constrcutor without 'provider_token' instead
      */
+    @Deprecated
     public InputInvoiceMessageContent(String title, String description, String payload, String providerToken, String currency, LabeledPrice[] prices) {
         this.title = title;
         this.description = description;

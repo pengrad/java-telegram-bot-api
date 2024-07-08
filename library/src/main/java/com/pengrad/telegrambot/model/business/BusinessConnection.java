@@ -8,7 +8,7 @@ public class BusinessConnection {
 
     private String id;
     private User user;
-    private Integer user_chat_id;
+    private Long user_chat_id;
     private Integer date;
     private Boolean can_reply;
     private Boolean is_enabled;
@@ -21,7 +21,7 @@ public class BusinessConnection {
         return user;
     }
 
-    public Integer userChatId() {
+    public Long userChatId() {
         return user_chat_id;
     }
 

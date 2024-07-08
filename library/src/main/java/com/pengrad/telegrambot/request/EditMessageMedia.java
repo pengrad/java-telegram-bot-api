@@ -46,6 +46,10 @@ public class EditMessageMedia extends BaseRequest<EditMessageMedia, BaseResponse
         return add("reply_markup", replyMarkup);
     }
 
+    public EditMessageMedia businessConnectionId(String businessConnectionId) {
+        return add("business_connection_id", businessConnectionId);
+    }
+
     @Override
     public boolean isMultipart() {
         return isMultipart;

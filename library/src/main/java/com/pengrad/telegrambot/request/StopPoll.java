@@ -17,4 +17,8 @@ public class StopPoll extends BaseRequest<StopPoll, PollResponse> {
     public StopPoll replyMarkup(Keyboard replyMarkup) {
         return add("reply_markup", replyMarkup);
     }
+
+    public StopPoll businessConnectionId(String businessConnectionId) {
+        return add("business_connection_id", businessConnectionId);
+    }
 }

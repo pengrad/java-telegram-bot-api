@@ -46,4 +46,8 @@ public class EditMessageText extends BaseRequest<EditMessageText, BaseResponse> 
         return add("reply_markup", replyMarkup);
     }
 
+    public EditMessageText businessConnectionId(String businessConnectionId) {
+        return add("business_connection_id", businessConnectionId);
+    }
+
 }
