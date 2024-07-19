@@ -38,6 +38,7 @@ public class EditMessageText extends BaseRequest<EditMessageText, BaseResponse> 
     /*
     @deprecated Use linkPreviewOptions instead
     */
+    @Deprecated
     public EditMessageText disableWebPagePreview(boolean disableWebPagePreview) {
         return add("disable_web_page_preview", disableWebPagePreview);
     }

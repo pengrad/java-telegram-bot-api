@@ -40,7 +40,7 @@ public class KeyboardButton implements Serializable {
     }
 
     /**
-     * @deprecated Use reqyestUsers instead
+     * @deprecated Use requestUsers instead
      */
     @Deprecated
     public KeyboardButton requestUser(KeyboardButtonRequestUser user) {

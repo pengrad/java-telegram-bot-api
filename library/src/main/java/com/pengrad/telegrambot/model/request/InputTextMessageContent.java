@@ -41,6 +41,7 @@ public class InputTextMessageContent extends InputMessageContent implements Seri
     /*
     @deprecated Use linkPreviewOptions instead
     */
+    @Deprecated
     public InputTextMessageContent disableWebPagePreview(Boolean disableWebPagePreview) {
         this.disable_web_page_preview = disableWebPagePreview;
         return this;
