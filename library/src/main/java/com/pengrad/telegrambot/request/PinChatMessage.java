@@ -16,5 +16,8 @@ public class PinChatMessage extends BaseRequest<PinChatMessage, BaseResponse> {
     public PinChatMessage disableNotification(boolean disableNotification) {
         return add("disable_notification", disableNotification);
     }
+    public PinChatMessage businessConnectionId(String businessConnectionId) {
+        return add("business_connection_id", businessConnectionId);
+    }
 
 }
