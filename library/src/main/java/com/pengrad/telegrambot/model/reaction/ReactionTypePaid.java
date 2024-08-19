@@ -4,10 +4,10 @@ import java.util.Objects;
 
 public class ReactionTypePaid extends ReactionType {
 
-    public static final String EMOJI_TYPE = "paid";
+    public static final String PAID_TYPE = "paid";
 
     public ReactionTypePaid() {
-        super(EMOJI_TYPE);
+        super(PAID_TYPE);
     }
 
     @Override
