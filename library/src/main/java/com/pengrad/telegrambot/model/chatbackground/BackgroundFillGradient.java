@@ -2,7 +2,7 @@ package com.pengrad.telegrambot.model.chatbackground;
 
 import java.util.Objects;
 
-public class BackgroundFillGradient extends BackgroundType {
+public class BackgroundFillGradient extends BackgroundFill {
 
     public static final String TYPE = "gradient";
 
