@@ -38,7 +38,7 @@ public class ReactionTypeCustomEmoji extends ReactionType {
     public String toString() {
         return "ReactionTypeCustomEmoji{" +
             "type='" + type() + '\'' +
-            "custom_emoji_id='" + custom_emoji_id + '\'' +
+            ",custom_emoji_id='" + custom_emoji_id + '\'' +
             '}';
     }
 }
