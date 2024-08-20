@@ -14,7 +14,7 @@ public class MaybeInaccessibleMessageTypeAdapter implements JsonDeserializer<May
         JsonObject object = element.getAsJsonObject();
         JsonPrimitive discriminator = object.getAsJsonPrimitive("date");
 
-        if (!discriminator.isJsonNull() && discriminator.getAsInt() != InaccessibleMessage.INACCESSIBLE_MESSAGE_DATE) {
+        if (discriminator != null && !discriminator.isJsonNull() && discriminator.getAsInt() != InaccessibleMessage.INACCESSIBLE_MESSAGE_DATE) {
             return context.deserialize(object, Message.class);
         } else {
             return context.deserialize(object, InaccessibleMessage.class);

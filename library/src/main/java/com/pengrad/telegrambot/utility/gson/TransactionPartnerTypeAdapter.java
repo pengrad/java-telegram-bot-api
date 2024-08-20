@@ -14,7 +14,8 @@ public class TransactionPartnerTypeAdapter implements JsonDeserializer<Transacti
     @Override
     public TransactionPartner deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject object = element.getAsJsonObject();
-        String discriminator = object.getAsJsonPrimitive("type").getAsString();
+        JsonPrimitive primitive = object.getAsJsonPrimitive("type");
+        String discriminator = primitive != null ? primitive.getAsString() : "unknown";
 
         if (TransactionPartnerUser.TYPE.equals(discriminator)) {
             return context.deserialize(object, TransactionPartnerUser.class);
@@ -26,6 +27,6 @@ public class TransactionPartnerTypeAdapter implements JsonDeserializer<Transacti
             return context.deserialize(object, TransactionPartnerOther.class);
         }
 
-        return context.deserialize(object, TransactionPartner.class);
+        return new TransactionPartner(discriminator);
     }
 }

@@ -13,7 +13,8 @@ public class ChatBoostSourceTypeAdapter implements JsonDeserializer<ChatBoostSou
     @Override
     public ChatBoostSource deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject object = element.getAsJsonObject();
-        String discriminator = object.getAsJsonPrimitive("source").getAsString();
+        JsonPrimitive primitive = object.getAsJsonPrimitive("source");
+        String discriminator = primitive != null ? primitive.getAsString() : "unknown";
 
         if (ChatBoostSourceGiftCode.CHAT_BOOST_TYPE.equals(discriminator)) {
             return context.deserialize(object, ChatBoostSourceGiftCode.class);
@@ -23,6 +24,6 @@ public class ChatBoostSourceTypeAdapter implements JsonDeserializer<ChatBoostSou
             return context.deserialize(object, ChatBoostSourcePremium.class);
         }
 
-        return context.deserialize(object, ChatBoostSource.class);
+        return new ChatBoostSource(discriminator);
     }
 }

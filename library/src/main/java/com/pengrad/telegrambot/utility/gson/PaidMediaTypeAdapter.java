@@ -13,7 +13,8 @@ public class PaidMediaTypeAdapter implements JsonDeserializer<PaidMedia> {
     @Override
     public PaidMedia deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject object = element.getAsJsonObject();
-        String discriminator = object.getAsJsonPrimitive("type").getAsString();
+        JsonPrimitive primitive = object.getAsJsonPrimitive("type");
+        String discriminator = primitive != null ? primitive.getAsString() : "unknown";
 
         if (PaidMediaPreview.TYPE.equals(discriminator)) {
             return context.deserialize(object, PaidMediaPreview.class);
@@ -23,6 +24,6 @@ public class PaidMediaTypeAdapter implements JsonDeserializer<PaidMedia> {
             return context.deserialize(object, PaidMediaVideo.class);
         }
 
-        return context.deserialize(object, PaidMedia.class);
+        return new PaidMedia(discriminator);
     }
 }

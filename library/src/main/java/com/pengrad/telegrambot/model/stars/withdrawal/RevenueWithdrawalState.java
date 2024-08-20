@@ -1,17 +1,15 @@
 package com.pengrad.telegrambot.model.stars.withdrawal;
 
-import com.pengrad.telegrambot.model.chatbackground.BackgroundFill;
-
 import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class RevenueWithdrawalState implements Serializable {
+public class RevenueWithdrawalState implements Serializable {
 
     private final static long serialVersionUID = 0L;
 
     private String type = "unknown";
 
-    protected RevenueWithdrawalState(String type) {
+    public RevenueWithdrawalState(String type) {
         this.type = type;
     }
 

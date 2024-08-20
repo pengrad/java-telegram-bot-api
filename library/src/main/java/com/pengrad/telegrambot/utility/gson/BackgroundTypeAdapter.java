@@ -14,7 +14,8 @@ public class BackgroundTypeAdapter implements JsonDeserializer<BackgroundType> {
     @Override
     public BackgroundType deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject object = element.getAsJsonObject();
-        String discriminator = object.getAsJsonPrimitive("type").getAsString();
+        JsonPrimitive primitive = object.getAsJsonPrimitive("type");
+        String discriminator = primitive != null ? primitive.getAsString() : "unknown";
 
         if (BackgroundTypeFill.TYPE.equals(discriminator)) {
             return context.deserialize(object, BackgroundTypeFill.class);
@@ -26,6 +27,6 @@ public class BackgroundTypeAdapter implements JsonDeserializer<BackgroundType> {
             return context.deserialize(object, BackgroundTypeChatTheme.class);
         }
 
-        return context.deserialize(object, BackgroundType.class);
+        return new BackgroundType(discriminator);
     }
 }

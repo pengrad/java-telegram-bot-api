@@ -10,7 +10,8 @@ public class MessageOriginTypeAdapter implements JsonDeserializer<MessageOrigin>
     @Override
     public MessageOrigin deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject object = element.getAsJsonObject();
-        String discriminator = object.getAsJsonPrimitive("type").getAsString();
+        JsonPrimitive primitive = object.getAsJsonPrimitive("type");
+        String discriminator = primitive != null ? primitive.getAsString() : "unknown";
 
         if (MessageOriginChannel.MESSAGE_ORIGIN_TYPE.equals(discriminator)) {
             return context.deserialize(object, MessageOriginChannel.class);
@@ -22,6 +23,6 @@ public class MessageOriginTypeAdapter implements JsonDeserializer<MessageOrigin>
             return context.deserialize(object, MessageOriginUser.class);
         }
 
-        return context.deserialize(object, MessageOrigin.class);
+        return new MessageOrigin(discriminator);
     }
 }

@@ -12,7 +12,8 @@ public class ReactionTypeAdapter implements JsonDeserializer<ReactionType> {
     @Override
     public ReactionType deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject object = element.getAsJsonObject();
-        String discriminator = object.getAsJsonPrimitive("type").getAsString();
+        JsonPrimitive primitive = object.getAsJsonPrimitive("type");
+        String discriminator = primitive != null ? primitive.getAsString() : "unknown";
 
         if (ReactionTypeEmoji.EMOJI_TYPE.equals(discriminator)) {
             return context.deserialize(object, ReactionTypeEmoji.class);
@@ -20,6 +21,6 @@ public class ReactionTypeAdapter implements JsonDeserializer<ReactionType> {
             return context.deserialize(object, ReactionTypeCustomEmoji.class);
         }
 
-        return context.deserialize(object, ReactionType.class);
+        return new ReactionType(discriminator);
     }
 }

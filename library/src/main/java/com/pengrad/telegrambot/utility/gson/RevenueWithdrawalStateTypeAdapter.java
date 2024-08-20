@@ -13,7 +13,8 @@ public class RevenueWithdrawalStateTypeAdapter implements JsonDeserializer<Reven
     @Override
     public RevenueWithdrawalState deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject object = element.getAsJsonObject();
-        String discriminator = object.getAsJsonPrimitive("type").getAsString();
+        JsonPrimitive primitive = object.getAsJsonPrimitive("type");
+        String discriminator = primitive != null ? primitive.getAsString() : "unknown";
 
         if (RevenueWithdrawalStatePending.TYPE.equals(discriminator)) {
             return context.deserialize(object, RevenueWithdrawalStatePending.class);
@@ -23,6 +24,6 @@ public class RevenueWithdrawalStateTypeAdapter implements JsonDeserializer<Reven
             return context.deserialize(object, RevenueWithdrawalStateFailed.class);
         }
 
-        return context.deserialize(object, RevenueWithdrawalState.class);
+        return new RevenueWithdrawalState(discriminator);
     }
 }

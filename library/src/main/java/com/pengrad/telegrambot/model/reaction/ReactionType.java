@@ -1,8 +1,10 @@
 package com.pengrad.telegrambot.model.reaction;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class ReactionType {
+public class ReactionType implements Serializable {
+    private final static long serialVersionUID = 0L;
 
     private final String type;
 
@@ -30,7 +32,7 @@ public abstract class ReactionType {
     @Override
     public String toString() {
         return "ReactionType{" +
-            "type='" + type + '\'' +
-            '}';
+                "type='" + type + '\'' +
+                '}';
     }
 }

@@ -3,7 +3,7 @@ package com.pengrad.telegrambot.model.stars.partner;
 import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class TransactionPartner implements Serializable {
+public class TransactionPartner implements Serializable {
 
     private final static long serialVersionUID = 0L;
 

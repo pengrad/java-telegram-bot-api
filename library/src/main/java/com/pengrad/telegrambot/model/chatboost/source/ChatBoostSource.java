@@ -12,6 +12,13 @@ public class ChatBoostSource implements Serializable {
     protected String source;
     protected User user;
 
+    ChatBoostSource() {
+    }
+
+    public ChatBoostSource(String source) {
+        this.source = source;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

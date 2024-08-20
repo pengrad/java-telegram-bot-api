@@ -13,7 +13,8 @@ public class BackgroundFillAdapter implements JsonDeserializer<BackgroundFill> {
     @Override
     public BackgroundFill deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject object = element.getAsJsonObject();
-        String discriminator = object.getAsJsonPrimitive("type").getAsString();
+        JsonPrimitive primitive = object.getAsJsonPrimitive("type");
+        String discriminator = primitive != null ? primitive.getAsString() : "unknown";
 
         if (BackgroundFillSolid.TYPE.equals(discriminator)) {
             return context.deserialize(object, BackgroundFillSolid.class);
@@ -23,6 +24,6 @@ public class BackgroundFillAdapter implements JsonDeserializer<BackgroundFill> {
             return context.deserialize(object, BackgroundFillFreeformGradient.class);
         }
 
-        return context.deserialize(object, BackgroundFill.class);
+        return new BackgroundFill(discriminator);
     }
 }

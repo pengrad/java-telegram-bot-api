@@ -2,7 +2,7 @@ package com.pengrad.telegrambot.model.chatbackground;
 
 import java.util.Objects;
 
-public abstract class BackgroundFill {
+public class BackgroundFill {
 
     private final String type;
 

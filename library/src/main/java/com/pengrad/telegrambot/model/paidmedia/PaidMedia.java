@@ -3,7 +3,7 @@ package com.pengrad.telegrambot.model.paidmedia;
 import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class PaidMedia implements Serializable {
+public class PaidMedia implements Serializable {
 
     private final static long serialVersionUID = 0L;
 
