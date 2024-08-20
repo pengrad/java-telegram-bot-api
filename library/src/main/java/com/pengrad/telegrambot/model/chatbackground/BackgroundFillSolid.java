@@ -2,7 +2,7 @@ package com.pengrad.telegrambot.model.chatbackground;
 
 import java.util.Objects;
 
-public class BackgroundFillSolid extends BackgroundType {
+public class BackgroundFillSolid extends BackgroundFill {
 
     public static final String TYPE = "solid";
 

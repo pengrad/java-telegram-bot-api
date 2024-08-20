@@ -44,6 +44,10 @@ public class SendPaidMedia extends BaseRequest<SendPaidMedia, SendResponse> {
         return add("reply_parameters", replyParameters);
     }
 
+    public SendPaidMedia businessConnectionId(String businessConnectionId) {
+        return add("business_connection_id", businessConnectionId);
+    }
+
     public SendPaidMedia replyMarkup(InlineKeyboardMarkup replyMarkup) {
         return add("reply_markup", replyMarkup);
     }

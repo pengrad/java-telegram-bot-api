@@ -2,7 +2,7 @@ package com.pengrad.telegrambot.model.chatbackground;
 
 import java.util.Arrays;
 
-public class BackgroundFillFreeformGradient extends BackgroundType {
+public class BackgroundFillFreeformGradient extends BackgroundFill {
 
     public static final String TYPE = "freeform_gradient";
 
