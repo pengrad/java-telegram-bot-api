@@ -35,16 +35,14 @@ public class TransactionPartnerUser extends TransactionPartner {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         TransactionPartnerUser that = (TransactionPartnerUser) o;
-        return Objects.equals(type(), that.type()) &&
-                Objects.equals(user, that.user) &&
-                Objects.equals(invoice_payload, that.invoice_payload) &&
-                Objects.equals(paid_media, that.paid_media);
+        return Objects.equals(user, that.user) && Objects.equals(invoice_payload, that.invoice_payload) && Objects.deepEquals(paid_media, that.paid_media);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type(), user, invoice_payload);
+        return Objects.hash(super.hashCode(), user, invoice_payload, Arrays.hashCode(paid_media));
     }
 
     @Override

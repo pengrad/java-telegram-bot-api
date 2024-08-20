@@ -21,7 +21,7 @@ public class ReactionTypeAdapter implements JsonDeserializer<ReactionType> {
         } else if (ReactionTypeCustomEmoji.CUSTOM_EMOJI_TYPE.equals(discriminator)) {
             return context.deserialize(object, ReactionTypeCustomEmoji.class);
         } else if (ReactionTypePaid.PAID_TYPE.equals(discriminator)) {
-            return context.deserialize(object, ReactionTypeCustomEmoji.class);
+            return context.deserialize(object, ReactionTypePaid.class);
         }
 
         return new ReactionType(discriminator);
