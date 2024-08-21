@@ -15,13 +15,23 @@ public class ChatBoostSourceGiveaway extends ChatBoostSource implements Serializ
     public Integer giveawayMessageId() {
         return giveaway_message_id;
     }
+
     public Boolean isUnclaimed() {
         return is_unclaimed != null && is_unclaimed;
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ChatBoostSourceGiveaway that = (ChatBoostSourceGiveaway) o;
+        return Objects.equals(giveaway_message_id, that.giveaway_message_id) && Objects.equals(is_unclaimed, that.is_unclaimed);
+    }
+
+    @Override
     public int hashCode() {
-        return Objects.hash(source, user, giveaway_message_id, is_unclaimed);
+        return Objects.hash(super.hashCode(), giveaway_message_id, is_unclaimed);
     }
 
     @Override

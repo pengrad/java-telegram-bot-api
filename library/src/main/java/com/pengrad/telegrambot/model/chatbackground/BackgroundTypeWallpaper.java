@@ -49,26 +49,24 @@ public class BackgroundTypeWallpaper extends BackgroundType {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         BackgroundTypeWallpaper that = (BackgroundTypeWallpaper) o;
-        return Objects.equals(document, that.document) &&
-                Objects.equals(dark_theme_dimming, that.dark_theme_dimming) &&
-                Objects.equals(is_blurred, that.is_blurred) &&
-                Objects.equals(is_moving, that.is_moving);
+        return Objects.equals(document, that.document) && Objects.equals(dark_theme_dimming, that.dark_theme_dimming) && Objects.equals(is_blurred, that.is_blurred) && Objects.equals(is_moving, that.is_moving);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(document, dark_theme_dimming, is_blurred, is_moving);
+        return Objects.hash(super.hashCode(), document, dark_theme_dimming, is_blurred, is_moving);
     }
 
     @Override
     public String toString() {
         return "BackgroundTypeWallpaper{" +
-            "type='" + type() + '\'' +
-            ", document='" + document + '\'' +
-            ", dark_theme_dimming=" + dark_theme_dimming +
-            ", is_blurred=" + is_blurred +
-            ", is_moving=" + is_moving +
-            '}';
+                "type='" + type() + '\'' +
+                ", document='" + document + '\'' +
+                ", dark_theme_dimming=" + dark_theme_dimming +
+                ", is_blurred=" + is_blurred +
+                ", is_moving=" + is_moving +
+                '}';
     }
 }

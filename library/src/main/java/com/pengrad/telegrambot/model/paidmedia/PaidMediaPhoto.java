@@ -23,14 +23,14 @@ public class PaidMediaPhoto extends PaidMedia {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         PaidMediaPhoto that = (PaidMediaPhoto) o;
-        return Objects.equals(type(), that.type()) &&
-                Arrays.equals(photo, that.photo);
+        return Objects.deepEquals(photo, that.photo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type(), photo);
+        return Objects.hash(super.hashCode(), Arrays.hashCode(photo));
     }
 
     @Override

@@ -25,11 +25,9 @@ public class BusinessIntro {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BusinessIntro)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         BusinessIntro that = (BusinessIntro) o;
-        return Objects.equals(title, that.title)
-            && Objects.equals(message, that.message)
-            && Objects.equals(sticker, that.sticker);
+        return Objects.equals(title, that.title) && Objects.equals(message, that.message) && Objects.equals(sticker, that.sticker);
     }
 
     @Override
@@ -40,9 +38,9 @@ public class BusinessIntro {
     @Override
     public String toString() {
         return "BusinessIntro{" +
-            "title='" + title + '\'' +
-            ", message='" + message + '\'' +
-            ", sticker=" + sticker +
-            '}';
+                "title='" + title + '\'' +
+                ", message='" + message + '\'' +
+                ", sticker=" + sticker +
+                '}';
     }
 }

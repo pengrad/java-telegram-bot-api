@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model.chatbackground;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class BackgroundFillFreeformGradient extends BackgroundFill {
 
@@ -21,20 +22,20 @@ public class BackgroundFillFreeformGradient extends BackgroundFill {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         BackgroundFillFreeformGradient that = (BackgroundFillFreeformGradient) o;
-        return Arrays.equals(colors, that.colors);
+        return Objects.deepEquals(colors, that.colors);
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(colors);
+        return Objects.hash(super.hashCode(), Arrays.hashCode(colors));
     }
 
     @Override
     public String toString() {
         return "BackgroundFillFreeformGradient{" +
-            "type='" + type() + '\'' +
-            ", colors=" + Arrays.asList(colors) + 
-            '}';
+                "colors=" + Arrays.toString(colors) +
+                '}';
     }
 }

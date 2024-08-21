@@ -20,7 +20,7 @@ public class BusinessLocation {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BusinessLocation)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         BusinessLocation that = (BusinessLocation) o;
         return Objects.equals(address, that.address) && Objects.equals(location, that.location);
     }
@@ -33,8 +33,8 @@ public class BusinessLocation {
     @Override
     public String toString() {
         return "BusinessLocation{" +
-            "address='" + address + '\'' +
-            ", location=" + location +
-            '}';
+                "address='" + address + '\'' +
+                ", location=" + location +
+                '}';
     }
 }

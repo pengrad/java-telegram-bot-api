@@ -25,20 +25,21 @@ public class ReactionTypeEmoji extends ReactionType {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         ReactionTypeEmoji that = (ReactionTypeEmoji) o;
         return Objects.equals(emoji, that.emoji);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(emoji);
+        return Objects.hash(super.hashCode(), emoji);
     }
 
     @Override
     public String toString() {
         return "ReactionTypeEmoji{" +
-            "type='" + type() + '\'' +
-            ",emoji='" + emoji + '\'' +
-            '}';
+                "type='" + type() + '\'' +
+                ",emoji='" + emoji + '\'' +
+                '}';
     }
 }

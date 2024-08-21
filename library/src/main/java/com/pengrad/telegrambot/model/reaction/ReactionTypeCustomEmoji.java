@@ -25,20 +25,21 @@ public class ReactionTypeCustomEmoji extends ReactionType {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         ReactionTypeCustomEmoji that = (ReactionTypeCustomEmoji) o;
         return Objects.equals(custom_emoji_id, that.custom_emoji_id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(custom_emoji_id);
+        return Objects.hash(super.hashCode(), custom_emoji_id);
     }
 
     @Override
     public String toString() {
         return "ReactionTypeCustomEmoji{" +
-            "type='" + type() + '\'' +
-            ",custom_emoji_id='" + custom_emoji_id + '\'' +
-            '}';
+                "type='" + type() + '\'' +
+                ",custom_emoji_id='" + custom_emoji_id + '\'' +
+                '}';
     }
 }

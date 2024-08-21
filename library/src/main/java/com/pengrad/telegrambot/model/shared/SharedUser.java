@@ -39,26 +39,24 @@ public class SharedUser implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SharedUser)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         SharedUser that = (SharedUser) o;
-        return Objects.equals(user_id, that.user_id) && Objects.equals(first_name, that.first_name) && Objects.equals(last_name, that.last_name) && Objects.equals(username, that.username) && Arrays.equals(photo, that.photo);
+        return Objects.equals(user_id, that.user_id) && Objects.equals(first_name, that.first_name) && Objects.equals(last_name, that.last_name) && Objects.equals(username, that.username) && Objects.deepEquals(photo, that.photo);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(user_id, first_name, last_name, username);
-        result = 31 * result + Arrays.hashCode(photo);
-        return result;
+        return Objects.hash(user_id, first_name, last_name, username, Arrays.hashCode(photo));
     }
 
     @Override
     public String toString() {
         return "SharedUser{" +
-            "user_id=" + user_id +
-            ", first_name='" + first_name + '\'' +
-            ", last_name='" + last_name + '\'' +
-            ", username='" + username + '\'' +
-            ", photo=" + Arrays.toString(photo) +
-            '}';
+                "user_id=" + user_id +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", username='" + username + '\'' +
+                ", photo=" + Arrays.toString(photo) +
+                '}';
     }
 }

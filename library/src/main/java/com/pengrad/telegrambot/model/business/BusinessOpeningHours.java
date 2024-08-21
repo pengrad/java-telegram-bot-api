@@ -19,23 +19,21 @@ public class BusinessOpeningHours {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BusinessOpeningHours)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         BusinessOpeningHours that = (BusinessOpeningHours) o;
-        return Objects.equals(time_zone_name, that.time_zone_name) && Arrays.equals(opening_hours, that.opening_hours);
+        return Objects.equals(time_zone_name, that.time_zone_name) && Objects.deepEquals(opening_hours, that.opening_hours);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(time_zone_name);
-        result = 31 * result + Arrays.hashCode(opening_hours);
-        return result;
+        return Objects.hash(time_zone_name, Arrays.hashCode(opening_hours));
     }
 
     @Override
     public String toString() {
         return "BusinessOpeningHours{" +
-            "time_zone_name='" + time_zone_name + '\'' +
-            ", opening_hours=" + Arrays.toString(opening_hours) +
-            '}';
+                "time_zone_name='" + time_zone_name + '\'' +
+                ", opening_hours=" + Arrays.toString(opening_hours) +
+                '}';
     }
 }

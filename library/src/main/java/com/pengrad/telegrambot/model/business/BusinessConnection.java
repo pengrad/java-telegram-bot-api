@@ -40,18 +40,25 @@ public class BusinessConnection {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BusinessConnection)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         BusinessConnection that = (BusinessConnection) o;
-        return Objects.equals(id, that.id)
-            && Objects.equals(user, that.user)
-            && Objects.equals(user_chat_id, that.user_chat_id)
-            && Objects.equals(date, that.date)
-            && Objects.equals(can_reply, that.can_reply)
-            && Objects.equals(is_enabled, that.is_enabled);
+        return Objects.equals(id, that.id) && Objects.equals(user, that.user) && Objects.equals(user_chat_id, that.user_chat_id) && Objects.equals(date, that.date) && Objects.equals(can_reply, that.can_reply) && Objects.equals(is_enabled, that.is_enabled);
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return Objects.hash(id, user, user_chat_id, date, can_reply, is_enabled);
+    }
+
+    @Override
+    public String toString() {
+        return "BusinessConnection{" +
+                "id='" + id + '\'' +
+                ", user=" + user +
+                ", user_chat_id=" + user_chat_id +
+                ", date=" + date +
+                ", can_reply=" + can_reply +
+                ", is_enabled=" + is_enabled +
+                '}';
     }
 }

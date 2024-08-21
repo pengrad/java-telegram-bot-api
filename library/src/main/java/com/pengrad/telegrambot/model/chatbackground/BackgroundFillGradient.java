@@ -33,22 +33,23 @@ public class BackgroundFillGradient extends BackgroundFill {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         BackgroundFillGradient that = (BackgroundFillGradient) o;
         return Objects.equals(top_color, that.top_color) && Objects.equals(bottom_color, that.bottom_color) && Objects.equals(rotation_angle, that.rotation_angle);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(top_color, bottom_color, rotation_angle);
+        return Objects.hash(super.hashCode(), top_color, bottom_color, rotation_angle);
     }
 
     @Override
     public String toString() {
         return "BackgroundFillGradient{" +
-            "type='" + type() + '\'' +
-            ", top_color=" + top_color + 
-            ", bottom_color=" + bottom_color + 
-            ", rotation_angle=" + rotation_angle + 
-            '}';
+                "type='" + type() + '\'' +
+                ", top_color=" + top_color +
+                ", bottom_color=" + bottom_color +
+                ", rotation_angle=" + rotation_angle +
+                '}';
     }
 }

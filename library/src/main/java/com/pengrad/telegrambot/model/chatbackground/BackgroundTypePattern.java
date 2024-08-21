@@ -55,28 +55,24 @@ public class BackgroundTypePattern extends BackgroundType {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         BackgroundTypePattern that = (BackgroundTypePattern) o;
-        return Objects.equals(document, that.document) &&
-                Objects.equals(fill, that.fill) &&
-                Objects.equals(intensity, that.intensity) &&
-                Objects.equals(is_inverted, that.is_inverted) &&
-                Objects.equals(is_moving, that.is_moving);
+        return Objects.equals(document, that.document) && Objects.equals(fill, that.fill) && Objects.equals(intensity, that.intensity) && Objects.equals(is_inverted, that.is_inverted) && Objects.equals(is_moving, that.is_moving);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(document, fill, intensity, is_inverted, is_moving);
+        return Objects.hash(super.hashCode(), document, fill, intensity, is_inverted, is_moving);
     }
 
     @Override
     public String toString() {
         return "BackgroundTypePattern{" +
-            "type='" + type() + '\'' +
-            ", document='" + document + '\'' +
-            ", fill=" + fill +
-            ", intensity=" + intensity +
-            ", is_inverted=" + is_inverted +
-            ", is_moving=" + is_moving +
-            '}';
+                "document=" + document +
+                ", fill=" + fill +
+                ", intensity=" + intensity +
+                ", is_inverted=" + is_inverted +
+                ", is_moving=" + is_moving +
+                '}';
     }
 }

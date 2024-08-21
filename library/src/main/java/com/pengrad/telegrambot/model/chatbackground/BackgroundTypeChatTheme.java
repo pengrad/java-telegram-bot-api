@@ -21,20 +21,21 @@ public class BackgroundTypeChatTheme extends BackgroundType {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         BackgroundTypeChatTheme that = (BackgroundTypeChatTheme) o;
         return Objects.equals(theme_name, that.theme_name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(theme_name);
+        return Objects.hash(super.hashCode(), theme_name);
     }
 
     @Override
     public String toString() {
         return "BackgroundTypeChatTheme{" +
-            "type='" + type() + '\'' +
-            ", theme_name=" + theme_name + 
-            '}';
+                "type='" + type() + '\'' +
+                ", theme_name=" + theme_name +
+                '}';
     }
 }

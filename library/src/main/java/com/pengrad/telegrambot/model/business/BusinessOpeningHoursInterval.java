@@ -18,10 +18,9 @@ public class BusinessOpeningHoursInterval {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BusinessOpeningHoursInterval)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         BusinessOpeningHoursInterval that = (BusinessOpeningHoursInterval) o;
-        return Objects.equals(opening_minute, that.opening_minute)
-            && Objects.equals(closing_minute, that.closing_minute);
+        return Objects.equals(opening_minute, that.opening_minute) && Objects.equals(closing_minute, that.closing_minute);
     }
 
     @Override
@@ -32,8 +31,8 @@ public class BusinessOpeningHoursInterval {
     @Override
     public String toString() {
         return "BusinessOpeningHoursInterval{" +
-            "opening_minute=" + opening_minute +
-            ", closing_minute=" + closing_minute +
-            '}';
+                "opening_minute=" + opening_minute +
+                ", closing_minute=" + closing_minute +
+                '}';
     }
 }

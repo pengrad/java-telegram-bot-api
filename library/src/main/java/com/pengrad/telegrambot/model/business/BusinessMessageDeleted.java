@@ -26,26 +26,22 @@ public class BusinessMessageDeleted {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BusinessMessageDeleted)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         BusinessMessageDeleted that = (BusinessMessageDeleted) o;
-        return Objects.equals(business_connection_id, that.business_connection_id)
-            && Objects.equals(chat, that.chat)
-            && Arrays.equals(message_ids, that.message_ids);
+        return Objects.equals(business_connection_id, that.business_connection_id) && Objects.equals(chat, that.chat) && Objects.deepEquals(message_ids, that.message_ids);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(business_connection_id, chat);
-        result = 31 * result + Arrays.hashCode(message_ids);
-        return result;
+        return Objects.hash(business_connection_id, chat, Arrays.hashCode(message_ids));
     }
 
     @Override
     public String toString() {
         return "BusinessMessageDeleted{" +
-            "business_connection_id='" + business_connection_id + '\'' +
-            ", chat=" + chat +
-            ", message_ids=" + Arrays.toString(message_ids) +
-            '}';
+                "business_connection_id='" + business_connection_id + '\'' +
+                ", chat=" + chat +
+                ", message_ids=" + Arrays.toString(message_ids) +
+                '}';
     }
 }
