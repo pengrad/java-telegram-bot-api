@@ -6,6 +6,9 @@ import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.botcommandscope.BotCommandScopeAllChatAdministrators;
 import com.pengrad.telegrambot.model.chatboost.ChatBoost;
 import com.pengrad.telegrambot.model.giveaway.Giveaway;
+import com.pengrad.telegrambot.model.paidmedia.PaidMediaInfo;
+import com.pengrad.telegrambot.model.paidmedia.PaidMediaPhoto;
+import com.pengrad.telegrambot.model.paidmedia.PaidMediaVideo;
 import com.pengrad.telegrambot.model.reaction.ReactionTypeEmoji;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.passport.*;
@@ -2415,5 +2418,21 @@ public class TelegramBotTest {
         assertFalse(response.isOk());
         assertEquals("Bad Request: query is too old and response timeout expired or query ID is invalid", response.description());
         assertNull(response.sentWebAppMessage());
+    }
+
+    @Test
+    public void sendPaidMedia() {
+        Integer starCount = 2;
+        SendResponse response = bot.execute(new SendPaidMedia(chatId, starCount,
+                new InputPaidMediaVideo(videoFile).thumbnail(thumbFile),
+                new InputPaidMediaPhoto(photoFileId)));
+        PaidMediaInfo mediaInfo = response.message().paidMedia();
+        assertTrue(response.isOk());
+        assertEquals(starCount, mediaInfo.starCount());
+        assertEquals(2, mediaInfo.paidMedia().length);
+        assertEquals("video", mediaInfo.paidMedia()[0].type());
+        VideoTest.check(((PaidMediaVideo) mediaInfo.paidMedia()[0]).getVideo());
+        assertEquals("photo", mediaInfo.paidMedia()[1].type());
+        PhotoSizeTest.checkPhotos(((PaidMediaPhoto) mediaInfo.paidMedia()[1]).getPhoto());
     }
 }

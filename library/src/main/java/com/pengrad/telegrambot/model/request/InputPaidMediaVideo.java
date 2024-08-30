@@ -5,7 +5,6 @@ import com.pengrad.telegrambot.request.ContentTypes;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
 
 public class InputPaidMediaVideo extends InputPaidMedia implements Serializable {
@@ -14,11 +13,7 @@ public class InputPaidMediaVideo extends InputPaidMedia implements Serializable 
 
     private Integer width, height, duration;
     private Boolean supports_streaming;
-
     private String thumbnail;
-
-    transient private Map<String, Object> attachments = new HashMap<>();
-
 
     public InputPaidMediaVideo(String media) {
         super("video", media);
@@ -65,11 +60,6 @@ public class InputPaidMediaVideo extends InputPaidMedia implements Serializable 
         this.thumbnail = "attach://" + attachName;
         return this;
     }
-
-    public Map<String, Object> getAttachments() {
-        return attachments;
-    }
-
 
     @Override
     public String getDefaultFileName() {

@@ -36,9 +36,7 @@ public class PaidMediaPhoto extends PaidMedia {
     @Override
     public String toString() {
         return "PaidMediaPhoto{" +
-                "type='" + type() + "\'," +
-                ", photo=" + Arrays.toString(photo) + "\'" +
+                "photo=" + Arrays.toString(photo) +
                 '}';
     }
-
 }

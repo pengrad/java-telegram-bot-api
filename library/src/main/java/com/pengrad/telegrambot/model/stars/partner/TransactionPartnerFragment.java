@@ -35,9 +35,7 @@ public class TransactionPartnerFragment extends TransactionPartner {
     @Override
     public String toString() {
         return "TransactionPartnerFragment{" +
-                "type='" + type() + "\'," +
-                ", withdrawal_state=" + withdrawal_state + "\'" +
+                "withdrawal_state=" + withdrawal_state +
                 '}';
     }
-
 }

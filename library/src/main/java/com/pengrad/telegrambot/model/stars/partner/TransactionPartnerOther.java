@@ -26,9 +26,6 @@ public class TransactionPartnerOther extends TransactionPartner {
 
     @Override
     public String toString() {
-        return "TransactionPartnerOther{" +
-                "type='" + type() + "\'" +
-                '}';
+        return "TransactionPartnerOther{}";
     }
-
 }

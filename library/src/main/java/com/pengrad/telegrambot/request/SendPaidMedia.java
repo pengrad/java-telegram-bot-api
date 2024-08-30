@@ -10,10 +10,28 @@ import java.util.Map;
 
 public class SendPaidMedia extends BaseRequest<SendPaidMedia, SendResponse> {
 
+    private boolean isMultipart = false;
 
     public SendPaidMedia(Object chatId, Integer starCount, InputPaidMedia... media) {
         super(SendResponse.class);
         add("chat_id", chatId).add("star_count", starCount).add("media", media);
+
+        for (InputPaidMedia m : media) {
+            Map<String, Object> attachments = m.getAttachments();
+            if (attachments != null && !attachments.isEmpty()) {
+                addAll(attachments);
+                isMultipart = true;
+            }
+            if (m.inputFile() != null) {
+                add(m.getInputFileId(), m.inputFile());
+                isMultipart = true;
+            }
+        }
+    }
+
+    @Override
+    public boolean isMultipart() {
+        return isMultipart;
     }
 
     public SendPaidMedia caption(String caption) {

@@ -26,9 +26,6 @@ public class TransactionPartnerTelegramAds extends TransactionPartner {
 
     @Override
     public String toString() {
-        return "TransactionPartnerTelegramAds{" +
-                "type='" + type() + "\'" +
-                '}';
+        return "TransactionPartnerTelegramAds{}";
     }
-
 }

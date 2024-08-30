@@ -36,9 +36,7 @@ public class PaidMediaVideo extends PaidMedia {
     @Override
     public String toString() {
         return "PaidMediaVideo{" +
-                "type='" + type() + "\'," +
-                ", video=" + video + "\'" +
+                "video=" + video +
                 '}';
     }
-
 }

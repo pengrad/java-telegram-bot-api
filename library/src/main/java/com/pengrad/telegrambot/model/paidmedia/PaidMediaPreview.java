@@ -47,11 +47,9 @@ public class PaidMediaPreview extends PaidMedia {
     @Override
     public String toString() {
         return "PaidMediaPreview{" +
-                "type='" + type() + "\'," +
-                ", width=" + width + "\'," +
-                ", height=" + height + "\'," +
-                ", duration=" + duration + "\'" +
+                "width=" + width +
+                ", height=" + height +
+                ", duration=" + duration +
                 '}';
     }
-
 }

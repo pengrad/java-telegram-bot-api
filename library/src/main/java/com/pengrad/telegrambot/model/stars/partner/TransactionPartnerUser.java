@@ -48,11 +48,9 @@ public class TransactionPartnerUser extends TransactionPartner {
     @Override
     public String toString() {
         return "TransactionPartnerUser{" +
-                "type='" + type() + "\'," +
-                ", user=" + user + "\'," +
-                ", invoice_payload=" + invoice_payload + "\'," +
-                ", paid_media=" + paid_media + "\'" +
+                "user=" + user +
+                ", invoice_payload='" + invoice_payload + '\'' +
+                ", paid_media=" + Arrays.toString(paid_media) +
                 '}';
     }
-
 }

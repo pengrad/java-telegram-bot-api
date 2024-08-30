@@ -39,10 +39,8 @@ public class RevenueWithdrawalStateSucceeded extends RevenueWithdrawalState {
     @Override
     public String toString() {
         return "RevenueWithdrawalStateSucceeded{" +
-                "type='" + type() + "\'," +
-                "date='" + date + "\'," +
-                "url='" + url + "\'" +
+                "date=" + date +
+                ", url='" + url + '\'' +
                 '}';
     }
-
 }

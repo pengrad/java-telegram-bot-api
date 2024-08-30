@@ -7,16 +7,12 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Stas Parshin
- * 23 November 2017
- */
 abstract public class InputPaidMedia implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private final String type;
     private final String media;
-    private String thumbnail;
+    transient protected Map<String, Object> attachments = new HashMap<>();
     transient private InputFile inputFile;
     transient private String inputFileAttachId;
     transient private String fileName;
@@ -39,6 +35,9 @@ abstract public class InputPaidMedia implements Serializable {
         }
     }
 
+    public Map<String, Object> getAttachments() {
+        return attachments;
+    }
 
     public InputFile inputFile() {
         return inputFile;
