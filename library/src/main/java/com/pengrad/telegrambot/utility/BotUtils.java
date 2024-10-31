@@ -36,7 +36,7 @@ public class BotUtils {
             .registerTypeAdapter(BackgroundType.class, new BackgroundTypeAdapter())
             .registerTypeAdapter(BackgroundFill.class, new BackgroundFillAdapter())
             .registerTypeAdapter(RevenueWithdrawalState.class, new RevenueWithdrawalStateTypeAdapter())
-            .registerTypeAdapter(TransactionPartner.class, new TransactionPartnerTypeAdapter())
+            .registerTypeAdapter(TransactionPartner.class, TransactionPartnerTypeAdapter.INSTANCE)
             .registerTypeAdapter(PaidMedia.class, new PaidMediaTypeAdapter())
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create();
