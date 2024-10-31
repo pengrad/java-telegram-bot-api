@@ -19,7 +19,7 @@ public class Giveaway implements Serializable {
     private String prize_description;
     private String[] country_codes;
     private Integer premium_subscription_month_count;
-
+    private Integer prize_star_count;
 
     public Chat[] chats() {
         return chats;
@@ -45,18 +45,38 @@ public class Giveaway implements Serializable {
     public Integer premiumSubscriptionMonthCount() {
         return premium_subscription_month_count;
     }
+    public Integer prizeStarCount() {
+        return prize_star_count;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Giveaway giveaway = (Giveaway) o;
-        return Objects.deepEquals(chats, giveaway.chats) && Objects.equals(winners_selection_date, giveaway.winners_selection_date) && Objects.equals(winner_count, giveaway.winner_count) && Objects.equals(only_new_members, giveaway.only_new_members) && Objects.equals(has_public_winners, giveaway.has_public_winners) && Objects.equals(prize_description, giveaway.prize_description) && Objects.deepEquals(country_codes, giveaway.country_codes) && Objects.equals(premium_subscription_month_count, giveaway.premium_subscription_month_count);
+        return Objects.deepEquals(chats, giveaway.chats)
+            && Objects.equals(winners_selection_date, giveaway.winners_selection_date)
+            && Objects.equals(winner_count, giveaway.winner_count)
+            && Objects.equals(only_new_members, giveaway.only_new_members)
+            && Objects.equals(has_public_winners, giveaway.has_public_winners)
+            && Objects.equals(prize_description, giveaway.prize_description)
+            && Objects.deepEquals(country_codes, giveaway.country_codes)
+            && Objects.equals(premium_subscription_month_count, giveaway.premium_subscription_month_count)
+            && Objects.equals(prize_star_count, giveaway.prize_star_count);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Arrays.hashCode(chats), winners_selection_date, winner_count, only_new_members, has_public_winners, prize_description, Arrays.hashCode(country_codes), premium_subscription_month_count);
+        return Objects.hash(
+            Arrays.hashCode(chats),
+            winners_selection_date,
+            winner_count,
+            only_new_members,
+            has_public_winners,
+            prize_description,
+            Arrays.hashCode(country_codes),
+            premium_subscription_month_count,
+            prize_star_count);
     }
 
     @Override
@@ -70,6 +90,7 @@ public class Giveaway implements Serializable {
                 ", prize_description='" + prize_description + '\'' +
                 ", country_codes=" + Arrays.toString(country_codes) +
                 ", premium_subscription_month_count=" + premium_subscription_month_count +
+                ", prize_star_count=" + prize_star_count +
                 '}';
     }
 }

@@ -22,7 +22,7 @@ public class GiveawayWinners implements Serializable {
     private Boolean only_new_members;
     private Boolean was_refunded;
     private String prize_description;
-
+    private Integer prize_star_count;
 
     public Chat chat() {
         return chat;
@@ -68,17 +68,44 @@ public class GiveawayWinners implements Serializable {
         return prize_description;
     }
 
+    public Integer prizeStarCount() {
+        return prize_star_count;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GiveawayWinners that = (GiveawayWinners) o;
-        return Objects.equals(chat, that.chat) && Objects.equals(giveaway_message_id, that.giveaway_message_id) && Objects.equals(winners_selection_date, that.winners_selection_date) && Objects.equals(winner_count, that.winner_count) && Objects.deepEquals(winners, that.winners) && Objects.equals(additional_chat_count, that.additional_chat_count) && Objects.equals(premium_subscription_month_count, that.premium_subscription_month_count) && Objects.equals(unclaimed_prize_count, that.unclaimed_prize_count) && Objects.equals(only_new_members, that.only_new_members) && Objects.equals(was_refunded, that.was_refunded) && Objects.equals(prize_description, that.prize_description);
+        return Objects.equals(chat, that.chat)
+            && Objects.equals(giveaway_message_id, that.giveaway_message_id)
+            && Objects.equals(winners_selection_date, that.winners_selection_date)
+            && Objects.equals(winner_count, that.winner_count)
+            && Objects.deepEquals(winners, that.winners)
+            && Objects.equals(additional_chat_count, that.additional_chat_count)
+            && Objects.equals(premium_subscription_month_count, that.premium_subscription_month_count)
+            && Objects.equals(unclaimed_prize_count, that.unclaimed_prize_count)
+            && Objects.equals(only_new_members, that.only_new_members)
+            && Objects.equals(was_refunded, that.was_refunded)
+            && Objects.equals(prize_description, that.prize_description)
+            && Objects.equals(prize_star_count, that.prize_star_count);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(chat, giveaway_message_id, winners_selection_date, winner_count, Arrays.hashCode(winners), additional_chat_count, premium_subscription_month_count, unclaimed_prize_count, only_new_members, was_refunded, prize_description);
+        return Objects.hash(
+            chat,
+            giveaway_message_id,
+            winners_selection_date,
+            winner_count,
+            Arrays.hashCode(winners),
+            additional_chat_count,
+            premium_subscription_month_count,
+            unclaimed_prize_count,
+            only_new_members,
+            was_refunded,
+            prize_description,
+            prize_star_count);
     }
 
     @Override
@@ -95,6 +122,7 @@ public class GiveawayWinners implements Serializable {
                 ", only_new_members=" + only_new_members +
                 ", was_refunded=" + was_refunded +
                 ", prize_description='" + prize_description + '\'' +
+                ", prize_star_count=" + prize_star_count +
                 '}';
     }
 }
