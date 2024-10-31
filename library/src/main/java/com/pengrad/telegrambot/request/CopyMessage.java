@@ -62,4 +62,8 @@ public class CopyMessage extends BaseRequest<CopyMessage, MessageIdResponse> {
         return add("protect_content", protectContent);
     }
 
+    public CopyMessage allowPaidBroadcast(boolean allowPaidBroadcast) {
+        return add("allow_paid_broadcast", allowPaidBroadcast);
+    }
+
 }

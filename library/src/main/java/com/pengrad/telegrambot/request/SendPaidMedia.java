@@ -82,4 +82,8 @@ public class SendPaidMedia extends BaseRequest<SendPaidMedia, SendResponse> {
         return add("reply_markup", replyMarkup);
     }
 
+    public SendPaidMedia allowPaidBroadcast(boolean allowPaidBroadcast) {
+        return add("allow_paid_broadcast", allowPaidBroadcast);
+    }
+
 }
