@@ -14,6 +14,7 @@ public class TransactionPartnerUser extends TransactionPartner {
     private User user;
     private String invoice_payload;
     private PaidMedia[] paid_media;
+    private String paid_media_payload;
 
     public TransactionPartnerUser() {
         super(TYPE);
@@ -31,13 +32,20 @@ public class TransactionPartnerUser extends TransactionPartner {
         return paid_media;
     }
 
+    public String paidMediaPayload() {
+        return paid_media_payload;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         TransactionPartnerUser that = (TransactionPartnerUser) o;
-        return Objects.equals(user, that.user) && Objects.equals(invoice_payload, that.invoice_payload) && Objects.deepEquals(paid_media, that.paid_media);
+        return Objects.equals(user, that.user)
+            && Objects.equals(invoice_payload, that.invoice_payload)
+            && Objects.deepEquals(paid_media, that.paid_media)
+            && Objects.equals(paid_media_payload, that.paid_media_payload);
     }
 
     @Override
@@ -51,6 +59,7 @@ public class TransactionPartnerUser extends TransactionPartner {
                 "user=" + user +
                 ", invoice_payload='" + invoice_payload + '\'' +
                 ", paid_media=" + Arrays.toString(paid_media) +
+                ", paid_media_payload='" + paid_media_payload + '\'' +
                 '}';
     }
 }
