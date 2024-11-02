@@ -46,7 +46,6 @@ public class MessageTest {
         assertFalse(message.isFromOffline());
         assertFalse(message.hasMediaSpoiler());
         assertNull(message.showCaptionAboveMedia());
-        assertNull(message.linkPreviewOptions());
         assertNull(message.effectId());
         assertNull(message.messageAutoDeleteTimerChanged());
         assertNull(message.refundedPayment());

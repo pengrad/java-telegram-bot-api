@@ -647,6 +647,12 @@ public class TelegramBotTest {
         MessageTest.checkTextMessage(message);
         assertEquals(url, message.entities()[0].url());
         assertEquals(channelId, message.senderChat().id());
+        LinkPreviewOptions linkPreviewOptions = message.linkPreviewOptions();
+        assertTrue(linkPreviewOptions.isDisabled());
+        assertNull(linkPreviewOptions.url());
+        assertNull(linkPreviewOptions.preferSmallMedia());
+        assertNull(linkPreviewOptions.preferLargeMedia());
+        assertNull(linkPreviewOptions.showAboveText());
     }
 
     @Test
