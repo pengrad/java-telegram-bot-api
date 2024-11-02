@@ -30,7 +30,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private Chat sender_chat;
     private Integer sender_boost_count;
     private User sender_business_bot;
-    private BusinessConnection business_connection;
+    private String business_connection_id;
     private MessageOrigin forward_origin;
     private Boolean is_topic_message;
     private Boolean is_automatic_forward;
@@ -129,8 +129,8 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return sender_business_bot;
     }
 
-    public BusinessConnection businessConnection() {
-        return business_connection;
+    public String businessConnectionId() {
+        return business_connection_id;
     }
 
     public MessageOrigin forwardOrigin() {
@@ -223,9 +223,11 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     public Message replyToMessage() {
         return reply_to_message;
     }
+
     public ExternalReplyInfo externalReply() {
         return external_reply;
     }
+
     public TextQuote quote() {
         return quote;
     }
@@ -546,13 +548,13 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
         return Objects.equals(message_id, message.message_id) &&
-                Objects.equals(message_thread_id , message.message_thread_id ) &&
+                Objects.equals(message_thread_id, message.message_thread_id) &&
                 Objects.equals(from, message.from) &&
                 Objects.equals(sender_chat, message.sender_chat) &&
                 Objects.equals(sender_boost_count, message.sender_boost_count) &&
                 Objects.equals(date, message.date) &&
                 Objects.equals(sender_business_bot, message.sender_business_bot) &&
-                Objects.equals(business_connection, message.business_connection) &&
+                Objects.equals(business_connection_id, message.business_connection_id) &&
                 Objects.equals(chat, message.chat) &&
                 Objects.equals(forward_origin, message.forward_origin) &&
                 Objects.equals(is_topic_message, message.is_topic_message) &&
@@ -648,7 +650,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", sender_boost_count=" + sender_boost_count +
                 ", date=" + date +
                 ", sender_business_bot=" + sender_business_bot +
-                ", business_connection=" + business_connection +
+                ", business_connection_id=" + business_connection_id +
                 ", chat=" + chat +
                 ", forward_origin=" + forward_origin +
                 ", is_topic_message=" + is_topic_message +
@@ -659,9 +661,9 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", reply_to_story=" + reply_to_story +
                 ", via_bot=" + via_bot +
                 ", edit_date=" + edit_date +
-                ", has_protected_content=" + has_protected_content+
+                ", has_protected_content=" + has_protected_content +
                 ", is_from_offline=" + is_from_offline +
-                ", has_media_spoiler=" + has_media_spoiler+
+                ", has_media_spoiler=" + has_media_spoiler +
                 ", media_group_id='" + media_group_id + '\'' +
                 ", author_signature='" + author_signature + '\'' +
                 ", text='" + text + '\'' +
