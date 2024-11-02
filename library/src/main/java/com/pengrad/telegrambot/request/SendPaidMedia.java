@@ -85,5 +85,9 @@ public class SendPaidMedia extends BaseRequest<SendPaidMedia, SendResponse> {
     public SendPaidMedia payload(String payload) {
         return add("payload", payload);
     }
+  
+    public SendPaidMedia allowPaidBroadcast(boolean allowPaidBroadcast) {
+        return add("allow_paid_broadcast", allowPaidBroadcast);
+    }
 
 }

@@ -16,7 +16,8 @@ data class InlineKeyboardButton @JvmOverloads constructor(
         @get:JvmName("switchInlineQueryChosenChat") var switchInlineQueryChosenChat: SwitchInlineQueryChosenChat? = null,
         @get:JvmName("callbackGame") var callbackGame: CallbackGame? = null,
         var pay: Boolean? = null,
-        @get:JvmName("webApp") var webApp: WebAppInfo? = null
+        @get:JvmName("webApp") var webApp: WebAppInfo? = null,
+        @get:JvmName("copyText") var copyText: CopyTextButton? = null,
 ) {
 
     fun url(url: String): InlineKeyboardButton {
@@ -62,6 +63,11 @@ data class InlineKeyboardButton @JvmOverloads constructor(
 
     fun webApp(webApp: WebAppInfo): InlineKeyboardButton {
         this.webApp = webApp
+        return this
+    }
+
+    fun copyText(copyText : CopyTextButton): InlineKeyboardButton {
+        this.copyText = copyText
         return this
     }
 

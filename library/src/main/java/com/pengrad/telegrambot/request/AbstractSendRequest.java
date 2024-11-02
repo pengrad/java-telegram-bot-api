@@ -57,4 +57,8 @@ abstract public class AbstractSendRequest<T extends AbstractSendRequest<T>> exte
         return add("protect_content", protectContent);
     }
 
+    public T allowPaidBroadcast(boolean allowPaidBroadcast) {
+        return add("allow_paid_broadcast", allowPaidBroadcast);
+    }
+
 }
