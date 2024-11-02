@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/pengrad/java-telegram-bot-api/branch/master/graph/badge.svg)](https://codecov.io/gh/pengrad/java-telegram-bot-api)
 
 Java библиотека, созданная для работы с [Telegram Bot API](https://core.telegram.org/bots/api)
-- Полная поддержка всех методов BOT API 7.9
+- Полная поддержка всех методов BOT API 7.11
 - Поддержка Telegram [паспорта](https://core.telegram.org/passport) и дешифровки (Decryption API);
 - Поддержка [платежей](https://core.telegram.org/bots/payments);
 - [Игровая платформа](https://telegram.org/blog/games).
@@ -13,14 +13,14 @@ Java библиотека, созданная для работы с [Telegram B
 
 Gradle:
 ```groovy
-implementation 'com.github.pengrad:java-telegram-bot-api:7.9.1'
+implementation 'com.github.pengrad:java-telegram-bot-api:7.11.0'
 ```
 Maven:
 ```xml
 <dependency>
   <groupId>com.github.pengrad</groupId>
   <artifactId>java-telegram-bot-api</artifactId>
-  <version>7.9.1</version>
+  <version>7.11.0</version>
 </dependency>
 ```
 Также JAR со всеми зависимостями можно найти [в релизах](https://github.com/pengrad/java-telegram-bot-api/releases).
