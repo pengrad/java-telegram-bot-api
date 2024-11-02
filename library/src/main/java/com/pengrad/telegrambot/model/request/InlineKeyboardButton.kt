@@ -7,17 +7,17 @@ import com.pengrad.telegrambot.model.WebAppInfo
  * 06 May 2016
  */
 data class InlineKeyboardButton @JvmOverloads constructor(
-        @get:JvmName("text") var text: String? = null,
-        @get:JvmName("url") var url: String? = null,
-        @get:JvmName("loginUrl") var loginUrl: LoginUrl? = null,
-        @get:JvmName("callbackData") var callbackData: String? = null,
-        @get:JvmName("switchInlineQuery") var switchInlineQuery: String? = null,
-        @get:JvmName("switchInlineQueryCurrentChat") var switchInlineQueryCurrentChat: String? = null,
-        @get:JvmName("switchInlineQueryChosenChat") var switchInlineQueryChosenChat: SwitchInlineQueryChosenChat? = null,
-        @get:JvmName("callbackGame") var callbackGame: CallbackGame? = null,
-        var pay: Boolean? = null,
-        @get:JvmName("webApp") var webApp: WebAppInfo? = null,
-        @get:JvmName("copyText") var copyText: CopyTextButton? = null,
+    @get:JvmName("text") var text: String? = null,
+    @get:JvmName("url") var url: String? = null,
+    @get:JvmName("loginUrl") var loginUrl: LoginUrl? = null,
+    @get:JvmName("callbackData") var callbackData: String? = null,
+    @get:JvmName("switchInlineQuery") var switchInlineQuery: String? = null,
+    @get:JvmName("switchInlineQueryCurrentChat") var switchInlineQueryCurrentChat: String? = null,
+    @get:JvmName("switchInlineQueryChosenChat") var switchInlineQueryChosenChat: SwitchInlineQueryChosenChat? = null,
+    @get:JvmName("callbackGame") var callbackGame: CallbackGame? = null,
+    var pay: Boolean? = null,
+    @get:JvmName("webApp") var webApp: WebAppInfo? = null,
+    @get:JvmName("copyText") var copyText: CopyTextButton? = null,
 ) {
 
     fun url(url: String): InlineKeyboardButton {
@@ -66,7 +66,11 @@ data class InlineKeyboardButton @JvmOverloads constructor(
         return this
     }
 
-    fun copyText(copyText : CopyTextButton): InlineKeyboardButton {
+    fun copyText(text: String): InlineKeyboardButton {
+        return copyText(CopyTextButton(text))
+    }
+
+    fun copyText(copyText: CopyTextButton): InlineKeyboardButton {
         this.copyText = copyText
         return this
     }

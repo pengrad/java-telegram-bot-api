@@ -55,9 +55,14 @@ public class CopyMessage extends BaseRequest<CopyMessage, MessageIdResponse> {
         return add("reply_markup", replyMarkup);
     }
 
+    public CopyMessage showCaptionAboveMedia(boolean showCaptionAboveMedia) {
+        return add("show_caption_above_media", showCaptionAboveMedia);
+    }
+
     public CopyMessage disableNotification(boolean disableNotification) {
         return add("disable_notification", disableNotification);
     }
+
     public CopyMessage protectContent(boolean protectContent) {
         return add("protect_content", protectContent);
     }

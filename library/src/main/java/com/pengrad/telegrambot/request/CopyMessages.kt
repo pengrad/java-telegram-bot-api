@@ -26,8 +26,4 @@ class CopyMessages(
     fun protectContent(protectContent: Boolean): CopyMessages {
         return add("protect_content", protectContent)
     }
-
-    fun showCaptionAboveMedia(showCaptionAboveMedia: Boolean): CopyMessages {
-        return add("show_caption_above_media", showCaptionAboveMedia)
-    }
 }

@@ -598,11 +598,8 @@ public class TelegramBotTest {
         SendResponse sendResponse = bot.execute(new SendMessage(chatId, "reply this message").replyMarkup(
                 new ForceReply().inputFieldPlaceholder("input-placeholder").selective(true)
         ));
-        ForceReply f = new ForceReply().inputFieldPlaceholder("asd");
-        Giveaway g = new Giveaway();
         MessageTest.checkTextMessage(sendResponse.message());
         assertNotNull(sendResponse.message().from());
-        if (true) return;
 
         sendResponse = bot.execute(new SendMessage(chatId, "remove keyboard")
                 .replyMarkup(new ReplyKeyboardRemove())
@@ -616,6 +613,7 @@ public class TelegramBotTest {
                 .parseMode(ParseMode.HTML)
                 .disableWebPagePreview(false)
                 .protectContent(true)
+                .allowPaidBroadcast(true)
                 .replyMarkup(new ReplyKeyboardMarkup(
                         new KeyboardButton("contact").requestContact(true),
                         new KeyboardButton("location").requestLocation(true),
@@ -710,9 +708,14 @@ public class TelegramBotTest {
                 .caption("new **caption**")
                 .parseMode(ParseMode.MarkdownV2)
                 .captionEntities(new MessageEntity(MessageEntity.Type.bold, 0, 1))
+                .replyParameters(new ReplyParameters(forwardMessageId))
                 .allowSendingWithoutReply(false)
                 .replyToMessageId(1)
+                .replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton("copy").copyText("text")))
+                .showCaptionAboveMedia(true)
                 .disableNotification(true)
+                .protectContent(true)
+                .allowPaidBroadcast(false)
         );
         assertTrue(response.messageId() > 0);
     }
@@ -2425,7 +2428,22 @@ public class TelegramBotTest {
         Integer starCount = 2;
         SendResponse response = bot.execute(new SendPaidMedia(chatId, starCount,
                 new InputPaidMediaVideo(videoFile).thumbnail(thumbFile),
-                new InputPaidMediaPhoto(photoFileId)));
+                new InputPaidMediaPhoto(photoFileId))
+                .caption("caption")
+                .parseMode(ParseMode.MarkdownV2)
+                .captionEntities(new MessageEntity(MessageEntity.Type.bold, 0, 1))
+                .showCaptionAboveMedia(true)
+                .disableNotification(true)
+                .protectContent(false)
+                .replyParameters(new ReplyParameters(forwardMessageId))
+                .businessConnectionId("")
+                .replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton("send")))
+                .replyMarkup(new ReplyKeyboardMarkup("reply"))
+                .replyMarkup(new ReplyKeyboardRemove())
+                .replyMarkup(new ForceReply())
+                .payload("payload")
+                .allowPaidBroadcast(false)
+        );
         PaidMediaInfo mediaInfo = response.message().paidMedia();
         assertTrue(response.isOk());
         assertEquals(starCount, mediaInfo.starCount());
