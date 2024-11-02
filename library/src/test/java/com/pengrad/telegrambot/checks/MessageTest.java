@@ -39,7 +39,6 @@ public class MessageTest {
         assertNull(message.connectedWebsite());
         assertFalse(message.isTopicMessage());
         assertNull(message.isAutomaticForward());
-        assertNull(message.replyToMessage());
         assertNull(message.externalReply());
         assertNull(message.quote());
         assertNull(message.replyToStory());

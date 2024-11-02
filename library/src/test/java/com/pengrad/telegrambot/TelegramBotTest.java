@@ -613,7 +613,7 @@ public class TelegramBotTest {
                 .parseMode(ParseMode.HTML)
                 .disableWebPagePreview(false)
                 .protectContent(true)
-                .allowPaidBroadcast(true)
+                .allowPaidBroadcast(false)
                 .replyMarkup(new ReplyKeyboardMarkup(
                         new KeyboardButton("contact").requestContact(true),
                         new KeyboardButton("location").requestLocation(true),
