@@ -39,7 +39,7 @@ public class Update implements Serializable {
     private MessageReactionCountUpdated message_reaction_count;
     private ChatBoostUpdated chat_boost;
     private ChatBoostRemoved removed_chat_boost;
-    private PaidMediaPurchased paid_media_purchased;
+    private PaidMediaPurchased purchased_paid_media;
 
     public Integer updateId() {
         return update_id;
@@ -133,8 +133,8 @@ public class Update implements Serializable {
         return removed_chat_boost;
     }
 
-    public PaidMediaPurchased paidMediaPurchased() {
-        return paid_media_purchased;
+    public PaidMediaPurchased purchasedPaidMedia() {
+        return purchased_paid_media;
     }
 
     @Override
@@ -165,7 +165,7 @@ public class Update implements Serializable {
                 Objects.equals(message_reaction_count, update.message_reaction_count) &&
                 Objects.equals(chat_boost, update.chat_boost) &&
                 Objects.equals(removed_chat_boost, update.removed_chat_boost) &&
-                Objects.equals(paid_media_purchased, update.paid_media_purchased);
+                Objects.equals(purchased_paid_media, update.purchased_paid_media);
     }
 
     @Override
@@ -199,7 +199,7 @@ public class Update implements Serializable {
                 ", message_reaction_count=" + message_reaction_count +
                 ", chat_boost=" + chat_boost +
                 ", removed_chat_boost=" + removed_chat_boost +
-                ", paid_media_purchased=" + paid_media_purchased +
+                ", purchased_paid_media=" + purchased_paid_media +
                 '}';
     }
 }
