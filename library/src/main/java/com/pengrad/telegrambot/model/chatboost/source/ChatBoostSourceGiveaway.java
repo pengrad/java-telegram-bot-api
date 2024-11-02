@@ -11,6 +11,7 @@ public class ChatBoostSourceGiveaway extends ChatBoostSource implements Serializ
 
     private Integer giveaway_message_id;
     private Boolean is_unclaimed;
+    private Integer prize_star_count;
 
     public Integer giveawayMessageId() {
         return giveaway_message_id;
@@ -20,18 +21,28 @@ public class ChatBoostSourceGiveaway extends ChatBoostSource implements Serializ
         return is_unclaimed != null && is_unclaimed;
     }
 
+    public Integer prizeStarCount() {
+        return prize_star_count;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ChatBoostSourceGiveaway that = (ChatBoostSourceGiveaway) o;
-        return Objects.equals(giveaway_message_id, that.giveaway_message_id) && Objects.equals(is_unclaimed, that.is_unclaimed);
+        return Objects.equals(giveaway_message_id, that.giveaway_message_id)
+            && Objects.equals(is_unclaimed, that.is_unclaimed)
+            && Objects.equals(prize_star_count, that.prize_star_count);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), giveaway_message_id, is_unclaimed);
+        return Objects.hash(
+            super.hashCode(),
+            giveaway_message_id,
+            is_unclaimed,
+            prize_star_count);
     }
 
     @Override
@@ -40,7 +51,8 @@ public class ChatBoostSourceGiveaway extends ChatBoostSource implements Serializ
                 "source='" + source + "'," +
                 "user='" + user + "'," +
                 "giveaway_message_id='" + giveaway_message_id + "'," +
-                "is_unclaimed='" + is_unclaimed + "'" +
+                "is_unclaimed='" + is_unclaimed + "'," +
+                "prize_star_count='" + prize_star_count + "'" +
                 '}';
     }
 

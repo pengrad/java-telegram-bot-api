@@ -4,6 +4,7 @@ import com.pengrad.telegrambot.model.business.BusinessConnection;
 import com.pengrad.telegrambot.model.business.BusinessMessageDeleted;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostRemoved;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostUpdated;
+import com.pengrad.telegrambot.model.paidmedia.PaidMediaPurchased;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -38,6 +39,7 @@ public class Update implements Serializable {
     private MessageReactionCountUpdated message_reaction_count;
     private ChatBoostUpdated chat_boost;
     private ChatBoostRemoved removed_chat_boost;
+    private PaidMediaPurchased paid_media_purchased;
 
     public Integer updateId() {
         return update_id;
@@ -131,6 +133,10 @@ public class Update implements Serializable {
         return removed_chat_boost;
     }
 
+    public PaidMediaPurchased paidMediaPurchased() {
+        return paid_media_purchased;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -158,7 +164,8 @@ public class Update implements Serializable {
                 Objects.equals(message_reaction, update.message_reaction) &&
                 Objects.equals(message_reaction_count, update.message_reaction_count) &&
                 Objects.equals(chat_boost, update.chat_boost) &&
-                Objects.equals(removed_chat_boost, update.removed_chat_boost);
+                Objects.equals(removed_chat_boost, update.removed_chat_boost) &&
+                Objects.equals(paid_media_purchased, update.paid_media_purchased);
     }
 
     @Override
@@ -192,6 +199,7 @@ public class Update implements Serializable {
                 ", message_reaction_count=" + message_reaction_count +
                 ", chat_boost=" + chat_boost +
                 ", removed_chat_boost=" + removed_chat_boost +
+                ", paid_media_purchased=" + paid_media_purchased +
                 '}';
     }
 }

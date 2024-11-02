@@ -3,6 +3,10 @@ package com.pengrad.telegrambot.model;
 import com.pengrad.telegrambot.model.business.BusinessConnection;
 import com.pengrad.telegrambot.model.chatbackground.ChatBackground;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostAdded;
+import com.pengrad.telegrambot.model.giveaway.Giveaway;
+import com.pengrad.telegrambot.model.giveaway.GiveawayCompleted;
+import com.pengrad.telegrambot.model.giveaway.GiveawayCreated;
+import com.pengrad.telegrambot.model.giveaway.GiveawayWinners;
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.*;
 import com.pengrad.telegrambot.model.paidmedia.PaidMedia;
@@ -93,8 +97,11 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private ForumTopicReopened forum_topic_reopened;
     private GeneralForumTopicHidden general_forum_topic_hidden;
     private GeneralForumTopicUnhidden general_forum_topic_unhidden;
+    private GiveawayCreated giveaway_created;
+    private Giveaway giveaway;
+    private GiveawayWinners giveaway_winners;
+    private GiveawayCompleted giveaway_completed;
     private WriteAccessAllowed write_access_allowed;
-
     private VideoChatStarted video_chat_started;
     private VideoChatEnded video_chat_ended;
     private VideoChatParticipantsInvited video_chat_participants_invited;
@@ -468,6 +475,22 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return general_forum_topic_unhidden;
     }
 
+    public GiveawayCreated giveawayCreated() {
+        return giveaway_created;
+    }
+
+    public Giveaway giveaway() {
+        return giveaway;
+    }
+
+    public GiveawayWinners giveawayWinners() {
+        return giveaway_winners;
+    }
+
+    public GiveawayCompleted giveawayCompleted() {
+        return giveaway_completed;
+    }
+
     public WriteAccessAllowed writeAccessAllowed() {
         return write_access_allowed;
     }
@@ -597,6 +620,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(forum_topic_reopened, message.forum_topic_reopened) &&
                 Objects.equals(general_forum_topic_hidden, message.general_forum_topic_hidden) &&
                 Objects.equals(general_forum_topic_unhidden, message.general_forum_topic_unhidden) &&
+                Objects.equals(giveaway_created, message.giveaway_created) &&
+                Objects.equals(giveaway, message.giveaway) &&
+                Objects.equals(giveaway_winners, message.giveaway_winners) &&
+                Objects.equals(giveaway_completed, message.giveaway_completed) &&
                 Objects.equals(write_access_allowed, message.write_access_allowed) &&
                 Objects.equals(video_chat_started, message.video_chat_started) &&
                 Objects.equals(video_chat_ended, message.video_chat_ended) &&
@@ -689,6 +716,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", forum_topic_reopened=" + forum_topic_reopened +
                 ", general_forum_topic_hidden=" + general_forum_topic_hidden +
                 ", general_forum_topic_unhidden=" + general_forum_topic_unhidden +
+                ", giveaway_created=" + giveaway_created +
+                ", giveaway=" + giveaway +
+                ", giveaway_winners=" + giveaway_winners +
+                ", giveaway_completed=" + giveaway_completed +
                 ", write_access_allowed=" + write_access_allowed +
                 ", video_chat_started=" + video_chat_started +
                 ", video_chat_ended=" + video_chat_ended +
