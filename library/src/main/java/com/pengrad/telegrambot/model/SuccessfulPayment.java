@@ -16,6 +16,9 @@ public class SuccessfulPayment implements Serializable {
     private OrderInfo order_info;
     private String telegram_payment_charge_id;
     private String provider_payment_charge_id;
+    private Integer subscription_expiration_date;
+    private Boolean is_recurring;
+    private Boolean is_first_recurring;
 
     public String currency() {
         return currency;
@@ -41,6 +44,18 @@ public class SuccessfulPayment implements Serializable {
         return telegram_payment_charge_id;
     }
 
+    public Integer subscriptionExpirationDate() {
+        return subscription_expiration_date;
+    }
+
+    public Boolean isRecurring() {
+        return is_recurring;
+    }
+
+    public Boolean isFirstRecurring() {
+        return is_first_recurring;
+    }
+
     public String providerPaymentChargeId() {
         return provider_payment_charge_id;
     }
@@ -61,6 +76,13 @@ public class SuccessfulPayment implements Serializable {
         if (order_info != null ? !order_info.equals(that.order_info) : that.order_info != null) return false;
         if (telegram_payment_charge_id != null ? !telegram_payment_charge_id.equals(that.telegram_payment_charge_id) : that.telegram_payment_charge_id != null)
             return false;
+        if (subscription_expiration_date != null ? !subscription_expiration_date.equals(that.subscription_expiration_date) : that.subscription_expiration_date != null)
+            return false;
+        if (is_recurring != null ? !is_recurring.equals(that.is_recurring) : that.is_recurring != null)
+            return false;
+        if (is_first_recurring != null ? !is_first_recurring.equals(that.is_first_recurring) : that.is_first_recurring != null)
+            return false;
+
         return provider_payment_charge_id != null ? provider_payment_charge_id.equals(that.provider_payment_charge_id) : that.provider_payment_charge_id == null;
 
     }
@@ -74,6 +96,9 @@ public class SuccessfulPayment implements Serializable {
         result = 31 * result + (order_info != null ? order_info.hashCode() : 0);
         result = 31 * result + (telegram_payment_charge_id != null ? telegram_payment_charge_id.hashCode() : 0);
         result = 31 * result + (provider_payment_charge_id != null ? provider_payment_charge_id.hashCode() : 0);
+        result = 31 * result + (subscription_expiration_date != null ? subscription_expiration_date.hashCode() : 0);
+        result = 31 * result + (is_recurring != null ? is_recurring.hashCode() : 0);
+        result = 31 * result + (is_first_recurring != null ? is_first_recurring.hashCode() : 0);
         return result;
     }
 
@@ -87,6 +112,9 @@ public class SuccessfulPayment implements Serializable {
                 ", order_info=" + order_info +
                 ", telegram_payment_charge_id='" + telegram_payment_charge_id + '\'' +
                 ", provider_payment_charge_id='" + provider_payment_charge_id + '\'' +
+                ", subscription_expiration_date='" + subscription_expiration_date + '\'' +
+                ", is_recurring='" + is_recurring + '\'' +
+                ", is_first_recurring='" + is_first_recurring + '\'' +
                 '}';
     }
 }

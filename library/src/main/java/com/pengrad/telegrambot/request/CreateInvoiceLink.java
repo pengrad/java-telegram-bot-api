@@ -46,6 +46,10 @@ public class CreateInvoiceLink extends BaseRequest<CreateInvoiceLink, StringResp
         return add("suggested_tip_amounts", suggestedTipAmounts);
     }
 
+    public CreateInvoiceLink subscriptionPeriod(int subscriptionPeriod) {
+        return add("subscription_period", subscriptionPeriod);
+    }
+
     public CreateInvoiceLink providerData(String providerData) {
         return add("provider_data", providerData);
     }
