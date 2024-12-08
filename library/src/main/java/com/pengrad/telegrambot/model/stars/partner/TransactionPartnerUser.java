@@ -15,6 +15,7 @@ public class TransactionPartnerUser extends TransactionPartner {
     private String invoice_payload;
     private PaidMedia[] paid_media;
     private String paid_media_payload;
+    private Integer subscription_period;
 
     public TransactionPartnerUser() {
         super(TYPE);
@@ -36,6 +37,10 @@ public class TransactionPartnerUser extends TransactionPartner {
         return paid_media_payload;
     }
 
+    public Integer subscriptionPeriod() {
+        return subscription_period;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,12 +50,20 @@ public class TransactionPartnerUser extends TransactionPartner {
         return Objects.equals(user, that.user)
             && Objects.equals(invoice_payload, that.invoice_payload)
             && Objects.deepEquals(paid_media, that.paid_media)
-            && Objects.equals(paid_media_payload, that.paid_media_payload);
+            && Objects.equals(paid_media_payload, that.paid_media_payload)
+            && Objects.equals(subscription_period, that.subscription_period);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), user, invoice_payload, Arrays.hashCode(paid_media));
+        return Objects.hash(
+            super.hashCode(),
+            user,
+            invoice_payload,
+            Arrays.hashCode(paid_media),
+            paid_media_payload,
+            subscription_period
+        );
     }
 
     @Override
@@ -60,6 +73,7 @@ public class TransactionPartnerUser extends TransactionPartner {
                 ", invoice_payload='" + invoice_payload + '\'' +
                 ", paid_media=" + Arrays.toString(paid_media) +
                 ", paid_media_payload='" + paid_media_payload + '\'' +
+                ", subscription_period='" + subscription_period + '\'' +
                 '}';
     }
 }
