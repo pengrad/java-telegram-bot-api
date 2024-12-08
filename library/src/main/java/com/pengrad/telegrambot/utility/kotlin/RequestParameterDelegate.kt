@@ -5,6 +5,8 @@ import kotlin.properties.PropertyDelegateProvider
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
+typealias RequestParameterValueMapper<I, O> = (I) -> O
+
 fun <T : KBaseRequest<*, *>, V : Any> requestParameter(
     initialValue: V,
     customParameterName: String? = null
@@ -15,15 +17,18 @@ fun <T : KBaseRequest<*, *>, V : Any> requestParameter(
 
 fun <T : KBaseRequest<*, *>, V : Any?> optionalRequestParameter(
     initialValue: V? = null,
-    customParameterName: String? = null
+    customParameterName: String? = null,
+    valueMapper: RequestParameterValueMapper<V?, Any?>? = null
 ) : RequestParameterDelegate<T, V?> = RequestParameterDelegate(
     value = initialValue,
-    customParameterName = customParameterName
+    customParameterName = customParameterName,
+    valueMapper = valueMapper
 )
 
 class RequestParameterDelegate<T : KBaseRequest<*, *>, V>(
     private var value: V,
-    private val customParameterName: String? = null
+    private val customParameterName: String? = null,
+    private val valueMapper: RequestParameterValueMapper<V, Any?>? = null
 ) : ReadWriteProperty<T, V>, PropertyDelegateProvider<T, RequestParameterDelegate<T, V>> {
 
     override operator fun provideDelegate(thisRef: T, property: KProperty<*>): RequestParameterDelegate<T, V> {
@@ -45,7 +50,7 @@ class RequestParameterDelegate<T : KBaseRequest<*, *>, V>(
     private fun updateRequestValue(thisRef: T, property: KProperty<*>, value: V) {
         thisRef.addParameter(
             name = customParameterName ?: property.name, // todo: format field name - camelCase to snake_case
-            value = value
+            value = valueMapper?.invoke(value) ?: value
         )
     }
 
