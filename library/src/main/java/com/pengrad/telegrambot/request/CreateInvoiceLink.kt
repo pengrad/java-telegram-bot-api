@@ -35,22 +35,56 @@ class CreateInvoiceLink(
     val currency: String by requestParameter(currency)
     val prices: Array<LabeledPrice> by requestParameter(arrayOf(*prices))
 
-    @set:JvmName("providerToken") var providerToken: String? by optionalRequestParameter(customParameterName = "provider_token")
-    @set:JvmName("subscriptionPeriod") var subscriptionPeriod: Int? by optionalRequestParameter(customParameterName = "subscription_period")
-    @set:JvmName("businessConnectionId") var businessConnectionId: String? by optionalRequestParameter(customParameterName = "business_connection_id")
-    @set:JvmName("maxTipAmount") var maxTipAmount: Int? by optionalRequestParameter(customParameterName = "max_tip_amount")
-    @set:JvmName("suggestedTipAmounts") var suggestedTipAmounts: Array<Int>? by optionalRequestParameter(customParameterName = "suggested_tip_amounts")
-    @set:JvmName("providerData") var providerData: String? by optionalRequestParameter(customParameterName = "provider_data")
-    @set:JvmName("photoUrl") var photoUrl: String? by optionalRequestParameter(customParameterName = "photo_url")
-    @set:JvmName("photoSize") var photoSize: Int? by optionalRequestParameter(customParameterName = "photo_size")
-    @set:JvmName("photoWidth") var photoWidth: Int? by optionalRequestParameter(customParameterName = "photo_width")
-    @set:JvmName("photoHeight") var photoHeight: Int? by optionalRequestParameter(customParameterName = "photo_height")
-    @set:JvmName("needName") var needName: Boolean? by optionalRequestParameter(customParameterName = "need_name")
-    @set:JvmName("needPhoneNumber") var needPhoneNumber: Boolean? by optionalRequestParameter(customParameterName = "need_phone_number")
-    @set:JvmName("needEmail") var needEmail: Boolean? by optionalRequestParameter(customParameterName = "need_email")
-    @set:JvmName("needShippingAddress") var needShippingAddress: Boolean? by optionalRequestParameter(customParameterName = "need_shipping_address")
-    @set:JvmName("sendEmailToProvider") var sendEmailToProvider: Boolean? by optionalRequestParameter(customParameterName = "send_email_to_provider")
-    @set:JvmName("sendPhoneNumberToProvider") var sendPhoneNumberToProvider: Boolean? by optionalRequestParameter(customParameterName = "send_phone_number_to_provider")
-    @set:JvmName("isFlexible") var isFlexible: Boolean? by optionalRequestParameter(customParameterName = "is_flexible")
+    var providerToken: String? by optionalRequestParameter(customParameterName = "provider_token")
+    var subscriptionPeriod: Int? by optionalRequestParameter(customParameterName = "subscription_period")
+    var businessConnectionId: String? by optionalRequestParameter(customParameterName = "business_connection_id")
+    var maxTipAmount: Int? by optionalRequestParameter(customParameterName = "max_tip_amount")
+    var suggestedTipAmounts: Array<Int>? by optionalRequestParameter(customParameterName = "suggested_tip_amounts")
+    var providerData: String? by optionalRequestParameter(customParameterName = "provider_data")
+    var photoUrl: String? by optionalRequestParameter(customParameterName = "photo_url")
+    var photoSize: Int? by optionalRequestParameter(customParameterName = "photo_size")
+    var photoWidth: Int? by optionalRequestParameter(customParameterName = "photo_width")
+    var photoHeight: Int? by optionalRequestParameter(customParameterName = "photo_height")
+    var needName: Boolean? by optionalRequestParameter(customParameterName = "need_name")
+    var needPhoneNumber: Boolean? by optionalRequestParameter(customParameterName = "need_phone_number")
+    var needEmail: Boolean? by optionalRequestParameter(customParameterName = "need_email")
+    var needShippingAddress: Boolean? by optionalRequestParameter(customParameterName = "need_shipping_address")
+    var sendEmailToProvider: Boolean? by optionalRequestParameter(customParameterName = "send_email_to_provider")
+    var sendPhoneNumberToProvider: Boolean? by optionalRequestParameter(customParameterName = "send_phone_number_to_provider")
+    var isFlexible: Boolean? by optionalRequestParameter(customParameterName = "is_flexible")
+
+    fun providerToken(providerToken: String) = apply { this.providerToken = providerToken }
+
+    fun subscriptionPeriod(subscriptionPeriod: Int) = apply { this.subscriptionPeriod = subscriptionPeriod }
+
+    fun businessConnectionId(businessConnectionId: String) = apply { this.businessConnectionId = businessConnectionId }
+
+    fun maxTipAmount(maxTipAmount: Int) = apply { this.maxTipAmount = maxTipAmount }
+
+    fun suggestedTipAmounts(suggestedTipAmounts: Array<Int>) = apply { this.suggestedTipAmounts = suggestedTipAmounts }
+
+    fun providerData(providerData: String) = apply { this.providerData = providerData }
+
+    fun photoUrl(photoUrl: String) = apply { this.photoUrl = photoUrl }
+
+    fun photoSize(photoSize: Int) = apply { this.photoSize = photoSize }
+
+    fun photoWidth(photoWidth: Int) = apply { this.photoWidth = photoWidth }
+
+    fun photoHeight(photoHeight: Int) = apply { this.photoHeight = photoHeight }
+
+    fun needName(needName: Boolean) = apply { this.needName = needName }
+
+    fun needPhoneNumber(needPhoneNumber: Boolean) = apply { this.needPhoneNumber = needPhoneNumber }
+
+    fun needEmail(needEmail: Boolean) = apply { this.needEmail = needEmail }
+
+    fun needShippingAddress(needShippingAddress: Boolean) = apply { this.needShippingAddress = needShippingAddress }
+
+    fun sendEmailToProvider(sendEmailToProvider: Boolean) = apply { this.sendEmailToProvider = sendEmailToProvider }
+
+    fun sendPhoneNumberToProvider(sendPhoneNumberToProvider: Boolean) = apply { this.sendPhoneNumberToProvider = sendPhoneNumberToProvider }
+
+    fun isFlexible(isFlexible: Boolean) = apply { this.isFlexible = isFlexible }
 
 }
