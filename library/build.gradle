@@ -16,6 +16,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.1.13'
     testImplementation 'org.reflections:reflections:0.9.12'
+    testImplementation 'org.jetbrains.kotlin:kotlin-reflect'
 }
 
 jar {
