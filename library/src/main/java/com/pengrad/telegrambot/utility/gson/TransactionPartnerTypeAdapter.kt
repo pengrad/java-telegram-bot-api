@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.utility.gson
 
 import com.google.gson.*
 import com.pengrad.telegrambot.model.stars.partner.*
+import com.pengrad.telegrambot.model.stars.partner.TransactionPartnerType.AFFILIATE_PROGRAM
 import com.pengrad.telegrambot.model.stars.partner.TransactionPartnerType.FRAGMENT
 import com.pengrad.telegrambot.model.stars.partner.TransactionPartnerType.OTHER
 import com.pengrad.telegrambot.model.stars.partner.TransactionPartnerType.TELEGRAM_ADS
@@ -14,6 +15,7 @@ object TransactionPartnerTypeAdapter : JsonDeserializer<TransactionPartner> {
 
     private val typeMapping = mapOf(
         USER to TransactionPartnerUser::class,
+        AFFILIATE_PROGRAM to TransactionPartnerAffiliateProgram::class,
         FRAGMENT to TransactionPartnerFragment::class,
         TELEGRAM_ADS to TransactionPartnerTelegramAds::class,
         TELEGRAM_API to TransactionPartnerTelegramApi::class,
