@@ -36,6 +36,8 @@ class CreateInvoiceLink(
     val prices: Array<LabeledPrice> by requestParameter(arrayOf(*prices))
 
     @set:JvmName("providerToken") var providerToken: String? by optionalRequestParameter(customParameterName = "provider_token")
+    @set:JvmName("subscriptionPeriod") var subscriptionPeriod: Int? by optionalRequestParameter(customParameterName = "subscription_period")
+    @set:JvmName("businessConnectionId") var businessConnectionId: String? by optionalRequestParameter(customParameterName = "business_connection_id")
     @set:JvmName("maxTipAmount") var maxTipAmount: Int? by optionalRequestParameter(customParameterName = "max_tip_amount")
     @set:JvmName("suggestedTipAmounts") var suggestedTipAmounts: Array<Int>? by optionalRequestParameter(customParameterName = "suggested_tip_amounts")
     @set:JvmName("providerData") var providerData: String? by optionalRequestParameter(customParameterName = "provider_data")
