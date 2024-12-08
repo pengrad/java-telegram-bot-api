@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.model.stars.partner;
 
 import com.pengrad.telegrambot.model.User;
 import com.pengrad.telegrambot.model.chatbackground.BackgroundFillFreeformGradient;
+import com.pengrad.telegrambot.model.gift.Gift;
 import com.pengrad.telegrambot.model.paidmedia.PaidMedia;
 
 import java.util.Arrays;
@@ -16,6 +17,7 @@ public class TransactionPartnerUser extends TransactionPartner {
     private PaidMedia[] paid_media;
     private String paid_media_payload;
     private Integer subscription_period;
+    private Gift gift;
 
     public TransactionPartnerUser() {
         super(TYPE);
@@ -41,6 +43,10 @@ public class TransactionPartnerUser extends TransactionPartner {
         return subscription_period;
     }
 
+    public Gift gift() {
+        return gift;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,7 +57,8 @@ public class TransactionPartnerUser extends TransactionPartner {
             && Objects.equals(invoice_payload, that.invoice_payload)
             && Objects.deepEquals(paid_media, that.paid_media)
             && Objects.equals(paid_media_payload, that.paid_media_payload)
-            && Objects.equals(subscription_period, that.subscription_period);
+            && Objects.equals(subscription_period, that.subscription_period)
+            && Objects.equals(gift, that.gift);
     }
 
     @Override
@@ -62,7 +69,8 @@ public class TransactionPartnerUser extends TransactionPartner {
             invoice_payload,
             Arrays.hashCode(paid_media),
             paid_media_payload,
-            subscription_period
+            subscription_period,
+            gift
         );
     }
 
@@ -74,6 +82,7 @@ public class TransactionPartnerUser extends TransactionPartner {
                 ", paid_media=" + Arrays.toString(paid_media) +
                 ", paid_media_payload='" + paid_media_payload + '\'' +
                 ", subscription_period='" + subscription_period + '\'' +
+                ", gift=" + gift +
                 '}';
     }
 }
