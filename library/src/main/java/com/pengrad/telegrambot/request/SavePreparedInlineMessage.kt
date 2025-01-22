@@ -13,13 +13,13 @@ class SavePreparedInlineMessage(
     SavePreparedInlineMessageResponse::class
 ) {
 
-    val userId: Long by requestParameter(userId, customParameterName = "user_id")
+    val userId: Long by requestParameter(userId)
     val result: InlineQueryResult<*> by requestParameter(result)
 
-    var allowUserChats: Boolean? by optionalRequestParameter(customParameterName = "allow_user_chats")
-    var allowBotChats: Boolean? by optionalRequestParameter(customParameterName = "allow_bot_chats")
-    var allowGroupChats: Boolean? by optionalRequestParameter(customParameterName = "allow_group_chats")
-    var allowChannelChats: Boolean? by optionalRequestParameter(customParameterName = "allow_channel_chats")
+    var allowUserChats: Boolean? by optionalRequestParameter()
+    var allowBotChats: Boolean? by optionalRequestParameter()
+    var allowGroupChats: Boolean? by optionalRequestParameter()
+    var allowChannelChats: Boolean? by optionalRequestParameter()
 
     fun allowUserChats(allowUserChats: Boolean) = apply { this.allowUserChats = allowUserChats }
 

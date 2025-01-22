@@ -49,9 +49,15 @@ class RequestParameterDelegate<T : KBaseRequest<*, *>, V>(
 
     private fun updateRequestValue(thisRef: T, property: KProperty<*>, value: V) {
         thisRef.addParameter(
-            name = customParameterName ?: property.name, // todo: format field name - camelCase to snake_case
+            name = customParameterName ?: convertToSnakeCase(property.name),
             value = valueMapper?.invoke(value) ?: value
         )
     }
 
+}
+
+fun convertToSnakeCase(input: String): String {
+    return input.replace(Regex("([a-z])([A-Z])")) {
+        "${it.groupValues[1]}_${it.groupValues[2]}"
+    }.lowercase()
 }
