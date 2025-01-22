@@ -13,7 +13,7 @@ class SavePreparedInlineMessage(
     SavePreparedInlineMessageResponse::class
 ) {
 
-    val userId: Long by requestParameter(userId)
+    val userId: Long by requestParameter(userId, customParameterName = "user_id")
     val result: InlineQueryResult<*> by requestParameter(result)
 
     var allowUserChats: Boolean? by optionalRequestParameter()
