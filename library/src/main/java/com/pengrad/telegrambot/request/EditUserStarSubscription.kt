@@ -9,7 +9,7 @@ class EditUserStarSubscription(
     isCanceled: Boolean
 ) : KBaseRequest<EditUserStarSubscription, BaseResponse>(BaseResponse::class) {
 
-    val userId: Long by requestParameter(userId)
+    val userId: Long by requestParameter(userId, customParameterName = "user_id")
     val telegramPaymentChargeId: String by requestParameter(telegramPaymentChargeId, customParameterName = "telegram_payment_charge_id")
     val isCanceled: Boolean by requestParameter(isCanceled, customParameterName = "is_canceled")
 
