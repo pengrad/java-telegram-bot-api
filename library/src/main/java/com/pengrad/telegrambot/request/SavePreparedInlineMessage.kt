@@ -16,9 +16,17 @@ class SavePreparedInlineMessage(
     val userId: Long by requestParameter(userId)
     val result: InlineQueryResult<*> by requestParameter(result)
 
-    @set:JvmName("allowUserChats") var allowUserChats: Boolean? by optionalRequestParameter(customParameterName = "allow_user_chats")
-    @set:JvmName("allowBotChats") var allowBotChats: Boolean? by optionalRequestParameter(customParameterName = "allow_bot_chats")
-    @set:JvmName("allowGroupChats") var allowGroupChats: Boolean? by optionalRequestParameter(customParameterName = "allow_group_chats")
-    @set:JvmName("allowChannelChats") var allowChannelChats: Boolean? by optionalRequestParameter(customParameterName = "allow_channel_chats")
+    var allowUserChats: Boolean? by optionalRequestParameter(customParameterName = "allow_user_chats")
+    var allowBotChats: Boolean? by optionalRequestParameter(customParameterName = "allow_bot_chats")
+    var allowGroupChats: Boolean? by optionalRequestParameter(customParameterName = "allow_group_chats")
+    var allowChannelChats: Boolean? by optionalRequestParameter(customParameterName = "allow_channel_chats")
+
+    fun allowUserChats(allowUserChats: Boolean) = apply { this.allowUserChats = allowUserChats }
+
+    fun allowBotChats(allowBotChats: Boolean) = apply { this.allowBotChats = allowBotChats }
+
+    fun allowGroupChats(allowGroupChats: Boolean) = apply { this.allowGroupChats = allowGroupChats }
+
+    fun allowChannelChats(allowChannelChats: Boolean) = apply { this.allowChannelChats = allowChannelChats }
 
 }

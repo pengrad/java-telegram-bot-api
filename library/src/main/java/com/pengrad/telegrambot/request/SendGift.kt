@@ -11,14 +11,20 @@ class SendGift(
     giftId: String,
 ) : KBaseRequest<SendGift, BaseResponse>(BaseResponse::class) {
 
-    val userId: Long by requestParameter(userId)
+    val userId: Long by requestParameter(userId, customParameterName = "user_id")
     val giftId: String by requestParameter(giftId, customParameterName = "gift_id")
 
-    @set:JvmName("text") var text: String? by optionalRequestParameter()
-    @set:JvmName("textParseMode") var textParseMode: ParseMode? by optionalRequestParameter(
+    var text: String? by optionalRequestParameter()
+    var textParseMode: ParseMode? by optionalRequestParameter(
         customParameterName = "text_parse_mode",
         valueMapper = { it?.name }
     )
-    @set:JvmName("textEntities") var textEntities: Array<MessageEntity>? by optionalRequestParameter(customParameterName = "text_entities")
+    var textEntities: Array<MessageEntity>? by optionalRequestParameter(customParameterName = "text_entities")
+
+    fun text(text: String) = apply { this.text = text }
+
+    fun textParseMode(parseMode: ParseMode) = apply { this.textParseMode = textParseMode }
+
+    fun textEntities(textEntities: Array<MessageEntity>) = apply { this.textEntities = textEntities }
 
 }
