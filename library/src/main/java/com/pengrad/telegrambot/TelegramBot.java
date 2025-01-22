@@ -12,6 +12,7 @@ import com.pengrad.telegrambot.utility.BotUtils;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * Stas Parshin
  * 16 October 2015
  */
-public class TelegramBot {
+public class TelegramBot implements TelegramAware {
 
     private final String token;
     private final TelegramBotClient api;
@@ -41,7 +42,8 @@ public class TelegramBot {
         this.updatesHandler = builder.updatesHandler;
     }
 
-    public <T extends BaseRequest<T, R>, R extends BaseResponse> R execute(BaseRequest<T, R> request) {
+    @NotNull
+    public <T extends BaseRequest<T, R>, R extends BaseResponse> R execute(@NotNull BaseRequest<T, R> request) {
         return api.send(request);
     }
 
