@@ -46,6 +46,7 @@ class ModelTest {
                 !excludedPackages.contains(it.getPackage().name)
                         && !it.simpleName.startsWith("PassportElementError")
                         && !Modifier.isAbstract(it.modifiers)
+                        && it.kotlin.objectInstance == null
             })
 
         // classes from model/request available in responses

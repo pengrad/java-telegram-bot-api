@@ -1,6 +1,8 @@
 package com.pengrad.telegrambot;
 
 import com.pengrad.telegrambot.response.BaseResponse;
+import kotlin.jvm.JvmClassMappingKt;
+import kotlin.reflect.KClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.reflections.Reflections;
@@ -33,6 +35,12 @@ public class ResponseTest {
     @Test
     public void testToString() throws IllegalAccessException, InstantiationException, InvocationTargetException {
         for (Class<? extends BaseResponse> c : classes) {
+            KClass<? extends BaseResponse> kclass = JvmClassMappingKt.getKotlinClass(c);
+
+            if (kclass.isData()) {
+                continue;
+            }
+
             Optional<Constructor<?>> constructor = Arrays.stream(c.getDeclaredConstructors()).filter(dc -> dc.getParameterCount() == 0).findFirst();
             assertTrue("No default constructor in " + c.getSimpleName(), constructor.isPresent());
             constructor.get().setAccessible(true);
