@@ -34,8 +34,12 @@ public class InlineQueryResultArticle extends InlineQueryResult<InlineQueryResul
         return this;
     }
 
+    /**
+     * @deprecated hideUrl method is removed since <a href="https://core.telegram.org/bots/api#january-1-2025">Bot API 8.2</a>. This method removes url parameter to emulate hideUrl parameter behavior. It may break your code logic. Pass an empty string as url instead.
+     */
+    @Deprecated
     public InlineQueryResultArticle hideUrl(Boolean hideUrl) {
-        this.hide_url = hideUrl;
+        this.url = null;
         return this;
     }
 

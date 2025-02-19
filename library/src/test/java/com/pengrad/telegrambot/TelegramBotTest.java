@@ -354,7 +354,7 @@ public class TelegramBotTest {
                         new InputTextMessageContent("message")
                                 .entities(new MessageEntity(MessageEntity.Type.bold, 0, 2))
                                 .disableWebPagePreview(false).parseMode(ParseMode.HTML))
-                        .url(someUrl).hideUrl(true).description("desc")
+                        .url(someUrl).description("desc")
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultArticle("2", "title",
                         new InputContactMessageContent("123123123", "na,e").lastName("lastName").vcard("qr vcard")),
