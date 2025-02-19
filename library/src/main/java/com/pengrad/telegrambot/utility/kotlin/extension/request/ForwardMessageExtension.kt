@@ -9,11 +9,41 @@ inline fun TelegramAware.forwardMessage(
     fromChatId: Long,
     messageId: Int,
     modifier: ForwardMessage.() -> Unit = {}
-) = this.execute(ForwardMessage(chatId, fromChatId, messageId), modifier)
+) = this.execute(ForwardMessage(
+    chatId = chatId,
+    fromChatId = fromChatId,
+    messageId = messageId
+), modifier)
 
 inline fun TelegramAware.forwardMessage(
-    chatId: String,
+    channelUsername: String,
     fromChatId: Long,
     messageId: Int,
     modifier: ForwardMessage.() -> Unit = {}
-) = this.execute(ForwardMessage(chatId, fromChatId, messageId), modifier)
+) = this.execute(ForwardMessage(
+    channelUsername = channelUsername,
+    fromChatId = fromChatId,
+    messageId = messageId
+), modifier)
+
+inline fun TelegramAware.forwardMessage(
+    chatId: Long,
+    fromChannelUsername: String,
+    messageId: Int,
+    modifier: ForwardMessage.() -> Unit = {}
+) = this.execute(ForwardMessage(
+    chatId = chatId,
+    fromChannelUsername = fromChannelUsername,
+    messageId = messageId
+), modifier)
+
+inline fun TelegramAware.forwardMessage(
+    channelUsername: String,
+    fromChannelUsername: String,
+    messageId: Int,
+    modifier: ForwardMessage.() -> Unit = {}
+) = this.execute(ForwardMessage(
+    channelUsername = channelUsername,
+    fromChannelUsername = fromChannelUsername,
+    messageId = messageId
+), modifier)
