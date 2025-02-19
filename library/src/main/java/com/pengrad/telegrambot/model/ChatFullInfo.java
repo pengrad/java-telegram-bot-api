@@ -70,6 +70,7 @@ public class ChatFullInfo implements Serializable {
     private String custom_emoji_sticker_set_name;
     private Long linked_chat_id;
     private ChatLocation location;
+    private Boolean can_send_gift;
 
     public Long id() {
         return id;
@@ -262,6 +263,10 @@ public class ChatFullInfo implements Serializable {
         return location;
     }
 
+    public Boolean canSendGift() {
+        return can_send_gift;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -310,7 +315,8 @@ public class ChatFullInfo implements Serializable {
                 Objects.equals(can_set_sticker_set, chat.can_set_sticker_set) &&
                 Objects.equals(custom_emoji_sticker_set_name, chat.custom_emoji_sticker_set_name) &&
                 Objects.equals(linked_chat_id, chat.linked_chat_id) &&
-                Objects.equals(location, chat.location);
+                Objects.equals(location, chat.location) &&
+                Objects.equals(can_send_gift, chat.can_send_gift);
     }
 
     @Override
@@ -365,6 +371,7 @@ public class ChatFullInfo implements Serializable {
                 ", custom_emoji_sticker_set_name=" + custom_emoji_sticker_set_name +
                 ", linked_chat_id=" + linked_chat_id +
                 ", location=" + location +
+                ", can_send_gift=" + can_send_gift +
                 '}';
     }
 }
