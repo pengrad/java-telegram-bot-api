@@ -15,6 +15,8 @@ public class InputMediaVideo extends InputMedia<InputMediaVideo> implements Seri
     private Integer width, height, duration;
     private Boolean supports_streaming;
     private Boolean has_spoiler;
+    private String cover;
+    private Integer start_timestamp;
 
     public InputMediaVideo(String media) {
         super("video", media);
@@ -40,6 +42,21 @@ public class InputMediaVideo extends InputMedia<InputMediaVideo> implements Seri
 
     public InputMediaVideo duration(Integer duration) {
         this.duration = duration;
+        return this;
+    }
+
+    public InputMediaVideo cover(File cover) {
+        this.cover = addAttachment(cover);
+        return this;
+    }
+
+    public InputMediaVideo cover(byte[] cover) {
+        this.cover = addAttachment(cover);
+        return this;
+    }
+
+    public InputMediaVideo startTimestamp(Integer startTimestamp) {
+        this.start_timestamp = startTimestamp;
         return this;
     }
 

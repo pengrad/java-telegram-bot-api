@@ -1,11 +1,9 @@
 package com.pengrad.telegrambot.model.request;
 
-import com.pengrad.telegrambot.AttachName;
 import com.pengrad.telegrambot.request.ContentTypes;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.Map;
 
 public class InputPaidMediaVideo extends InputPaidMedia implements Serializable {
 
@@ -14,6 +12,8 @@ public class InputPaidMediaVideo extends InputPaidMedia implements Serializable 
     private Integer width, height, duration;
     private Boolean supports_streaming;
     private String thumbnail;
+    private String cover;
+    private Integer start_timestamp;
 
     public InputPaidMediaVideo(String media) {
         super("video", media);
@@ -48,16 +48,27 @@ public class InputPaidMediaVideo extends InputPaidMedia implements Serializable 
     }
 
     public InputPaidMediaVideo thumbnail(File thumbnail) {
-        String attachName = AttachName.next();
-        attachments.put(attachName, thumbnail);
-        this.thumbnail = "attach://" + attachName;
+        this.thumbnail = addAttachment(thumbnail);
         return this;
     }
 
     public InputPaidMediaVideo thumbnail(byte[] thumbnail) {
-        String attachName = AttachName.next();
-        attachments.put(attachName, thumbnail);
-        this.thumbnail = "attach://" + attachName;
+        this.thumbnail = addAttachment(thumbnail);
+        return this;
+    }
+
+    public InputPaidMediaVideo cover(File cover) {
+        this.cover = addAttachment(cover);
+        return this;
+    }
+
+    public InputPaidMediaVideo cover(byte[] cover) {
+        this.cover = addAttachment(cover);
+        return this;
+    }
+
+    public InputPaidMediaVideo startTimestamp(Integer startTimestamp) {
+        this.start_timestamp = startTimestamp;
         return this;
     }
 
