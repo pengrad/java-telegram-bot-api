@@ -70,6 +70,8 @@ class SendGift private constructor(
 
     val giftId: String by requestParameter(giftId)
 
+    var payForUpgrade: Boolean? by  optionalRequestParameter()
+
     var text: String? by optionalRequestParameter()
     var textParseMode: ParseMode? by optionalRequestParameter(valueMapper = { it?.name })
     var textEntities: Array<MessageEntity>? by optionalRequestParameter()
