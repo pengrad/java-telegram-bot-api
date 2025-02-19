@@ -3,10 +3,10 @@
 package com.pengrad.telegrambot.request
 
 import com.pengrad.telegrambot.response.SendResponse
+import com.pengrad.telegrambot.utility.kotlin.JavaInteger
+import com.pengrad.telegrambot.utility.kotlin.JavaLong
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import com.pengrad.telegrambot.utility.kotlin.requestParameter
-import java.lang.Integer as JavaInteger
-import java.lang.Long as JavaLong
 
 class ForwardMessage private constructor(
     chatId: Long?,

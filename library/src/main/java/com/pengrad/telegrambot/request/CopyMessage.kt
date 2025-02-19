@@ -5,6 +5,8 @@ import com.pengrad.telegrambot.model.request.Keyboard
 import com.pengrad.telegrambot.model.request.ParseMode
 import com.pengrad.telegrambot.model.request.ReplyParameters
 import com.pengrad.telegrambot.response.MessageIdResponse
+import com.pengrad.telegrambot.utility.kotlin.JavaInteger
+import com.pengrad.telegrambot.utility.kotlin.JavaLong
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import com.pengrad.telegrambot.utility.kotlin.requestParameter
 
@@ -31,7 +33,7 @@ class CopyMessage private constructor(
     /**
      * Backwards-compatability for Java code
      */
-    constructor(chatId: java.lang.Long, fromChatId: java.lang.Long, messageId: Integer) : this(
+    constructor(chatId: JavaLong, fromChatId: JavaLong, messageId: JavaInteger) : this(
         chatId = chatId.toLong(),
         fromChatId = fromChatId.toLong(),
         messageId = messageId.toInt()
@@ -51,7 +53,7 @@ class CopyMessage private constructor(
     /**
      * Backwards-compatability for Java code
      */
-    constructor(channelUsername: String, fromChatId: java.lang.Long, messageId: Integer) : this(
+    constructor(channelUsername: String, fromChatId: JavaLong, messageId: JavaInteger) : this(
         channelUsername = channelUsername,
         fromChatId = fromChatId.toLong(),
         messageId = messageId.toInt()
@@ -71,7 +73,7 @@ class CopyMessage private constructor(
     /**
      * Backwards-compatability for Java code
      */
-    constructor(chatId: java.lang.Long, fromChannelUsername: String, messageId: Integer) : this(
+    constructor(chatId: JavaLong, fromChannelUsername: String, messageId: JavaInteger) : this(
         chatId = chatId.toLong(),
         fromChannelUsername = fromChannelUsername,
         messageId = messageId.toInt()
@@ -91,7 +93,7 @@ class CopyMessage private constructor(
     /**
      * Backwards-compatability for Java code
      */
-    constructor(channelUsername: String, fromChannelUsername: String, messageId: Integer) : this(
+    constructor(channelUsername: String, fromChannelUsername: String, messageId: JavaInteger) : this(
         channelUsername = channelUsername,
         fromChannelUsername = fromChannelUsername,
         messageId = messageId.toInt()
@@ -120,7 +122,7 @@ class CopyMessage private constructor(
      */
     @Suppress("DEPRECATION")
     @Deprecated("Use constructor with chatId and fromChatId or channelUsername and fromChannelUsername instead", ReplaceWith("ForwardMessage(chatId, fromChatId, messageId)"))
-    constructor(chatId: Any, fromChatId: Any, messageId: Integer) : this(
+    constructor(chatId: Any, fromChatId: Any, messageId: JavaInteger) : this(
         chatId = chatId,
         fromChatId = fromChatId,
         messageId = messageId.toInt()
