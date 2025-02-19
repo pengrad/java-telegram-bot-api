@@ -6,6 +6,7 @@ data class Gift(
     @get:JvmName("id") val id: String,
     @get:JvmName("sticker") val sticker: Sticker,
     @get:JvmName("starCount") val starCount: Int,
-    @get:JvmName("totalCount") val totalCount: Int,
-    @get:JvmName("remainingCount") val remainingCount: Int
+    @get:JvmName("upgradeStarCount") val upgradeStarCount: Int? = null,
+    @get:JvmName("totalCount") val totalCount: Int? = null,
+    @get:JvmName("remainingCount") val remainingCount: Int? = null
 )
