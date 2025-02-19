@@ -78,7 +78,7 @@ class SendGift private constructor(
 
     fun text(text: String) = apply { this.text = text }
 
-    fun textParseMode(parseMode: ParseMode) = apply { this.textParseMode = textParseMode }
+    fun textParseMode(parseMode: ParseMode) = apply { this.textParseMode = parseMode }
 
     fun textEntities(textEntities: Array<MessageEntity>) = apply { this.textEntities = textEntities }
 
