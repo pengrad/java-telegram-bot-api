@@ -4,9 +4,9 @@ data class Video(
     @get:JvmName("fileId") val fileId: String,
     @get:JvmName("fileUniqueId") val fileUniqueId: String,
 
-    @JvmSynthetic val width: Int,
-    @JvmSynthetic val height: Int,
-    @JvmSynthetic val duration: Int,
+    @get:JvmSynthetic val width: Int,
+    @get:JvmSynthetic val height: Int,
+    @get:JvmSynthetic val duration: Int,
 
     @get:JvmName("thumbnail") val thumbnail: PhotoSize? = null,
     @get:JvmName("cover") val cover: List<PhotoSize>? = null,

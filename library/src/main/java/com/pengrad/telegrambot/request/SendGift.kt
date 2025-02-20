@@ -22,7 +22,7 @@ class SendGift private constructor(
                 giftId = giftId
             )
 
-        @JvmSynthetic
+        @JvmStatic
         fun fromChatId(chatId: Long, giftId: String) =
             SendGift(
                 chatId = chatId,
