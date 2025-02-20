@@ -29,14 +29,6 @@ public class Document implements Serializable {
         return thumbnail;
     }
 
-    /**
-     * @deprecated Use thumbnail instead
-     */
-    @Deprecated 
-    public PhotoSize thumb() {
-        return thumbnail();
-    }
-
     public String fileName() {
         return file_name;
     }

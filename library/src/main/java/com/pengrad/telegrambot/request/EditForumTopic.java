@@ -4,14 +4,6 @@ import com.pengrad.telegrambot.response.BaseResponse;
 
 public class EditForumTopic extends BaseRequest<EditForumTopic, BaseResponse> {
 
-    /**
-     * @deprecated use constructor with Long for future compatibility
-     */
-    @Deprecated
-    public EditForumTopic(Integer chatId, Integer messageThreadId) {
-        this(chatId.toString(), messageThreadId);
-    }
-
     public EditForumTopic(Long chatId, Integer messageThreadId) {
         this(chatId.toString(), messageThreadId);
     }
@@ -20,14 +12,6 @@ public class EditForumTopic extends BaseRequest<EditForumTopic, BaseResponse> {
         super(BaseResponse.class);
         add("chat_id", chatId);
         add("message_thread_id", messageThreadId);
-    }
-
-    /**
-     * @deprecated use constructor with Long for future compatibility
-     */
-    @Deprecated
-    public EditForumTopic(Integer chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {
-        this(chatId.toString(), messageThreadId, name, iconCustomEmojiId);
     }
 
     public EditForumTopic(Long chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {

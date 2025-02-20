@@ -35,7 +35,4 @@ data class Video(
      */
     fun duration() = duration as JavaInteger
 
-    @Deprecated("Use thumbnail instead", ReplaceWith("thumbnail"))
-    fun thumb(): PhotoSize? = thumbnail
-
 }

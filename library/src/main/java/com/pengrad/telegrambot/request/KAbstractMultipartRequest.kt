@@ -33,18 +33,13 @@ abstract class KAbstractMultipartRequest<REQ : KAbstractMultipartRequest<REQ>>(
 
     @get:JvmName("getContentFileName")
     var fileName: String = contentFile?.name ?: defaultFileName
+
     @get:JvmName("getContentMimeType")
     var contentType: String = defaultContentType
 
     fun thumbnail(thumbnail: File) = applySelf { this.thumbnailFile = thumbnail }
 
     fun thumbnail(thumbnail: ByteArray) = applySelf { this.thumbnailBytes = thumbnail }
-
-    @Deprecated("Use thumbnail instead", ReplaceWith("thumbnail(thumbnail)"))
-    fun thumb(thumbnail: File) = applySelf { this.thumbnailFile = thumbnail }
-
-    @Deprecated("Use thumbnail instead", ReplaceWith("thumbnail(thumbnail)"))
-    fun thumb(thumbnail: ByteArray) = applySelf { this.thumbnailBytes = thumbnail }
 
     fun fileName(fileName: String) = applySelf { this.fileName = fileName }
 

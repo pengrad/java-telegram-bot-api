@@ -13,22 +13,6 @@ class CreateInvoiceLink(
     vararg prices: LabeledPrice
 ) : KBaseRequest<CreateInvoiceLink, StringResponse>(StringResponse::class) {
 
-    /**
-     * Backward compatibility: API 7.4, parameter "provider_token" became optional
-     * @deprecated Use constructor without 'provider_token' instead
-     */
-    @Deprecated("Use constructor without 'providerToken' parameter", ReplaceWith("CreateInvoiceLink(title, description, payload, currency, *prices)"))
-    constructor(
-        title: String,
-        description: String,
-        payload: String,
-        providerToken: String,
-        currency: String,
-        vararg prices: LabeledPrice
-    ) : this(title, description, payload, currency, *prices) {
-        this.providerToken = providerToken
-    }
-
     val title: String by requestParameter(title)
     val description: String by requestParameter(description)
     val payload: String by requestParameter(payload)

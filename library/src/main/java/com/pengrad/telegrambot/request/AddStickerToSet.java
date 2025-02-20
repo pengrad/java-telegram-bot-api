@@ -24,12 +24,4 @@ public class AddStickerToSet extends AbstractUploadRequest<AddStickerToSet, Base
     private static Object attachment(InputSticker sticker) {
         return sticker.getAttachment() != null ? sticker.getAttachment() : "sticker_id";
     }
-
-    /**
-     * @deprecated Use maskPosition on InputSticker (since API v6.6)
-     */
-    @Deprecated
-    public AddStickerToSet maskPosition(MaskPosition maskPosition) {
-        return add("mask_position", maskPosition);
-    }
 }

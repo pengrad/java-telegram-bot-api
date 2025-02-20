@@ -26,12 +26,4 @@ public class SendMessage extends AbstractSendRequest<SendMessage> {
     public SendMessage linkPreviewOptions(LinkPreviewOptions linkPreviewOptions) {
         return add("link_preview_options", linkPreviewOptions);
     }
-
-    /*
-    @deprecated Use linkPreviewOptions instead
-    */
-    @Deprecated
-    public SendMessage disableWebPagePreview(boolean disableWebPagePreview) {
-        return add("disable_web_page_preview", disableWebPagePreview);
-    }
 }

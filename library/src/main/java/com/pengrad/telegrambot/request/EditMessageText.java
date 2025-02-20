@@ -35,14 +35,6 @@ public class EditMessageText extends BaseRequest<EditMessageText, BaseResponse> 
         return add("link_preview_options", linkPreviewOptions);
     }
 
-    /*
-    @deprecated Use linkPreviewOptions instead
-    */
-    @Deprecated
-    public EditMessageText disableWebPagePreview(boolean disableWebPagePreview) {
-        return add("disable_web_page_preview", disableWebPagePreview);
-    }
-
     public EditMessageText replyMarkup(InlineKeyboardMarkup replyMarkup) {
         return add("reply_markup", replyMarkup);
     }

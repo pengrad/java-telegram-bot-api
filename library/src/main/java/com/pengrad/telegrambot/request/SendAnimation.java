@@ -35,22 +35,6 @@ public class SendAnimation extends AbstractMultipartRequest<SendAnimation> {
         return add("height", height);
     }
 
-    /**
-     * @deprecated Use thumbnail instead
-     */
-    @Deprecated 
-    public SendAnimation thumb(byte[] thumb) {
-        return thumbnail(thumb);
-    }
-
-    /**
-     * @deprecated Use thumbnail instead
-     */
-    @Deprecated 
-    public SendAnimation thumb(File thumb) {
-        return thumbnail(thumb);
-    }
-
     public SendAnimation thumbnail(byte[] thumbnail) {
         return super.thumbnail(thumbnail);
     }

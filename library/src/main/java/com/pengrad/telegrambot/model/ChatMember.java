@@ -89,14 +89,6 @@ public class ChatMember implements Serializable {
         return can_delete_messages != null && can_delete_messages;
     }
 
-    /**
-     * @deprecated Use canManageVideoChats() instead
-     */
-    @Deprecated
-    public Boolean canManageVoiceChats() {
-        return canManageVideoChats();
-    }
-
     public Boolean canManageVideoChats() {
         return can_manage_video_chats != null && can_manage_video_chats;
     }

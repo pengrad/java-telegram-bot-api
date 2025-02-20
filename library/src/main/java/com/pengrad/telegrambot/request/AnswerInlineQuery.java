@@ -31,20 +31,4 @@ public class AnswerInlineQuery extends BaseRequest<AnswerInlineQuery, BaseRespon
         return add ("button", button);
     }
 
-    /**
-     * @deprecated Replaced by {@link #button(InlineQueryResultsButton)}
-     */
-    @Deprecated
-    public AnswerInlineQuery switchPmText(String switchPmText) {
-        return add("switch_pm_text", switchPmText);
-    }
-
-    /**
-     * @deprecated Replaced by {@link #button(InlineQueryResultsButton)}
-     */
-    @Deprecated
-    public AnswerInlineQuery switchPmParameter(String switchPmParameter) {
-        return add("switch_pm_parameter", switchPmParameter);
-    }
-
 }

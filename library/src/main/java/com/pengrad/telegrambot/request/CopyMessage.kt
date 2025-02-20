@@ -143,10 +143,6 @@ class CopyMessage private constructor(
     var captionEntities: List<MessageEntity>? by optionalRequestParameter()
 
     var replyParameters: ReplyParameters? by optionalRequestParameter()
-    @Deprecated("Use replyParameters instead")
-    private var replyToMessageId: Int? by optionalRequestParameter()
-    @Deprecated("Use replyParameters instead")
-    private var allowSendingWithoutReply: Boolean? by optionalRequestParameter()
 
     var replyMarkup: Keyboard? by optionalRequestParameter()
     var showCaptionAboveMedia: Boolean? by optionalRequestParameter()
@@ -166,26 +162,6 @@ class CopyMessage private constructor(
     fun captionEntities(vararg captionEntities: MessageEntity) = applySelf { this.captionEntities = captionEntities.toList() }
 
     fun replyParameters(parameters: ReplyParameters) = applySelf { this.replyParameters = parameters }
-
-    @Suppress("DEPRECATION")
-    @Deprecated(
-        message = "Use replyParameters instead",
-        ReplaceWith(
-            expression = "replyParameters(ReplyParameters(replyToMessageId))",
-            imports = ["com.pengrad.telegrambot.model.request.ReplyParameters"]
-        )
-    )
-    fun replyToMessageId(replyToMessageId: Int) = applySelf { this.replyToMessageId = replyToMessageId }
-
-    @Suppress("DEPRECATION")
-    @Deprecated(
-        message = "Use replyParameters instead",
-        ReplaceWith(
-            expression = "replyParameters(ReplyParameters(messageId).allowSendingWithoutReply(allowSendingWithoutReply))",
-            imports = ["com.pengrad.telegrambot.model.request.ReplyParameters"]
-        )
-    )
-    fun allowSendingWithoutReply(allowSendingWithoutReply: Boolean) = applySelf { this.allowSendingWithoutReply = allowSendingWithoutReply }
 
     fun replyMarkup(replyMarkup: Keyboard) = applySelf { this.replyMarkup = replyMarkup }
 

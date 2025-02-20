@@ -49,14 +49,6 @@ public class PromoteChatMember extends BaseRequest<PromoteChatMember, BaseRespon
         return add("can_delete_stories", canDeleteStories);
     }
 
-    /**
-     * @deprecated Use canManageVideoChats(boolean canManageVideoChats) instead
-     */
-    @Deprecated
-    public PromoteChatMember canManageVoiceChats(boolean canManageVoiceChats) {
-        return add("can_manage_video_chats", canManageVoiceChats);
-    }
-
     public PromoteChatMember canManageVideoChats(boolean canManageVideoChats) {
         return add("can_manage_video_chats", canManageVideoChats);
     }

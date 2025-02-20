@@ -48,31 +48,6 @@ public class InlineQueryResultArticle extends InlineQueryResult<InlineQueryResul
         return this;
     }
 
-    /**
-     * @deprecated Use thumbnailUrl instead
-     */
-    @Deprecated
-    public InlineQueryResultArticle thumbUrl(String thumbUrl) {
-        return thumbnailUrl(thumbUrl);
-    }
-
-    /**
-     * @deprecated Use thumbnailWidth instead
-     */
-    @Deprecated
-    public InlineQueryResultArticle thumbWidth(Integer thumbWidth) {
-        return thumbnailWidth(thumbWidth);
-    }
-
-    /**
-     * @deprecated Use thumbnailHeight instead
-     */
-    @Deprecated    
-    public InlineQueryResultArticle thumbHeight(Integer thumbHeight) {
-        return thumbnailHeight(thumbHeight);
-    }
-
-
     public InlineQueryResultArticle thumbnailUrl(String thumbnailUrl) {
         this.thumbnail_url = thumbnailUrl;
         return this;

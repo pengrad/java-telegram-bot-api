@@ -68,26 +68,8 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
         return inputFileAttachId;
     }
 
-    /**
-     * @deprecated Use thumbnail instead
-     */
-    @Deprecated
-    public T thumb(File thumb) {
-        this.thumbnail = addAttachment(thumb);
-        return thisAsT;
-    }
-
     public T showCaptionAboveMedia(Boolean showCaptionAboveMedia) {
         this.show_caption_above_media = showCaptionAboveMedia;
-        return thisAsT;
-    }
-
-    /**
-     * @deprecated Use thumbnail instead
-     */
-    @Deprecated
-    public T thumb(byte[] thumb) {
-        this.thumbnail = addAttachment(thumb);
         return thisAsT;
     }
 

@@ -19,7 +19,7 @@ public class VideoNoteCheck {
         assertNotNull(videoNote.fileUniqueId());
         assertNotNull(videoNote.length());
         assertNotNull(videoNote.duration());
-        PhotoSizeTest.checkPhotos(videoNote.thumb());
+        PhotoSizeTest.checkPhotos(videoNote.thumbnail());
         if (full) {
             assertNotNull(videoNote.fileSize());
         }

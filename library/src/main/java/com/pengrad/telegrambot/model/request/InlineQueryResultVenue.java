@@ -51,31 +51,6 @@ public class InlineQueryResultVenue extends InlineQueryResult<InlineQueryResultV
         return this;
     }
 
-    /**
-     * @deprecated Use thumbnailUrl instead
-     */
-    @Deprecated
-    public InlineQueryResultVenue thumbUrl(String thumbUrl) {
-        return thumbnailUrl(thumbUrl);
-    }
-
-    /**
-     * @deprecated Use thumbnailWidth instead
-     */
-    @Deprecated
-    public InlineQueryResultVenue thumbWidth(Integer thumbWidth) {
-        return thumbnailWidth(thumbWidth);
-    }
-
-    /**
-     * @deprecated Use thumbnailHeight instead
-     */
-    @Deprecated    
-    public InlineQueryResultVenue thumbHeight(Integer thumbHeight) {
-        return thumbnailHeight(thumbHeight);
-    }
-
-
     public InlineQueryResultVenue thumbnailUrl(String thumbnailUrl) {
         this.thumbnail_url = thumbnailUrl;
         return this;

@@ -50,7 +50,6 @@ public class MessageTest {
         assertNull(message.refundedPayment());
         assertNull(message.story());
         assertNull(message.usersShared());
-        assertNull(message.userShared());
         assertNull(message.chatShared());
         assertNull(message.proximityAlertTriggered());
         assertNull(message.boostAdded());

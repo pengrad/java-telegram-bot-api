@@ -1,7 +1,5 @@
 package com.pengrad.telegrambot.request;
 
-import com.pengrad.telegrambot.model.MaskPosition;
-import com.pengrad.telegrambot.model.Sticker.Format;
 import com.pengrad.telegrambot.model.Sticker.Type;
 import com.pengrad.telegrambot.model.request.InputSticker;
 import com.pengrad.telegrambot.response.BaseResponse;
@@ -23,14 +21,6 @@ public class CreateNewStickerSet extends BaseRequest<CreateNewStickerSet, BaseRe
                 add(sticker.getAttachName(), sticker.getAttachment());
             }
         }
-    }
-
-    /**
-     * @deprecated StickerSets can contain both animated and non-animated stickers since Bot API 7.2 so Sticker Format argument was removed
-     */
-    @Deprecated
-    public CreateNewStickerSet(Long userId, String name, String title, InputSticker[] stickers, Format stickerFormat) {
-        this(userId, name, title, stickers);
     }
 
     @Override

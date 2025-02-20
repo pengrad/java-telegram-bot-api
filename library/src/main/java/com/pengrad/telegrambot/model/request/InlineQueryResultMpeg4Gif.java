@@ -43,14 +43,6 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult<InlineQueryResu
         return this;
     }
 
-    /**
-     * @deprecated Use thumbnailMimeType instead
-     */
-    @Deprecated 
-    public InlineQueryResultMpeg4Gif thumbMimeType(String thumbMimeType) {
-        return thumbnailMimeType(thumbMimeType);
-    }
-
     public InlineQueryResultMpeg4Gif thumbnailMimeType(String thumbnailMimeType) {
         this.thumbnail_mime_type = thumbnailMimeType;
         return this;

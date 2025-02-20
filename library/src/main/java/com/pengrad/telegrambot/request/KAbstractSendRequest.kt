@@ -20,10 +20,6 @@ abstract class KAbstractSendRequest<REQ : KAbstractSendRequest<REQ>>(
     var allowPaidBroadcast: Boolean? by optionalRequestParameter()
     var messageEffectId: String? by optionalRequestParameter()
     var replyParameters: ReplyParameters? by optionalRequestParameter()
-    @Deprecated("Use replyParameters instead")
-    private var replyToMessageId: Int? by optionalRequestParameter()
-    @Deprecated("Use replyParameters instead")
-    private var allowSendingWithoutReply: Boolean? by optionalRequestParameter()
     var replyMarkup: Keyboard? by optionalRequestParameter()
 
     fun businessConnectionId(businessConnectionId: String) = applySelf { this.businessConnectionId = businessConnectionId }
@@ -39,26 +35,6 @@ abstract class KAbstractSendRequest<REQ : KAbstractSendRequest<REQ>>(
     fun messageEffectId(messageEffectId: String) = applySelf { this.messageEffectId = messageEffectId }
 
     fun replyParameters(replyParameters: ReplyParameters) = applySelf { this.replyParameters = replyParameters }
-
-    @Suppress("DEPRECATION")
-    @Deprecated(
-        message = "Use replyParameters instead",
-        ReplaceWith(
-            expression = "replyParameters(ReplyParameters(replyToMessageId))",
-            imports = ["com.pengrad.telegrambot.model.request.ReplyParameters"]
-        )
-    )
-    fun replyToMessageId(replyToMessageId: Int) = applySelf { this.replyToMessageId = replyToMessageId }
-
-    @Suppress("DEPRECATION")
-    @Deprecated(
-        message = "Use replyParameters instead",
-        ReplaceWith(
-            expression = "replyParameters(ReplyParameters(messageId).allowSendingWithoutReply(allowSendingWithoutReply))",
-            imports = ["com.pengrad.telegrambot.model.request.ReplyParameters"]
-        )
-    )
-    fun allowSendingWithoutReply(allowSendingWithoutReply: Boolean) = applySelf { this.allowSendingWithoutReply = allowSendingWithoutReply }
 
     fun replyMarkup(replyMarkup: Keyboard) = applySelf { this.replyMarkup = replyMarkup }
 

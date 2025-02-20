@@ -70,14 +70,6 @@ public class Sticker implements Serializable {
         return thumbnail;
     }
 
-    /**
-     * @deprecated Use thumbnail instead
-     */
-    @Deprecated 
-    public PhotoSize thumb() {
-        return thumbnail();
-    }
-
     public String emoji() {
         return emoji;
     }

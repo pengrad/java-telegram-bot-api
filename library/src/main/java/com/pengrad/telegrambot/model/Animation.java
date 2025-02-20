@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Stas Parshin
@@ -14,7 +15,7 @@ public class Animation implements Serializable {
     private Integer width;
     private Integer height;
     private Integer duration;
-    private PhotoSize thumbnail;  
+    private PhotoSize thumbnail;
     private String file_name;
     private String mime_type;
     private Long file_size;
@@ -43,14 +44,6 @@ public class Animation implements Serializable {
         return thumbnail;
     }
 
-    /**
-     * @deprecated Use thumbnail instead
-     */
-    @Deprecated 
-    public PhotoSize thumb() {
-        return thumbnail();
-    }
-
     public String fileName() {
         return file_name;
     }
@@ -67,19 +60,8 @@ public class Animation implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Animation animation = (Animation) o;
-
-        if (file_id != null ? !file_id.equals(animation.file_id) : animation.file_id != null) return false;
-        if (file_unique_id != null ? !file_unique_id.equals(animation.file_unique_id) : animation.file_unique_id != null)
-            return false;
-        if (width != null ? !width.equals(animation.width) : animation.width != null) return false;
-        if (height != null ? !height.equals(animation.height) : animation.height != null) return false;
-        if (duration != null ? !duration.equals(animation.duration) : animation.duration != null) return false;
-        if (thumbnail != null ? !thumbnail.equals(animation.thumbnail) : animation.thumbnail != null) return false;
-        if (file_name != null ? !file_name.equals(animation.file_name) : animation.file_name != null) return false;
-        if (mime_type != null ? !mime_type.equals(animation.mime_type) : animation.mime_type != null) return false;
-        return file_size != null ? file_size.equals(animation.file_size) : animation.file_size == null;
+        return Objects.equals(file_id, animation.file_id) && Objects.equals(file_unique_id, animation.file_unique_id) && Objects.equals(width, animation.width) && Objects.equals(height, animation.height) && Objects.equals(duration, animation.duration) && Objects.equals(thumbnail, animation.thumbnail) && Objects.equals(file_name, animation.file_name) && Objects.equals(mime_type, animation.mime_type) && Objects.equals(file_size, animation.file_size);
     }
 
     @Override

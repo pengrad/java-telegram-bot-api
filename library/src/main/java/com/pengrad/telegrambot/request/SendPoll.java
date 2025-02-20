@@ -16,16 +16,6 @@ public class SendPoll extends AbstractSendRequest<SendPoll> {
         add("question", question);
         add("options", options);
     }
-    
-    /**
-     * @deprecated Use constructor with InputPollOption parameters instead
-     */
-    @Deprecated 
-    public SendPoll(Object chatId, String question, String... options) {
-        super(chatId);
-        add("question", question);
-        add("options", options);
-    }
 
     public SendPoll isAnonymous(boolean isAnonymous) {
         return add("is_anonymous", isAnonymous);
@@ -66,7 +56,7 @@ public class SendPoll extends AbstractSendRequest<SendPoll> {
     public SendPoll questionEntities(MessageEntity... entities) {
         return add("question_entities", entities);
     }
-    
+
     public SendPoll openPeriod(int openPeriod) {
         return add("open_period", openPeriod);
     }

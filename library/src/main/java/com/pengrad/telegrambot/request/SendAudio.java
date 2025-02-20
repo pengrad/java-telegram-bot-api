@@ -47,22 +47,6 @@ public class SendAudio extends AbstractMultipartRequest<SendAudio> {
         return add("title", title);
     }
 
-/**
-     * @deprecated Use thumbnail instead
-     */
-    @Deprecated 
-    public SendAudio thumb(byte[] thumb) {
-        return thumbnail(thumb);
-    }
-
-    /**
-     * @deprecated Use thumbnail instead
-     */
-    @Deprecated 
-    public SendAudio thumb(File thumb) {
-        return thumbnail(thumb);
-    }
-
     public SendAudio thumbnail(byte[] thumbnail) {
         return super.thumbnail(thumbnail);
     }

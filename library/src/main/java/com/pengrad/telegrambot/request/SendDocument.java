@@ -23,22 +23,6 @@ public class SendDocument extends AbstractMultipartRequest<SendDocument> {
         super(chatId, document);
     }
 
-/**
-     * @deprecated Use thumbnail instead
-     */
-    @Deprecated 
-    public SendDocument thumb(byte[] thumb) {
-        return thumbnail(thumb);
-    }
-
-    /**
-     * @deprecated Use thumbnail instead
-     */
-    @Deprecated 
-    public SendDocument thumb(File thumb) {
-        return thumbnail(thumb);
-    }
-
     public SendDocument thumbnail(byte[] thumbnail) {
         return super.thumbnail(thumbnail);
     }

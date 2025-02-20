@@ -9,6 +9,8 @@ import com.pengrad.telegrambot.response.*;
 import com.pengrad.telegrambot.utility.BotUtils;
 import org.junit.*;
 
+import java.util.Objects;
+
 import static com.pengrad.telegrambot.TelegramBotTest.getProp;
 import static org.junit.Assert.*;
 
@@ -26,8 +28,9 @@ public class PaymentsTest {
 
     @Test
     public void sendInvoice() {
-        SendResponse response = bot.execute(new SendInvoice(chatId, "title", "desc", "my_payload",
-                "284685063:TEST:NThlNWQ3NDk0ZDQ5", "my_start_param", "USD", new LabeledPrice("label", 200))
+        SendResponse response = bot.execute(new SendInvoice(chatId, "title", "desc", "my_payload", "USD", new LabeledPrice("label", 200))
+                .providerToken("284685063:TEST:NThlNWQ3NDk0ZDQ5")
+                .startParameter("my_start_param")
                 .providerData("{\"foo\" : \"bar\"}")
                 .photoUrl("https://telegram.org/img/t_logo.png").photoSize(100).photoHeight(100).photoWidth(100)
                 .needPhoneNumber(true).needShippingAddress(true).needEmail(true).needName(true)
@@ -54,8 +57,9 @@ public class PaymentsTest {
 
     @Test
     public void createInvoiceLink() {
-        StringResponse response = bot.execute(new CreateInvoiceLink("title", "desc", "my_payload",
-                "284685063:TEST:NThlNWQ3NDk0ZDQ5", "USD", new LabeledPrice("label", 200))
+        StringResponse response = bot.execute(new CreateInvoiceLink("title", "desc", "my_payload", "USD",
+                new LabeledPrice("label", 200))
+                .providerToken("284685063:TEST:NThlNWQ3NDk0ZDQ5")
                 .maxTipAmount(100)
                 .suggestedTipAmounts(new Integer[]{1, 2, 5})
                 .providerData("{\"foo\" : \"bar\"}")
@@ -176,7 +180,7 @@ public class PaymentsTest {
         assertEquals("pcid", payment.providerPaymentChargeId());
 
         OrderInfo orderInfo = payment.orderInfo();
-        assertEquals("uName", orderInfo.name());
+        assertEquals("uName", Objects.requireNonNull(orderInfo).name());
         assertEquals("+123456789", orderInfo.phoneNumber());
         assertEquals("aaa@aaa.com", orderInfo.email());
         checkTestShippingAddress(orderInfo.shippingAddress());

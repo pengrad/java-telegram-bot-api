@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.model;
 
-import com.pengrad.telegrambot.model.business.BusinessConnection;
 import com.pengrad.telegrambot.model.chatbackground.ChatBackground;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostAdded;
 import com.pengrad.telegrambot.model.giveaway.Giveaway;
@@ -9,7 +8,6 @@ import com.pengrad.telegrambot.model.giveaway.GiveawayCreated;
 import com.pengrad.telegrambot.model.giveaway.GiveawayWinners;
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.*;
-import com.pengrad.telegrambot.model.paidmedia.PaidMedia;
 import com.pengrad.telegrambot.model.paidmedia.PaidMediaInfo;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.passport.PassportData;
@@ -83,7 +81,6 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private SuccessfulPayment successful_payment;
     private RefundedPayment refunded_payment;
     private Story story;
-    private UserShared user_shared; //@deprectated
     private UsersShared users_shared;
     private ChatShared chat_shared;
     private String connected_website;
@@ -135,81 +132,6 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public MessageOrigin forwardOrigin() {
         return forward_origin;
-    }
-
-    /**
-     * @deprecated Use Message#forwardOrigin instead
-     */
-    @Deprecated
-    public User forwardFrom() {
-        if (forward_origin instanceof MessageOriginUser) {
-            return ((MessageOriginUser) forward_origin).senderUser();
-        }
-        return null;
-    }
-
-    /**
-     * @deprecated Use Message#forwardOrigin instead
-     */
-    @Deprecated
-    public Chat forwardFromChat() {
-        if (forward_origin instanceof MessageOriginChat) {
-            return ((MessageOriginChat) forward_origin).senderChat();
-        }
-
-        if (forward_origin instanceof MessageOriginChannel) {
-            return ((MessageOriginChannel) forward_origin).chat();
-        }
-
-        return null;
-    }
-
-    /**
-     * @deprecated Use Message#forwardOrigin instead
-     */
-    @Deprecated
-    public Integer forwardFromMessageId() {
-        if (forward_origin instanceof MessageOriginChannel) {
-            return ((MessageOriginChannel) forward_origin).messageId();
-        }
-
-        return null;
-    }
-
-    /**
-     * @deprecated Use Message#forwardOrigin instead
-     */
-    @Deprecated
-    public String forwardSignature() {
-        if (forward_origin instanceof MessageOriginChat) {
-            return ((MessageOriginChat) forward_origin).authorSignature();
-        }
-
-        if (forward_origin instanceof MessageOriginChannel) {
-            return ((MessageOriginChannel) forward_origin).authorSignature();
-        }
-
-        return null;
-    }
-
-    /**
-     * @deprecated Use Message#forwardOrigin instead
-     */
-    @Deprecated
-    public String forwardSenderName() {
-        if (forward_origin instanceof MessageOriginHiddenUser) {
-            return ((MessageOriginHiddenUser) forward_origin).senderUserName();
-        }
-
-        return null;
-    }
-
-    /**
-     * @deprecated Use Message#forwardOrigin instead
-     */
-    @Deprecated
-    public Integer forwardDate() {
-        return forward_origin.date();
     }
 
     public Boolean isTopicMessage() {
@@ -417,14 +339,6 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return story;
     }
 
-    /**
-     * @deprecated Use usersShared instead
-     */
-    @Deprecated
-    public UserShared userShared() {
-        return user_shared;
-    }
-
     public UsersShared usersShared() {
         return users_shared;
     }
@@ -608,7 +522,6 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(successful_payment, message.successful_payment) &&
                 Objects.equals(refunded_payment, message.refunded_payment) &&
                 Objects.equals(story, message.story) &&
-                Objects.equals(user_shared, message.user_shared) &&
                 Objects.equals(users_shared, message.users_shared) &&
                 Objects.equals(chat_shared, message.chat_shared) &&
                 Objects.equals(connected_website, message.connected_website) &&
@@ -704,7 +617,6 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", successful_payment=" + successful_payment +
                 ", refunded_payment=" + refunded_payment +
                 ", story=" + story +
-                ", user_shared=" + user_shared +
                 ", users_shared=" + users_shared +
                 ", chat_shared=" + chat_shared +
                 ", connected_website='" + connected_website + '\'' +

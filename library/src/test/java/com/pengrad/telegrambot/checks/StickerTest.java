@@ -15,7 +15,6 @@ public class StickerTest {
         assertNotNull(sticker.fileUniqueId());
         assertNotNull(sticker.width());
         assertNotNull(sticker.height());
-        PhotoSizeTest.checkPhotos(sticker.thumb());
         PhotoSizeTest.checkPhotos(sticker.thumbnail());
         if (emoji) assertNotNull(sticker.emoji());
         if (fileSize) assertNotNull(sticker.fileSize());

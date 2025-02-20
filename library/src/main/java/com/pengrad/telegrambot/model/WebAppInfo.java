@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Mirco Ianese
@@ -16,7 +17,8 @@ public class WebAppInfo implements Serializable {
         this.url = url;
     }
 
-    WebAppInfo() {}
+    WebAppInfo() {
+    }
 
     public String url() {
         return url;
@@ -26,10 +28,8 @@ public class WebAppInfo implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        WebAppInfo webAppInfo = (WebAppInfo) o;
-
-        return url != null ? url.equals(webAppInfo.url) : webAppInfo.url == null;
+        WebAppInfo that = (WebAppInfo) o;
+        return Objects.equals(url, that.url);
     }
 
     @Override

@@ -37,14 +37,6 @@ public class VideoNote implements Serializable {
         return thumbnail;
     }
 
-    /**
-     * @deprecated Use thumbnail instead
-     */
-    @Deprecated 
-    public PhotoSize thumb() {
-        return thumbnail();
-    }
-
     public Long fileSize() {
         return file_size;
     }

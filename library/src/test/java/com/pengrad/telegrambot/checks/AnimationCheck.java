@@ -17,7 +17,7 @@ public class AnimationCheck {
         assertNotNull(animation.fileName());
         assertNotNull(animation.mimeType());
         assertTrue(animation.fileSize() > 0);
-        PhotoSizeTest.checkPhotos(animation.thumb());
+        PhotoSizeTest.checkPhotos(animation.thumbnail());
     }
 
 }

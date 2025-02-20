@@ -4,14 +4,6 @@ import com.pengrad.telegrambot.response.CreateForumTopicResponse;
 
 public class CreateForumTopic extends BaseRequest<CreateForumTopic, CreateForumTopicResponse> {
 
-    /**
-     * @deprecated use constructor with Long for future compatibility
-     */
-    @Deprecated
-    public CreateForumTopic(Integer chatId, String name) {
-        this(chatId.toString(), name);
-    }
-
     public CreateForumTopic(Long chatId, String name) {
         this(chatId.toString(), name);
     }
