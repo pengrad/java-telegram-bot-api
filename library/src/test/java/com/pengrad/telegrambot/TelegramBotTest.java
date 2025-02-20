@@ -398,9 +398,9 @@ public class TelegramBotTest {
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100)
                         .thumbnailUrl(someUrl).thumbnailHeight(100).thumbnailWidth(100),
                 new InlineQueryResultVideo("15", someUrl, VIDEO_MIME_TYPE, someUrl, "title")
-                    .inputMessageContent(new InputTextMessageContent("text"))
-                    .caption("cap <b>bold</b>").parseMode(ParseMode.HTML)
-                    .videoWidth(100).videoHeight(100).videoDuration(100).description("desc"),
+                        .inputMessageContent(new InputTextMessageContent("text"))
+                        .caption("cap <b>bold</b>").parseMode(ParseMode.HTML)
+                        .videoWidth(100).videoHeight(100).videoDuration(100).description("desc"),
                 new InlineQueryResultVoice("16", someUrl, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML).voiceDuration(100),
                 new InlineQueryResultCachedAudio("17", audioFileId).caption("cap <b>bold</b>").parseMode(ParseMode.HTML),
                 new InlineQueryResultCachedDocument("18", stickerId, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML).description("desc"),
@@ -982,17 +982,17 @@ public class TelegramBotTest {
 
     @Test
     public void sendVideo() {
-        Message message = bot.execute(new SendVideo(chatId, videoFileId).hasSpoiler(true)).message();
+        Message message = bot.execute(new SendVideo(chatId.longValue(), videoFileId).hasSpoiler(true)).message();
         MessageTest.checkMessage(message);
         VideoTest.check(message.video(), false);
 
-        message = bot.execute(new SendVideo(chatId, videoFile)
-                .thumb(thumbFile)
+        message = bot.execute(new SendVideo(chatId.longValue(), videoFile)
+                .thumbnail(thumbFile)
                 .caption("caption").captionEntities(new MessageEntity(MessageEntity.Type.italic, 0, 7))
         ).message();
         MessageTest.checkMessage(message);
         VideoTest.check(message.video());
-        assertNotEquals("telegram should generate thumb", thumbSize, message.video().thumb().fileSize());
+        assertNotEquals("telegram should generate thumb", thumbSize, Objects.requireNonNull(message.video().thumbnail()).fileSize());
         assertEquals("tabs.mp4", message.video().fileName());
         MessageEntity captionEntity = message.captionEntities()[0];
         assertEquals(MessageEntity.Type.italic, captionEntity.type());
@@ -1001,10 +1001,11 @@ public class TelegramBotTest {
 
         String caption = "caption <b>bold</b>";
         int duration = 6;
+        int start = 2;
         message = bot.execute(
-                        new SendVideo(chatId, videoBytes).thumb(thumbBytes)
+                        new SendVideo(chatId.longValue(), videoBytes).thumbnail(thumbBytes)
                                 .caption(caption).parseMode(ParseMode.HTML)
-                                .duration(duration).height(1).width(2).supportsStreaming(true))
+                                .startTimestamp(start).duration(duration).height(1).width(2).supportsStreaming(true))
                 .message();
         System.out.println(message);
         MessageTest.checkMessage(message);
@@ -1012,11 +1013,12 @@ public class TelegramBotTest {
 
         Video video = message.video();
         VideoTest.check(message.video());
+        assertEquals(start, Objects.requireNonNull(video.startTimestamp()).intValue());
         assertEquals(duration, video.duration().intValue());
         assertEquals(120, video.height().intValue());
         assertEquals(400, video.width().intValue());
         assertEquals("video/mp4", video.mimeType());
-        assertNotEquals("telegram should generate thumb", thumbSize, video.thumb().fileSize());
+        assertNotEquals("telegram should generate thumb", thumbSize, Objects.requireNonNull(video.thumbnail()).fileSize());
 
         captionEntity = message.captionEntities()[0];
         assertEquals(MessageEntity.Type.bold, captionEntity.type());
