@@ -39,7 +39,7 @@ public class InlineQueryResultArticle extends InlineQueryResult<InlineQueryResul
      */
     @Deprecated
     public InlineQueryResultArticle hideUrl(Boolean hideUrl) {
-        this.url = null;
+        this.url = "";
         return this;
     }
 
