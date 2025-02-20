@@ -54,6 +54,12 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
         return attachments;
     }
 
+    protected String addAttachment(Object attachment) {
+        String attachName = AttachName.next();
+        attachments.put(attachName, attachment);
+        return "attach://" + attachName;
+    }
+
     public InputFile inputFile() {
         return inputFile;
     }
@@ -67,9 +73,7 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
      */
     @Deprecated
     public T thumb(File thumb) {
-        String attachName = AttachName.next();
-        attachments.put(attachName, thumb);
-        this.thumbnail = "attach://" + attachName;
+        this.thumbnail = addAttachment(thumb);
         return thisAsT;
     }
 
@@ -83,23 +87,17 @@ abstract public class InputMedia<T extends InputMedia<T>> implements Serializabl
      */
     @Deprecated
     public T thumb(byte[] thumb) {
-        String attachName = AttachName.next();
-        attachments.put(attachName, thumb);
-        this.thumbnail = "attach://" + attachName;
+        this.thumbnail = addAttachment(thumb);
         return thisAsT;
     }
 
     public T thumbnail(File thumbnail) {
-        String attachName = AttachName.next();
-        attachments.put(attachName, thumbnail);
-        this.thumbnail = "attach://" + attachName;
+        this.thumbnail = addAttachment(thumbnail);
         return thisAsT;
     }
 
     public T thumbnail(byte[] thumbnail) {
-        String attachName = AttachName.next();
-        attachments.put(attachName, thumbnail);
-        this.thumbnail = "attach://" + attachName;
+        this.thumbnail = addAttachment(thumbnail);
         return thisAsT;
     }
 

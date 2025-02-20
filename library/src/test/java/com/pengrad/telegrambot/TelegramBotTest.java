@@ -354,7 +354,7 @@ public class TelegramBotTest {
                         new InputTextMessageContent("message")
                                 .entities(new MessageEntity(MessageEntity.Type.bold, 0, 2))
                                 .disableWebPagePreview(false).parseMode(ParseMode.HTML))
-                        .url(someUrl).hideUrl(true).description("desc")
+                        .url(someUrl).description("desc")
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100),
                 new InlineQueryResultArticle("2", "title",
                         new InputContactMessageContent("123123123", "na,e").lastName("lastName").vcard("qr vcard")),
@@ -397,8 +397,10 @@ public class TelegramBotTest {
                         .googlePlaceId("ggId").googlePlaceType("gType")
                         .thumbUrl(someUrl).thumbHeight(100).thumbWidth(100)
                         .thumbnailUrl(someUrl).thumbnailHeight(100).thumbnailWidth(100),
-                new InlineQueryResultVideo("15", someUrl, VIDEO_MIME_TYPE, "text", someUrl, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML)
-                        .videoWidth(100).videoHeight(100).videoDuration(100).description("desc"),
+                new InlineQueryResultVideo("15", someUrl, VIDEO_MIME_TYPE, someUrl, "title")
+                    .inputMessageContent(new InputTextMessageContent("text"))
+                    .caption("cap <b>bold</b>").parseMode(ParseMode.HTML)
+                    .videoWidth(100).videoHeight(100).videoDuration(100).description("desc"),
                 new InlineQueryResultVoice("16", someUrl, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML).voiceDuration(100),
                 new InlineQueryResultCachedAudio("17", audioFileId).caption("cap <b>bold</b>").parseMode(ParseMode.HTML),
                 new InlineQueryResultCachedDocument("18", stickerId, "title").caption("cap <b>bold</b>").parseMode(ParseMode.HTML).description("desc"),

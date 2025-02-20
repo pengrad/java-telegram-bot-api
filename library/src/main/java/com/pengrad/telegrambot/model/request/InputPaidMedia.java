@@ -39,6 +39,12 @@ abstract public class InputPaidMedia implements Serializable {
         return attachments;
     }
 
+    protected String addAttachment(Object attachment) {
+        String attachName = AttachName.next();
+        attachments.put(attachName, attachment);
+        return "attach://" + attachName;
+    }
+
     public InputFile inputFile() {
         return inputFile;
     }

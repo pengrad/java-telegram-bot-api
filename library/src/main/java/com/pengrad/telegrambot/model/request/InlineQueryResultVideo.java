@@ -24,17 +24,29 @@ public class InlineQueryResultVideo extends InlineQueryResult<InlineQueryResultV
     private Integer video_duration;
     private String description;
 
+    /**
+     * @deprecated use a constructor without messageText and inputMessageContent(new InputTextMessageContent(messageText)) instead
+     */
+    @Deprecated
     public InlineQueryResultVideo(String id, String videoUrl, String mimeType, String messageText, String thumbUrl, String title) {
         this(id, videoUrl, mimeType, new InputTextMessageContent(messageText), thumbUrl, title);
     }
 
+    /**
+     * @deprecated use a constructor without inputMessageContent and inputMessageContent(inputMessageContent) instead
+     */
+    @Deprecated
     public InlineQueryResultVideo(String id, String videoUrl, String mimeType, InputMessageContent inputMessageContent, String thumbnailUrl, String title) {
+        this(id, videoUrl, mimeType, thumbnailUrl, title);
+        inputMessageContent(inputMessageContent);
+    }
+
+    public InlineQueryResultVideo(String id, String videoUrl, String mimeType, String thumbnailUrl, String title) {
         super("video", id);
         this.video_url = videoUrl;
         this.mime_type = mimeType;
         this.thumbnail_url = thumbnailUrl;
         this.title = title;
-        inputMessageContent(inputMessageContent);
     }
 
     public InlineQueryResultVideo caption(String caption) {
