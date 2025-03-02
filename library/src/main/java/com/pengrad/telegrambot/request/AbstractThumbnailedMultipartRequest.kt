@@ -14,7 +14,7 @@ abstract class AbstractThumbnailedMultipartRequest<REQ : AbstractThumbnailedMult
 
     defaultFileName: String,
     defaultContentType: String
-) : KAbstractMultipartRequest<REQ>(
+) : AbstractMultipartRequest<REQ>(
     chatId = chatId,
     channelUsername = channelUsername,
 

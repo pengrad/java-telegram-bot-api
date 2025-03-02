@@ -12,7 +12,7 @@ class SendPhoto private constructor(
     photoUrl: String? = null,
     photoFile: File? = null,
     photoBytes: ByteArray? = null
-) : KAbstractMultipartRequest<SendPhoto>(
+) : AbstractMultipartRequest<SendPhoto>(
     chatId = chatId,
     channelUsername = channelUsername,
 

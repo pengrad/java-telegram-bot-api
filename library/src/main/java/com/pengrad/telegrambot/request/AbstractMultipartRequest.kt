@@ -3,7 +3,7 @@ package com.pengrad.telegrambot.request
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import java.io.File
 
-abstract class KAbstractMultipartRequest<REQ : KAbstractMultipartRequest<REQ>>(
+abstract class AbstractMultipartRequest<REQ : AbstractMultipartRequest<REQ>>(
     chatId: Long?,
     channelUsername: String?,
 

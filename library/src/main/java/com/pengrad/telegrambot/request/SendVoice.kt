@@ -12,7 +12,7 @@ class SendVoice private constructor(
     voiceUrl: String? = null,
     voiceFile: File? = null,
     voiceBytes: ByteArray? = null
-) : KAbstractMultipartRequest<SendVoice>(
+) : AbstractMultipartRequest<SendVoice>(
     chatId = chatId,
     channelUsername = channelUsername,
 
