@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request
 
+import com.pengrad.telegrambot.utility.kotlin.checkDeprecatedConstructorParameters
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import java.io.File
 
@@ -87,13 +88,6 @@ class SendVideoNote private constructor(
         videoNoteBytes = videoNote
     ) {
         checkDeprecatedConstructorParameters()
-    }
-
-    @Suppress("NOTHING_TO_INLINE")
-    private inline fun checkDeprecatedConstructorParameters() {
-        if (this.chatId == null && this.channelUsername == null) {
-            throw IllegalArgumentException("chatId parameter must be either Long or String")
-        }
     }
     
     var duration: Int? by optionalRequestParameter()

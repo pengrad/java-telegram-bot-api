@@ -3,6 +3,7 @@ package com.pengrad.telegrambot.request
 import com.pengrad.telegrambot.model.LinkPreviewOptions
 import com.pengrad.telegrambot.model.MessageEntity
 import com.pengrad.telegrambot.model.request.ParseMode
+import com.pengrad.telegrambot.utility.kotlin.checkDeprecatedConstructorParameters
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import com.pengrad.telegrambot.utility.kotlin.requestParameter
 
@@ -35,13 +36,6 @@ class SendMessage private constructor(
         text = text
     ) {
         checkDeprecatedConstructorParameters()
-    }
-
-    @Suppress("NOTHING_TO_INLINE")
-    private inline fun checkDeprecatedConstructorParameters() {
-        if (this.chatId == null && this.channelUsername == null) {
-            throw IllegalArgumentException("chatId parameter must be either Long or String")
-        }
     }
 
     val text: String by requestParameter(text)
