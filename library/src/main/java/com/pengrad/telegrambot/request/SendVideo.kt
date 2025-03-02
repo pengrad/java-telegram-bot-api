@@ -12,7 +12,7 @@ class SendVideo private constructor(
     videoUrl: String? = null,
     videoFile: File? = null,
     videoBytes: ByteArray? = null
-) : KAbstractMultipartRequest<SendVideo>(
+) : AbstractThumbnailedMultipartRequest<SendVideo>(
     chatId = chatId,
     channelUsername = channelUsername,
 
