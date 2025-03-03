@@ -10,7 +10,7 @@ class SendLocation private constructor(
 
     latitude: Float,
     longitude: Float
-) : KAbstractSendRequest<SendLocation>(
+) : AbstractSendRequest<SendLocation>(
     chatId = chatId,
     channelUsername = channelUsername,
 ) {

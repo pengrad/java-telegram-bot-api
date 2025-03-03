@@ -10,7 +10,7 @@ class SendContact private constructor(
 
     phoneNumber: String,
     firstName: String
-) : KAbstractSendRequest<SendContact>(
+) : AbstractSendRequest<SendContact>(
     chatId = chatId,
     channelUsername = channelUsername,
 ) {

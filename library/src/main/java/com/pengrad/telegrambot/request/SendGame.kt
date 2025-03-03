@@ -8,7 +8,7 @@ class SendGame private constructor(
     channelUsername: String? = null,
 
     gameShortName: String
-) : KAbstractSendRequest<SendGame>(
+) : AbstractSendRequest<SendGame>(
     chatId = chatId,
     channelUsername = channelUsername,
 ) {

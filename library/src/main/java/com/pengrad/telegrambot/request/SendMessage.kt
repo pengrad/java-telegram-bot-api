@@ -12,7 +12,7 @@ class SendMessage private constructor(
     channelUsername: String? = null,
 
     text: String
-) : KAbstractSendRequest<SendMessage>(
+) : AbstractSendRequest<SendMessage>(
     chatId = chatId,
     channelUsername = channelUsername,
 ) {

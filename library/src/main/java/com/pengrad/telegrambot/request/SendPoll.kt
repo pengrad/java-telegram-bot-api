@@ -14,7 +14,7 @@ class SendPoll private constructor(
 
     question: String,
     options: List<InputPollOption>
-) : KAbstractSendRequest<SendPoll>(
+) : AbstractSendRequest<SendPoll>(
     chatId = chatId,
     channelUsername = channelUsername,
 ) {

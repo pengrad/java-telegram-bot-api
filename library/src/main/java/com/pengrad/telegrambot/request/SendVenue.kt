@@ -12,7 +12,7 @@ class SendVenue private constructor(
     longitude: Float,
     title: String,
     address: String
-) : KAbstractSendRequest<SendVenue>(
+) : AbstractSendRequest<SendVenue>(
     chatId = chatId,
     channelUsername = channelUsername,
 ) {

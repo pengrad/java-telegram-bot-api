@@ -6,7 +6,7 @@ import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 class SendDice private constructor(
     chatId: Long? = null,
     channelUsername: String? = null,
-) : KAbstractSendRequest<SendDice>(
+) : AbstractSendRequest<SendDice>(
     chatId = chatId,
     channelUsername = channelUsername,
 ) {

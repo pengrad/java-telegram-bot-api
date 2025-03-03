@@ -14,7 +14,7 @@ class SendInvoice private constructor(
     payload: String,
     currency: String,
     prices: List<LabeledPrice>
-) : KAbstractSendRequest<SendInvoice>(
+) : AbstractSendRequest<SendInvoice>(
     chatId = chatId,
     channelUsername = channelUsername,
 ) {

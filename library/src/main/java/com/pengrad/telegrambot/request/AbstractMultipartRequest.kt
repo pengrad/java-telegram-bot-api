@@ -14,7 +14,7 @@ abstract class AbstractMultipartRequest<REQ : AbstractMultipartRequest<REQ>>(
 
     defaultFileName: String,
     defaultContentType: String
-) : KAbstractSendRequest<REQ>(
+) : AbstractSendRequest<REQ>(
     chatId = chatId,
     channelUsername = channelUsername
 ) {

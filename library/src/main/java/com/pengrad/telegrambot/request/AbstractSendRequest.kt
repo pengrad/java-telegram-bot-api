@@ -5,7 +5,7 @@ import com.pengrad.telegrambot.model.request.ReplyParameters
 import com.pengrad.telegrambot.response.SendResponse
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 
-abstract class KAbstractSendRequest<REQ : KAbstractSendRequest<REQ>>(
+abstract class AbstractSendRequest<REQ : AbstractSendRequest<REQ>>(
     chatId: Long?,
     channelUsername: String?
 ) : KBaseRequest<REQ, SendResponse>(SendResponse::class) {
