@@ -13,7 +13,14 @@ fun TelegramAware.sendInvoice(
     currency: String,
     items: List<LabeledPrice>,
     modifier: SendInvoice.() -> Unit = {}
-) = this.execute(SendInvoice(chatId, title, description, payload, currency, *items.toTypedArray()), modifier)
+) = this.execute(SendInvoice(
+    chatId = chatId,
+    title = title,
+    description = description,
+    payload = payload,
+    currency = currency,
+    prices = items
+), modifier)
 
 fun TelegramAware.sendInvoice(
     chatId: Long,
@@ -21,7 +28,7 @@ fun TelegramAware.sendInvoice(
     description: String,
     payload: String,
     currency: String,
-    item: LabeledPrice,
+    vararg items: LabeledPrice,
     modifier: SendInvoice.() -> Unit = {}
 ) = this.sendInvoice(
     chatId = chatId,
@@ -29,6 +36,6 @@ fun TelegramAware.sendInvoice(
     description = description,
     payload = payload,
     currency = currency,
-    items = listOf(item),
+    items = items.toList(),
     modifier = modifier
 )
