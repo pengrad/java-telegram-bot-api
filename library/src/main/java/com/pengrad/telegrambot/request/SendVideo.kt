@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.request
 
 import com.pengrad.telegrambot.model.MessageEntity
 import com.pengrad.telegrambot.model.request.ParseMode
+import com.pengrad.telegrambot.utility.kotlin.checkDeprecatedConstructorParameters
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import java.io.File
 
@@ -12,7 +13,7 @@ class SendVideo private constructor(
     videoUrl: String? = null,
     videoFile: File? = null,
     videoBytes: ByteArray? = null
-) : KAbstractMultipartRequest<SendVideo>(
+) : AbstractThumbnailedMultipartRequest<SendVideo>(
     chatId = chatId,
     channelUsername = channelUsername,
 
@@ -89,13 +90,6 @@ class SendVideo private constructor(
         videoBytes = video
     ) {
         checkDeprecatedConstructorParameters()
-    }
-
-    @Suppress("NOTHING_TO_INLINE")
-    private inline fun checkDeprecatedConstructorParameters() {
-        if (this.chatId == null && this.channelUsername == null) {
-            throw IllegalArgumentException("chatId parameter must be either Long or String")
-        }
     }
 
     var duration: Int? by optionalRequestParameter()

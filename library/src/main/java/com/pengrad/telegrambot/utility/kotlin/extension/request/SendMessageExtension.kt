@@ -8,10 +8,16 @@ inline fun TelegramAware.sendMessage(
     chatId: Long,
     text: String,
     modifier: SendMessage.() -> Unit = {}
-) = this.execute(SendMessage(chatId, text), modifier)
+) = this.execute(SendMessage(
+    chatId = chatId,
+    text = text
+), modifier)
 
 inline fun TelegramAware.sendMessage(
-    chatId: String,
+    channelUsername: String,
     text: String,
     modifier: SendMessage.() -> Unit = {}
-) = this.execute(SendMessage(chatId, text), modifier)
+) = this.execute(SendMessage(
+    channelUsername = channelUsername,
+    text = text
+), modifier)

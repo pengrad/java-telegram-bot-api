@@ -3,7 +3,7 @@ package com.pengrad.telegrambot.request
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import java.io.File
 
-abstract class KAbstractMultipartRequest<REQ : KAbstractMultipartRequest<REQ>>(
+abstract class AbstractMultipartRequest<REQ : AbstractMultipartRequest<REQ>>(
     chatId: Long?,
     channelUsername: String?,
 
@@ -14,7 +14,7 @@ abstract class KAbstractMultipartRequest<REQ : KAbstractMultipartRequest<REQ>>(
 
     defaultFileName: String,
     defaultContentType: String
-) : KAbstractSendRequest<REQ>(
+) : AbstractSendRequest<REQ>(
     chatId = chatId,
     channelUsername = channelUsername
 ) {
@@ -23,13 +23,8 @@ abstract class KAbstractMultipartRequest<REQ : KAbstractMultipartRequest<REQ>>(
     val contentFile by optionalRequestParameter(contentFile, customParameterName = contentParameterName)
     val contentBytes by optionalRequestParameter(contentBytes, customParameterName = contentParameterName)
 
-    var thumbnailFile: File? by optionalRequestParameter(customParameterName = "thumbnail")
-    var thumbnailBytes: ByteArray? by optionalRequestParameter(customParameterName = "thumbnail")
-
-    @get:JvmName("isUseMultipart")
-    val isMultipart: Boolean
+    open val isMultipartRequest: Boolean
         get() = contentFile != null || contentBytes != null
-                || thumbnailFile != null || thumbnailBytes != null
 
     @get:JvmName("getContentFileName")
     var fileName: String = contentFile?.name ?: defaultFileName
@@ -37,15 +32,11 @@ abstract class KAbstractMultipartRequest<REQ : KAbstractMultipartRequest<REQ>>(
     @get:JvmName("getContentMimeType")
     var contentType: String = defaultContentType
 
-    fun thumbnail(thumbnail: File) = applySelf { this.thumbnailFile = thumbnail }
-
-    fun thumbnail(thumbnail: ByteArray) = applySelf { this.thumbnailBytes = thumbnail }
-
     fun fileName(fileName: String) = applySelf { this.fileName = fileName }
 
     fun contentType(contentType: String) = applySelf { this.contentType = contentType }
 
-    override fun isMultipart() = isMultipart
+    override fun isMultipart() = isMultipartRequest
 
     override fun getFileName() = fileName
 
