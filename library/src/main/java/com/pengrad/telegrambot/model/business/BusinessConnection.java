@@ -10,6 +10,7 @@ public class BusinessConnection {
     private User user;
     private Long user_chat_id;
     private Integer date;
+    private BusinessBotRights rights;
     private Boolean can_reply;
     private Boolean is_enabled;
 
@@ -29,8 +30,16 @@ public class BusinessConnection {
         return date;
     }
 
+    /**
+     * @deprecated Use the 'rights' field instead.
+     */
+    @Deprecated
     public Boolean canReply() {
         return can_reply;
+    }
+
+    public BusinessBotRights rights() {
+        return rights;
     }
 
     public Boolean isEnabled() {
@@ -42,12 +51,12 @@ public class BusinessConnection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BusinessConnection that = (BusinessConnection) o;
-        return Objects.equals(id, that.id) && Objects.equals(user, that.user) && Objects.equals(user_chat_id, that.user_chat_id) && Objects.equals(date, that.date) && Objects.equals(can_reply, that.can_reply) && Objects.equals(is_enabled, that.is_enabled);
+        return Objects.equals(id, that.id) && Objects.equals(user, that.user) && Objects.equals(user_chat_id, that.user_chat_id) && Objects.equals(date, that.date) && Objects.equals(rights, that.rights) && Objects.equals(is_enabled, that.is_enabled);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, user_chat_id, date, can_reply, is_enabled);
+        return Objects.hash(id, user, user_chat_id, date, rights, is_enabled);
     }
 
     @Override
@@ -57,7 +66,7 @@ public class BusinessConnection {
                 ", user=" + user +
                 ", user_chat_id=" + user_chat_id +
                 ", date=" + date +
-                ", can_reply=" + can_reply +
+                ", rights=" + rights +
                 ", is_enabled=" + is_enabled +
                 '}';
     }
