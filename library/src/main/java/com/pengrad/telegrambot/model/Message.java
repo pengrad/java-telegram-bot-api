@@ -109,6 +109,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private WebAppData web_app_data;
     private GiftInfo gift;
     private UniqueGiftInfo unique_gift;
+    private PaidMessagePriceChanged paid_message_price_changed;
 
     public Integer messageThreadId() {
         return message_thread_id;
@@ -447,6 +448,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return unique_gift;
     }
 
+    public PaidMessagePriceChanged paidMessagePriceChanged() {
+        return paid_message_price_changed;
+    }
+
     /**
      * Only for backwards-compatibility with MaybeInaccessibleMessage
      */
@@ -559,7 +564,8 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(reply_markup, message.reply_markup) &&
                 Objects.equals(web_app_data, message.web_app_data) &&
                 Objects.equals(gift, message.gift) &&
-                Objects.equals(unique_gift, message.unique_gift);
+                Objects.equals(unique_gift, message.unique_gift) &&
+                Objects.equals(paid_message_price_changed, message.paid_message_price_changed);
     }
 
     @Override
@@ -657,6 +663,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", web_app_data=" + web_app_data +
                 ", gift=" + gift +
                 ", unique_gift=" + unique_gift +
+                ", paid_message_price_changed=" + paid_message_price_changed +
                 '}';
     }
 }
