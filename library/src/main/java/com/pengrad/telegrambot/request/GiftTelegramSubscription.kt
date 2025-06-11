@@ -1,7 +1,6 @@
 package com.pengrad.telegrambot.request
 
 import com.pengrad.telegrambot.model.MessageEntity
-import com.pengrad.telegrambot.request.business.TransferGift
 import com.pengrad.telegrambot.response.BaseResponse
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import com.pengrad.telegrambot.utility.kotlin.requestParameter
