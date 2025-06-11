@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.model;
 
 import com.pengrad.telegrambot.model.chatbackground.ChatBackground;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostAdded;
+import com.pengrad.telegrambot.model.gift.GiftInfo;
 import com.pengrad.telegrambot.model.giveaway.Giveaway;
 import com.pengrad.telegrambot.model.giveaway.GiveawayCompleted;
 import com.pengrad.telegrambot.model.giveaway.GiveawayCreated;
@@ -105,6 +106,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private VideoChatScheduled video_chat_scheduled;
     private InlineKeyboardMarkup reply_markup;
     private WebAppData web_app_data;
+    private GiftInfo gift;
 
     public Integer messageThreadId() {
         return message_thread_id;
@@ -435,6 +437,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return web_app_data;
     }
 
+    public GiftInfo gift() {
+        return gift;
+    }
+
     /**
      * Only for backwards-compatibility with MaybeInaccessibleMessage
      */
@@ -545,7 +551,8 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(video_chat_participants_invited, message.video_chat_participants_invited) &&
                 Objects.equals(video_chat_scheduled, message.video_chat_scheduled) &&
                 Objects.equals(reply_markup, message.reply_markup) &&
-                Objects.equals(web_app_data, message.web_app_data);
+                Objects.equals(web_app_data, message.web_app_data) &&
+                Objects.equals(gift, message.gift);
     }
 
     @Override
@@ -641,6 +648,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", video_chat_scheduled=" + video_chat_scheduled +
                 ", reply_markup=" + reply_markup +
                 ", web_app_data=" + web_app_data +
+                ", gift=" + gift +
                 '}';
     }
 }
