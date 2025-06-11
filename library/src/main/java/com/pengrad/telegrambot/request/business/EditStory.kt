@@ -4,38 +4,34 @@ import com.pengrad.telegrambot.model.MessageEntity
 import com.pengrad.telegrambot.model.story.StoryArea
 import com.pengrad.telegrambot.model.story.inputstory.InputStoryContent
 import com.pengrad.telegrambot.request.KBaseRequest
-import com.pengrad.telegrambot.response.PostStoryResponse
+import com.pengrad.telegrambot.response.EditStoryResponse
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import com.pengrad.telegrambot.utility.kotlin.requestParameter
 
 @Suppress("unused")
-class PostStory private constructor(
+class EditStory private constructor(
     businessConnectionId: String,
+    storyId: Int,
     content: InputStoryContent,
-    activePeriod: Int,
     caption: String?,
     parseMode: String?,
     captionEntities: Array<MessageEntity>?,
-    areas: Array<StoryArea>?,
-    postToChatPage: Boolean?,
-    protectContent: Boolean?
-): KBaseRequest<PostStory, PostStoryResponse>(PostStoryResponse::class) {
+    areas: Array<StoryArea>?
+): KBaseRequest<EditStory, EditStoryResponse>(EditStoryResponse::class) {
 
-    constructor(businessConnectionId: String, content: InputStoryContent, activePeriod: Int) : this(
+    constructor(businessConnectionId: String, storyId: Int, content: InputStoryContent) : this(
         businessConnectionId = businessConnectionId,
+        storyId = storyId,
         content = content,
-        activePeriod = activePeriod,
         caption = null,
         parseMode = null,
         captionEntities = null,
-        areas = null,
-        postToChatPage = null,
-        protectContent = null
+        areas = null
     )
 
     val businessConnectionId: String by requestParameter(businessConnectionId, customParameterName = "business_connection_id")
+    val storyId: Int by requestParameter(storyId, customParameterName = "story_id")
     val content: InputStoryContent by requestParameter(content, customParameterName = "content")
-    val activePeriod: Int by requestParameter(activePeriod, customParameterName = "active_period")
 
     var caption: String? by optionalRequestParameter(caption, customParameterName = "caption")
     fun caption(caption: String) = applySelf { this.caption = caption }
@@ -48,11 +44,5 @@ class PostStory private constructor(
 
     var areas: Array<StoryArea>? by optionalRequestParameter(areas, customParameterName = "areas")
     fun areas(areas: Array<StoryArea>) = applySelf { this.areas = areas }
-
-    var postToChatPage: Boolean? by optionalRequestParameter(postToChatPage, customParameterName = "post_to_chat_page")
-    fun postToChatPage(postToChatPage: Boolean) = applySelf { this.postToChatPage = postToChatPage }
-
-    var protectContent: Boolean? by optionalRequestParameter(protectContent, customParameterName = "protect_content")
-    fun protectContent(protectContent: Boolean) = applySelf { this.protectContent = protectContent }
 
 }
