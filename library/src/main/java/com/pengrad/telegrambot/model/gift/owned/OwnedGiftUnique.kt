@@ -12,4 +12,10 @@ class OwnedGiftUnique(
     @get:JvmName("isSaved") var isSaved: Boolean?,
     @get:JvmName("canBeTransferred") var canBeTransferred: Boolean?,
     @get:JvmName("transferStarCount") var prepaidUpgradeStarCount: Int?
-) : OwnedGift(type = "unique")
+) : OwnedGift(type = TYPE) {
+
+    companion object {
+        const val TYPE = "unique"
+    }
+
+}

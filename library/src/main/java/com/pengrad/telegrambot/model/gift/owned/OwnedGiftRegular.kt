@@ -17,7 +17,11 @@ class OwnedGiftRegular private constructor(
     @get:JvmName("wasRefunded") var wasRefunded: Boolean?,
     @get:JvmName("convertStarCount") var convertStarCount: Int?,
     @get:JvmName("prepaidUpgradeStarCount") var prepaidUpgradeStarCount: Int?
-) : OwnedGift(type = "regular") {
+) : OwnedGift(type = TYPE) {
+
+    companion object {
+        const val TYPE = "regular"
+    }
 
     constructor(gift: Gift, sendDate: Long) : this(
         gift = gift,
