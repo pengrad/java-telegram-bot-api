@@ -2,7 +2,6 @@ package com.pengrad.telegrambot.model.gift.owned
 
 import com.pengrad.telegrambot.model.User
 import com.pengrad.telegrambot.model.gift.Gift
-import com.pengrad.telegrambot.model.inputprofilephoto.InputProfilePhotoAnimated
 
 @Suppress("unused")
 class OwnedGiftRegular private constructor(

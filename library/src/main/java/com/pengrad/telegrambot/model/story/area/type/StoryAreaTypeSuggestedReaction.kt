@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.model.story.area.type
 
-import com.pengrad.telegrambot.model.LocationAddress
 import com.pengrad.telegrambot.model.reaction.ReactionType
 
 @Suppress("unused")
