@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model.gift.owned
 
+import com.pengrad.telegrambot.model.MessageEntity
 import com.pengrad.telegrambot.model.User
 import com.pengrad.telegrambot.model.gift.Gift
 
@@ -10,7 +11,7 @@ class OwnedGiftRegular private constructor(
     @get:JvmName("senderUser") var senderUser: User?,
     @get:JvmName("sendDate") val sendDate: Long,
     @get:JvmName("text") var text: String?,
-    @get:JvmName("entities") var entities: Array<Int>?,
+    @get:JvmName("entities") var entities: Array<MessageEntity>?,
     @get:JvmName("isPrivate") var isPrivate: Boolean?,
     @get:JvmName("isSaved") var isSaved: Boolean?,
     @get:JvmName("canBeUpgraded") var canBeUpgraded: Boolean?,
@@ -50,7 +51,7 @@ class OwnedGiftRegular private constructor(
         this.text = text
     }
 
-    fun entities(entities: Array<Int>) = apply {
+    fun entities(entities: Array<MessageEntity>) = apply {
         this.entities = entities
     }
 
