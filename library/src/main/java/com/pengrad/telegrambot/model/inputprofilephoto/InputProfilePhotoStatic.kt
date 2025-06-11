@@ -1,4 +1,6 @@
 package com.pengrad.telegrambot.model.inputprofilephoto
 
 @Suppress("unused")
-class InputProfilePhotoStatic(val photo: String) : InputProfilePhoto(type = "static")
+class InputProfilePhotoStatic(
+    @get:JvmName("photo") val photo: String
+) : InputProfilePhoto(type = "static")

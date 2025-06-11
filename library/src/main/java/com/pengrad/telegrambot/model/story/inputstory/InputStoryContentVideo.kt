@@ -1,11 +1,11 @@
-package com.pengrad.telegrambot.model.inputstory
+package com.pengrad.telegrambot.model.story.inputstory
 
 @Suppress("unused")
 class InputStoryContentVideo private constructor(
-    val video: String,
-    var duration: Double?,
-    var coverFrameTimestamp: Double?,
-    var isAnimation: Boolean?
+    @get:JvmName("video") val video: String,
+    @get:JvmName("duration") var duration: Double?,
+    @get:JvmName("coverFrameTimestamp") var coverFrameTimestamp: Double?,
+    @get:JvmName("isAnimation") var isAnimation: Boolean?
 ) : InputStoryContent(type = "video") {
 
     constructor(video: String) : this(

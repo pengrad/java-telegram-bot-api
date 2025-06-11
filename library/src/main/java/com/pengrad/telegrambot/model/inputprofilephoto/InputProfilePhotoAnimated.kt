@@ -2,8 +2,8 @@ package com.pengrad.telegrambot.model.inputprofilephoto
 
 @Suppress("unused")
 class InputProfilePhotoAnimated private constructor(
-    val animation: String,
-    var mainFrameTimestamp: Double?
+    @get:JvmName("animation") val animation: String,
+    @get:JvmName("mainFrameTimestamp") var mainFrameTimestamp: Double?
 ) : InputProfilePhoto(type = "animated") {
 
     constructor(animation: String) : this(
