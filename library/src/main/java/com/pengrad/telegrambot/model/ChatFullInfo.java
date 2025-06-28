@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.pengrad.telegrambot.model.business.BusinessIntro;
 import com.pengrad.telegrambot.model.business.BusinessLocation;
 import com.pengrad.telegrambot.model.business.BusinessOpeningHours;
+import com.pengrad.telegrambot.model.gift.AcceptedGiftTypes;
 import com.pengrad.telegrambot.model.reaction.ReactionType;
 
 
@@ -71,6 +72,7 @@ public class ChatFullInfo implements Serializable {
     private Long linked_chat_id;
     private ChatLocation location;
     private Boolean can_send_gift;
+    private AcceptedGiftTypes accepted_gift_types;
 
     public Long id() {
         return id;
@@ -247,8 +249,17 @@ public class ChatFullInfo implements Serializable {
         return location;
     }
 
+    /**
+     *
+     * @deprecated Use 'acceptedGiftTypes' instead
+     */
+    @Deprecated
     public Boolean canSendGift() {
         return can_send_gift;
+    }
+
+    public AcceptedGiftTypes acceptedGiftTypes() {
+        return accepted_gift_types;
     }
 
     @Override
@@ -300,7 +311,7 @@ public class ChatFullInfo implements Serializable {
                 Objects.equals(custom_emoji_sticker_set_name, chat.custom_emoji_sticker_set_name) &&
                 Objects.equals(linked_chat_id, chat.linked_chat_id) &&
                 Objects.equals(location, chat.location) &&
-                Objects.equals(can_send_gift, chat.can_send_gift);
+                Objects.equals(accepted_gift_types, chat.accepted_gift_types);
     }
 
     @Override
@@ -355,7 +366,7 @@ public class ChatFullInfo implements Serializable {
                 ", custom_emoji_sticker_set_name=" + custom_emoji_sticker_set_name +
                 ", linked_chat_id=" + linked_chat_id +
                 ", location=" + location +
-                ", can_send_gift=" + can_send_gift +
+                ", accepted_gift_types=" + accepted_gift_types +
                 '}';
     }
 }
