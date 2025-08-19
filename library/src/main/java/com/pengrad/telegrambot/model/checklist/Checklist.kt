@@ -10,7 +10,7 @@ data class Checklist(
     @get:JvmName("titleEntities") val titleEntities: Array<MessageEntity>?,
     @get:JvmName("tasks") val tasks: Array<ChecklistTask>,
     @get:JvmName("othersCanAddTasks") val othersCanAddTasks: Boolean?,
-    @get:JvmName("othersCanAddTasks") val othersCanMarkTasksAsDone: Boolean?
+    @get:JvmName("othersCanMarkTasksAsDone") val othersCanMarkTasksAsDone: Boolean?
 ) {
 
     override fun equals(other: Any?): Boolean {
