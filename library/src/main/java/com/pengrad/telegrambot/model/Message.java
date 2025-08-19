@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.model;
 
 import com.pengrad.telegrambot.model.chatbackground.ChatBackground;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostAdded;
+import com.pengrad.telegrambot.model.checklist.Checklist;
 import com.pengrad.telegrambot.model.gift.GiftInfo;
 import com.pengrad.telegrambot.model.gift.unique.UniqueGiftInfo;
 import com.pengrad.telegrambot.model.giveaway.Giveaway;
@@ -62,6 +63,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private Voice voice;
     private VideoNote video_note;
     private String caption;
+    private Checklist checklist;
     private Contact contact;
     private Location location;
     private Venue venue;
@@ -259,6 +261,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public String caption() {
         return caption;
+    }
+
+    public Checklist checklist() {
+        return checklist;
     }
 
     public Contact contact() {
@@ -523,6 +529,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(voice, message.voice) &&
                 Objects.equals(video_note, message.video_note) &&
                 Objects.equals(caption, message.caption) &&
+                Objects.equals(checklist, message.checklist) &&
                 Objects.equals(contact, message.contact) &&
                 Objects.equals(location, message.location) &&
                 Objects.equals(venue, message.venue) &&
@@ -622,6 +629,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", voice=" + voice +
                 ", video_note=" + video_note +
                 ", caption='" + caption + '\'' +
+                ", checklist=" + checklist +
                 ", contact=" + contact +
                 ", location=" + location +
                 ", venue=" + venue +
