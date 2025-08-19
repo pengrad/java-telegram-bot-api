@@ -3,6 +3,7 @@ package com.pengrad.telegrambot.model;
 import com.pengrad.telegrambot.model.chatbackground.ChatBackground;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostAdded;
 import com.pengrad.telegrambot.model.checklist.Checklist;
+import com.pengrad.telegrambot.model.checklist.ChecklistTasksDone;
 import com.pengrad.telegrambot.model.gift.GiftInfo;
 import com.pengrad.telegrambot.model.gift.unique.UniqueGiftInfo;
 import com.pengrad.telegrambot.model.giveaway.Giveaway;
@@ -64,6 +65,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private VideoNote video_note;
     private String caption;
     private Checklist checklist;
+    private ChecklistTasksDone checklist_tasks_done;
     private Contact contact;
     private Location location;
     private Venue venue;
@@ -265,6 +267,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public Checklist checklist() {
         return checklist;
+    }
+
+    public ChecklistTasksDone checklistTasksDone() {
+        return checklist_tasks_done;
     }
 
     public Contact contact() {
@@ -530,6 +536,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(video_note, message.video_note) &&
                 Objects.equals(caption, message.caption) &&
                 Objects.equals(checklist, message.checklist) &&
+                Objects.equals(checklist_tasks_done, message.checklist_tasks_done) &&
                 Objects.equals(contact, message.contact) &&
                 Objects.equals(location, message.location) &&
                 Objects.equals(venue, message.venue) &&
@@ -630,6 +637,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", video_note=" + video_note +
                 ", caption='" + caption + '\'' +
                 ", checklist=" + checklist +
+                ", checklist_tasks_done=" + checklist_tasks_done +
                 ", contact=" + contact +
                 ", location=" + location +
                 ", venue=" + venue +
