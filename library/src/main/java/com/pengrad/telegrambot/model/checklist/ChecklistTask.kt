@@ -8,7 +8,7 @@ data class ChecklistTask(
 
     @get:JvmName("id") val id: Int,
     @get:JvmName("text") val text: String,
-    @get:JvmName("textEntities") var textEntities: Array<MessageEntity>?,
+    @get:JvmName("textEntities") val textEntities: Array<MessageEntity>?,
     @get:JvmName("completedByUser") val completedByUser: User?,
     @get:JvmName("completionDate") val completionDate: Int?
 

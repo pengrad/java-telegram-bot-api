@@ -7,7 +7,7 @@ import com.pengrad.telegrambot.model.gift.GiftInfo
 data class Checklist(
 
     @get:JvmName("title") val title: String,
-    @get:JvmName("titleEntities") var titleEntities: Array<MessageEntity>?,
+    @get:JvmName("titleEntities") val titleEntities: Array<MessageEntity>?,
     @get:JvmName("tasks") val tasks: Array<ChecklistTask>,
     @get:JvmName("othersCanAddTasks") val othersCanAddTasks: Boolean?,
     @get:JvmName("othersCanAddTasks") val othersCanMarkTasksAsDone: Boolean?
