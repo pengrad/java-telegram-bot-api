@@ -15,6 +15,8 @@ import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.*;
 import com.pengrad.telegrambot.model.paidmedia.PaidMediaInfo;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
+import com.pengrad.telegrambot.model.stars.DirectMessagePriceChanged;
+import com.pengrad.telegrambot.model.stars.PaidMessagePriceChanged;
 import com.pengrad.telegrambot.passport.PassportData;
 
 import java.io.Serializable;
@@ -116,6 +118,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private GiftInfo gift;
     private UniqueGiftInfo unique_gift;
     private PaidMessagePriceChanged paid_message_price_changed;
+    private DirectMessagePriceChanged direct_message_price_changed;
     private Integer paid_star_count;
 
     public Integer messageThreadId() {
@@ -471,6 +474,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return paid_message_price_changed;
     }
 
+    public DirectMessagePriceChanged directMessagePriceChanged() {
+        return direct_message_price_changed;
+    }
+
     public Integer paidStarCount() {
         return paid_star_count;
     }
@@ -592,6 +599,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(gift, message.gift) &&
                 Objects.equals(unique_gift, message.unique_gift) &&
                 Objects.equals(paid_message_price_changed, message.paid_message_price_changed) &&
+                Objects.equals(direct_message_price_changed, message.direct_message_price_changed) &&
                 Objects.equals(paid_star_count, message.paid_star_count);
     }
 
@@ -694,6 +702,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", gift=" + gift +
                 ", unique_gift=" + unique_gift +
                 ", paid_message_price_changed=" + paid_message_price_changed +
+                ", direct_message_price_changed=" + direct_message_price_changed +
                 ", paid_star_count=" + paid_star_count +
                 '}';
     }
