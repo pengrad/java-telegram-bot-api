@@ -3,6 +3,7 @@ package com.pengrad.telegrambot.model;
 import com.pengrad.telegrambot.model.chatbackground.ChatBackground;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostAdded;
 import com.pengrad.telegrambot.model.checklist.Checklist;
+import com.pengrad.telegrambot.model.checklist.ChecklistTasksAdded;
 import com.pengrad.telegrambot.model.checklist.ChecklistTasksDone;
 import com.pengrad.telegrambot.model.gift.GiftInfo;
 import com.pengrad.telegrambot.model.gift.unique.UniqueGiftInfo;
@@ -66,6 +67,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private String caption;
     private Checklist checklist;
     private ChecklistTasksDone checklist_tasks_done;
+    private ChecklistTasksAdded checklist_tasks_added;
     private Contact contact;
     private Location location;
     private Venue venue;
@@ -271,6 +273,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public ChecklistTasksDone checklistTasksDone() {
         return checklist_tasks_done;
+    }
+
+    public ChecklistTasksAdded checklistTasksAdded() {
+        return checklist_tasks_added;
     }
 
     public Contact contact() {
@@ -537,6 +543,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(caption, message.caption) &&
                 Objects.equals(checklist, message.checklist) &&
                 Objects.equals(checklist_tasks_done, message.checklist_tasks_done) &&
+                Objects.equals(checklist_tasks_added, message.checklist_tasks_added) &&
                 Objects.equals(contact, message.contact) &&
                 Objects.equals(location, message.location) &&
                 Objects.equals(venue, message.venue) &&
@@ -638,6 +645,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", caption='" + caption + '\'' +
                 ", checklist=" + checklist +
                 ", checklist_tasks_done=" + checklist_tasks_done +
+                ", checklist_tasks_added=" + checklist_tasks_added +
                 ", contact=" + contact +
                 ", location=" + location +
                 ", venue=" + venue +
