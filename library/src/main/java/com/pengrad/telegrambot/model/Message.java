@@ -17,7 +17,7 @@ import com.pengrad.telegrambot.model.paidmedia.PaidMediaInfo;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.stars.DirectMessagePriceChanged;
 import com.pengrad.telegrambot.model.stars.PaidMessagePriceChanged;
-import com.pengrad.telegrambot.model.suggestedposts.SuggestedPostInfo;
+import com.pengrad.telegrambot.model.suggestedposts.*;
 import com.pengrad.telegrambot.passport.PassportData;
 
 import java.io.Serializable;
@@ -123,6 +123,11 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private GiftInfo gift;
     private UniqueGiftInfo unique_gift;
     private PaidMessagePriceChanged paid_message_price_changed;
+    private SuggestedPostApproved suggested_post_approved;
+    private SuggestedPostApprovalFailed suggested_post_approval_failed;
+    private SuggestedPostDeclined suggested_post_declined;
+    private SuggestedPostPaid suggested_post_paid;
+    private SuggestedPostRefunded suggested_post_refunded;
     private DirectMessagePriceChanged direct_message_price_changed;
     private Integer paid_star_count;
 
@@ -495,6 +500,26 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return paid_message_price_changed;
     }
 
+    public SuggestedPostApproved suggestedPostApproved() {
+        return suggested_post_approved;
+    }
+
+    public SuggestedPostApprovalFailed suggestedPostApprovalFailed() {
+        return suggested_post_approval_failed;
+    }
+
+    public SuggestedPostDeclined suggestedPostDeclined() {
+        return suggested_post_declined;
+    }
+
+    public SuggestedPostPaid suggestedPostPaid() {
+        return suggested_post_paid;
+    }
+
+    public SuggestedPostRefunded suggestedPostRefunded() {
+        return suggested_post_refunded;
+    }
+
     public DirectMessagePriceChanged directMessagePriceChanged() {
         return direct_message_price_changed;
     }
@@ -624,6 +649,11 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(gift, message.gift) &&
                 Objects.equals(unique_gift, message.unique_gift) &&
                 Objects.equals(paid_message_price_changed, message.paid_message_price_changed) &&
+                Objects.equals(suggested_post_approved, message.suggested_post_approved) &&
+                Objects.equals(suggested_post_approval_failed, message.suggested_post_approval_failed) &&
+                Objects.equals(suggested_post_declined, message.suggested_post_declined) &&
+                Objects.equals(suggested_post_paid, message.suggested_post_paid) &&
+                Objects.equals(suggested_post_refunded, message.suggested_post_refunded) &&
                 Objects.equals(direct_message_price_changed, message.direct_message_price_changed) &&
                 Objects.equals(paid_star_count, message.paid_star_count);
     }
@@ -731,6 +761,11 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", gift=" + gift +
                 ", unique_gift=" + unique_gift +
                 ", paid_message_price_changed=" + paid_message_price_changed +
+                ", suggested_post_approved=" + suggested_post_approved +
+                ", suggested_post_approval_failed=" + suggested_post_approval_failed +
+                ", suggested_post_declined=" + suggested_post_declined +
+                ", suggested_post_paid=" + suggested_post_paid +
+                ", suggested_post_refunded=" + suggested_post_refunded +
                 ", direct_message_price_changed=" + direct_message_price_changed +
                 ", paid_star_count=" + paid_star_count +
                 '}';
