@@ -43,6 +43,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private ExternalReplyInfo external_reply;
     private TextQuote quote;
     private Story reply_to_story;
+    private Integer reply_to_checklist_task_id;
     private User via_bot;
     private Integer edit_date;
     private Boolean has_protected_content;
@@ -171,6 +172,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public Story replyToStory() {
         return reply_to_story;
+    }
+
+    public Integer replyToChecklistTaskId() {
+        return reply_to_checklist_task_id;
     }
 
     public User viaBot() {
@@ -524,6 +529,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(external_reply, message.external_reply) &&
                 Objects.equals(quote, message.quote) &&
                 Objects.equals(reply_to_story, message.reply_to_story) &&
+                Objects.equals(reply_to_checklist_task_id, message.reply_to_checklist_task_id) &&
                 Objects.equals(via_bot, message.via_bot) &&
                 Objects.equals(edit_date, message.edit_date) &&
                 Objects.equals(has_protected_content, message.has_protected_content) &&
@@ -627,6 +633,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", external_reply=" + external_reply +
                 ", quote=" + quote +
                 ", reply_to_story=" + reply_to_story +
+                ", reply_to_checklist_task_id=" + reply_to_checklist_task_id +
                 ", via_bot=" + via_bot +
                 ", edit_date=" + edit_date +
                 ", has_protected_content=" + has_protected_content +
