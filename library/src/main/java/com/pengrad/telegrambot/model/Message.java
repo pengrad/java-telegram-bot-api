@@ -49,6 +49,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private Integer edit_date;
     private Boolean has_protected_content;
     private Boolean is_from_offline;
+    private Boolean is_paid_post;
     private Boolean has_media_spoiler;
     private String media_group_id;
     private String author_signature;
@@ -197,6 +198,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public Boolean isFromOffline() {
         return is_from_offline != null && is_from_offline;
+    }
+
+    public Boolean isPaidPost() {
+        return is_paid_post != null && is_paid_post;
     }
 
     public Boolean hasMediaSpoiler() {
@@ -540,6 +545,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(edit_date, message.edit_date) &&
                 Objects.equals(has_protected_content, message.has_protected_content) &&
                 Objects.equals(is_from_offline, message.is_from_offline) &&
+                Objects.equals(is_paid_post, message.is_paid_post) &&
                 Objects.equals(has_media_spoiler, message.has_media_spoiler) &&
                 Objects.equals(media_group_id, message.media_group_id) &&
                 Objects.equals(author_signature, message.author_signature) &&
@@ -645,6 +651,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", edit_date=" + edit_date +
                 ", has_protected_content=" + has_protected_content +
                 ", is_from_offline=" + is_from_offline +
+                ", is_paid_post=" + is_paid_post +
                 ", has_media_spoiler=" + has_media_spoiler +
                 ", media_group_id='" + media_group_id + '\'' +
                 ", author_signature='" + author_signature + '\'' +
