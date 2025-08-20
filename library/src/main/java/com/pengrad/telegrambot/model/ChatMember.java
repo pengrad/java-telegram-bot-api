@@ -35,6 +35,7 @@ public class ChatMember implements Serializable {
     private Boolean can_edit_stories;
     private Boolean can_delete_stories;
     private Boolean can_manage_topics;
+    private Boolean can_manage_direct_messages;
     private Boolean is_member;
     private Boolean can_send_messages;
 
@@ -129,6 +130,10 @@ public class ChatMember implements Serializable {
         return can_manage_topics != null && can_manage_topics;
     }
 
+    public Boolean canManageDirectMessages() {
+        return can_manage_direct_messages != null && can_manage_direct_messages;
+    }
+
     public Boolean isMember() {
         return is_member != null && is_member;
     }
@@ -198,6 +203,7 @@ public class ChatMember implements Serializable {
                 Objects.equals(can_edit_stories, that.can_edit_stories) &&
                 Objects.equals(can_delete_stories, that.can_delete_stories) &&
                 Objects.equals(can_manage_topics, that.can_manage_topics) &&
+                Objects.equals(can_manage_direct_messages, that.can_manage_direct_messages) &&
                 Objects.equals(is_member, that.is_member) &&
                 Objects.equals(can_send_messages, that.can_send_messages) &&
                 Objects.equals(can_send_audios, that.can_send_audios) &&
@@ -233,6 +239,7 @@ public class ChatMember implements Serializable {
                 can_edit_stories,
                 can_delete_stories,
                 can_manage_topics,
+                can_manage_direct_messages,
                 is_member,
                 can_send_messages,
                 can_send_audios,
@@ -269,6 +276,7 @@ public class ChatMember implements Serializable {
                 ", can_edit_stories=" + can_edit_stories +
                 ", can_delete_stories=" + can_delete_stories +
                 ", can_manage_topics=" + can_manage_topics +
+                ", can_manage_direct_messages=" + can_manage_direct_messages +
                 ", is_member=" + is_member +
                 ", can_send_messages=" + can_send_messages +
                 ", can_send_audios=" + can_send_audios +
