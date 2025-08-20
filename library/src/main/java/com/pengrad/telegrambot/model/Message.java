@@ -17,6 +17,7 @@ import com.pengrad.telegrambot.model.paidmedia.PaidMediaInfo;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.stars.DirectMessagePriceChanged;
 import com.pengrad.telegrambot.model.stars.PaidMessagePriceChanged;
+import com.pengrad.telegrambot.model.suggestedposts.SuggestedPostInfo;
 import com.pengrad.telegrambot.passport.PassportData;
 
 import java.io.Serializable;
@@ -58,6 +59,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private MessageEntity[] caption_entities;
     private Boolean show_caption_above_media;
     private LinkPreviewOptions link_preview_options;
+    private SuggestedPostInfo suggested_post_info;
     private String effect_id;
     private Audio audio;
     private PaidMediaInfo paid_media;
@@ -235,6 +237,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public LinkPreviewOptions linkPreviewOptions() {
         return link_preview_options;
+    }
+
+    public SuggestedPostInfo suggestedPostInfo() {
+        return suggested_post_info;
     }
 
     public String effectId() {
@@ -554,6 +560,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Arrays.equals(caption_entities, message.caption_entities) &&
                 Objects.equals(show_caption_above_media, message.show_caption_above_media) &&
                 Objects.equals(link_preview_options, message.link_preview_options) &&
+                Objects.equals(suggested_post_info, message.suggested_post_info) &&
                 Objects.equals(effect_id, message.effect_id) &&
                 Objects.equals(audio, message.audio) &&
                 Objects.equals(paid_media, message.paid_media) &&
@@ -660,6 +667,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", caption_entities=" + Arrays.toString(caption_entities) +
                 ", show_caption_above_media=" + show_caption_above_media +
                 ", link_preview_options=" + link_preview_options +
+                ", suggested_post_info=" + suggested_post_info +
                 ", effect_id=" + effect_id +
                 ", audio=" + audio +
                 ", paid_media=" + paid_media +
