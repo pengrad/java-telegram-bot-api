@@ -31,6 +31,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private Integer message_thread_id;
+    private DirectMessagesTopic direct_messages_topic;
     private User from;
     private Chat sender_chat;
     private Integer sender_boost_count;
@@ -124,6 +125,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public Integer messageThreadId() {
         return message_thread_id;
+    }
+
+    public DirectMessagesTopic directMessagesTopic() {
+        return direct_messages_topic;
     }
 
     public User from() {
@@ -515,6 +520,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         Message message = (Message) o;
         return Objects.equals(message_id, message.message_id) &&
                 Objects.equals(message_thread_id, message.message_thread_id) &&
+                Objects.equals(direct_messages_topic, message.direct_messages_topic) &&
                 Objects.equals(from, message.from) &&
                 Objects.equals(sender_chat, message.sender_chat) &&
                 Objects.equals(sender_boost_count, message.sender_boost_count) &&
@@ -619,6 +625,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return "Message{" +
                 "message_id=" + message_id +
                 ", message_thread_id=" + message_thread_id +
+                ", direct_messages_topic=" + direct_messages_topic +
                 ", from=" + from +
                 ", sender_chat=" + sender_chat +
                 ", sender_boost_count=" + sender_boost_count +
