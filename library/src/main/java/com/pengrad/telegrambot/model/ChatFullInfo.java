@@ -34,6 +34,7 @@ public class ChatFullInfo implements Serializable {
     private String last_name;
 
     private Boolean is_forum;
+    private Boolean is_direct_messages;
     private ChatPhoto photo;
     private String[] active_usernames;
     private Birthdate birthdate;
@@ -96,6 +97,10 @@ public class ChatFullInfo implements Serializable {
 
     public Boolean isForum() {
         return is_forum != null && is_forum;
+    }
+
+    public Boolean isDirectMessages() {
+        return is_direct_messages != null && is_direct_messages;
     }
 
     public String title() {
@@ -272,6 +277,7 @@ public class ChatFullInfo implements Serializable {
                 Objects.equals(first_name, chat.first_name) &&
                 Objects.equals(last_name, chat.last_name) &&
                 Objects.equals(is_forum, chat.is_forum) &&
+                Objects.equals(is_direct_messages, chat.is_direct_messages) &&
                 Objects.equals(username, chat.username) &&
                 Objects.equals(title, chat.title) &&
                 Objects.equals(photo, chat.photo) &&
@@ -326,7 +332,8 @@ public class ChatFullInfo implements Serializable {
                 ", type=" + type +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
-                ", is_forum=" + is_forum +
+                ", is_forum=" + is_forum + '\'' +
+                ", is_direct_messages=" + is_direct_messages + '\'' +
                 ", username='" + username + '\'' +
                 ", title='" + title + '\'' +
                 ", photo=" + photo +
