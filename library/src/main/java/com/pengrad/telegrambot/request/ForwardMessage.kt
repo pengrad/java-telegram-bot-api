@@ -29,7 +29,7 @@ class ForwardMessage private constructor(
     )
 
     /**
-     * Backwards-compatability for Java code
+     * Backwards-compatibility for Java code
      */
     constructor(chatId: JavaLong, fromChatId: JavaLong, messageId: JavaInteger) : this(
         chatId = chatId.toLong(),
@@ -49,7 +49,7 @@ class ForwardMessage private constructor(
     )
 
     /**
-     * Backwards-compatability for Java code
+     * Backwards-compatibility for Java code
      */
     constructor(channelUsername: String, fromChatId: JavaLong, messageId: JavaInteger) : this(
         channelUsername = channelUsername,
@@ -69,7 +69,7 @@ class ForwardMessage private constructor(
     )
 
     /**
-     * Backwards-compatability for Java code
+     * Backwards-compatibility for Java code
      */
     constructor(chatId: JavaLong, fromChannelUsername: String, messageId: JavaInteger) : this(
         chatId = chatId.toLong(),
@@ -89,7 +89,7 @@ class ForwardMessage private constructor(
     )
 
     /**
-     * Backwards-compatability for Java code
+     * Backwards-compatibility for Java code
      */
     constructor(channelUsername: String, fromChannelUsername: String, messageId: JavaInteger) : this(
         channelUsername = channelUsername,
@@ -116,7 +116,7 @@ class ForwardMessage private constructor(
     }
 
     /**
-     * Backwards-compatability for Java code
+     * Backwards-compatibility for Java code
      */
     @Suppress("DEPRECATION")
     @Deprecated("Use constructor with chatId and fromChatId or channelUsername and fromChannelUsername instead", ReplaceWith("ForwardMessage(chatId, fromChatId, messageId)"))

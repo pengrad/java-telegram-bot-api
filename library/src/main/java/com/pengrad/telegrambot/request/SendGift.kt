@@ -36,7 +36,7 @@ class SendGift private constructor(
         )
 
         /**
-         * Backwards compatability to constructor with userId
+         * Backwards compatibility to constructor with userId
          */
         @Deprecated("Use constructor(chatId, giftId) instead", ReplaceWith("SendGift(userId, giftId)"))
         operator fun invoke(userId: Long, giftId: String) =
