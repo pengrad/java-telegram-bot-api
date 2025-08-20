@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.request
 
 import com.pengrad.telegrambot.model.request.Keyboard
 import com.pengrad.telegrambot.model.request.ReplyParameters
+import com.pengrad.telegrambot.model.suggestedposts.SuggestedPostParameters
 import com.pengrad.telegrambot.response.SendResponse
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 
@@ -22,6 +23,7 @@ abstract class AbstractSendRequest<REQ : AbstractSendRequest<REQ>>(
     var messageEffectId: String? by optionalRequestParameter()
     var replyParameters: ReplyParameters? by optionalRequestParameter()
     var replyMarkup: Keyboard? by optionalRequestParameter()
+    var suggestedPostParameters: SuggestedPostParameters? by optionalRequestParameter()
 
     fun businessConnectionId(businessConnectionId: String) = applySelf { this.businessConnectionId = businessConnectionId }
 
@@ -40,5 +42,7 @@ abstract class AbstractSendRequest<REQ : AbstractSendRequest<REQ>>(
     fun replyParameters(replyParameters: ReplyParameters) = applySelf { this.replyParameters = replyParameters }
 
     fun replyMarkup(replyMarkup: Keyboard) = applySelf { this.replyMarkup = replyMarkup }
+
+    fun suggestedPostParameters(suggestedPostParameters: SuggestedPostParameters) = applySelf { this.suggestedPostParameters = suggestedPostParameters }
 
 }
