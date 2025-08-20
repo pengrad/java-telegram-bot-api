@@ -92,8 +92,8 @@ public class Chat implements Serializable {
                 ", type=" + type +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
-                ", is_forum=" + is_forum + '\'' +
-                ", is_direct_messages=" + is_direct_messages + '\'' +
+                ", is_forum=" + is_forum +
+                ", is_direct_messages=" + is_direct_messages +
                 ", username='" + username + '\'' +
                 ", title='" + title + '\'' +                
                 '}';

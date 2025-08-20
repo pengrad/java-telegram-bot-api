@@ -42,6 +42,7 @@ public class ChatFullInfo implements Serializable {
     private BusinessLocation business_location;
     private BusinessOpeningHours business_opening_hours;
     private Chat personal_chat;
+    private Chat parent_chat;
     private ReactionType[] available_reactions;
     private Integer accent_color_id;
     private Integer max_reaction_count;
@@ -133,6 +134,10 @@ public class ChatFullInfo implements Serializable {
 
     public Chat personalChat() {
         return personal_chat;
+    }
+
+    public Chat parentChat() {
+        return parent_chat;
     }
 
     public ReactionType[] availableReactions() {
@@ -287,6 +292,7 @@ public class ChatFullInfo implements Serializable {
                 Objects.equals(business_location, chat.business_location) &&
                 Objects.equals(business_opening_hours, chat.business_opening_hours) &&
                 Objects.equals(personal_chat, chat.personal_chat) &&
+                Objects.equals(parent_chat, chat.parent_chat) &&
                 Arrays.equals(available_reactions, chat.available_reactions) &&
                 Objects.equals(accent_color_id, chat.accent_color_id) &&
                 Objects.equals(max_reaction_count, chat.max_reaction_count) &&
@@ -332,8 +338,8 @@ public class ChatFullInfo implements Serializable {
                 ", type=" + type +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
-                ", is_forum=" + is_forum + '\'' +
-                ", is_direct_messages=" + is_direct_messages + '\'' +
+                ", is_forum=" + is_forum +
+                ", is_direct_messages=" + is_direct_messages +
                 ", username='" + username + '\'' +
                 ", title='" + title + '\'' +
                 ", photo=" + photo +
@@ -343,6 +349,7 @@ public class ChatFullInfo implements Serializable {
                 ", business_location=" + business_location +
                 ", business_opening_hours=" + business_opening_hours +
                 ", personal_chat=" + personal_chat +
+                ", parent_chat=" + parent_chat +
                 ", available_reactions=" + Arrays.toString(available_reactions) +
                 ", accent_color_id=" + accent_color_id +
                 ", max_reaction_count=" + max_reaction_count +
