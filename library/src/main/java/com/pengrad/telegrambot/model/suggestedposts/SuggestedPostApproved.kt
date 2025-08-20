@@ -6,6 +6,6 @@ import com.pengrad.telegrambot.model.Message
 data class SuggestedPostApproved (
     @get:JvmName("suggestedPostMessage") val suggestedPostMessage: Message?,
     @get:JvmName("price") val price: SuggestedPostPrice?,
-    @get:JvmName("sendDate") val sendDate: Int
+    @get:JvmName("sendDate") val sendDate: Long
 ){
 }
