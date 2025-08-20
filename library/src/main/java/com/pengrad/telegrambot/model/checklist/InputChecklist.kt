@@ -1,6 +1,5 @@
 package com.pengrad.telegrambot.model.checklist
 
-import com.pengrad.telegrambot.model.LocationAddress
 import com.pengrad.telegrambot.model.MessageEntity
 
 @Suppress("unused")

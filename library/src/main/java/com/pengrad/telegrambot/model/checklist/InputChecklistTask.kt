@@ -1,7 +1,6 @@
 package com.pengrad.telegrambot.model.checklist
 
 import com.pengrad.telegrambot.model.MessageEntity
-import com.pengrad.telegrambot.model.checklist.InputChecklist
 
 @Suppress("unused")
 class InputChecklistTask private constructor (

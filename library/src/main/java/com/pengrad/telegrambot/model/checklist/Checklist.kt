@@ -1,8 +1,6 @@
 package com.pengrad.telegrambot.model.checklist
 
 import com.pengrad.telegrambot.model.MessageEntity
-import com.pengrad.telegrambot.model.User
-import com.pengrad.telegrambot.model.gift.GiftInfo
 
 data class Checklist(
 
