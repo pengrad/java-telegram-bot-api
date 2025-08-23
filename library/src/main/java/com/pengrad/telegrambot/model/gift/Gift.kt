@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model.gift
 
+import com.pengrad.telegrambot.model.Chat
 import com.pengrad.telegrambot.model.Sticker
 
 data class Gift(
@@ -8,5 +9,6 @@ data class Gift(
     @get:JvmName("starCount") val starCount: Int,
     @get:JvmName("upgradeStarCount") val upgradeStarCount: Int? = null,
     @get:JvmName("totalCount") val totalCount: Int? = null,
-    @get:JvmName("remainingCount") val remainingCount: Int? = null
+    @get:JvmName("remainingCount") val remainingCount: Int? = null,
+    @get:JvmName("publisherChat") val publisherChat: Chat? = null
 )

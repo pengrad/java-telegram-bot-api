@@ -11,7 +11,8 @@ class OwnedGiftUnique(
     @get:JvmName("sendDate") var sendDate: Long,
     @get:JvmName("isSaved") var isSaved: Boolean?,
     @get:JvmName("canBeTransferred") var canBeTransferred: Boolean?,
-    @get:JvmName("transferStarCount") var prepaidUpgradeStarCount: Int?
+    @get:JvmName("transferStarCount") var prepaidUpgradeStarCount: Int?,
+    @get:JvmName("nextTransferDate") var nextTransferDate: Long?
 ) : OwnedGift(type = TYPE) {
 
     companion object {

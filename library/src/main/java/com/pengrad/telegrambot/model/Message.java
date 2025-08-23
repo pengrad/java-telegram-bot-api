@@ -2,6 +2,9 @@ package com.pengrad.telegrambot.model;
 
 import com.pengrad.telegrambot.model.chatbackground.ChatBackground;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostAdded;
+import com.pengrad.telegrambot.model.checklist.Checklist;
+import com.pengrad.telegrambot.model.checklist.ChecklistTasksAdded;
+import com.pengrad.telegrambot.model.checklist.ChecklistTasksDone;
 import com.pengrad.telegrambot.model.gift.GiftInfo;
 import com.pengrad.telegrambot.model.gift.unique.UniqueGiftInfo;
 import com.pengrad.telegrambot.model.giveaway.Giveaway;
@@ -12,6 +15,9 @@ import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage;
 import com.pengrad.telegrambot.model.message.origin.*;
 import com.pengrad.telegrambot.model.paidmedia.PaidMediaInfo;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
+import com.pengrad.telegrambot.model.stars.DirectMessagePriceChanged;
+import com.pengrad.telegrambot.model.stars.PaidMessagePriceChanged;
+import com.pengrad.telegrambot.model.suggestedposts.*;
 import com.pengrad.telegrambot.passport.PassportData;
 
 import java.io.Serializable;
@@ -26,6 +32,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private Integer message_thread_id;
+    private DirectMessagesTopic direct_messages_topic;
     private User from;
     private Chat sender_chat;
     private Integer sender_boost_count;
@@ -38,10 +45,12 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private ExternalReplyInfo external_reply;
     private TextQuote quote;
     private Story reply_to_story;
+    private Integer reply_to_checklist_task_id;
     private User via_bot;
     private Integer edit_date;
     private Boolean has_protected_content;
     private Boolean is_from_offline;
+    private Boolean is_paid_post;
     private Boolean has_media_spoiler;
     private String media_group_id;
     private String author_signature;
@@ -50,6 +59,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private MessageEntity[] caption_entities;
     private Boolean show_caption_above_media;
     private LinkPreviewOptions link_preview_options;
+    private SuggestedPostInfo suggested_post_info;
     private String effect_id;
     private Audio audio;
     private PaidMediaInfo paid_media;
@@ -62,6 +72,9 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private Voice voice;
     private VideoNote video_note;
     private String caption;
+    private Checklist checklist;
+    private ChecklistTasksDone checklist_tasks_done;
+    private ChecklistTasksAdded checklist_tasks_added;
     private Contact contact;
     private Location location;
     private Venue venue;
@@ -110,10 +123,20 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private GiftInfo gift;
     private UniqueGiftInfo unique_gift;
     private PaidMessagePriceChanged paid_message_price_changed;
+    private SuggestedPostApproved suggested_post_approved;
+    private SuggestedPostApprovalFailed suggested_post_approval_failed;
+    private SuggestedPostDeclined suggested_post_declined;
+    private SuggestedPostPaid suggested_post_paid;
+    private SuggestedPostRefunded suggested_post_refunded;
+    private DirectMessagePriceChanged direct_message_price_changed;
     private Integer paid_star_count;
 
     public Integer messageThreadId() {
         return message_thread_id;
+    }
+
+    public DirectMessagesTopic directMessagesTopic() {
+        return direct_messages_topic;
     }
 
     public User from() {
@@ -164,6 +187,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return reply_to_story;
     }
 
+    public Integer replyToChecklistTaskId() {
+        return reply_to_checklist_task_id;
+    }
+
     public User viaBot() {
         return via_bot;
     }
@@ -178,6 +205,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public Boolean isFromOffline() {
         return is_from_offline != null && is_from_offline;
+    }
+
+    public Boolean isPaidPost() {
+        return is_paid_post != null && is_paid_post;
     }
 
     public Boolean hasMediaSpoiler() {
@@ -211,6 +242,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public LinkPreviewOptions linkPreviewOptions() {
         return link_preview_options;
+    }
+
+    public SuggestedPostInfo suggestedPostInfo() {
+        return suggested_post_info;
     }
 
     public String effectId() {
@@ -259,6 +294,18 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public String caption() {
         return caption;
+    }
+
+    public Checklist checklist() {
+        return checklist;
+    }
+
+    public ChecklistTasksDone checklistTasksDone() {
+        return checklist_tasks_done;
+    }
+
+    public ChecklistTasksAdded checklistTasksAdded() {
+        return checklist_tasks_added;
     }
 
     public Contact contact() {
@@ -453,6 +500,30 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return paid_message_price_changed;
     }
 
+    public SuggestedPostApproved suggestedPostApproved() {
+        return suggested_post_approved;
+    }
+
+    public SuggestedPostApprovalFailed suggestedPostApprovalFailed() {
+        return suggested_post_approval_failed;
+    }
+
+    public SuggestedPostDeclined suggestedPostDeclined() {
+        return suggested_post_declined;
+    }
+
+    public SuggestedPostPaid suggestedPostPaid() {
+        return suggested_post_paid;
+    }
+
+    public SuggestedPostRefunded suggestedPostRefunded() {
+        return suggested_post_refunded;
+    }
+
+    public DirectMessagePriceChanged directMessagePriceChanged() {
+        return direct_message_price_changed;
+    }
+
     public Integer paidStarCount() {
         return paid_star_count;
     }
@@ -485,6 +556,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         Message message = (Message) o;
         return Objects.equals(message_id, message.message_id) &&
                 Objects.equals(message_thread_id, message.message_thread_id) &&
+                Objects.equals(direct_messages_topic, message.direct_messages_topic) &&
                 Objects.equals(from, message.from) &&
                 Objects.equals(sender_chat, message.sender_chat) &&
                 Objects.equals(sender_boost_count, message.sender_boost_count) &&
@@ -499,10 +571,12 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(external_reply, message.external_reply) &&
                 Objects.equals(quote, message.quote) &&
                 Objects.equals(reply_to_story, message.reply_to_story) &&
+                Objects.equals(reply_to_checklist_task_id, message.reply_to_checklist_task_id) &&
                 Objects.equals(via_bot, message.via_bot) &&
                 Objects.equals(edit_date, message.edit_date) &&
                 Objects.equals(has_protected_content, message.has_protected_content) &&
                 Objects.equals(is_from_offline, message.is_from_offline) &&
+                Objects.equals(is_paid_post, message.is_paid_post) &&
                 Objects.equals(has_media_spoiler, message.has_media_spoiler) &&
                 Objects.equals(media_group_id, message.media_group_id) &&
                 Objects.equals(author_signature, message.author_signature) &&
@@ -511,6 +585,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Arrays.equals(caption_entities, message.caption_entities) &&
                 Objects.equals(show_caption_above_media, message.show_caption_above_media) &&
                 Objects.equals(link_preview_options, message.link_preview_options) &&
+                Objects.equals(suggested_post_info, message.suggested_post_info) &&
                 Objects.equals(effect_id, message.effect_id) &&
                 Objects.equals(audio, message.audio) &&
                 Objects.equals(paid_media, message.paid_media) &&
@@ -523,6 +598,9 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(voice, message.voice) &&
                 Objects.equals(video_note, message.video_note) &&
                 Objects.equals(caption, message.caption) &&
+                Objects.equals(checklist, message.checklist) &&
+                Objects.equals(checklist_tasks_done, message.checklist_tasks_done) &&
+                Objects.equals(checklist_tasks_added, message.checklist_tasks_added) &&
                 Objects.equals(contact, message.contact) &&
                 Objects.equals(location, message.location) &&
                 Objects.equals(venue, message.venue) &&
@@ -571,6 +649,12 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(gift, message.gift) &&
                 Objects.equals(unique_gift, message.unique_gift) &&
                 Objects.equals(paid_message_price_changed, message.paid_message_price_changed) &&
+                Objects.equals(suggested_post_approved, message.suggested_post_approved) &&
+                Objects.equals(suggested_post_approval_failed, message.suggested_post_approval_failed) &&
+                Objects.equals(suggested_post_declined, message.suggested_post_declined) &&
+                Objects.equals(suggested_post_paid, message.suggested_post_paid) &&
+                Objects.equals(suggested_post_refunded, message.suggested_post_refunded) &&
+                Objects.equals(direct_message_price_changed, message.direct_message_price_changed) &&
                 Objects.equals(paid_star_count, message.paid_star_count);
     }
 
@@ -584,6 +668,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return "Message{" +
                 "message_id=" + message_id +
                 ", message_thread_id=" + message_thread_id +
+                ", direct_messages_topic=" + direct_messages_topic +
                 ", from=" + from +
                 ", sender_chat=" + sender_chat +
                 ", sender_boost_count=" + sender_boost_count +
@@ -598,10 +683,12 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", external_reply=" + external_reply +
                 ", quote=" + quote +
                 ", reply_to_story=" + reply_to_story +
+                ", reply_to_checklist_task_id=" + reply_to_checklist_task_id +
                 ", via_bot=" + via_bot +
                 ", edit_date=" + edit_date +
                 ", has_protected_content=" + has_protected_content +
                 ", is_from_offline=" + is_from_offline +
+                ", is_paid_post=" + is_paid_post +
                 ", has_media_spoiler=" + has_media_spoiler +
                 ", media_group_id='" + media_group_id + '\'' +
                 ", author_signature='" + author_signature + '\'' +
@@ -610,6 +697,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", caption_entities=" + Arrays.toString(caption_entities) +
                 ", show_caption_above_media=" + show_caption_above_media +
                 ", link_preview_options=" + link_preview_options +
+                ", suggested_post_info=" + suggested_post_info +
                 ", effect_id=" + effect_id +
                 ", audio=" + audio +
                 ", paid_media=" + paid_media +
@@ -622,6 +710,9 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", voice=" + voice +
                 ", video_note=" + video_note +
                 ", caption='" + caption + '\'' +
+                ", checklist=" + checklist +
+                ", checklist_tasks_done=" + checklist_tasks_done +
+                ", checklist_tasks_added=" + checklist_tasks_added +
                 ", contact=" + contact +
                 ", location=" + location +
                 ", venue=" + venue +
@@ -670,6 +761,12 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", gift=" + gift +
                 ", unique_gift=" + unique_gift +
                 ", paid_message_price_changed=" + paid_message_price_changed +
+                ", suggested_post_approved=" + suggested_post_approved +
+                ", suggested_post_approval_failed=" + suggested_post_approval_failed +
+                ", suggested_post_declined=" + suggested_post_declined +
+                ", suggested_post_paid=" + suggested_post_paid +
+                ", suggested_post_refunded=" + suggested_post_refunded +
+                ", direct_message_price_changed=" + direct_message_price_changed +
                 ", paid_star_count=" + paid_star_count +
                 '}';
     }

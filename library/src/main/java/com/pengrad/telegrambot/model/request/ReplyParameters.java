@@ -15,6 +15,7 @@ public class ReplyParameters implements Serializable {
     private String quote_parse_mode;
     private MessageEntity[] quote_entities;
     private Integer quote_position;
+    private Integer checklist_task_id;
 
     public ReplyParameters(Integer messageId) {
         this.message_id = messageId;
@@ -47,6 +48,11 @@ public class ReplyParameters implements Serializable {
 
     public ReplyParameters quotePosition(Integer quotePosition) {
         this.quote_position = quotePosition;
+        return this;
+    }
+
+    public ReplyParameters checklistTaskId(Integer checklistTaskId) {
+        this.checklist_task_id = checklistTaskId;
         return this;
     }
 }

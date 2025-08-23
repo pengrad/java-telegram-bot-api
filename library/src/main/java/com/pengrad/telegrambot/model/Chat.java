@@ -31,6 +31,8 @@ public class Chat implements Serializable {
 
     private Boolean is_forum;
 
+    private Boolean is_direct_messages;
+
     public Long id() {
         return id;
     }
@@ -55,6 +57,10 @@ public class Chat implements Serializable {
         return is_forum != null && is_forum;
     }
 
+    public Boolean isDirectMessages() {
+        return is_direct_messages != null && is_direct_messages;
+    }
+
     public String title() {
         return title;
     }
@@ -69,6 +75,7 @@ public class Chat implements Serializable {
                 Objects.equals(first_name, chat.first_name) &&
                 Objects.equals(last_name, chat.last_name) &&
                 Objects.equals(is_forum, chat.is_forum) &&
+                Objects.equals(is_direct_messages, chat.is_direct_messages) &&
                 Objects.equals(username, chat.username) &&
                 Objects.equals(title, chat.title);
     }
@@ -86,6 +93,7 @@ public class Chat implements Serializable {
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", is_forum=" + is_forum +
+                ", is_direct_messages=" + is_direct_messages +
                 ", username='" + username + '\'' +
                 ", title='" + title + '\'' +                
                 '}';

@@ -69,6 +69,10 @@ public class PromoteChatMember extends BaseRequest<PromoteChatMember, BaseRespon
         return add("can_manage_topics", canManageTopics);
     }
 
+    public PromoteChatMember canManageDirectMessages(boolean canManageDirectMessages) {
+        return add("can_manage_direct_messages", canManageDirectMessages);
+    }
+
     public PromoteChatMember canPromoteMembers(boolean canPromoteMembers) {
         return add("can_promote_members", canPromoteMembers);
     }

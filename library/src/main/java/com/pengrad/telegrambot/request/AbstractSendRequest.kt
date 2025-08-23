@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.request
 
 import com.pengrad.telegrambot.model.request.Keyboard
 import com.pengrad.telegrambot.model.request.ReplyParameters
+import com.pengrad.telegrambot.model.suggestedposts.SuggestedPostParameters
 import com.pengrad.telegrambot.response.SendResponse
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 
@@ -15,16 +16,20 @@ abstract class AbstractSendRequest<REQ : AbstractSendRequest<REQ>>(
 
     var businessConnectionId: String? by optionalRequestParameter()
     var messageThreadId: Int? by optionalRequestParameter()
+    var directMessagesTopicId: Int? by optionalRequestParameter()
     var disableNotification: Boolean? by optionalRequestParameter()
     var protectContent: Boolean? by optionalRequestParameter()
     var allowPaidBroadcast: Boolean? by optionalRequestParameter()
     var messageEffectId: String? by optionalRequestParameter()
     var replyParameters: ReplyParameters? by optionalRequestParameter()
     var replyMarkup: Keyboard? by optionalRequestParameter()
+    var suggestedPostParameters: SuggestedPostParameters? by optionalRequestParameter()
 
     fun businessConnectionId(businessConnectionId: String) = applySelf { this.businessConnectionId = businessConnectionId }
 
     fun messageThreadId(messageThreadId: Int) = applySelf { this.messageThreadId = messageThreadId }
+
+    fun directMessagesTopicId(directMessagesTopicId: Int) = applySelf { this.directMessagesTopicId = directMessagesTopicId }
 
     fun disableNotification(disableNotification: Boolean) = applySelf { this.disableNotification = disableNotification }
 
@@ -37,5 +42,7 @@ abstract class AbstractSendRequest<REQ : AbstractSendRequest<REQ>>(
     fun replyParameters(replyParameters: ReplyParameters) = applySelf { this.replyParameters = replyParameters }
 
     fun replyMarkup(replyMarkup: Keyboard) = applySelf { this.replyMarkup = replyMarkup }
+
+    fun suggestedPostParameters(suggestedPostParameters: SuggestedPostParameters) = applySelf { this.suggestedPostParameters = suggestedPostParameters }
 
 }

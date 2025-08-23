@@ -21,17 +21,17 @@ data class Video(
 ) {
 
     /**
-     * Backwards compatability for Java code because of Kotlin optimization
+     * Backwards compatibility for Java code because of Kotlin optimization
      */
     fun width() = width as JavaInteger
 
     /**
-     * Backwards compatability for Java code because of Kotlin optimization
+     * Backwards compatibility for Java code because of Kotlin optimization
      */
     fun height() = height as JavaInteger
 
     /**
-     * Backwards compatability for Java code because of Kotlin optimization
+     * Backwards compatibility for Java code because of Kotlin optimization
      */
     fun duration() = duration as JavaInteger
 
