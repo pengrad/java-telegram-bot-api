@@ -16,7 +16,7 @@ abstract class AbstractSendRequest<REQ : AbstractSendRequest<REQ>>(
 
     var businessConnectionId: String? by optionalRequestParameter()
     var messageThreadId: Int? by optionalRequestParameter()
-    var directMessagesTopicId: Int? by optionalRequestParameter()
+    var directMessagesTopicId: Long? by optionalRequestParameter()
     var disableNotification: Boolean? by optionalRequestParameter()
     var protectContent: Boolean? by optionalRequestParameter()
     var allowPaidBroadcast: Boolean? by optionalRequestParameter()
@@ -29,7 +29,7 @@ abstract class AbstractSendRequest<REQ : AbstractSendRequest<REQ>>(
 
     fun messageThreadId(messageThreadId: Int) = applySelf { this.messageThreadId = messageThreadId }
 
-    fun directMessagesTopicId(directMessagesTopicId: Int) = applySelf { this.directMessagesTopicId = directMessagesTopicId }
+    fun directMessagesTopicId(directMessagesTopicId: Long) = applySelf { this.directMessagesTopicId = directMessagesTopicId }
 
     fun disableNotification(disableNotification: Boolean) = applySelf { this.disableNotification = disableNotification }
 
