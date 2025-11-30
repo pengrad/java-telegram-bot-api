@@ -13,14 +13,14 @@ Java библиотека, созданная для работы с [Telegram B
 
 Gradle:
 ```groovy
-implementation 'com.github.pengrad:java-telegram-bot-api:9.2.0'
+implementation 'com.github.pengrad:java-telegram-bot-api:9.2.1'
 ```
 Maven:
 ```xml
 <dependency>
   <groupId>com.github.pengrad</groupId>
   <artifactId>java-telegram-bot-api</artifactId>
-  <version>9.2.0</version>
+  <version>9.2.1</version>
 </dependency>
 ```
 Также JAR со всеми зависимостями можно найти [в релизах](https://github.com/pengrad/java-telegram-bot-api/releases).
