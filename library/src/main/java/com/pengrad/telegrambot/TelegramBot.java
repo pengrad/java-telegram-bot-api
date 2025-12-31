@@ -3,6 +3,7 @@ package com.pengrad.telegrambot;
 import com.google.gson.Gson;
 import com.pengrad.telegrambot.impl.FileApi;
 import com.pengrad.telegrambot.impl.TelegramBotClient;
+import com.pengrad.telegrambot.impl.SleepUpdatesHandler;
 import com.pengrad.telegrambot.impl.UpdatesHandler;
 import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.request.BaseRequest;
@@ -117,7 +118,7 @@ public class TelegramBot implements TelegramAware {
             this.botToken = botToken;
             api = new TelegramBotClient(client(null), gson(), apiUrl(API_URL, botToken, useTestServer));
             fileApi = new FileApi(botToken);
-            updatesHandler = new UpdatesHandler(100);
+            updatesHandler = new SleepUpdatesHandler(100);
             requestPreprocessor = getEmptyRequestPreprocessor();
         }
 
@@ -142,7 +143,7 @@ public class TelegramBot implements TelegramAware {
         }
 
         public Builder updateListenerSleep(long millis) {
-            updatesHandler = new UpdatesHandler(millis);
+            updatesHandler = new SleepUpdatesHandler(millis);
             return this;
         }
 
