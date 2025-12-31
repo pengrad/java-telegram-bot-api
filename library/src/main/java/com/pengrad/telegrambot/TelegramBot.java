@@ -143,7 +143,12 @@ public class TelegramBot implements TelegramAware {
         }
 
         public Builder updateListenerSleep(long millis) {
-            updatesHandler = new SleepUpdatesHandler(millis);
+            this.updatesHandler = new SleepUpdatesHandler(millis);
+            return this;
+        }
+
+        public Builder updateListener(UpdatesHandler updatesHandler) {
+            this.updatesHandler = updatesHandler;
             return this;
         }
 
