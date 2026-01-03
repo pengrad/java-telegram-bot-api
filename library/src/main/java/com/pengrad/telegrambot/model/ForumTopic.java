@@ -6,12 +6,12 @@ import java.util.Objects;
 public class ForumTopic implements Serializable {
     private final static long serialVersionUID = 0L;
 
-    private Integer message_thread_id;
+    private Long message_thread_id;
     private String name;
     private Integer icon_color;
     private String icon_custom_emoji_id;
 
-    public Integer messageThreadId() {
+    public Long messageThreadId() {
         return message_thread_id;
     }
 

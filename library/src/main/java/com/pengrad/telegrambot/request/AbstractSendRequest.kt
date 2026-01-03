@@ -15,7 +15,7 @@ abstract class AbstractSendRequest<REQ : AbstractSendRequest<REQ>>(
     val channelUsername: String? by optionalRequestParameter(channelUsername, customParameterName = "chat_id")
 
     var businessConnectionId: String? by optionalRequestParameter()
-    var messageThreadId: Int? by optionalRequestParameter()
+    var messageThreadId: Long? by optionalRequestParameter()
     var directMessagesTopicId: Long? by optionalRequestParameter()
     var disableNotification: Boolean? by optionalRequestParameter()
     var protectContent: Boolean? by optionalRequestParameter()
@@ -27,7 +27,7 @@ abstract class AbstractSendRequest<REQ : AbstractSendRequest<REQ>>(
 
     fun businessConnectionId(businessConnectionId: String) = applySelf { this.businessConnectionId = businessConnectionId }
 
-    fun messageThreadId(messageThreadId: Int) = applySelf { this.messageThreadId = messageThreadId }
+    fun messageThreadId(messageThreadId: Long) = applySelf { this.messageThreadId = messageThreadId }
 
     fun directMessagesTopicId(directMessagesTopicId: Long) = applySelf { this.directMessagesTopicId = directMessagesTopicId }
 

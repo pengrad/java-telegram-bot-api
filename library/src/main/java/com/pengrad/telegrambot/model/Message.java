@@ -31,7 +31,7 @@ import java.util.Objects;
 public class Message extends MaybeInaccessibleMessage implements Serializable {
     private final static long serialVersionUID = 0L;
 
-    private Integer message_thread_id;
+    private Long message_thread_id;
     private DirectMessagesTopic direct_messages_topic;
     private User from;
     private Chat sender_chat;
@@ -131,7 +131,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private DirectMessagePriceChanged direct_message_price_changed;
     private Integer paid_star_count;
 
-    public Integer messageThreadId() {
+    public Long messageThreadId() {
         return message_thread_id;
     }
 

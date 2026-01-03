@@ -11,7 +11,7 @@ class CopyMessages(
         add("chat_id", chatId).add("from_chat_id", fromChatId).add("message_ids", messageIds)
     }
 
-    fun messageThreadId(messageThreadId: Int?): CopyMessages {
+    fun messageThreadId(messageThreadId: Long?): CopyMessages {
         return add("message_thread_id", messageThreadId)
     }
 

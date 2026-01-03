@@ -4,21 +4,21 @@ import com.pengrad.telegrambot.response.BaseResponse;
 
 public class EditForumTopic extends BaseRequest<EditForumTopic, BaseResponse> {
 
-    public EditForumTopic(Long chatId, Integer messageThreadId) {
+    public EditForumTopic(Long chatId, Long messageThreadId) {
         this(chatId.toString(), messageThreadId);
     }
 
-    public EditForumTopic(String chatId, Integer messageThreadId) {
+    public EditForumTopic(String chatId, Long messageThreadId) {
         super(BaseResponse.class);
         add("chat_id", chatId);
         add("message_thread_id", messageThreadId);
     }
 
-    public EditForumTopic(Long chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {
+    public EditForumTopic(Long chatId, Long messageThreadId, String name, String iconCustomEmojiId) {
         this(chatId.toString(), messageThreadId, name, iconCustomEmojiId);
     }
 
-    public EditForumTopic(String chatId, Integer messageThreadId, String name, String iconCustomEmojiId) {
+    public EditForumTopic(String chatId, Long messageThreadId, String name, String iconCustomEmojiId) {
         super(BaseResponse.class);
         add("chat_id", chatId);
         add("message_thread_id", messageThreadId);

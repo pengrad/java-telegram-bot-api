@@ -97,7 +97,7 @@ public class TelegramBotTest {
     Long memberBot = 215003245L;
     Long localGroup = -1001431704825L;
     Long forum = -1001833520519L;
-    Integer forumEditThread = 3;
+    Long forumEditThread = 3L;
     static String privateKey;
     static String testPassportData;
     static String testCallbackQuery;
@@ -685,7 +685,7 @@ public class TelegramBotTest {
     @Test
     public void forwardMessages() {
         MessageIdsResponse response = bot.execute(new ForwardMessages(chatId, chatId, new int[]{forwardMessageId})
-                .messageThreadId(0)
+                .messageThreadId(0L)
                 .disableNotification(true)
                 .protectContent(true)
         );
@@ -712,7 +712,7 @@ public class TelegramBotTest {
     @Test
     public void copyMessages() {
         MessageIdsResponse response = bot.execute(new CopyMessages(chatId, chatId, new int[]{forwardMessageId})
-                .messageThreadId(0)
+                .messageThreadId(0L)
                 .removeCaption(true)
                 .disableNotification(true)
                 .protectContent(true)
@@ -1646,7 +1646,7 @@ public class TelegramBotTest {
                 new InputMediaVideo(videoFile),
                 new InputMediaVideo(videoBytes).caption("my video <b>bold</b>").parseMode(ParseMode.HTML)
                         .duration(10).width(11).height(12).supportsStreaming(true)
-        ).messageThreadId(0).disableNotification(false).replyParameters(new ReplyParameters(1).allowSendingWithoutReply(false)));
+        ).messageThreadId(0L).disableNotification(false).replyParameters(new ReplyParameters(1).allowSendingWithoutReply(false)));
         assertTrue(response.isOk());
         assertEquals(6, response.messages().length);
 

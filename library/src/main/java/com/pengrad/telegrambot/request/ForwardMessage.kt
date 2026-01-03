@@ -134,12 +134,12 @@ class ForwardMessage private constructor(
 
     val messageId: Int by requestParameter(messageId)
 
-    var messageThreadId: Int? by optionalRequestParameter()
+    var messageThreadId: Long? by optionalRequestParameter()
     var disableNotification: Boolean? by optionalRequestParameter()
     var protectContent: Boolean? by optionalRequestParameter()
     var videoStartTimestamp: Int? by optionalRequestParameter()
 
-    fun messageThreadId(messageThreadId: Int) = applySelf { this.messageThreadId = messageThreadId }
+    fun messageThreadId(messageThreadId: Long) = applySelf { this.messageThreadId = messageThreadId }
 
     fun disableNotification(disableNotification: Boolean) = applySelf { this.disableNotification = disableNotification }
 

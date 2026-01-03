@@ -16,11 +16,11 @@ class SendMessageDraft(
     val draftId: Int by requestParameter(draftId)
     val text: String by requestParameter(text)
 
-    var messageThreadId: Int? by optionalRequestParameter()
+    var messageThreadId: Long? by optionalRequestParameter()
     var parseMode: ParseMode? by optionalRequestParameter()
     var entities: List<MessageEntity>? by optionalRequestParameter()
 
-    fun messageThreadId(messageThreadId: Int) = applySelf { this.messageThreadId = messageThreadId }
+    fun messageThreadId(messageThreadId: Long) = applySelf { this.messageThreadId = messageThreadId }
 
     fun parseMode(parseMode: ParseMode) = applySelf { this.parseMode = parseMode }
 
