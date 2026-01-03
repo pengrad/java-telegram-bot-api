@@ -76,6 +76,7 @@ public class ChatFullInfo implements Serializable {
     private Boolean can_send_gift;
     private AcceptedGiftTypes accepted_gift_types;
     private UserRating rating;
+    private Integer paid_message_star_count;
 
     public Long id() {
         return id;
@@ -277,6 +278,10 @@ public class ChatFullInfo implements Serializable {
         return rating;
     }
 
+    public Integer paidMessageStarCount() {
+        return paid_message_star_count;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -329,7 +334,8 @@ public class ChatFullInfo implements Serializable {
                 Objects.equals(linked_chat_id, chat.linked_chat_id) &&
                 Objects.equals(location, chat.location) &&
                 Objects.equals(accepted_gift_types, chat.accepted_gift_types) &&
-                Objects.equals(rating, chat.rating);
+                Objects.equals(rating, chat.rating) &&
+                Objects.equals(paid_message_star_count, chat.paid_message_star_count);
     }
 
     @Override
@@ -388,6 +394,7 @@ public class ChatFullInfo implements Serializable {
                 ", location=" + location +
                 ", accepted_gift_types=" + accepted_gift_types +
                 ", rating=" + rating +
+                ", paid_message_star_count=" + paid_message_star_count +
                 '}';
     }
 }
