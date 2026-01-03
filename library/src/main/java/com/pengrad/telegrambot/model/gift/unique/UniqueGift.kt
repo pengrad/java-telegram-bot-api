@@ -10,5 +10,6 @@ data class UniqueGift(
     @get:JvmName("model") val model: UniqueGiftModel,
     @get:JvmName("symbol") val symbol: UniqueGiftSymbol,
     @get:JvmName("backdrop") val backdrop: UniqueGiftBackdrop,
-    @get:JvmName("publisherChat") val publisherChat: Chat? = null
+    @get:JvmName("publisherChat") val publisherChat: Chat? = null,
+    @get:JvmName("giftId") val giftId: String? = null
 )
