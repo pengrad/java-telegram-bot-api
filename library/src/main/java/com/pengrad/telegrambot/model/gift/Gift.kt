@@ -14,5 +14,6 @@ data class Gift(
     @get:JvmName("personalRemainingCount") val personalRemainingCount: Int? = null,
     @get:JvmName("isPremium") val isPremium: Boolean? = null,
     @get:JvmName("hasColors") val hasColors: Boolean? = null,
+    @get:JvmName("background") val background: GiftBackground? = null,
     @get:JvmName("publisherChat") val publisherChat: Chat? = null
 )
