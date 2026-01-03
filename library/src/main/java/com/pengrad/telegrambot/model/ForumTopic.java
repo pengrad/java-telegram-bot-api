@@ -10,6 +10,7 @@ public class ForumTopic implements Serializable {
     private String name;
     private Integer icon_color;
     private String icon_custom_emoji_id;
+    private Boolean is_name_implicit;
 
     public Long messageThreadId() {
         return message_thread_id;
@@ -27,6 +28,10 @@ public class ForumTopic implements Serializable {
         return icon_custom_emoji_id;
     }
 
+    public Boolean isNameImplicit() {
+        return is_name_implicit;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -37,7 +42,8 @@ public class ForumTopic implements Serializable {
         return Objects.equals(message_thread_id, that.message_thread_id) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(icon_color, that.icon_color) &&
-                Objects.equals(icon_custom_emoji_id, that.icon_custom_emoji_id);
+                Objects.equals(icon_custom_emoji_id, that.icon_custom_emoji_id) &&
+                Objects.equals(is_name_implicit, that.is_name_implicit);
     }
 
     @Override
@@ -45,7 +51,8 @@ public class ForumTopic implements Serializable {
         return Objects.hash(message_thread_id,
                 name,
                 icon_color,
-                icon_custom_emoji_id);
+                icon_custom_emoji_id,
+                is_name_implicit);
     }
 
     @Override
@@ -55,6 +62,7 @@ public class ForumTopic implements Serializable {
                 ", name='" + name + '\'' +
                 ", icon_color=" + icon_color +
                 ", icon_custom_emoji_id='" + icon_custom_emoji_id + '\'' +
+                ", is_name_implicit=" + is_name_implicit +
                 '}';
     }
 }
