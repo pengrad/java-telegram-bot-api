@@ -13,13 +13,13 @@ public class Story implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private Chat chat;
-    private Integer id;
+    private Long id;
 
     public Chat chat() {
         return chat;
     }
 
-    public Integer id() {
+    public Long id() {
         return id;
     }
 
