@@ -12,5 +12,6 @@ data class Gift(
     @get:JvmName("remainingCount") val remainingCount: Int? = null,
     @get:JvmName("personalTotalCount") val personalTotalCount: Int? = null,
     @get:JvmName("personalRemainingCount") val personalRemainingCount: Int? = null,
+    @get:JvmName("isPremium") val isPremium: Boolean? = null,
     @get:JvmName("publisherChat") val publisherChat: Chat? = null
 )

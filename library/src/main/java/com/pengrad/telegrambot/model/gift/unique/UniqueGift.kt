@@ -12,5 +12,6 @@ data class UniqueGift(
     @get:JvmName("backdrop") val backdrop: UniqueGiftBackdrop,
     @get:JvmName("publisherChat") val publisherChat: Chat? = null,
     @get:JvmName("giftId") val giftId: String? = null,
-    @get:JvmName("isFromBlockchain") val isFromBlockchain: Boolean? = null
+    @get:JvmName("isFromBlockchain") val isFromBlockchain: Boolean? = null,
+    @get:JvmName("isPremium") val isPremium: Boolean? = null
 )
