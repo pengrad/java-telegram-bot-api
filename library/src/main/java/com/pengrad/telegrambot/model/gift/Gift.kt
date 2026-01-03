@@ -15,5 +15,6 @@ data class Gift(
     @get:JvmName("isPremium") val isPremium: Boolean? = null,
     @get:JvmName("hasColors") val hasColors: Boolean? = null,
     @get:JvmName("background") val background: GiftBackground? = null,
+    @get:JvmName("uniqueGiftVariantCount") val uniqueGiftVariantCount: Int? = null,
     @get:JvmName("publisherChat") val publisherChat: Chat? = null
 )
