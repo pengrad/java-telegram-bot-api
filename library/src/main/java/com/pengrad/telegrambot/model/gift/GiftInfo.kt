@@ -11,6 +11,7 @@ data class GiftInfo(
     @get:JvmName("text") val text: String?,
     @get:JvmName("entities") val entities: Array<MessageEntity>?,
     @get:JvmName("isPrivate") val isPrivate: Boolean?,
+    @get:JvmName("isUpgradeSeparate") val isUpgradeSeparate: Boolean? = null,
 ) {
 
     override fun equals(other: Any?): Boolean {
@@ -24,7 +25,8 @@ data class GiftInfo(
                 canBeUpgraded == other.canBeUpgraded &&
                 text == other.text &&
                 entities contentEquals other.entities &&
-                isPrivate == other.isPrivate
+                isPrivate == other.isPrivate &&
+                isUpgradeSeparate == other.isUpgradeSeparate
     }
 
     override fun hashCode(): Int {
@@ -36,13 +38,15 @@ data class GiftInfo(
         result = 31 * result + (text?.hashCode() ?: 0)
         result = 31 * result + (entities?.contentHashCode() ?: 0)
         result = 31 * result + (isPrivate?.hashCode() ?: 0)
+        result = 31 * result + (isUpgradeSeparate?.hashCode() ?: 0)
         return result
     }
 
     override fun toString(): String {
         return "GiftInfo(gift=$gift, ownedGiftId=$ownedGiftId, convertStarCount=$convertStarCount, " +
                 "prepaidUpgradeStarCount=$prepaidUpgradeStarCount, canBeUpgraded=$canBeUpgraded, " +
-                "text=$text, entities=${entities?.contentToString()}, isPrivate=$isPrivate)"
+                "text=$text, entities=${entities?.contentToString()}, isPrivate=$isPrivate, " +
+                "isUpgradeSeparate=$isUpgradeSeparate)"
     }
 
 }
