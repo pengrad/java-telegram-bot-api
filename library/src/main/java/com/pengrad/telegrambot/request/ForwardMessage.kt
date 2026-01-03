@@ -138,6 +138,7 @@ class ForwardMessage private constructor(
     var disableNotification: Boolean? by optionalRequestParameter()
     var protectContent: Boolean? by optionalRequestParameter()
     var videoStartTimestamp: Int? by optionalRequestParameter()
+    var messageEffectId: String? by optionalRequestParameter()
 
     fun messageThreadId(messageThreadId: Long) = applySelf { this.messageThreadId = messageThreadId }
 
@@ -146,5 +147,7 @@ class ForwardMessage private constructor(
     fun protectContent(protectContent: Boolean) = applySelf { this.protectContent = protectContent }
 
     fun videoStartTimestamp(videoStartTimestamp: Int) = applySelf { this.videoStartTimestamp = videoStartTimestamp }
+
+    fun messageEffectId(messageEffectId: String) = applySelf { this.messageEffectId = messageEffectId }
 
 }

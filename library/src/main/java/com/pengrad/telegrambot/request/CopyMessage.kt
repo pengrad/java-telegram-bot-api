@@ -150,6 +150,7 @@ class CopyMessage private constructor(
     var protectContent: Boolean? by optionalRequestParameter()
     var videoStartTimestamp: Int? by optionalRequestParameter()
     var allowPaidBroadcast: Boolean? by optionalRequestParameter()
+    var messageEffectId: String? by optionalRequestParameter()
 
     fun messageThreadId(messageThreadId: Long) = applySelf { this.messageThreadId = messageThreadId }
 
@@ -174,5 +175,7 @@ class CopyMessage private constructor(
     fun videoStartTimestamp(videoStartTimestamp: Int) = applySelf { this.videoStartTimestamp = videoStartTimestamp }
 
     fun allowPaidBroadcast(allowPaidBroadcast: Boolean) = applySelf { this.allowPaidBroadcast = allowPaidBroadcast }
+
+    fun messageEffectId(messageEffectId: String) = applySelf { this.messageEffectId = messageEffectId }
 
 }
