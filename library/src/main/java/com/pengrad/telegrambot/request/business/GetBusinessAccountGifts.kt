@@ -12,7 +12,10 @@ class GetBusinessAccountGifts private constructor(
     excludeSaved: Boolean?,
     excludeUnlimited: Boolean?,
     excludeLimited: Boolean?,
+    excludeLimitedUpgradable: Boolean?,
+    excludeLimitedNonUpgradable: Boolean?,
     excludeUnique: Boolean?,
+    excludeFromBlockchain: Boolean?,
     sortByPrice: Boolean?,
     offset: String?,
     limit: Int?
@@ -24,7 +27,10 @@ class GetBusinessAccountGifts private constructor(
         excludeSaved = null,
         excludeUnlimited = null,
         excludeLimited = null,
+        excludeLimitedUpgradable = null,
+        excludeLimitedNonUpgradable = null,
         excludeUnique = null,
+        excludeFromBlockchain = null,
         sortByPrice = null,
         offset = null,
         limit = null,
@@ -41,11 +47,22 @@ class GetBusinessAccountGifts private constructor(
     var excludeUnlimited: Boolean? by optionalRequestParameter(excludeUnlimited, customParameterName = "exclude_unlimited")
     fun excludeUnlimited(excludeUnlimited: Boolean) = applySelf { this.excludeUnlimited = excludeUnlimited }
 
+    @Deprecated("Use excludeLimitedUpgradable and excludeLimitedNonUpgradable instead")
     var excludeLimited: Boolean? by optionalRequestParameter(excludeLimited, customParameterName = "exclude_limited")
+    @Deprecated("Use excludeLimitedUpgradable and excludeLimitedNonUpgradable instead")
     fun excludeLimited(excludeLimited: Boolean) = applySelf { this.excludeLimited = excludeLimited }
+
+    var excludeLimitedUpgradable: Boolean? by optionalRequestParameter(excludeLimitedUpgradable, customParameterName = "exclude_limited_upgradable")
+    fun excludeLimitedUpgradable(excludeLimitedUpgradable: Boolean) = applySelf { this.excludeLimitedUpgradable = excludeLimitedUpgradable }
+
+    var excludeLimitedNonUpgradable: Boolean? by optionalRequestParameter(excludeLimitedNonUpgradable, customParameterName = "exclude_limited_non_upgradable")
+    fun excludeLimitedNonUpgradable(excludeLimitedNonUpgradable: Boolean) = applySelf { this.excludeLimitedNonUpgradable = excludeLimitedNonUpgradable }
 
     var excludeUnique: Boolean? by optionalRequestParameter(excludeUnique, customParameterName = "exclude_unique")
     fun excludeUnique(excludeUnique: Boolean) = applySelf { this.excludeUnique = excludeUnique }
+
+    var excludeFromBlockchain: Boolean? by optionalRequestParameter(excludeFromBlockchain, customParameterName = "exclude_from_blockchain")
+    fun excludeFromBlockchain(excludeFromBlockchain: Boolean) = applySelf { this.excludeFromBlockchain = excludeFromBlockchain }
 
     var sortByPrice: Boolean? by optionalRequestParameter(sortByPrice, customParameterName = "sort_by_price")
     fun sortByPrice(sortByPrice: Boolean) = applySelf { this.sortByPrice = sortByPrice }

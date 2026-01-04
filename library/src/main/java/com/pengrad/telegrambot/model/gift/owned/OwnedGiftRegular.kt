@@ -17,7 +17,9 @@ class OwnedGiftRegular private constructor(
     @get:JvmName("canBeUpgraded") var canBeUpgraded: Boolean?,
     @get:JvmName("wasRefunded") var wasRefunded: Boolean?,
     @get:JvmName("convertStarCount") var convertStarCount: Int?,
-    @get:JvmName("prepaidUpgradeStarCount") var prepaidUpgradeStarCount: Int?
+    @get:JvmName("prepaidUpgradeStarCount") var prepaidUpgradeStarCount: Int?,
+    @get:JvmName("isUpgradeSeparate") var isUpgradeSeparate: Boolean?,
+    @get:JvmName("uniqueGiftNumber") var uniqueGiftNumber: Int?
 ) : OwnedGift(type = TYPE) {
 
     companion object {
@@ -37,6 +39,8 @@ class OwnedGiftRegular private constructor(
         wasRefunded = null,
         convertStarCount = null,
         prepaidUpgradeStarCount = null,
+        isUpgradeSeparate = null,
+        uniqueGiftNumber = null,
     )
 
     fun ownedGiftId(ownedGiftId: String) = apply {
@@ -77,6 +81,14 @@ class OwnedGiftRegular private constructor(
 
     fun prepaidUpgradeStarCount(prepaidUpgradeStarCount: Int) = apply {
         this.prepaidUpgradeStarCount = prepaidUpgradeStarCount
+    }
+
+    fun isUpgradeSeparate(isUpgradeSeparate: Boolean) = apply {
+        this.isUpgradeSeparate = isUpgradeSeparate
+    }
+
+    fun uniqueGiftNumber(uniqueGiftNumber: Int) = apply {
+        this.uniqueGiftNumber = uniqueGiftNumber
     }
 
 }

@@ -136,7 +136,7 @@ class CopyMessage private constructor(
 
     val messageId: Int by requestParameter(messageId)
 
-    var messageThreadId: Int? by optionalRequestParameter()
+    var messageThreadId: Long? by optionalRequestParameter()
 
     var caption: String? by optionalRequestParameter()
     var parseMode: ParseMode? by optionalRequestParameter()
@@ -150,8 +150,9 @@ class CopyMessage private constructor(
     var protectContent: Boolean? by optionalRequestParameter()
     var videoStartTimestamp: Int? by optionalRequestParameter()
     var allowPaidBroadcast: Boolean? by optionalRequestParameter()
+    var messageEffectId: String? by optionalRequestParameter()
 
-    fun messageThreadId(messageThreadId: Int) = applySelf { this.messageThreadId = messageThreadId }
+    fun messageThreadId(messageThreadId: Long) = applySelf { this.messageThreadId = messageThreadId }
 
     fun caption(caption: String) = applySelf { this.caption = caption }
 
@@ -174,5 +175,7 @@ class CopyMessage private constructor(
     fun videoStartTimestamp(videoStartTimestamp: Int) = applySelf { this.videoStartTimestamp = videoStartTimestamp }
 
     fun allowPaidBroadcast(allowPaidBroadcast: Boolean) = applySelf { this.allowPaidBroadcast = allowPaidBroadcast }
+
+    fun messageEffectId(messageEffectId: String) = applySelf { this.messageEffectId = messageEffectId }
 
 }

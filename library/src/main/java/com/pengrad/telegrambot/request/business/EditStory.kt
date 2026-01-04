@@ -11,7 +11,7 @@ import com.pengrad.telegrambot.utility.kotlin.requestParameter
 @Suppress("unused")
 class EditStory private constructor(
     businessConnectionId: String,
-    storyId: Int,
+    storyId: Long,
     content: InputStoryContent,
     caption: String?,
     parseMode: String?,
@@ -19,7 +19,7 @@ class EditStory private constructor(
     areas: Array<StoryArea>?
 ): KBaseRequest<EditStory, EditStoryResponse>(EditStoryResponse::class) {
 
-    constructor(businessConnectionId: String, storyId: Int, content: InputStoryContent) : this(
+    constructor(businessConnectionId: String, storyId: Long, content: InputStoryContent) : this(
         businessConnectionId = businessConnectionId,
         storyId = storyId,
         content = content,
@@ -30,7 +30,7 @@ class EditStory private constructor(
     )
 
     val businessConnectionId: String by requestParameter(businessConnectionId, customParameterName = "business_connection_id")
-    val storyId: Int by requestParameter(storyId, customParameterName = "story_id")
+    val storyId: Long by requestParameter(storyId, customParameterName = "story_id")
     val content: InputStoryContent by requestParameter(content, customParameterName = "content")
 
     var caption: String? by optionalRequestParameter(caption, customParameterName = "caption")

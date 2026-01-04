@@ -23,6 +23,7 @@ public class User implements Serializable {
     private Boolean supports_inline_queries;
     private Boolean can_connect_to_business;
     private Boolean has_main_web_app;
+    private Boolean has_topics_enabled;
 
     private User() {
     }
@@ -83,12 +84,16 @@ public class User implements Serializable {
         return has_main_web_app;
     }
 
+    public Boolean hasTopicsEnabled() {
+        return has_topics_enabled;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(is_bot, user.is_bot) && Objects.equals(first_name, user.first_name) && Objects.equals(last_name, user.last_name) && Objects.equals(username, user.username) && Objects.equals(language_code, user.language_code) && Objects.equals(is_premium, user.is_premium) && Objects.equals(added_to_attachment_menu, user.added_to_attachment_menu) && Objects.equals(can_join_groups, user.can_join_groups) && Objects.equals(can_read_all_group_messages, user.can_read_all_group_messages) && Objects.equals(supports_inline_queries, user.supports_inline_queries) && Objects.equals(can_connect_to_business, user.can_connect_to_business) && Objects.equals(has_main_web_app, user.has_main_web_app);
+        return Objects.equals(id, user.id) && Objects.equals(is_bot, user.is_bot) && Objects.equals(first_name, user.first_name) && Objects.equals(last_name, user.last_name) && Objects.equals(username, user.username) && Objects.equals(language_code, user.language_code) && Objects.equals(is_premium, user.is_premium) && Objects.equals(added_to_attachment_menu, user.added_to_attachment_menu) && Objects.equals(can_join_groups, user.can_join_groups) && Objects.equals(can_read_all_group_messages, user.can_read_all_group_messages) && Objects.equals(supports_inline_queries, user.supports_inline_queries) && Objects.equals(can_connect_to_business, user.can_connect_to_business) && Objects.equals(has_main_web_app, user.has_main_web_app) && Objects.equals(has_topics_enabled, user.has_topics_enabled);
     }
 
     @Override
@@ -112,6 +117,7 @@ public class User implements Serializable {
                 ", supports_inline_queries=" + supports_inline_queries +
                 ", can_connect_to_business=" + can_connect_to_business +
                 ", has_main_web_app=" + has_main_web_app +
+                ", has_topics_enabled=" + has_topics_enabled +
                 '}';
     }
 }

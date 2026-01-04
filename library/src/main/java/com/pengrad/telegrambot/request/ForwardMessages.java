@@ -9,7 +9,7 @@ public class ForwardMessages extends BaseRequest<ForwardMessages, MessageIdsResp
         add("chat_id", chatId).add("from_chat_id", fromChatId).add("message_ids", messageIds);
     }
 
-    public ForwardMessages messageThreadId(Integer messageThreadId) {
+    public ForwardMessages messageThreadId(Long messageThreadId) {
         return add("message_thread_id", messageThreadId);
     }
     public ForwardMessages disableNotification(boolean disableNotification) {

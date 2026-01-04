@@ -31,7 +31,7 @@ import java.util.Objects;
 public class Message extends MaybeInaccessibleMessage implements Serializable {
     private final static long serialVersionUID = 0L;
 
-    private Integer message_thread_id;
+    private Long message_thread_id;
     private DirectMessagesTopic direct_messages_topic;
     private User from;
     private Chat sender_chat;
@@ -122,6 +122,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private WebAppData web_app_data;
     private GiftInfo gift;
     private UniqueGiftInfo unique_gift;
+    private GiftInfo gift_upgrade_sent;
     private PaidMessagePriceChanged paid_message_price_changed;
     private SuggestedPostApproved suggested_post_approved;
     private SuggestedPostApprovalFailed suggested_post_approval_failed;
@@ -131,7 +132,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private DirectMessagePriceChanged direct_message_price_changed;
     private Integer paid_star_count;
 
-    public Integer messageThreadId() {
+    public Long messageThreadId() {
         return message_thread_id;
     }
 
@@ -496,6 +497,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return unique_gift;
     }
 
+    public GiftInfo giftUpgradeSent() {
+        return gift_upgrade_sent;
+    }
+
     public PaidMessagePriceChanged paidMessagePriceChanged() {
         return paid_message_price_changed;
     }
@@ -648,6 +653,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(web_app_data, message.web_app_data) &&
                 Objects.equals(gift, message.gift) &&
                 Objects.equals(unique_gift, message.unique_gift) &&
+                Objects.equals(gift_upgrade_sent, message.gift_upgrade_sent) &&
                 Objects.equals(paid_message_price_changed, message.paid_message_price_changed) &&
                 Objects.equals(suggested_post_approved, message.suggested_post_approved) &&
                 Objects.equals(suggested_post_approval_failed, message.suggested_post_approval_failed) &&
@@ -760,6 +766,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", web_app_data=" + web_app_data +
                 ", gift=" + gift +
                 ", unique_gift=" + unique_gift +
+                ", gift_upgrade_sent=" + gift_upgrade_sent +
                 ", paid_message_price_changed=" + paid_message_price_changed +
                 ", suggested_post_approved=" + suggested_post_approved +
                 ", suggested_post_approval_failed=" + suggested_post_approval_failed +

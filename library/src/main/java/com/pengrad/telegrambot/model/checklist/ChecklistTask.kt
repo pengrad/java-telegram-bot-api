@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model.checklist
 
+import com.pengrad.telegrambot.model.Chat
 import com.pengrad.telegrambot.model.MessageEntity
 import com.pengrad.telegrambot.model.User
 
@@ -9,6 +10,7 @@ data class ChecklistTask(
     @get:JvmName("text") val text: String,
     @get:JvmName("textEntities") val textEntities: Array<MessageEntity>?,
     @get:JvmName("completedByUser") val completedByUser: User?,
+    @get:JvmName("completedByChat") val completedByChat: Chat? = null,
     @get:JvmName("completionDate") val completionDate: Int?
 
 ) {
@@ -21,6 +23,7 @@ data class ChecklistTask(
                 text == other.text &&
                 textEntities contentEquals other.textEntities &&
                 completedByUser == other.completedByUser &&
+                completedByChat == other.completedByChat &&
                 completionDate == other.completionDate
     }
 
@@ -29,6 +32,7 @@ data class ChecklistTask(
         result = 31 * result + (text?.hashCode() ?: 0)
         result = 31 * result + (textEntities?.contentHashCode() ?: 0)
         result = 31 * result + (completedByUser?.hashCode() ?: 0)
+        result = 31 * result + (completedByChat?.hashCode() ?: 0)
         result = 31 * result + (completionDate?.hashCode() ?: 0)
         return result
     }

@@ -7,10 +7,10 @@ import com.pengrad.telegrambot.utility.kotlin.requestParameter
 @Suppress("unused")
 class DeleteStory(
     businessConnectionId: String,
-    storyId: Int
+    storyId: Long
 ): KBaseRequest<DeleteStory, BaseResponse>(BaseResponse::class) {
 
     val businessConnectionId: String by requestParameter(businessConnectionId, customParameterName = "business_connection_id")
-    val storyId: Int by requestParameter(storyId, customParameterName = "story_id")
+    val storyId: Long by requestParameter(storyId, customParameterName = "story_id")
 
 }
