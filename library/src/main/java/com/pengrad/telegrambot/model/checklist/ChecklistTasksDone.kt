@@ -21,8 +21,8 @@ data class ChecklistTasksDone (
 
     override fun hashCode(): Int {
         var result = checklistMessage.hashCode()
-        result = 31 * result + (markedAsDoneTaskIds?.hashCode() ?: 0)
-        result = 31 * result + (markedAsNotDoneTaskIds?.hashCode() ?: 0)
+        result = 31 * result + (markedAsDoneTaskIds.contentHashCode())
+        result = 31 * result + (markedAsNotDoneTaskIds.contentHashCode())
         return result
     }
 

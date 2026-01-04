@@ -74,7 +74,6 @@ public class ChatFullInfo implements Serializable {
     private String custom_emoji_sticker_set_name;
     private Long linked_chat_id;
     private ChatLocation location;
-    private Boolean can_send_gift;
     private AcceptedGiftTypes accepted_gift_types;
     private UserRating rating;
     private Integer paid_message_star_count;
@@ -261,15 +260,6 @@ public class ChatFullInfo implements Serializable {
 
     public ChatLocation location() {
         return location;
-    }
-
-    /**
-     *
-     * @deprecated Use 'acceptedGiftTypes' instead
-     */
-    @Deprecated
-    public Boolean canSendGift() {
-        return can_send_gift;
     }
 
     public AcceptedGiftTypes acceptedGiftTypes() {

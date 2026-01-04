@@ -11,7 +11,6 @@ public class BusinessConnection {
     private Long user_chat_id;
     private Integer date;
     private BusinessBotRights rights;
-    private Boolean can_reply;
     private Boolean is_enabled;
 
     public String id() {
@@ -28,14 +27,6 @@ public class BusinessConnection {
 
     public Integer date() {
         return date;
-    }
-
-    /**
-     * @deprecated Use the 'rights' field instead.
-     */
-    @Deprecated
-    public Boolean canReply() {
-        return can_reply;
     }
 
     public BusinessBotRights rights() {

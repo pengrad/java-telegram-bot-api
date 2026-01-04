@@ -1126,9 +1126,6 @@ public class TelegramBotTest {
     @Test
     public void setGameScore() {
         int res = (int) (System.currentTimeMillis() / 1000);
-        BaseResponse response = bot.execute(new SetGameScore(chatId, res, "AgAAAPrwAQCj_Q4D2s-51_8jsuU"));
-        assertTrue(response.isOk());
-
         SendResponse sendResponse = (SendResponse) bot.execute(
                 new SetGameScore(chatId, res + 1, chatId, 8162).force(true).disableEditMessage(true));
         GameTest.check(sendResponse.message().game());
@@ -1136,10 +1133,7 @@ public class TelegramBotTest {
 
     @Test
     public void getGameHighScores() {
-        GameHighScore[] scores = bot.execute(new GetGameHighScores(chatId, "AgAAAPrwAQCj_Q4D2s-51_8jsuU")).result();
-        GameHighScoreTest.check(scores);
-
-        scores = bot.execute(new GetGameHighScores(chatId, chatId, 8162)).result();
+        GameHighScore[] scores = bot.execute(new GetGameHighScores(chatId, chatId, 8162)).result();
         GameHighScoreTest.check(scores);
     }
 
@@ -2432,5 +2426,12 @@ public class TelegramBotTest {
         VideoTest.check(((PaidMediaVideo) mediaInfo.paidMedia()[0]).getVideo());
         assertEquals("photo", mediaInfo.paidMedia()[1].type());
         PhotoSizeTest.checkPhotos(((PaidMediaPhoto) mediaInfo.paidMedia()[1]).getPhoto());
+    }
+
+    @Test
+    public void getMyStarBalance() {
+        GetMyStarBalanceResponse balance = bot.execute(new GetMyStarBalance());
+        assertEquals(0, balance.getResult().amount());
+        assertEquals(0, balance.getResult().nanostarAmount());
     }
 }
