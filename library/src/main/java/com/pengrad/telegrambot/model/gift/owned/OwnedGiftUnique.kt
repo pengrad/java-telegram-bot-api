@@ -1,16 +1,16 @@
 package com.pengrad.telegrambot.model.gift.owned
 
 import com.pengrad.telegrambot.model.User
-import com.pengrad.telegrambot.model.gift.Gift
+import com.pengrad.telegrambot.model.gift.unique.UniqueGift
 
 class OwnedGiftUnique(
-    @get:JvmName("gift") val gift: Gift,
+    @get:JvmName("gift") val gift: UniqueGift,
     @get:JvmName("ownedGiftId") var ownedGiftId: String?,
     @get:JvmName("senderUser") var senderUser: User?,
     @get:JvmName("sendDate") var sendDate: Long,
     @get:JvmName("isSaved") var isSaved: Boolean?,
     @get:JvmName("canBeTransferred") var canBeTransferred: Boolean?,
-    @get:JvmName("transferStarCount") var prepaidUpgradeStarCount: Int?,
+    @get:JvmName("transferStarCount") var transferStarCount: Int?,
     @get:JvmName("nextTransferDate") var nextTransferDate: Long?
 ) : OwnedGift(type = TYPE) {
 
@@ -19,7 +19,7 @@ class OwnedGiftUnique(
     }
 
     override fun toString(): String {
-        return "OwnedGiftUnique(gift=$gift, ownedGiftId=$ownedGiftId, senderUser=$senderUser, sendDate=$sendDate, isSaved=$isSaved, canBeTransferred=$canBeTransferred, prepaidUpgradeStarCount=$prepaidUpgradeStarCount, nextTransferDate=$nextTransferDate)"
+        return "OwnedGiftUnique(gift=$gift, ownedGiftId=$ownedGiftId, senderUser=$senderUser, sendDate=$sendDate, isSaved=$isSaved, canBeTransferred=$canBeTransferred, transferStarCount=$transferStarCount, nextTransferDate=$nextTransferDate)"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -35,7 +35,7 @@ class OwnedGiftUnique(
         if (sendDate != other.sendDate) return false
         if (isSaved != other.isSaved) return false
         if (canBeTransferred != other.canBeTransferred) return false
-        if (prepaidUpgradeStarCount != other.prepaidUpgradeStarCount) return false
+        if (transferStarCount != other.transferStarCount) return false
         if (nextTransferDate != other.nextTransferDate) return false
 
         return true
@@ -49,7 +49,7 @@ class OwnedGiftUnique(
         result = 31 * result + sendDate.hashCode()
         result = 31 * result + (isSaved?.hashCode() ?: 0)
         result = 31 * result + (canBeTransferred?.hashCode() ?: 0)
-        result = 31 * result + (prepaidUpgradeStarCount ?: 0)
+        result = 31 * result + (transferStarCount ?: 0)
         result = 31 * result + (nextTransferDate?.hashCode() ?: 0)
         return result
     }

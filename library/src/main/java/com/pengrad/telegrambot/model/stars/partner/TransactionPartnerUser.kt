@@ -9,7 +9,7 @@ import com.pengrad.telegrambot.model.stars.partner.TransactionPartnerType.USER
 data class TransactionPartnerUser(
     @get:JvmName("transactionType") val transactionType: String,
     @get:JvmName("user") val user: User,
-    @get:JvmName("affiliate") val affiliate: AffiliateInfo,
+    @get:JvmName("affiliate") val affiliate: AffiliateInfo? = null,
     @get:JvmName("invoicePayload") val invoicePayload: String? = null,
     @get:JvmName("paidMedia") val paidMedia: Array<PaidMedia>? = null,
     @get:JvmName("paidMediaPayload") val paidMediaPayload: String? = null,
@@ -48,7 +48,7 @@ data class TransactionPartnerUser(
         var result = subscriptionPeriod ?: 0
         result = 31 * result + transactionType.hashCode()
         result = 31 * result + user.hashCode()
-        result = 31 * result + affiliate.hashCode()
+        result = 31 * result + (affiliate?.hashCode() ?: 0)
         result = 31 * result + (invoicePayload?.hashCode() ?: 0)
         result = 31 * result + (paidMedia?.contentHashCode() ?: 0)
         result = 31 * result + (paidMediaPayload?.hashCode() ?: 0)
