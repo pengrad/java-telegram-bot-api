@@ -27,6 +27,7 @@ public class ChatAdministratorRights implements Serializable {
     private Boolean can_delete_stories;
     private Boolean can_manage_topics;
     private Boolean can_manage_direct_messages;
+    private Boolean can_manage_tags;
 
     public Boolean isAnonymous() {
         return is_anonymous != null && is_anonymous;
@@ -90,6 +91,10 @@ public class ChatAdministratorRights implements Serializable {
 
     public Boolean canManageDirectMessages() {
         return can_manage_direct_messages != null && can_manage_direct_messages;
+    }
+
+    public Boolean canManageTags() {
+        return can_manage_tags != null && can_manage_tags;
     }
 
     public ChatAdministratorRights canManageChat(boolean canManageChat) {
@@ -167,6 +172,11 @@ public class ChatAdministratorRights implements Serializable {
         return this;
     }
 
+    public ChatAdministratorRights canManageTags(boolean canManageTags) {
+        this.can_manage_tags = canManageTags;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -188,7 +198,8 @@ public class ChatAdministratorRights implements Serializable {
                 Objects.equals(can_edit_stories, that.can_edit_stories) &&
                 Objects.equals(can_delete_stories, that.can_delete_stories) &&
                 Objects.equals(can_manage_topics, that.can_manage_topics) &&
-                Objects.equals(can_manage_direct_messages, that.can_manage_direct_messages);
+                Objects.equals(can_manage_direct_messages, that.can_manage_direct_messages) &&
+                Objects.equals(can_manage_tags, that.can_manage_tags);
     }
 
     @Override
@@ -208,7 +219,8 @@ public class ChatAdministratorRights implements Serializable {
                 can_edit_stories,
                 can_delete_stories,
                 can_manage_topics,
-                can_manage_direct_messages);
+                can_manage_direct_messages,
+                can_manage_tags);
     }
 
     @Override
@@ -230,6 +242,7 @@ public class ChatAdministratorRights implements Serializable {
                 ", can_delete_stories=" + can_delete_stories +
                 ", can_manage_topics=" + can_manage_topics +
                 ", can_manage_direct_messages=" + can_manage_direct_messages +
+                ", can_manage_tags=" + can_manage_tags +
                 '}';
     }
 

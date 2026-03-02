@@ -37,6 +37,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private DirectMessagesTopic direct_messages_topic;
     private User from;
     private Chat sender_chat;
+    private String sender_tag;
     private Integer sender_boost_count;
     private User sender_business_bot;
     private String business_connection_id;
@@ -150,6 +151,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public Chat senderChat() {
         return sender_chat;
+    }
+
+    public String senderTag() {
+        return sender_tag;
     }
 
     public Integer senderBoostCount() {
@@ -576,6 +581,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(direct_messages_topic, message.direct_messages_topic) &&
                 Objects.equals(from, message.from) &&
                 Objects.equals(sender_chat, message.sender_chat) &&
+                Objects.equals(sender_tag, message.sender_tag) &&
                 Objects.equals(sender_boost_count, message.sender_boost_count) &&
                 Objects.equals(date, message.date) &&
                 Objects.equals(sender_business_bot, message.sender_business_bot) &&
@@ -691,6 +697,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", direct_messages_topic=" + direct_messages_topic +
                 ", from=" + from +
                 ", sender_chat=" + sender_chat +
+                ", sender_tag='" + sender_tag + '\'' +
                 ", sender_boost_count=" + sender_boost_count +
                 ", date=" + date +
                 ", sender_business_bot=" + sender_business_bot +

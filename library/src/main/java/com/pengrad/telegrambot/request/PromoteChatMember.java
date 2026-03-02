@@ -76,4 +76,8 @@ public class PromoteChatMember extends BaseRequest<PromoteChatMember, BaseRespon
     public PromoteChatMember canPromoteMembers(boolean canPromoteMembers) {
         return add("can_promote_members", canPromoteMembers);
     }
+
+    public PromoteChatMember canManageTags(boolean canManageTags) {
+        return add("can_manage_tags", canManageTags);
+    }
 }

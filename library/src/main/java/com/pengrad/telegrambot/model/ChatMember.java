@@ -36,6 +36,9 @@ public class ChatMember implements Serializable {
     private Boolean can_delete_stories;
     private Boolean can_manage_topics;
     private Boolean can_manage_direct_messages;
+    private Boolean can_manage_tags;
+    private Boolean can_edit_tag;
+    private String tag;
     private Boolean is_member;
     private Boolean can_send_messages;
 
@@ -134,6 +137,18 @@ public class ChatMember implements Serializable {
         return can_manage_direct_messages != null && can_manage_direct_messages;
     }
 
+    public Boolean canManageTags() {
+        return can_manage_tags != null && can_manage_tags;
+    }
+
+    public Boolean canEditTag() {
+        return can_edit_tag != null && can_edit_tag;
+    }
+
+    public String tag() {
+        return tag;
+    }
+
     public Boolean isMember() {
         return is_member != null && is_member;
     }
@@ -204,6 +219,9 @@ public class ChatMember implements Serializable {
                 Objects.equals(can_delete_stories, that.can_delete_stories) &&
                 Objects.equals(can_manage_topics, that.can_manage_topics) &&
                 Objects.equals(can_manage_direct_messages, that.can_manage_direct_messages) &&
+                Objects.equals(can_manage_tags, that.can_manage_tags) &&
+                Objects.equals(can_edit_tag, that.can_edit_tag) &&
+                Objects.equals(tag, that.tag) &&
                 Objects.equals(is_member, that.is_member) &&
                 Objects.equals(can_send_messages, that.can_send_messages) &&
                 Objects.equals(can_send_audios, that.can_send_audios) &&
@@ -240,6 +258,9 @@ public class ChatMember implements Serializable {
                 can_delete_stories,
                 can_manage_topics,
                 can_manage_direct_messages,
+                can_manage_tags,
+                can_edit_tag,
+                tag,
                 is_member,
                 can_send_messages,
                 can_send_audios,
@@ -277,6 +298,9 @@ public class ChatMember implements Serializable {
                 ", can_delete_stories=" + can_delete_stories +
                 ", can_manage_topics=" + can_manage_topics +
                 ", can_manage_direct_messages=" + can_manage_direct_messages +
+                ", can_manage_tags=" + can_manage_tags +
+                ", can_edit_tag=" + can_edit_tag +
+                ", tag='" + tag + '\'' +
                 ", is_member=" + is_member +
                 ", can_send_messages=" + can_send_messages +
                 ", can_send_audios=" + can_send_audios +

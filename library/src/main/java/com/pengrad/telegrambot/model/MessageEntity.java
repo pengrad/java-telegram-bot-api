@@ -12,7 +12,7 @@ public class MessageEntity implements Serializable {
 
     public enum Type {
         mention, hashtag, cashtag, bot_command, url, email, phone_number, bold, italic, code, pre, text_link,
-        text_mention, underline, strikethrough, spoiler, custom_emoji, blockquote, expandable_blockquote
+        text_mention, underline, strikethrough, spoiler, custom_emoji, blockquote, expandable_blockquote, date_time
     }
 
     private Type type;
@@ -22,6 +22,8 @@ public class MessageEntity implements Serializable {
     private User user;
     private String language;
     private String custom_emoji_id;
+    private Integer unix_time;
+    private String date_time_format;
 
     private MessageEntity() {
     }
@@ -60,6 +62,14 @@ public class MessageEntity implements Serializable {
         return custom_emoji_id;
     }
 
+    public Integer unixTime() {
+        return unix_time;
+    }
+
+    public String dateTimeFormat() {
+        return date_time_format;
+    }
+
     public MessageEntity url(String url) {
         this.url = url;
         return this;
@@ -80,6 +90,16 @@ public class MessageEntity implements Serializable {
         return this;
     }
 
+    public MessageEntity unixTime(Integer unix_time) {
+        this.unix_time = unix_time;
+        return this;
+    }
+
+    public MessageEntity dateTimeFormat(String date_time_format) {
+        this.date_time_format = date_time_format;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,12 +111,14 @@ public class MessageEntity implements Serializable {
                 Objects.equals(url, that.url) &&
                 Objects.equals(user, that.user) &&
                 Objects.equals(language, that.language) &&
-                Objects.equals(custom_emoji_id, that.custom_emoji_id);
+                Objects.equals(custom_emoji_id, that.custom_emoji_id) &&
+                Objects.equals(unix_time, that.unix_time) &&
+                Objects.equals(date_time_format, that.date_time_format);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, offset, length, url, user, language, custom_emoji_id);
+        return Objects.hash(type, offset, length, url, user, language, custom_emoji_id, unix_time, date_time_format);
     }
 
     @Override
@@ -109,6 +131,8 @@ public class MessageEntity implements Serializable {
                 ", user=" + user +
                 ", language='" + language + '\'' +
                 ", custom_emoji_id='" + custom_emoji_id + '\'' +
+                ", unix_time=" + unix_time +
+                ", date_time_format='" + date_time_format + '\'' +
                 '}';
     }
 }
