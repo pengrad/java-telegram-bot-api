@@ -22,25 +22,16 @@ class SendRichMessageDraft(
 
     fun messageThreadId(messageThreadId: Long) = applySelf { this.messageThreadId = messageThreadId }
 
-    private var attachmentsCollected = false
-    private var multipart = false
+    private val attachmentNames = mutableSetOf<String>()
 
     /**
      * Drafts cannot upload new files, but a rich message may still reference already attached
      * thumbnails, so the same collection runs here to keep the payload consistent.
      */
-    private fun collectAttachments() {
-        if (attachmentsCollected) return
-        attachmentsCollected = true
-        val attachments = RichMessageAttachments.collect(richMessage)
-        attachments.forEach { (name, file) -> addParameter(name, file) }
-        multipart = attachments.isNotEmpty()
-    }
+    private fun collectAttachments() =
+        RichMessageAttachments.refresh(richMessage, super.getParameters(), attachmentNames)
 
-    override fun isMultipart(): Boolean {
-        collectAttachments()
-        return multipart
-    }
+    override fun isMultipart(): Boolean = collectAttachments()
 
     override fun getParameters(): MutableMap<String, Any> {
         collectAttachments()

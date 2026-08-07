@@ -10,6 +10,28 @@ import com.pengrad.telegrambot.model.request.richmessages.inputrichblock.*
  */
 object RichMessageAttachments {
 
+    /**
+     * Refreshes the attachment parameters of a request, dropping the ones left over from a
+     * previous scan, and returns whether the request has to be sent as multipart. Rescanning on
+     * every call keeps a request correct when its rich message is mutated after being built, or
+     * when the same request is sent more than once.
+     *
+     * [collectedNames] is the request's own bookkeeping of what the previous scan added.
+     */
+    @JvmStatic
+    fun refresh(
+        richMessage: InputRichMessage?,
+        parameters: MutableMap<String, Any>,
+        collectedNames: MutableSet<String>
+    ): Boolean {
+        val attachments = collect(richMessage)
+        collectedNames.forEach { if (!attachments.containsKey(it)) parameters.remove(it) }
+        collectedNames.clear()
+        parameters.putAll(attachments)
+        collectedNames.addAll(attachments.keys)
+        return attachments.isNotEmpty()
+    }
+
     @JvmStatic
     fun collect(richMessage: InputRichMessage?): Map<String, Any> {
         if (richMessage == null) return emptyMap()

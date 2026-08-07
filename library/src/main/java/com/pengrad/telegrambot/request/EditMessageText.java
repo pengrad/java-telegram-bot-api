@@ -9,7 +9,9 @@ import com.pengrad.telegrambot.response.BaseResponse;
 import com.pengrad.telegrambot.response.SendResponse;
 import com.pengrad.telegrambot.utility.richmessages.RichMessageAttachments;
 
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Stas Parshin
@@ -18,8 +20,7 @@ import java.util.Map;
 public class EditMessageText extends BaseRequest<EditMessageText, BaseResponse> {
 
     private InputRichMessage richMessage;
-    private boolean attachmentsCollected = false;
-    private boolean isMultipart = false;
+    private final Set<String> attachmentNames = new LinkedHashSet<>();
 
     public EditMessageText(Object chatId, int messageId, String text) {
         super(SendResponse.class);
@@ -72,18 +73,13 @@ public class EditMessageText extends BaseRequest<EditMessageText, BaseResponse> 
      * Collected on send rather than on construction, so that a rich message populated after
      * the request was built is still uploaded.
      */
-    private void collectAttachments() {
-        if (attachmentsCollected) return;
-        attachmentsCollected = true;
-        Map<String, Object> attachments = RichMessageAttachments.collect(richMessage);
-        addAll(attachments);
-        isMultipart = !attachments.isEmpty();
+    private boolean collectAttachments() {
+        return RichMessageAttachments.refresh(richMessage, super.getParameters(), attachmentNames);
     }
 
     @Override
     public boolean isMultipart() {
-        collectAttachments();
-        return isMultipart;
+        return collectAttachments();
     }
 
     @Override

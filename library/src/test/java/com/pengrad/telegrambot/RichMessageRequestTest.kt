@@ -179,6 +179,35 @@ class RichMessageRequestTest {
     }
 
     @Test
+    fun `uploads are collected even after the request was already inspected`() {
+        val photo = InputMediaPhoto(byteArrayOf(1, 2, 3))
+        val richMessage = InputRichMessage()
+        val request = SendRichMessage(1L, richMessage)
+
+        assertFalse(request.isMultipart)
+        richMessage.blocks(InputRichBlockPhoto(photo))
+
+        assertTrue(request.isMultipart)
+        assertTrue(request.parameters.containsKey(photo.inputFileId))
+    }
+
+    @Test
+    fun `parts of a replaced block are dropped`() {
+        val first = InputMediaPhoto(byteArrayOf(1, 2, 3))
+        val second = InputMediaPhoto(byteArrayOf(4, 5, 6))
+        val richMessage = InputRichMessage().blocks(InputRichBlockPhoto(first))
+        val request = SendRichMessage(1L, richMessage)
+
+        assertTrue(request.parameters.containsKey(first.inputFileId))
+
+        richMessage.blocks(InputRichBlockPhoto(second))
+
+        assertTrue(request.isMultipart)
+        assertTrue(request.parameters.containsKey(second.inputFileId))
+        assertFalse(request.parameters.containsKey(first.inputFileId))
+    }
+
+    @Test
     fun `drafts collect uploads too`() {
         val photo = InputMediaPhoto(byteArrayOf(1, 2, 3))
         val request = SendRichMessageDraft(1L, 7, InputRichMessage().blocks(InputRichBlockPhoto(photo)))

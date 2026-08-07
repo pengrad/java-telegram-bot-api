@@ -39,25 +39,16 @@ class SendRichMessage private constructor(
 
     val richMessage: InputRichMessage by requestParameter(richMessage)
 
-    private var attachmentsCollected = false
-    private var multipart = false
+    private val attachmentNames = mutableSetOf<String>()
 
     /**
      * Attachments are collected on send rather than on construction, so that a rich message
      * populated after the request was built is still uploaded.
      */
-    private fun collectAttachments() {
-        if (attachmentsCollected) return
-        attachmentsCollected = true
-        val attachments = RichMessageAttachments.collect(richMessage)
-        attachments.forEach { (name, file) -> addParameter(name, file) }
-        multipart = attachments.isNotEmpty()
-    }
+    private fun collectAttachments() =
+        RichMessageAttachments.refresh(richMessage, super.getParameters(), attachmentNames)
 
-    override fun isMultipart(): Boolean {
-        collectAttachments()
-        return multipart
-    }
+    override fun isMultipart(): Boolean = collectAttachments()
 
     override fun getParameters(): MutableMap<String, Any> {
         collectAttachments()
