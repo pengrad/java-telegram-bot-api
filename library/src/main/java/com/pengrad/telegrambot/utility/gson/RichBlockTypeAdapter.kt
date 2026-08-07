@@ -4,10 +4,12 @@ import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonParseException
+import com.google.gson.JsonSerializationContext
+import com.google.gson.JsonSerializer
 import com.pengrad.telegrambot.model.richmessages.richblock.*
 import java.lang.reflect.Type
 
-object RichBlockTypeAdapter : JsonDeserializer<RichBlock> {
+object RichBlockTypeAdapter : JsonDeserializer<RichBlock>, JsonSerializer<RichBlock> {
 
     private val typeMapping = mapOf(
         RichBlockType.PARAGRAPH to RichBlockParagraph::class,
@@ -41,4 +43,13 @@ object RichBlockTypeAdapter : JsonDeserializer<RichBlock> {
             context.deserialize(obj, it.java)
         } ?: RichBlockUnknown(discriminator)
     }
+
+    /**
+     * The discriminator is a computed property, so Gson leaves it out of the reflective
+     * output and it has to be added back explicitly.
+     */
+    override fun serialize(src: RichBlock, typeOfSrc: Type, context: JsonSerializationContext): JsonElement =
+        context.serialize(src, src.javaClass).asJsonObject.apply {
+            addProperty("type", src.type)
+        }
 }

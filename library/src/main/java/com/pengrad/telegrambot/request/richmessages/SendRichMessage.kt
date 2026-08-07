@@ -4,6 +4,7 @@ import com.pengrad.telegrambot.model.request.richmessages.InputRichMessage
 import com.pengrad.telegrambot.request.AbstractSendRequest
 import com.pengrad.telegrambot.utility.kotlin.checkDeprecatedConstructorParameters
 import com.pengrad.telegrambot.utility.kotlin.requestParameter
+import com.pengrad.telegrambot.utility.richmessages.RichMessageAttachments
 
 @Suppress("unused")
 class SendRichMessage private constructor(
@@ -37,4 +38,20 @@ class SendRichMessage private constructor(
     }
 
     val richMessage: InputRichMessage by requestParameter(richMessage)
+
+    private val attachmentNames = mutableSetOf<String>()
+
+    /**
+     * Attachments are collected on send rather than on construction, so that a rich message
+     * populated after the request was built is still uploaded.
+     */
+    private fun collectAttachments() =
+        RichMessageAttachments.refresh(richMessage, super.getParameters(), attachmentNames)
+
+    override fun isMultipart(): Boolean = collectAttachments()
+
+    override fun getParameters(): MutableMap<String, Any> {
+        collectAttachments()
+        return super.getParameters()
+    }
 }

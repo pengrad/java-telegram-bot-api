@@ -6,6 +6,12 @@ import com.pengrad.telegrambot.model.chatbackground.BackgroundTypeWallpaper
 import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup
+import com.pengrad.telegrambot.model.request.InputMedia
+import com.pengrad.telegrambot.model.request.InputMediaAnimation
+import com.pengrad.telegrambot.model.request.InputMediaAudio
+import com.pengrad.telegrambot.model.request.InputMediaPhoto
+import com.pengrad.telegrambot.model.request.InputMediaVideo
+import com.pengrad.telegrambot.model.request.InputMediaVoiceNote
 import com.pengrad.telegrambot.model.request.ParseMode
 import com.pengrad.telegrambot.passport.Credentials
 import com.pengrad.telegrambot.passport.decrypt.Decrypt
@@ -84,6 +90,14 @@ class ModelTest {
             prefabs.forEach {
                 verifierApi.withPrefabValues(it.javaClass, it.javaClass.getDeclaredConstructor().newInstance(), it)
             }
+
+            // InputMedia holds a final self-typed field that EqualsVerifier cannot instantiate
+            verifierApi.withPrefabValues(InputMedia::class.java, InputMediaPhoto("red"), InputMediaPhoto("black"))
+            verifierApi.withPrefabValues(InputMediaAnimation::class.java, InputMediaAnimation("red"), InputMediaAnimation("black"))
+            verifierApi.withPrefabValues(InputMediaAudio::class.java, InputMediaAudio("red"), InputMediaAudio("black"))
+            verifierApi.withPrefabValues(InputMediaPhoto::class.java, InputMediaPhoto("red"), InputMediaPhoto("black"))
+            verifierApi.withPrefabValues(InputMediaVideo::class.java, InputMediaVideo("red"), InputMediaVideo("black"))
+            verifierApi.withPrefabValues(InputMediaVoiceNote::class.java, InputMediaVoiceNote("red"), InputMediaVoiceNote("black"))
 
             if (c == Message::class.java) {
                 verifierApi.withIgnoredFields("video_chat_started")
