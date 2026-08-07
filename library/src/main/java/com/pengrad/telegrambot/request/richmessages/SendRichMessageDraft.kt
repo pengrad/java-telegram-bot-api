@@ -22,19 +22,16 @@ class SendRichMessageDraft(
 
     fun messageThreadId(messageThreadId: Long) = applySelf { this.messageThreadId = messageThreadId }
 
-    private val attachmentNames = mutableSetOf<String>()
-
     /**
-     * Drafts cannot upload new files, but a rich message may still reference already attached
-     * thumbnails, so the same collection runs here to keep the payload consistent.
+     * The draft endpoint cannot upload new files, so the request is never multipart. Media that
+     * would need an upload — anything built from a [java.io.File] or a byte array, including
+     * thumbnails and covers — is rejected here instead of being sent as an `attach://` reference
+     * that Telegram would reject.
      */
-    private fun collectAttachments() =
-        RichMessageAttachments.refresh(richMessage, super.getParameters(), attachmentNames)
-
-    override fun isMultipart(): Boolean = collectAttachments()
-
-    override fun getParameters(): MutableMap<String, Any> {
-        collectAttachments()
-        return super.getParameters()
+    override fun isMultipart(): Boolean {
+        require(RichMessageAttachments.collect(richMessage).isEmpty()) {
+            "sendRichMessageDraft cannot upload new files; reference media by file_id or URL"
+        }
+        return false
     }
 }

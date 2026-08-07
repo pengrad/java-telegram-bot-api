@@ -208,14 +208,24 @@ class RichMessageRequestTest {
     }
 
     @Test
-    fun `drafts collect uploads too`() {
-        val photo = InputMediaPhoto(byteArrayOf(1, 2, 3))
-        val request = SendRichMessageDraft(1L, 7, InputRichMessage().blocks(InputRichBlockPhoto(photo)))
+    fun `drafts referencing existing files are plain requests`() {
+        val request = SendRichMessageDraft(
+            1L,
+            7,
+            InputRichMessage().blocks(InputRichBlockPhoto(InputMediaPhoto("file_id")))
+        )
 
         assertEquals(1L, request.parameters["chat_id"])
         assertEquals(7, request.parameters["draft_id"])
-        assertTrue(request.isMultipart)
-        assertTrue(request.parameters.containsKey(photo.inputFileId))
+        assertFalse(request.isMultipart)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun `drafts reject uploads because the endpoint cannot accept them`() {
+        val photo = InputMediaPhoto(byteArrayOf(1, 2, 3))
+        val request = SendRichMessageDraft(1L, 7, InputRichMessage().blocks(InputRichBlockPhoto(photo)))
+
+        request.isMultipart
     }
 
     @Test
