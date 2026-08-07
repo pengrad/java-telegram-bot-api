@@ -1,13 +1,17 @@
 package com.pengrad.telegrambot.utility.gson
 
+import com.google.gson.JsonArray
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonParseException
+import com.google.gson.JsonPrimitive
+import com.google.gson.JsonSerializationContext
+import com.google.gson.JsonSerializer
 import com.pengrad.telegrambot.model.richmessages.richtext.*
 import java.lang.reflect.Type
 
-object RichTextTypeAdapter : JsonDeserializer<RichText> {
+object RichTextTypeAdapter : JsonDeserializer<RichText>, JsonSerializer<RichText> {
 
     private val typeMapping = mapOf(
         RichTextType.BOLD to RichTextBold::class,
@@ -57,4 +61,20 @@ object RichTextTypeAdapter : JsonDeserializer<RichText> {
             else -> RichTextUnknown(RichTextType.UNKNOWN)
         }
     }
+
+    /**
+     * Mirrors [deserialize]: plain text is a bare string, an array is a JSON array, and every
+     * other node is an object whose computed `type` property has to be added back explicitly,
+     * since Gson only serializes fields.
+     */
+    override fun serialize(src: RichText, typeOfSrc: Type, context: JsonSerializationContext): JsonElement =
+        when (src) {
+            is RichTextPlain -> JsonPrimitive(src.text)
+            is RichTextArray -> JsonArray().apply {
+                src.elements.forEach { add(context.serialize(it, RichText::class.java)) }
+            }
+            else -> context.serialize(src, src.javaClass).asJsonObject.apply {
+                addProperty("type", src.type)
+            }
+        }
 }
