@@ -237,6 +237,24 @@ class RichMessageRequestTest {
         assertTrue(request.parameters.containsKey(photo.inputFileId))
     }
 
+    @Test(expected = IllegalArgumentException::class)
+    fun `editing an inline message rejects uploads because the endpoint cannot accept them`() {
+        val photo = InputMediaPhoto(byteArrayOf(1, 2, 3))
+        val request = EditMessageText("inline_id", InputRichMessage().blocks(InputRichBlockPhoto(photo)))
+
+        request.isMultipart
+    }
+
+    @Test
+    fun `editing an inline message with existing files is a plain request`() {
+        val request = EditMessageText(
+            "inline_id",
+            InputRichMessage().blocks(InputRichBlockPhoto(InputMediaPhoto("file_id")))
+        )
+
+        assertFalse(request.isMultipart)
+    }
+
     @Test
     fun `editMessageText without a rich message stays a plain request`() {
         val request = EditMessageText(1L, 2, "text")
