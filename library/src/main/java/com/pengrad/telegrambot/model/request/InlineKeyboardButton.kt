@@ -19,7 +19,8 @@ data class InlineKeyboardButton @JvmOverloads constructor(
     @get:JvmName("webApp") var webApp: WebAppInfo? = null,
     @get:JvmName("copyText") var copyText: CopyTextButton? = null,
     @get:JvmName("iconCustomEmojiId") var iconCustomEmojiId: String? = null,
-    @get:JvmName("style") var style: String? = null
+    @get:JvmName("style") var style: String? = null,
+    @get:JvmName("disabled") var disabled: DisabledButton? = null
 ) {
 
     fun url(url: String): InlineKeyboardButton {
@@ -88,6 +89,11 @@ data class InlineKeyboardButton @JvmOverloads constructor(
 
     fun style(style: String): InlineKeyboardButton {
         this.style = style
+        return this
+    }
+
+    fun disabled(): InlineKeyboardButton {
+        this.disabled = DisabledButton()
         return this
     }
 }
