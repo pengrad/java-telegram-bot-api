@@ -38,6 +38,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private DirectMessagesTopic direct_messages_topic;
     private User from;
     private User receiver_user;
+    private Long ephemeral_message_id;
     private Chat sender_chat;
     private String sender_tag;
     private Integer sender_boost_count;
@@ -162,6 +163,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public User receiverUser() {
         return receiver_user;
+    }
+
+    public Long ephemeralMessageId() {
+        return ephemeral_message_id;
     }
 
     public Chat senderChat() {
@@ -632,6 +637,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(direct_messages_topic, message.direct_messages_topic) &&
                 Objects.equals(from, message.from) &&
                 Objects.equals(receiver_user, message.receiver_user) &&
+                Objects.equals(ephemeral_message_id, message.ephemeral_message_id) &&
                 Objects.equals(sender_chat, message.sender_chat) &&
                 Objects.equals(sender_tag, message.sender_tag) &&
                 Objects.equals(sender_boost_count, message.sender_boost_count) &&
@@ -758,6 +764,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", direct_messages_topic=" + direct_messages_topic +
                 ", from=" + from +
                 ", receiver_user=" + receiver_user +
+                ", ephemeral_message_id=" + ephemeral_message_id +
                 ", sender_chat=" + sender_chat +
                 ", sender_tag='" + sender_tag + '\'' +
                 ", sender_boost_count=" + sender_boost_count +
