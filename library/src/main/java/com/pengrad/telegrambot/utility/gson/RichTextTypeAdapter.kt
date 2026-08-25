@@ -1,13 +1,17 @@
 package com.pengrad.telegrambot.utility.gson
 
+import com.google.gson.JsonArray
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonParseException
+import com.google.gson.JsonPrimitive
+import com.google.gson.JsonSerializationContext
+import com.google.gson.JsonSerializer
 import com.pengrad.telegrambot.model.richmessages.richtext.*
 import java.lang.reflect.Type
 
-object RichTextTypeAdapter : JsonDeserializer<RichText> {
+object RichTextTypeAdapter : JsonDeserializer<RichText>, JsonSerializer<RichText> {
 
     private val typeMapping = mapOf(
         RichTextType.BOLD to RichTextBold::class,
@@ -55,6 +59,16 @@ object RichTextTypeAdapter : JsonDeserializer<RichText> {
                 } ?: RichTextUnknown(discriminator)
             }
             else -> RichTextUnknown(RichTextType.UNKNOWN)
+        }
+    }
+
+    override fun serialize(src: RichText, type: Type, context: JsonSerializationContext): JsonElement {
+        return when (src) {
+            is RichTextPlain -> JsonPrimitive(src.text)
+            is RichTextArray -> JsonArray().apply {
+                src.elements.forEach { add(context.serialize(it, RichText::class.java)) }
+            }
+            else -> context.serialize(src, src.javaClass)
         }
     }
 }
