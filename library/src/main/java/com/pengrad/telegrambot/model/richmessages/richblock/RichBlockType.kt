@@ -20,6 +20,7 @@ object RichBlockType {
     const val BUTTONS = "buttons"
     const val ANIMATION = "animation"
     const val AUDIO = "audio"
+    const val DOCUMENT = "document"
     const val PHOTO = "photo"
     const val VIDEO = "video"
     const val VOICE_NOTE = "voice_note"
