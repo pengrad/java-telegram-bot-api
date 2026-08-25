@@ -1,0 +1,25 @@
+package com.pengrad.telegrambot.model.request.richmessages.richblock
+
+object InputRichBlockType {
+    const val PARAGRAPH = "paragraph"
+    const val HEADING = "heading"
+    const val PRE = "pre"
+    const val FOOTER = "footer"
+    const val DIVIDER = "divider"
+    const val MATHEMATICAL_EXPRESSION = "mathematical_expression"
+    const val ANCHOR = "anchor"
+    const val LIST = "list"
+    const val BLOCKQUOTE = "blockquote"
+    const val PULLQUOTE = "pullquote"
+    const val COLLAGE = "collage"
+    const val SLIDESHOW = "slideshow"
+    const val TABLE = "table"
+    const val DETAILS = "details"
+    const val MAP = "map"
+    const val ANIMATION = "animation"
+    const val AUDIO = "audio"
+    const val PHOTO = "photo"
+    const val VIDEO = "video"
+    const val VOICE_NOTE = "voice_note"
+    const val THINKING = "thinking"
+}
