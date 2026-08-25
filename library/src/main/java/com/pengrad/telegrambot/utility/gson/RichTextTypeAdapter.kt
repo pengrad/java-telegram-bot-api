@@ -35,6 +35,7 @@ object RichTextTypeAdapter : JsonDeserializer<RichText>, JsonSerializer<RichText
         RichTextType.HASHTAG to RichTextHashtag::class,
         RichTextType.CASHTAG to RichTextCashtag::class,
         RichTextType.BOT_COMMAND to RichTextBotCommand::class,
+        RichTextType.BUTTON to RichTextButton::class,
         RichTextType.ANCHOR to RichTextAnchor::class,
         RichTextType.ANCHOR_LINK to RichTextAnchorLink::class,
         RichTextType.REFERENCE to RichTextReference::class,
