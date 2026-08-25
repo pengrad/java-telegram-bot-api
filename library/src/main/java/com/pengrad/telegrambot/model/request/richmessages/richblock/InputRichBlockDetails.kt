@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model.request.richmessages.richblock
 
+import com.pengrad.telegrambot.model.request.InputMedia
 import com.pengrad.telegrambot.model.richmessages.richtext.RichText
 
 class InputRichBlockDetails private constructor(
@@ -15,6 +16,8 @@ class InputRichBlockDetails private constructor(
     )
 
     override val type: String = InputRichBlockType.DETAILS
+
+    override fun inputMedia(): List<InputMedia<*>> = blocks.flatMap { it.inputMedia() }
 
     fun isOpen(isOpen: Boolean) = apply { this.isOpen = isOpen }
 

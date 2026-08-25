@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model.request.richmessages.richblock
 
+import com.pengrad.telegrambot.model.request.InputMedia
 import com.pengrad.telegrambot.model.request.InputMediaAnimation
 import com.pengrad.telegrambot.model.richmessages.richblock.RichBlockCaption
 
@@ -14,6 +15,8 @@ class InputRichBlockAnimation private constructor(
     )
 
     override val type: String = InputRichBlockType.ANIMATION
+
+    override fun inputMedia(): List<InputMedia<*>> = listOf(animation)
 
     fun caption(caption: RichBlockCaption) = apply { this.caption = caption }
 

@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model.request.richmessages.richblock
 
+import com.pengrad.telegrambot.model.request.InputMedia
 import com.pengrad.telegrambot.model.richmessages.richblock.RichBlockCaption
 
 class InputRichBlockCollage private constructor(
@@ -13,6 +14,8 @@ class InputRichBlockCollage private constructor(
     )
 
     override val type: String = InputRichBlockType.COLLAGE
+
+    override fun inputMedia(): List<InputMedia<*>> = blocks.flatMap { it.inputMedia() }
 
     fun caption(caption: RichBlockCaption) = apply { this.caption = caption }
 

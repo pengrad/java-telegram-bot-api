@@ -1,10 +1,14 @@
 package com.pengrad.telegrambot.model.request.richmessages.richblock
 
+import com.pengrad.telegrambot.model.request.InputMedia
+
 class InputRichBlockList(vararg items: InputRichBlockListItem) : InputRichBlock {
 
     @get:JvmName("items") val items: Array<InputRichBlockListItem> = arrayOf(*items)
 
     override val type: String = InputRichBlockType.LIST
+
+    override fun inputMedia(): List<InputMedia<*>> = items.flatMap { it.inputMedia() }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

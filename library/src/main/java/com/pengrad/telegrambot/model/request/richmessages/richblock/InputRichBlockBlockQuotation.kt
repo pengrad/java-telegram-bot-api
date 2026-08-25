@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model.request.richmessages.richblock
 
+import com.pengrad.telegrambot.model.request.InputMedia
 import com.pengrad.telegrambot.model.richmessages.richtext.RichText
 
 class InputRichBlockBlockQuotation private constructor(
@@ -13,6 +14,8 @@ class InputRichBlockBlockQuotation private constructor(
     )
 
     override val type: String = InputRichBlockType.BLOCKQUOTE
+
+    override fun inputMedia(): List<InputMedia<*>> = blocks.flatMap { it.inputMedia() }
 
     fun credit(credit: RichText) = apply { this.credit = credit }
 

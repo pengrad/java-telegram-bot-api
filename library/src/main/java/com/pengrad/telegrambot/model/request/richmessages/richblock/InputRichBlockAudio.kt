@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model.request.richmessages.richblock
 
+import com.pengrad.telegrambot.model.request.InputMedia
 import com.pengrad.telegrambot.model.request.InputMediaAudio
 import com.pengrad.telegrambot.model.richmessages.richblock.RichBlockCaption
 
@@ -14,6 +15,8 @@ class InputRichBlockAudio private constructor(
     )
 
     override val type: String = InputRichBlockType.AUDIO
+
+    override fun inputMedia(): List<InputMedia<*>> = listOf(audio)
 
     fun caption(caption: RichBlockCaption) = apply { this.caption = caption }
 

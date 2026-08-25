@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model.request.richmessages.richblock
 
+import com.pengrad.telegrambot.model.request.InputMedia
+
 class InputRichBlockListItem private constructor(
     @get:JvmName("blocks") val blocks: Array<InputRichBlock>,
     @get:JvmName("hasCheckbox") var hasCheckbox: Boolean?,
@@ -23,6 +25,11 @@ class InputRichBlockListItem private constructor(
     fun value(value: Int) = apply { this.value = value }
 
     fun type(type: String) = apply { this.type = type }
+
+    /**
+     * The media carried by the blocks of this item, for requests that have to upload them.
+     */
+    fun inputMedia(): List<InputMedia<*>> = blocks.flatMap { it.inputMedia() }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
