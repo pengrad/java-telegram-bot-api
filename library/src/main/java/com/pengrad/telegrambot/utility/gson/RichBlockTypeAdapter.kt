@@ -19,6 +19,7 @@ object RichBlockTypeAdapter : JsonDeserializer<RichBlock> {
         RichBlockType.ANCHOR to RichBlockAnchor::class,
         RichBlockType.LIST to RichBlockList::class,
         RichBlockType.BLOCKQUOTE to RichBlockBlockQuotation::class,
+        RichBlockType.EXPANDABLE_BLOCKQUOTE to RichBlockExpandableBlockQuotation::class,
         RichBlockType.PULLQUOTE to RichBlockPullQuotation::class,
         RichBlockType.COLLAGE to RichBlockCollage::class,
         RichBlockType.SLIDESHOW to RichBlockSlideshow::class,

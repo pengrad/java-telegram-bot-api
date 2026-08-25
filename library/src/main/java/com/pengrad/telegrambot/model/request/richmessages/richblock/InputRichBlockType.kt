@@ -10,6 +10,7 @@ object InputRichBlockType {
     const val ANCHOR = "anchor"
     const val LIST = "list"
     const val BLOCKQUOTE = "blockquote"
+    const val EXPANDABLE_BLOCKQUOTE = "expandable_blockquote"
     const val PULLQUOTE = "pullquote"
     const val COLLAGE = "collage"
     const val SLIDESHOW = "slideshow"
