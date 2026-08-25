@@ -1,8 +1,10 @@
 package com.pengrad.telegrambot.request.richmessages
 
+import com.pengrad.telegrambot.model.ephemeral.EphemeralMessageParameters
 import com.pengrad.telegrambot.model.request.richmessages.InputRichMessage
 import com.pengrad.telegrambot.request.AbstractSendRequest
 import com.pengrad.telegrambot.utility.kotlin.checkDeprecatedConstructorParameters
+import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import com.pengrad.telegrambot.utility.kotlin.requestParameter
 
 @Suppress("unused")
@@ -37,6 +39,10 @@ class SendRichMessage private constructor(
     }
 
     val richMessage: InputRichMessage by requestParameter(richMessage)
+
+    var ephemeralMessageParameters: EphemeralMessageParameters? by optionalRequestParameter()
+
+    fun ephemeralMessageParameters(ephemeralMessageParameters: EphemeralMessageParameters) = applySelf { this.ephemeralMessageParameters = ephemeralMessageParameters }
 
     private var multipart = false
 
