@@ -3,6 +3,7 @@ package com.pengrad.telegrambot.model.request.richmessages
 class InputRichMessage private constructor(
     @get:JvmName("html") var html: String?,
     @get:JvmName("markdown") var markdown: String?,
+    @get:JvmName("media") var media: Array<InputRichMessageMedia>?,
     @get:JvmName("isRtl") var isRtl: Boolean?,
     @get:JvmName("skipEntityDetection") var skipEntityDetection: Boolean?
 ) {
@@ -10,6 +11,7 @@ class InputRichMessage private constructor(
     constructor() : this(
         html = null,
         markdown = null,
+        media = null,
         isRtl = null,
         skipEntityDetection = null
     )
@@ -17,6 +19,8 @@ class InputRichMessage private constructor(
     fun html(html: String) = apply { this.html = html }
 
     fun markdown(markdown: String) = apply { this.markdown = markdown }
+
+    fun media(vararg media: InputRichMessageMedia) = apply { this.media = arrayOf(*media) }
 
     fun isRtl(isRtl: Boolean) = apply { this.isRtl = isRtl }
 
@@ -28,6 +32,7 @@ class InputRichMessage private constructor(
         other as InputRichMessage
         return html == other.html &&
                 markdown == other.markdown &&
+                media.contentEquals(other.media) &&
                 isRtl == other.isRtl &&
                 skipEntityDetection == other.skipEntityDetection
     }
@@ -35,11 +40,12 @@ class InputRichMessage private constructor(
     override fun hashCode(): Int {
         var result = html?.hashCode() ?: 0
         result = 31 * result + (markdown?.hashCode() ?: 0)
+        result = 31 * result + (media?.contentHashCode() ?: 0)
         result = 31 * result + (isRtl?.hashCode() ?: 0)
         result = 31 * result + (skipEntityDetection?.hashCode() ?: 0)
         return result
     }
 
     override fun toString(): String =
-        "InputRichMessage(html=$html, markdown=$markdown, isRtl=$isRtl, skipEntityDetection=$skipEntityDetection)"
+        "InputRichMessage(html=$html, markdown=$markdown, media=${media?.contentToString()}, isRtl=$isRtl, skipEntityDetection=$skipEntityDetection)"
 }
