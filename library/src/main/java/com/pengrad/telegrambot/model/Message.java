@@ -148,6 +148,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private User guest_bot_caller_user;
     private Chat guest_bot_caller_chat;
     private String guest_query_id;
+    private CommunityChatAdded community_chat_added;
 
     public Long messageThreadId() {
         return message_thread_id;
@@ -594,6 +595,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return reply_to_poll_option_id;
     }
 
+    public CommunityChatAdded communityChatAdded() {
+        return community_chat_added;
+    }
+
     public User guestBotCallerUser() {
         return guest_bot_caller_user;
     }
@@ -748,7 +753,8 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(reply_to_poll_option_id, message.reply_to_poll_option_id) &&
                 Objects.equals(guest_bot_caller_user, message.guest_bot_caller_user) &&
                 Objects.equals(guest_bot_caller_chat, message.guest_bot_caller_chat) &&
-                Objects.equals(guest_query_id, message.guest_query_id);
+                Objects.equals(guest_query_id, message.guest_query_id) &&
+                Objects.equals(community_chat_added, message.community_chat_added);
     }
 
     @Override
@@ -876,6 +882,7 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", guest_bot_caller_user=" + guest_bot_caller_user +
                 ", guest_bot_caller_chat=" + guest_bot_caller_chat +
                 ", guest_query_id='" + guest_query_id + '\'' +
+                ", community_chat_added=" + community_chat_added +
                 '}';
     }
 }
