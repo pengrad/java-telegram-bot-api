@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.request
 
 import com.pengrad.telegrambot.model.MessageEntity
+import com.pengrad.telegrambot.model.ephemeral.EphemeralMessageParameters
 import com.pengrad.telegrambot.model.request.ParseMode
 import com.pengrad.telegrambot.utility.kotlin.checkDeprecatedConstructorParameters
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
@@ -102,6 +103,7 @@ class SendAnimation private constructor(
     var duration: Int? by optionalRequestParameter()
     var width: Int? by optionalRequestParameter()
     var height: Int? by optionalRequestParameter()
+    var ephemeralMessageParameters: EphemeralMessageParameters? by optionalRequestParameter()
 
     fun caption(caption: String) = apply { this.caption = caption }
 
@@ -121,4 +123,5 @@ class SendAnimation private constructor(
 
     fun height(height: Int) = apply { this.height = height }
 
+    fun ephemeralMessageParameters(ephemeralMessageParameters: EphemeralMessageParameters) = applySelf { this.ephemeralMessageParameters = ephemeralMessageParameters }
 }

@@ -9,6 +9,7 @@ public class ReplyParameters implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private Integer message_id;
+    private Long ephemeral_message_id;
     private Object chat_id;
     private Boolean allow_sending_without_reply;
     private String quote;
@@ -18,6 +19,8 @@ public class ReplyParameters implements Serializable {
     private Integer checklist_task_id;
     private String poll_option_id;
 
+    public ReplyParameters() {}
+
     public ReplyParameters(Integer messageId) {
         this.message_id = messageId;
     }
@@ -25,6 +28,16 @@ public class ReplyParameters implements Serializable {
     public ReplyParameters(Integer messageId, Object chatId) {
         this.message_id = messageId;
         this.chat_id = chatId;
+    }
+
+    public ReplyParameters messageId(Integer messageId) {
+        this.message_id = messageId;
+        return this;
+    }
+
+    public ReplyParameters ephemeralMessageId(Long ephemeralMessageId) {
+        this.ephemeral_message_id = ephemeralMessageId;
+        return this;
     }
 
     public ReplyParameters allowSendingWithoutReply(Boolean allowSendingWithoutReply) {

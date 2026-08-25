@@ -22,6 +22,8 @@ class SendMessageDraft(
     var messageThreadId: Long? by optionalRequestParameter()
     var parseMode: ParseMode? by optionalRequestParameter()
     var entities: List<MessageEntity>? by optionalRequestParameter()
+    var canStop: Boolean? by optionalRequestParameter()
+    var keepOnStop: Boolean? by optionalRequestParameter()
 
     fun text(text: String) = applySelf { this.text = text }
 
@@ -30,5 +32,9 @@ class SendMessageDraft(
     fun parseMode(parseMode: ParseMode) = applySelf { this.parseMode = parseMode }
 
     fun entities(entities: List<MessageEntity>) = applySelf { this.entities = entities }
+
+    fun canStop(canStop: Boolean) = applySelf { this.canStop = canStop }
+
+    fun keepOnStop(keepOnStop: Boolean) = applySelf { this.keepOnStop = keepOnStop }
 
 }

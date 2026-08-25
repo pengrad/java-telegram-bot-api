@@ -37,6 +37,7 @@ public class ChatMember implements Serializable {
     private Boolean can_manage_topics;
     private Boolean can_manage_direct_messages;
     private Boolean can_manage_tags;
+    private Boolean can_send_welcome_messages;
     private Boolean can_edit_tag;
     private String tag;
     private Boolean is_member;
@@ -142,6 +143,10 @@ public class ChatMember implements Serializable {
         return can_manage_tags != null && can_manage_tags;
     }
 
+    public Boolean canSendWelcomeMessages() {
+        return can_send_welcome_messages != null && can_send_welcome_messages;
+    }
+
     public Boolean canEditTag() {
         return can_edit_tag != null && can_edit_tag;
     }
@@ -225,6 +230,7 @@ public class ChatMember implements Serializable {
                 Objects.equals(can_manage_topics, that.can_manage_topics) &&
                 Objects.equals(can_manage_direct_messages, that.can_manage_direct_messages) &&
                 Objects.equals(can_manage_tags, that.can_manage_tags) &&
+                Objects.equals(can_send_welcome_messages, that.can_send_welcome_messages) &&
                 Objects.equals(can_edit_tag, that.can_edit_tag) &&
                 Objects.equals(tag, that.tag) &&
                 Objects.equals(is_member, that.is_member) &&
@@ -265,6 +271,7 @@ public class ChatMember implements Serializable {
                 can_manage_topics,
                 can_manage_direct_messages,
                 can_manage_tags,
+                can_send_welcome_messages,
                 can_edit_tag,
                 tag,
                 is_member,
@@ -306,6 +313,7 @@ public class ChatMember implements Serializable {
                 ", can_manage_topics=" + can_manage_topics +
                 ", can_manage_direct_messages=" + can_manage_direct_messages +
                 ", can_manage_tags=" + can_manage_tags +
+                ", can_send_welcome_messages=" + can_send_welcome_messages +
                 ", can_edit_tag=" + can_edit_tag +
                 ", tag='" + tag + '\'' +
                 ", is_member=" + is_member +

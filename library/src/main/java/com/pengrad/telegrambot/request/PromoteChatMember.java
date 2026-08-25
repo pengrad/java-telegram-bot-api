@@ -80,4 +80,8 @@ public class PromoteChatMember extends BaseRequest<PromoteChatMember, BaseRespon
     public PromoteChatMember canManageTags(boolean canManageTags) {
         return add("can_manage_tags", canManageTags);
     }
+
+    public PromoteChatMember canSendWelcomeMessages(boolean canSendWelcomeMessages) {
+        return add("can_send_welcome_messages", canSendWelcomeMessages);
+    }
 }

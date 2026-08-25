@@ -1,8 +1,10 @@
 package com.pengrad.telegrambot.request.richmessages
 
+import com.pengrad.telegrambot.model.ephemeral.EphemeralMessageParameters
 import com.pengrad.telegrambot.model.request.richmessages.InputRichMessage
 import com.pengrad.telegrambot.request.AbstractSendRequest
 import com.pengrad.telegrambot.utility.kotlin.checkDeprecatedConstructorParameters
+import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import com.pengrad.telegrambot.utility.kotlin.requestParameter
 
 @Suppress("unused")
@@ -37,4 +39,26 @@ class SendRichMessage private constructor(
     }
 
     val richMessage: InputRichMessage by requestParameter(richMessage)
+
+    var ephemeralMessageParameters: EphemeralMessageParameters? by optionalRequestParameter()
+
+    fun ephemeralMessageParameters(ephemeralMessageParameters: EphemeralMessageParameters) = applySelf { this.ephemeralMessageParameters = ephemeralMessageParameters }
+
+    private var multipart = false
+
+    init {
+        for (media in richMessage.inputMedia()) {
+            val attachments = media.attachments
+            if (attachments != null && attachments.isNotEmpty()) {
+                addAll(attachments)
+                multipart = true
+            }
+            media.inputFile()?.let {
+                add(media.inputFileId, it)
+                multipart = true
+            }
+        }
+    }
+
+    override fun isMultipart() = multipart
 }

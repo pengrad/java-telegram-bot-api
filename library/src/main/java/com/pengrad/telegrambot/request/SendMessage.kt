@@ -2,6 +2,7 @@ package com.pengrad.telegrambot.request
 
 import com.pengrad.telegrambot.model.LinkPreviewOptions
 import com.pengrad.telegrambot.model.MessageEntity
+import com.pengrad.telegrambot.model.ephemeral.EphemeralMessageParameters
 import com.pengrad.telegrambot.model.request.ParseMode
 import com.pengrad.telegrambot.utility.kotlin.checkDeprecatedConstructorParameters
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
@@ -43,6 +44,7 @@ class SendMessage private constructor(
     var parseMode: ParseMode? by optionalRequestParameter()
     var entities: List<MessageEntity>? by optionalRequestParameter()
     var linkPreviewOptions: LinkPreviewOptions? by optionalRequestParameter()
+    var ephemeralMessageParameters: EphemeralMessageParameters? by optionalRequestParameter()
 
     fun parseMode(parseMode: ParseMode) = applySelf { this.parseMode = parseMode }
 
@@ -52,4 +54,5 @@ class SendMessage private constructor(
 
     fun linkPreviewOptions(linkPreviewOptions: LinkPreviewOptions) = applySelf { this.linkPreviewOptions = linkPreviewOptions}
 
+    fun ephemeralMessageParameters(ephemeralMessageParameters: EphemeralMessageParameters) = applySelf { this.ephemeralMessageParameters = ephemeralMessageParameters }
 }
