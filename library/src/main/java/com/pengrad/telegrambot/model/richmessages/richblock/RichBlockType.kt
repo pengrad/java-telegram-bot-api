@@ -16,6 +16,7 @@ object RichBlockType {
     const val TABLE = "table"
     const val DETAILS = "details"
     const val MAP = "map"
+    const val BUTTONS = "buttons"
     const val ANIMATION = "animation"
     const val AUDIO = "audio"
     const val PHOTO = "photo"

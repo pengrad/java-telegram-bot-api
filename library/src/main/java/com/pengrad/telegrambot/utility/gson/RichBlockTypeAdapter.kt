@@ -25,6 +25,7 @@ object RichBlockTypeAdapter : JsonDeserializer<RichBlock> {
         RichBlockType.TABLE to RichBlockTable::class,
         RichBlockType.DETAILS to RichBlockDetails::class,
         RichBlockType.MAP to RichBlockMap::class,
+        RichBlockType.BUTTONS to RichBlockButtons::class,
         RichBlockType.ANIMATION to RichBlockAnimation::class,
         RichBlockType.AUDIO to RichBlockAudio::class,
         RichBlockType.PHOTO to RichBlockPhoto::class,
