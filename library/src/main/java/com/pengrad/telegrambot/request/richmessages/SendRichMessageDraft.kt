@@ -18,8 +18,14 @@ class SendRichMessageDraft(
     val richMessage: InputRichMessage by requestParameter(richMessage)
 
     var messageThreadId: Long? by optionalRequestParameter()
+    var canStop: Boolean? by optionalRequestParameter()
+    var keepOnStop: Boolean? by optionalRequestParameter()
 
     fun messageThreadId(messageThreadId: Long) = applySelf { this.messageThreadId = messageThreadId }
+
+    fun canStop(canStop: Boolean) = applySelf { this.canStop = canStop }
+
+    fun keepOnStop(keepOnStop: Boolean) = applySelf { this.keepOnStop = keepOnStop }
 
     private var multipart = false
 
