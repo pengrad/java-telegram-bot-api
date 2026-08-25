@@ -17,6 +17,14 @@ public class Location implements Serializable {
     private Integer heading;
     private Integer proximity_alert_radius;
 
+    private Location() {
+    }
+
+    public Location(Float latitude, Float longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public Float longitude() {
         return longitude;
     }
