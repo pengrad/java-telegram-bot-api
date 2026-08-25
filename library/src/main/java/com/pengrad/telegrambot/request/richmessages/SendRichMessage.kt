@@ -37,4 +37,22 @@ class SendRichMessage private constructor(
     }
 
     val richMessage: InputRichMessage by requestParameter(richMessage)
+
+    private var multipart = false
+
+    init {
+        for (media in richMessage.inputMedia()) {
+            val attachments = media.attachments
+            if (attachments != null && attachments.isNotEmpty()) {
+                addAll(attachments)
+                multipart = true
+            }
+            media.inputFile()?.let {
+                add(media.inputFileId, it)
+                multipart = true
+            }
+        }
+    }
+
+    override fun isMultipart() = multipart
 }

@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model.request.richmessages
 
+import com.pengrad.telegrambot.model.request.InputMedia
+
 class InputRichMessage private constructor(
     @get:JvmName("html") var html: String?,
     @get:JvmName("markdown") var markdown: String?,
@@ -25,6 +27,11 @@ class InputRichMessage private constructor(
     fun isRtl(isRtl: Boolean) = apply { this.isRtl = isRtl }
 
     fun skipEntityDetection(skipEntityDetection: Boolean) = apply { this.skipEntityDetection = skipEntityDetection }
+
+    /**
+     * All the media carried by this rich message, for requests that have to upload them.
+     */
+    fun inputMedia(): List<InputMedia<*>> = media?.map { it.media } ?: emptyList()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
