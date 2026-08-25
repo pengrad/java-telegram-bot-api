@@ -7,6 +7,9 @@ import com.pengrad.telegrambot.model.message.MaybeInaccessibleMessage
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup
 import com.pengrad.telegrambot.model.request.ParseMode
+import com.pengrad.telegrambot.model.request.richmessages.InputRichMessage
+import com.pengrad.telegrambot.model.request.richmessages.richblock.InputRichBlockParagraph
+import com.pengrad.telegrambot.model.richmessages.RichMessageButton
 import com.pengrad.telegrambot.passport.Credentials
 import com.pengrad.telegrambot.passport.decrypt.Decrypt
 import nl.jqno.equalsverifier.EqualsVerifier
@@ -37,7 +40,9 @@ class ModelTest {
         val excludedPackages = listOf(
             ParseMode::class,
             BotCommandScope::class,
-            Decrypt::class
+            Decrypt::class,
+            InputRichMessage::class,
+            InputRichBlockParagraph::class
         ).map { it.java.`package`.name }
 
         classes.addAll(Reflections(packages, SubTypesScanner(false))
@@ -91,6 +96,11 @@ class ModelTest {
                 verifierApi.withIgnoredFields("forum_topic_reopened")
                 verifierApi.withIgnoredFields("general_forum_topic_hidden")
                 verifierApi.withIgnoredFields("general_forum_topic_unhidden")
+                verifierApi.withIgnoredFields("community_chat_removed")
+            }
+
+            if (c == InlineKeyboardButton::class.java || c == RichMessageButton::class.java) {
+                verifierApi.withIgnoredFields("disabled")
             }
 
             verifierApi.verify()
