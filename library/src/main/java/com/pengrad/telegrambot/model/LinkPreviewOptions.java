@@ -15,7 +15,7 @@ public class LinkPreviewOptions implements Serializable {
     private Boolean show_above_text;
 
     public Boolean isDisabled() {
-        return is_disabled;
+        return is_disabled != null && is_disabled;
     }
 
     public LinkPreviewOptions isDisabled(boolean isDisabled) {

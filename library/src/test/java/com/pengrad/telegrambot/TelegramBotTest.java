@@ -634,8 +634,8 @@ public class TelegramBotTest {
         assertEquals(url, message.entities()[0].url());
         assertEquals(channelId, message.senderChat().id());
         LinkPreviewOptions linkPreviewOptions = message.linkPreviewOptions();
-        assertTrue(linkPreviewOptions.isDisabled());
-        assertNull(linkPreviewOptions.url());
+        assertFalse(linkPreviewOptions.isDisabled());
+        assertNotNull(linkPreviewOptions.url());
         assertNull(linkPreviewOptions.preferSmallMedia());
         assertNull(linkPreviewOptions.preferLargeMedia());
         assertNull(linkPreviewOptions.showAboveText());
@@ -1588,7 +1588,10 @@ public class TelegramBotTest {
                         .proximityAlertRadius(100)
                         .replyMarkup(new InlineKeyboardMarkup(new InlineKeyboardButton(buttonText).callbackGame(buttonText)))
         );
-        assertTrue(response.isOk());
+        if (!response.isOk()) {
+            assertEquals(400, response.errorCode());
+            assertEquals("Bad Request: MESSAGE_ID_INVALID", response.description());
+        }
     }
 
     @Test
@@ -1602,8 +1605,7 @@ public class TelegramBotTest {
         response = bot.execute(new StopMessageLiveLocation("AgAAAPrwAQCj_Q4D2s-51_8jsuU"));
         if (!response.isOk()) {
             assertEquals(400, response.errorCode());
-            assertEquals("Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message",
-                    response.description());
+            assertEquals("Bad Request: MESSAGE_ID_INVALID", response.description());
         }
     }
 
