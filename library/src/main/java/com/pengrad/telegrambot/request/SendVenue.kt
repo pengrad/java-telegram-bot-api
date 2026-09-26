@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request
 
+import com.pengrad.telegrambot.model.ephemeral.EphemeralMessageParameters
 import com.pengrad.telegrambot.utility.kotlin.checkDeprecatedConstructorParameters
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import com.pengrad.telegrambot.utility.kotlin.requestParameter
@@ -75,6 +76,7 @@ class SendVenue private constructor(
 
     var googlePlaceId: String? by optionalRequestParameter()
     var googlePlaceType: String? by optionalRequestParameter()
+    var ephemeralMessageParameters: EphemeralMessageParameters? by optionalRequestParameter()
 
     fun foursquareId(foursquareId: String) = applySelf { this.foursquareId = foursquareId }
 
@@ -84,4 +86,5 @@ class SendVenue private constructor(
 
     fun googlePlaceType(googlePlaceType: String) = applySelf { this.googlePlaceType = googlePlaceType }
 
+    fun ephemeralMessageParameters(ephemeralMessageParameters: EphemeralMessageParameters) = applySelf { this.ephemeralMessageParameters = ephemeralMessageParameters }
 }

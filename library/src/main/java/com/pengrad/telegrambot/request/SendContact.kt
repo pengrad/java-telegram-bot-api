@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request
 
+import com.pengrad.telegrambot.model.ephemeral.EphemeralMessageParameters
 import com.pengrad.telegrambot.utility.kotlin.checkDeprecatedConstructorParameters
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import com.pengrad.telegrambot.utility.kotlin.requestParameter
@@ -44,9 +45,11 @@ class SendContact private constructor(
 
     var lastName: String? by optionalRequestParameter()
     var vcard: String? by optionalRequestParameter()
+    var ephemeralMessageParameters: EphemeralMessageParameters? by optionalRequestParameter()
 
     fun lastName(lastName: String) = apply { this.lastName = lastName }
 
     fun vcard(vcard: String) = apply { this.vcard = vcard }
 
+    fun ephemeralMessageParameters(ephemeralMessageParameters: EphemeralMessageParameters) = applySelf { this.ephemeralMessageParameters = ephemeralMessageParameters }
 }

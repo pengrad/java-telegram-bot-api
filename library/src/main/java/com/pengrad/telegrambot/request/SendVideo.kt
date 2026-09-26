@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.request
 
 import com.pengrad.telegrambot.model.MessageEntity
+import com.pengrad.telegrambot.model.ephemeral.EphemeralMessageParameters
 import com.pengrad.telegrambot.model.request.ParseMode
 import com.pengrad.telegrambot.utility.kotlin.checkDeprecatedConstructorParameters
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
@@ -109,6 +110,7 @@ class SendVideo private constructor(
 
     var hasSpoiler: Boolean? by optionalRequestParameter()
     var supportsStreaming: Boolean? by optionalRequestParameter()
+    var ephemeralMessageParameters: EphemeralMessageParameters? by optionalRequestParameter()
 
     fun duration(duration: Int) = applySelf { this.duration = duration }
 
@@ -138,4 +140,5 @@ class SendVideo private constructor(
 
     fun supportsStreaming(supportsStreaming: Boolean) = applySelf { this.supportsStreaming = supportsStreaming }
 
+    fun ephemeralMessageParameters(ephemeralMessageParameters: EphemeralMessageParameters) = applySelf { this.ephemeralMessageParameters = ephemeralMessageParameters }
 }

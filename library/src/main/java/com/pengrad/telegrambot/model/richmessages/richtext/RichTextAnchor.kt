@@ -1,7 +1,6 @@
 package com.pengrad.telegrambot.model.richmessages.richtext
 
-data class RichTextAnchor(
-    @get:JvmName("name") val name: String
-) : RichText {
-    override val type: String get() = RichTextType.ANCHOR
-}
+data class RichTextAnchor @JvmOverloads constructor(
+    @get:JvmName("name") val name: String,
+    override val type: String = RichTextType.ANCHOR
+) : RichText

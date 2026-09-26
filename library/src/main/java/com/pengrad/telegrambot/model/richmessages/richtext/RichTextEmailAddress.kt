@@ -1,8 +1,7 @@
 package com.pengrad.telegrambot.model.richmessages.richtext
 
-data class RichTextEmailAddress(
+data class RichTextEmailAddress @JvmOverloads constructor(
     @get:JvmName("text") val text: RichText,
-    @get:JvmName("emailAddress") val emailAddress: String
-) : RichText {
-    override val type: String get() = RichTextType.EMAIL_ADDRESS
-}
+    @get:JvmName("emailAddress") val emailAddress: String,
+    override val type: String = RichTextType.EMAIL_ADDRESS
+) : RichText

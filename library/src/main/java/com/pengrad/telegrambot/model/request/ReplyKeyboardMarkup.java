@@ -18,6 +18,7 @@ public class ReplyKeyboardMarkup extends Keyboard implements Serializable {
     private String input_field_placeholder;
     private boolean selective;
     private boolean is_persistent;
+    private Boolean force_reply;
 
     public ReplyKeyboardMarkup(String[][] keyboard, boolean resize_keyboard, boolean one_time_keyboard, String input_field_placeholder, boolean selective, boolean is_persistent) {
         this.keyboard = new ArrayList<>();
@@ -90,6 +91,11 @@ public class ReplyKeyboardMarkup extends Keyboard implements Serializable {
 
     public ReplyKeyboardMarkup isPersistent(boolean is_persistent) {
         this.is_persistent = is_persistent;
+        return this;
+    }
+
+    public ReplyKeyboardMarkup forceReply(boolean forceReply) {
+        this.force_reply = forceReply;
         return this;
     }
 }

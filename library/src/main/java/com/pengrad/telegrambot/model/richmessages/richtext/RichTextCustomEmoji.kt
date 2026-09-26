@@ -1,8 +1,7 @@
 package com.pengrad.telegrambot.model.richmessages.richtext
 
-data class RichTextCustomEmoji(
+data class RichTextCustomEmoji @JvmOverloads constructor(
     @get:JvmName("customEmojiId") val customEmojiId: String,
-    @get:JvmName("alternativeText") val alternativeText: String
-) : RichText {
-    override val type: String get() = RichTextType.CUSTOM_EMOJI
-}
+    @get:JvmName("alternativeText") val alternativeText: String,
+    override val type: String = RichTextType.CUSTOM_EMOJI
+) : RichText

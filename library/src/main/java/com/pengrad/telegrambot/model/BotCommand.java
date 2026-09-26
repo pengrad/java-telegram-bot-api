@@ -18,6 +18,7 @@ public class BotCommand implements Serializable {
 
     private String command;
     private String description;
+    private Boolean is_ephemeral;
 
     public String command() {
         return command;
@@ -25,6 +26,15 @@ public class BotCommand implements Serializable {
 
     public String description() {
         return description;
+    }
+
+    public Boolean isEphemeral() {
+        return is_ephemeral;
+    }
+
+    public BotCommand isEphemeral(Boolean isEphemeral) {
+        this.is_ephemeral = isEphemeral;
+        return this;
     }
 
     @Override
@@ -35,13 +45,15 @@ public class BotCommand implements Serializable {
         BotCommand that = (BotCommand) o;
 
         if (command != null ? !command.equals(that.command) : that.command != null) return false;
-        return description != null ? description.equals(that.description) : that.description == null;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        return is_ephemeral != null ? is_ephemeral.equals(that.is_ephemeral) : that.is_ephemeral == null;
     }
 
     @Override
     public int hashCode() {
         int result = command != null ? command.hashCode() : 0;
         result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (is_ephemeral != null ? is_ephemeral.hashCode() : 0);
         return result;
     }
 
@@ -50,6 +62,7 @@ public class BotCommand implements Serializable {
         return "BotCommand{" +
                 "command='" + command + '\'' +
                 ", description='" + description + '\'' +
+                ", is_ephemeral=" + is_ephemeral +
                 '}';
     }
 }

@@ -1,7 +1,6 @@
 package com.pengrad.telegrambot.model.richmessages.richtext
 
-data class RichTextSubscript(
-    @get:JvmName("text") val text: RichText
-) : RichText {
-    override val type: String get() = RichTextType.SUBSCRIPT
-}
+data class RichTextSubscript @JvmOverloads constructor(
+    @get:JvmName("text") val text: RichText,
+    override val type: String = RichTextType.SUBSCRIPT
+) : RichText

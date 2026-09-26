@@ -22,6 +22,7 @@ object RichTextType {
     const val HASHTAG = "hashtag"
     const val CASHTAG = "cashtag"
     const val BOT_COMMAND = "bot_command"
+    const val BUTTON = "button"
     const val ANCHOR = "anchor"
     const val ANCHOR_LINK = "anchor_link"
     const val REFERENCE = "reference"

@@ -80,6 +80,7 @@ public class ChatFullInfo implements Serializable {
     private UniqueGiftColors unique_gift_colors;
     private Audio first_profile_audio;
     private User guard_bot;
+    private Community community;
 
     public Long id() {
         return id;
@@ -288,6 +289,10 @@ public class ChatFullInfo implements Serializable {
         return guard_bot;
     }
 
+    public Community community() {
+        return community;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -344,7 +349,8 @@ public class ChatFullInfo implements Serializable {
                 Objects.equals(paid_message_star_count, chat.paid_message_star_count) &&
                 Objects.equals(unique_gift_colors, chat.unique_gift_colors) &&
                 Objects.equals(first_profile_audio, chat.first_profile_audio) &&
-                Objects.equals(guard_bot, chat.guard_bot);
+                Objects.equals(guard_bot, chat.guard_bot) &&
+                Objects.equals(community, chat.community);
     }
 
     @Override
@@ -407,6 +413,7 @@ public class ChatFullInfo implements Serializable {
                 ", unique_gift_colors=" + unique_gift_colors +
                 ", first_profile_audio=" + first_profile_audio +
                 ", guard_bot=" + guard_bot +
+                ", community=" + community +
                 '}';
     }
 }

@@ -37,6 +37,8 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private Long message_thread_id;
     private DirectMessagesTopic direct_messages_topic;
     private User from;
+    private User receiver_user;
+    private Long ephemeral_message_id;
     private Chat sender_chat;
     private String sender_tag;
     private Integer sender_boost_count;
@@ -146,6 +148,9 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private User guest_bot_caller_user;
     private Chat guest_bot_caller_chat;
     private String guest_query_id;
+    private CommunityChatAdded community_chat_added;
+    private CommunityChatJoined community_chat_joined;
+    private CommunityChatRemoved community_chat_removed;
 
     public Long messageThreadId() {
         return message_thread_id;
@@ -157,6 +162,14 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
 
     public User from() {
         return from;
+    }
+
+    public User receiverUser() {
+        return receiver_user;
+    }
+
+    public Long ephemeralMessageId() {
+        return ephemeral_message_id;
     }
 
     public Chat senderChat() {
@@ -584,6 +597,18 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return reply_to_poll_option_id;
     }
 
+    public CommunityChatAdded communityChatAdded() {
+        return community_chat_added;
+    }
+
+    public CommunityChatJoined communityChatJoined() {
+        return community_chat_joined;
+    }
+
+    public CommunityChatRemoved communityChatRemoved() {
+        return community_chat_removed;
+    }
+
     public User guestBotCallerUser() {
         return guest_bot_caller_user;
     }
@@ -626,6 +651,8 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(message_thread_id, message.message_thread_id) &&
                 Objects.equals(direct_messages_topic, message.direct_messages_topic) &&
                 Objects.equals(from, message.from) &&
+                Objects.equals(receiver_user, message.receiver_user) &&
+                Objects.equals(ephemeral_message_id, message.ephemeral_message_id) &&
                 Objects.equals(sender_chat, message.sender_chat) &&
                 Objects.equals(sender_tag, message.sender_tag) &&
                 Objects.equals(sender_boost_count, message.sender_boost_count) &&
@@ -736,7 +763,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(reply_to_poll_option_id, message.reply_to_poll_option_id) &&
                 Objects.equals(guest_bot_caller_user, message.guest_bot_caller_user) &&
                 Objects.equals(guest_bot_caller_chat, message.guest_bot_caller_chat) &&
-                Objects.equals(guest_query_id, message.guest_query_id);
+                Objects.equals(guest_query_id, message.guest_query_id) &&
+                Objects.equals(community_chat_added, message.community_chat_added) &&
+                Objects.equals(community_chat_joined, message.community_chat_joined) &&
+                Objects.equals(community_chat_removed, message.community_chat_removed);
     }
 
     @Override
@@ -751,6 +781,8 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", message_thread_id=" + message_thread_id +
                 ", direct_messages_topic=" + direct_messages_topic +
                 ", from=" + from +
+                ", receiver_user=" + receiver_user +
+                ", ephemeral_message_id=" + ephemeral_message_id +
                 ", sender_chat=" + sender_chat +
                 ", sender_tag='" + sender_tag + '\'' +
                 ", sender_boost_count=" + sender_boost_count +
@@ -862,6 +894,9 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", guest_bot_caller_user=" + guest_bot_caller_user +
                 ", guest_bot_caller_chat=" + guest_bot_caller_chat +
                 ", guest_query_id='" + guest_query_id + '\'' +
+                ", community_chat_added=" + community_chat_added +
+                ", community_chat_joined=" + community_chat_joined +
+                ", community_chat_removed=" + community_chat_removed +
                 '}';
     }
 }

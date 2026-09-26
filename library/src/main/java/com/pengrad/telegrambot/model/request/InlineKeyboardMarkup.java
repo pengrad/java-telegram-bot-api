@@ -14,6 +14,7 @@ public class InlineKeyboardMarkup extends Keyboard implements Serializable {
     private final static long serialVersionUID = 0L;
 
     private final List<List<InlineKeyboardButton>> inline_keyboard;
+    private Boolean force_reply;
 
     public InlineKeyboardMarkup() {
         this.inline_keyboard = new ArrayList<>();
@@ -35,6 +36,15 @@ public class InlineKeyboardMarkup extends Keyboard implements Serializable {
         return this;
     }
 
+    public InlineKeyboardMarkup forceReply(boolean forceReply) {
+        this.force_reply = forceReply;
+        return this;
+    }
+
+    public Boolean forceReply() {
+        return force_reply;
+    }
+
     public InlineKeyboardButton[][] inlineKeyboard() {
         InlineKeyboardButton[][] res = new InlineKeyboardButton[inline_keyboard.size()][];
         for (int i = 0; i < inline_keyboard.size(); i++) {
@@ -49,18 +59,20 @@ public class InlineKeyboardMarkup extends Keyboard implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         InlineKeyboardMarkup that = (InlineKeyboardMarkup) o;
-        return Objects.equals(inline_keyboard, that.inline_keyboard);
+        return Objects.equals(inline_keyboard, that.inline_keyboard) &&
+                Objects.equals(force_reply, that.force_reply);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(inline_keyboard);
+        return Objects.hash(inline_keyboard, force_reply);
     }
 
     @Override
     public String toString() {
         return "InlineKeyboardMarkup{" +
                 "inline_keyboard=" + inline_keyboard +
+                ", force_reply=" + force_reply +
                 '}';
     }
 }

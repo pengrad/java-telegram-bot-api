@@ -1,6 +1,7 @@
 package com.pengrad.telegrambot.request
 
 import com.pengrad.telegrambot.model.MessageEntity
+import com.pengrad.telegrambot.model.ephemeral.EphemeralMessageParameters
 import com.pengrad.telegrambot.model.request.ParseMode
 import com.pengrad.telegrambot.utility.kotlin.checkDeprecatedConstructorParameters
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
@@ -97,6 +98,7 @@ class SendPhoto private constructor(
     var captionEntities: List<MessageEntity>? by optionalRequestParameter()
     var showCaptionAboveMedia: Boolean? by optionalRequestParameter()
     var hasSpoiler: Boolean? by optionalRequestParameter()
+    var ephemeralMessageParameters: EphemeralMessageParameters? by optionalRequestParameter()
 
     fun caption(caption: String) = applySelf { this.caption = caption }
 
@@ -110,4 +112,5 @@ class SendPhoto private constructor(
 
     fun hasSpoiler(hasSpoiler: Boolean) = applySelf { this.hasSpoiler = hasSpoiler }
 
+    fun ephemeralMessageParameters(ephemeralMessageParameters: EphemeralMessageParameters) = applySelf { this.ephemeralMessageParameters = ephemeralMessageParameters }
 }

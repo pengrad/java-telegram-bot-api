@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request
 
+import com.pengrad.telegrambot.model.ephemeral.EphemeralMessageParameters
 import com.pengrad.telegrambot.utility.kotlin.checkDeprecatedConstructorParameters
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import com.pengrad.telegrambot.utility.kotlin.requestParameter
@@ -46,6 +47,7 @@ class SendLocation private constructor(
     var livePeriod: Int? by optionalRequestParameter()
     var heading: Int? by optionalRequestParameter()
     var proximityAlertRadius: Int? by optionalRequestParameter()
+    var ephemeralMessageParameters: EphemeralMessageParameters? by optionalRequestParameter()
 
     fun horizontalAccuracy(horizontalAccuracy: Float) = applySelf { this.horizontalAccuracy = horizontalAccuracy }
 
@@ -55,4 +57,5 @@ class SendLocation private constructor(
 
     fun proximityAlertRadius(proximityAlertRadius: Int) =  applySelf { this.proximityAlertRadius = proximityAlertRadius }
 
+    fun ephemeralMessageParameters(ephemeralMessageParameters: EphemeralMessageParameters) = applySelf { this.ephemeralMessageParameters = ephemeralMessageParameters }
 }

@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.request
 
+import com.pengrad.telegrambot.model.ephemeral.EphemeralMessageParameters
 import com.pengrad.telegrambot.utility.kotlin.checkDeprecatedConstructorParameters
 import com.pengrad.telegrambot.utility.kotlin.optionalRequestParameter
 import java.io.File
@@ -92,9 +93,11 @@ class SendVideoNote private constructor(
     
     var duration: Int? by optionalRequestParameter()
     var length: Int? by optionalRequestParameter()
+    var ephemeralMessageParameters: EphemeralMessageParameters? by optionalRequestParameter()
 
     fun duration(duration: Int) = apply { this.duration = duration }
 
     fun length(length: Int) = apply { this.length = length }
 
+    fun ephemeralMessageParameters(ephemeralMessageParameters: EphemeralMessageParameters) = applySelf { this.ephemeralMessageParameters = ephemeralMessageParameters }
 }

@@ -18,6 +18,30 @@ class SendRichMessageDraft(
     val richMessage: InputRichMessage by requestParameter(richMessage)
 
     var messageThreadId: Long? by optionalRequestParameter()
+    var canStop: Boolean? by optionalRequestParameter()
+    var keepOnStop: Boolean? by optionalRequestParameter()
 
     fun messageThreadId(messageThreadId: Long) = applySelf { this.messageThreadId = messageThreadId }
+
+    fun canStop(canStop: Boolean) = applySelf { this.canStop = canStop }
+
+    fun keepOnStop(keepOnStop: Boolean) = applySelf { this.keepOnStop = keepOnStop }
+
+    private var multipart = false
+
+    init {
+        for (media in richMessage.inputMedia()) {
+            val attachments = media.attachments
+            if (attachments != null && attachments.isNotEmpty()) {
+                addAll(attachments)
+                multipart = true
+            }
+            media.inputFile()?.let {
+                add(media.inputFileId, it)
+                multipart = true
+            }
+        }
+    }
+
+    override fun isMultipart() = multipart
 }
