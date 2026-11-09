@@ -44,8 +44,11 @@ publishing {
     }
 }
 
-signing {
-    sign publishing.publications.maven
+// JitPack builds do not have signing keys
+if (!System.getenv("JITPACK")) {
+    signing {
+        sign publishing.publications.maven
+    }
 }
 
 def generateMavenPom = tasks.register("generateMavenPom", GenerateMavenPom) {
