@@ -31,6 +31,7 @@ object RichTextTypeAdapter : JsonDeserializer<RichText>, JsonSerializer<RichText
         RichTextType.EMAIL_ADDRESS to RichTextEmailAddress::class,
         RichTextType.PHONE_NUMBER to RichTextPhoneNumber::class,
         RichTextType.BANK_CARD_NUMBER to RichTextBankCardNumber::class,
+        RichTextType.TON_ADDRESS to RichTextTonAddress::class,
         RichTextType.MENTION to RichTextMention::class,
         RichTextType.HASHTAG to RichTextHashtag::class,
         RichTextType.CASHTAG to RichTextCashtag::class,

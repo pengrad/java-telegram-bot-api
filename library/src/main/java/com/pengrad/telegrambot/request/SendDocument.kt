@@ -34,6 +34,12 @@ class SendDocument private constructor(
         documentUrl = documentUrl
     )
 
+    constructor(documentUrl: String) : this(
+        chatId = null,
+        channelUsername = null,
+        documentUrl = documentUrl
+    )
+
     constructor(channelUsername: String, documentUrl: String) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -47,6 +53,12 @@ class SendDocument private constructor(
         documentFile = documentFile
     )
 
+    constructor(documentFile: File) : this(
+        chatId = null,
+        channelUsername = null,
+        documentFile = documentFile
+    )
+
     constructor(channelUsername: String, documentFile: File) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -56,6 +68,12 @@ class SendDocument private constructor(
 
     constructor(chatId: Long, documentBytes: ByteArray) : this(
         chatId = chatId,
+        channelUsername = null,
+        documentBytes = documentBytes
+    )
+
+    constructor(documentBytes: ByteArray) : this(
+        chatId = null,
         channelUsername = null,
         documentBytes = documentBytes
     )

@@ -1,10 +1,10 @@
 package com.pengrad.telegrambot.model.story
 
-import com.pengrad.telegrambot.model.story.area.StoryAreaPosition
+import com.pengrad.telegrambot.model.AreaPosition
 import com.pengrad.telegrambot.model.story.area.type.StoryAreaType
 
 class StoryArea(
-    @get:JvmName("position") val position: StoryAreaPosition,
+    @get:JvmName("position") val position: AreaPosition,
     @get:JvmName("type") val type: StoryAreaType
 ) {
     override fun toString(): String {

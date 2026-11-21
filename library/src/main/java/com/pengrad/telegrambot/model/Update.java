@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.widget.SharedWidgetQuery;
+import com.pengrad.telegrambot.model.widget.WidgetQuery;
 import com.pengrad.telegrambot.model.business.BusinessConnection;
 import com.pengrad.telegrambot.model.business.BusinessMessageDeleted;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostRemoved;
@@ -44,6 +46,8 @@ public class Update implements Serializable {
     private Message guest_message;
     private BotSubscriptionUpdated subscription;
     private MessageGenerationStopped stopped_message_generation;
+    private WidgetQuery widget_query;
+    private SharedWidgetQuery shared_widget_query;
 
     public Integer updateId() {
         return update_id;
@@ -157,6 +161,14 @@ public class Update implements Serializable {
         return stopped_message_generation;
     }
 
+    public WidgetQuery widgetQuery() {
+        return widget_query;
+    }
+
+    public SharedWidgetQuery sharedWidgetQuery() {
+        return shared_widget_query;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -189,7 +201,9 @@ public class Update implements Serializable {
                 Objects.equals(managed_bot, update.managed_bot) &&
                 Objects.equals(guest_message, update.guest_message) &&
                 Objects.equals(subscription, update.subscription) &&
-                Objects.equals(stopped_message_generation, update.stopped_message_generation);
+                Objects.equals(stopped_message_generation, update.stopped_message_generation) &&
+                Objects.equals(widget_query, update.widget_query) &&
+                Objects.equals(shared_widget_query, update.shared_widget_query);
     }
 
     @Override
@@ -228,6 +242,8 @@ public class Update implements Serializable {
                 ", guest_message=" + guest_message +
                 ", subscription=" + subscription +
                 ", stopped_message_generation=" + stopped_message_generation +
+                ", widget_query=" + widget_query +
+                ", shared_widget_query=" + shared_widget_query +
                 '}';
     }
 }

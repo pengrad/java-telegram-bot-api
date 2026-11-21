@@ -23,6 +23,13 @@ class SendLocation private constructor(
         longitude = longitude
     )
 
+    constructor(latitude: Float, longitude: Float) : this(
+        chatId = null,
+        channelUsername = null,
+        latitude = latitude,
+        longitude = longitude
+    )
+
     constructor(channelUsername: String, latitude: Float, longitude: Float) : this(
         chatId = null,
         channelUsername = channelUsername,

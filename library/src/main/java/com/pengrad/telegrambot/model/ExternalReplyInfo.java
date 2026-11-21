@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.widget.Widget;
 import com.pengrad.telegrambot.model.checklist.Checklist;
 import com.pengrad.telegrambot.model.giveaway.Giveaway;
 import com.pengrad.telegrambot.model.giveaway.GiveawayWinners;
@@ -23,6 +24,7 @@ public class ExternalReplyInfo implements Serializable {
     private PaidMediaInfo paid_media;
     private Document document;
     private LivePhoto live_photo;
+    private Widget widget;
     private PhotoSize[] photo;
     private Sticker sticker;
     private Story story;
@@ -74,6 +76,10 @@ public class ExternalReplyInfo implements Serializable {
 
     public LivePhoto livePhoto() {
         return live_photo;
+    }
+
+    public Widget widget() {
+        return widget;
     }
 
     public PhotoSize[] photo() {
@@ -149,12 +155,12 @@ public class ExternalReplyInfo implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ExternalReplyInfo that = (ExternalReplyInfo) o;
-        return Objects.equals(origin, that.origin) && Objects.equals(chat, that.chat) && Objects.equals(message_id, that.message_id) && Objects.equals(link_preview_options, that.link_preview_options) && Objects.equals(animation, that.animation) && Objects.equals(audio, that.audio) && Objects.equals(paid_media, that.paid_media) && Objects.equals(document, that.document) && Objects.equals(live_photo, that.live_photo) && Arrays.equals(photo, that.photo) && Objects.equals(sticker, that.sticker) && Objects.equals(story, that.story) && Objects.equals(video, that.video) && Objects.equals(video_note, that.video_note) && Objects.equals(voice, that.voice) && Objects.equals(has_media_spoiler, that.has_media_spoiler) && Objects.equals(checklist, that.checklist) && Objects.equals(contact, that.contact) && Objects.equals(dice, that.dice) && Objects.equals(game, that.game) && Objects.equals(giveaway, that.giveaway) && Objects.equals(giveaway_winners, that.giveaway_winners) && Objects.equals(invoice, that.invoice) && Objects.equals(location, that.location) && Objects.equals(poll, that.poll) && Objects.equals(venue, that.venue);
+        return Objects.equals(origin, that.origin) && Objects.equals(chat, that.chat) && Objects.equals(message_id, that.message_id) && Objects.equals(link_preview_options, that.link_preview_options) && Objects.equals(animation, that.animation) && Objects.equals(audio, that.audio) && Objects.equals(paid_media, that.paid_media) && Objects.equals(document, that.document) && Objects.equals(live_photo, that.live_photo) && Objects.equals(widget, that.widget) && Arrays.equals(photo, that.photo) && Objects.equals(sticker, that.sticker) && Objects.equals(story, that.story) && Objects.equals(video, that.video) && Objects.equals(video_note, that.video_note) && Objects.equals(voice, that.voice) && Objects.equals(has_media_spoiler, that.has_media_spoiler) && Objects.equals(checklist, that.checklist) && Objects.equals(contact, that.contact) && Objects.equals(dice, that.dice) && Objects.equals(game, that.game) && Objects.equals(giveaway, that.giveaway) && Objects.equals(giveaway_winners, that.giveaway_winners) && Objects.equals(invoice, that.invoice) && Objects.equals(location, that.location) && Objects.equals(poll, that.poll) && Objects.equals(venue, that.venue);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(origin, chat, message_id, link_preview_options, animation, audio, paid_media, document, live_photo, sticker, story, video, video_note, voice, has_media_spoiler, checklist, contact, dice, game, giveaway, giveaway_winners, invoice, location, poll, venue);
+        int result = Objects.hash(origin, chat, message_id, link_preview_options, animation, audio, paid_media, document, live_photo, widget, sticker, story, video, video_note, voice, has_media_spoiler, checklist, contact, dice, game, giveaway, giveaway_winners, invoice, location, poll, venue);
         result = 31 * result + Arrays.hashCode(photo);
         return result;
     }
@@ -171,6 +177,7 @@ public class ExternalReplyInfo implements Serializable {
                 ", paid_media=" + paid_media +
                 ", document=" + document +
                 ", live_photo=" + live_photo +
+                ", widget=" + widget +
                 ", photo=" + Arrays.toString(photo) +
                 ", sticker=" + sticker +
                 ", story=" + story +

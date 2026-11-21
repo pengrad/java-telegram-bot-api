@@ -33,6 +33,12 @@ class SendAudio private constructor(
         audioUrl = audioUrl
     )
 
+    constructor(audioUrl: String) : this(
+        chatId = null,
+        channelUsername = null,
+        audioUrl = audioUrl
+    )
+
     constructor(channelUsername: String, audioUrl: String) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -46,6 +52,12 @@ class SendAudio private constructor(
         audioFile = audioFile
     )
 
+    constructor(audioFile: File) : this(
+        chatId = null,
+        channelUsername = null,
+        audioFile = audioFile
+    )
+
     constructor(channelUsername: String, audioFile: File) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -55,6 +67,12 @@ class SendAudio private constructor(
 
     constructor(chatId: Long, audioBytes: ByteArray) : this(
         chatId = chatId,
+        channelUsername = null,
+        audioBytes = audioBytes
+    )
+
+    constructor(audioBytes: ByteArray) : this(
+        chatId = null,
         channelUsername = null,
         audioBytes = audioBytes
     )

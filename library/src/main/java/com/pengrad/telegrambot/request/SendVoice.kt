@@ -33,6 +33,12 @@ class SendVoice private constructor(
         voiceUrl = voiceUrl
     )
 
+    constructor(voiceUrl: String) : this(
+        chatId = null,
+        channelUsername = null,
+        voiceUrl = voiceUrl
+    )
+
     constructor(channelUsername: String, voiceUrl: String) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -46,6 +52,12 @@ class SendVoice private constructor(
         voiceFile = voiceFile
     )
 
+    constructor(voiceFile: File) : this(
+        chatId = null,
+        channelUsername = null,
+        voiceFile = voiceFile
+    )
+
     constructor(channelUsername: String, voiceFile: File) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -55,6 +67,12 @@ class SendVoice private constructor(
 
     constructor(chatId: Long, voiceBytes: ByteArray) : this(
         chatId = chatId,
+        channelUsername = null,
+        voiceBytes = voiceBytes
+    )
+
+    constructor(voiceBytes: ByteArray) : this(
+        chatId = null,
         channelUsername = null,
         voiceBytes = voiceBytes
     )

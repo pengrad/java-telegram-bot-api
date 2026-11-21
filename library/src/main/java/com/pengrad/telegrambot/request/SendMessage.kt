@@ -24,6 +24,12 @@ class SendMessage private constructor(
         text = text
     )
 
+    constructor(text: String) : this(
+        chatId = null,
+        channelUsername = null,
+        text = text
+    )
+
     constructor(channelUsername: String, text: String) : this(
         chatId = null,
         channelUsername = channelUsername,

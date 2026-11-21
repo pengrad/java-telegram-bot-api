@@ -34,6 +34,20 @@ class SendVenue private constructor(
     )
 
     constructor(
+        latitude: Float,
+        longitude: Float,
+        title: String,
+        address: String
+    ) : this(
+        chatId = null,
+        channelUsername = null,
+        latitude = latitude,
+        longitude = longitude,
+        title = title,
+        address = address
+    )
+
+    constructor(
         channelUsername: String,
         latitude: Float,
         longitude: Float,

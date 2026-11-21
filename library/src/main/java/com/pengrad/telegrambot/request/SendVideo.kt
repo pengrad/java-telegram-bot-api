@@ -33,6 +33,12 @@ class SendVideo private constructor(
         videoUrl = videoUrl
     )
 
+    constructor(videoUrl: String) : this(
+        chatId = null,
+        channelUsername = null,
+        videoUrl = videoUrl
+    )
+
     constructor(channelUsername: String, videoUrl: String) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -46,6 +52,12 @@ class SendVideo private constructor(
         videoFile = videoFile
     )
 
+    constructor(videoFile: File) : this(
+        chatId = null,
+        channelUsername = null,
+        videoFile = videoFile
+    )
+
     constructor(channelUsername: String, videoFile: File) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -55,6 +67,12 @@ class SendVideo private constructor(
 
     constructor(chatId: Long, videoBytes: ByteArray) : this(
         chatId = chatId,
+        channelUsername = null,
+        videoBytes = videoBytes
+    )
+
+    constructor(videoBytes: ByteArray) : this(
+        chatId = null,
         channelUsername = null,
         videoBytes = videoBytes
     )

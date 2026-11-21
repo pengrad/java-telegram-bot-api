@@ -1,5 +1,6 @@
 package com.pengrad.telegrambot.model.request;
 
+import com.pengrad.telegrambot.model.richmessages.richtext.RichText;
 import com.pengrad.telegrambot.model.MessageEntity;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ public class ReplyParameters implements Serializable {
     private String quote;
     private String quote_parse_mode;
     private MessageEntity[] quote_entities;
+    private RichText[] quote_rich_texts;
     private Integer quote_position;
     private Integer checklist_task_id;
     private String poll_option_id;
@@ -57,6 +59,11 @@ public class ReplyParameters implements Serializable {
 
     public ReplyParameters quoteEntities(MessageEntity[] quoteEntities) {
         this.quote_entities = quoteEntities;
+        return this;
+    }
+
+    public ReplyParameters quoteRichTexts(RichText... quoteRichTexts) {
+        this.quote_rich_texts = quoteRichTexts;
         return this;
     }
 

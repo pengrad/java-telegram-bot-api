@@ -18,6 +18,7 @@ object RichTextType {
     const val EMAIL_ADDRESS = "email_address"
     const val PHONE_NUMBER = "phone_number"
     const val BANK_CARD_NUMBER = "bank_card_number"
+    const val TON_ADDRESS = "ton_address"
     const val MENTION = "mention"
     const val HASHTAG = "hashtag"
     const val CASHTAG = "cashtag"

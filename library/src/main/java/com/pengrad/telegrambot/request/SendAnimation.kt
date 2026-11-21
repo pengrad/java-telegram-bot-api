@@ -34,6 +34,12 @@ class SendAnimation private constructor(
         animationUrl = animationUrl
     )
 
+    constructor(animationUrl: String) : this(
+        chatId = null,
+        channelUsername = null,
+        animationUrl = animationUrl
+    )
+
     constructor(channelUsername: String, animationUrl: String) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -47,6 +53,12 @@ class SendAnimation private constructor(
         animationFile = animationFile
     )
 
+    constructor(animationFile: File) : this(
+        chatId = null,
+        channelUsername = null,
+        animationFile = animationFile
+    )
+
     constructor(channelUsername: String, animationFile: File) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -56,6 +68,12 @@ class SendAnimation private constructor(
 
     constructor(chatId: Long, animationBytes: ByteArray) : this(
         chatId = chatId,
+        channelUsername = null,
+        animationBytes = animationBytes
+    )
+
+    constructor(animationBytes: ByteArray) : this(
+        chatId = null,
         channelUsername = null,
         animationBytes = animationBytes
     )

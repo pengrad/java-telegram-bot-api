@@ -38,6 +38,13 @@ class SendLivePhoto private constructor(
         photoId = photoId,
     )
 
+    constructor(livePhotoId: String, photoId: String) : this(
+        chatId = null,
+        channelUsername = null,
+        livePhotoId = livePhotoId,
+        photoId = photoId,
+    )
+
     constructor(channelUsername: String, livePhotoId: String, photoId: String) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -47,6 +54,13 @@ class SendLivePhoto private constructor(
 
     constructor(chatId: Long, livePhotoId: String, photoFile: File) : this(
         chatId = chatId,
+        channelUsername = null,
+        livePhotoId = livePhotoId,
+        photoFile = photoFile,
+    )
+
+    constructor(livePhotoId: String, photoFile: File) : this(
+        chatId = null,
         channelUsername = null,
         livePhotoId = livePhotoId,
         photoFile = photoFile,
@@ -66,6 +80,13 @@ class SendLivePhoto private constructor(
         photoBytes = photoBytes,
     )
 
+    constructor(livePhotoId: String, photoBytes: ByteArray) : this(
+        chatId = null,
+        channelUsername = null,
+        livePhotoId = livePhotoId,
+        photoBytes = photoBytes,
+    )
+
     constructor(channelUsername: String, livePhotoId: String, photoBytes: ByteArray) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -75,6 +96,13 @@ class SendLivePhoto private constructor(
 
     constructor(chatId: Long, livePhotoFile: File, photoId: String) : this(
         chatId = chatId,
+        channelUsername = null,
+        livePhotoFile = livePhotoFile,
+        photoId = photoId,
+    )
+
+    constructor(livePhotoFile: File, photoId: String) : this(
+        chatId = null,
         channelUsername = null,
         livePhotoFile = livePhotoFile,
         photoId = photoId,
@@ -94,6 +122,13 @@ class SendLivePhoto private constructor(
         photoFile = photoFile,
     )
 
+    constructor(livePhotoFile: File, photoFile: File) : this(
+        chatId = null,
+        channelUsername = null,
+        livePhotoFile = livePhotoFile,
+        photoFile = photoFile,
+    )
+
     constructor(channelUsername: String, livePhotoFile: File, photoFile: File) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -103,6 +138,13 @@ class SendLivePhoto private constructor(
 
     constructor(chatId: Long, livePhotoFile: File, photoBytes: ByteArray) : this(
         chatId = chatId,
+        channelUsername = null,
+        livePhotoFile = livePhotoFile,
+        photoBytes = photoBytes,
+    )
+
+    constructor(livePhotoFile: File, photoBytes: ByteArray) : this(
+        chatId = null,
         channelUsername = null,
         livePhotoFile = livePhotoFile,
         photoBytes = photoBytes,
@@ -122,6 +164,13 @@ class SendLivePhoto private constructor(
         photoId = photoId,
     )
 
+    constructor(livePhotoBytes: ByteArray, photoId: String) : this(
+        chatId = null,
+        channelUsername = null,
+        livePhotoBytes = livePhotoBytes,
+        photoId = photoId,
+    )
+
     constructor(channelUsername: String, livePhotoBytes: ByteArray, photoId: String) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -136,6 +185,13 @@ class SendLivePhoto private constructor(
         photoFile = photoFile,
     )
 
+    constructor(livePhotoBytes: ByteArray, photoFile: File) : this(
+        chatId = null,
+        channelUsername = null,
+        livePhotoBytes = livePhotoBytes,
+        photoFile = photoFile,
+    )
+
     constructor(channelUsername: String, livePhotoBytes: ByteArray, photoFile: File) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -145,6 +201,13 @@ class SendLivePhoto private constructor(
 
     constructor(chatId: Long, livePhotoBytes: ByteArray, photoBytes: ByteArray) : this(
         chatId = chatId,
+        channelUsername = null,
+        livePhotoBytes = livePhotoBytes,
+        photoBytes = photoBytes,
+    )
+
+    constructor(livePhotoBytes: ByteArray, photoBytes: ByteArray) : this(
+        chatId = null,
         channelUsername = null,
         livePhotoBytes = livePhotoBytes,
         photoBytes = photoBytes,

@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.chatsharetheme.ChatShareTheme;
+import com.pengrad.telegrambot.model.ton.TonWalletCard;
 import com.google.gson.annotations.SerializedName;
 import com.pengrad.telegrambot.model.business.BusinessIntro;
 import com.pengrad.telegrambot.model.business.BusinessLocation;
@@ -81,6 +83,8 @@ public class ChatFullInfo implements Serializable {
     private Audio first_profile_audio;
     private User guard_bot;
     private Community community;
+    private TonWalletCard ton_wallet_card;
+    private ChatShareTheme share_theme;
 
     public Long id() {
         return id;
@@ -293,6 +297,14 @@ public class ChatFullInfo implements Serializable {
         return community;
     }
 
+    public TonWalletCard tonWalletCard() {
+        return ton_wallet_card;
+    }
+
+    public ChatShareTheme shareTheme() {
+        return share_theme;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -350,7 +362,9 @@ public class ChatFullInfo implements Serializable {
                 Objects.equals(unique_gift_colors, chat.unique_gift_colors) &&
                 Objects.equals(first_profile_audio, chat.first_profile_audio) &&
                 Objects.equals(guard_bot, chat.guard_bot) &&
-                Objects.equals(community, chat.community);
+                Objects.equals(community, chat.community) &&
+                Objects.equals(ton_wallet_card, chat.ton_wallet_card) &&
+                Objects.equals(share_theme, chat.share_theme);
     }
 
     @Override
@@ -414,6 +428,8 @@ public class ChatFullInfo implements Serializable {
                 ", first_profile_audio=" + first_profile_audio +
                 ", guard_bot=" + guard_bot +
                 ", community=" + community +
+                ", ton_wallet_card=" + ton_wallet_card +
+                ", share_theme=" + share_theme +
                 '}';
     }
 }

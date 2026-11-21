@@ -12,7 +12,8 @@ public class MessageEntity implements Serializable {
 
     public enum Type {
         mention, hashtag, cashtag, bot_command, url, email, phone_number, bold, italic, code, pre, text_link,
-        text_mention, underline, strikethrough, spoiler, custom_emoji, blockquote, expandable_blockquote, date_time
+        text_mention, underline, strikethrough, spoiler, custom_emoji, blockquote, expandable_blockquote, date_time,
+        ton_address, bank_card_number
     }
 
     private Type type;

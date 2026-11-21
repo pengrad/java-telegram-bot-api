@@ -1,5 +1,7 @@
 package com.pengrad.telegrambot.model;
 
+import com.pengrad.telegrambot.model.ton.TonWalletTransfer;
+import com.pengrad.telegrambot.model.widget.Widget;
 import com.pengrad.telegrambot.model.chatbackground.ChatBackground;
 import com.pengrad.telegrambot.model.chatboost.ChatBoostAdded;
 import com.pengrad.telegrambot.model.chatowner.ChatOwnerChanged;
@@ -151,6 +153,9 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private CommunityChatAdded community_chat_added;
     private CommunityChatJoined community_chat_joined;
     private CommunityChatRemoved community_chat_removed;
+    private Widget widget;
+    private TonWalletTransfer ton_wallet_transfer;
+    private PaidMessagesWaived paid_messages_waived;
 
     public Long messageThreadId() {
         return message_thread_id;
@@ -609,6 +614,18 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return community_chat_removed;
     }
 
+    public Widget widget() {
+        return widget;
+    }
+
+    public TonWalletTransfer tonWalletTransfer() {
+        return ton_wallet_transfer;
+    }
+
+    public PaidMessagesWaived paidMessagesWaived() {
+        return paid_messages_waived;
+    }
+
     public User guestBotCallerUser() {
         return guest_bot_caller_user;
     }
@@ -766,7 +783,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(guest_query_id, message.guest_query_id) &&
                 Objects.equals(community_chat_added, message.community_chat_added) &&
                 Objects.equals(community_chat_joined, message.community_chat_joined) &&
-                Objects.equals(community_chat_removed, message.community_chat_removed);
+                Objects.equals(community_chat_removed, message.community_chat_removed) &&
+                Objects.equals(widget, message.widget) &&
+                Objects.equals(ton_wallet_transfer, message.ton_wallet_transfer) &&
+                Objects.equals(paid_messages_waived, message.paid_messages_waived);
     }
 
     @Override
@@ -897,6 +917,9 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", community_chat_added=" + community_chat_added +
                 ", community_chat_joined=" + community_chat_joined +
                 ", community_chat_removed=" + community_chat_removed +
+                ", widget=" + widget +
+                ", ton_wallet_transfer=" + ton_wallet_transfer +
+                ", paid_messages_waived=" + paid_messages_waived +
                 '}';
     }
 }

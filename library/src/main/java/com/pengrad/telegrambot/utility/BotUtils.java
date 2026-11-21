@@ -1,5 +1,11 @@
 package com.pengrad.telegrambot.utility;
 
+import com.pengrad.telegrambot.model.chatsharetheme.ChatShareTheme;
+import com.pengrad.telegrambot.model.chatsharetheme.EmojiType;
+import com.pengrad.telegrambot.model.widget.WidgetQueryType;
+import com.pengrad.telegrambot.model.chatsharetheme.ChatShareTheme;
+import com.pengrad.telegrambot.model.chatsharetheme.EmojiType;
+import com.pengrad.telegrambot.model.widget.WidgetQueryType;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -44,6 +50,9 @@ public class BotUtils {
             .registerTypeAdapter(OwnedGift.class, new OwnedGiftTypeAdapter())
             .registerTypeAdapter(RichText.class, RichTextTypeAdapter.INSTANCE)
             .registerTypeAdapter(RichBlock.class, RichBlockTypeAdapter.INSTANCE)
+            .registerTypeAdapter(WidgetQueryType.class, WidgetQueryTypeAdapter.INSTANCE)
+            .registerTypeAdapter(ChatShareTheme.class, ChatShareThemeTypeAdapter.INSTANCE)
+            .registerTypeAdapter(EmojiType.class, EmojiTypeAdapter.INSTANCE)
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create();
 

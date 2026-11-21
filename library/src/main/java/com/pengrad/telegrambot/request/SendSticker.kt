@@ -31,6 +31,12 @@ class SendSticker private constructor(
         stickerUrl = stickerUrl
     )
 
+    constructor(stickerUrl: String) : this(
+        chatId = null,
+        channelUsername = null,
+        stickerUrl = stickerUrl
+    )
+
     constructor(channelUsername: String, stickerUrl: String) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -44,6 +50,12 @@ class SendSticker private constructor(
         stickerFile = stickerFile
     )
 
+    constructor(stickerFile: File) : this(
+        chatId = null,
+        channelUsername = null,
+        stickerFile = stickerFile
+    )
+
     constructor(channelUsername: String, stickerFile: File) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -53,6 +65,12 @@ class SendSticker private constructor(
 
     constructor(chatId: Long, stickerBytes: ByteArray) : this(
         chatId = chatId,
+        channelUsername = null,
+        stickerBytes = stickerBytes
+    )
+
+    constructor(stickerBytes: ByteArray) : this(
+        chatId = null,
         channelUsername = null,
         stickerBytes = stickerBytes
     )

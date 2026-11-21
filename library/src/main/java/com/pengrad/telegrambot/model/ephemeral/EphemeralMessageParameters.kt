@@ -1,7 +1,7 @@
 package com.pengrad.telegrambot.model.ephemeral
 
 class EphemeralMessageParameters private constructor(
-    @get:JvmName("receiverUserId") val receiverUserId: Long,
+    @get:JvmName("receiverUserId") var receiverUserId: Long?,
     @get:JvmName("callbackQueryId") var callbackQueryId: String?,
     @get:JvmName("replaceCallbackQueryMessage") var replaceCallbackQueryMessage: Boolean?,
 ) {
@@ -11,6 +11,23 @@ class EphemeralMessageParameters private constructor(
         callbackQueryId = null,
         replaceCallbackQueryMessage = null
     )
+
+    companion object {
+        /**
+         * Ephemeral reply to a callback query, shown only to the user who pressed the button.
+         * The bot must still answer the callback query using answerCallbackQuery.
+         */
+        @JvmStatic
+        fun replyToCallbackQuery(callbackQueryId: String) = EphemeralMessageParameters(
+            receiverUserId = null,
+            callbackQueryId = callbackQueryId,
+            replaceCallbackQueryMessage = null
+        )
+    }
+
+    fun receiverUserId(receiverUserId: Long) = apply {
+        this.receiverUserId = receiverUserId
+    }
 
     fun callbackQueryId(callbackQueryId: String) = apply {
         this.callbackQueryId = callbackQueryId
@@ -30,7 +47,7 @@ class EphemeralMessageParameters private constructor(
     }
 
     override fun hashCode(): Int {
-        var result = receiverUserId.hashCode()
+        var result = receiverUserId?.hashCode() ?: 0
         result = 31 * result + (callbackQueryId?.hashCode() ?: 0)
         result = 31 * result + (replaceCallbackQueryMessage?.hashCode() ?: 0)
         return result

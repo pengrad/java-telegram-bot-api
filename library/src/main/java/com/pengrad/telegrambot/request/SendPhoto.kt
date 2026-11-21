@@ -33,6 +33,12 @@ class SendPhoto private constructor(
         photoUrl = photoUrl
     )
 
+    constructor(photoUrl: String) : this(
+        chatId = null,
+        channelUsername = null,
+        photoUrl = photoUrl
+    )
+
     constructor(channelUsername: String, photoUrl: String) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -46,6 +52,12 @@ class SendPhoto private constructor(
         photoFile = photoFile
     )
 
+    constructor(photoFile: File) : this(
+        chatId = null,
+        channelUsername = null,
+        photoFile = photoFile
+    )
+
     constructor(channelUsername: String, photoFile: File) : this(
         chatId = null,
         channelUsername = channelUsername,
@@ -55,6 +67,12 @@ class SendPhoto private constructor(
 
     constructor(chatId: Long, photoBytes: ByteArray) : this(
         chatId = chatId,
+        channelUsername = null,
+        photoBytes = photoBytes
+    )
+
+    constructor(photoBytes: ByteArray) : this(
+        chatId = null,
         channelUsername = null,
         photoBytes = photoBytes
     )

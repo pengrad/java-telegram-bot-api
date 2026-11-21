@@ -23,6 +23,12 @@ class SendRichMessage private constructor(
         richMessage = richMessage
     )
 
+    constructor(richMessage: InputRichMessage) : this(
+        chatId = null,
+        channelUsername = null,
+        richMessage = richMessage
+    )
+
     constructor(channelUsername: String, richMessage: InputRichMessage) : this(
         chatId = null,
         channelUsername = channelUsername,

@@ -97,6 +97,7 @@ class ModelTest {
                 verifierApi.withIgnoredFields("general_forum_topic_hidden")
                 verifierApi.withIgnoredFields("general_forum_topic_unhidden")
                 verifierApi.withIgnoredFields("community_chat_removed")
+                verifierApi.withIgnoredFields("paid_messages_waived")
             }
 
             if (c == InlineKeyboardButton::class.java || c == RichMessageButton::class.java) {

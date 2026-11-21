@@ -23,6 +23,13 @@ class SendContact private constructor(
         firstName = firstName
     )
 
+    constructor(phoneNumber: String, firstName: String) : this(
+        chatId = null,
+        channelUsername = null,
+        phoneNumber = phoneNumber,
+        firstName = firstName
+    )
+
     constructor(channelUsername: String, phoneNumber: String, firstName: String) : this(
         chatId = null,
         channelUsername = channelUsername,
